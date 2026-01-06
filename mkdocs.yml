@@ -1,0 +1,51 @@
+site_name: Novated Lease Reference
+site_description: Independent, evidence-based explanations of novated leases in Australia
+site_author: changyang1230
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+
+markdown_extensions:
+  - footnotes
+  - tables
+  - attr_list
+
+nav:
+  - Home: index.md
+
+  - Foundations:
+      - What is a novated lease, really?: start-here/what-is-novated-lease.md
+      - FBT, RFBA, and adjusted taxable income explained: start-here/fbt-rfba-ati-explained.md
+      - Is a novated lease right for me?: start-here/is-it-worth-it.md
+
+  - Costs and savings:
+      - Overview: costs-and-savings/index.md
+      - EV vs ICE novated leases compared: costs-and-savings/ev-vs-ice-compared.md
+      - Why "tax saved" is the wrong metric: costs-and-savings/why-tax-saved-is-wrong.md
+      - Why novated lease interest rates look high: costs-and-savings/why-nl-interest-looks-high.md
+      - All about residual values: costs-and-savings/why-residual-values-matter.md
+      - How to use the novated lease spreadsheet: costs-and-savings/use-nl-spreadsheet.md
+
+  - Running costs & claiming:
+      - Running costs as a "piggy bank": running-costs/running-costs-piggy-bank.md
+      - ATO 4.2c per km shortcut: running-costs/ato-42c-per-km-shortcut.md
+      - Some employers do not pass on GST saving: running-costs/failure-to-pass-gst-saving.md
+
+  - Risks & exit strategies:
+      - Overview: risks/index.md
+      - Lease length, residuals, and risk: risks/lease-length-and-risk.md
+      - What happens if a novated lease ends early - redundancy, job transfer, vehicle write-off etc: risks/early-termination.md
+      - How bad can early termination get - sample calculations: risks/how-bad-can-early-termination-get.md
+
+  - Special cases & policy:
+      - Overview: special-and-policy/index.md
+      - The complicated impact on adjusted taxable income and childcare subsidy: special-and-policy/childcare-subsidy.md
+      - FBT-exempt employer and novated lease - don't double count the FBT exemption!: special-and-policy/fbt-exemption-double-counting.md
+      - Super guarantee and payroll risks: special-and-policy/super-guarantee.md
+      - EV FBT exemption review timing: special-and-policy/ev-fbt-exemption-review-timing.md
+      - Why novated leasing is poorly regulated: special-and-policy/why-poorly-regulated.md
