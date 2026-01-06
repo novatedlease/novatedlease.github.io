@@ -1,4 +1,5 @@
-site_name: Novated Lease Reference
+site_name: Novated Lease Guides
+site_url: https://novatedlease.github.io
 site_description: Independent, evidence-based explanations of novated leases in Australia
 site_author: changyang1230
 
@@ -18,8 +19,9 @@ markdown_extensions:
 nav:
   - Home: index.md
 
-  - Foundations:
+  - Start here:
       - What is a novated lease, really?: start-here/what-is-novated-lease.md
+      - Who I am and how I became "the novated lease guy": start-here/about-me.md
       - FBT, RFBA, and adjusted taxable income explained: start-here/fbt-rfba-ati-explained.md
       - Is a novated lease right for me?: start-here/is-it-worth-it.md
 

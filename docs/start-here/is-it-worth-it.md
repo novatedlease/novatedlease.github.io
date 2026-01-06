@@ -1,4 +1,4 @@
-# Is a novated lease worth it for me?
+# Is a novated lease right for me?
 
 This is the wrong question to ask first:
 

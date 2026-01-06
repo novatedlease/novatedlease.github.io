@@ -43,64 +43,52 @@ Many of the insights here come directly from:
 
 The guide is organised so you can either **read linearly** or **jump straight to the section you need**. You could also use the search box to look up specific questions or topics. 
 
-### Introduction
+### Start here
 
 Start here if you want a clear mental model:
 
-- what a novated lease really is,
-- how FBT, RFBA, and adjusted taxable income interact.
-
-### Is it worth it for me?
-
-These pages help you decide whether a novated lease even makes sense for your situation:
-
-- eligibility for EV FBT exemption,
-- who benefits most,
-- and who should be cautious or avoid it entirely.
+- [what is a novated lease — really?](start-here/what-is-novated-lease.md)
+- [who I am and how I became "that novated lease guy"](start-here/about-me.md)
+- [FBT, RFBA, and adjusted taxable income — explained clearly](start-here/fbt-rfba-ati-explained.md)
+- [general consideration of "is it right for me"](start-here/is-it-worth-it.md)
 
 ### Costs and savings
 
-This section dismantles common marketing shortcuts:
+This section discusses some mechanisms underlying novated lease
 
-- why “tax saved” is a misleading metric,
-- why novated lease interest rates look high,
-- how residual values really work,
-- and how to calculate the **true** cost of a lease.
+- [why EV and ICE novated leases are functionally different products](costs-and-savings/ev-vs-ice-compared.md)
+- [why “tax saved” is the wrong way to evaluate a novated lease](costs-and-savings/why-tax-saved-is-wrong.md)
+- [why novated lease interest rates look high — and why that alone is the wrong question](costs-and-savings/why-nl-interest-looks-high.md)
+- [a deep dive in residual values](costs-and-savings/why-residual-values-matter.md)
+- [how to use the novated lease spreadsheet (and what it can and cannot tell you)](costs-and-savings/use-nl-spreadsheet.md)
 
 ### Running costs & claiming
 
-Practical details that affect real-world outcomes:
+Practical details about how running costs work in novated lease:
 
-- what can (and can’t) be claimed,
-- how running cost budgets actually behave in practice,
-- charging, servicing, tyres, and record-keeping.
+- [running cost budgets are a “piggy bank”](running-costs/running-costs-piggy-bank.md)
+- [the ATO 4.2c/km EV charging shortcut — how it actually works](running-costs/ato-42c-per-km-shortcut.md)
+- [failure to pass on GST savings — an overlooked cost in some novated leases](running-costs/failure-to-pass-gst-saving.md)
 
 ### Risks & exit strategies
 
 The parts people often think about *after* it’s too late:
 
-- lease length and risk trade-offs,
-- redundancy and job changes,
-- vehicle write-offs,
-- and just how bad early termination can get.
+- [overview](risks/index.md)
+- [lease length, residuals, and risk: choosing the right duration](risks/lease-length-and-risk.md)
+- [what happens if a novated lease ends early - redundancy, job transfer, vehicle write-off etc](risks/early-termination.md)
+- [early termination payouts: how bad can it get?](risks/how-bad-can-early-termination-get.md)
 
 ### Special cases & policy
 
-Edge cases and structural issues:
+Edge cases and policy-related issues:
 
-- hospitals and NFP arrangements,
-- salary sacrifice caps,
-- superannuation interactions,
-- policy uncertainty around EV FBT exemption,
-- and why this space is poorly regulated.
+- [overview](special-and-policy/index.md)
+- [novated leases, adjusted taxable income, and childcare subsidy — a deep dive](special-and-policy/childcare-subsidy.md)
+- [don’t double count the hospital / NFP FBT cap when judging a novated lease](special-and-policy/fbt-exemption-double-counting.md)
+- [EV FBT exemption review timing — what is known, what is not, and why it matters](special-and-policy/ev-fbt-exemption-review-timing.md)
+- [why novated leasing is poorly regulated](special-and-policy/why-poorly-regulated.md)
 
-### Community / opinion
-
-Broader commentary and alternative perspectives:
-
-- using your own company instead of a novated lease,
-- whether novated lease companies are rent-seekers,
-- and structural incentives in the industry.
 
 ---
 
