@@ -23,7 +23,7 @@ As an employee in Australia, you are typically paid under **PAYG (pay-as-you-go)
 Each pay cycle:
 
 1. you earn a **gross (pre-tax) salary**
-2. your employer withholds income tax on your behalf
+2. your employer **withholds income tax** on your behalf
 3. you receive the remainder as **post-tax income**
 4. you spend that post-tax money on things like a car or a car loan
 
@@ -57,7 +57,7 @@ This is what people mean when they say you are “spending pre-tax money”.
 
 If you do the maths, spending pre-tax income has a very specific effect.
 
-The net result is equivalent to receiving a **discount equal to your marginal tax rate plus the Medicare levy**: [^1]
+The net result is equivalent to receiving a **discount equal to your marginal tax rate plus the Medicare levy**:[^1]
 
 - 30% tax bracket → **32% effective discount**
 - 37% tax bracket → **39% effective discount**
@@ -107,6 +107,14 @@ Under the most common method, it is roughly:
 Once you account for this, much of the theoretical benefit of novated leasing is eroded.
 
 This is why, for most of its history, novated leasing was **often not as good a deal as it appeared**, especially once interest, fees, and residual values were properly accounted for.
+
+> **Example**
+>
+> In my lease for a car with FBT base value $75,500, I pay roughly $19,000 pre-tax for my FBT-exempt novated lease. 
+>
+> If this lease is FBT-applicable, I would instead have to pay $15,100 post-tax, with only roughly ~$4,000 pre-tax remaining.[^2]
+> 
+> This results in much lower saving due to much less payment being funded with pre-tax dollars. 
 
 ---
 
@@ -171,10 +179,21 @@ If you remember nothing else:
 
 If this is your first exposure to novated leases, the next essential pages are:
 
-- **Why "tax saved" is the wrong metric**
-- **EV vs ICE novated leases compared**
-- **Is it worth it for me? (overview)**
+- **[Why "tax saved" is the wrong metric](../costs-and-savings/why-tax-saved-is-wrong.md)**
+- **[EV vs ICE novated leases compared](../costs-and-savings/ev-vs-ice-compared.md)**
+- **[Is it worth it for me?](is-it-worth-it.md)**
 
 Everything else in this guide builds on those foundations.
 
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on Paypal. 
+
+
 [^1]: This relationship is slightly altered if the pre-tax dollar spending brings the gross salary amount past the marginal tax threshold. E.g. if the gross salary is $10,000 above 37+2% threshold, then spending $15,000 would mean the first $10,000 portion enjoys 39% effective discount and the subsequent $5,000 portion enjoys 32% effective discount.
+
+[^2]: Within FBT-applicable strucure, there is in fact an additional component where the GST of post-tax contribution has to be paid, though this is funded pre-tax. I have omitted this component in this discussion for simplicity sake. 

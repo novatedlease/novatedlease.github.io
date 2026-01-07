@@ -1,6 +1,6 @@
 # FBT, RFBA, and adjusted taxable income — explained clearly
 
-Many people understand that an EV novated lease can reduce income tax — but are surprised later when their HECS repayment increases, their childcare subsidy drops, or Division 293 tax applies.
+Many people understand that a novated lease can reduce income tax — but are surprised later when their HECS repayment increases, their childcare subsidy drops, or Division 293 tax applies (especially in the case of FBT-exempt novated lease).
 
 All of that flows from the interaction between **FBT**, **RFBA**, and **adjusted taxable income**.
 
@@ -8,7 +8,7 @@ All of that flows from the interaction between **FBT**, **RFBA**, and **adjusted
 
 ## What Fringe Benefits Tax (FBT) actually is
 
-[Fringe Benefits Tax (FBT)][ato-fbt] is **not a tax you pay personally**.
+[Fringe Benefits Tax (FBT)](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax) is **not a tax you pay personally**.
 
 FBT is a tax that applies when **an employer provides a non-cash benefit to an employee**, instead of paying that value as ordinary salary. A car provided under a novated lease is the most common example.
 
@@ -23,7 +23,7 @@ FBT closes that loophole.
 
 ---
 
-## Who legally pays FBT — and what is its relationship with ECM
+### Who pays FBT — and what is its relationship with ECM
 
 Legally:
 
@@ -34,25 +34,23 @@ In practice:
 - employers generally do **not** want to absorb this cost
 - novated leases are therefore structured so the **employee compensates the employer**
 
-This is usually done via the **[Employee Contribution Method (ECM)][ecm]**:
+This is usually done via the **[Employee Contribution Method (ECM)](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/exemptions-concessions-and-other-ways-to-reduce-fbt/reducing-your-fbt-liability)**:
 
 - part of the lease or running costs are paid from **post-tax income**
 - this reduces the taxable value of the benefit
 - bringing the employer’s FBT liability down to zero
 
-When people say *“I’m paying FBT”*, what they usually mean is:
+When people say *“I’m paying FBT for this lease”*, what they usually mean is:
 
 > “I’m making post-tax contributions so my employer doesn’t have to pay FBT.”
 
-Those are not the same thing, even if the cash outcome looks similar.
-
 ---
 
-## What changed for electric vehicles (EVs)
+### What changed for electric vehicles (EVs)
 
 For eligible electric vehicles:
 
-- the **car benefit itself is [exempt from FBT][fbtexemption]**
+- the **car benefit itself is [exempt from FBT](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/electric-cars-exemption)**
 
 This exemption dramatically reduces the cost of a novated lease because:
 
@@ -79,7 +77,7 @@ But RFBA **is used** by other systems to assess your economic capacity.
 
 ### How is RFBA calculated?
 
-RFBA is calculated using a **[standardised formula set by the ATO][rfba]**.  
+RFBA is calculated using a **[standardised formula set by the ATO](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/taxable-value-of-a-car-fringe-benefit#Statutoryformulamethod10)**.[^1]
 It is **not negotiated**, and novated lease providers do **not** get to invent this number.
 
 For car fringe benefits, the reportable amount is broadly calculated as:
@@ -87,7 +85,7 @@ For car fringe benefits, the reportable amount is broadly calculated as:
 > **RFBA  
 > = Taxable value of the car benefit × 20% × 1.8868 × proportion of FBT year car is available**
 
-The factor **1.8868** is the current **gross-up rate** used to convert the taxable value of a fringe benefit into its reportable equivalent for means-testing purposes.
+The factor **1.8868** is the **gross-up rate** used to convert the taxable value of a fringe benefit into its reportable equivalent for means-testing purposes.
 
 Two important points follow from this:
 
@@ -120,7 +118,7 @@ Those factors affect whether a novated lease is *worth it* — but they do **not
 
 ---
 
-## Why RFBA exists (policy intent)
+### Why RFBA exists (policy intent)
 
 Different parts of government have **different objectives**.
 
@@ -138,15 +136,15 @@ However, other systems take the view that:
 
 > Converting part of your salary into a fringe benefit does not mean your ability to pay obligations has fallen.
 
-RFBA [exists to “patch that gap”][rfbaintent] between tax concessions and means-testing systems..
+RFBA [exists to “patch that gap”](https://www.ato.gov.au/individuals-and-families/jobs-and-employment-types/working-as-an-employee/reportable-fringe-benefits-for-employees) between tax concessions and means-testing systems.
 
 ---
 
 ## What is adjusted taxable income (ATI)?
 
-[Adjusted taxable income][ati] is **not** your taxable income.
+[Adjusted taxable income](https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/paper-tax-return-instructions/2024/supporting-information/adjusted-taxable-income-for-you-and-your-dependants-2024) is **not** your taxable income.
 
-It is a figure used for:
+It is instead a figure used for means-testing of:
 
 - HECS / HELP repayments
 - Childcare subsidy
@@ -165,11 +163,11 @@ For novated leases, a simplified way to think about ATI is:
 
 This is why surprises occur.
 
-*Note that there are other components forming ATI that are not part of taxable income. Read more in the [ATI page][ati].*
+*Note that there are other components forming ATI that are not part of taxable income. Read more in the [ATI page](https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/paper-tax-return-instructions/2024/supporting-information/adjusted-taxable-income-for-you-and-your-dependants-2024).*
 
 ---
 
-## Why EV novated leases often increase ATI
+### Why EV novated leases often increase ATI
 
 With an EV novated lease:
 
@@ -188,7 +186,7 @@ The result is that:
 
 ---
 
-## Why ICE novated leases behave differently
+### Why ICE novated leases usually has zero RFBA
 
 For internal combustion engine (ICE) vehicles:
 
@@ -205,19 +203,20 @@ This is one of the many reasons EV and ICE novated leases should be analysed as 
 
 ---
 
-## Who is most affected by ATI increases
+### Who is most affected by ATI increases in EV NL
 
-ATI increases matter most if you:
+ATI increase (in the case of EV novated lease) matter most if you:
 
 - have HECS / HELP debt
 - receive childcare subsidy
 - pay child support
+- pay medicare levy surcharge
 - are near the Division 293 threshold
 - rely on other means-tested benefits
 
 If none of these apply, RFBA may be largely irrelevant.
 
-If one or more apply, RFBA can materially change the outcome. You can use a novated lease spreadsheet to simulate changes to ATI and the downstream impact on government liabilities and subsidies.
+If one or more apply, RFBA can materially change the outcome. You can use [the novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) to simulate changes to ATI and the downstream impact on government liabilities and subsidies.
 
 ---
 
@@ -234,14 +233,13 @@ RFBA is often:
 - mentioned briefly
 - or not explained at all
 
-That does not mean an EV novated lease is “bad”.
+This often leads to shock tax bills and form a big reason behind some of the "novated lease is a scam" feedbacks. 
 
-It does mean you need to evaluate:
+---
 
-- **numerical outcomes to your cashflow, assets, and liabilities**, and
-- **means-testing outcomes**
+## Read more
 
-together.
+There is an additional [in-depth article on adjusted taxable income](../special-and-policy/childcare-subsidy.md), which includes numerical examples as well as a special rule for childcare subsidy for public hospital or public benevolent instutition employees. 
 
 ---
 
@@ -254,12 +252,17 @@ If you remember nothing else:
 > **All else being equal, FBT-applicable novated lease i.e. non-EV is more expensive in lease repayment, however it usually improves government subsidies and liability with the typical ECM.**
 
 
+
 ---
 
 
-[ato-fbt]: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax
-[ecm]: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/exemptions-concessions-and-other-ways-to-reduce-fbt/reducing-your-fbt-liability
-[fbtexemption]: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/electric-cars-exemption
-[rfba]: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/taxable-value-of-a-car-fringe-benefit#Statutoryformulamethod10
-[rfbaintent]: https://www.ato.gov.au/individuals-and-families/jobs-and-employment-types/working-as-an-employee/reportable-fringe-benefits-for-employees
-[ati]: https://www.ato.gov.au/individuals-and-families/your-tax-return/instructions-to-complete-your-tax-return/paper-tax-return-instructions/2024/supporting-information/adjusted-taxable-income-for-you-and-your-dependants-2024
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on Paypal. 
+
+---
+[^1]: This "statutory formula" method is the most common. If you have adequate record you may opt for "operating cost method" which is not discussed in this guide. 
+
+

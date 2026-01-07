@@ -1,4 +1,4 @@
-# Who am I and how I became "that novated lease guy"
+# Who I am and how I became "that novated lease guy"
 
 ## About me
 
@@ -20,6 +20,8 @@ This way of thinking translates naturally to financial decision‑making: unders
 - *It’s better to own than to lease*  
 - *You should never finance a depreciating asset*
 
+You may have heard some variation of these rules of thumb from your uncle or internet stranger. 
+
 These heuristics were **mostly true** for a long time, and for the vast majority of people they still serve as reasonable default advice.
 
 The problem is that over time, many people began treating these rules of thumb as **axioms** — statements assumed to be universally and eternally true — and stopped re‑examining them even when the underlying conditions changed.
@@ -34,7 +36,7 @@ I have always liked EVs for their driving characteristics. I had hired them for 
 
 But financially, they made no sense to me at that stage.
 
-Compared to a typical ICE car, the additional $30–50k upfront cost of an EV was never going to be recouped, even with “free charging” and lower servicing. So for years, I ignored them. 
+Compared to a typical ICE car, the additional $30–50k upfront cost of an EV was never going to be recouped, even with “free charging” and lower servicing. So for years, I ignored them like a financially responsible adult. 
 
 Novated leases were not new either. My salary packaging provider had been trying to sell them to me for years. Every time I ran the numbers for an ICE vehicle, it never stacked up.
 
@@ -74,13 +76,13 @@ After carefully modelling multiple scenarios, the results were counter-intuitive
 
 - When comparing **buying an EV outright with cash** versus **acquiring the same EV via an FBT‑exempt novated lease**, the novated lease option was approximately **$46,000 cheaper over five years** *for my personal circumstances*.  No, that is not a typo.
 
-- When comparing **keeping my $25k Mazda 6** versus **switching to an $81k Tesla**, the difference in my overall net worth over time was **roughly neutral**.
+- When comparing **keeping my $25k Mazda 6** versus **switching to an $81k Tesla**, the difference in my overall net worth over time was **roughly neutral over five years**.
 
 I checked the calculations repeatedly. I shared them with others who were sceptical. The conclusion held.
 
-For people in the top or second‑top marginal tax brackets at least, the FBT exemption fundamentally changes the economics. It overturns many of the assumptions that made novated leasing unattractive in the past.
+For people in the top or second‑top marginal tax brackets at least, the FBT exemption fundamentally changes the economics. It overturns many of the rules of thumb above.
 
-Over time I also come to learn about some of the traps of novated lease, and have diligently shared them to help people make more holistic decision about their candidacy for novated lease. 
+Over time I also came to learn about [some of the traps of novated lease](is-it-worth-it.md#you-are-more-likely-to-benefit-if-most-of-the-following-apply), and have diligently shared them to help people make more holistic decision about their candidacy for novated lease. 
 
 ---
 
@@ -95,6 +97,10 @@ This is not a sales site.  I am not a leasing company.  I do not receive commiss
 
 The goal here is simple:  to explain how novated leases *actually* work, where the benefits really come from, where the risks are, and who should or should not consider them.
 
-
 ---
 
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on Paypal. 

@@ -1,12 +1,12 @@
 # Is a novated lease right for me?
 
-This is the wrong question to ask first:
+This is the wrong question to ask:
 
 > **“Are novated leases worth it?”**
 
 The right question is:
 
-> **“Given my circumstances, compared to my realistic alternatives, am I actually better off overall?”**
+> **“Given my circumstances, compared to my realistic alternatives, am I actually better off overall, and are the benefits worth the potential risks?”**
 
 Novated leases are highly **context-dependent**.  They can be extremely favourable in some situations, and mediocre or even harmful in others.
 
@@ -17,21 +17,21 @@ The impact of a novated lease within an individual can be mixed depending on ind
 
 ## Start with a holistic view rather than the savings figure
 
-Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **$46,000 better off than paying cash**. 
+Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **[$46,000 better off than paying cash](about-me.md#the-mindblowing-discovery)**. 
 
 However, beyond simply crunching the savings figures, I would encourage people to **take a more holistic view** of whether they are an appropriate candidate for a novated lease.
 
 
 ---
 
-### You are more likely to benefit if most of the following apply
+### You are more likely to benefit if many of the following apply
 
-An EV novated lease tends to be more favourable if you:
+A novated lease tends to be more favourable if you:
 
-- **are on a high marginal tax bracket**  
+- **are on a [high marginal tax bracket](what-is-novated-lease.md#why-spending-pre-tax-money-is-functionally-a-discount)**  
   the higher your bracket, the larger the effective discount from spending pre-tax dollars
 
-- **have stable employment**  
+- **have [stable employment](../risks/early-termination.md)**  
   moving jobs or losing your job is at best troublesome, and at worst a major financial loss
 
 - **have a home loan with an offset account**  
@@ -41,10 +41,13 @@ An EV novated lease tends to be more favourable if you:
   novated leases significantly reduce borrowing capacity - I have seen estimates where a $70k car reduces borrowing power by $200k or more
 
 - **have considered [the impact on government subsidies](../start-here/fbt-rfba-ati-explained.md)**  
-  childcare subsidy, HECS/HELP repayments, Division 293 tax, etc, can all be affected via reportable fringe benefits
+  childcare subsidy, HECS/HELP repayments, Division 293 tax, etc, can all be affected via reportable fringe benefits. (This is more specific for EV; novated lease for ICE typically does not negatively affect government subsidies)
 
-- **have checked how your employer calculates super guarantee**  
+- **have checked [how your employer calculates super guarantee](../special-and-policy/super-guarantee.md)**  
   a small but non-trivial number of payroll departments calculate super on *post-novated-lease salary*, which can cost you $1,000+ per year in lost employer contributions
+
+- **have considered the [possible issue of vehicle write-off](../risks/how-bad-can-early-termination-get.md#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month) and mitigated it.**
+  if the leased car is written-off and does not have new-for-old or adequate payout to repay all remaining obligation, default insurance payout amount may leave you signifantly out of pocket. 
 
 - **have a clear exit strategy at the end of the lease**  
   you should be prepared (and able) to pay out the residual if you want to own the car  
@@ -54,7 +57,7 @@ If you do plan to pay out the car, you then own an EV outright and continue to e
 
 ---
 
-## Where caution is warranted
+### Where caution is warranted
 
 You should slow down and be more sceptical if several of the following apply:
 
@@ -62,10 +65,10 @@ You should slow down and be more sceptical if several of the following apply:
 - you may need to work overseas or leave Australian employment
 - you are early in training or on fixed-term contracts
 - you are near thresholds for means-tested benefits
-- you are stretching financially to afford the vehicle
-- you are relying mainly on sales explanations rather than independent calculations
+- you are stretching financially to afford the lease payment
+- you are thinking of buying a house in the near future which is close to your borrowing capacity
 
-In these cases, **downside risk matters just as much as headline savings**.
+In these cases, **downside risks are more likely to overshadow headline savings**.
 
 ---
 
@@ -75,27 +78,27 @@ As [elaborated elsewhere](../costs-and-savings/why-tax-saved-is-wrong.md), most 
 
 > “Funding the same car using the same high-interest lease but with post-tax income.”
 
-For most people, this is not a realistic alternative. Their true alternatives would have been:
+For most people, this is **not a realistic alternative**. Their true alternatives would have been:
 
 - paying cash from savings or an offset account
 - a competitively priced car loan
 - keeping current car
 
-The [novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) computes the true saving based on these realistic benchmarks. 
+The [novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) computes the **true saving** based on these realistic benchmarks. 
 
 Often, a quote’s self-reported “savings” figure is misleadingly higher than the savings derived against these more meaningful and realistic benchmarks.
 
-Having a realistic savings figure helps you arrive at a more informed decision when combined with the other factors discussed above.
+Having a **realistic savings figure** helps you arrive at a **more informed decision** when combined with the other factors discussed above.
 
 ---
 
-## A warning about “savings” and frame of reference
+## “Savings” and frame of reference
 
 When people talk about “saving money” with a novated lease, it is crucial to be clear about **what the comparison actually is**.
 
 There are at least two very different frames of reference that people implicitly use, often without realising it.
 
-### Saving compared to buying the same car with cash or a loan
+### Benchmark 1: Saving compared to buying the same car with cash or a loan
 
 This is the comparison most novated lease calculators (and most discussions) are built around:
 
@@ -103,36 +106,37 @@ This is the comparison most novated lease calculators (and most discussions) are
 
 This is the comparison under which statements like:
 
-> “I was \$46,000 better off than paying cash”
+> “I was $46,000 better off than paying cash”
 
 are meaningful and correct.
 
-### Saving compared to *not buying a new car at all*
+### Benchmark 2: Saving compared to *not buying a new car at all*
 
 However, there is another baseline that is often overlooked:
 
 > “What if I simply kept my existing car and didn’t get a new one?”
 
-This comparison is often the most important yet the most overlooked. 
+This comparison is often the **most important yet the most overlooked**. 
 
-The traditional rule of thumb goes "keeping your current car is always the cheapest". In the case of FBT-exempt EV novated lease, this rule of thumb is no longer always true. 
+The traditional rule of thumb goes "keeping your current car is always the cheapest". In the case of FBT-exempt EV novated lease, this rule of thumb is **no longer always true**. 
 
 In my personal circumstances, based on a few reasonable assumptions, over 5-years the net financial position for "keeping current $25k car" is roughly similar to "selling this car and getting a $81k EV via NL and paying the balloon to own outright in the end". 
 
-Some people might find the even more counterintuitive finding that "converting to new $70k EV via NL" actually improves their 5-year net worth compared to "keeping current $40k car". 
+Some people might find the even more **counterintuitive finding** that "converting to new $70k EV via NL" actually improves their 5-year net worth compared to "keeping current $40k car". 
 
-This is where FBT-exempt novated leases genuinely topple many traditional rules of car financing. Without careful number crunching it could be tricky to arrive at the numerical finding. 
+This is where FBT-exempt novated leases genuinely topple many traditional rules of car financing. Without careful number crunching it could be tricky to arrive at the correct numerical finding. 
 
 ### Why this distinction matters
 
-Problems arise when:
+Saving money compared to other financing methods (cash or loan) can feel like great bang for the buck. 
 
-- marketing material implicitly compares a novated lease to an unrealistically expensive alternative, and  
-- readers subconsciously interpret the result as “free money” or “coming out ahead overall”.
+However, it may not be the best overall decision if you fail to consider the alternative of simply "keeping your current car" or "buying a much cheaper ICE car". 
 
-All financing methods (cash, loan, novated lease) should ideally be evaluated at a framework of "net worth". 
+An analogy would be someone saying they "**saved 30k** by bargaining the Mercedes **from 150k down to 120k**"; but such saving pales in comparison to simply getting a $40k Toyota. 
 
-Being honest about the frame of reference helps prevent misguided decisions. 
+Neither option is objectively better. For someone who values the Mercedes, the $30k “value saving” is absolutely real; for someone focused purely on minimising total cost, the Toyota still represents the greater saving. 
+
+You need to be clear what the **benchmark** is. The novated lease calculator helps you make such benchmarking as it is written with this in mind. 
 
 ---
 
@@ -147,7 +151,7 @@ Lease length therefore involves a trade-off between:
 - maximising tax-advantaged pay-down, and
 - limiting worst-case outcomes.
 
-This is explored in detail in the **Risks & exit strategies** section and should not be treated as an afterthought.
+This is explored in detail in the **[Risks & exit strategies](../risks/index.md)** section and should not be treated as an afterthought.
 
 
 ---
@@ -157,3 +161,13 @@ This is explored in detail in the **Risks & exit strategies** section and should
 If you remember nothing else:
 
 > **Novated leases are not universally good or bad — individual circumstances determine their appropriateness.**
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on Paypal. 
+
