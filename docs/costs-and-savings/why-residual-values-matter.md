@@ -231,4 +231,4 @@ They represent **deferred payment** for part of the car’s cost that was never 
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ on BuyMeACoffee.com

@@ -69,6 +69,6 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ on BuyMeACoffee.com
 
 [^1]: I used LLM to help synthesise 70 of my old comments into this guide. Everything was checked and rewritten by me to keep my usual style as much as possible, though some LLM-style and infamous em-dash may remain. All contents are mine and there is no machine-hallucination. 
