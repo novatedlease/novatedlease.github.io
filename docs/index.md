@@ -11,7 +11,6 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [What is a novated lease — really?](start-here/what-is-novated-lease.md)
     -   [Why EV and ICE novated leases are functionally different products](start-here/ev-vs-ice-compared.md)
     -   [Is a novated lease right for me?](start-here/is-it-worth-it.md)
-    -   [Who I am and how I became "that novated lease guy"](about/about-me.md)
 
 -   **Mechanisms explained**
     
@@ -69,6 +68,6 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ on BuyMeACoffee.com
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
 
 [^1]: I used LLM to help synthesise 70 of my old comments into this guide. Everything was checked and rewritten by me to keep my usual style as much as possible, though some LLM-style and infamous em-dash may remain. All contents are mine and there is no machine-hallucination. 

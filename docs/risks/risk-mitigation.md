@@ -153,6 +153,6 @@ Understanding that upfront turns early termination from a nasty shock into a qua
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ on BuyMeACoffee.com
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
 
 

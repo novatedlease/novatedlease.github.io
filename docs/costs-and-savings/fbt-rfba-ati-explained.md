@@ -249,7 +249,7 @@ If you remember nothing else:
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ on BuyMeACoffee.com
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
 
 ---
 [^1]: This "statutory formula" method is the most common. If you have adequate record you may opt for "operating cost method" which is not discussed in this guide. 
