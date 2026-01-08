@@ -157,3 +157,12 @@ If you remember nothing else:
 Do not assume this happens automatically.
 
 Check your quote. A 10% leakage on running costs can quietly undo a meaningful chunk of the benefit you thought you were getting.
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

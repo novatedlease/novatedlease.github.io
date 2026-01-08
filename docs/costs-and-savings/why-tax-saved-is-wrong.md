@@ -1,6 +1,6 @@
 # Why “tax saved” is the wrong way to evaluate a novated lease
 
-One of the most common ways novated leases are marketed is through a single headline number:
+One of the most common ways novated leases are marketed is via a single headline number:
 
 > **“Tax saved”**
 
@@ -8,7 +8,7 @@ Or sometimes, more insidiously:
 
 > **“Savings”**
 
-At face value, this sounds sensible. Tax is a real cost, and paying less tax feels synonymous with an indisputable financial win.
+At face value, this sounds sensible. Tax is a real cost, and paying less tax feels synonymous with being better off.
 
 The problem is that **“tax saved” is not a measure of whether you are better off**.
 
@@ -67,26 +67,6 @@ A 32%, 39%, or 47% discount does not automatically make something good value, es
 
 - the base price is excessively inflated, or
 - the bundled package includes things you would not otherwise buy.
----
-
-## The fallacy in many “saving” figures
-
-Many novated lease quotes implicitly assume the following baseline:
-
-> “If you didn’t novate, you would have leased the car using the same fee structure, funded with post-tax income.”
-
-This is a weak baseline.
-
-For many people, realistic alternatives include:
-
-- a competitively priced car loan (e.g. ~6%)
-- cash held in an offset account
-- buying a cheaper or used vehicle
-- keeping their existing car
-
-Comparing a novated lease against a **deliberately poor alternative** will almost always make the novated lease look good.
-
-However, this comparison is meaningless. Most people would never otherwise fund a car using a post-tax, high-cost lease with double-digit effective interest rates, monthly administration fees, job-loss insurance, and other overpriced add-ons with built-in commissions. **Comparing against such a strawman benchmark is analytically useless.**
 
 ---
 
@@ -98,7 +78,7 @@ If a novated lease arrangement results in:
 - additional fees,
 - bundled insurances you would not otherwise buy,
 - worse outcomes for super, childcare subsidies, or borrowing capacity,
-- reduced job or life flexibility etc
+- reduced job or life flexibility
 
 then it is entirely possible to:
 
@@ -114,33 +94,64 @@ In that situation:
 The relevant question is **net financial position *and* non-financial costs**, not tax saved in isolation.
 
 ---
+## How novated lease quotes exaggerate “savings”
 
-## Why novated lease calculators and quotes exaggerate savings
+Many novated lease quotes and calculators present impressive-looking “savings” figures.  
+These figures are often *technically defensible*, but analytically weak.
 
-Most novated lease calculators and quotes:
+The core issue is not arithmetic; it is the **choice of benchmark**.
 
-- highlight tax savings prominently (and fail to disclose that this is **not** net overall saving),
-- benchmark against unrealistic alternatives,
-- downplay financing costs and opportunity cost,
-- and hide caveats behind generic disclaimers such as “please consult a financial adviser”.
+### The baseline problem
 
-None of this is illegal, but it systematically biases the comparison toward a favourable outcome.
+Many novated lease quotes implicitly assume the following comparison when presenting ‘savings’ figures:
 
----
+> “If you didn’t novate, you would have leased the car using the same fee structure, funded with post-tax income.”
 
-## Take-home pay is not the same as being better off
+This is a poor and unrealistic baseline.
 
-A higher take-home pay figure does not automatically mean you are wealthier.
+For most people, realistic alternatives include:
 
-Reasons include:
+- a competitively priced car loan (e.g. ~6%)
+- cash held in an offset account
+- buying a cheaper or used vehicle
+- keeping their existing car
 
-- residual payments at the end of the lease,
-- deferred rather than eliminated costs,
-- increased means-tested liabilities elsewhere,
-- loss of optionality if circumstances change,
-- reduced leverage and wealth-building capacity due to lower borrowing power.
+Comparing a novated lease against a **deliberately inferior alternative** will almost always make the novated lease appear attractive.
 
-Cashflow matters — but **net worth matters more**.
+However, this does not answer the question most people actually care about:
+> *Am I better off compared to what I would realistically do otherwise?*
+
+A comparison against a strawman benchmark is analytically meaningless.
+
+### How calculators turn weak benchmarks into big “savings”
+
+Most novated lease calculators and quotes then amplify this weak baseline by:
+
+- highlighting tax savings prominently (without clarifying that this is **not** net overall saving),
+- bundling in insurances, warranties, and add-ons with **embedded commissions**,
+- downplaying **financing costs**, **opportunity cost**, and **residual payments**,
+- and **glossing over caveats** behind generic disclaimers such as *“please consult a financial adviser”*.
+
+None of this is illegal.
+
+But taken together, it systematically biases the comparison toward a favourable-looking but misleading outcome.
+
+### Why this matters
+
+A novated lease can show large “tax savings” while still resulting in:
+
+- poorer net worth outcomes,
+- reduced borrowing capacity for wealth-building,
+- loss of job flexibility,
+- potential financial loss during early termination events,
+- or increased liabilities elsewhere through means testing.
+
+In such cases, the saving is real **only relative to a bad benchmark**, not relative to the decision you would otherwise make.
+
+That is why defining the **correct benchmark** is more important than the headline saving itself.
+
+For a discussion of how to frame this comparison properly, see  
+[Is it worth it? — savings and frame of reference](../start-here/is-it-worth-it.md#savings-and-frame-of-reference).
 
 ---
 
@@ -162,6 +173,7 @@ That requires comparing:
 - against realistic alternatives,
 - across cashflow, assets, and liabilities.
 
+This is what [the novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) sets out to achieve.
 
 ---
 
@@ -175,3 +187,12 @@ A novated lease can be worthwhile if:
 
 - the total cost is lower than your best alternative, and
 - the risks, trade-offs, and constraints suit your situation after careful consideration.
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

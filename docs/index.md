@@ -9,17 +9,17 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     Key introductions and mental models to get you started.
     
     -   [What is a novated lease — really?](start-here/what-is-novated-lease.md)
+    -   [Why EV and ICE novated leases are functionally different products](start-here/ev-vs-ice-compared.md)
+    -   [Is a novated lease right for me?](start-here/is-it-worth-it.md)
     -   [Who I am and how I became "that novated lease guy"](start-here/about-me.md)
-    -   [FBT, RFBA, and adjusted taxable income — explained clearly](start-here/fbt-rfba-ati-explained.md)
-    -   [General consideration of "is it right for me"](start-here/is-it-worth-it.md)
 
--   **Costs and savings**
+-   **Mechanisms explained**
     
     Understand the financial mechanics behind novated leases.
     
-    -   [Why EV and ICE novated leases are functionally different products](costs-and-savings/ev-vs-ice-compared.md)
     -   [Why “tax saved” is the wrong way to evaluate a novated lease](costs-and-savings/why-tax-saved-is-wrong.md)
-    -   [Why novated lease interest rates look high — and why that alone is the wrong question](costs-and-savings/why-nl-interest-looks-high.md)
+    -   [Why are novated lease effective interest rates sky high — yet may still work](costs-and-savings/why-nl-interest-looks-high.md)
+    -   [FBT, RFBA, and adjusted taxable income — explained clearly](costs-and-savings/fbt-rfba-ati-explained.md)
     -   [All about residual values](costs-and-savings/why-residual-values-matter.md)
     -   [How to use the novated lease spreadsheet (and what it can and cannot tell you)](costs-and-savings/use-nl-spreadsheet.md)
 
@@ -39,6 +39,7 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [Lease length, residuals, and risk: choosing the right duration](risks/lease-length-and-risk.md)
     -   [What happens if a novated lease ends early - redundancy, job transfer, vehicle write-off etc](risks/early-termination.md)
     -   [Early termination payouts: how bad can it get?](risks/how-bad-can-early-termination-get.md)
+    -   [Risk mitigation strategies for early termination risk](risks/risk-mitigation.md)
 
 -   **Special cases & policy**
     
@@ -47,6 +48,8 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [Overview](special-and-policy/index.md)
     -   [Novated leases, adjusted taxable income, and childcare subsidy — a deep dive](special-and-policy/childcare-subsidy.md)
     -   [Don’t double count the hospital / NFP FBT cap when judging a novated lease](special-and-policy/fbt-exemption-double-counting.md)
+    -   [Super guarantee and payroll risks](special-and-policy/super-guarantee.md)
+    -   [NSW Health’s “Employer Share”: A Special Case in Novated Lease](special-and-policy/nsw-health-employer-share.md)
     -   [EV FBT exemption review timing — what is known, what is not, and why it matters](special-and-policy/ev-fbt-exemption-review-timing.md)
     -   [Why novated leasing is poorly regulated](special-and-policy/why-poorly-regulated.md)
 
@@ -58,6 +61,6 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on Paypal. 
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 
 
 [^1]: I used LLM to help synthesise 70 of my old comments into this guide. Everything was checked and rewritten by me to keep my usual style as much as possible, though some LLM-style and infamous em-dash may remain. All contents are mine and there is no machine-hallucination. 

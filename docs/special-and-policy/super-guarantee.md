@@ -162,3 +162,11 @@ Most employers still do the “right thing” for employees.
 But legally, they don’t have to — and some don’t.
 
 That makes this a **real, if uncommon, risk** worth understanding before you sign.
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

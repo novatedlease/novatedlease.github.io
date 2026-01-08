@@ -195,3 +195,13 @@ If you get the estimate wrong, you adjust it as you go.
 
 
 [^1]: In theory, significant and prolonged over-budgeting can carry a small opportunity cost. For example, if $10,000 sat in the running-cost “piggy bank” for an extended period, that money could otherwise have reduced a home loan offset balance and saved some interest. For most people and typical budgeting errors, this effect is minor.
+
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

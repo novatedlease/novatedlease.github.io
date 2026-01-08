@@ -75,7 +75,7 @@ This is the entire reason novated leases can work.
 ### The catch that existed for decades: FBT
 
 Novated leases have existed for many decades, but there has *always* been a major catch:  
-**[Fringe Benefits Tax (FBT)](fbt-rfba-ati-explained.md).**
+**[Fringe Benefits Tax (FBT)](../costs-and-savings/fbt-rfba-ati-explained.md).**
 
 FBT is:
 
@@ -180,7 +180,7 @@ If you remember nothing else:
 If this is your first exposure to novated leases, the next essential pages are:
 
 - **[Why "tax saved" is the wrong metric](../costs-and-savings/why-tax-saved-is-wrong.md)**
-- **[EV vs ICE novated leases compared](../costs-and-savings/ev-vs-ice-compared.md)**
+- **[EV vs ICE novated leases compared](ev-vs-ice-compared.md)**
 - **[Is it worth it for me?](is-it-worth-it.md)**
 
 Everything else in this guide builds on those foundations.
@@ -191,7 +191,7 @@ Everything else in this guide builds on those foundations.
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on Paypal. 
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 
 
 
 [^1]: This relationship is slightly altered if the pre-tax dollar spending brings the gross salary amount past the marginal tax threshold. E.g. if the gross salary is $10,000 above 37+2% threshold, then spending $15,000 would mean the first $10,000 portion enjoys 39% effective discount and the subsequent $5,000 portion enjoys 32% effective discount.

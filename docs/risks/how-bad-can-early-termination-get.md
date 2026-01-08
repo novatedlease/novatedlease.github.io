@@ -95,7 +95,7 @@ Therefore it is extremely important to **anticipate, quantify and mitigate** the
 
 These are some suggested strategies (not financial advice and not a comprehensive list)
 
-- **job security**: if redundancy risk is significant, either [split the lease to 1 + x](early-termination.md#why-1-4-materially-reduces-worstcase-outcomes); and/or [consider "lease protection" insurance](early-termination.md#lease-protection-insurance-reducing-risk-by-paying-away-savings). 
+- **job security**: if redundancy risk is significant, either [split the lease to 1 + x](risk-mitigation.md#why-1-4-materially-reduces-worstcase-outcomes); and/or [consider "lease protection" insurance](risk-mitigation.md#lease-protection-insurance-reducing-risk-by-paying-away-savings). 
 - possibility of **relocating internationally, going sole trader** etc in the future: minimise lease duration. 
 - **insufficient insurance payout**: either consider "gap assist" type insurance, go for insurance with extended new-for-old option, or consider increasing agreed value such that it would cover the payout. 
 
@@ -112,3 +112,12 @@ Novated leasing should therefore be evaluated not only on expected savings, but 
 - worst-case exposure,  
 - employment stability, and  
 - whether the upside adequately compensates you for the rare but impactful downside risk.
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

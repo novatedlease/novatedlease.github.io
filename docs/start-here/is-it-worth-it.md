@@ -40,14 +40,15 @@ A novated lease tends to be more favourable if you:
 - **do not need to borrow heavily during the lease term**  
   novated leases significantly reduce borrowing capacity - I have seen estimates where a $70k car reduces borrowing power by $200k or more
 
-- **have considered [the impact on government subsidies](../start-here/fbt-rfba-ati-explained.md)**  
+- **have considered [the impact on government subsidies](../costs-and-savings/fbt-rfba-ati-explained.md)**  
   childcare subsidy, HECS/HELP repayments, Division 293 tax, etc, can all be affected via reportable fringe benefits. (This is more specific for EV; novated lease for ICE typically does not negatively affect government subsidies)
 
 - **have checked [how your employer calculates super guarantee](../special-and-policy/super-guarantee.md)**  
   a small but non-trivial number of payroll departments calculate super on *post-novated-lease salary*, which can cost you $1,000+ per year in lost employer contributions
 
-- **have considered the [possible issue of vehicle write-off](../risks/how-bad-can-early-termination-get.md#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month) and mitigated it.**
-  if the leased car is written-off and does not have new-for-old or adequate payout to repay all remaining obligation, default insurance payout amount may leave you signifantly out of pocket. 
+
+- **have considered and mitigated the [possible risk of vehicle write-off](../risks/how-bad-can-early-termination-get.md#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month)**.  
+  if the leased car is written-off and does not have new-for-old or adequate payout to repay all remaining obligation, default insurance payout amount may leave you significantly out of pocket. 
 
 - **have a clear exit strategy at the end of the lease**  
   you should be prepared (and able) to pay out the residual if you want to own the car  
@@ -169,5 +170,5 @@ If you remember nothing else:
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on Paypal. 
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 
 

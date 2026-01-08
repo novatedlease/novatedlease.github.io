@@ -145,3 +145,12 @@ If you remember nothing else:
 Lease length determines how exposed you are to that uncertainty.
 
 Choosing a lease duration is therefore **both a financial decision and a policy-risk decision**.
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

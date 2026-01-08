@@ -135,8 +135,8 @@ None of this means that *longer is always better* for FBT-exempt NL.
 Theoretical savings must always be balanced against:
 
 - higher downside risk in redundancy or early termination,
-- vehicle write-off scenarios,
-- policy risk (e.g. FBT exemption review),
+- [vehicle write-off scenarios](how-bad-can-early-termination-get.md#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month),
+- policy risk (e.g. [FBT exemption review](../special-and-policy/ev-fbt-exemption-review-timing.md)),
 - career flexibility, 
 - borrowing capacity impact etc. 
 
@@ -188,7 +188,7 @@ When you commit to a long lease upfront, you immediately place a substantial pro
 - continued novation,
 - continued tax concessions.
 
-That exposure is cheap **only while those conditions hold**. However the same exposed portion is also [the at-risk part which makes NL expensive](../risks/early-termination.md#risk-mitigation-structuring-the-lease-to-limit-downside) in the event of early termination. In other words, these amounts drive both the magnitude of potential savings (if everything goes well) *and* the magnitude of potential loss (in the event of early termination). 
+That exposure is cheap **only while those conditions hold**. However the same exposed portion is also the at-risk part which makes NL expensive in the event of early termination. In other words, these amounts drive both the magnitude of potential savings (if everything goes well) *and* the magnitude of potential loss (in the event of early termination). 
 
 ---
 
@@ -196,7 +196,7 @@ That exposure is cheap **only while those conditions hold**. However the same ex
 
 Lease length also determines how exposed you are to **policy change risk**.
 
-The EV FBT exemption is currently under formal review (to be completed within the 18-month period of 1/1/2026 to 1/7/2027). [^1] At the conclusion of the review, the government will decide whether to:
+The EV FBT exemption is [currently under formal review](../special-and-policy/ev-fbt-exemption-review-timing.md) (to be completed within the 18-month period of 1/1/2026 to 1/7/2027). [^1] At the conclusion of the review, the government will decide whether to:
 
 - extend,
 - modify, or
@@ -263,19 +263,18 @@ Therefore, the other factors earlier matter far more than "paying more of the ca
 
 ### Paying down more of the car with repeated 65.63% residualisation
 
-Under the ATO’s clarified position (TD 93/142 addendum, 2021):
+Under the ATO’s clarified position ([TD 93/142 addendum, 2021](https://www.ato.gov.au/law/view/document?LocID=%22TXD%2FTD93142%2FNAT%2FATO%22&PiT=99991231235958)):
 
 - when leases are extended (e.g. 1 + 1 + 1),  
 - the residual must continue to follow the **original residual table**, based on the original vehicle value.
 
-Some novated lease providers still apply a **compounding residual method** (e.g. repeatedly applying 65.63% to the prior residual).
+Some novated lease providers still apply a **[compounding residual method](../costs-and-savings/why-residual-values-matter.md#how-residual-values-work-when-a-lease-is-extended)** (e.g. repeatedly applying 65.63% to the prior residual).
 
 This allows more of the vehicle to be paid down using pre-tax dollars and increases apparent savings.
 
 However:
 
-- this approach is **legally questionable**,  
-- poorly enforced does not mean compliant, and  
+- this approach is **legally questionable**,  and
 - it introduces compliance risk that sits entirely with the employee.
 
 
@@ -302,9 +301,9 @@ Shorter initial terms may sacrifice some optimisation but materially reduce the 
 A longer upfront lease may still make sense if:
 
 - employment is highly stable,
-- employer novated-lease policy is unlikely to change,
+- there is no plan for property purchase during the lease duration,
 - the individual has strong liquidity or borrowing capacity,
-- the downside risk of vehicle write-off etc is considered +/- mitigated.
+- the [downside risk of vehicle write-off](how-bad-can-early-termination-get.md#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month) etc is considered +/- mitigated.
 
 Such a decision must be arrived at after **deliberate and broad risk/benefit consideration** encompassing all of the factors discussed earlier.
 
@@ -329,3 +328,12 @@ If you remember nothing else:
 > **There is no one "best duration". The optimal duration depends on the lease's FBT-exemption status, employment, and termination risk.**
 
 The right lease length is individual, and must be arrived at after considering all the dimensions of upsides and downsides.
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

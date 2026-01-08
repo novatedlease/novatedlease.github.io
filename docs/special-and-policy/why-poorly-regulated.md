@@ -118,3 +118,12 @@ This guide exists precisely because **the regulatory framework does not do this 
 If you remember nothing else:
 
 > **Novated leasing is consumer-facing, yet largely unprotected by the consumer safeguards that apply elsewhere, creating fertile ground for opaque and misleading practices.**
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

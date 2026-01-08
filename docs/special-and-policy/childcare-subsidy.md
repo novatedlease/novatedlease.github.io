@@ -226,3 +226,12 @@ If you remember nothing else:
 > **Government subsidy and liability are assessed on adjusted taxable income, not taxable income. Childcare subsidy has convoluted calculations.**
 
 This does not make an EV novated lease “bad”, but it does mean the **true cost must be evaluated across tax, subsidies, and liabilities together**, not in isolation.
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

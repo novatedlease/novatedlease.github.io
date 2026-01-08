@@ -2,11 +2,11 @@
 
 Most novated lease discussions assume a fairly “standard” situation:
 
-- a private-sector employer,
+- stable unchanged employment,
 - straightforward payroll,
 - no means-tested subsidies or obligation. 
 
-In reality, a large proportion of people considering novated leases e.g. FBT-exempt novated leases **do not fit that standard mould**.
+In reality, a large proportion of people considering novated leases **do not fit that standard mould**.
 
 This section exists to cover the edge cases, policy interactions, and structural quirks that are **material to outcomes**, but are often poorly explained, inconsistently applied, or quietly omitted from novated lease marketing.
 
@@ -79,3 +79,12 @@ If *any* of the following are true for you:
 then these “special cases” are **important for your consideration**.
 
 This section is therefore best read **before** committing to a lease, not after discovering the consequences.
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

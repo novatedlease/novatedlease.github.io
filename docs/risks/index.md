@@ -20,12 +20,21 @@ In these situations, the same lease that looked attractive on a fortnightly cash
 
 This section focuses on:
 
-- how lease length and residuals affect risk,
-- why early termination is disproportionately expensive,
-- how bad outcomes can get in dollar terms, and
-- practical ways to reduce downside without giving up all of the upside.
+- [how lease length and residuals affect risk](lease-length-and-risk.md),
+- [why early termination is disproportionately expensive and some ways to mitigate it](early-termination.md), and
+- [how bad outcomes can get with worked examples](how-bad-can-early-termination-get.md)
 
-If earlier sections ask *“Is a novated lease cheaper?”*,  
-this section asks the more important question:
+This section is **not an exhaustive list** of all caveats of novated lease; other potential caveats are discussed in "[Is a novated lease right for me](../start-here/is-it-worth-it.md#start-with-a-holistic-view-rather-than-the-savings-figure)" article. 
+
+If earlier sections ask *“Is a novated lease cheaper?”*, this section asks another important question:
 
 > **“What happens if circumstances change — and am I comfortable with that risk?”**
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

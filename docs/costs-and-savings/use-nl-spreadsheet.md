@@ -183,9 +183,9 @@ The outcomes are presented as "in each pathway, what your **cashflow, asset and 
 
 - When you use this spreadsheet to trial-run a few different quotes / lease duration, the vehicle lease (per fortnight) field needs to be filled out with precise quote figures from **each relevant quote**. It is **not** automatically generated. Some people unfortunately assume this to be an automatic field and kept this figure intact across different scenarios - which would produce totally wrong calculation. 
 
-- The total taxable income needs to be the actual total taxable income (i.e. sum of all incomes minus all deductions) in order to produce correct tax calculation. If you work multiple jobs, you need to sum up these incomes. 
+- The total taxable income needs to be **the actual total taxable income** (i.e. sum of all incomes minus all deductions) in order to produce correct tax calculation. If you work multiple jobs, you need to sum up these incomes. 
 
-    - The reason is that if you have a 80k job and another 200k job, the tax outcome of spending 20k in lease payment is "dropping 280k to 260k" i.e. 45+2% bracket, rather than "dropping 80k to 60k". 
+    - The reason is that if you have a 80k job and another 200k job, even if the novated lease is organised via the 80k job, the tax outcome of spending 20k in lease payment is "dropping 280k to 260k" i.e. 45+2% bracket, rather than "dropping 80k to 60k". 
 
 - Some quotes are given as monthly budgets rather than fortnightly, especially for those on monthly pay. In this case, you need to **convert** month to fortnight by **multiplying 12 then dividing by 26**. Dividing directly by 2 would produce significantly different outcome. 
 
@@ -215,7 +215,7 @@ If you:
 
 you will be misled.
 
-You also need to consider all other non-numerical risks (as explained elsewhere in this guide) to form an informed opinion on your candidacy for novated lease. 
+You also need to consider all other non-numerical risks ([as explained elsewhere](../start-here/is-it-worth-it.md#start-with-a-holistic-view-rather-than-the-savings-figure) in this guide) to form an informed opinion on your candidacy for novated lease. 
 
 ---
 
@@ -224,3 +224,12 @@ You also need to consider all other non-numerical risks (as explained elsewhere 
 If you remember nothing else:
 
 > **The spreadsheet is a detailed modelling tool, but it relies on good understanding and accurate input for proper functions.**
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

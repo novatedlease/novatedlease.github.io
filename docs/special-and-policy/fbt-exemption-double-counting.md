@@ -101,3 +101,12 @@ If you remember nothing else:
 > **If you were already able to use the $9,010 / $15,900 cap for living expenses, then using it for an ICE novated lease is usually not “extra saving” — it’s mainly a reallocation of the same capped benefit.**
 
 Make sure that any quote generated uses the correct assumption if you are a hospital / NFP employee, have already used the $9,010, and are looking at an ICE NL. 
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 

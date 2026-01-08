@@ -201,5 +201,13 @@ For others, more precise methods may make sense, but only if you are willing and
 
 ### Reference
 
-- ATO Practical Compliance Guideline: **PCG 2024/2**  
-  https://www.ato.gov.au/law/view/document?DocID=COG/PCG20242/NAT/ATO/00001
+- [ATO Practical Compliance Guideline: **PCG 2024/2**](https://www.ato.gov.au/law/view/document?DocID=COG/PCG20242/NAT/ATO/00001)
+
+
+---
+
+!!! info "Optional Support"
+    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://paypal.me/cyyew) ☕ on PayPal. 
