@@ -10,9 +10,14 @@ theme:
   name: material
   features:
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
-    - navigation.expand
-    - search.highlight
+    - navigation.top
+    - navigation.path
+    - navigation.tracking
+    - toc.integrate  
+    - toc.follow
+    
 
 markdown_extensions:
   - footnotes

@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 # Novated Leases — A Practical Reference Guide
 
 I’m the author of a [free, comprehensive Australian novated lease calculator](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) and have been answering questions about novated lease on Reddit, Facebook, and other forums since 2023. This guide collects and organises the common explanations I’ve shared repeatedly into one self-contained resource.[^1]
@@ -71,3 +77,4 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
 
 [^1]: I used LLM to help synthesise 70 of my old comments into this guide. Everything was checked and rewritten by me to keep my usual style as much as possible, though some LLM-style and infamous em-dash may remain. All contents are mine and there is no machine-hallucination. 
+
