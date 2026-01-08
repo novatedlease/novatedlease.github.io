@@ -82,7 +82,7 @@ I checked the calculations repeatedly. I shared them with others who were scepti
 
 For people in the top or second‑top marginal tax brackets at least, the FBT exemption fundamentally changes the economics. It overturns many of the rules of thumb above.
 
-Over time I also came to learn about [some of the traps of novated lease](is-it-worth-it.md#start-with-a-holistic-view-rather-than-the-savings-figure), and have diligently shared them to help people make more holistic decision about their candidacy for novated lease. 
+Over time I also came to learn about [some of the traps of novated lease](../start-here/is-it-worth-it.md#start-with-a-holistic-view-rather-than-the-savings-figure), and have diligently shared them to help people make more holistic decision about their candidacy for novated lease. 
 
 ---
 

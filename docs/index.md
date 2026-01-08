@@ -11,7 +11,7 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [What is a novated lease — really?](start-here/what-is-novated-lease.md)
     -   [Why EV and ICE novated leases are functionally different products](start-here/ev-vs-ice-compared.md)
     -   [Is a novated lease right for me?](start-here/is-it-worth-it.md)
-    -   [Who I am and how I became "that novated lease guy"](start-here/about-me.md)
+    -   [Who I am and how I became "that novated lease guy"](about/about-me.md)
 
 -   **Mechanisms explained**
     
@@ -52,6 +52,14 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [NSW Health’s “Employer Share”: A Special Case in Novated Lease](special-and-policy/nsw-health-employer-share.md)
     -   [EV FBT exemption review timing — what is known, what is not, and why it matters](special-and-policy/ev-fbt-exemption-review-timing.md)
     -   [Why novated leasing is poorly regulated](special-and-policy/why-poorly-regulated.md)
+
+-   **About**
+    
+    More about me, story behind this guide and general disclaimer
+    
+    -   [Who I am and how I became "that novated lease guy"](about/about-me.md)
+    -   [Disclaimer](about/disclaimer.md)
+
 
 </div>
 

@@ -17,7 +17,7 @@ The impact of a novated lease within an individual can be mixed depending on ind
 
 ## Start with a holistic view rather than the savings figure
 
-Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **[$46,000 better off than paying cash](about-me.md#the-mindblowing-discovery)**. 
+Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **[$46,000 better off than paying cash](../about/about-me.md#the-mindblowing-discovery)**. 
 
 However, beyond simply crunching the savings figures, I would encourage people to **take a more holistic view** of whether they are an appropriate candidate for a novated lease.
 

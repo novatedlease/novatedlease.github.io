@@ -30,7 +30,6 @@ nav:
       - What is a novated lease, really?: start-here/what-is-novated-lease.md
       - EV vs ICE novated leases compared: start-here/ev-vs-ice-compared.md      
       - Is a novated lease right for me?: start-here/is-it-worth-it.md
-      - Who I am and how I became "the novated lease guy": start-here/about-me.md
 
   - Mechanisms explained:
       - Why "tax saved" is the wrong metric: costs-and-savings/why-tax-saved-is-wrong.md
@@ -59,3 +58,7 @@ nav:
       - NSW Health's "Employer Share" - A Special Novated Lease Trap: special-and-policy/nsw-health-employer-share.md
       - EV FBT exemption review timing: special-and-policy/ev-fbt-exemption-review-timing.md
       - Why novated leasing is poorly regulated: special-and-policy/why-poorly-regulated.md
+
+  - About:
+      - Who I am and how I became "the novated lease guy": about/about-me.md
+      - Disclaimer: about/disclaimer.md
