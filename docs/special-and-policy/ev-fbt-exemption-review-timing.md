@@ -47,6 +47,7 @@ Here is the [actual wording](https://parlinfo.aph.gov.au/parlInfo/search/display
 
 > (5)       The review must be completed, and a report on the review must be given to the Minister, within 18 months after the end of the 3 years from the commencement of this Schedule.
 
+*(For reference, the commencement commenced on 1/1/2023)*
 
 ---
 
