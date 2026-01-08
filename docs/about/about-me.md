@@ -32,7 +32,7 @@ The FBT‑exempt novated lease for EVs is one such change.
 
 ### How I ended up questioning old assumptions
 
-I have always liked EVs for their driving characteristics. I had hired them for road trips in 2021 and 2022 and enjoyed the smoothness, instant torque, and quietness.
+I have always liked EVs for their driving characteristics. I hired them for road trips in 2021 and 2022 and enjoyed the smoothness, instant torque, and quietness.
 
 But financially, they made no sense to me at that stage.
 
