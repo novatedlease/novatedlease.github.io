@@ -10,7 +10,7 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
 
 <div class="grid cards" markdown>
 
--   **Start here**
+-   **:material-compass-outline: Start here**
     
     Key introductions and mental models to get you started.
     
@@ -18,7 +18,7 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [Why EV and ICE novated leases are functionally different products](start-here/ev-vs-ice-compared.md)
     -   [Is a novated lease right for me?](start-here/is-it-worth-it.md)
 
--   **Mechanisms explained**
+-   **:material-cogs: Mechanisms explained**
     
     Understand the financial mechanics behind novated leases.
     
@@ -28,7 +28,7 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [All about residual values](costs-and-savings/why-residual-values-matter.md)
     -   [How to use the novated lease spreadsheet (and what it can and cannot tell you)](costs-and-savings/use-nl-spreadsheet.md)
 
--   **Running costs & claiming**
+-   **:material-cash-multiple: Running costs & claiming**
     
     Practical info on managing running costs and claiming benefits.
     
@@ -36,7 +36,7 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [The ATO 4.2c/km EV charging shortcut — how it actually works](running-costs/ato-42c-per-km-shortcut.md)
     -   [Failure to pass on GST savings — an overlooked cost in some novated leases](running-costs/failure-to-pass-gst-saving.md)
 
--   **Risks & exit strategies**
+-   **:material-alert-circle: Risks & exit strategies**
     
     What to consider about risks and ending your lease early.
     
@@ -46,7 +46,7 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [Early termination payouts: how bad can it get?](risks/how-bad-can-early-termination-get.md)
     -   [Risk mitigation strategies for early termination risk](risks/risk-mitigation.md)
 
--   **Special cases & policy**
+-   **:material-scale-balance: Special cases & policy**
     
     Edge cases and policy insights that affect novated leases.
     
@@ -58,7 +58,7 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
     -   [EV FBT exemption review timing — what is known, what is not, and why it matters](special-and-policy/ev-fbt-exemption-review-timing.md)
     -   [Why novated leasing is poorly regulated](special-and-policy/why-poorly-regulated.md)
 
--   **About**
+-   **:material-account: About**
     
     More about me, story behind this guide and general disclaimer
     
@@ -73,8 +73,8 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
 !!! info "Optional Support"
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
+    - :simple-tesla: [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla,  or
+    - :coffee: [Buying me a cuppa](https://buymeacoffee.com/changyang1230)  at BuyMeACoffee.com
 
 [^1]: I used LLM to help synthesise 70 of my old comments into this guide. Everything was checked and rewritten by me to keep my usual style as much as possible, though some LLM-style and infamous em-dash may remain. All contents are mine and there is no machine-hallucination. 
 

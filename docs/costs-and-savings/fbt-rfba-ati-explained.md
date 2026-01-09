@@ -232,7 +232,7 @@ There is an additional [in-depth article on adjusted taxable income](../special-
 
 ---
 
-## The key takeaway
+## Key takeaway
 
 If you remember nothing else:
 
@@ -248,8 +248,8 @@ If you remember nothing else:
 !!! info "Optional Support"
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
+    - :simple-tesla: [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla,  or
+    - :coffee: [Buying me a cuppa](https://buymeacoffee.com/changyang1230)  at BuyMeACoffee.com
 
 ---
 [^1]: This "statutory formula" method is the most common. If you have adequate record you may opt for "operating cost method" which is not discussed in this guide. 

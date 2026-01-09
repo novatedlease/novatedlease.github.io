@@ -151,7 +151,7 @@ If you don’t get a clear written answer, assume nothing.
 
 ---
 
-## The key takeaway
+## Key takeaway
 
 If you remember nothing else:
 
@@ -168,5 +168,5 @@ That makes this a **real, if uncommon, risk** worth understanding before you sig
 !!! info "Optional Support"
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
+    - :simple-tesla: [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla,  or
+    - :coffee: [Buying me a cuppa](https://buymeacoffee.com/changyang1230)  at BuyMeACoffee.com

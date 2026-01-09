@@ -219,7 +219,7 @@ You also need to consider all other non-numerical risks ([as explained elsewhere
 
 ---
 
-## Final takeaway
+## Key takeaway
 
 If you remember nothing else:
 
@@ -231,5 +231,5 @@ If you remember nothing else:
 !!! info "Optional Support"
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
+    - :simple-tesla: [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla,  or
+    - :coffee: [Buying me a cuppa](https://buymeacoffee.com/changyang1230)  at BuyMeACoffee.com

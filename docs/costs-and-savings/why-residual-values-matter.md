@@ -213,7 +213,7 @@ This approach sits in a **legally murky and risky area**, and risks the lease no
 
 ---
 
-## The key takeaway
+## Key takeaway
 
 If you remember nothing else:
 
@@ -230,5 +230,5 @@ They represent **deferred payment** for part of the car’s cost that was never 
 !!! info "Optional Support"
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
+    - :simple-tesla: [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla,  or
+    - :coffee: [Buying me a cuppa](https://buymeacoffee.com/changyang1230)  at BuyMeACoffee.com

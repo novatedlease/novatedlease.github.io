@@ -165,7 +165,7 @@ It is the fundamental motivation behind [the novated lease spreadsheet](https://
 
 ---
 
-## The key takeaway
+## Key takeaway
 
 If you remember nothing else:
 
@@ -190,8 +190,8 @@ Everything else in this guide builds on those foundations.
 !!! info "Optional Support"
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
+    - :simple-tesla: [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla,  or
+    - :coffee: [Buying me a cuppa](https://buymeacoffee.com/changyang1230)  at BuyMeACoffee.com
 
 
 [^1]: This relationship is slightly altered if the pre-tax dollar spending brings the gross salary amount past the marginal tax threshold. E.g. if the gross salary is $10,000 above 37+2% threshold, then spending $15,000 would mean the first $10,000 portion enjoys 39% effective discount and the subsequent $5,000 portion enjoys 32% effective discount.

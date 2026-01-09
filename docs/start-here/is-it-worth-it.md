@@ -17,7 +17,7 @@ The impact of a novated lease within an individual can be mixed depending on ind
 
 ## Start with a holistic view rather than the savings figure
 
-Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **[$46,000 better off than paying cash](../about/about-me.md#the-mindblowing-discovery)**. 
+Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **[$46,000 better off than paying cash](../about/about-me.md#the-mind-blowing-discovery)**. 
 
 However, beyond simply crunching the savings figures, I would encourage people to **take a more holistic view** of whether they are an appropriate candidate for a novated lease.
 
@@ -157,7 +157,7 @@ This is explored in detail in the **[Risks & exit strategies](../risks/index.md)
 
 ---
 
-## The key takeaway
+## Key takeaway
 
 If you remember nothing else:
 
@@ -169,6 +169,6 @@ If you remember nothing else:
 !!! info "Optional Support"
     Both this guide and the spreadsheet are free. If they prove helpful, consider:
 
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
+    - :simple-tesla: [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla,  or
+    - :coffee: [Buying me a cuppa](https://buymeacoffee.com/changyang1230)  at BuyMeACoffee.com
 
