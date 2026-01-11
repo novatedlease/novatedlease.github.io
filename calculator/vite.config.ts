@@ -3,9 +3,20 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/assets/calculator/",           // important for GitHub Pages + MkDocs
+  base: "/assets/calculator/",
   build: {
-    outDir: "../docs/assets/calculator", // output into mkdocs-served assets
+    outDir: "../docs/assets/calculator",
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        entryFileNames: "main.js",
+        chunkFileNames: "chunk-[name].js",
+        assetFileNames: (assetInfo) => {
+          const name = assetInfo.name ?? "";
+          if (name.endsWith(".css")) return "style.css";
+          return "asset-[name][extname]";
+        },
+      },
+    },
   },
 });
