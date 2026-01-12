@@ -2,6 +2,10 @@ export type YesNo = "Yes" | "No";
 
 export type Inputs = {
   // Vehicle + lease
+  vehicleCondition:
+    | "New"
+    | "Used – dealer sale (GST inc)"
+    | "Used – private sale (no GST)"; // affects GST treatment
   vehicleBaseValue: number; // dutiable / FBT base
   driveawayCost: number;
   estimatedMarketValueAtEnd: number;
@@ -24,7 +28,7 @@ export type Inputs = {
 
   // Running costs (annual unless stated)
   serviceMaintTyresAnnual: number;
-  saveSharePerFn: number; // per fn credit
+  saveShareAnnual: number;
   registrationAnnual: number;
   electricityAnnual: number;
   insuranceAnnual: number;
@@ -43,6 +47,12 @@ export type Inputs = {
   currentRegistrationAnnual: number;
   currentFuelAnnual: number;
   currentInsuranceAnnual: number;
+
+  // Optional: Compare with car loan
+  compareWithCarLoan: boolean;
+  carLoanInitialDeposit: number;
+  carLoanInterestRatePct: number;
+  carLoanMonthlyFee: number;
 };
 
 export type SummarySection = {

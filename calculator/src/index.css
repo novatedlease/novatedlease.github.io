@@ -15,3 +15,31 @@
 #nl-calculator-root textarea {
   font: inherit;
 }
+
+html, body, #root {
+  width: 100%;
+  max-width: none;
+}
+
+.container, .app, .App, .page, .wrapper, main {
+  width: 100%;
+  max-width: none;
+}
+
+/* --- Novated Lease Calculator responsive layout --- */
+#nl-calculator-root .nl-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+#nl-calculator-root .nl-col {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  #nl-calculator-root .nl-layout {
+    grid-template-columns: 1fr;
+  }
+}

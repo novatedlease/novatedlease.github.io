@@ -1,51 +1,40 @@
 import React from "react";
 import type { Inputs } from "../engine/types";
+import { taxSummaryAUResident } from "../engine/tax_au";
+import { residualPercentForYears, gstSaved } from "../engine/ato";
+import { aud, aud0, pct } from "../utils/format";
+import { buildFyBreakdown } from "../engine/fy_breakdown";
 
-function aud(n: number): string {
-  return n.toLocaleString("en-AU", { maximumFractionDigits: 2 });
-}
-function aud0(n: number): string {
-  return n.toLocaleString("en-AU", { maximumFractionDigits: 0 });
-}
-function pct(n: number): string {
-  return `${n.toFixed(2)}%`;
-}
-
-const GST_EXEMPT_CAP = 6334;
-const ATO_RESIDUAL_PCT: Record<number, number> = {
-  1: 65.63,
-  2: 56.25,
-  3: 46.88,
-  4: 37.5,
-  5: 28.13,
-};
-
-function residualPercentForYears(years: number): number {
-  const y = Math.round(years);
-  return ATO_RESIDUAL_PCT[y] ?? 28.13; // default to 5y if unknown for now
-}
 
 export function LeaseReport(props: {
   inputs: Inputs;
-  // for now, pass in a tax rate as a simple percent
+  // Optional override for marginal rate incl. Medicare (percentage). If omitted, derived from Australian brackets.
   taxRateInclMedicarePct?: number; // e.g. 47
 }) {
   const i = props.inputs;
-  const taxRatePct = props.taxRateInclMedicarePct ?? 47;
+
+  const t = taxSummaryAUResident(i.totalTaxableIncome);
+
+  const taxRatePct =
+    props.taxRateInclMedicarePct ?? t.marginalRateInclMedicare * 100;
   const taxRate = taxRatePct / 100;
 
   const fortnights = Math.round(i.leaseDurationYears * 26);
 
-  // Vehicle GST saved (simple: cap only; later we can compute from dutiable value precisely)
-  const vehicleGstSaved = Math.min(GST_EXEMPT_CAP, i.driveawayCost / 11);
+  // Vehicle GST saved (single-source rule in engine)
+  const vehicleGstSaved = gstSaved(i);
 
   // Amount financed (simple approximation)
-  const amountFinanced = Math.max(0, i.driveawayCost - vehicleGstSaved);
+  const amountFinanced = Math.max(
+    0,
+    i.driveawayCost + i.leaseDocFee - vehicleGstSaved
+  );
 
   // Residual
   const residualPct = residualPercentForYears(i.leaseDurationYears);
   // Approx: residual based on amount financed excluding GST, then add GST back
-  const residualPayableIncGst = (amountFinanced * (residualPct / 100)) * 1.1;
+  const residualPayableIncGst =
+    (Math.max(0, amountFinanced - i.leaseDocFee) * (residualPct / 100)) * 1.1;
 
   // Electricity model
   const kwhPerYear = (i.annualMileageKm * i.avgWhPerKm) / 1000;
@@ -58,24 +47,33 @@ export function LeaseReport(props: {
   const chargingDelta = assumedChargingClaimPerYear - chargingExpensePerYear;
 
   // Placeholder: “post-reimbursement effective charging expense”
-  // (We'll refine later. For now, assume benefit = delta * taxRate if delta positive.)
+  // Requested simple model: actual charging expense minus (assumed claim * marginal tax rate)
   const postReimbursementEffectiveChargingExpense =
-    chargingExpensePerYear - Math.max(0, chargingDelta) * taxRate;
+    chargingExpensePerYear - assumedChargingClaimPerYear * taxRate;
 
   // Section 1: Lease payments (use your existing input fields)
   const vehicleLeaseFn = i.vehicleLeasePerFn;
   const runningCostAnnual =
     i.serviceMaintTyresAnnual +
+    i.saveShareAnnual +
     i.registrationAnnual +
     i.insuranceAnnual +
     i.managementFeesAnnual +
-    chargingExpensePerYear;
+    assumedChargingClaimPerYear;
 
   const runningCostFn = runningCostAnnual / 26;
 
   const preTaxVehicleLeaseAnnual = vehicleLeaseFn * 26;
   const preTaxRunningAnnual = runningCostAnnual;
   const preTaxTotalFn = vehicleLeaseFn + runningCostFn;
+
+  // Breakdown by Financial Years (engine)
+  const fyRows = buildFyBreakdown({
+    inputs: i,
+    fortnights,
+    preTaxTotalFn,
+  });
+
   const preTaxTotalAnnual = preTaxVehicleLeaseAnnual + preTaxRunningAnnual;
 
   const preTaxVehicleLeaseLifetime = preTaxVehicleLeaseAnnual * i.leaseDurationYears;
@@ -102,15 +100,27 @@ export function LeaseReport(props: {
       <h2 style={{ margin: "0 0 10px" }}>DETAILS</h2>
 
       <KeyValue
-        label="Income Tax Bracket (inclusive of Medicare Levy)"
-        value={`Post 01/07/2024 — ${pct(taxRatePct)}`}
+        label="Income Tax Bracket (inc. Medicare Levy)"
+        value={`${Math.round(taxRatePct)}%`}
       />
       <KeyValue label="Lease Duration (Years)" value={String(i.leaseDurationYears)} />
       <KeyValue label="Fortnights" value={String(fortnights)} />
 
       <Spacer />
 
-      <KeyValue label="Vehicle GST saved" value={`$ ${aud(vehicleGstSaved)}`} />
+      <KeyValue
+        label="Vehicle condition"
+        value={i.vehicleCondition}
+      />
+      <KeyValue
+        label="Vehicle GST saved"
+        value={
+          i.vehicleCondition === "Used – private sale (no GST)"
+            ? `$ ${aud(vehicleGstSaved)} (not eligible — private sale)`
+            : `$ ${aud(vehicleGstSaved)} (cap $ ${aud(6334)}; based on dutiable value / 11)`
+        }
+      />
+
       <KeyValue label="Amount Financed" value={`$ ${aud(amountFinanced)}`} />
       <KeyValue
         label={`ATO-Mandated Residual Value % for ${Math.round(i.leaseDurationYears)} Years`}
@@ -160,8 +170,17 @@ export function LeaseReport(props: {
         emphasizeLastRowValue
       />
 
+      <Spacer />
+
+      <h2 style={{ margin: "14px 0 8px" }}>Breakdown by Financial Years</h2>
+      <FYTable fyRows={fyRows} />
+
+      <div style={{ marginTop: 8, fontSize: 12, opacity: 0.75 }}>
+        * Australian financial year runs from 1/7 to 30/6 and is named after the second year (e.g. FY 2027).
+      </div>
+
       <div style={{ marginTop: 10, fontSize: 13, color: "#0b5cab", fontWeight: 600 }}>
-        * REMINDER: After ${aud(preTaxTotalLifetime)}, you still have to pay $
+        * REMINDER: After ${aud(postTaxTotalLifetime)}, you still have to pay $
         {aud(residualPayableIncGst)} residual value to fully own the vehicle at the conclusion of the lease.
       </div>
     </div>
@@ -211,6 +230,77 @@ function Table(props: { rows: Array<[string, string, string, string]>; emphasize
               </tr>
             );
           })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function FYTable(props: {
+  fyRows: Array<{
+    fy: number;
+    count: number;
+    originalTaxableIncome: number;
+    originalTax: number;
+    originalTakeHome: number;
+    postNlTaxableIncome: number;
+    postNlTax: number;
+    postNlTakeHome: number;
+    takeHomeImpactPerPay: number;
+    avgLeaseTaxBracketPct: number;
+  }>;
+}) {
+  const years = props.fyRows.map((r) => r.fy);
+
+  const money0 = (n: number) => `$ ${aud0(n)}`;
+  const money2 = (n: number) => `$ ${n.toLocaleString("en-AU", { maximumFractionDigits: 2 })}`;
+  const pct0 = (n: number) => `${Math.round(n)}%`;
+
+  const get = (fy: number) => props.fyRows.find((r) => r.fy === fy)!;
+
+  const row = (
+    label: string,
+    render: (r: (typeof props.fyRows)[number]) => string,
+    bold?: boolean
+  ) => (
+    <tr>
+      <td style={tdLeft(bold)}>{label}</td>
+      {years.map((y) => {
+        const r = get(y);
+        return (
+          <td key={y} style={td(bold)}>
+            {render(r)}
+          </td>
+        );
+      })}
+    </tr>
+  );
+
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+        <thead>
+          <tr>
+            <th style={thLeft}></th>
+            {years.map((y) => (
+              <th key={y} style={th}>
+                {y}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {row("Original Taxable Income", (r) => money0(r.originalTaxableIncome))}
+          {row("Original Income Tax + Medicare Levy", (r) => money0(r.originalTax), false)}
+          {row("Original Take Home", (r) => money0(r.originalTakeHome), true)}
+
+          {row("Post NL Taxable Income", (r) => money0(r.postNlTaxableIncome))}
+          {row("Post NL Income Tax + Medicare Levy", (r) => money0(r.postNlTax), false)}
+          {row("Post NL Take Home", (r) => money0(r.postNlTakeHome), true)}
+
+          {row("Pay Fortnight Count", (r) => String(r.count))}
+          {row("Take Home Impact per pay", (r) => money2(r.takeHomeImpactPerPay))}
+          {row('"Average Lease Tax Bracket" this FY', (r) => pct0(r.avgLeaseTaxBracketPct), true)}
         </tbody>
       </table>
     </div>
