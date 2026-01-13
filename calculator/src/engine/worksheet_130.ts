@@ -1,5 +1,7 @@
 // engine/worksheet_130.ts
 import type { Inputs } from "./types";
+import { calcResidualPayableIncGst } from "./types";
+import { gstSaved, residualPercentForYears } from "./ato";
 import { buildFortnightSchedule, fyForDate } from "./lease_schedule";
 import { buildFyBreakdown } from "./fy_breakdown";
 
@@ -270,10 +272,21 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
 
   // Post-lease running costs (real costs) for remaining fortnights up to 130
   const postLeaseGstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
-  const postLeaseSmtFn = (i.serviceMaintTyresAnnual / 26) * postLeaseGstMult;
-  const postLeaseRegoFn = (i.registrationAnnual / 26) * postLeaseGstMult;
-  const postLeaseInsuranceFn = (i.insuranceAnnual / 26) * postLeaseGstMult;
-  const postLeaseElectricityFn = chargingExpensePerYear / 26; // NO GST multiplier (per your decision)
+
+  // Residual payout (post-tax cash) — single source of truth.
+  // Mirror LeaseReport: residual = max(0, amountFinanced - docFee) * residualPct * (1 + GST).
+  // Here, amountFinanced is a simple approximation based on driveaway + doc fee - vehicle GST saved.
+  const vehicleGstSaved = gstSaved(i);
+  const amountFinancedExGst = Math.max(0, i.driveawayCost + i.leaseDocFee - vehicleGstSaved);
+  const leaseDocFeeExGst = i.leaseDocFee;
+
+  // Use the ATO residual % table (same as LeaseReport).
+  const residualPct = residualPercentForYears(yearsLease);
+
+  const residualIncGst =
+    amountFinancedExGst > 0 && residualPct > 0
+      ? calcResidualPayableIncGst({ amountFinancedExGst, leaseDocFeeExGst, residualPct })
+      : 0;
 
   const rows = dates.map((d, k) => {
     const idx = k + 1;
@@ -283,6 +296,13 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
     const postTaxMult = 1 - avgBracket; // IMPORTANT: post-tax impact multiplier
 
     const inLease = k < leaseFortnights;
+    const isResidualPayRow = k === leaseFortnights;
+
+    // Spreadsheet cadence rules (post-lease NL pathway):
+    // - Annual items (S/M/T, rego, insurance) occur every 26th fortnight as a lump sum.
+    // - Electricity occurs every 4th fortnight as 4× the per-fortnight average.
+    const isAnnualPay = idx % 26 === 0; // 26, 52, 78, 104, 130
+    const isElecPay = idx % 4 === 0; // 4, 8, 12, ...
 
     if (inLease) {
       // Columns are “post-tax cash impact” using postTaxMult.
@@ -320,7 +340,7 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
 
     // Post-lease: no salary packaging; just real running costs
     const rowCore = {
-      cash: 0,
+      cash: isResidualPayRow ? -residualIncGst : 0,
       chargingDelta: 0,
 
       vehicle: 0,
@@ -328,17 +348,17 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
       saveShare: 0,
       fees: 0,
 
-      smt: -postLeaseSmtFn,
-      rego: -postLeaseRegoFn,
-      electricity: -postLeaseElectricityFn,
-      insurance: -postLeaseInsuranceFn,
+      smt: isAnnualPay ? -i.serviceMaintTyresAnnual * postLeaseGstMult : 0,
+      rego: isAnnualPay ? -i.registrationAnnual * postLeaseGstMult : 0,
+      electricity: isElecPay ? -(chargingExpensePerYear / 26) * 4 : 0, // NO GST multiplier
+      insurance: isAnnualPay ? -i.insuranceAnnual * postLeaseGstMult : 0,
     };
 
     return {
       idx,
       date: d,
-      fy,
       avgBracketPct: 0,
+      fy,
       ...rowCore,
       delta: sumCols(rowCore),
       ae: 0,

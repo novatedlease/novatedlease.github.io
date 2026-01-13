@@ -55,6 +55,37 @@ export type Inputs = {
   carLoanMonthlyFee: number;
 };
 
+// --- Shared lease helpers (single source of truth) ---
+
+/**
+ * Residual payable at lease end (inc GST), based on financed amount net of lease doc fee.
+ * Mirrors the formula used in LeaseReport and worksheet modelling.
+ *
+ * Note: financed amounts and doc fees are expected to be EX-GST.
+ */
+export function calcResidualPayableIncGst(args: {
+  amountFinancedExGst: number;
+  leaseDocFeeExGst: number;
+  residualPct: number; // e.g. 28.13
+  gstRate?: number; // default 10%
+}): number {
+  const gstMult = 1 + (args.gstRate ?? 0.1);
+  const base = Math.max(0, args.amountFinancedExGst - args.leaseDocFeeExGst);
+  return base * (args.residualPct / 100) * gstMult;
+}
+
+/**
+ * Residual payable at lease end (ex GST).
+ */
+export function calcResidualPayableExGst(args: {
+  amountFinancedExGst: number;
+  leaseDocFeeExGst: number;
+  residualPct: number;
+}): number {
+  const base = Math.max(0, args.amountFinancedExGst - args.leaseDocFeeExGst);
+  return base * (args.residualPct / 100);
+}
+
 export type SummarySection = {
   title: string;
   bullets: string[];

@@ -1,5 +1,6 @@
 import React from "react";
 import type { Inputs } from "../engine/types";
+import { calcResidualPayableIncGst } from "../engine/types";
 import { taxSummaryAUResident } from "../engine/tax_au";
 import { residualPercentForYears, gstSaved } from "../engine/ato";
 import { aud, aud0, pct } from "../utils/format";
@@ -32,9 +33,13 @@ export function LeaseReport(props: {
 
   // Residual
   const residualPct = residualPercentForYears(i.leaseDurationYears);
-  // Approx: residual based on amount financed excluding GST, then add GST back
-  const residualPayableIncGst =
-    (Math.max(0, amountFinanced - i.leaseDocFee) * (residualPct / 100)) * 1.1;
+
+  // Residual payable (inc GST) — single source of truth (engine/types)
+  const residualPayableIncGst = calcResidualPayableIncGst({
+    amountFinancedExGst: amountFinanced,
+    leaseDocFeeExGst: i.leaseDocFee,
+    residualPct,
+  });
 
   // Electricity model
   const kwhPerYear = (i.annualMileageKm * i.avgWhPerKm) / 1000;

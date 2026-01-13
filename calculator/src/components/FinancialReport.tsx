@@ -170,11 +170,11 @@ useEffect(() => {
   chargingExpensePerYear;
   const postLeaseRunningCost = postLeaseRunningAnnual * yearsPost;
 
-  // Car asset value
-  const carValueAtLeaseEnd = carValueAtYears({
+  // Car asset value at 5 years (explicit)
+  const carValueAt5Years = carValueAtYears({
     originalPrice: i.driveawayCost,
     valueAt5Years: i.estimatedMarketValueAtEnd,
-    years: yearsLease,
+    years: 5,
   });
 
   // --- Scenario 1: EV Bought via Novated Lease ---
@@ -219,6 +219,15 @@ useEffect(() => {
 
   // --- Scenario 4: Keeping Old Car (optional) ---
   const keepEnabled = i.compareWithCurrentCar;
+
+  // SECTION 2 summary table columns: show optional scenarios only if enabled.
+  const summaryVisibleCols: ScenarioKey[] = [
+    "nl",
+    "cash",
+    ...(loanEnabled ? (["loan"] as const) : []),
+    ...(keepEnabled ? (["keep"] as const) : []),
+    ...(keepEnabled ? (["ref"] as const) : []),
+  ];
   const keepRunningAnnual =
     i.currentServiceMaintTyresAnnual +
     i.currentRegistrationAnnual +
@@ -295,8 +304,277 @@ useEffect(() => {
     </div>
   );
 
+  type ScenarioKey = "nl" | "cash" | "loan" | "keep" | "ref";
+
+  const scenarioTitles: Record<ScenarioKey, string> = {
+    nl: "New EV - Novated Lease",
+    cash: "New EV - Offset Cash",
+    loan: "New EV - Car Loan",
+    keep: "Keep Old Car",
+    ref: "Reference (No Car)",
+  };
+
+  const SummaryCombinedTable = (p: {
+    visible: ScenarioKey[];
+    cashRows: Array<{ label: string; values: Partial<Record<ScenarioKey, number | null>>; bold?: boolean }>;
+    assetRows: Array<{ label: string; values: Partial<Record<ScenarioKey, number | null>>; bold?: boolean }>;
+    liabilityRows: Array<{ label: string; values: Partial<Record<ScenarioKey, number | null>>; bold?: boolean }>;
+  }) => {
+    const order: ScenarioKey[] = p.visible;
+    const colSpan = 1 + order.length;
+
+    const renderRows = (
+      rows: Array<{ label: string; values: Partial<Record<ScenarioKey, number | null>>; bold?: boolean }>
+    ) =>
+      rows.map((r, idx) => (
+        <tr key={idx}>
+          <td
+            style={{
+              textAlign: "left",
+              padding: "6px 6px",
+              borderBottom: "1px solid rgba(0,0,0,0.08)",
+              fontWeight: r.bold ? 800 : 500,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {r.label}
+          </td>
+          {order.map((k) => {
+            const v = r.values[k];
+            const cell = v === null || v === undefined ? "$ -" : money2(v);
+            return (
+              <td
+                key={k}
+                style={{
+                  textAlign: "right",
+                  padding: "6px 6px",
+                  borderBottom: "1px solid rgba(0,0,0,0.08)",
+                  fontWeight: r.bold ? 800 : 500,
+                  fontVariantNumeric: "tabular-nums",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {cell}
+              </td>
+            );
+          })}
+        </tr>
+      ));
+
+    return (
+      <div style={{ marginTop: 10 }}>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+            <thead>
+              <tr>
+                <th
+                  style={{
+                    textAlign: "left",
+                    padding: "6px 6px",
+                    borderBottom: "1px solid rgba(0,0,0,0.25)",
+                  }}
+                />
+                {order.map((k) => (
+                  <th
+                    key={k}
+                    style={{
+                      textAlign: "right",
+                      padding: "6px 6px",
+                      borderBottom: "1px solid rgba(0,0,0,0.25)",
+                      fontWeight: 800,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {scenarioTitles[k]}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  colSpan={colSpan}
+                  style={{
+                    padding: "8px 6px",
+                    fontWeight: 900,
+                    borderBottom: "1px solid rgba(0,0,0,0.12)",
+                    background: "rgba(0,0,0,0.03)",
+                  }}
+                >
+                  Cash Flow
+                </td>
+              </tr>
+              {renderRows(p.cashRows)}
+
+              <tr>
+                <td
+                  colSpan={colSpan}
+                  style={{
+                    padding: "12px 6px 8px",
+                    fontWeight: 900,
+                    borderBottom: "1px solid rgba(0,0,0,0.12)",
+                    background: "rgba(0,0,0,0.03)",
+                  }}
+                >
+                  Asset
+                </td>
+              </tr>
+              {renderRows(p.assetRows)}
+
+              <tr>
+                <td
+                  colSpan={colSpan}
+                  style={{
+                    padding: "12px 6px 8px",
+                    fontWeight: 900,
+                    borderBottom: "1px solid rgba(0,0,0,0.12)",
+                    background: "rgba(0,0,0,0.03)",
+                  }}
+                >
+                  Liability
+                </td>
+              </tr>
+              {renderRows(p.liabilityRows)}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  };
+
+    // --- SECTION 2: Financial Summary ---
+
+  // Asset values at end of lease (interpolated)
+  const newEvValueAtLeaseEnd = carValueAtYears({
+    originalPrice: i.driveawayCost,
+    valueAt5Years: i.estimatedMarketValueAtEnd,
+    years: yearsLease,
+  });
+
+  const currentCarValueAtLeaseEnd = carValueAtYears({
+    originalPrice: i.currentCarMarketValueNow,
+    valueAt5Years: i.currentCarMarketValueAtEnd,
+    years: yearsLease,
+  });
+
+  const extraCashFromSaleOfOldCar = i.compareWithCurrentCar ? i.currentCarMarketValueNow : 0;
+  const noCarCashBaseline = i.currentCarMarketValueNow; // “Reference (No Car)” cash baseline
+
+  // Interest (“liability”) at end of lease vs at 5 years
+  const irNl = interestRowsFor("nl");
+  const irCash = interestRowsFor("cash");
+  const irLoan = interestRowsFor("loan");
+  const irKeep = interestRowsFor("keep");
+
+  // Upfront costs
+  const upfrontCash = -i.driveawayCost;
+  const upfrontLoanDeposit = -i.carLoanInitialDeposit;
+
+  // Charging delta as a BENEFIT in the summary tables (positive if claim > actual)
+  const chargingDeltaBenefitOverLease = chargingDeltaAnnual * yearsLease;
+
+  // Running cost totals
+  const runningNonNlAtLeaseEnd_cashLoan = offsetRunningAnnual * yearsLease;
+  const runningNonNlAt5_cashLoan = offsetRunningAnnual * 5;
+
+  const runningNonNlAtLeaseEnd_keep = keepRunningAnnual * yearsLease;
+  const runningNonNlAt5_keep = keepRunningAnnual * 5;
+
+  // For NL: “Non-NL environment” running cost only applies after the lease ends.
+  const runningNonNlAtLeaseEnd_nl = 0;
+  const runningNonNlAt5_nl = postLeaseRunningCost;
+
+  // Totals @ end of lease (cash flow)
+  const cashTotalAtLeaseEnd: Record<ScenarioKey, number> = {
+    nl:
+      extraCashFromSaleOfOldCar +
+      -leasePaymentsOverLease +
+      chargingDeltaBenefitOverLease +
+      -residualPayableIncGst,
+    cash: extraCashFromSaleOfOldCar + upfrontCash + -runningNonNlAtLeaseEnd_cashLoan,
+    loan:
+      extraCashFromSaleOfOldCar +
+      upfrontLoanDeposit +
+      -loanPaymentTotalInclFees +
+      -runningNonNlAtLeaseEnd_cashLoan,
+    keep: -runningNonNlAtLeaseEnd_keep,
+    ref: noCarCashBaseline,
+  };
+
+  // Totals @ 5 years (cash flow)
+  const cashTotalAt5: Record<ScenarioKey, number> = {
+    nl:
+      extraCashFromSaleOfOldCar +
+      -leasePaymentsOverLease +
+      chargingDeltaBenefitOverLease +
+      -residualPayableIncGst +
+      -runningNonNlAt5_nl,
+    cash: extraCashFromSaleOfOldCar + upfrontCash + -runningNonNlAt5_cashLoan,
+    loan:
+      extraCashFromSaleOfOldCar +
+      upfrontLoanDeposit +
+      -loanPaymentTotalInclFees +
+      -runningNonNlAt5_cashLoan,
+    keep: -runningNonNlAt5_keep,
+    ref: noCarCashBaseline,
+  };
+
   return (
     <div style={{ fontSize: 13, lineHeight: 1.35 }}>
+            <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 6 }}>SECTION 2: FINANCIAL SUMMARY</div>
+
+      <div style={{ fontWeight: 800, marginTop: 8 }}>2.1 Summary</div>
+
+      {yearsPost > 0 && (
+        <>
+          <div style={{ marginTop: 10, background: "#e6e6e6", padding: "6px 10px", fontWeight: 800 }}>
+            @ {Math.round(yearsLease)} Years (End of Lease / Loan)
+          </div>
+          <SummaryCombinedTable
+            visible={summaryVisibleCols}
+            cashRows={[
+              { label: "Extra Cash From Sale of Old Car", values: { nl: extraCashFromSaleOfOldCar, cash: extraCashFromSaleOfOldCar, loan: extraCashFromSaleOfOldCar, keep: null, ref: noCarCashBaseline } },
+              { label: "Upfront Cost", values: { nl: null, cash: upfrontCash, loan: upfrontLoanDeposit, keep: null, ref: null } },
+              { label: "Lease / Loan Payments", values: { nl: -leasePaymentsOverLease, cash: null, loan: -loanPaymentTotalInclFees, keep: null, ref: null } },
+              { label: "Running Cost (Non NL Environment)", values: { nl: -runningNonNlAtLeaseEnd_nl, cash: -runningNonNlAtLeaseEnd_cashLoan, loan: -runningNonNlAtLeaseEnd_cashLoan, keep: -runningNonNlAtLeaseEnd_keep, ref: null } },
+              { label: "Charging Delta", values: { nl: chargingDeltaBenefitOverLease, cash: null, loan: null, keep: null, ref: null } },
+              { label: "Residual Value Payable", values: { nl: -residualPayableIncGst, cash: null, loan: null, keep: null, ref: null } },
+              { label: "= Total", values: cashTotalAtLeaseEnd, bold: true },
+            ]}
+            assetRows={[
+              { label: "Car Asset Value (Interpolated Estimate)", values: { nl: newEvValueAtLeaseEnd, cash: newEvValueAtLeaseEnd, loan: newEvValueAtLeaseEnd, keep: currentCarValueAtLeaseEnd, ref: null } },
+            ]}
+            liabilityRows={[
+              { label: "Additional Home Loan Interest Accrued (cf. no car)", values: { nl: irNl.first, cash: irCash.first, loan: irLoan.first, keep: irKeep.first, ref: null } },
+            ]}
+          />
+        </>
+      )}
+
+      <div style={{ marginTop: 14, background: "#e6e6e6", padding: "6px 10px", fontWeight: 800 }}>
+        @ 5 Years
+      </div>
+
+      <SummaryCombinedTable
+        visible={summaryVisibleCols}
+        cashRows={[
+          { label: "Extra Cash From Sale of Old Car", values: { nl: extraCashFromSaleOfOldCar, cash: extraCashFromSaleOfOldCar, loan: extraCashFromSaleOfOldCar, keep: null, ref: noCarCashBaseline } },
+          { label: "Upfront Cost", values: { nl: null, cash: upfrontCash, loan: upfrontLoanDeposit, keep: null, ref: null } },
+          { label: "Lease / Loan Payments", values: { nl: -leasePaymentsOverLease, cash: null, loan: -loanPaymentTotalInclFees, keep: null, ref: null } },
+          { label: "Running Cost (Non NL Environment)", values: { nl: -runningNonNlAt5_nl, cash: -runningNonNlAt5_cashLoan, loan: -runningNonNlAt5_cashLoan, keep: -runningNonNlAt5_keep, ref: null } },
+          { label: "Charging Delta", values: { nl: chargingDeltaBenefitOverLease, cash: null, loan: null, keep: null, ref: null } },
+          { label: "Residual Value Payable", values: { nl: -residualPayableIncGst, cash: null, loan: null, keep: null, ref: null } },
+          { label: "= Total", values: cashTotalAt5, bold: true },
+        ]}
+        assetRows={[
+          { label: "Car Asset Value", values: { nl: i.estimatedMarketValueAtEnd, cash: i.estimatedMarketValueAtEnd, loan: i.estimatedMarketValueAtEnd, keep: i.currentCarMarketValueAtEnd, ref: null } },
+        ]}
+        liabilityRows={[
+          { label: "Additional Home Loan Interest Accrued (cf. no car)", values: { nl: irNl.total, cash: irCash.total, loan: irLoan.total, keep: irKeep.total, ref: null } },
+        ]}
+      />
+
+      <div style={{ marginTop: 14 }} />
       <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
         <div style={{ fontWeight: 900, fontSize: 16 }}>2.2 Detailed Worksheet Per Scenario</div>
         <div style={{ fontSize: 12, opacity: 0.75 }}>
@@ -321,7 +599,7 @@ useEffect(() => {
           ...liabRowsFor("nl"),
           {
             label: "Car Value at 5 Years",
-            value: money2(carValueAtLeaseEnd),
+            value: money2(carValueAt5Years),
           },
         ]}
       />
@@ -384,7 +662,7 @@ useEffect(() => {
       )}
 
       <div style={{ marginTop: 12, fontSize: 12, opacity: 0.75 }}>
-        Liability / additional home-loan interest is computed using the spreadsheet-style AE/AF recurrence across 130 fortnights.
+        “Liability” here refers to the opportunity cost of changing your cash balance. Each fortnight, the model applies your offset/home-loan interest rate to the running balance impact of that scenario. 
       </div>
     </div>
   );
