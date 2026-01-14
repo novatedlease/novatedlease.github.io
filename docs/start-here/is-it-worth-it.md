@@ -54,7 +54,6 @@ A novated lease tends to be more favourable if you:
   you should be prepared (and able) to pay out the residual if you want to own the car  
   otherwise, you risk being stuck perpetually leasing, which may no longer be attractive if FBT exemptions change
 
-If you do plan to pay out the car, you then own an EV outright and continue to enjoy its typically low running costs.
 
 ---
 
