@@ -667,3 +667,184 @@ useEffect(() => {
     </div>
   );
 }
+
+export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedicarePct: number }) {
+  const i = opts.inputs;
+
+  const yearsLease = clamp(i.leaseDurationYears, 0, 5);
+  const fortnights = Math.round(yearsLease * 26);
+  const yearsPost = Math.max(0, 5 - yearsLease);
+
+  const sum = (xs: number[]) => xs.reduce((a, b) => a + b, 0);
+
+  const interestRowsFor = (scenario: "nl" | "cash" | "loan" | "keep") => {
+    const ws = buildWorksheet130({ inputs: i, scenario });
+    const first = sum(ws.slice(0, fortnights).map((r) => r.af));
+    const subsequent = sum(ws.slice(fortnights).map((r) => r.af));
+    const total = first + subsequent;
+    return { first, subsequent, total };
+  };
+
+  // Actual charging cost
+  const kwhPerYear = (i.annualMileageKm * i.avgWhPerKm) / 1000;
+  const chargingExpensePerYear =
+    i.overrideAnnualChargingExpense !== undefined
+      ? i.overrideAnnualChargingExpense
+      : kwhPerYear * i.avgAudPerKwh;
+
+  // NL claim method (ATO shortcut 4.2c/km)
+  const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
+  const chargingDeltaAnnual = assumedChargingClaimPerYear - chargingExpensePerYear;
+
+  // Worksheet uses NEGATIVE of LeaseReport delta, over lease years
+  const chargingDeltaOverLease = -chargingDeltaAnnual * yearsLease;
+
+  // GST saving + amount financed
+  const gstSavedAmt = gstSaved({
+    vehicleCondition: i.vehicleCondition,
+    vehicleBaseValue: i.vehicleBaseValue,
+  });
+  const amountFinanced = i.driveawayCost + i.leaseDocFee - gstSavedAmt;
+
+  // Residual payable (inc GST)
+  const residualPctRaw = residualPercentForYears(yearsLease);
+  const residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
+  const residualPayableIncGst = (amountFinanced - i.leaseDocFee) * residualPct * 1.1;
+
+  // Pre-tax totals (used for FY breakdown to compute take-home impact)
+  const preTaxLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
+
+  const preTaxRunningFn =
+    (i.serviceMaintTyresAnnual +
+      i.saveShareAnnual +
+      i.registrationAnnual +
+      i.insuranceAnnual +
+      i.managementFeesAnnual +
+      assumedChargingClaimPerYear) /
+    26;
+
+  const preTaxTotalFn = preTaxLeaseFn + preTaxRunningFn;
+
+  const fyRows = buildFyBreakdown({ inputs: i, fortnights, preTaxTotalFn });
+  const leasePaymentsOverLease = fyRows.reduce((acc, r) => acc + r.takeHomeImpactPerPay * r.count, 0);
+
+  // Post-lease running cost (real): svc/maint/tyres + rego + electricity(actual) + insurance
+  const gstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
+  const postLeaseRunningAnnual =
+    (i.serviceMaintTyresAnnual + i.registrationAnnual + i.insuranceAnnual) * gstMult +
+    chargingExpensePerYear;
+  const postLeaseRunningCost = postLeaseRunningAnnual * yearsPost;
+
+  // --- Scenario 1: EV Bought via Novated Lease ---
+  const nlTotalSpentAtLeaseEnd = leasePaymentsOverLease + chargingDeltaOverLease + residualPayableIncGst;
+  const nlTotalSpentAt5 = nlTotalSpentAtLeaseEnd + postLeaseRunningCost;
+
+  // --- Scenario 2: EV Bought via Offset Cash (simplified) ---
+  const offsetRunningAnnual =
+    (i.serviceMaintTyresAnnual + i.registrationAnnual + i.insuranceAnnual) * gstMult +
+    chargingExpensePerYear;
+  const offsetRunningOverLease = offsetRunningAnnual * yearsLease;
+  const offsetTotalSpentAtLeaseEnd = i.driveawayCost + offsetRunningOverLease;
+  const offsetTotalSpentAt5 = offsetTotalSpentAtLeaseEnd + postLeaseRunningCost;
+
+  // --- Scenario 3: EV Bought via Car Loan (optional) ---
+  const loanEnabled = i.compareWithCarLoan;
+  const loanPrincipal = Math.max(0, i.driveawayCost - i.carLoanInitialDeposit);
+  const loanFnPmt = loanFortnightlyPayment({
+    principal: loanPrincipal,
+    annualRatePct: i.carLoanInterestRatePct,
+    years: yearsLease,
+  });
+
+  const loanFortnights = Math.round(yearsLease * 26);
+  const loanPaymentTotal = (-loanFnPmt) * loanFortnights;
+
+  const loanMonths = Math.round(yearsLease * 12);
+  const loanFeesTotal = i.carLoanMonthlyFee * loanMonths;
+  const loanPaymentTotalInclFees = loanPaymentTotal + loanFeesTotal;
+
+  const loanRunningOverLease = offsetRunningAnnual * yearsLease;
+  const loanTotalSpentAtLeaseEnd =
+    i.carLoanInitialDeposit + loanPaymentTotal + loanFeesTotal + loanRunningOverLease;
+  const loanTotalSpentAt5 = loanTotalSpentAtLeaseEnd + postLeaseRunningCost;
+
+  // --- Scenario 4: Keeping Old Car (optional) ---
+  const keepEnabled = i.compareWithCurrentCar;
+  const keepRunningAnnual =
+    i.currentServiceMaintTyresAnnual +
+    i.currentRegistrationAnnual +
+    i.currentFuelAnnual +
+    i.currentInsuranceAnnual;
+  const keepRunningOverLease = keepRunningAnnual * yearsLease;
+  const keepRunningPost = keepRunningAnnual * yearsPost;
+  const keepTotalSpentAt5 = keepRunningOverLease + keepRunningPost;
+
+  // Asset values at end of lease (interpolated)
+  const newEvValueAtLeaseEnd = carValueAtYears({
+    originalPrice: i.driveawayCost,
+    valueAt5Years: i.estimatedMarketValueAtEnd,
+    years: yearsLease,
+  });
+
+  const currentCarValueAtLeaseEnd = carValueAtYears({
+    originalPrice: i.currentCarMarketValueNow,
+    valueAt5Years: i.currentCarMarketValueAtEnd,
+    years: yearsLease,
+  });
+
+  const extraCashFromSaleOfOldCar = i.compareWithCurrentCar ? i.currentCarMarketValueNow : 0;
+
+  // Charging delta as a BENEFIT in the summary tables (positive if claim > actual)
+  const chargingDeltaBenefitOverLease = chargingDeltaAnnual * yearsLease;
+
+  // Interest (“liability”) at end of lease vs at 5 years
+  const irNl = interestRowsFor("nl");
+  const irCash = interestRowsFor("cash");
+  const irLoan = interestRowsFor("loan");
+  const irKeep = interestRowsFor("keep");
+
+  return {
+    yearsLease,
+    fortnights,
+    yearsPost,
+
+    // Charging
+    chargingExpensePerYear,
+    assumedChargingClaimPerYear,
+    chargingDeltaAnnual,
+    chargingDeltaOverLease,
+    chargingDeltaBenefitOverLease,
+
+    // Core cash totals
+    leasePaymentsOverLease,
+    residualPayableIncGst,
+    nlTotalSpentAtLeaseEnd,
+    nlTotalSpentAt5,
+    offsetRunningOverLease,
+    offsetTotalSpentAtLeaseEnd,
+    offsetTotalSpentAt5,
+
+    // Loan (optional)
+    loanEnabled,
+    loanPaymentTotalInclFees,
+    loanTotalSpentAtLeaseEnd,
+    loanTotalSpentAt5,
+
+    // Keep (optional)
+    keepEnabled,
+    keepRunningOverLease,
+    keepRunningPost,
+    keepTotalSpentAt5,
+
+    // Interest impacts
+    irNl,
+    irCash,
+    irLoan,
+    irKeep,
+
+    // Assets + sale proceeds
+    newEvValueAtLeaseEnd,
+    currentCarValueAtLeaseEnd,
+    extraCashFromSaleOfOldCar,
+  };
+}
