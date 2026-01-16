@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+
 import { LeaseReport } from "./components/LeaseReport";
 import type { Inputs } from "./engine/types";
 import { buildFyBreakdown } from "./engine/fy_breakdown";
 import { FinancialReport } from "./components/FinancialReport";
-import { computeFinancialSummary } from "./components/FinancialReport";
 import ATI from "./components/ATI";
 import SG from "./components/SG";
+import SummaryView from "./components/SummaryView";
 
 function num(v: string): number {
   const x = Number(v);
@@ -304,10 +305,6 @@ function SelectNewUsed(props: {
 
 
 
-function fmtAud0(n: number): string {
-  return `$${Math.round(n).toLocaleString("en-AU")}`;
-}
-
 // ------------------------------
 // URL state (shareable scenarios)
 // ------------------------------
@@ -560,7 +557,17 @@ export default function App() {
   }, [inputs.driveawayCost]);
 
   return (
-  <div id="nl-calculator-root" style={{ width: "100%" }}>
+  <div
+    id="nl-calculator-root"
+    style={{
+      width: "100%",
+      fontFamily:
+        '"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif',
+      fontSize: 16,
+      lineHeight: 1.65,
+      color: "rgba(0,0,0,0.9)",
+    }}
+  >
       <h1 style={{ marginBottom: 8 }}>Novated Lease Calculator (WIP)</h1>
       <p style={{ marginTop: 0, opacity: 0.8 }}>
         This is a development shell. The numbers are stubbed.
@@ -583,7 +590,15 @@ export default function App() {
             padding: 16,
           }}
         >
-          <h2 style={{ marginTop: 0 }}>Inputs</h2>
+          <div
+            style={{
+              fontWeight: 800,
+              fontSize: 18,
+              marginBottom: 12,
+            }}
+          >
+            Inputs
+          </div>
 
           <Section title="EV CALCULATIONS (FBT-EXEMPT)">
             <SelectNewUsed
@@ -918,7 +933,15 @@ export default function App() {
               marginBottom: 12,
             }}
           >
-            <div style={{ fontWeight: 800 }}>Outputs</div>
+            <div
+              style={{
+                fontWeight: 800,
+                fontSize: 18,
+                marginBottom: 12,
+              }}
+            >
+              Outputs
+            </div>
             <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
               <button
                 type="button"
@@ -951,249 +974,7 @@ export default function App() {
           </div>
 
           {outputTab === "Summary" ? (
-            <div
-              style={{
-                border: "1px solid rgba(0,0,0,0.15)",
-                borderRadius: 12,
-                padding: 16,
-              }}
-            >
-              {(() => {
-                const s = computeFinancialSummary({
-                  inputs,
-                  taxRateInclMedicarePct: 47,
-                });
-
-                // Summary is always framed over 5 years of ownership, regardless of lease duration.
-                const years = 5;
-
-                const titleA = "New EV via Novated Lease";
-                const titleB = "New EV via Offset Cash";
-
-                // NL vs Offset Cash
-                const cashflowSaving =
-                  s.offsetTotalSpentAt5 - s.nlTotalSpentAt5;
-
-                // Home-loan interest saving: NL is better if it incurs LESS interest.
-                // Use 5-year totals.
-                const homeLoanInterestSaving =
-                  s.irNl.total - s.irCash.total;
-
-                const totalSaving = cashflowSaving + homeLoanInterestSaving;
-
-                // NL vs Car Loan (optional) — over 5 years
-                const cashflowSavingVsLoan = s.loanTotalSpentAt5 - s.nlTotalSpentAt5;
-                const homeLoanInterestSavingVsLoan = s.irNl.total - s.irLoan.total;
-                const totalSavingVsLoan = cashflowSavingVsLoan + homeLoanInterestSavingVsLoan;
-
-                // Electricity delta over lease (benefit if positive)
-                const chargingDeltaTotal = s.chargingDeltaBenefitOverLease;
-                // The engine's NL 5-year cashflow totals include the charging delta adjustment.
-                // For the headline “cashflow total”, we want the total WITHOUT charging delta.
-                const nlTotalSpentAt5ExclChargingDelta = s.nlTotalSpentAt5 + chargingDeltaTotal;
-
-                // Optional: compare with keeping current car
-                const showCurrentCar = inputs.compareWithCurrentCar;
-
-                // Optional: compare with traditional car loan
-                const showLoan = inputs.compareWithCarLoan;
-
-                // Use 5-year totals for interest impacts
-                const nlHomeLoanInterestImpact = s.irNl.total;
-                const cashHomeLoanInterestImpact = s.irCash.total;
-                const currentHomeLoanInterestImpact = s.irKeep.total;
-
-                // Asset values: use explicit 5-year values
-                const evEndValue = inputs.estimatedMarketValueAtEnd; // explicit 5-year value
-                const currentEndValue = inputs.currentCarMarketValueAtEnd; // explicit 5-year value
-
-                // Selling current car now provides cash-in
-                const saleProceedsNow = s.extraCashFromSaleOfOldCar;
-
-                const keepRunningCostTotal = s.keepTotalSpentAt5;
-
-                // Decomposition (must sum to the headline total)
-                const assetDelta = evEndValue - currentEndValue;
-                const cashDelta =
-                  keepRunningCostTotal -
-                  (s.nlTotalSpentAt5 - saleProceedsNow);
-                // Home-loan interest impacts are negative costs; a “saving” should be positive when NL incurs LESS interest.
-                const interestDelta =
-                  nlHomeLoanInterestImpact - currentHomeLoanInterestImpact;
-
-                // Total saving = sum of components (keeps the decomposition identity true)
-                const nlVsKeepSaving = assetDelta + cashDelta + interestDelta;
-
-                return (
-                  <>
-                    {/* Card 1: NL vs Offset Cash */}
-                    <div style={{ fontWeight: 900, marginBottom: 6 }}>
-                      Summary — {titleA} vs {titleB}
-                    </div>
-
-                    <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55 }}>
-                      <div style={{ marginBottom: 8 }}>
-                        Over <b>{years}</b> years, the novated lease option is
-                        <b> {fmtAud0(totalSaving)}</b>{" "}
-                        {totalSaving >= 0 ? "better" : "worse"} than buying with offset cash
-                        (cashflow + estimated home-loan interest impact).
-                      </div>
-
-                      <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>
-                        <li>
-                          {titleA} (cashflow over 5 years): {fmtAud0(s.leasePaymentsOverLease)} in lease payments,{" "}
-                          {fmtAud0(s.residualPayableIncGst)} residual, and{" "}
-                          {fmtAud0(Math.max(0, s.nlTotalSpentAt5 - s.nlTotalSpentAtLeaseEnd))} post-lease running costs
-                          = {fmtAud0(nlTotalSpentAt5ExclChargingDelta)} total (excluding charging delta).
-                        </li>
-                        <li>
-                          {titleB} (cashflow over 5 years): {fmtAud0(inputs.driveawayCost)} driveaway, and{" "}
-                          {fmtAud0(Math.max(0, s.offsetTotalSpentAt5 - inputs.driveawayCost))} running costs
-                          = {fmtAud0(s.offsetTotalSpentAt5)} total.
-                        </li>
-                        <li>
-                          Electricity: novated lease claims {fmtAud0(s.assumedChargingClaimPerYear)}{" "}
-                          per year (ATO shortcut), vs you estimate {fmtAud0(s.chargingExpensePerYear)}{" "}
-                          per year actual. That difference sums to {fmtAud0(chargingDeltaTotal)}{" "}
-                          over the lease term.
-                        </li>
-                        <li>
-                          Home-loan interest impact (estimated using your offset rate{" "}
-                          {inputs.homeLoanOffsetInterestRate}%):{" "}
-                          {titleA} adds {fmtAud0(nlHomeLoanInterestImpact)} vs{" "}
-                          {titleB} adds {fmtAud0(cashHomeLoanInterestImpact)} over 5 years.
-                        </li>
-                        <li>
-                          Decomposition: {fmtAud0(totalSaving)} total ={" "}
-                          {fmtAud0(cashflowSaving)} cashflow difference +{" "}
-                          {fmtAud0(homeLoanInterestSaving)} home-loan interest difference.
-                        </li>
-                      </ul>
-
-                      <div style={{ marginTop: 10, fontSize: 13, opacity: 0.82 }}>
-                        End EV value assumption: both options end with the same car, valued at{" "}
-                        <b>{fmtAud0(evEndValue)}</b> after {years} years,
-                        so it cancels out in the NL vs Offset Cash comparison.
-                      </div>
-                    </div>
-
-                    {/* Card 2: NL vs Car Loan (optional) */}
-                    {showLoan && (
-                      <div
-                        style={{
-                          border: "1px solid rgba(0,0,0,0.15)",
-                          borderRadius: 12,
-                          padding: 16,
-                          marginTop: 16,
-                        }}
-                      >
-                        <div style={{ fontWeight: 900, marginBottom: 6 }}>
-                          Summary — {titleA} vs New EV via Car Loan
-                        </div>
-
-                        <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55 }}>
-                          <div style={{ marginBottom: 8 }}>
-                            Over <b>{years}</b> years, the novated lease option is{" "}
-                            <b>{fmtAud0(totalSavingVsLoan)}</b>{" "}
-                            {totalSavingVsLoan >= 0 ? "better" : "worse"} than buying the same car via
-                            a traditional car loan (cashflow + estimated home-loan interest impact).
-                          </div>
-
-                          <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>
-                            <li>
-                              {titleA} (cashflow over 5 years): {fmtAud0(s.leasePaymentsOverLease)} in lease payments,{" "}
-                              {fmtAud0(s.residualPayableIncGst)} residual, and{" "}
-                              {fmtAud0(Math.max(0, s.nlTotalSpentAt5 - s.nlTotalSpentAtLeaseEnd))} post-lease running costs
-                              = {fmtAud0(nlTotalSpentAt5ExclChargingDelta)} total (excluding charging delta).
-                            </li>
-                            <li>
-                              New EV via Car Loan (cashflow over 5 years): deposit {fmtAud0(inputs.carLoanInitialDeposit)},{" "}
-                              loan repayments + fees {fmtAud0(s.loanPaymentTotalInclFees)}, and{" "}
-                              running costs{" "}
-                              {fmtAud0(
-                                Math.max(
-                                  0,
-                                  s.loanTotalSpentAt5 - (inputs.carLoanInitialDeposit + s.loanPaymentTotalInclFees)
-                                )
-                              )}{" "}
-                              = {fmtAud0(s.loanTotalSpentAt5)} total.
-                            </li>
-                            <li>
-                              Home-loan interest impact (estimated using your offset rate {inputs.homeLoanOffsetInterestRate}%):{" "}
-                              {titleA} adds {fmtAud0(nlHomeLoanInterestImpact)} vs car loan adds{" "}
-                              {fmtAud0(s.irLoan.total)} over 5 years.
-                            </li>
-                            <li>
-                              Decomposition: {fmtAud0(totalSavingVsLoan)} total ={" "}
-                              {fmtAud0(cashflowSavingVsLoan)} cashflow difference +{" "}
-                              {fmtAud0(homeLoanInterestSavingVsLoan)} home-loan interest difference.
-                            </li>
-                          </ul>
-
-                          <div style={{ marginTop: 10, fontSize: 13, opacity: 0.82 }}>
-                            End EV value assumption: both options end with the same car, valued at{" "}
-                            <b>{fmtAud0(evEndValue)}</b> after {years} years, so it cancels out in this comparison.
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Card 3: NL vs Keeping Current Car (optional) */}
-                    {showCurrentCar && (
-                      <div
-                        style={{
-                          border: "1px solid rgba(0,0,0,0.15)",
-                          borderRadius: 12,
-                          padding: 16,
-                          marginTop: 16,
-                        }}
-                      >
-                        <div style={{ fontWeight: 900, marginBottom: 6 }}>
-                          Summary — {titleA} vs Keeping Current Car
-                        </div>
-
-                        <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55 }}>
-                          <div style={{ marginBottom: 8 }}>
-                            Over <b>{years}</b> years (incl. end car value and selling your
-                            current car now), the new EV via novated lease is{" "}
-                            <b>{fmtAud0(nlVsKeepSaving)}</b>{" "}
-                            {nlVsKeepSaving >= 0 ? "better" : "worse"} than keeping your current
-                            car.
-                          </div>
-
-                          <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>
-                            <li>
-                              End assets: EV ends at {fmtAud0(evEndValue)} vs current car ends at{" "}
-                              {fmtAud0(currentEndValue)} (asset difference {fmtAud0(assetDelta)}).
-                            </li>
-                            <li>
-                              Cashflows (over 5 years): NL spends {fmtAud0(s.nlTotalSpentAt5)} but recovers{" "}
-                              {fmtAud0(saleProceedsNow)} from selling the current car now; keeping
-                              the current car spends {fmtAud0(keepRunningCostTotal)} in running
-                              costs.
-                            </li>
-                            <li>
-                              Home-loan interest impact (estimated at {inputs.homeLoanOffsetInterestRate}%): NL adds{" "}
-                              {fmtAud0(-nlHomeLoanInterestImpact)} vs keeping current car adds{" "}
-                              {fmtAud0(-currentHomeLoanInterestImpact)} (saving {fmtAud0(interestDelta)}).
-                            </li>
-                            <li>
-                              Decomposition: {fmtAud0(nlVsKeepSaving)} total ={" "}
-                              {fmtAud0(assetDelta)} asset difference + {fmtAud0(cashDelta)} cashflow
-                              difference + {fmtAud0(interestDelta)} home-loan interest difference.
-                            </li>
-                          </ul>
-
-                          <div style={{ marginTop: 10, fontSize: 13, opacity: 0.75 }}>
-                            Note: this is now engine-driven and matches the detailed engine outputs.
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                );
-              })()}
-            </div>
+            <SummaryView inputs={inputs} />
           ) : (
             <>
               <div
