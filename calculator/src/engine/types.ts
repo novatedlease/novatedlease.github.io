@@ -14,6 +14,7 @@ export type Inputs = {
   leaseDocFee: number;
   leaseStartDate: string; // ISO yyyy-mm-dd
   leaseDurationYears: number;
+  monthsDeferred: number;
 
   // Income + benchmark
   totalTaxableIncome: number;
@@ -22,6 +23,7 @@ export type Inputs = {
   // Fortnightly quote items
   vehicleLeasePerFn: number;
   luxuryVehicleAdjPerFn: number;
+  financedAmountForInterestCalcExGst: number;
 
   superFromPreNlIncome: YesNo;
   gstSavingPassedOn: YesNo;

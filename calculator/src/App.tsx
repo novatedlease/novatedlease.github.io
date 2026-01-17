@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-
 import { LeaseReport } from "./components/LeaseReport";
 import type { Inputs } from "./engine/types";
 import { buildFyBreakdown } from "./engine/fy_breakdown";
@@ -7,15 +6,14 @@ import { FinancialReport } from "./components/FinancialReport";
 import ATI from "./components/ATI";
 import SG from "./components/SG";
 import SummaryView from "./components/SummaryView";
+import InputsPanel from "./components/InputsPanel";
+import {
+  effectiveAnnualRateFromFortnightlyLease,
+  financedAmountExGstFromInputs,
+  fortnightlyLeaseFromEffectiveAnnualRate,
+} from "./engine/effectiveinterest";
+import { residualPercentForYears } from "./engine/ato";
 
-function num(v: string): number {
-  const x = Number(v);
-  return Number.isFinite(x) ? x : 0;
-}
-
-function audInput(n: number): string {
-  return `$ ${n.toLocaleString("en-AU", { maximumFractionDigits: 2 })}`;
-}
 
 function estMarketValueFromDriveaway(driveawayCost: number): number {
   return Math.round((driveawayCost * 0.4) / 1000) * 1000;
@@ -110,198 +108,6 @@ function TabButton(props: {
   );
 }
 
-function Section(props: { title: string; children: React.ReactNode }) {
-  return (
-    <div style={{ marginBottom: 16 }}>
-      <div style={{ fontWeight: 800, marginBottom: 8 }}>{props.title}</div>
-      <div style={{ display: "grid", gap: 10 }}>{props.children}</div>
-    </div>
-  );
-}
-
-function MoneyField(props: {
-  label: string;
-  value: number;
-  step?: number;
-  min?: number;
-  onChange: (v: number) => void;
-}) {
-  const isEditingRef = useRef(false);
-  const [draft, setDraft] = useState<string>(String(props.value));
-
-  // When external value changes, update the draft ONLY if user isn't typing.
-  useEffect(() => {
-    if (!isEditingRef.current) setDraft(String(props.value));
-  }, [props.value]);
-
-  function sanitizeMoneyInput(s: string): string {
-    // Keep digits and a single decimal point.
-    const cleaned = s.replace(/[^0-9.]/g, "");
-    const firstDot = cleaned.indexOf(".");
-    if (firstDot === -1) return cleaned;
-    return (
-      cleaned.slice(0, firstDot + 1) + cleaned.slice(firstDot + 1).replace(/\./g, "")
-    );
-  }
-
-  return (
-    <label style={{ display: "grid", gap: 6 }}>
-      <span style={{ fontSize: 13, opacity: 0.85 }}>{props.label}</span>
-      <input
-        type="text"
-        inputMode="decimal"
-        value={isEditingRef.current ? `$ ${draft}` : audInput(props.value)}
-        onFocus={() => {
-          isEditingRef.current = true;
-          setDraft(String(props.value));
-        }}
-        onChange={(e) => {
-          isEditingRef.current = true;
-          const raw = e.target.value.replace(/^\$\s?/, "");
-          setDraft(sanitizeMoneyInput(raw));
-        }}
-        onBlur={() => {
-          isEditingRef.current = false;
-          const v = num(draft);
-          props.onChange(v);
-          setDraft(String(v));
-        }}
-        style={{ width: "100%" }}
-      />
-    </label>
-  );
-}
-
-
-function NumberField(props: {
-  label: string;
-  value: number;
-  step?: number;
-  min?: number;
-  onChange: (v: number) => void;
-}) {
-  return (
-    <label style={{ display: "grid", gap: 6 }}>
-      <span style={{ fontSize: 13, opacity: 0.85 }}>{props.label}</span>
-      <input
-        type="number"
-        value={props.value}
-        step={props.step}
-        min={props.min}
-        onChange={(e) => props.onChange(num(e.target.value))}
-        style={{ width: "100%" }}
-      />
-    </label>
-  );
-}
-
-function LeaseDurationSelect(props: {
-  label: string;
-  value: number;
-  onChange: (v: number) => void;
-}) {
-  return (
-    <label style={{ display: "grid", gap: 6 }}>
-      <span style={{ fontSize: 13, opacity: 0.85 }}>{props.label}</span>
-      <select
-        value={props.value}
-        onChange={(e) => props.onChange(Number(e.target.value))}
-        style={{ width: "100%" }}
-      >
-        {[1, 2, 3, 4, 5].map((y) => (
-          <option key={y} value={y}>
-            {y}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-function ReadOnlyValue(props: { label: string; value: string }) {
-  return (
-    <div style={{ display: "grid", gap: 6 }}>
-      <span style={{ fontSize: 13, opacity: 0.85 }}>{props.label}</span>
-      <div
-        style={{
-          width: "100%",
-          padding: "6px 8px",
-          border: "1px solid rgba(0,0,0,0.2)",
-          borderRadius: 6,
-          background: "rgba(0,0,0,0.03)",
-        }}
-      >
-        {props.value}
-      </div>
-    </div>
-  );
-}
-
-function DateField(props: { label: string; value: string; onChange: (v: string) => void }) {
-  return (
-    <label style={{ display: "grid", gap: 6 }}>
-      <span style={{ fontSize: 13, opacity: 0.85 }}>{props.label}</span>
-      <input
-        type="date"
-        value={props.value}
-        onChange={(e) => props.onChange(e.target.value)}
-        style={{ width: "100%" }}
-      />
-    </label>
-  );
-}
-
-function SelectYesNo(props: { label: string; value: YesNo; onChange: (v: YesNo) => void }) {
-  return (
-    <label style={{ display: "grid", gap: 6 }}>
-      <span style={{ fontSize: 13, opacity: 0.85 }}>{props.label}</span>
-      <select
-        value={props.value}
-        onChange={(e) => props.onChange(e.target.value as YesNo)}
-        style={{ width: "100%" }}
-      >
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-    </label>
-  );
-}
-
-function SelectNewUsed(props: {
-  label: string;
-  value:
-    | "New"
-    | "Used – dealer sale (GST inc)"
-    | "Used – private sale (no GST)";
-  onChange: (
-    v:
-      | "New"
-      | "Used – dealer sale (GST inc)"
-      | "Used – private sale (no GST)"
-  ) => void;
-}) {
-  return (
-    <label style={{ display: "grid", gap: 6 }}>
-      <span style={{ fontSize: 13, opacity: 0.85 }}>{props.label}</span>
-      <select
-        value={props.value}
-        onChange={(e) =>
-          props.onChange(
-            e.target.value as
-              | "New"
-              | "Used – dealer sale (GST inc)"
-              | "Used – private sale (no GST)"
-          )
-        }
-        style={{ width: "100%" }}
-      >
-        <option value="New">New</option>
-        <option value="Used – dealer sale (GST inc)">Used – dealer sale (GST inc)</option>
-        <option value="Used – private sale (no GST)">Used – private sale (no GST)</option>
-      </select>
-    </label>
-  );
-}
 
 
 
@@ -367,12 +173,17 @@ function coerceInputsFromUrl(partial: Partial<Inputs>, defaults: Inputs): Inputs
     leaseDocFee: safeNum(partial.leaseDocFee, defaults.leaseDocFee),
     leaseStartDate: isValidIsoDate(partial.leaseStartDate) ? partial.leaseStartDate : defaults.leaseStartDate,
     leaseDurationYears: safeNum(partial.leaseDurationYears, defaults.leaseDurationYears),
+    monthsDeferred: safeNum((partial as any).monthsDeferred, defaults.monthsDeferred),
 
     totalTaxableIncome: safeNum(partial.totalTaxableIncome, defaults.totalTaxableIncome),
     homeLoanOffsetInterestRate: safeNum(partial.homeLoanOffsetInterestRate, defaults.homeLoanOffsetInterestRate),
 
     vehicleLeasePerFn: safeNum(partial.vehicleLeasePerFn, defaults.vehicleLeasePerFn),
     luxuryVehicleAdjPerFn: safeNum(partial.luxuryVehicleAdjPerFn, defaults.luxuryVehicleAdjPerFn),
+    financedAmountForInterestCalcExGst: safeNum(
+      (partial as any).financedAmountForInterestCalcExGst,
+      defaults.financedAmountForInterestCalcExGst
+    ),
 
     superFromPreNlIncome: safeYesNo(partial.superFromPreNlIncome, defaults.superFromPreNlIncome),
     gstSavingPassedOn: safeYesNo(partial.gstSavingPassedOn, defaults.gstSavingPassedOn),
@@ -445,12 +256,14 @@ export default function App() {
       .toISOString()
       .slice(0, 10),
     leaseDurationYears: 5,
+    monthsDeferred: 2,
 
     totalTaxableIncome: 300000,
     homeLoanOffsetInterestRate: 6.1,
 
     vehicleLeasePerFn: 597.47,
     luxuryVehicleAdjPerFn: 0,
+    financedAmountForInterestCalcExGst: 75538.50,
 
     superFromPreNlIncome: "Yes",
     gstSavingPassedOn: "Yes",
@@ -556,6 +369,112 @@ export default function App() {
     }
   }, [inputs.driveawayCost]);
 
+  // ------------------------------
+  // Lease quote safeguard + live hint (Definition 1)
+  // ------------------------------
+
+  const [leaseQuoteGuardMsg, setLeaseQuoteGuardMsg] = useState<string>("");
+
+  function normalizedResidualPctForYears(years: number): number {
+    const residualPctRaw = residualPercentForYears(years);
+    let residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
+    // Guard against double scaling (e.g. 0.002813 instead of 0.2813)
+    if (residualPct > 0 && residualPct < 0.01) residualPct *= 100;
+    return residualPct;
+  }
+
+  // Definition 1 basis (same idea as Section 4)
+  const guardLeaseYears = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
+  const guardDeferMonths = Math.max(0, Math.round(inputs.monthsDeferred));
+
+  const guardFinancedStandardExGst = financedAmountExGstFromInputs(inputs);
+  const guardResidualPct = normalizedResidualPctForYears(guardLeaseYears);
+  const guardResidualStandardExGst =
+    Math.max(0, guardFinancedStandardExGst - inputs.leaseDocFee) * guardResidualPct;
+
+  // Compute the live “equivalent effective rate” from the current input (Definition 1)
+  const guardTotalLeaseFn = Math.max(0, inputs.vehicleLeasePerFn);
+
+  const guardLiveRate = (() => {
+    try {
+      return effectiveAnnualRateFromFortnightlyLease({
+        financedAmountExGst: guardFinancedStandardExGst,
+        residualValueExGst: guardResidualStandardExGst,
+        leaseYears: guardLeaseYears,
+        deferMonths: guardDeferMonths,
+        fortnightlyLeasePayment: guardTotalLeaseFn,
+      });
+    } catch {
+      return NaN;
+    }
+  })();
+
+  // Allowed range: based on Definition 1 and total lease per fn (vehicle only)
+  // Min rate 0.1% p.a. and max rate 30% p.a.
+  const guardMinTotalLeaseFn = (() => {
+    try {
+      return fortnightlyLeaseFromEffectiveAnnualRate({
+        financedAmountExGst: guardFinancedStandardExGst,
+        residualValueExGst: guardResidualStandardExGst,
+        leaseYears: guardLeaseYears,
+        deferMonths: guardDeferMonths,
+        effectiveAnnualRate: 0.001,
+      });
+    } catch {
+      return NaN;
+    }
+  })();
+
+  const guardMaxTotalLeaseFn = (() => {
+    try {
+      return fortnightlyLeaseFromEffectiveAnnualRate({
+        financedAmountExGst: guardFinancedStandardExGst,
+        residualValueExGst: guardResidualStandardExGst,
+        leaseYears: guardLeaseYears,
+        deferMonths: guardDeferMonths,
+        effectiveAnnualRate: 0.3,
+      });
+    } catch {
+      return NaN;
+    }
+  })();
+
+  // Convert total range to a range for *vehicleLeasePerFn* (no luxury adj)
+  const guardMinVehicleLeaseFn = guardMinTotalLeaseFn;
+  const guardMaxVehicleLeaseFn = guardMaxTotalLeaseFn;
+
+  function formatPct(x: number): string {
+    return Number.isFinite(x) ? `${(x * 100).toFixed(2)}%` : "—";
+  }
+
+  function formatMoney(x: number): string {
+    return `$ ${x.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  }
+
+  function handleVehicleLeasePerFnChange(nextVehicleLeasePerFn: number) {
+    const next = Math.max(0, nextVehicleLeasePerFn);
+
+    // If we cannot compute bounds, allow the change.
+    if (!Number.isFinite(guardMinVehicleLeaseFn) || !Number.isFinite(guardMaxVehicleLeaseFn)) {
+      setInputs((p) => ({ ...p, vehicleLeasePerFn: next }));
+      setLeaseQuoteGuardMsg("");
+      return;
+    }
+
+    if (next < guardMinVehicleLeaseFn || next > guardMaxVehicleLeaseFn) {
+      // Reject change and keep previous value.
+      setLeaseQuoteGuardMsg(
+        `Rejected: outside plausible range (${formatMoney(guardMinVehicleLeaseFn)} to ${formatMoney(
+          guardMaxVehicleLeaseFn
+        )}) given 0.1%–30% effective rate (Definition 1).`
+      );
+      return;
+    }
+
+    setInputs((p) => ({ ...p, vehicleLeasePerFn: next }));
+    setLeaseQuoteGuardMsg("");
+  }
+
   return (
   <div
     id="nl-calculator-root"
@@ -568,10 +487,7 @@ export default function App() {
       color: "rgba(0,0,0,0.9)",
     }}
   >
-      <h1 style={{ marginBottom: 8 }}>Novated Lease Calculator (WIP)</h1>
-      <p style={{ marginTop: 0, opacity: 0.8 }}>
-        This is a development shell. The numbers are stubbed.
-      </p>
+      <h1 style={{ marginBottom: 8 }}>Novated Lease Calculator</h1>
 
       <div
         className="nl-layout"
@@ -590,328 +506,14 @@ export default function App() {
             padding: 16,
           }}
         >
-          <div
-            style={{
-              fontWeight: 800,
-              fontSize: 18,
-              marginBottom: 12,
-            }}
-          >
-            Inputs
-          </div>
-
-          <Section title="EV CALCULATIONS (FBT-EXEMPT)">
-            <SelectNewUsed
-              label="Vehicle condition"
-              value={inputs.vehicleCondition}
-              onChange={(v) => setInputs((p) => ({ ...p, vehicleCondition: v }))}
-            />
-            <MoneyField
-              label="Vehicle Dutiable Value (aka FBT Base Value)"
-              value={inputs.vehicleBaseValue}
-              step={100}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, vehicleBaseValue: v }))}
-            />
-            <MoneyField
-              label="Driveaway Cost (after on road)"
-              value={inputs.driveawayCost}
-              step={100}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, driveawayCost: v }))}
-            />
-            <MoneyField
-              label={`Estimated Market Value after ${inputs.leaseDurationYears} Years`}
-              value={inputs.estimatedMarketValueAtEnd}
-              step={100}
-              min={0}
-              onChange={(v) =>
-                setInputs((p) => ({ ...p, estimatedMarketValueAtEnd: v }))
-              }
-            />
-            <NumberField
-              label="Annual Mileage (km)"
-              value={inputs.annualMileageKm}
-              step={500}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, annualMileageKm: v }))}
-            />
-            <MoneyField
-              label="Lease Documentation Fee"
-              value={inputs.leaseDocFee}
-              step={10}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, leaseDocFee: v }))}
-            />
-            <DateField
-              label="Lease Starting Date"
-              value={inputs.leaseStartDate}
-              onChange={(v) => setInputs((p) => ({ ...p, leaseStartDate: v }))}
-            />
-            <LeaseDurationSelect
-              label="Lease Duration (Years)"
-              value={inputs.leaseDurationYears}
-              onChange={(v) => setInputs((p) => ({ ...p, leaseDurationYears: v }))}
-            />
-          </Section>
-
-          <Section title="FINANCIALS">
-            <MoneyField
-              label="Total Taxable Income"
-              value={inputs.totalTaxableIncome}
-              step={1000}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, totalTaxableIncome: v }))}
-            />
-            <NumberField
-              label="Home Loan Offset Interest Rate (%)"
-              value={inputs.homeLoanOffsetInterestRate}
-              step={0.01}
-              min={0}
-              onChange={(v) =>
-                setInputs((p) => ({ ...p, homeLoanOffsetInterestRate: v }))
-              }
-            />
-          </Section>
-
-          <Section title="LEASE QUOTE (PER FORTNIGHT)">
-            <MoneyField
-              label="Vehicle Lease (Per Fortnight)"
-              value={inputs.vehicleLeasePerFn}
-              step={1}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, vehicleLeasePerFn: v }))}
-            />
-            <MoneyField
-              label="Luxury Vehicle Adjustment (Per Fortnight)"
-              value={inputs.luxuryVehicleAdjPerFn}
-              step={1}
-              min={0}
-              onChange={(v) =>
-                setInputs((p) => ({ ...p, luxuryVehicleAdjPerFn: v }))
-              }
-            />
-            <SelectYesNo
-              label="Super Guarantee Calculated From Pre-NL Income"
-              value={inputs.superFromPreNlIncome}
-              onChange={(v) => setInputs((p) => ({ ...p, superFromPreNlIncome: v }))}
-            />
-          </Section>
-
-          <Section title="ANNUAL PACKAGED RUNNING COST (ex GST)">
-            <SelectYesNo
-              label="GST saving passed on in NL?"
-              value={inputs.gstSavingPassedOn}
-              onChange={(v) => setInputs((p) => ({ ...p, gstSavingPassedOn: v }))}
-            />
-            <MoneyField
-              label="Service / Maintenance / Tyres"
-              value={inputs.serviceMaintTyresAnnual}
-              step={10}
-              min={0}
-              onChange={(v) =>
-                setInputs((p) => ({ ...p, serviceMaintTyresAnnual: v }))
-              }
-            />
-            <MoneyField
-              label="Save Share (annual)"
-              value={inputs.saveShareAnnual}
-              step={10}
-              min={0}
-              onChange={(v) =>
-                setInputs((p) => ({ ...p, saveShareAnnual: v }))
-              }
-            />
-            <MoneyField
-              label="Registration"
-              value={inputs.registrationAnnual}
-              step={10}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, registrationAnnual: v }))}
-            />
-            <MoneyField
-              label="Electricity (annual)"
-              value={inputs.electricityAnnual}
-              step={10}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, electricityAnnual: v }))}
-            />
-            <MoneyField
-              label="Insurance"
-              value={inputs.insuranceAnnual}
-              step={10}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, insuranceAnnual: v }))}
-            />
-            <MoneyField
-              label="Management / Membership Fees"
-              value={inputs.managementFeesAnnual}
-              step={10}
-              min={0}
-              onChange={(v) =>
-                setInputs((p) => ({ ...p, managementFeesAnnual: v }))
-              }
-            />
-          </Section>
-
-          <Section title="ELECTRICITY">
-            <MoneyField
-              label="Average AUD per kWh"
-              value={inputs.avgAudPerKwh}
-              step={0.01}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, avgAudPerKwh: v }))}
-            />
-            <NumberField
-              label="Average Wh per km"
-              value={inputs.avgWhPerKm}
-              step={1}
-              min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, avgWhPerKm: v }))}
-            />
-            <MoneyField
-              label="(Override) Annual Charging Expense (set 0 to clear)"
-              value={inputs.overrideAnnualChargingExpense ?? 0}
-              step={10}
-              min={0}
-              onChange={(v) =>
-                setInputs((p) => ({
-                  ...p,
-                  overrideAnnualChargingExpense: v === 0 ? undefined : v,
-                }))
-              }
-            />
-          </Section>
-
-                    <Section title="OPTIONAL: COMPARE WITH TRADITIONAL CAR LOAN">
-            <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <input
-                type="checkbox"
-                checked={inputs.compareWithCarLoan}
-                onChange={(e) =>
-                  setInputs((p) => ({
-                    ...p,
-                    compareWithCarLoan: e.target.checked,
-                  }))
-                }
-              />
-              Enable comparison
-            </label>
-
-            {inputs.compareWithCarLoan && (
-              <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
-                <MoneyField
-                  label="Initial Deposit Amount"
-                  value={inputs.carLoanInitialDeposit}
-                  step={100}
-                  min={0}
-                  onChange={(v) =>
-                    setInputs((p) => ({ ...p, carLoanInitialDeposit: v }))
-                  }
-                />
-
-                <ReadOnlyValue
-                  label="Loan Term (Years)"
-                  value={`${inputs.leaseDurationYears} (forced to match Lease Duration)`}
-                />
-
-                <NumberField
-                  label="Interest Rate (%)"
-                  value={inputs.carLoanInterestRatePct}
-                  step={0.01}
-                  min={0}
-                  onChange={(v) =>
-                    setInputs((p) => ({ ...p, carLoanInterestRatePct: v }))
-                  }
-                />
-
-                <MoneyField
-                  label="Monthly Fee"
-                  value={inputs.carLoanMonthlyFee}
-                  step={1}
-                  min={0}
-                  onChange={(v) =>
-                    setInputs((p) => ({ ...p, carLoanMonthlyFee: v }))
-                  }
-                />
-              </div>
-            )}
-          </Section>
-
-          <Section title="OPTIONAL: COMPARE WITH CONTINUING WITH CURRENT CAR">
-            <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <input
-                type="checkbox"
-                checked={inputs.compareWithCurrentCar}
-                onChange={(e) =>
-                  setInputs((p) => ({ ...p, compareWithCurrentCar: e.target.checked }))
-                }
-              />
-              Enable comparison
-            </label>
-
-            {inputs.compareWithCurrentCar && (
-              <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
-                <MoneyField
-                  label="Current Market Value"
-                  value={inputs.currentCarMarketValueNow}
-                  step={100}
-                  min={0}
-                  onChange={(v) =>
-                    setInputs((p) => ({ ...p, currentCarMarketValueNow: v }))
-                  }
-                />
-                <MoneyField
-                  label={`Estimated Market Value after ${inputs.leaseDurationYears} Years`}
-                  value={inputs.currentCarMarketValueAtEnd}
-                  step={100}
-                  min={0}
-                  onChange={(v) =>
-                    setInputs((p) => ({ ...p, currentCarMarketValueAtEnd: v }))
-                  }
-                />
-
-                <div style={{ fontWeight: 700, opacity: 0.85, marginTop: 6 }}>
-                  ANNUAL (incl. GST)
-                </div>
-
-                <MoneyField
-                  label="Service / Maintenance / Tyres"
-                  value={inputs.currentServiceMaintTyresAnnual}
-                  step={10}
-                  min={0}
-                  onChange={(v) =>
-                    setInputs((p) => ({ ...p, currentServiceMaintTyresAnnual: v }))
-                  }
-                />
-                <MoneyField
-                  label="Registration"
-                  value={inputs.currentRegistrationAnnual}
-                  step={10}
-                  min={0}
-                  onChange={(v) =>
-                    setInputs((p) => ({ ...p, currentRegistrationAnnual: v }))
-                  }
-                />
-                <MoneyField
-                  label="Fuel"
-                  value={inputs.currentFuelAnnual}
-                  step={10}
-                  min={0}
-                  onChange={(v) => setInputs((p) => ({ ...p, currentFuelAnnual: v }))}
-                />
-                <MoneyField
-                  label="Insurance"
-                  value={inputs.currentInsuranceAnnual}
-                  step={10}
-                  min={0}
-                  onChange={(v) =>
-                    setInputs((p) => ({ ...p, currentInsuranceAnnual: v }))
-                  }
-                />
-              </div>
-            )}
-          </Section>
+          <InputsPanel
+            inputs={inputs}
+            setInputs={setInputs}
+            onVehicleLeasePerFnChange={handleVehicleLeasePerFnChange}
+            guardLiveRatePct={Number.isFinite(guardLiveRate) ? guardLiveRate  : NaN}
+            guardMessage={leaseQuoteGuardMsg}
+            formatPct={formatPct}
+          />
         </div>
 
         {/* Outputs */}
@@ -1013,6 +615,316 @@ export default function App() {
                   fbtBaseValue={inputs.vehicleBaseValue}
                   rows={buildAtiRowsFromFyBreakdown(inputs)}
                 />
+              </div>
+
+              <div
+                style={{
+                  border: "1px solid rgba(0,0,0,0.15)",
+                  borderRadius: 12,
+                  padding: 16,
+                  marginTop: 16,
+                }}
+              >
+                <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 10 }}>
+                  SECTION 4: WHAT IS MY EFFECTIVE INTEREST RATE?
+                </div>
+
+                {(() => {
+  let debug: any = null;
+  try {
+    const years = Math.round(inputs.leaseDurationYears);
+
+    const residualPctRaw = residualPercentForYears(years);
+    let residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
+    // Defensive normalisation: guard against double-scaling (e.g. 0.002813 instead of 0.2813)
+    if (residualPct > 0 && residualPct < 0.01) residualPct = residualPct * 100;
+
+    // GST saved (cap $6,334; no GST if private used)
+    const gstSavedLocal = (() => {
+      const cap = 6334;
+      if (inputs.vehicleCondition === "Used – private sale (no GST)") return 0;
+      const gross = Math.max(0, inputs.vehicleBaseValue);
+      return Math.min(cap, gross / 11);
+    })();
+
+    const money = (n: number) =>
+      `$ ${n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+    const pct = (rAnnual: number) =>
+      Number.isFinite(rAnnual) ? `${(rAnnual * 100).toFixed(2)}%` : "—";
+
+    // Definition 1 uses "standard financed" based on driveaway + doc fee - gst saved
+    const financedStandardExGst = financedAmountExGstFromInputs(inputs);
+
+    // IMPORTANT: For Section 4, we want the residual value payable **ex GST**.
+    // Keep the residual % scaling consistent with Definition 2 (which is already correct).
+    // financedStandardExGst is treated as the financed amount INCLUDING doc fee (ex GST),
+    // so the residual is computed off (financed - doc fee), per the existing pattern.
+    const residualStandardExGst =
+      Math.max(0, financedStandardExGst - inputs.leaseDocFee) * residualPct;
+
+    // Definition 2 uses a "brokerage-inflated financed amount reported by NL providers" 
+    const financedInflatedProxyExGst = Math.max(0, inputs.driveawayCost - gstSavedLocal) + inputs.leaseDocFee;
+
+    const financedInflatedExGst =
+      inputs.financedAmountForInterestCalcExGst > 0
+      ? Math.max(0, inputs.financedAmountForInterestCalcExGst)
+      : financedInflatedProxyExGst;
+    const residualInflatedExGst = Math.max(0, financedStandardExGst - inputs.leaseDocFee) * residualPct;
+
+    const leaseFn = Math.max(0, inputs.vehicleLeasePerFn);
+    const mgmtFeeFn = Math.max(0, inputs.managementFeesAnnual / 26);
+
+    // Wired from inputs.monthsDeferred
+    const deferMonths = Math.max(0, Math.round(inputs.monthsDeferred));
+    const noSolutionNote = "(no numerical solution for these inputs)";
+
+    // Debug helper and debug object
+    const n2 = (n: number) =>
+      Number.isFinite(n) ? Number(n.toFixed(2)) : n;
+
+    debug = {
+      leaseYears: years,
+      deferMonths,
+      residualPct,
+      vehicleCondition: inputs.vehicleCondition,
+      gstSavedLocal: n2(gstSavedLocal),
+      leaseFn: n2(leaseFn),
+      mgmtFeeFn: n2(mgmtFeeFn),
+      definition1: {
+        financedAmountExGst: n2(financedStandardExGst),
+        residualValueExGst: n2(residualStandardExGst),
+        fortnightlyLeasePayment: n2(leaseFn),
+      },
+      definition1a: {
+        financedAmountExGst: n2(financedStandardExGst),
+        residualValueExGst: n2(residualStandardExGst),
+        fortnightlyLeasePayment: n2(leaseFn + mgmtFeeFn),
+      },
+      definition2: {
+        usedUserProvidedFinancedAmount: inputs.financedAmountForInterestCalcExGst > 0,
+        financedAmountExGst: n2(financedInflatedExGst),
+        residualValueExGst: n2(residualInflatedExGst),
+        fortnightlyLeasePayment: n2(leaseFn),
+      },
+    };
+
+    const DebugPanel = () => (
+      <details style={{ marginTop: 14 }}>
+        <summary style={{ cursor: "pointer", fontWeight: 700, opacity: 0.9 }}>
+          Show variables used in the effective-interest calculation
+        </summary>
+        <div style={{ marginTop: 8, fontSize: 12, opacity: 0.9 }}>
+          <div style={{ marginBottom: 8, opacity: 0.75 }}>
+            Tip: if you see “Payment too low (even at 0% rate)”, compare your payment against these values.
+          </div>
+          <pre
+            style={{
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              margin: 0,
+              padding: 10,
+              borderRadius: 10,
+              border: "1px solid rgba(0,0,0,0.15)",
+              background: "rgba(0,0,0,0.03)",
+              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+            }}
+          >
+            {JSON.stringify(debug, null, 2)}
+          </pre>
+        </div>
+      </details>
+    );
+
+    const rateDef1 = effectiveAnnualRateFromFortnightlyLease({
+      financedAmountExGst: financedStandardExGst,
+      residualValueExGst: residualStandardExGst,
+      leaseYears: years,
+      deferMonths,
+      fortnightlyLeasePayment: leaseFn,
+    });
+
+    const rateDef1a = effectiveAnnualRateFromFortnightlyLease({
+      financedAmountExGst: financedStandardExGst,
+      residualValueExGst: residualStandardExGst,
+      leaseYears: years,
+      deferMonths,
+      fortnightlyLeasePayment: leaseFn + mgmtFeeFn,
+    });
+
+    const rateDef2 = effectiveAnnualRateFromFortnightlyLease({
+      financedAmountExGst: financedInflatedExGst,
+      residualValueExGst: residualInflatedExGst,
+      leaseYears: years,
+      deferMonths,
+      fortnightlyLeasePayment: leaseFn,
+    });
+
+    const BlockTitle = (p: { children: React.ReactNode }) => (
+      <div
+        style={{
+          fontWeight: 800,
+          marginTop: 14,
+          marginBottom: 6,
+          background: "rgba(0,0,0,0.06)",
+          padding: "6px 10px",
+        }}
+      >
+        {p.children}
+      </div>
+    );
+
+    const Row = (p: { label: string; value: string; note?: string }) => (
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr auto",
+          gap: 10,
+          alignItems: "baseline",
+          padding: "3px 0",
+        }}
+      >
+        <div style={{ fontWeight: 600 }}>
+          {p.label}
+          {p.note ? (
+            <span
+              style={{
+                marginLeft: 8,
+                fontWeight: 400,
+                opacity: 0.7,
+                fontStyle: "italic",
+              }}
+            >
+              {p.note}
+            </span>
+          ) : null}
+        </div>
+        <div style={{ fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>{p.value}</div>
+      </div>
+    );
+
+    return (
+      <div>
+        <BlockTitle>
+          Definition 1: Using standard calculations, not considering management fees (most common definition)
+        </BlockTitle>
+        <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", marginTop: 4 }}>
+          * This is the closest approximation of "if we pretend this as a loan; what interest rate would result in an amortisation schedule that starts from financed amount and ends with residual value"
+        </div>
+        <div style={{ marginTop: 8 }}>
+          <Row label="Financed Amount from standard calculations" value={money(financedStandardExGst)} />
+          <Row label="Residual Value Payable (ex GST)" value={money(residualStandardExGst)} />
+          <Row label="Fortnightly lease" value={money(leaseFn)} />
+        </div>
+        <div style={{ marginTop: 8, fontWeight: 900 }}>
+          Effective interest rate&nbsp;&nbsp;{pct(rateDef1)}
+          {!Number.isFinite(rateDef1) ? (
+            <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.75, fontStyle: "italic" }}>
+              {noSolutionNote}
+            </span>
+          ) : null}
+        </div>
+
+        <BlockTitle>
+          Definition 1a: Standard calculations, but treat fortnightly lease + management fee as the “true lease amount"
+        </BlockTitle>
+        <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", marginTop: 4 }}>
+          * Useful for comparing quotes because it captures fees embedded as “running cost”.
+        </div>
+        <div style={{ marginTop: 8 }}>
+          <Row label="Financed Amount from standard calculations" value={money(financedStandardExGst)} />
+          <Row label="Residual Value Payable (ex GST)" value={money(residualStandardExGst)} />
+          <Row label="Fortnightly lease + Management fee" value={money(leaseFn + mgmtFeeFn)} />
+        </div>
+        <div style={{ marginTop: 8, fontWeight: 900 }}>
+          Effective interest rate (incorporating fees)&nbsp;&nbsp;{pct(rateDef1a)}
+          {!Number.isFinite(rateDef1a) ? (
+            <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.75, fontStyle: "italic" }}>
+              {noSolutionNote}
+            </span>
+          ) : null}
+        </div>
+
+        <BlockTitle>
+          Definition 2: Using brokerage-inflated financed amount, not considering management fees
+        </BlockTitle>
+        <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", marginTop: 4 }}>
+          * This can look misleadingly low if the financed amount is inflated (a common quoting trick).
+        </div>
+        <div style={{ marginTop: 8 }}>
+          <Row
+            label="Financed Amount that includes brokerage inflation"
+            value={money(financedInflatedExGst)}
+          />
+          <Row label="Residual Value Payable (ex GST)" value={money(residualInflatedExGst)} />
+          <Row label="Fortnightly lease" value={money(leaseFn)} />
+        </div>
+        <div style={{ marginTop: 8, fontWeight: 900 }}>
+          Effective interest rate (using inflated financed amount)&nbsp;&nbsp;{pct(rateDef2)}
+          {!Number.isFinite(rateDef2) ? (
+            <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.75, fontStyle: "italic" }}>
+              {noSolutionNote}
+            </span>
+          ) : null}
+        </div>
+        {/* Debug panel at the very end */}
+        <DebugPanel />
+      </div>
+    );
+  } catch (e) {
+    console.error("Section 4 effective interest render failed", e);
+    const msg =
+      e instanceof Error
+        ? e.message
+        : typeof e === "string"
+          ? e
+          : JSON.stringify(e);
+
+    return (
+      <div
+        style={{
+          padding: 10,
+          border: "1px solid rgba(200,0,0,0.35)",
+          borderRadius: 10,
+          background: "rgba(200,0,0,0.06)",
+        }}
+      >
+        <div style={{ fontWeight: 900, marginBottom: 6 }}>Section 4 error</div>
+        <div style={{ opacity: 0.9, marginBottom: 6 }}>
+          Something went wrong while computing the effective interest rate.
+        </div>
+        <div style={{ fontFamily: "monospace", fontSize: 12, opacity: 0.85 }}>
+          {msg}
+        </div>
+        {debug ? (
+          <details style={{ marginTop: 10 }} open>
+            <summary style={{ cursor: "pointer", fontWeight: 700, opacity: 0.9 }}>
+              Variables used in Section 4
+            </summary>
+            <pre
+              style={{
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+                margin: 0,
+                marginTop: 8,
+                padding: 10,
+                borderRadius: 10,
+                border: "1px solid rgba(0,0,0,0.15)",
+                background: "rgba(0,0,0,0.03)",
+                fontFamily:
+                  "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+                fontSize: 12,
+                opacity: 0.9,
+              }}
+            >
+              {JSON.stringify(debug, null, 2)}
+            </pre>
+          </details>
+        ) : null}
+      </div>
+    );
+  }
+})()}
               </div>
 
               {inputs.superFromPreNlIncome === "No" && (

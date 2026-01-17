@@ -5,6 +5,8 @@ import { taxSummaryAUResident } from "../engine/tax_au";
 import { residualPercentForYears, gstSaved } from "../engine/ato";
 import { aud, aud0, pct } from "../utils/format";
 import { buildFyBreakdown } from "../engine/fy_breakdown";
+import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
+
 
 
 export function LeaseReport(props: {
@@ -26,10 +28,7 @@ export function LeaseReport(props: {
   const vehicleGstSaved = gstSaved(i);
 
   // Amount financed (simple approximation)
-  const amountFinanced = Math.max(
-    0,
-    i.driveawayCost + i.leaseDocFee - vehicleGstSaved
-  );
+  const amountFinanced = financedAmountExGstFromInputs(i);
 
   // Residual
   const residualPct = residualPercentForYears(i.leaseDurationYears);
