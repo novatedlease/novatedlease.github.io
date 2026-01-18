@@ -244,7 +244,8 @@ function encodeInputsToUrlParam(inputs: Inputs): string {
 }
 
 export default function App() {
-  const defaultInputs: Inputs = {
+  const defaultInputs: Inputs = (() => {
+    const base: Inputs = {
     vehicleCondition: "New",
     vehicleBaseValue: 75500,
     driveawayCost: 81422.5,
@@ -263,7 +264,7 @@ export default function App() {
 
     vehicleLeasePerFn: 597.47,
     luxuryVehicleAdjPerFn: 0,
-    financedAmountForInterestCalcExGst: 75538.50,
+    financedAmountForInterestCalcExGst: 0,
 
     superFromPreNlIncome: "Yes",
     gstSavingPassedOn: "Yes",
@@ -292,9 +293,16 @@ export default function App() {
     currentRegistrationAnnual: 900,
     currentFuelAnnual: 2362.5,
     currentInsuranceAnnual: 1000,
-  };
+    };
+
+    return {
+      ...base,
+      financedAmountForInterestCalcExGst: financedAmountExGstFromInputs(base),
+    };
+  })();
 
   const urlInitRef = useRef<{ encoded: string | null }>({ encoded: null });
+  const lastAutoFinancedRef = useRef<number | null>(null);
 
   const [inputs, setInputs] = useState<Inputs>(() => {
     const { inputs: initial, encoded } = readInputsFromUrl(defaultInputs);
@@ -368,6 +376,33 @@ export default function App() {
       setInputs((p) => ({ ...p, estimatedMarketValueAtEnd: desired }));
     }
   }, [inputs.driveawayCost]);
+
+  // Keep "Financed amount (for interest calc)" in sync with the standard calculation,
+  // but only until the user manually overrides it.
+  useEffect(() => {
+    const auto = financedAmountExGstFromInputs(inputs);
+    const cur = inputs.financedAmountForInterestCalcExGst;
+    const lastAuto = lastAutoFinancedRef.current;
+
+    const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;
+
+    const shouldSync =
+      cur === 0 ||
+      (lastAuto !== null && withinCent(cur, lastAuto)) ||
+      (lastAuto === null && withinCent(cur, auto));
+
+    if (shouldSync && !withinCent(cur, auto)) {
+      setInputs((p) => ({ ...p, financedAmountForInterestCalcExGst: auto }));
+    }
+
+    lastAutoFinancedRef.current = auto;
+  }, [
+    inputs.vehicleCondition,
+    inputs.vehicleBaseValue,
+    inputs.driveawayCost,
+    inputs.leaseDocFee,
+    inputs.financedAmountForInterestCalcExGst,
+  ]);
 
   // ------------------------------
   // Lease quote safeguard + live hint (Definition 1)

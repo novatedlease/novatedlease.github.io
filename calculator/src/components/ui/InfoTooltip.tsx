@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
@@ -14,7 +14,7 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
   const popupRef = useRef<HTMLDivElement | null>(null);
 
   // Measure and position tooltip (viewport-relative) when opened.
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!open) return;
 
     const updatePos = () => {
@@ -57,6 +57,10 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
       window.removeEventListener("resize", onResize);
     };
   }, [open, props.width]);
+
+  useEffect(() => {
+    if (!open) setPos(null);
+  }, [open]);
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
@@ -242,8 +246,12 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
       onMouseEnter={() => {
         if (hoverCapable) setOpen(true);
       }}
-      onMouseLeave={() => {
-        if (hoverCapable) setOpen(false);
+      onMouseLeave={(e) => {
+        if (!hoverCapable) return;
+        const next = e.relatedTarget as Node | null;
+        const popup = popupRef.current;
+        if (next && popup && popup.contains(next)) return;
+        setOpen(false);
       }}
       style={{
         position: "relative",
@@ -254,12 +262,23 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
       {icon}
 
       {open &&
+        pos &&
         typeof document !== "undefined" &&
         createPortal(
           <div
             ref={popupRef}
             role="dialog"
             aria-modal="false"
+            onMouseEnter={() => {
+              if (hoverCapable) setOpen(true);
+            }}
+            onMouseLeave={(e) => {
+              if (!hoverCapable) return;
+              const next = e.relatedTarget as Node | null;
+              const wrap = wrapRef.current;
+              if (next && wrap && wrap.contains(next)) return;
+              setOpen(false);
+            }}
             style={{
               position: "fixed",
               zIndex: 2147483647,

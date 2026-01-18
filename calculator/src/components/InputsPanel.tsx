@@ -86,32 +86,6 @@ export default function InputsPanel(props: InputsPanelProps) {
             onChange={(v) => setInputs((p) => ({ ...p, annualMileageKm: v }))}
           />
 
-          <MoneyField
-            label="Lease Documentation Fee"
-            tooltip={
-                <InfoTooltip text="The initial financier start up fee. Will be listed on your NL estimate if applicable, otherwise leave as 0." />
-            }
-            value={inputs.leaseDocFee}
-            step={10}
-            min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, leaseDocFee: v }))}
-          />
-
-          <DateField
-            label="Lease Starting Date"
-            tooltip={
-                <InfoTooltip text='Automatically populated with "30 days from today", manually modify to suit.' />
-            }
-            value={inputs.leaseStartDate}
-            onChange={(v) => setInputs((p) => ({ ...p, leaseStartDate: v }))}
-          />
-
-          <LeaseDurationSelect
-            label="Lease Duration (Years)"
-            tooltip={<InfoTooltip text="Integer, choose 1 to 5 years." />}
-            value={inputs.leaseDurationYears}
-            onChange={(v) => setInputs((p) => ({ ...p, leaseDurationYears: v }))}
-          />
             
         </Section>
 
@@ -154,7 +128,33 @@ export default function InputsPanel(props: InputsPanelProps) {
           />
         </Section>
 
-        <Section title="LEASE QUOTE (PER FORTNIGHT)">
+        <Section title="VEHICLE LEASE DETAILS">
+          <MoneyField
+            label="Lease Documentation Fee"
+            tooltip={
+              <InfoTooltip text="The initial financier start up fee. Will be listed on your NL estimate if applicable, otherwise leave as 0." />
+            }
+            value={inputs.leaseDocFee}
+            step={10}
+            min={0}
+            onChange={(v) => setInputs((p) => ({ ...p, leaseDocFee: v }))}
+          />
+
+          <DateField
+            label="Lease Starting Date"
+            tooltip={
+              <InfoTooltip text='Automatically populated with "30 days from today", manually modify to suit.' />
+            }
+            value={inputs.leaseStartDate}
+            onChange={(v) => setInputs((p) => ({ ...p, leaseStartDate: v }))}
+          />
+
+          <LeaseDurationSelect
+            label="Lease Duration (Years)"
+            tooltip={<InfoTooltip text="Integer, choose 1 to 5 years." />}
+            value={inputs.leaseDurationYears}
+            onChange={(v) => setInputs((p) => ({ ...p, leaseDurationYears: v }))}
+          />
           <FieldRow
   label="Vehicle Lease (Per Fortnight)"
   tooltip={<InfoTooltip text="Pre-tax, ex GST figure, include ONLY the vehicle lease portion, not the total packaged amount that includes running cost." />}
@@ -231,30 +231,23 @@ export default function InputsPanel(props: InputsPanelProps) {
 
             <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
               <MoneyField
-                label="Financed amount (ex GST, include doc fee if the quote does)"
+                label="Financed amount reported in your quote"
+                tooltip={<InfoTooltip text="This is only used for interest calculation. If you don't know this figure, leave it as this pre-calculated figure. If you have a financed amount figure, make sure it does not contain first year insurance, otherwise the calculation will in interest-rate section will be invalid." />}
                 value={inputs.financedAmountForInterestCalcExGst}
                 step={100}
                 min={0}
                 onChange={(v) => setInputs((p) => ({ ...p, financedAmountForInterestCalcExGst: v }))}
               />
-              <div style={{ fontSize: 12, opacity: 0.75 }}>
-                Leave this as $0 to use the driveaway-based proxy in Definition 2.
-              </div>
+              
 
               <NumberField
-                label={
-                  <>
-                    Months Deferred <InfoTooltip text="Often 2 months. Payments are assumed to be in advance once they begin." />
-                  </>
-                }
+                label="Months Deferred"
+                tooltip={<InfoTooltip text="Typically 2 months, but occasionally 1 month with some financiers." />}
                 value={inputs.monthsDeferred}
                 step={1}
                 min={0}
                 onChange={(v) => setInputs((p) => ({ ...p, monthsDeferred: Math.max(0, Math.round(v)) }))}
               />
-              <div style={{ fontSize: 12, opacity: 0.75 }}>
-                Typical use: 2 months. Payments are assumed to be in advance once they begin.
-              </div>
             </div>
           </details>
         </Section>
@@ -269,7 +262,7 @@ export default function InputsPanel(props: InputsPanelProps) {
 
           <MoneyField
             label="Service / Maintenance / Tyres"
-            tooltip={<InfoTooltip text="Combined as individual breakdowns do not matter." />}
+            tooltip={<InfoTooltip text="Annual figure, combined as individual breakdowns do not matter." />}
             value={inputs.serviceMaintTyresAnnual}
             step={10}
             min={0}
@@ -277,10 +270,10 @@ export default function InputsPanel(props: InputsPanelProps) {
           />
 
           <MoneyField
-            label="Save Share (annual)"
+            label="NSW Health Save Share"
             tooltip={
               <>
-                <InfoTooltip text="Specific for NSW Health employees, leave as 0 for everyone else." />
+                <InfoTooltip text="Annual figure, specific for NSW Health employees, leave as 0 for everyone else." />
               </>
             }
             value={inputs.saveShareAnnual}
@@ -293,7 +286,7 @@ export default function InputsPanel(props: InputsPanelProps) {
             label="Registration"
             tooltip=    {
               <>
-                <InfoTooltip text="Different by state, NL companies generally provide state-specific estimate." />
+                <InfoTooltip text="Annual figure, different by state, NL companies generally provide state-specific estimate." />
               </>
             }
             value={inputs.registrationAnnual}
@@ -306,7 +299,7 @@ export default function InputsPanel(props: InputsPanelProps) {
             label="Electricity (annual)"
             tooltip={
               <>
-                <InfoTooltip text="Automatically populated with 0.042/km calculation (ATO rule); manually change if you choose other claim methods." />
+                <InfoTooltip text="Annual figure, automatically populated with 0.042/km calculation (ATO rule); manually change if you choose other claim methods." />
               </>
             }
             value={inputs.electricityAnnual}
@@ -319,7 +312,7 @@ export default function InputsPanel(props: InputsPanelProps) {
             label="Insurance"
             tooltip={
               <>
-                <InfoTooltip text="Comprehensive insurance required. Do shop around for your own quotes for insurance and compare with NL company's quote." />
+                <InfoTooltip text="Annual figure, comprehensive insurance required. Do shop around for your own quotes for insurance and compare with NL company's quote." />
               </>
             }
             value={inputs.insuranceAnnual}
@@ -332,7 +325,7 @@ export default function InputsPanel(props: InputsPanelProps) {
             label="Management / Membership Fees"
             tooltip={
               <>
-                <InfoTooltip text="Sum of all novated lease membership / management fees." />
+                <InfoTooltip text="Annual figure, sum of all novated lease membership / management fees." />
               </>
             }
             value={inputs.managementFeesAnnual}
@@ -403,11 +396,6 @@ export default function InputsPanel(props: InputsPanelProps) {
             <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
               <MoneyField
                 label="Initial Deposit Amount"
-                tooltip={
-                  <>
-                    <InfoTooltip text='This is forced to be equal to "Lease Duration" above to simplify accounting. Therefore change the original value above to change this.' />
-                  </>
-                }
                 value={inputs.carLoanInitialDeposit}
                 step={100}
                 min={0}
@@ -496,11 +484,6 @@ export default function InputsPanel(props: InputsPanelProps) {
 
               <MoneyField
                 label="Service / Maintenance / Tyres"
-                tooltip={
-                  <>
-                    <InfoTooltip text="Most vehicles are around 10-20c per km, but use your own records!" />
-                  </>
-                }
                 value={inputs.currentServiceMaintTyresAnnual}
                 step={10}
                 min={0}
