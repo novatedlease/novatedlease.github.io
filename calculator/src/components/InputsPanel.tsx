@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { Inputs } from "../engine/types";
 import { InfoTooltip } from "./ui/InfoTooltip";
 
@@ -17,6 +17,16 @@ export type InputsPanelProps = {
 
 export default function InputsPanel(props: InputsPanelProps) {
   const { inputs, setInputs } = props;
+    const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
+  const prevLeaseDurationRef = useRef<number>(inputs.leaseDurationYears);
+
+  // When lease duration changes, users MUST update their per-fortnight lease quote.
+  useEffect(() => {
+    if (prevLeaseDurationRef.current !== inputs.leaseDurationYears) {
+      prevLeaseDurationRef.current = inputs.leaseDurationYears;
+      setNeedsLeaseRequote(true);
+    }
+  }, [inputs.leaseDurationYears]);
 
   const [vehicleLeasePerFnText, setVehicleLeasePerFnText] = useState<string>(
   fmtMoneyInput(inputs.vehicleLeasePerFn)
@@ -153,8 +163,51 @@ export default function InputsPanel(props: InputsPanelProps) {
             label="Lease Duration (Years)"
             tooltip={<InfoTooltip text="Integer, choose 1 to 5 years." />}
             value={inputs.leaseDurationYears}
-            onChange={(v) => setInputs((p) => ({ ...p, leaseDurationYears: v }))}
+            onChange={(v) => {
+  setInputs((p) => ({ ...p, leaseDurationYears: v }));
+  setNeedsLeaseRequote(true);
+}}
           />
+
+{needsLeaseRequote ? (
+  <div
+    style={{
+      marginTop: 6,
+      padding: "10px 10px",
+      borderRadius: 10,
+      border: "1px solid rgba(200,0,0,0.28)",
+      background: "rgba(200,0,0,0.06)",
+      fontSize: 12,
+      lineHeight: 1.35,
+    }}
+  >
+    <div style={{ fontWeight: 800, marginBottom: 4 }}>
+      Heads up: changing lease duration usually changes your per-fortnight lease quote.
+    </div>
+    <div style={{ opacity: 0.92 }}>
+      Please update <b>Vehicle Lease (Per Fortnight)</b> (and any other quote-dependent fields) to match the new duration,
+      otherwise the summary may be misleading.
+    </div>
+    <div style={{ marginTop: 8, display: "flex", justifyContent: "flex-end" }}>
+      <button
+        type="button"
+        onClick={() => setNeedsLeaseRequote(false)}
+        style={{
+          borderRadius: 10,
+          border: "1px solid rgba(0,0,0,0.18)",
+          background: "#fff",
+          padding: "6px 10px",
+          fontSize: 12,
+          fontWeight: 800,
+          cursor: "pointer",
+        }}
+      >
+        I’ve updated the quote
+      </button>
+    </div>
+  </div>
+) : null}
+
           <FieldRow
   label="Vehicle Lease (Per Fortnight)"
   tooltip={<InfoTooltip text="Pre-tax, ex GST figure, include ONLY the vehicle lease portion, not the total packaged amount that includes running cost." />}
@@ -164,7 +217,7 @@ export default function InputsPanel(props: InputsPanelProps) {
     <input
       type="text"
       inputMode="decimal"
-      style={moneyInputStyle()}
+      style={moneyInputStyle({ highlight: needsLeaseRequote })}
       value={vehicleLeasePerFnText}
       onChange={(e) => setVehicleLeasePerFnText(e.target.value)}
       onKeyDown={(e) => {
@@ -179,6 +232,7 @@ export default function InputsPanel(props: InputsPanelProps) {
         }
         props.onVehicleLeasePerFnChange(parsed);
         setVehicleLeasePerFnText(fmtMoneyInput(parsed));
+        setNeedsLeaseRequote(false);
       }}
     />
   </MoneyInputWrapper>
@@ -571,10 +625,14 @@ function inputStyle(): React.CSSProperties {
   };
 }
 
-function moneyInputStyle(): React.CSSProperties {
+function moneyInputStyle(opts?: { highlight?: boolean }): React.CSSProperties {
   return {
     ...inputStyle(),
     paddingLeft: 28, // makes room for the $ inside the input
+    border: opts?.highlight ? "2px solid rgba(200,0,0,0.45)" : "1px solid rgba(0,0,0,0.18)",
+    boxShadow: opts?.highlight ? "0 0 0 4px rgba(200,0,0,0.10)" : "none",
+    background: opts?.highlight ? "rgba(255, 235, 235, 0.55)" : "#fff",
+    transition: "box-shadow 220ms ease, border-color 220ms ease, background 220ms ease",
   };
 }
 

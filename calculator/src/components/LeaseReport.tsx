@@ -1,4 +1,5 @@
 import React from "react";
+import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
 import { calcResidualPayableIncGst } from "../engine/types";
 import { taxSummaryAUResident } from "../engine/tax_au";
@@ -84,20 +85,35 @@ export function LeaseReport(props: {
   const preTaxRunningLifetime = preTaxRunningAnnual * i.leaseDurationYears;
   const preTaxTotalLifetime = preTaxTotalAnnual * i.leaseDurationYears;
 
-  // Placeholder for “post-tax equivalent” (take-home impact)
-  // (Later: handle ECM/FBT, SG rules, Medicare, HELP, etc.)
-  const postTaxFactor = 1 - taxRate;
-  const postTaxVehicleLeaseFn = vehicleLeaseFn * postTaxFactor;
-  const postTaxRunningFn = runningCostFn * postTaxFactor;
+  // Post-tax equivalent (take-home impact) — derived from FY breakdown
+  // Fortnight + Annual columns show the MOST expensive FY effect when it varies.
+  const maxTakeHomeImpactPerPay =
+    fyRows.length > 0 ? Math.max(...fyRows.map((r) => r.takeHomeImpactPerPay)) : 0;
+
+  // Lifetime impact should sum the actual per-FY counts
+  const totalTakeHomeImpactOverLease = fyRows.reduce(
+    (acc, r) => acc + r.takeHomeImpactPerPay * r.count,
+    0
+  );
+
+  // Allocate take-home impact to lease vs running proportionally (WIP)
+  const leaseShare = preTaxTotalFn > 0 ? vehicleLeaseFn / preTaxTotalFn : 0;
+  const runningShare = preTaxTotalFn > 0 ? runningCostFn / preTaxTotalFn : 0;
+
+  const postTaxVehicleLeaseFn = maxTakeHomeImpactPerPay * leaseShare;
+  const postTaxRunningFn = maxTakeHomeImpactPerPay * runningShare;
   const postTaxTotalFn = postTaxVehicleLeaseFn + postTaxRunningFn;
 
   const postTaxVehicleLeaseAnnual = postTaxVehicleLeaseFn * 26;
   const postTaxRunningAnnual = postTaxRunningFn * 26;
   const postTaxTotalAnnual = postTaxTotalFn * 26;
 
-  const postTaxVehicleLeaseLifetime = postTaxVehicleLeaseAnnual * i.leaseDurationYears;
-  const postTaxRunningLifetime = postTaxRunningAnnual * i.leaseDurationYears;
-  const postTaxTotalLifetime = postTaxTotalAnnual * i.leaseDurationYears;
+  const postTaxVehicleLeaseLifetime = totalTakeHomeImpactOverLease * leaseShare;
+  const postTaxRunningLifetime = totalTakeHomeImpactOverLease * runningShare;
+  const postTaxTotalLifetime = totalTakeHomeImpactOverLease;
+
+  const mostExpensiveImpactNote =
+    "This is displaying the most expensive take home impact when the FY-to-FY effect varies";
 
   return (
     <div style={{ fontSize: 14, lineHeight: 1.35 }}>
@@ -172,7 +188,11 @@ export function LeaseReport(props: {
           ["= Total", preTaxFmt(postTaxTotalFn), preTaxFmt(postTaxTotalAnnual), preTaxFmt(postTaxTotalLifetime)],
         ]}
         emphasizeLastRowValue
+        headerInfo={{ fortnight: mostExpensiveImpactNote, annual: mostExpensiveImpactNote }}
       />
+      <div style={{ marginTop: 6, fontSize: 12, opacity: 0.75 }}>
+        * {mostExpensiveImpactNote}
+      </div>
 
       <Spacer />
 
@@ -210,15 +230,27 @@ function KeyValue(props: { label: string; value: string; highlight?: boolean }) 
   );
 }
 
-function Table(props: { rows: Array<[string, string, string, string]>; emphasizeLastRowValue?: boolean }) {
+function InfoInline(props: { text: React.ReactNode; width?: number }) {
+  return <InfoTooltip text={props.text} width={props.width} />;
+}
+
+function Table(props: {
+  rows: Array<[string, string, string, string]>;
+  emphasizeLastRowValue?: boolean;
+  headerInfo?: { fortnight?: React.ReactNode; annual?: React.ReactNode };
+}) {
   return (
     <div style={{ overflowX: "auto" }}>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
             <th style={thLeft}></th>
-            <th style={th}>Fortnight</th>
-            <th style={th}>Annual</th>
+            <th style={th}>
+              Fortnight{props.headerInfo?.fortnight ? <InfoInline text={props.headerInfo.fortnight} /> : null}
+            </th>
+            <th style={th}>
+              Annual{props.headerInfo?.annual ? <InfoInline text={props.headerInfo.annual} /> : null}
+            </th>
             <th style={th}>Lease Lifetime</th>
           </tr>
         </thead>

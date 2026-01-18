@@ -118,6 +118,23 @@ useEffect(() => {
       ? i.overrideAnnualChargingExpense
       : kwhPerYear * i.avgAudPerKwh;
 
+  // Include GST only if GST saving passed on in NL
+  const gstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
+
+  // Electricity billed every 4 fortnights (fn 4, 8, ...).
+  // Over N fortnights, include only floor(N/4) electricity bills.
+  const chargingExpensePerFn = chargingExpensePerYear / 26;
+
+  const electricityExpenseOverFortnights = (n: number) =>
+    Math.floor(Math.max(0, Math.round(n)) / 4) * (chargingExpensePerFn * 4);
+
+  // Non-electric running costs: spread evenly per fortnight
+  const nonElectricRunningCostPerFn =
+    ((i.serviceMaintTyresAnnual + i.registrationAnnual + i.insuranceAnnual) * gstMult) / 26;
+
+  const nonNlRunningExpenseOverFortnights = (n: number) =>
+    nonElectricRunningCostPerFn * Math.max(0, Math.round(n)) + electricityExpenseOverFortnights(n);
+
   // NL claim method (ATO shortcut 4.2c/km)
   const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
   const chargingDeltaAnnual = assumedChargingClaimPerYear - chargingExpensePerYear;
@@ -160,15 +177,8 @@ useEffect(() => {
   const leasePaymentsOverLease = fyRows.reduce((sum, r) => sum + r.takeHomeImpactPerPay * r.count, 0);
 
   // Post-lease running cost (real): svc/maint/tyres + rego + electricity(actual) + insurance
-  // Include GST only if GST saving passed on in NL
-  const gstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
-  const postLeaseRunningAnnual =
-  (i.serviceMaintTyresAnnual +
-    i.registrationAnnual +
-    i.insuranceAnnual) *
-    gstMult +
-  chargingExpensePerYear;
-  const postLeaseRunningCost = postLeaseRunningAnnual * yearsPost;
+  const postLeaseRunningFortnights = Math.round(yearsPost * 26);
+  const postLeaseRunningCost = nonNlRunningExpenseOverFortnights(postLeaseRunningFortnights);
 
   // Car asset value at 5 years (explicit)
   const carValueAt5Years = carValueAtYears({
@@ -183,13 +193,7 @@ useEffect(() => {
   const nlTotalSpentAt5 = nlTotalSpentAtLeaseEnd + postLeaseRunningCost;
 
   // --- Scenario 2: EV Bought via Offset Cash (simplified) ---
-  const offsetRunningAnnual =
-    (i.serviceMaintTyresAnnual +
-      i.registrationAnnual +
-      i.insuranceAnnual) *
-      gstMult +
-    chargingExpensePerYear;
-  const offsetRunningOverLease = offsetRunningAnnual * yearsLease;
+  const offsetRunningOverLease = nonNlRunningExpenseOverFortnights(fortnights);
   const offsetTotalSpentAtLeaseEnd = i.driveawayCost + offsetRunningOverLease;
   const offsetTotalSpentAt5 = offsetTotalSpentAtLeaseEnd + postLeaseRunningCost;
 
@@ -212,7 +216,7 @@ useEffect(() => {
   const loanFeesTotal = i.carLoanMonthlyFee * loanMonths;
   const loanPaymentTotalInclFees = loanPaymentTotal + loanFeesTotal;
 
-  const loanRunningOverLease = offsetRunningAnnual * yearsLease;
+  const loanRunningOverLease = nonNlRunningExpenseOverFortnights(fortnights);
   const loanTotalSpentAtLeaseEnd =
   i.carLoanInitialDeposit + loanPaymentTotal + loanFeesTotal + loanRunningOverLease;
   const loanTotalSpentAt5 = loanTotalSpentAtLeaseEnd + postLeaseRunningCost;
@@ -474,8 +478,8 @@ useEffect(() => {
   const chargingDeltaBenefitOverLease = chargingDeltaAnnual * yearsLease;
 
   // Running cost totals
-  const runningNonNlAtLeaseEnd_cashLoan = offsetRunningAnnual * yearsLease;
-  const runningNonNlAt5_cashLoan = offsetRunningAnnual * 5;
+  const runningNonNlAtLeaseEnd_cashLoan = nonNlRunningExpenseOverFortnights(fortnights);
+  const runningNonNlAt5_cashLoan = nonNlRunningExpenseOverFortnights(5 * 26);
 
   const runningNonNlAtLeaseEnd_keep = keepRunningAnnual * yearsLease;
   const runningNonNlAt5_keep = keepRunningAnnual * 5;
@@ -692,6 +696,23 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
       ? i.overrideAnnualChargingExpense
       : kwhPerYear * i.avgAudPerKwh;
 
+  // Include GST only if GST saving passed on in NL
+  const gstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
+
+  // Electricity billed every 4 fortnights (fn 4, 8, ...).
+  // Over N fortnights, include only floor(N/4) electricity bills.
+  const chargingExpensePerFn = chargingExpensePerYear / 26;
+
+  const electricityExpenseOverFortnights = (n: number) =>
+    Math.floor(Math.max(0, Math.round(n)) / 4) * (chargingExpensePerFn * 4);
+
+  // Non-electric running costs: spread evenly per fortnight
+  const nonElectricRunningCostPerFn =
+    ((i.serviceMaintTyresAnnual + i.registrationAnnual + i.insuranceAnnual) * gstMult) / 26;
+
+  const nonNlRunningExpenseOverFortnights = (n: number) =>
+    nonElectricRunningCostPerFn * Math.max(0, Math.round(n)) + electricityExpenseOverFortnights(n);
+
   // NL claim method (ATO shortcut 4.2c/km)
   const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
   const chargingDeltaAnnual = assumedChargingClaimPerYear - chargingExpensePerYear;
@@ -729,21 +750,15 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
   const leasePaymentsOverLease = fyRows.reduce((acc, r) => acc + r.takeHomeImpactPerPay * r.count, 0);
 
   // Post-lease running cost (real): svc/maint/tyres + rego + electricity(actual) + insurance
-  const gstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
-  const postLeaseRunningAnnual =
-    (i.serviceMaintTyresAnnual + i.registrationAnnual + i.insuranceAnnual) * gstMult +
-    chargingExpensePerYear;
-  const postLeaseRunningCost = postLeaseRunningAnnual * yearsPost;
+  const postLeaseRunningFortnights = Math.round(yearsPost * 26);
+  const postLeaseRunningCost = nonNlRunningExpenseOverFortnights(postLeaseRunningFortnights);
 
   // --- Scenario 1: EV Bought via Novated Lease ---
   const nlTotalSpentAtLeaseEnd = leasePaymentsOverLease + chargingDeltaOverLease + residualPayableIncGst;
   const nlTotalSpentAt5 = nlTotalSpentAtLeaseEnd + postLeaseRunningCost;
 
-  // --- Scenario 2: EV Bought via Offset Cash (simplified) ---
-  const offsetRunningAnnual =
-    (i.serviceMaintTyresAnnual + i.registrationAnnual + i.insuranceAnnual) * gstMult +
-    chargingExpensePerYear;
-  const offsetRunningOverLease = offsetRunningAnnual * yearsLease;
+  // --- Scenario 2: EV Bought via Offset Cash ---
+  const offsetRunningOverLease = nonNlRunningExpenseOverFortnights(fortnights);
   const offsetTotalSpentAtLeaseEnd = i.driveawayCost + offsetRunningOverLease;
   const offsetTotalSpentAt5 = offsetTotalSpentAtLeaseEnd + postLeaseRunningCost;
 
@@ -763,7 +778,7 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
   const loanFeesTotal = i.carLoanMonthlyFee * loanMonths;
   const loanPaymentTotalInclFees = loanPaymentTotal + loanFeesTotal;
 
-  const loanRunningOverLease = offsetRunningAnnual * yearsLease;
+  const loanRunningOverLease = nonNlRunningExpenseOverFortnights(fortnights);
   const loanTotalSpentAtLeaseEnd =
     i.carLoanInitialDeposit + loanPaymentTotal + loanFeesTotal + loanRunningOverLease;
   const loanTotalSpentAt5 = loanTotalSpentAtLeaseEnd + postLeaseRunningCost;

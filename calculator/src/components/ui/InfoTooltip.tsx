@@ -234,7 +234,6 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
         userSelect: "none",
         background: "#ffffff",
       }}
-      title="Info"
     >
       i
     </span>
