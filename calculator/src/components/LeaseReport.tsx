@@ -117,7 +117,7 @@ export function LeaseReport(props: {
 
   return (
     <div style={{ fontSize: 14, lineHeight: 1.35 }}>
-      <h2 style={{ margin: "0 0 10px" }}>DETAILS</h2>
+      <div style={{ fontWeight: 900, fontSize: 16, margin: "0 0 10px" }}>Details</div>
 
       <KeyValue
         label="Income Tax Bracket (inc. Medicare Levy)"
@@ -153,7 +153,7 @@ export function LeaseReport(props: {
 
       <Spacer />
 
-      <h3 style={{ margin: "10px 0 6px", fontStyle: "italic" }}>Electricity</h3>
+      <div style={{ fontWeight: 900, fontSize: 14, margin: "10px 0 6px", fontStyle: "italic" }}>Electricity</div>
       <KeyValue label="kWh per year" value={aud0(kwhPerYear)} />
       <KeyValue label="Charging Expense per year" value={`$ ${aud(chargingExpensePerYear)}`} />
       <KeyValue
@@ -169,9 +169,9 @@ export function LeaseReport(props: {
 
       <Spacer />
 
-      <h2 style={{ margin: "14px 0 8px" }}>SECTION 1: LEASE PAYMENTS</h2>
+      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 8px" }}>SECTION 1: LEASE PAYMENTS</div>
 
-      <h3 style={{ margin: "10px 0 6px" }}>Pre-Tax</h3>
+      <div style={{ fontWeight: 900, fontSize: 14, margin: "10px 0 6px" }}>Pre-Tax</div>
       <Table
         rows={[
           ["Vehicle Lease", preTaxFmt(vehicleLeaseFn), preTaxFmt(preTaxVehicleLeaseAnnual), preTaxFmt(preTaxVehicleLeaseLifetime)],
@@ -180,7 +180,9 @@ export function LeaseReport(props: {
         ]}
       />
 
-      <h3 style={{ margin: "14px 0 6px" }}>Post-Tax Equivalent (i.e. take home impact) — WIP</h3>
+      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 6px" }}>
+        Post-Tax Equivalent (i.e. take home impact)
+      </div>
       <Table
         rows={[
           ["Vehicle Lease", preTaxFmt(postTaxVehicleLeaseFn), preTaxFmt(postTaxVehicleLeaseAnnual), preTaxFmt(postTaxVehicleLeaseLifetime)],
@@ -191,22 +193,19 @@ export function LeaseReport(props: {
         headerInfo={{ fortnight: mostExpensiveImpactNote, annual: mostExpensiveImpactNote }}
       />
       <div style={{ marginTop: 6, fontSize: 12, opacity: 0.75 }}>
-        * {mostExpensiveImpactNote}
+        * REMINDER: After {preTaxFmt(postTaxTotalLifetime)}, <b>you still have to pay {preTaxFmt(residualPayableIncGst)} in 
+        residual value</b> to fully own the vehicle at the conclusion of the lease.
       </div>
 
       <Spacer />
 
-      <h2 style={{ margin: "14px 0 8px" }}>Breakdown by Financial Years</h2>
+      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 8px" }}>BREAKDOWN BY FINANCIAL YEARS</div>
       <FYTable fyRows={fyRows} />
 
       <div style={{ marginTop: 8, fontSize: 12, opacity: 0.75 }}>
         * Australian financial year runs from 1/7 to 30/6 and is named after the second year (e.g. FY 2027).
       </div>
 
-      <div style={{ marginTop: 10, fontSize: 13, color: "#0b5cab", fontWeight: 600 }}>
-        * REMINDER: After ${aud(postTaxTotalLifetime)}, you still have to pay $
-        {aud(residualPayableIncGst)} residual value to fully own the vehicle at the conclusion of the lease.
-      </div>
     </div>
   );
 }

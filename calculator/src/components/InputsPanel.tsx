@@ -13,6 +13,7 @@ export type InputsPanelProps = {
 
   // Formatting helpers (keep App.tsx as the source of truth)
   formatPct: (pct: number) => string;
+  onResetDefaults?: () => void;
 };
 
 export default function InputsPanel(props: InputsPanelProps) {
@@ -37,20 +38,258 @@ export default function InputsPanel(props: InputsPanelProps) {
     setVehicleLeasePerFnText(fmtMoneyInput(inputs.vehicleLeasePerFn));
   }, [inputs.vehicleLeasePerFn]);
 
+  // EV FBT exemption eligibility (expanded logic for used vehicle checks)
+  // If the vehicle exceeds the EV Luxury Car Tax threshold, it is NOT eligible for FBT-exempt novated leasing.
+  // TODO: centralise this threshold with a shared constant once the policy module is in place.
+  const EV_LCT_THRESHOLD = 91387;
+
+  const isOverEvLctThreshold = inputs.vehicleBaseValue > EV_LCT_THRESHOLD;
+
+  const needsUsedEligibilityChecks = inputs.vehicleCondition !== "New";
+  const usedEligibilityChecksOk =
+    !needsUsedEligibilityChecks ||
+    (inputs.usedCarFirstHeldAfterJul2022 && inputs.usedCarLctNeverPayable);
+
+  const isEv = inputs.vehicleType === "EV";
+  const isFbtExemptEligible =
+    isEv && inputs.vehicleBaseValue > 0 && !isOverEvLctThreshold && usedEligibilityChecksOk;
+  const evEligibilityCriteriaSatisfied =
+    isEv && inputs.vehicleBaseValue > 0 && !isOverEvLctThreshold && usedEligibilityChecksOk;
+  const leaseFbtTypeLabel = evEligibilityCriteriaSatisfied ? "FBT-Exempt" : "FBT-Applicable";
+
   return (
-    <div style={{ flex: 1, minWidth: 360, maxWidth: 560 }}>
-      <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 8 }}>Inputs</div>
+    <div style={{ flex: 1, minWidth: 360, maxWidth: 560, fontSize: 14, lineHeight: 1.35 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+          marginBottom: 12,
+        }}
+      >
+        <div style={{ fontWeight: 800, fontSize: 18 }}>Inputs</div>
+        <button
+          type="button"
+          onClick={() => {
+            setNeedsLeaseRequote(false);
+            props.onResetDefaults?.();
+          }}
+          style={{
+            borderRadius: 10,
+            border: "1px solid rgba(0,0,0,0.18)",
+            background: "#fff",
+            padding: "8px 12px",
+            fontSize: 13,
+            fontWeight: 800,
+            cursor: "pointer",
+            minHeight: 34,
+            lineHeight: 1,
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Reset
+        </button>
+      </div>
 
       <div style={{ display: "grid", gap: 12 }}>
-        <Section title="EV CALCULATIONS (FBT-EXEMPT)">
+        <Section title="FBT-EXEMPTION ELIGIBILITY">
+          {/* EV/NON-EV Toggle */}
+          <FieldRow
+            label="Vehicle Type"
+            tooltip={
+              <InfoTooltip text="FBT exemption applies only to eligible EVs: first held and used after 1 July 2022, and Luxury Car Tax (LCT) was not payable at any point." />
+            }
+          >
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: 34,
+                borderRadius: 999,
+                border: "1px solid rgba(0,0,0,0.18)",
+                background: "rgba(0,0,0,0.04)",
+                overflow: "hidden",
+                userSelect: "none",
+              }}
+            >
+              {/* Sliding knob */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 2,
+                  bottom: 2,
+                  left: 2,
+                  width: "calc(50% - 2px)",
+                  borderRadius: 999,
+                  background: "#fff",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                  transform: inputs.vehicleType === "EV" ? "translateX(0)" : "translateX(100%)",
+                  transition: "transform 180ms ease",
+                }}
+              />
+
+              {/* Click targets + labels */}
+              <div
+                style={{
+                  position: "relative",
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  height: "100%",
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setInputs((p) => ({ ...p, vehicleType: "EV" }))}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                    fontSize: 14,
+                    fontWeight: inputs.vehicleType === "EV" ? 900 : 750,
+                    opacity: inputs.vehicleType === "EV" ? 1 : 0.85,
+                  }}
+                  aria-pressed={inputs.vehicleType === "EV"}
+                >
+                  EV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setInputs((p) => ({ ...p, vehicleType: "Non-EV" }))}
+                  style={{
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                    fontSize: 14,
+                    fontWeight: inputs.vehicleType === "Non-EV" ? 900 : 750,
+                    opacity: inputs.vehicleType === "Non-EV" ? 1 : 0.85,
+                  }}
+                  aria-pressed={inputs.vehicleType === "Non-EV"}
+                >
+                  Non-EV
+                </button>
+              </div>
+            </div>
+          </FieldRow>
+          {/* Eligibility cue (only show when EV but not eligible) */}
+          {isEv && !evEligibilityCriteriaSatisfied ? (
+            <ReadOnlyValue
+              label="Eligible for FBT exemption"
+              tooltip={<InfoTooltip text="Automatically determined from the next section" />}
+              value="No"
+            />
+          ) : null}
+          <FieldRow label="Novated lease type">
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                padding: "6px 14px",
+                borderRadius: 999,
+                fontSize: 14,
+                fontWeight: 800,
+                background: evEligibilityCriteriaSatisfied
+                  ? "rgba(46, 125, 50, 0.12)"
+                  : "rgba(255, 143, 0, 0.18)",
+                color: evEligibilityCriteriaSatisfied
+                  ? "rgb(27, 94, 32)"
+                  : "rgb(230, 81, 0)",
+                border: evEligibilityCriteriaSatisfied
+                  ? "1px solid rgba(46, 125, 50, 0.35)"
+                  : "1px solid rgba(255, 143, 0, 0.45)",
+              }}
+            >
+              {leaseFbtTypeLabel}
+            </div>
+          </FieldRow>
+        </Section>
+
+        <Section
+          title="VEHICLE DETAILS"
+          highlight={!isFbtExemptEligible}
+          banner={
+            !isFbtExemptEligible ? (
+              <div
+                style={{
+                  padding: "10px 10px",
+                  borderRadius: 10,
+                  border: "1px solid rgba(200,0,0,0.28)",
+                  background: "rgba(200,0,0,0.06)",
+                  fontSize: 12,
+                  lineHeight: 1.35,
+                }}
+              >
+                <div style={{ fontWeight: 800, marginBottom: 4 }}>
+                  This vehicle may not be eligible for FBT-exempt (EV) novated leasing.
+                </div>
+                <div style={{ opacity: 0.92 }}>
+                  {!isEv ? (
+                    <>
+                      You selected <b>Non‑EV</b>. Only eligible EVs can use the <b>FBT‑exempt</b> pathway.
+                      The calculator will assume this to be an <b>FBT-applicable</b> novated lease.
+                    </>
+                  ) : !usedEligibilityChecksOk ? (
+                    <>
+                      For used vehicles, you must confirm the vehicle was first held and used after <b>1 July 2022</b>,
+                      and that <b>Luxury Car Tax (LCT)</b> was never payable. Please tick both checkboxes below, otherwise
+                      this will be treated as an <b>FBT-applicable</b> lease.
+                    </>
+                  ) : (
+                    <>
+                      Your vehicle dutiable value appears to exceed the EV Luxury Car Tax threshold ($
+                      {EV_LCT_THRESHOLD.toLocaleString("en-AU")}). This will be treated as an <b>FBT-applicable</b> lease.
+                    </>
+                  )}
+                </div>
+              </div>
+            ) : null
+          }
+        >
           <SelectNewUsed
             label="Vehicle condition"
             tooltip={
-              <InfoTooltip text="* The pre-populated payment figures are my precise figure for Tesla Model 3 Long Range (81,400 driveaway, leased since Aug 2023)" />
+              <InfoTooltip text="This determines FBT-exemption eligibility as well as GST treatment for initial purchase." />
             }
             value={inputs.vehicleCondition}
-            onChange={(v) => setInputs((p) => ({ ...p, vehicleCondition: v }))}
+            onChange={(v) =>
+              setInputs((p) => ({
+                ...p,
+                vehicleCondition: v,
+                usedCarFirstHeldAfterJul2022: v === "New" ? false : p.usedCarFirstHeldAfterJul2022,
+                usedCarLctNeverPayable: v === "New" ? false : p.usedCarLctNeverPayable,
+              }))
+            }
           />
+
+          {inputs.vehicleCondition !== "New" ? (
+            <div style={{ display: "grid", gap: 8, marginTop: 2 }}>
+              <label style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: 14, opacity: 0.92 }}>
+                <input
+                  type="checkbox"
+                  checked={inputs.usedCarFirstHeldAfterJul2022}
+                  onChange={(e) =>
+                    setInputs((p) => ({ ...p, usedCarFirstHeldAfterJul2022: e.target.checked }))
+                  }
+                  style={{ marginTop: 2 }}
+                />
+                <span>The car was first held and used after <b>1 July 2022</b></span>
+              </label>
+
+              <label style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: 14, opacity: 0.92 }}>
+                <input
+                  type="checkbox"
+                  checked={inputs.usedCarLctNeverPayable}
+                  onChange={(e) => setInputs((p) => ({ ...p, usedCarLctNeverPayable: e.target.checked }))}
+                  style={{ marginTop: 2 }}
+                />
+                <span>
+                  <b>Luxury Car Tax (LCT)</b> was never payable for this car
+                </span>
+              </label>
+            </div>
+          ) : null}
 
           <MoneyField
             label="Vehicle Dutiable Value (aka FBT Base Value)"
@@ -136,6 +375,15 @@ export default function InputsPanel(props: InputsPanelProps) {
             min={0}
             onChange={(v) => setInputs((p) => ({ ...p, homeLoanOffsetInterestRate: v }))}
           />
+
+          <SelectYesNo
+            label="Super Guarantee Calculated From Pre-NL Income"
+            tooltip={
+                <InfoTooltip text="Usually YES, but in ~10% cases the employer will calculate SG on post-NL amount. Check with your payroll - significant impact on saving!" />
+            }
+            value={inputs.superFromPreNlIncome}
+            onChange={(v) => setInputs((p) => ({ ...p, superFromPreNlIncome: v }))}
+          />
         </Section>
 
         <Section title="VEHICLE LEASE DETAILS">
@@ -185,8 +433,8 @@ export default function InputsPanel(props: InputsPanelProps) {
       Heads up: changing lease duration usually changes your per-fortnight lease quote.
     </div>
     <div style={{ opacity: 0.92 }}>
-      Please update <b>Vehicle Lease (Per Fortnight)</b> (and any other quote-dependent fields) to match the new duration,
-      otherwise the summary may be misleading.
+      Please update <b>Vehicle Lease (Per Fortnight)</b> (and <b>all other quote-dependent fields</b>) to match the new duration,
+      otherwise the outputs may be misleading.
     </div>
     <div style={{ marginTop: 8, display: "flex", justifyContent: "flex-end" }}>
       <button
@@ -269,14 +517,6 @@ export default function InputsPanel(props: InputsPanelProps) {
             onChange={(v) => setInputs((p) => ({ ...p, luxuryVehicleAdjPerFn: v }))}
           />
 
-          <SelectYesNo
-            label="Super Guarantee Calculated From Pre-NL Income"
-            tooltip={
-                <InfoTooltip text="Usually YES, but in ~10% cases the employer will calculate SG on post-NL amount. Check with your payroll - significant impact on saving!" />
-            }
-            value={inputs.superFromPreNlIncome}
-            onChange={(v) => setInputs((p) => ({ ...p, superFromPreNlIncome: v }))}
-          />
 
           <details style={{ marginTop: 6 }}>
             <summary style={{ cursor: "pointer", fontWeight: 700, opacity: 0.85 }}>
@@ -582,10 +822,25 @@ export default function InputsPanel(props: InputsPanelProps) {
 
 /* ---------- UI helpers (local to inputs panel) ---------- */
 
-function Section(props: { title: string; children: React.ReactNode }) {
+function Section(props: {
+  title: string;
+  children: React.ReactNode;
+  highlight?: boolean;
+  banner?: React.ReactNode;
+}) {
   return (
-    <div style={{ border: "1px solid rgba(0,0,0,0.12)", borderRadius: 12, padding: 12 }}>
+    <div
+      style={{
+        border: props.highlight ? "2px solid rgba(200,0,0,0.45)" : "1px solid rgba(0,0,0,0.12)",
+        borderRadius: 12,
+        padding: 12,
+        background: props.highlight ? "rgba(200,0,0,0.04)" : undefined,
+        boxShadow: props.highlight ? "0 0 0 4px rgba(200,0,0,0.08)" : "none",
+        transition: "box-shadow 220ms ease, border-color 220ms ease, background 220ms ease",
+      }}
+    >
       <div style={{ fontWeight: 900, fontSize: 14, marginBottom: 10 }}>{props.title}</div>
+      {props.banner ? <div style={{ marginBottom: 10 }}>{props.banner}</div> : null}
       <div style={{ display: "grid", gap: 10 }}>{props.children}</div>
     </div>
   );
@@ -600,7 +855,7 @@ function FieldRow(props: { label: React.ReactNode; tooltip?: React.ReactNode; ch
           gridTemplateColumns: "1fr auto",
           alignItems: "center",
           columnGap: 8,
-          fontSize: 13,
+          fontSize: 14,
           opacity: 0.9,
         }}
       >
@@ -621,7 +876,7 @@ function inputStyle(): React.CSSProperties {
     padding: "8px 10px",
     borderRadius: 10,
     border: "1px solid rgba(0,0,0,0.18)",
-    fontSize: 13,
+    fontSize: 14,
   };
 }
 

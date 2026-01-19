@@ -13,6 +13,7 @@ import {
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "./engine/effectiveinterest";
 import { residualPercentForYears } from "./engine/ato";
+import EffectiveInterestReport from "./components/EffectiveInterestReport";
 
 
 function estMarketValueFromDriveaway(driveawayCost: number): number {
@@ -160,11 +161,21 @@ function safeVehicleCondition(
     : fallback;
 }
 
+function safeVehicleType(
+  x: unknown,
+  fallback: Inputs["vehicleType"]
+): Inputs["vehicleType"] {
+  return x === "EV" || x === "Non-EV" ? x : fallback;
+}
+
 function coerceInputsFromUrl(partial: Partial<Inputs>, defaults: Inputs): Inputs {
   return {
     ...defaults,
 
+    vehicleType: safeVehicleType((partial as any).vehicleType, defaults.vehicleType),
     vehicleCondition: safeVehicleCondition(partial.vehicleCondition, defaults.vehicleCondition),
+    usedCarFirstHeldAfterJul2022: safeBool((partial as any).usedCarFirstHeldAfterJul2022, defaults.usedCarFirstHeldAfterJul2022),
+    usedCarLctNeverPayable: safeBool((partial as any).usedCarLctNeverPayable, defaults.usedCarLctNeverPayable),
     vehicleBaseValue: safeNum(partial.vehicleBaseValue, defaults.vehicleBaseValue),
     driveawayCost: safeNum(partial.driveawayCost, defaults.driveawayCost),
     estimatedMarketValueAtEnd: safeNum(partial.estimatedMarketValueAtEnd, defaults.estimatedMarketValueAtEnd),
@@ -246,7 +257,10 @@ function encodeInputsToUrlParam(inputs: Inputs): string {
 export default function App() {
   const defaultInputs: Inputs = (() => {
     const base: Inputs = {
+    vehicleType: "EV",
     vehicleCondition: "New",
+    usedCarFirstHeldAfterJul2022: false,
+    usedCarLctNeverPayable: false,
     vehicleBaseValue: 75500,
     driveawayCost: 81422.5,
     estimatedMarketValueAtEnd: estMarketValueFromDriveaway(81422.5),
@@ -517,8 +531,8 @@ export default function App() {
       width: "100%",
       fontFamily:
         '"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif',
-      fontSize: 16,
-      lineHeight: 1.65,
+      fontSize: 14,
+      lineHeight: 1.35,
       color: "rgba(0,0,0,0.9)",
     }}
   >
@@ -539,6 +553,7 @@ export default function App() {
             border: "1px solid rgba(0,0,0,0.15)",
             borderRadius: 12,
             padding: 16,
+            background: "rgba(0,0,0,0.03)",
           }}
         >
           <InputsPanel
@@ -548,6 +563,12 @@ export default function App() {
             guardLiveRatePct={Number.isFinite(guardLiveRate) ? guardLiveRate  : NaN}
             guardMessage={leaseQuoteGuardMsg}
             formatPct={formatPct}
+            onResetDefaults={() => {
+              setInputs(defaultInputs);
+              setLeaseQuoteGuardMsg("");
+              setOutputTab("Summary");
+              setCopiedLink(false);
+            }}
           />
         </div>
 
@@ -558,6 +579,7 @@ export default function App() {
             border: "1px solid rgba(0,0,0,0.15)",
             borderRadius: 12,
             padding: 16,
+            background: "rgba(255,255,255,0.9)",
           }}
         >
           {/* Output tabs */}
@@ -574,7 +596,6 @@ export default function App() {
               style={{
                 fontWeight: 800,
                 fontSize: 18,
-                marginBottom: 12,
               }}
             >
               Outputs
@@ -660,306 +681,10 @@ export default function App() {
                   marginTop: 16,
                 }}
               >
-                <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 10 }}>
-                  SECTION 4: WHAT IS MY EFFECTIVE INTEREST RATE?
-                </div>
+                
 
-                {(() => {
-  let debug: any = null;
-  try {
-    const years = Math.round(inputs.leaseDurationYears);
+<EffectiveInterestReport inputs={inputs} />
 
-    const residualPctRaw = residualPercentForYears(years);
-    let residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
-    // Defensive normalisation: guard against double-scaling (e.g. 0.002813 instead of 0.2813)
-    if (residualPct > 0 && residualPct < 0.01) residualPct = residualPct * 100;
-
-    // GST saved (cap $6,334; no GST if private used)
-    const gstSavedLocal = (() => {
-      const cap = 6334;
-      if (inputs.vehicleCondition === "Used – private sale (no GST)") return 0;
-      const gross = Math.max(0, inputs.vehicleBaseValue);
-      return Math.min(cap, gross / 11);
-    })();
-
-    const money = (n: number) =>
-      `$ ${n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-
-    const pct = (rAnnual: number) =>
-      Number.isFinite(rAnnual) ? `${(rAnnual * 100).toFixed(2)}%` : "—";
-
-    // Definition 1 uses "standard financed" based on driveaway + doc fee - gst saved
-    const financedStandardExGst = financedAmountExGstFromInputs(inputs);
-
-    // IMPORTANT: For Section 4, we want the residual value payable **ex GST**.
-    // Keep the residual % scaling consistent with Definition 2 (which is already correct).
-    // financedStandardExGst is treated as the financed amount INCLUDING doc fee (ex GST),
-    // so the residual is computed off (financed - doc fee), per the existing pattern.
-    const residualStandardExGst =
-      Math.max(0, financedStandardExGst - inputs.leaseDocFee) * residualPct;
-
-    // Definition 2 uses a "brokerage-inflated financed amount reported by NL providers" 
-    const financedInflatedProxyExGst = Math.max(0, inputs.driveawayCost - gstSavedLocal) + inputs.leaseDocFee;
-
-    const financedInflatedExGst =
-      inputs.financedAmountForInterestCalcExGst > 0
-      ? Math.max(0, inputs.financedAmountForInterestCalcExGst)
-      : financedInflatedProxyExGst;
-    const residualInflatedExGst = Math.max(0, financedStandardExGst - inputs.leaseDocFee) * residualPct;
-
-    const leaseFn = Math.max(0, inputs.vehicleLeasePerFn);
-    const mgmtFeeFn = Math.max(0, inputs.managementFeesAnnual / 26);
-
-    // Wired from inputs.monthsDeferred
-    const deferMonths = Math.max(0, Math.round(inputs.monthsDeferred));
-    const noSolutionNote = "(no numerical solution for these inputs)";
-
-    // Debug helper and debug object
-    const n2 = (n: number) =>
-      Number.isFinite(n) ? Number(n.toFixed(2)) : n;
-
-    debug = {
-      leaseYears: years,
-      deferMonths,
-      residualPct,
-      vehicleCondition: inputs.vehicleCondition,
-      gstSavedLocal: n2(gstSavedLocal),
-      leaseFn: n2(leaseFn),
-      mgmtFeeFn: n2(mgmtFeeFn),
-      definition1: {
-        financedAmountExGst: n2(financedStandardExGst),
-        residualValueExGst: n2(residualStandardExGst),
-        fortnightlyLeasePayment: n2(leaseFn),
-      },
-      definition1a: {
-        financedAmountExGst: n2(financedStandardExGst),
-        residualValueExGst: n2(residualStandardExGst),
-        fortnightlyLeasePayment: n2(leaseFn + mgmtFeeFn),
-      },
-      definition2: {
-        usedUserProvidedFinancedAmount: inputs.financedAmountForInterestCalcExGst > 0,
-        financedAmountExGst: n2(financedInflatedExGst),
-        residualValueExGst: n2(residualInflatedExGst),
-        fortnightlyLeasePayment: n2(leaseFn),
-      },
-    };
-
-    const DebugPanel = () => (
-      <details style={{ marginTop: 14 }}>
-        <summary style={{ cursor: "pointer", fontWeight: 700, opacity: 0.9 }}>
-          Show variables used in the effective-interest calculation
-        </summary>
-        <div style={{ marginTop: 8, fontSize: 12, opacity: 0.9 }}>
-          <div style={{ marginBottom: 8, opacity: 0.75 }}>
-            Tip: if you see “Payment too low (even at 0% rate)”, compare your payment against these values.
-          </div>
-          <pre
-            style={{
-              whiteSpace: "pre-wrap",
-              wordBreak: "break-word",
-              margin: 0,
-              padding: 10,
-              borderRadius: 10,
-              border: "1px solid rgba(0,0,0,0.15)",
-              background: "rgba(0,0,0,0.03)",
-              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-            }}
-          >
-            {JSON.stringify(debug, null, 2)}
-          </pre>
-        </div>
-      </details>
-    );
-
-    const rateDef1 = effectiveAnnualRateFromFortnightlyLease({
-      financedAmountExGst: financedStandardExGst,
-      residualValueExGst: residualStandardExGst,
-      leaseYears: years,
-      deferMonths,
-      fortnightlyLeasePayment: leaseFn,
-    });
-
-    const rateDef1a = effectiveAnnualRateFromFortnightlyLease({
-      financedAmountExGst: financedStandardExGst,
-      residualValueExGst: residualStandardExGst,
-      leaseYears: years,
-      deferMonths,
-      fortnightlyLeasePayment: leaseFn + mgmtFeeFn,
-    });
-
-    const rateDef2 = effectiveAnnualRateFromFortnightlyLease({
-      financedAmountExGst: financedInflatedExGst,
-      residualValueExGst: residualInflatedExGst,
-      leaseYears: years,
-      deferMonths,
-      fortnightlyLeasePayment: leaseFn,
-    });
-
-    const BlockTitle = (p: { children: React.ReactNode }) => (
-      <div
-        style={{
-          fontWeight: 800,
-          marginTop: 14,
-          marginBottom: 6,
-          background: "rgba(0,0,0,0.06)",
-          padding: "6px 10px",
-        }}
-      >
-        {p.children}
-      </div>
-    );
-
-    const Row = (p: { label: string; value: string; note?: string }) => (
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          gap: 10,
-          alignItems: "baseline",
-          padding: "3px 0",
-        }}
-      >
-        <div style={{ fontWeight: 600 }}>
-          {p.label}
-          {p.note ? (
-            <span
-              style={{
-                marginLeft: 8,
-                fontWeight: 400,
-                opacity: 0.7,
-                fontStyle: "italic",
-              }}
-            >
-              {p.note}
-            </span>
-          ) : null}
-        </div>
-        <div style={{ fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>{p.value}</div>
-      </div>
-    );
-
-    return (
-      <div>
-        <BlockTitle>
-          Definition 1: Using standard calculations, not considering management fees (most common definition)
-        </BlockTitle>
-        <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", marginTop: 4 }}>
-          * This is the closest approximation of "if we pretend this as a loan; what interest rate would result in an amortisation schedule that starts from financed amount and ends with residual value"
-        </div>
-        <div style={{ marginTop: 8 }}>
-          <Row label="Financed Amount from standard calculations" value={money(financedStandardExGst)} />
-          <Row label="Residual Value Payable (ex GST)" value={money(residualStandardExGst)} />
-          <Row label="Fortnightly lease" value={money(leaseFn)} />
-        </div>
-        <div style={{ marginTop: 8, fontWeight: 900 }}>
-          Effective interest rate&nbsp;&nbsp;{pct(rateDef1)}
-          {!Number.isFinite(rateDef1) ? (
-            <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.75, fontStyle: "italic" }}>
-              {noSolutionNote}
-            </span>
-          ) : null}
-        </div>
-
-        <BlockTitle>
-          Definition 1a: Standard calculations, but treat fortnightly lease + management fee as the “true lease amount"
-        </BlockTitle>
-        <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", marginTop: 4 }}>
-          * Useful for comparing quotes because it captures fees embedded as “running cost”.
-        </div>
-        <div style={{ marginTop: 8 }}>
-          <Row label="Financed Amount from standard calculations" value={money(financedStandardExGst)} />
-          <Row label="Residual Value Payable (ex GST)" value={money(residualStandardExGst)} />
-          <Row label="Fortnightly lease + Management fee" value={money(leaseFn + mgmtFeeFn)} />
-        </div>
-        <div style={{ marginTop: 8, fontWeight: 900 }}>
-          Effective interest rate (incorporating fees)&nbsp;&nbsp;{pct(rateDef1a)}
-          {!Number.isFinite(rateDef1a) ? (
-            <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.75, fontStyle: "italic" }}>
-              {noSolutionNote}
-            </span>
-          ) : null}
-        </div>
-
-        <BlockTitle>
-          Definition 2: Using brokerage-inflated financed amount, not considering management fees
-        </BlockTitle>
-        <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", marginTop: 4 }}>
-          * This can look misleadingly low if the financed amount is inflated (a common quoting trick).
-        </div>
-        <div style={{ marginTop: 8 }}>
-          <Row
-            label="Financed Amount that includes brokerage inflation"
-            value={money(financedInflatedExGst)}
-          />
-          <Row label="Residual Value Payable (ex GST)" value={money(residualInflatedExGst)} />
-          <Row label="Fortnightly lease" value={money(leaseFn)} />
-        </div>
-        <div style={{ marginTop: 8, fontWeight: 900 }}>
-          Effective interest rate (using inflated financed amount)&nbsp;&nbsp;{pct(rateDef2)}
-          {!Number.isFinite(rateDef2) ? (
-            <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.75, fontStyle: "italic" }}>
-              {noSolutionNote}
-            </span>
-          ) : null}
-        </div>
-        {/* Debug panel at the very end */}
-        <DebugPanel />
-      </div>
-    );
-  } catch (e) {
-    console.error("Section 4 effective interest render failed", e);
-    const msg =
-      e instanceof Error
-        ? e.message
-        : typeof e === "string"
-          ? e
-          : JSON.stringify(e);
-
-    return (
-      <div
-        style={{
-          padding: 10,
-          border: "1px solid rgba(200,0,0,0.35)",
-          borderRadius: 10,
-          background: "rgba(200,0,0,0.06)",
-        }}
-      >
-        <div style={{ fontWeight: 900, marginBottom: 6 }}>Section 4 error</div>
-        <div style={{ opacity: 0.9, marginBottom: 6 }}>
-          Something went wrong while computing the effective interest rate.
-        </div>
-        <div style={{ fontFamily: "monospace", fontSize: 12, opacity: 0.85 }}>
-          {msg}
-        </div>
-        {debug ? (
-          <details style={{ marginTop: 10 }} open>
-            <summary style={{ cursor: "pointer", fontWeight: 700, opacity: 0.9 }}>
-              Variables used in Section 4
-            </summary>
-            <pre
-              style={{
-                whiteSpace: "pre-wrap",
-                wordBreak: "break-word",
-                margin: 0,
-                marginTop: 8,
-                padding: 10,
-                borderRadius: 10,
-                border: "1px solid rgba(0,0,0,0.15)",
-                background: "rgba(0,0,0,0.03)",
-                fontFamily:
-                  "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-                fontSize: 12,
-                opacity: 0.9,
-              }}
-            >
-              {JSON.stringify(debug, null, 2)}
-            </pre>
-          </details>
-        ) : null}
-      </div>
-    );
-  }
-})()}
               </div>
 
               {inputs.superFromPreNlIncome === "No" && (

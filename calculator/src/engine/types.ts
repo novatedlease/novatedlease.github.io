@@ -2,10 +2,14 @@ export type YesNo = "Yes" | "No";
 
 export type Inputs = {
   // Vehicle + lease
+  vehicleType: "EV" | "Non-EV";
   vehicleCondition:
     | "New"
     | "Used – dealer sale (GST inc)"
     | "Used – private sale (no GST)"; // affects GST treatment
+  // Used vehicle eligibility checks for EV FBT exemption
+  usedCarFirstHeldAfterJul2022: boolean;
+  usedCarLctNeverPayable: boolean;
   vehicleBaseValue: number; // dutiable / FBT base
   driveawayCost: number;
   estimatedMarketValueAtEnd: number;

@@ -368,7 +368,7 @@ useEffect(() => {
     return (
       <div style={{ marginTop: 10 }}>
         <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
             <thead>
               <tr>
                 <th
@@ -524,7 +524,7 @@ useEffect(() => {
   };
 
   return (
-    <div style={{ fontSize: 13, lineHeight: 1.35 }}>
+    <div style={{ fontSize: 14, lineHeight: 1.35 }}>
             <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 6 }}>SECTION 2: FINANCIAL SUMMARY</div>
 
       <div style={{ fontWeight: 800, marginTop: 8 }}>2.1 Summary</div>
