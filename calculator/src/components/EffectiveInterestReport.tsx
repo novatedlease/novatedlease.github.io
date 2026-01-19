@@ -296,9 +296,6 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
 
     return (
       <div style={{ fontSize: 14, lineHeight: 1.35 }}>
-        <div style={{ fontWeight: 900, fontSize: 18, margin: "0 0 12px" }}>
-          SECTION 4: WHAT IS MY EFFECTIVE INTEREST RATE?
-        </div>
 
         <SummaryBox
           title="Effective interest rate (recommended)"

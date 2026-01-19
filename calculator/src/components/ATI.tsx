@@ -206,9 +206,6 @@ export default function ATI(props: AtiProps) {
 
   return (
     <div style={{ padding: "12px 0", fontSize: 14, lineHeight: 1.35 }}>
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "0 0 12px 0" }}>
-        SECTION 3: ADJUSTED TAXABLE INCOME SECONDARY TO NOVATED LEASE
-      </div>
 
       <div
         style={{

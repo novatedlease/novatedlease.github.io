@@ -2,9 +2,8 @@ import React from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
 import { calcResidualPayableIncGst } from "../engine/types";
-import { taxSummaryAUResident } from "../engine/tax_au";
-import { residualPercentForYears, gstSaved } from "../engine/ato";
-import { aud, aud0, pct } from "../utils/format";
+import { residualPercentForYears } from "../engine/ato";
+import { aud0 } from "../utils/format";
 import { buildFyBreakdown } from "../engine/fy_breakdown";
 import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
 
@@ -17,16 +16,8 @@ export function LeaseReport(props: {
 }) {
   const i = props.inputs;
 
-  const t = taxSummaryAUResident(i.totalTaxableIncome);
-
-  const taxRatePct =
-    props.taxRateInclMedicarePct ?? t.marginalRateInclMedicare * 100;
-  const taxRate = taxRatePct / 100;
 
   const fortnights = Math.round(i.leaseDurationYears * 26);
-
-  // Vehicle GST saved (single-source rule in engine)
-  const vehicleGstSaved = gstSaved(i);
 
   // Amount financed (simple approximation)
   const amountFinanced = financedAmountExGstFromInputs(i);
@@ -41,23 +32,13 @@ export function LeaseReport(props: {
     residualPct,
   });
 
-  // Electricity model
-  const kwhPerYear = (i.annualMileageKm * i.avgWhPerKm) / 1000;
-  const chargingExpensePerYear =
-    i.overrideAnnualChargingExpense ??
-    kwhPerYear * i.avgAudPerKwh;
-
-  // ATO EV home charging shortcut (4.2c / km)
-  const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
-  const chargingDelta = assumedChargingClaimPerYear - chargingExpensePerYear;
-
   // Placeholder: “post-reimbursement effective charging expense”
   // Requested simple model: actual charging expense minus (assumed claim * marginal tax rate)
-  const postReimbursementEffectiveChargingExpense =
-    chargingExpensePerYear - assumedChargingClaimPerYear * taxRate;
+  // Note: removed electricity model and related variables per instructions
 
   // Section 1: Lease payments (use your existing input fields)
   const vehicleLeaseFn = i.vehicleLeasePerFn;
+  const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
   const runningCostAnnual =
     i.serviceMaintTyresAnnual +
     i.saveShareAnnual +
@@ -117,61 +98,20 @@ export function LeaseReport(props: {
 
   return (
     <div style={{ fontSize: 14, lineHeight: 1.35 }}>
-      <div style={{ fontWeight: 900, fontSize: 16, margin: "0 0 10px" }}>Details</div>
 
-      <KeyValue
-        label="Income Tax Bracket (inc. Medicare Levy)"
-        value={`${Math.round(taxRatePct)}%`}
-      />
-      <KeyValue label="Lease Duration (Years)" value={String(i.leaseDurationYears)} />
-      <KeyValue label="Fortnights" value={String(fortnights)} />
+      <div style={{ fontWeight: 900, fontSize: 14, margin: "10px 0 6px" }}>2.1 Summary</div>
 
-      <Spacer />
-
-      <KeyValue
-        label="Vehicle condition"
-        value={i.vehicleCondition}
-      />
-      <KeyValue
-        label="Vehicle GST saved"
-        value={
-          i.vehicleCondition === "Used – private sale (no GST)"
-            ? `$ ${aud(vehicleGstSaved)} (not eligible — private sale)`
-            : `$ ${aud(vehicleGstSaved)} (cap $ ${aud(6334)}; based on dutiable value / 11)`
-        }
-      />
-
-      <KeyValue label="Amount Financed" value={`$ ${aud(amountFinanced)}`} />
-      <KeyValue
-        label={`ATO-Mandated Residual Value % for ${Math.round(i.leaseDurationYears)} Years`}
-        value={pct(residualPct)}
-      />
-      <KeyValue
-        label={`Residual Value Payable after ${Math.round(i.leaseDurationYears)} Years (inc GST)`}
-        value={`$ ${aud(residualPayableIncGst)}`}
-      />
-
-      <Spacer />
-
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "10px 0 6px", fontStyle: "italic" }}>Electricity</div>
-      <KeyValue label="kWh per year" value={aud0(kwhPerYear)} />
-      <KeyValue label="Charging Expense per year" value={`$ ${aud(chargingExpensePerYear)}`} />
-      <KeyValue
-        label="Assumed Charging per year (NL claim method)"
-        value={`$ ${aud(assumedChargingClaimPerYear)}`}
-      />
-      <KeyValue label="Charging Delta" value={`$ ${aud(chargingDelta)}`} />
-      <KeyValue
-        label="Post-Reimbursement Effective Charging Expense"
-        value={`$ ${aud(postReimbursementEffectiveChargingExpense)}`}
-        highlight
-      />
-
-      <Spacer />
-
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 8px" }}>SECTION 1: LEASE PAYMENTS</div>
-
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "10px 0 6px" }}>Pre-Tax</div>
+      <div
+        style={{
+          fontWeight: 800,
+          fontSize: 14,
+          margin: "10px 0 6px",
+          paddingLeft: 8,
+          borderLeft: "3px solid rgba(0,0,0,0.08)",
+        }}
+      >
+        Pre-Tax
+      </div>
       <Table
         rows={[
           ["Vehicle Lease", preTaxFmt(vehicleLeaseFn), preTaxFmt(preTaxVehicleLeaseAnnual), preTaxFmt(preTaxVehicleLeaseLifetime)],
@@ -180,7 +120,15 @@ export function LeaseReport(props: {
         ]}
       />
 
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 6px" }}>
+      <div
+        style={{
+          fontWeight: 800,
+          fontSize: 14,
+          margin: "14px 0 6px",
+          paddingLeft: 8,
+          borderLeft: "3px solid rgba(0,0,0,0.08)",
+        }}
+      >
         Post-Tax Equivalent (i.e. take home impact)
       </div>
       <Table
@@ -199,7 +147,7 @@ export function LeaseReport(props: {
 
       <Spacer />
 
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 8px" }}>BREAKDOWN BY FINANCIAL YEARS</div>
+      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 6px" }}>2.2 Breakdown by Financial Years</div>
       <FYTable fyRows={fyRows} />
 
       <div style={{ marginTop: 8, fontSize: 12, opacity: 0.75 }}>
@@ -216,17 +164,6 @@ function preTaxFmt(n: number): string {
 
 function Spacer() {
   return <div style={{ height: 10 }} />;
-}
-
-function KeyValue(props: { label: string; value: string; highlight?: boolean }) {
-  return (
-    <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: 12, padding: "2px 0" }}>
-      <div style={{ opacity: 0.85 }}>{props.label}</div>
-      <div style={{ fontWeight: props.highlight ? 700 : 600, color: props.highlight ? "#0b5cab" : "inherit" }}>
-        {props.value}
-      </div>
-    </div>
-  );
 }
 
 function InfoInline(props: { text: React.ReactNode; width?: number }) {

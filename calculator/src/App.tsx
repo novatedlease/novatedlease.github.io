@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { LeaseReport } from "./components/LeaseReport";
+import BasicInformationReport from "./components/BasicInformationReport";
 import type { Inputs } from "./engine/types";
 import { buildFyBreakdown } from "./engine/fy_breakdown";
 import { FinancialReport } from "./components/FinancialReport";
@@ -106,6 +107,107 @@ function TabButton(props: {
     >
       {props.label}
     </button>
+  );
+}
+
+// CollapsibleSection helper component
+type CollapsibleSectionProps = {
+  title: string;
+  description: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+};
+
+function CollapsibleSection(props: CollapsibleSectionProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(!!props.defaultOpen);
+
+  return (
+    <details
+      className="nl-collapsible"
+      open={isOpen}
+      onToggle={(e) => {
+        const el = e.currentTarget as HTMLDetailsElement;
+        setIsOpen(el.open);
+      }}
+      style={{
+        border: "1px solid rgba(0,0,0,0.15)",
+        borderRadius: 12,
+        background: "rgba(255,255,255,0.98)",
+      }}
+    >
+      <style>{`
+        .nl-collapsible-summary::-webkit-details-marker { display: none; }
+        .nl-collapsible-summary::marker { content: ""; }
+
+        /* Defensive overrides in case global CSS adds icons via pseudo-elements */
+        .nl-collapsible-summary::before,
+        .nl-collapsible-summary::after {
+          content: none !important;
+          display: none !important;
+          background: none !important;
+        }
+
+        /* Defensive override in case global CSS uses background images */
+        .nl-collapsible-summary {
+          background-image: none !important;
+        }
+      `}</style>
+
+      <summary
+        className="nl-collapsible-summary"
+        style={{
+          listStyle: "none",
+          cursor: "pointer",
+          padding: 0,
+          paddingLeft: 16,
+          paddingRight: 16,
+          paddingTop: 16,
+          paddingBottom: 16,
+          display: "flex",
+          alignItems: "baseline",
+          justifyContent: "space-between",
+          gap: 12,
+          userSelect: "none",
+          WebkitAppearance: "none" as any,
+          appearance: "none" as any,
+        }}
+      >
+        <div>
+          <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 4 }}>
+            {props.title}
+          </div>
+          <div style={{ fontSize: 13, opacity: 0.8, lineHeight: 1.3 }}>
+            {props.description}
+          </div>
+        </div>
+
+        {/* Expand / collapse button */}
+        <div
+          aria-hidden
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: 10,
+            border: "1px solid rgba(0,0,0,0.18)",
+            background: isOpen ? "rgba(0,0,0,0.06)" : "rgba(0,0,0,0.02)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 18,
+            fontWeight: 900,
+            lineHeight: 1,
+            opacity: 0.9,
+            flex: "0 0 auto",
+          }}
+        >
+          {isOpen ? "−" : "+"}
+        </div>
+      </summary>
+
+      <div style={{ borderTop: "1px solid rgba(0,0,0,0.10)", padding: 16 }}>
+        {props.children}
+      </div>
+    </details>
   );
 }
 
@@ -640,63 +742,61 @@ export default function App() {
                   border: "1px solid rgba(0,0,0,0.15)",
                   borderRadius: 12,
                   padding: 16,
+                  marginBottom: 16,
                 }}
+              >
+                <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} />
+              </div>
+
+              <CollapsibleSection
+                title="SECTION 1: LEASE PAYMENTS"
+                description="Shows your pre-tax lease and take-home impact (fortnightly, annual, and total), and a year-by-year breakdown to help you see what changes if your income is near a marginal tax bracket threshold.
+"
               >
                 <LeaseReport inputs={inputs} taxRateInclMedicarePct={47} />
+              </CollapsibleSection>
+
+              <div style={{ marginTop: 16 }}>
+                <CollapsibleSection
+                  title="SECTION 2: FINANCIAL SUMMARY"
+                  description="A full worksheet of cashflow, asset and liability under each pathway e.g. NL vs loan vs cash vs keeping current car."
+                >
+                  <FinancialReport inputs={inputs} taxRateInclMedicarePct={47} />
+                </CollapsibleSection>
               </div>
 
-              <div
-                style={{
-                  border: "1px solid rgba(0,0,0,0.15)",
-                  borderRadius: 12,
-                  padding: 16,
-                  marginTop: 16,
-                }}
-              >
-                <FinancialReport inputs={inputs} taxRateInclMedicarePct={47} />
+              <div style={{ marginTop: 16 }}>
+                <CollapsibleSection
+                  title="SECTION 3: ADJUSTED TAXABLE INCOME"
+                  description="Estimates your Adjusted Taxable Income after novated leasing (useful for HECS, childcare subsidy, Medicare levy surcharge etc)."
+                >
+                  <ATI
+                    originalTaxableIncomePreNL={inputs.totalTaxableIncome}
+                    leaseStartDate={new Date(inputs.leaseStartDate)}
+                    leaseTermYears={inputs.leaseDurationYears}
+                    fbtBaseValue={inputs.vehicleBaseValue}
+                    rows={buildAtiRowsFromFyBreakdown(inputs)}
+                  />
+                </CollapsibleSection>
               </div>
 
-              <div
-                style={{
-                  border: "1px solid rgba(0,0,0,0.15)",
-                  borderRadius: 12,
-                  padding: 16,
-                  marginTop: 16,
-                }}
-              >
-                <ATI
-                  originalTaxableIncomePreNL={inputs.totalTaxableIncome}
-                  leaseStartDate={new Date(inputs.leaseStartDate)}
-                  leaseTermYears={inputs.leaseDurationYears}
-                  fbtBaseValue={inputs.vehicleBaseValue}
-                  rows={buildAtiRowsFromFyBreakdown(inputs)}
-                />
-              </div>
-
-              <div
-                style={{
-                  border: "1px solid rgba(0,0,0,0.15)",
-                  borderRadius: 12,
-                  padding: 16,
-                  marginTop: 16,
-                }}
-              >
-                
-
-<EffectiveInterestReport inputs={inputs} />
-
+              <div style={{ marginTop: 16 }}>
+                <CollapsibleSection
+                  title="SECTION 4: EFFECTIVE INTEREST RATE"
+                  description="Back-calculates the implied interest rate from your lease payment and residual, and optionally shows an amortisation schedule."
+                >
+                  <EffectiveInterestReport inputs={inputs} />
+                </CollapsibleSection>
               </div>
 
               {inputs.superFromPreNlIncome === "No" && (
-                <div
-                  style={{
-                    border: "1px solid rgba(0,0,0,0.15)",
-                    borderRadius: 12,
-                    padding: 16,
-                    marginTop: 16,
-                  }}
-                >
-                  <SG rows={buildSgRowsFromFyBreakdown(inputs)} />
+                <div style={{ marginTop: 16 }}>
+                  <CollapsibleSection
+                    title="SECTION 5: SUPER GUARANTEE"
+                    description="Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
+                  >
+                    <SG rows={buildSgRowsFromFyBreakdown(inputs)} />
+                  </CollapsibleSection>
                 </div>
               )}
             </>

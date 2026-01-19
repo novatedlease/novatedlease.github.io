@@ -43,7 +43,6 @@ export default function SG(props: SGProps) {
 
   return (
     <div style={{ padding: "12px 0" }}>
-      <h3 style={{ margin: "0 0 6px 0" }}>SECTION 5: EFFECT ON SUPER GUARANTEE</h3>
       <div style={{ fontStyle: "italic", fontSize: 13, opacity: 0.85, marginBottom: 10 }}>
         * This section is only relevant if your payroll calculates your super guarantee on <b>post‑NL income</b>.
         On informal polling this applies to around 10% of people — please check with your payroll.

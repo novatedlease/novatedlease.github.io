@@ -525,7 +525,6 @@ useEffect(() => {
 
   return (
     <div style={{ fontSize: 14, lineHeight: 1.35 }}>
-            <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 6 }}>SECTION 2: FINANCIAL SUMMARY</div>
 
       <div style={{ fontWeight: 800, marginTop: 8 }}>2.1 Summary</div>
 
