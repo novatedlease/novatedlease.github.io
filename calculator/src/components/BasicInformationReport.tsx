@@ -1,10 +1,10 @@
-
 import type { Inputs } from "../engine/types";
 import { calcResidualPayableIncGst } from "../engine/types";
 import { taxSummaryAUResident } from "../engine/tax_au";
 import { residualPercentForYears, gstSaved } from "../engine/ato";
-import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
+import { financedAmountExGstFromInputs, effectiveAnnualRateFromFortnightlyLease } from "../engine/effectiveinterest";
 import { aud, aud0, pct } from "../utils/format";
+import { InfoTooltip } from "./ui/InfoTooltip";
 
 export default function BasicInformationReport(props: {
   inputs: Inputs;
@@ -36,6 +36,48 @@ export default function BasicInformationReport(props: {
     leaseDocFeeExGst: i.leaseDocFee,
     residualPct,
   });
+
+  // Effective interest rate (Definition 1)
+  // Use the shared engine solver (same as the live hint in App.tsx).
+  const effectiveInterestRatePct = (() => {
+    try {
+      function normalizedResidualPctForYears(years: number): number {
+        const residualPctRaw = residualPercentForYears(years);
+        let residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
+        // Guard against double scaling (e.g. 0.002813 instead of 0.2813)
+        if (residualPct > 0 && residualPct < 0.01) residualPct *= 100;
+        return residualPct;
+      }
+
+      const leaseYears = Math.max(1, Math.min(5, Math.round(i.leaseDurationYears)));
+      const deferMonths = Math.max(0, Math.round(i.monthsDeferred));
+
+      // Definition-1 basis: financed amount ex GST, and residual value ex GST.
+      // (Matches the approach used elsewhere in the app.)
+      const financedAmountExGst = amountFinanced;
+      const residualPctNorm = normalizedResidualPctForYears(leaseYears);
+      const residualValueExGst = Math.max(0, financedAmountExGst - i.leaseDocFee) * residualPctNorm;
+
+      // IMPORTANT: keep this aligned with the InputsPanel live hint.
+      // We intentionally use vehicleLeasePerFn only (not LV adj) for the “effective rate” display.
+      const fortnightlyLeasePayment = Math.max(0, i.vehicleLeasePerFn);
+
+      if (financedAmountExGst <= 0 || leaseYears <= 0 || fortnightlyLeasePayment <= 0) return null;
+
+      const annualEffRate = effectiveAnnualRateFromFortnightlyLease({
+        financedAmountExGst,
+        residualValueExGst,
+        leaseYears,
+        deferMonths,
+        fortnightlyLeasePayment,
+      });
+
+      return Number.isFinite(annualEffRate) ? annualEffRate * 100 : null;
+    } catch {
+      return null;
+    }
+  })();
+
 
   // Electricity model
   const kwhPerYear = (i.annualMileageKm * i.avgWhPerKm) / 1000;
@@ -70,16 +112,32 @@ export default function BasicInformationReport(props: {
       <Spacer />
 
       <KeyValue label="Vehicle condition" value={i.vehicleCondition} />
+      <KeyValue label="GST Saving Passed On" value={i.gstSavingPassedOn} />
       <KeyValue
-        label="Vehicle GST saved"
+        label={
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            Vehicle GST saved
+            <InfoTooltip
+              text="GST saving on the vehicle purchase is calculated as dutiable value ÷ 11 but is capped at $6,334. Note that part of this initial GST saving is negated during the final residual payment if the vehicle is paid out at lease end."
+            />
+          </span>
+        }
         value={
           i.vehicleCondition === "Used – private sale (no GST)"
             ? `$ ${aud(vehicleGstSaved)} (not eligible — private sale)`
-            : `$ ${aud(vehicleGstSaved)} (cap $ ${aud(6334)}; based on dutiable value / 11)`
+            : `$ ${aud(vehicleGstSaved)}`
         }
       />
 
-      <KeyValue label="Amount Financed" value={`$ ${aud(amountFinanced)}`} />
+      <KeyValue
+        label={
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            Amount Financed
+            <InfoTooltip text="= Drive-away cost + documentation fee − GST saved" />
+          </span>
+        }
+        value={`$ ${aud(amountFinanced)}`}
+      />
       <KeyValue
         label={`ATO-Mandated Residual Value % for ${Math.round(
           i.leaseDurationYears
@@ -93,7 +151,17 @@ export default function BasicInformationReport(props: {
         value={`$ ${aud(residualPayableIncGst)}`}
       />
 
+      <KeyValue
+        label="Effective Interest Rate (Definition 1)"
+        value={
+          effectiveInterestRatePct == null
+            ? "—"
+            : `${Math.round(effectiveInterestRatePct * 100) / 100}%`
+        }
+      />
+
       <Spacer />
+
 
       <div
         style={{
@@ -105,11 +173,11 @@ export default function BasicInformationReport(props: {
           fontStyle: "italic",
         }}
       >
-        Electricity
+        Electricity Report (Annual)
       </div>
       <KeyValue label="kWh per year" value={aud0(kwhPerYear)} />
       <KeyValue
-        label="Charging Expense per year"
+        label="Actual Charging Expense per year"
         value={`$ ${aud(chargingExpensePerYear)}`}
       />
       <KeyValue
@@ -130,7 +198,7 @@ function Spacer() {
   return <div style={{ height: 10 }} />;
 }
 
-function KeyValue(props: { label: string; value: string; highlight?: boolean }) {
+function KeyValue(props: { label: React.ReactNode; value: string; highlight?: boolean }) {
   return (
     <div
       style={{

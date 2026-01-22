@@ -190,20 +190,12 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
     <span
       aria-label="Info"
       role="button"
-      tabIndex={0}
+      tabIndex={-1}
       onMouseEnter={() => {
         if (hoverCapable) setOpen(true);
       }}
       onMouseLeave={() => {
         if (hoverCapable) setOpen(false);
-      }}
-      onFocus={() => {
-        // Keyboard users should still open regardless of hover capability
-        setOpen(true);
-      }}
-      onBlur={() => {
-        // Keyboard users should still close
-        setOpen(false);
       }}
       onClick={(e) => {
         if (hoverCapable) return;

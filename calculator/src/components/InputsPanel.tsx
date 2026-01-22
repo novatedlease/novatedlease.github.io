@@ -316,7 +316,22 @@ export default function InputsPanel(props: InputsPanelProps) {
           <MoneyField
             label={`Estimated Market Value after ${inputs.leaseDurationYears} Years`}
             tooltip={
-                <InfoTooltip text="Suggest ~40% of driveaway cost (and is automatically filled with this estimate), adjust as you see fit." />
+              <InfoTooltip
+                text={
+                  <>
+                    <p style={{ margin: "0 0 10px 0" }}>
+                      <b>Rule of thumb:</b> suggest ~40% of the driveaway cost (auto-filled). Adjust as you see fit.
+                    </p>
+                    <p style={{ margin: "0 0 10px 0" }}>
+                      <b>If your lease is shorter than 5 years</b>, please still enter the 5-year estimated value; the calculator will estimate the value for the interim time using an
+                      exponential decay model (a constant percentage drop each year until it reaches the 5-year value.
+                    </p>
+                    <p style={{ margin: 0 }}>
+                      This is intended to better match typical market depreciation than a straight-line model.
+                    </p>
+                  </>
+                }
+              />
             }
             value={inputs.estimatedMarketValueAtEnd}
             step={100}
@@ -486,24 +501,43 @@ export default function InputsPanel(props: InputsPanelProps) {
   </MoneyInputWrapper>
 </FieldRow>
 
-          <div
-            style={{
-              fontSize: 12,
-              opacity: 0.95,
-              padding: "8px 10px",
-              borderRadius: 10,
-              border: props.guardMessage
-                ? "1px solid rgba(200,0,0,0.25)"
-                : "1px solid rgba(0,0,0,0.12)",
-              background: props.guardMessage ? "rgba(200,0,0,0.05)" : "rgba(11, 92, 171, 0.06)",
-            }}
-          >
-            <div style={{ fontWeight: 700, marginBottom: 4 }}>
-              Equivalent to {props.formatPct(props.guardLiveRatePct)} effective interest rate (Definition 1)
+          <div style={{ display: "flex", alignItems: "flex-start", gap: 2, justifyContent: "flex-end" }}>
+            <div
+              aria-hidden
+              style={{
+                userSelect: "none",
+                fontSize: 14,
+                lineHeight: 1,
+                marginTop: 6,
+                opacity: 0.35,
+              }}
+            >
+              ↳
             </div>
-            {props.guardMessage ? (
-              <div style={{ marginTop: 6, fontWeight: 700, opacity: 0.95 }}>{props.guardMessage}</div>
-            ) : null}
+
+            <div
+              style={{
+                width: "80%",
+                fontSize: 12,
+                padding: "8px 10px",
+                borderRadius: 10,
+                border: "none",
+                borderLeft: props.guardMessage
+                  ? "5px solid rgba(200,0,0,0.55)"
+                  : "5px solid rgba(11, 92, 171, 0.45)",
+                background: props.guardMessage ? "rgba(200,0,0,0.035)" : "rgba(0,0,0,0.02)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "baseline", gap: 6, flexWrap: "wrap" }}>
+                <span style={{ fontWeight: 800, opacity: 0.75 }}>Effective interest rate:</span>
+                <span style={{ fontWeight: 900 }}>{props.formatPct(props.guardLiveRatePct)}</span>
+                <span style={{ opacity: 0.7 }}>(Definition 1)</span>
+              </div>
+
+              {props.guardMessage ? (
+                <div style={{ marginTop: 6, fontWeight: 800, opacity: 0.95 }}>{props.guardMessage}</div>
+              ) : null}
+            </div>
           </div>
 
           <MoneyField
@@ -518,41 +552,64 @@ export default function InputsPanel(props: InputsPanelProps) {
           />
 
 
-          <details style={{ marginTop: 6 }}>
-            <summary style={{ cursor: "pointer", fontWeight: 700, opacity: 0.85 }}>
-              Advanced info for interest calculation
-            </summary>
+<ExpandToggle title="Advanced info for interest calculation">
+  <MoneyField
+    label="Financed amount reported in your quote"
+    tooltip={
+      <InfoTooltip text="This is only used for interest calculation. If you don't know this figure, leave it as this pre-calculated figure. If you have a financed amount figure, make sure it does not contain first year insurance, otherwise the calculation will in interest-rate section will be invalid." />
+    }
+    value={inputs.financedAmountForInterestCalcExGst}
+    step={100}
+    min={0}
+    onChange={(v) => setInputs((p) => ({ ...p, financedAmountForInterestCalcExGst: v }))}
+  />
 
-            <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
-              <MoneyField
-                label="Financed amount reported in your quote"
-                tooltip={<InfoTooltip text="This is only used for interest calculation. If you don't know this figure, leave it as this pre-calculated figure. If you have a financed amount figure, make sure it does not contain first year insurance, otherwise the calculation will in interest-rate section will be invalid." />}
-                value={inputs.financedAmountForInterestCalcExGst}
-                step={100}
-                min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, financedAmountForInterestCalcExGst: v }))}
-              />
-              
+  <NumberField
+    label="Months Deferred"
+    tooltip={<InfoTooltip text="Typically 2 months, but occasionally 1 month with some financiers." />}
+    value={inputs.monthsDeferred}
+    step={1}
+    min={0}
+    onChange={(v) => setInputs((p) => ({ ...p, monthsDeferred: Math.max(0, Math.round(v)) }))}
+  />
+</ExpandToggle>
 
-              <NumberField
-                label="Months Deferred"
-                tooltip={<InfoTooltip text="Typically 2 months, but occasionally 1 month with some financiers." />}
-                value={inputs.monthsDeferred}
-                step={1}
-                min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, monthsDeferred: Math.max(0, Math.round(v)) }))}
-              />
-            </div>
-          </details>
         </Section>
 
-        <Section title="ANNUAL PACKAGED RUNNING COST (ex GST)">
+        <Section
+          title={`ANNUAL PACKAGED RUNNING COST (${inputs.gstSavingPassedOn === "Yes" ? "ex GST" : "inc GST"})`}
+        >
           <SelectYesNo
             label="GST Saving Passed On in NL"
-            tooltip={<InfoTooltip text="Usually YES, however some employers (Victorian Hospitals in particular!) do NOT pass on GST saving. Important: Check. Read more in GST tab." />}
+            tooltip={
+              <InfoTooltip
+                text={
+                  <>
+                    Usually YES, however some employers (Victorian Hospitals in particular!) do NOT pass on GST saving.
+                    Important: Check. Read more in Running costs & claiming - Some employers do not pass on GST saving. 
+                    .
+                  </>
+                }
+              />
+            }
             value={inputs.gstSavingPassedOn}
             onChange={(v) => setInputs((p) => ({ ...p, gstSavingPassedOn: v }))}
           />
+          <div
+            style={{
+              fontSize: 12,
+              opacity: 0.7,
+              marginTop: -4,
+              paddingLeft: 2,
+            }}
+          >
+            {inputs.gstSavingPassedOn === "Yes"
+              ? "Please use ex GST figures in the following fields."
+              : "Please use inc GST figures in the following fields."}
+          <a href="https://novatedlease.guide/running-costs/failure-to-pass-gst-saving/" target="_blank" rel="noreferrer" style={{ marginLeft: 6 }}>
+              (Learn more)
+            </a>
+          </div>
 
           <MoneyField
             label="Service / Maintenance / Tyres"
@@ -656,38 +713,65 @@ export default function InputsPanel(props: InputsPanelProps) {
             onChange={(v) => setInputs((p) => ({ ...p, avgWhPerKm: v }))}
           />
 
-          <MoneyField
-            label="Override Annual Charging Expense (set 0 to clear)"
-            tooltip={
-              <>
-                <InfoTooltip text="If you have a better estimate of annual charging expense, override average estimation here (e.g. you charge outside often). Otherwise leave as blank." />
-              </>
-            }
-            value={inputs.overrideAnnualChargingExpense ?? 0}
-            step={10}
-            min={0}
-            onChange={(v) =>
-              setInputs((p) => ({
-                ...p,
-                overrideAnnualChargingExpense: v === 0 ? undefined : v,
-              }))
-            }
-          />
+<ExpandToggle
+  title="Use an alternate annual charging cost"
+  defaultOpen={Boolean(inputs.overrideAnnualChargingExpense)}
+>
+  <MoneyField
+    label="Annual Charging Expense (set 0 to clear)"
+    tooltip={
+      <>
+        <InfoTooltip text="If you have a better estimate of annual charging expense, enter it here (e.g. frequent public charging). Otherwise leave it as 0." />
+      </>
+    }
+    value={inputs.overrideAnnualChargingExpense ?? 0}
+    step={10}
+    min={0}
+    onChange={(v) =>
+      setInputs((p) => ({
+        ...p,
+        overrideAnnualChargingExpense: v === 0 ? undefined : v,
+      }))
+    }
+  />
+
+  {inputs.overrideAnnualChargingExpense ? (
+    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      <button
+        type="button"
+        onClick={() => setInputs((p) => ({ ...p, overrideAnnualChargingExpense: undefined }))}
+        style={{
+          borderRadius: 10,
+          border: "1px solid rgba(0,0,0,0.18)",
+          background: "#fff",
+          padding: "6px 10px",
+          fontSize: 12,
+          fontWeight: 800,
+          cursor: "pointer",
+        }}
+      >
+        Remove alternate cost
+      </button>
+    </div>
+  ) : null}
+</ExpandToggle>
+
         </Section>
 
-        <Section title="OPTIONAL: COMPARE WITH TRADITIONAL CAR LOAN">
-          <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <input
-              type="checkbox"
-              checked={inputs.compareWithCarLoan}
-              onChange={(e) => setInputs((p) => ({ ...p, compareWithCarLoan: e.target.checked }))}
-            />
-            Enable comparison{" "}
-            <InfoTooltip text="Skip section and leave unchanged if not comparing financial position with taking up a traditional car loan." />
-          </label>
-
-          {inputs.compareWithCarLoan && (
-            <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
+<Section
+  title="COMPARE WITH CAR LOAN"
+  headerRight={
+    <>
+      <InfoTooltip text="Skip this section and leave it off if you are not comparing against a traditional car loan." />
+      <OnOffSwitch
+        value={inputs.compareWithCarLoan}
+        onChange={(v) => setInputs((p) => ({ ...p, compareWithCarLoan: v }))}
+      />
+    </>
+  }
+>
+  {inputs.compareWithCarLoan && (
+    <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
               <MoneyField
                 label="Initial Deposit Amount"
                 value={inputs.carLoanInitialDeposit}
@@ -735,19 +819,20 @@ export default function InputsPanel(props: InputsPanelProps) {
           )}
         </Section>
 
-        <Section title="OPTIONAL: COMPARE WITH CONTINUING WITH CURRENT CAR">
-          <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <input
-              type="checkbox"
-              checked={inputs.compareWithCurrentCar}
-              onChange={(e) => setInputs((p) => ({ ...p, compareWithCurrentCar: e.target.checked }))}
-            />
-            Enable comparison{" "}
-            <InfoTooltip text='Skip section and leave unchanged if not comparing financial position with "keeping current car".' />
-          </label>
-
-          {inputs.compareWithCurrentCar && (
-            <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
+        <Section
+  title="COMPARE WITH KEEPING CURRENT CAR"
+  headerRight={
+    <>
+      <InfoTooltip text='Skip this section and leave it off if you are not comparing against "keeping current car".' />
+      <OnOffSwitch
+        value={inputs.compareWithCurrentCar}
+        onChange={(v) => setInputs((p) => ({ ...p, compareWithCurrentCar: v }))}
+      />
+    </>
+  }
+>
+  {inputs.compareWithCurrentCar && (
+    <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
               <MoneyField
                 label="Current Market Value Now"
                 tooltip={
@@ -774,7 +859,7 @@ export default function InputsPanel(props: InputsPanelProps) {
                 onChange={(v) => setInputs((p) => ({ ...p, currentCarMarketValueAtEnd: v }))}
               />
 
-              <div style={{ fontWeight: 700, opacity: 0.85, marginTop: 6 }}>ANNUAL (incl. GST)</div>
+              <div style={{ fontWeight: 700, opacity: 0.85, marginTop: 6 }}>ANNUAL RUNNING COST (inc GST)</div>
 
               <MoneyField
                 label="Service / Maintenance / Tyres"
@@ -823,10 +908,11 @@ export default function InputsPanel(props: InputsPanelProps) {
 /* ---------- UI helpers (local to inputs panel) ---------- */
 
 function Section(props: {
-  title: string;
+  title: React.ReactNode;
   children: React.ReactNode;
   highlight?: boolean;
   banner?: React.ReactNode;
+  headerRight?: React.ReactNode;
 }) {
   return (
     <div
@@ -839,7 +925,22 @@ function Section(props: {
         transition: "box-shadow 220ms ease, border-color 220ms ease, background 220ms ease",
       }}
     >
-      <div style={{ fontWeight: 900, fontSize: 14, marginBottom: 10 }}>{props.title}</div>
+      <div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 10,
+    marginBottom: 10,
+  }}
+>
+  <div style={{ fontWeight: 900, fontSize: 14 }}>{props.title}</div>
+  {props.headerRight ? (
+    <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+      {props.headerRight}
+    </div>
+  ) : null}
+</div>
       {props.banner ? <div style={{ marginBottom: 10 }}>{props.banner}</div> : null}
       <div style={{ display: "grid", gap: 10 }}>{props.children}</div>
     </div>
@@ -889,6 +990,58 @@ function moneyInputStyle(opts?: { highlight?: boolean }): React.CSSProperties {
     background: opts?.highlight ? "rgba(255, 235, 235, 0.55)" : "#fff",
     transition: "box-shadow 220ms ease, border-color 220ms ease, background 220ms ease",
   };
+}
+
+function ExpandToggle(props: {
+  title: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(Boolean(props.defaultOpen));
+
+  useEffect(() => {
+    if (props.defaultOpen) setOpen(true);
+  }, [props.defaultOpen]);
+
+  return (
+    <div style={{ marginTop: 6 }}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: 0,
+          border: "none",
+          background: "transparent",
+          cursor: "pointer",
+          fontSize: 13,
+          fontWeight: 800,
+          opacity: 0.85,
+        }}
+      >
+        <span
+          aria-hidden
+          style={{
+            width: 16,
+            textAlign: "center",
+            fontWeight: 900,
+          }}
+        >
+          {open ? "−" : "+"}
+        </span>
+        <span>{props.title}</span>
+      </button>
+
+      {open ? (
+        <div style={{ display: "grid", gap: 10, marginTop: 10, paddingLeft: 22 }}>
+          {props.children}
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 function MoneyInputWrapper(props: { children: React.ReactNode }) {
@@ -1070,4 +1223,65 @@ function parseMoneyInput(s: string): number {
 function safeNum(v: string | number): number {
   const n = typeof v === "number" ? v : Number(String(v).trim());
   return Number.isFinite(n) ? n : 0;
+}
+
+function OnOffSwitch(props: { value: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={props.value}
+      onClick={() => props.onChange(!props.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          props.onChange(!props.value);
+        }
+      }}
+      style={{
+        position: "relative",
+        width: 54,
+        height: 30,
+        borderRadius: 999,
+        border: "1px solid rgba(0,0,0,0.18)",
+        background: props.value ? "rgba(46, 125, 50, 0.18)" : "rgba(0,0,0,0.06)",
+        cursor: "pointer",
+        padding: 0,
+      }}
+    >
+      <span
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: 2,
+          bottom: 2,
+          left: 2,
+          width: 26,
+          borderRadius: 999,
+          background: "#fff",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+          transform: props.value ? "translateX(24px)" : "translateX(0)",
+          transition: "transform 180ms ease",
+        }}
+      />
+      <span
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 8px",
+          fontSize: 11,
+          fontWeight: 900,
+          opacity: 0.55,
+          userSelect: "none",
+        }}
+      >
+        <span>Off</span>
+        <span>On</span>
+      </span>
+    </button>
+  );
 }

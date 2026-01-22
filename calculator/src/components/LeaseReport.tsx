@@ -37,7 +37,17 @@ export function LeaseReport(props: {
   // Note: removed electricity model and related variables per instructions
 
   // Section 1: Lease payments (use your existing input fields)
-  const vehicleLeaseFn = i.vehicleLeasePerFn;
+  const baseVehicleLeaseFn = i.vehicleLeasePerFn;
+  const lvAdjFn = i.luxuryVehicleAdjPerFn;
+  const vehicleLeaseFn = baseVehicleLeaseFn + lvAdjFn;
+
+  // If buildFyBreakdown uses vehicleLeasePerFn internally, pass it an Inputs object
+  // where vehicleLeasePerFn already includes the LV adjustment.
+  const inputsWithLv: Inputs = {
+    ...i,
+    vehicleLeasePerFn: vehicleLeaseFn,
+  };
+
   const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
   const runningCostAnnual =
     i.serviceMaintTyresAnnual +
@@ -55,7 +65,7 @@ export function LeaseReport(props: {
 
   // Breakdown by Financial Years (engine)
   const fyRows = buildFyBreakdown({
-    inputs: i,
+    inputs: inputsWithLv,
     fortnights,
     preTaxTotalFn,
   });
@@ -114,7 +124,12 @@ export function LeaseReport(props: {
       </div>
       <Table
         rows={[
-          ["Vehicle Lease", preTaxFmt(vehicleLeaseFn), preTaxFmt(preTaxVehicleLeaseAnnual), preTaxFmt(preTaxVehicleLeaseLifetime)],
+          [
+            lvAdjFn > 0 ? "Vehicle Lease + LV Adjustment" : "Vehicle Lease",
+            preTaxFmt(vehicleLeaseFn),
+            preTaxFmt(preTaxVehicleLeaseAnnual),
+            preTaxFmt(preTaxVehicleLeaseLifetime),
+          ],
           ["Running Cost", preTaxFmt(runningCostFn), preTaxFmt(preTaxRunningAnnual), preTaxFmt(preTaxRunningLifetime)],
           ["= Total", preTaxFmt(preTaxTotalFn), preTaxFmt(preTaxTotalAnnual), preTaxFmt(preTaxTotalLifetime)],
         ]}
@@ -133,7 +148,12 @@ export function LeaseReport(props: {
       </div>
       <Table
         rows={[
-          ["Vehicle Lease", preTaxFmt(postTaxVehicleLeaseFn), preTaxFmt(postTaxVehicleLeaseAnnual), preTaxFmt(postTaxVehicleLeaseLifetime)],
+          [
+            lvAdjFn > 0 ? "Vehicle Lease + LV Adjustment" : "Vehicle Lease",
+            preTaxFmt(postTaxVehicleLeaseFn),
+            preTaxFmt(postTaxVehicleLeaseAnnual),
+            preTaxFmt(postTaxVehicleLeaseLifetime),
+          ],
           ["Running Cost", preTaxFmt(postTaxRunningFn), preTaxFmt(postTaxRunningAnnual), preTaxFmt(postTaxRunningLifetime)],
           ["= Total", preTaxFmt(postTaxTotalFn), preTaxFmt(postTaxTotalAnnual), preTaxFmt(postTaxTotalLifetime)],
         ]}
