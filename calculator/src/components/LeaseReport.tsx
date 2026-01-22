@@ -109,7 +109,7 @@ export function LeaseReport(props: {
   return (
     <div style={{ fontSize: 14, lineHeight: 1.35 }}>
 
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "10px 0 6px" }}>2.1 Summary</div>
+      <div style={{ fontWeight: 900, fontSize: 14, margin: "10px 0 6px" }}>1.1 Summary</div>
 
       <div
         style={{
@@ -167,7 +167,7 @@ export function LeaseReport(props: {
 
       <Spacer />
 
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 6px" }}>2.2 Breakdown by Financial Years</div>
+      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 6px" }}>1.2 Breakdown by Financial Years</div>
       <FYTable fyRows={fyRows} />
 
       <div style={{ marginTop: 12, fontSize: 12, opacity: 0.75 }}>
