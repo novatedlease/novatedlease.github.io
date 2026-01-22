@@ -175,18 +175,53 @@ export default function BasicInformationReport(props: {
       >
         Electricity Report (Annual)
       </div>
-      <KeyValue label="kWh per year" value={aud0(kwhPerYear)} />
       <KeyValue
-        label="Actual Charging Expense per year"
+        label={
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            kWh per year
+            <InfoTooltip text="Calculated as estimated annual mileage × efficiency (Wh/km)." />
+          </span>
+        }
+        value={aud0(kwhPerYear)}
+      />
+
+      <KeyValue
+        label={
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            Charging Expense per year
+            <InfoTooltip text="Your estimated real out-of-pocket charging cost based on your tariff (or your override, if provided)." />
+          </span>
+        }
         value={`$ ${aud(chargingExpensePerYear)}`}
       />
+
       <KeyValue
-        label="Assumed Charging per year (NL claim method)"
+        label={
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            Assumed Charging per year (NL claim method)
+            <InfoTooltip text="How much the ATO lets you claim for home charging using the 4.2c/km shortcut (0.042 × km). This can be higher or lower than what you truly spent." />
+          </span>
+        }
         value={`$ ${aud(assumedChargingClaimPerYear)}`}
       />
-      <KeyValue label="Charging Delta" value={`$ ${aud(chargingDelta)}`} />
+
       <KeyValue
-        label="Post-Reimbursement Effective Charging Expense"
+        label={
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            Charging Delta
+            <InfoTooltip text="Difference between the claimable amount and your actual charging expense. Positive = claim exceeds actual cost; negative = you spent more than you can claim." />
+          </span>
+        }
+        value={`$ ${aud(chargingDelta)}`}
+      />
+
+      <KeyValue
+        label={
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            Post-Reimbursement Effective Charging Expense
+            <InfoTooltip text="A simplified estimate of your effective charging cost after the tax benefit of the claim: actual expense − (claim × marginal tax rate). A negative value means you effectively profit from charging cheaply and claiming via the distance method." />
+          </span>
+        }
         value={`$ ${aud(postReimbursementEffectiveChargingExpense)}`}
         highlight
       />

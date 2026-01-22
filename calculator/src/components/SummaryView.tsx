@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import type { Inputs } from "../engine/types";
 import { computeFinancialSummary } from "./FinancialReport";
+import { InfoTooltip } from "./ui/InfoTooltip";
 
 type Props = {
   inputs: Inputs;
@@ -26,6 +27,10 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
     [inputs, taxRateInclMedicarePct]
   );
 
+  const electricityTooltipText =
+    "Why is electricity treated separately?\n\n" +
+    "For most running costs under a novated lease (for example servicing, insurance, or car washes), the amount you spend and the amount you claim are the same — so the analysis can treat them as one effective cost.\n\n" +
+    "Electricity is different: under the ATO EV home‑charging claim rule, the claimable amount (based on 4.2c/km) can differ materially from your actual out‑of‑pocket electricity cost. You first pay the real bill, then claim a distance‑based amount using pre‑tax income. That gap can create a genuine net gain or loss, so it needs to be shown explicitly.";
   // Summary is always framed over 5 years of ownership, regardless of lease duration.
   const years = 5;
 
@@ -88,8 +93,16 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
 
   const DisclaimerLine = () => (
     <div style={{ marginTop: 10, fontSize: 13, opacity: 0.75, fontStyle: "italic" }}>
-      Some effects are not accounted for (for example, changes in government subsidies), as these are too complex to fully
-      calculate. Explore further in <b>Details – Section 3: Adjusted Taxable Income</b>.
+      <div>
+        ⚠️ Some effects are not accounted for (for example, changes in government subsidies), as these are too complex to fully
+        calculate. Explore further in <b>Details – Section 4: Adjusted Taxable Income</b>.
+      </div>
+
+      {inputs.superFromPreNlIncome === "No" ? (
+        <div style={{ marginTop: 8 }}>
+          ⚠️ Because your employer calculates Super Guarantee based on your post-novated-lease income, your super contributions may be materially reduced and are not reflected in the figures above. See <b>Details – Section 5: Super Guarantee</b> for the estimated impact.
+        </div>
+      ) : null}
     </div>
   );
 
@@ -146,7 +159,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
               <b>
                 {fmtAud0(Math.abs(chargingDeltaTotal))} {chargingDeltaTotal >= 0 ? "gain" : "loss"}
               </b>{" "}
-              in the NL pathway.
+              in the NL pathway. <InfoTooltip text={electricityTooltipText} width={420} />
             </li>
             <li>
               Besides, your car ownership and running costs result in about <b>{fmtAud0(-nlHomeLoanInterestImpact)}</b> of additional
@@ -208,7 +221,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
                 <b>
                   {fmtAud0(Math.abs(chargingDeltaTotal))} {chargingDeltaTotal >= 0 ? "gain" : "loss"}
                 </b>{" "}
-                in the NL pathway.
+                in the NL pathway. <InfoTooltip text={electricityTooltipText} width={420} />
               </li>
               <li>
                 {titleLoan} (cashflow over 5 years): deposit {fmtAud0(inputs.carLoanInitialDeposit)}, loan repayments + fees{" "}
@@ -311,19 +324,6 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
         running costs over the same duration. This reference is chosen as it allows a clean comparison of any two scenarios in this tool.
       </NoteBox>
 
-      <NoteBox title="Why electricity is treated separately:">
-        <br />
-        For most running costs under a novated lease (for example servicing, insurance, or car washes), the amount you spend and the
-        amount you claim are the same. Although the payment may be made upfront and later reimbursed using pre-tax income, the net effect
-        on your take-home income is simply the post-tax equivalent of the claimed amount, so the analysis can treat this as a single
-        effective cost which we call simply &quot;$X in lease payments&quot;.
-        <br />
-        <br />
-        Electricity is different. Under the ATO EV home-charging claim rule, the claimable amount ($630 per year in the default example)
-        can differ materially from the actual out-of-pocket electricity expense ($371 per year). In reality, you first pay the actual
-        electricity cost, then claim a distance-based amount using pre-tax income. This difference creates a genuine net difference that
-        does not occur for other running costs, and therefore needs to be adjusted for explicitly to arrive at the true financial impact.
-      </NoteBox>
     </div>
   );
 }

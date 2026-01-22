@@ -664,9 +664,7 @@ useEffect(() => {
         />
       )}
 
-      <div style={{ marginTop: 12, fontSize: 12, opacity: 0.75 }}>
-        “Liability” here refers to the opportunity cost of changing your cash balance. Each fortnight, the model applies your offset/home-loan interest rate to the running balance impact of that scenario. 
-      </div>
+      
     </div>
   );
 }

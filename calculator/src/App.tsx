@@ -116,10 +116,12 @@ type CollapsibleSectionProps = {
   description: string;
   defaultOpen?: boolean;
   children: React.ReactNode;
+  muted?: boolean;
 };
 
 function CollapsibleSection(props: CollapsibleSectionProps) {
   const [isOpen, setIsOpen] = useState<boolean>(!!props.defaultOpen);
+  const muted = !!props.muted;
 
   return (
     <details
@@ -132,7 +134,8 @@ function CollapsibleSection(props: CollapsibleSectionProps) {
       style={{
         border: "1px solid rgba(0,0,0,0.15)",
         borderRadius: 12,
-        background: "rgba(255,255,255,0.98)",
+        opacity: muted ? 0.55 : 1,
+        background: muted ? "rgba(0,0,0,0.02)" : "rgba(255,255,255,0.98)",
       }}
     >
       <style>{`
@@ -176,7 +179,13 @@ function CollapsibleSection(props: CollapsibleSectionProps) {
           <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 4 }}>
             {props.title}
           </div>
-          <div style={{ fontSize: 13, opacity: 0.8, lineHeight: 1.3 }}>
+          <div
+            style={{
+              fontSize: 13,
+              opacity: muted ? 0.65 : 0.8,
+              lineHeight: 1.3,
+            }}
+          >
             {props.description}
           </div>
         </div>
@@ -189,7 +198,11 @@ function CollapsibleSection(props: CollapsibleSectionProps) {
             height: 30,
             borderRadius: 10,
             border: "1px solid rgba(0,0,0,0.18)",
-            background: isOpen ? "rgba(0,0,0,0.06)" : "rgba(0,0,0,0.02)",
+            background: muted
+              ? "rgba(0,0,0,0.02)"
+              : isOpen
+              ? "rgba(0,0,0,0.06)"
+              : "rgba(0,0,0,0.02)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -765,9 +778,20 @@ export default function App() {
                 </CollapsibleSection>
               </div>
 
+
+
               <div style={{ marginTop: 16 }}>
                 <CollapsibleSection
-                  title="SECTION 3: ADJUSTED TAXABLE INCOME"
+                  title="SECTION 3: EFFECTIVE INTEREST RATE"
+                  description="Back-calculates the implied interest rate from your lease payment and residual, and optionally shows an amortisation schedule."
+                >
+                  <EffectiveInterestReport inputs={inputs} />
+                </CollapsibleSection>
+              </div>
+
+              <div style={{ marginTop: 16 }}>
+                <CollapsibleSection
+                  title="SECTION 4: ADJUSTED TAXABLE INCOME"
                   description="Estimates your Adjusted Taxable Income after novated leasing (useful for HECS, childcare subsidy, Medicare levy surcharge etc)."
                 >
                   <ATI
@@ -778,27 +802,27 @@ export default function App() {
                     rows={buildAtiRowsFromFyBreakdown(inputs)}
                   />
                 </CollapsibleSection>
-              </div>
+              </div>              
 
               <div style={{ marginTop: 16 }}>
                 <CollapsibleSection
-                  title="SECTION 4: EFFECTIVE INTEREST RATE"
-                  description="Back-calculates the implied interest rate from your lease payment and residual, and optionally shows an amortisation schedule."
+                  title="SECTION 5: SUPER GUARANTEE"
+                  muted={inputs.superFromPreNlIncome === "Yes"}
+                  description={
+                    inputs.superFromPreNlIncome === "Yes"
+                      ? "This section is not applicable because you indicated your employer pays Super Guarantee based on your pre‑novated‑lease income."
+                      : "Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
+                  }
                 >
-                  <EffectiveInterestReport inputs={inputs} />
+                  {inputs.superFromPreNlIncome === "Yes" ? (
+                    <div style={{ fontSize: 13, lineHeight: 1.45, opacity: 0.9 }}>
+                      No Super Guarantee loss is expected under this assumption.
+                    </div>
+                  ) : (
+                    <SG rows={buildSgRowsFromFyBreakdown(inputs)} />
+                  )}
                 </CollapsibleSection>
               </div>
-
-              {inputs.superFromPreNlIncome === "No" && (
-                <div style={{ marginTop: 16 }}>
-                  <CollapsibleSection
-                    title="SECTION 5: SUPER GUARANTEE"
-                    description="Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
-                  >
-                    <SG rows={buildSgRowsFromFyBreakdown(inputs)} />
-                  </CollapsibleSection>
-                </div>
-              )}
             </>
           )}
         </div>

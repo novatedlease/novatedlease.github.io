@@ -170,8 +170,13 @@ export function LeaseReport(props: {
       <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 6px" }}>2.2 Breakdown by Financial Years</div>
       <FYTable fyRows={fyRows} />
 
-      <div style={{ marginTop: 8, fontSize: 12, opacity: 0.75 }}>
-        * Australian financial year runs from 1/7 to 30/6 and is named after the second year (e.g. FY 2027).
+      <div style={{ marginTop: 12, fontSize: 12, opacity: 0.75 }}>
+        <div>
+          * The take home figure does not consider other subsidies and liabilities (e.g., HECS, childcare subsidy, Medicare Levy Surcharge, other salary packaging, etc.).
+        </div>
+        <div style={{ marginTop: 6 }}>
+          * “Average Lease Tax Bracket” means the average discount effect for the pre-tax dollars used in that financial year. Normally this is equivalent to your marginal tax rate + 2% Medicare levy; however it can change if the novated lease drops you into a lower income tax bracket.
+        </div>
       </div>
 
     </div>
@@ -250,21 +255,50 @@ function FYTable(props: {
 
   const get = (fy: number) => props.fyRows.find((r) => r.fy === fy)!;
 
-  const row = (
-    label: string,
-    render: (r: (typeof props.fyRows)[number]) => string,
-    bold?: boolean
-  ) => (
+  const takeHomeRowCellStyle = (isLabel: boolean) => ({
+    ...(isLabel ? tdLeft(true) : td(true)),
+    background: "rgba(0,0,0,0.015)",
+  });
+
+  const GroupCell = (props: { text: string }) => (
+    <td
+      rowSpan={3}
+      style={{
+        borderBottom: "1px solid rgba(0,0,0,0.25)",
+        textAlign: "center",
+        verticalAlign: "middle",
+        padding: 0,
+        width: 18,
+        minWidth: 18,
+        maxWidth: 18,
+        color: "rgba(0,0,0,0.55)",
+        background: "rgba(0,0,0,0.02)",
+        writingMode: "vertical-rl" as any,
+        transform: "rotate(180deg)",
+        letterSpacing: 0.5,
+        fontWeight: 700,
+        fontSize: 11,
+        overflow: "hidden",
+      }}
+    >
+      {props.text}
+    </td>
+  );
+
+  const SeparatorRow = (props: { text: React.ReactNode }) => (
     <tr>
-      <td style={tdLeft(bold)}>{label}</td>
-      {years.map((y) => {
-        const r = get(y);
-        return (
-          <td key={y} style={td(bold)}>
-            {render(r)}
-          </td>
-        );
-      })}
+      <td
+        colSpan={years.length + 2}
+        style={{
+          padding: "8px 6px",
+          borderBottom: "1px solid rgba(0,0,0,0.15)",
+          background: "rgba(0,0,0,0.02)",
+          fontSize: 12,
+          color: "rgba(0,0,0,0.65)",
+        }}
+      >
+        {props.text}
+      </td>
     </tr>
   );
 
@@ -273,6 +307,7 @@ function FYTable(props: {
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
+            <th style={{ ...thLeft, width: 18, minWidth: 18, maxWidth: 18, paddingLeft: 0, paddingRight: 0 }}></th>
             <th style={thLeft}></th>
             {years.map((y) => (
               <th key={y} style={th}>
@@ -282,17 +317,133 @@ function FYTable(props: {
           </tr>
         </thead>
         <tbody>
-          {row("Original Taxable Income", (r) => money0(r.originalTaxableIncome))}
-          {row("Original Income Tax + Medicare Levy", (r) => money0(r.originalTax), false)}
-          {row("Original Take Home", (r) => money0(r.originalTakeHome), true)}
+          {/* BEFORE LEASE (grouped) */}
+          <tr>
+            {GroupCell({ text: "Before Lease" })}
+            <td style={tdLeft(false)}>Taxable Income</td>
+            {years.map((y) => {
+              const r = get(y);
+              return (
+                <td key={y} style={td(false)}>
+                  {money0(r.originalTaxableIncome)}
+                </td>
+              );
+            })}
+          </tr>
+          <tr>
+            <td style={tdLeft(false)}>Income Tax + Medicare Levy</td>
+            {years.map((y) => {
+              const r = get(y);
+              return (
+                <td key={y} style={td(false)}>
+                  {money0(r.originalTax)}
+                </td>
+              );
+            })}
+          </tr>
+          <tr>
+            <td style={takeHomeRowCellStyle(true)}>Take Home</td>
+            {years.map((y) => {
+              const r = get(y);
+              return (
+                <td key={y} style={takeHomeRowCellStyle(false)}>
+                  {money0(r.originalTakeHome)}
+                </td>
+              );
+            })}
+          </tr>
 
-          {row("Post NL Taxable Income", (r) => money0(r.postNlTaxableIncome))}
-          {row("Post NL Income Tax + Medicare Levy", (r) => money0(r.postNlTax), false)}
-          {row("Post NL Take Home", (r) => money0(r.postNlTakeHome), true)}
+          <SeparatorRow text={<>↓ After novated lease (estimated)</>} />
 
-          {row("Pay Fortnight Count", (r) => String(r.count))}
-          {row("Take Home Impact per pay", (r) => money2(r.takeHomeImpactPerPay))}
-          {row('"Average Lease Tax Bracket" this FY', (r) => pct0(r.avgLeaseTaxBracketPct), true)}
+          {/* AFTER LEASE (grouped) */}
+          <tr>
+            {GroupCell({ text: "After Lease" })}
+            <td style={tdLeft(false)}>Taxable Income</td>
+            {years.map((y) => {
+              const r = get(y);
+              return (
+                <td key={y} style={td(false)}>
+                  {money0(r.postNlTaxableIncome)}
+                </td>
+              );
+            })}
+          </tr>
+          <tr>
+            <td style={tdLeft(false)}>Income Tax + Medicare Levy</td>
+            {years.map((y) => {
+              const r = get(y);
+              return (
+                <td key={y} style={td(false)}>
+                  {money0(r.postNlTax)}
+                </td>
+              );
+            })}
+          </tr>
+          <tr>
+            <td style={takeHomeRowCellStyle(true)}>Take Home</td>
+            {years.map((y) => {
+              const r = get(y);
+              return (
+                <td key={y} style={takeHomeRowCellStyle(false)}>
+                  {money0(r.postNlTakeHome)}
+                </td>
+              );
+            })}
+          </tr>
+          <tr>
+              {/* Blank cell for the skinny group column */}
+              <td style={{ ...td(true), width: 18, minWidth: 18, maxWidth: 18, paddingLeft: 0, paddingRight: 0 }}></td>
+            <td style={takeHomeRowCellStyle(true)}>Take Home Impact</td>
+            {years.map((y) => {
+              const r = get(y);
+              const delta = r.postNlTakeHome - r.originalTakeHome;
+              return (
+                <td key={y} style={takeHomeRowCellStyle(false)}>
+                  {money0(delta)}
+                </td>
+              );
+            })}
+          </tr>
+
+          <SeparatorRow text={<>↓ Lease-specific metrics</>} />
+
+          {/* METRICS */}
+          <tr>
+            <td style={td(true)}></td>
+            <td style={tdLeft(false)}>Pay Fortnight Count</td>
+            {years.map((y) => {
+              const r = get(y);
+              return (
+                <td key={y} style={td(false)}>
+                  {String(r.count)}
+                </td>
+              );
+            })}
+          </tr>
+          <tr>
+            <td style={td(true)}></td>
+            <td style={tdLeft(false)}>Take Home Impact per pay</td>
+            {years.map((y) => {
+              const r = get(y);
+              return (
+                <td key={y} style={td(false)}>
+                  {money2(r.takeHomeImpactPerPay)}
+                </td>
+              );
+            })}
+          </tr>
+          <tr>
+            <td style={td(true)}></td>
+            <td style={tdLeft(true)}>"Average Lease Tax Bracket" this FY</td>
+            {years.map((y) => {
+              const r = get(y);
+              return (
+                <td key={y} style={td(true)}>
+                  {pct0(r.avgLeaseTaxBracketPct)}
+                </td>
+              );
+            })}
+          </tr>
         </tbody>
       </table>
     </div>

@@ -1,5 +1,3 @@
-
-
 import { useMemo } from "react";
 
 export type SGYearRow = {
@@ -41,6 +39,10 @@ export default function SG(props: SGProps) {
       });
   }, [props.rows, sgRate]);
 
+  const totalLossInSg = useMemo(() => {
+    return computedRows.reduce((sum, r) => sum + r.lossInSg, 0);
+  }, [computedRows]);
+
   return (
     <div style={{ padding: "12px 0" }}>
       <div style={{ fontStyle: "italic", fontSize: 13, opacity: 0.85, marginBottom: 10 }}>
@@ -71,13 +73,23 @@ export default function SG(props: SGProps) {
         </table>
       </div>
 
-      <div style={{ marginTop: 14, fontSize: 13, lineHeight: 1.35 }}>
-        <div style={{ fontWeight: 600 }}>Conclusion:</div>
-        <div>
-          This calculation is irrelevant to you if your employer calculates SG based on income <b>prior</b> to novated leasing.
+      <div style={{ marginTop: 14, fontSize: 13, lineHeight: 1.45 }}>
+        <div style={{ fontWeight: 700, marginBottom: 6 }}>Conclusion:</div>
+        <div style={{ marginBottom: 8 }}>
+          Over this lease term, your employer is projected to contribute <b>{formatMoney(totalLossInSg)}</b> less in superannuation.
+        </div>
+        <div style={{ marginBottom: 8 }}>
+          The true long‑term impact is hard to model precisely: employer contributions are generally taxed at 15%,
+          high‑income earners may also be affected by Division 293 tax, and whatever remains is then subject to future
+          investment performance inside super.
         </div>
         <div>
-          Please double‑check with your payroll, as the answer can materially affect your long‑term savings.
+          One way to partially mitigate this is to consciously replace the shortfall with an equivalent <b>concessional contribution </b>
+          (subject to your contribution caps). In rough terms, the take‑home cost of contributing the same nominal amount
+          is approximately the nominal figure multiplied by <b>(1 − your marginal tax rate, including the 2% Medicare levy)</b>.
+        </div>
+        <div style={{ marginTop: 8 }}>
+          Make sure you take this into account when evaluating the net financial impact of novated lease.
         </div>
       </div>
     </div>
