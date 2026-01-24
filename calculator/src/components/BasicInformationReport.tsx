@@ -1,4 +1,5 @@
 import type { Inputs } from "../engine/types";
+import { isFbtApplicable } from "../engine/types";
 import { calcResidualPayableIncGst } from "../engine/types";
 import { taxSummaryAUResident } from "../engine/tax_au";
 import { residualPercentForYears, residualFractionForYears, gstSaved } from "../engine/ato";
@@ -22,6 +23,19 @@ export default function BasicInformationReport(props: {
   const taxRatePct =
     props.taxRateInclMedicarePct ?? t.marginalRateInclMedicare * 100;
   const taxRate = taxRatePct / 100;
+
+  const fbtApplicable = isFbtApplicable(i);
+
+  // ECM / FBT delta (only relevant when FBT applies)
+  const vehicleDutiableValue = Math.max(0, i.vehicleBaseValue);
+  const fbtStatutoryRate = 0.2;
+  const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
+  const ecmPerFn = ecmAnnual / 26;
+
+  // FBT delta (fortnightly):
+  // = [ECM_fn × taxRate] + [ECM_fn/11 × (1 - taxRate)]
+  // where taxRate is the marginal rate incl. Medicare Levy.
+  const fbtDeltaPerFn = ecmPerFn * taxRate + (ecmPerFn / 11) * (1 - taxRate);
 
   const fortnights = Math.round(i.leaseDurationYears * 26);
 
@@ -151,6 +165,51 @@ export default function BasicInformationReport(props: {
 
       <Spacer />
 
+      {fbtApplicable ? (
+        <>
+          <div
+            style={{
+              fontWeight: 800,
+              fontSize: 14,
+              margin: "10px 0 6px",
+              paddingLeft: 8,
+              borderLeft: "3px solid rgba(0,0,0,0.08)",
+            }}
+          >
+            Employee Contribution Method (ECM)
+          </div>
+
+          <KeyValue label="Vehicle Dutiable Value" value={`$ ${aud(vehicleDutiableValue)}`} />
+          <KeyValue label="FBT Statutory Rate" value={`${Math.round(fbtStatutoryRate * 100)}%`} />
+          <KeyValue
+            label={
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                Annual Employee Contribution (Post Tax)
+                <InfoTooltip text="Calculated as vehicle dutiable value × 20% (statutory method)." />
+              </span>
+            }
+            value={`$ ${aud(ecmAnnual)}`}
+          />
+          <KeyValue
+            label="↳ Fortnightly"
+            value={`$ ${aud(ecmPerFn)}`}
+          />
+          <KeyValue
+            label={
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                FBT Delta (Fortnightly)
+                <InfoTooltip text="How much more this lease costs per fortnight post‑tax compared with an FBT‑exempt EV lease. Formula: (ECM_fn × taxRate) + (ECM_fn ÷ 11 × (1 − taxRate)), where taxRate is your marginal rate incl. Medicare." />
+              </span>
+            }
+            value={`$ ${aud(fbtDeltaPerFn)}`}
+          />
+
+          <Spacer />
+        </>
+      ) : null}
+
+      {i.vehicleType === "EV" ? (
+      <>
       <div
         style={{
           fontWeight: 800,
@@ -213,6 +272,8 @@ export default function BasicInformationReport(props: {
         value={`$ ${aud(postReimbursementEffectiveChargingExpense)}`}
         highlight
       />
+      </>
+      ) : null}
     </div>
   );
 }

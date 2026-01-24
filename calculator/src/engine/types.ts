@@ -36,7 +36,11 @@ export type Inputs = {
   serviceMaintTyresAnnual: number;
   saveShareAnnual: number;
   registrationAnnual: number;
+
+  // Packaged energy cost: electricity for EV, fuel for Non‑EV
   electricityAnnual: number;
+  fuelAnnual: number;
+
   insuranceAnnual: number;
   managementFeesAnnual: number;
 
@@ -60,6 +64,70 @@ export type Inputs = {
   carLoanInterestRatePct: number;
   carLoanMonthlyFee: number;
 };
+
+// --- Canonical lease category (single source of truth) ---
+
+/**
+ * Canonical categories used throughout the calculator.
+ * - EV_FBT_EXEMPT: eligible for the EV FBT-exempt pathway
+ * - EV_FBT_APPLICABLE: EV selected but NOT eligible for exemption (e.g. LCT threshold / used checks)
+ * - NON_EV_FBT_APPLICABLE: non-EV (always FBT-applicable)
+ */
+export type LeaseFbtCategory = "EV_FBT_EXEMPT" | "EV_FBT_APPLICABLE" | "NON_EV_FBT_APPLICABLE";
+
+/**
+ * Current EV Luxury Car Tax threshold used for FBT-exempt EV eligibility.
+ * Note: keep in one place so UI + engine stay consistent.
+ */
+export const EV_LCT_THRESHOLD = 91387;
+
+export type EvFbtEligibility = {
+  isEv: boolean;
+  eligible: boolean;
+  isOverEvLctThreshold: boolean;
+  needsUsedEligibilityChecks: boolean;
+  usedEligibilityChecksOk: boolean;
+};
+
+/**
+ * Derives EV FBT-exemption eligibility from Inputs.
+ * This mirrors the logic used in the InputsPanel "FBT-EXEMPT ELIGIBILITY" section.
+ */
+export function deriveEvFbtEligibility(i: Inputs): EvFbtEligibility {
+  const isEv = i.vehicleType === "EV";
+  const isOverEvLctThreshold = i.vehicleBaseValue > EV_LCT_THRESHOLD;
+
+  // Used vehicle checks apply to any non-new condition.
+  const needsUsedEligibilityChecks = i.vehicleCondition !== "New";
+  const usedEligibilityChecksOk =
+    !needsUsedEligibilityChecks || (i.usedCarFirstHeldAfterJul2022 && i.usedCarLctNeverPayable);
+
+  const eligible = isEv && i.vehicleBaseValue > 0 && !isOverEvLctThreshold && usedEligibilityChecksOk;
+
+  return {
+    isEv,
+    eligible,
+    isOverEvLctThreshold,
+    needsUsedEligibilityChecks,
+    usedEligibilityChecksOk,
+  };
+}
+
+/**
+ * Canonical category used by downstream calculations and UI.
+ */
+export function getLeaseFbtCategory(i: Inputs): LeaseFbtCategory {
+  if (i.vehicleType !== "EV") return "NON_EV_FBT_APPLICABLE";
+  return deriveEvFbtEligibility(i).eligible ? "EV_FBT_EXEMPT" : "EV_FBT_APPLICABLE";
+}
+
+export function isFbtExemptEv(i: Inputs): boolean {
+  return getLeaseFbtCategory(i) === "EV_FBT_EXEMPT";
+}
+
+export function isFbtApplicable(i: Inputs): boolean {
+  return getLeaseFbtCategory(i) !== "EV_FBT_EXEMPT";
+}
 
 // --- Shared lease helpers (single source of truth) ---
 

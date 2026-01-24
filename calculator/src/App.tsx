@@ -276,6 +276,7 @@ function coerceInputsFromUrl(partial: Partial<Inputs>, defaults: Inputs): Inputs
     saveShareAnnual: safeNum(partial.saveShareAnnual, defaults.saveShareAnnual),
     registrationAnnual: safeNum(partial.registrationAnnual, defaults.registrationAnnual),
     electricityAnnual: safeNum(partial.electricityAnnual, defaults.electricityAnnual),
+    fuelAnnual: safeNum((partial as any).fuelAnnual, defaults.fuelAnnual),
     insuranceAnnual: safeNum(partial.insuranceAnnual, defaults.insuranceAnnual),
     managementFeesAnnual: safeNum(partial.managementFeesAnnual, defaults.managementFeesAnnual),
 
@@ -360,6 +361,7 @@ export default function App() {
     saveShareAnnual: 0,
     registrationAnnual: 984.88,
     electricityAnnual: 630,
+    fuelAnnual: 2362.50,
     insuranceAnnual: 1300,
     managementFeesAnnual: 516.88,
 

@@ -208,9 +208,9 @@ export default function InputsPanel(props: InputsPanelProps) {
 
         <Section
           title="VEHICLE DETAILS"
-          highlight={!isFbtExemptEligible}
+          highlight={isEv && !isFbtExemptEligible}
           banner={
-            !isFbtExemptEligible ? (
+            (isEv && !isFbtExemptEligible) ? (
               <div
                 style={{
                   padding: "10px 10px",
@@ -225,12 +225,7 @@ export default function InputsPanel(props: InputsPanelProps) {
                   This vehicle may not be eligible for FBT-exempt (EV) novated leasing.
                 </div>
                 <div style={{ opacity: 0.92 }}>
-                  {!isEv ? (
-                    <>
-                      You selected <b>Non‑EV</b>. Only eligible EVs can use the <b>FBT‑exempt</b> pathway.
-                      The calculator will assume this to be an <b>FBT-applicable</b> novated lease.
-                    </>
-                  ) : !usedEligibilityChecksOk ? (
+                  {!usedEligibilityChecksOk ? (
                     <>
                       For used vehicles, you must confirm the vehicle was first held and used after <b>1 July 2022</b>,
                       and that <b>Luxury Car Tax (LCT)</b> was never payable. Please tick both checkboxes below, otherwise
@@ -646,18 +641,33 @@ export default function InputsPanel(props: InputsPanelProps) {
             onChange={(v) => setInputs((p) => ({ ...p, registrationAnnual: v }))}
           />
 
-          <MoneyField
-            label="Electricity (annual)"
-            tooltip={
-              <>
-                <InfoTooltip text="Annual figure, automatically populated with 0.042/km calculation (ATO rule); manually change if you choose other claim methods." />
-              </>
-            }
-            value={inputs.electricityAnnual}
-            step={10}
-            min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, electricityAnnual: v }))}
-          />
+          {inputs.vehicleType === "EV" ? (
+            <MoneyField
+              label="Electricity (annual)"
+              tooltip={
+                <>
+                  <InfoTooltip text="Annual figure, automatically populated with 0.042/km calculation (ATO rule); manually change if you choose other claim methods." />
+                </>
+              }
+              value={inputs.electricityAnnual}
+              step={10}
+              min={0}
+              onChange={(v) => setInputs((p) => ({ ...p, electricityAnnual: v }))}
+            />
+          ) : (
+            <MoneyField
+              label="Fuel (annual)"
+              tooltip={
+                <>
+                  <InfoTooltip text="Annual figure. Enter your expected fuel cost for the year (petrol/diesel)." />
+                </>
+              }
+              value={inputs.fuelAnnual}
+              step={10}
+              min={0}
+              onChange={(v) => setInputs((p) => ({ ...p, fuelAnnual: v }))}
+            />
+          )}
 
           <MoneyField
             label="Insurance"
@@ -686,77 +696,79 @@ export default function InputsPanel(props: InputsPanelProps) {
           />
         </Section>
 
-        <Section title="ELECTRICITY">
-          <MoneyField
-            label="Average AUD per kWh"
-            tooltip={
-              <>
-                <InfoTooltip text="Can range from 0 (unreimbursable solar excess), ~0.08 for off peak, ~0.30 for regular tariff, ~0.40-0.60 for public chargers. Leave unchanged if unsure." />
-              </>
-            }
-            value={inputs.avgAudPerKwh}
-            step={0.01}
-            min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, avgAudPerKwh: v }))}
-          />
+        {inputs.vehicleType === "EV" ? (
+          <Section title="ELECTRICITY">
+            <MoneyField
+              label="Average AUD per kWh"
+              tooltip={
+                <>
+                  <InfoTooltip text="Can range from 0 (unreimbursable solar excess), ~0.08 for off peak, ~0.30 for regular tariff, ~0.40-0.60 for public chargers. Leave unchanged if unsure." />
+                </>
+              }
+              value={inputs.avgAudPerKwh}
+              step={0.01}
+              min={0}
+              onChange={(v) => setInputs((p) => ({ ...p, avgAudPerKwh: v }))}
+            />
 
-          <NumberField
-            label="Average Wh per km"
-            tooltip={
-              <>
-                <InfoTooltip text="The electric car efficiency. Can range from 120 to 200 Wh/km. Leave unchanged if unsure." />
-              </>
-            }
-            value={inputs.avgWhPerKm}
-            step={1}
-            min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, avgWhPerKm: v }))}
-          />
+            <NumberField
+              label="Average Wh per km"
+              tooltip={
+                <>
+                  <InfoTooltip text="The electric car efficiency. Can range from 120 to 200 Wh/km. Leave unchanged if unsure." />
+                </>
+              }
+              value={inputs.avgWhPerKm}
+              step={1}
+              min={0}
+              onChange={(v) => setInputs((p) => ({ ...p, avgWhPerKm: v }))}
+            />
 
-<ExpandToggle
-  title="Use an alternate annual charging cost"
-  defaultOpen={Boolean(inputs.overrideAnnualChargingExpense)}
->
-  <MoneyField
-    label="Annual Charging Expense (set 0 to clear)"
-    tooltip={
-      <>
-        <InfoTooltip text="If you have a better estimate of annual charging expense, enter it here (e.g. frequent public charging). Otherwise leave it as 0." />
-      </>
-    }
-    value={inputs.overrideAnnualChargingExpense ?? 0}
-    step={10}
-    min={0}
-    onChange={(v) =>
-      setInputs((p) => ({
-        ...p,
-        overrideAnnualChargingExpense: v === 0 ? undefined : v,
-      }))
-    }
-  />
+  <ExpandToggle
+    title="Use an alternate annual charging cost"
+    defaultOpen={Boolean(inputs.overrideAnnualChargingExpense)}
+  >
+    <MoneyField
+      label="Annual Charging Expense (set 0 to clear)"
+      tooltip={
+        <>
+          <InfoTooltip text="If you have a better estimate of annual charging expense, enter it here (e.g. frequent public charging). Otherwise leave it as 0." />
+        </>
+      }
+      value={inputs.overrideAnnualChargingExpense ?? 0}
+      step={10}
+      min={0}
+      onChange={(v) =>
+        setInputs((p) => ({
+          ...p,
+          overrideAnnualChargingExpense: v === 0 ? undefined : v,
+        }))
+      }
+    />
 
-  {inputs.overrideAnnualChargingExpense ? (
-    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-      <button
-        type="button"
-        onClick={() => setInputs((p) => ({ ...p, overrideAnnualChargingExpense: undefined }))}
-        style={{
-          borderRadius: 10,
-          border: "1px solid rgba(0,0,0,0.18)",
-          background: "#fff",
-          padding: "6px 10px",
-          fontSize: 12,
-          fontWeight: 800,
-          cursor: "pointer",
-        }}
-      >
-        Remove alternate cost
-      </button>
-    </div>
-  ) : null}
-</ExpandToggle>
+    {inputs.overrideAnnualChargingExpense ? (
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <button
+          type="button"
+          onClick={() => setInputs((p) => ({ ...p, overrideAnnualChargingExpense: undefined }))}
+          style={{
+            borderRadius: 10,
+            border: "1px solid rgba(0,0,0,0.18)",
+            background: "#fff",
+            padding: "6px 10px",
+            fontSize: 12,
+            fontWeight: 800,
+            cursor: "pointer",
+          }}
+        >
+          Remove alternate cost
+        </button>
+      </div>
+    ) : null}
+  </ExpandToggle>
 
-        </Section>
+          </Section>
+        ) : null}
 
 <Section
   title="COMPARE WITH CAR LOAN"
