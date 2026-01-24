@@ -1,8 +1,11 @@
 import type { Inputs } from "../engine/types";
 import { calcResidualPayableIncGst } from "../engine/types";
 import { taxSummaryAUResident } from "../engine/tax_au";
-import { residualPercentForYears, gstSaved } from "../engine/ato";
-import { financedAmountExGstFromInputs, effectiveAnnualRateFromFortnightlyLease } from "../engine/effectiveinterest";
+import { residualPercentForYears, residualFractionForYears, gstSaved } from "../engine/ato";
+import {
+  financedAmountExGstFromInputs,
+  effectiveAnnualRateFromFortnightlyLease,
+} from "../engine/effectiveinterest";
 import { estimateAnnualChargingExpense, atoChargingClaimAnnual } from "../engine/charging";
 import { aud, aud0, pct } from "../utils/format";
 import { InfoTooltip } from "./ui/InfoTooltip";
@@ -42,22 +45,14 @@ export default function BasicInformationReport(props: {
   // Use the shared engine solver (same as the live hint in App.tsx).
   const effectiveInterestRatePct = (() => {
     try {
-      function normalizedResidualPctForYears(years: number): number {
-        const residualPctRaw = residualPercentForYears(years);
-        let residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
-        // Guard against double scaling (e.g. 0.002813 instead of 0.2813)
-        if (residualPct > 0 && residualPct < 0.01) residualPct *= 100;
-        return residualPct;
-      }
-
       const leaseYears = Math.max(1, Math.min(5, Math.round(i.leaseDurationYears)));
       const deferMonths = Math.max(0, Math.round(i.monthsDeferred));
 
       // Definition-1 basis: financed amount ex GST, and residual value ex GST.
       // (Matches the approach used elsewhere in the app.)
       const financedAmountExGst = amountFinanced;
-      const residualPctNorm = normalizedResidualPctForYears(leaseYears);
-      const residualValueExGst = Math.max(0, financedAmountExGst - i.leaseDocFee) * residualPctNorm;
+      const residualFraction = residualFractionForYears(leaseYears);
+      const residualValueExGst = Math.max(0, financedAmountExGst - i.leaseDocFee) * residualFraction;
 
       // IMPORTANT: keep this aligned with the InputsPanel live hint.
       // We intentionally use vehicleLeasePerFn only (not LV adj) for the “effective rate” display.
@@ -78,7 +73,6 @@ export default function BasicInformationReport(props: {
       return null;
     }
   })();
-
 
   // Charging: actual spend (best estimate) and packaged claim (ATO shortcut)
   const chargingEstimate = estimateAnnualChargingExpense(i);
@@ -138,15 +132,11 @@ export default function BasicInformationReport(props: {
         value={`$ ${aud(amountFinanced)}`}
       />
       <KeyValue
-        label={`ATO-Mandated Residual Value % for ${Math.round(
-          i.leaseDurationYears
-        )} Years`}
+        label={`ATO-Mandated Residual Value % for ${Math.round(i.leaseDurationYears)} Years`}
         value={pct(residualPct)}
       />
       <KeyValue
-        label={`Residual Value Payable after ${Math.round(
-          i.leaseDurationYears
-        )} Years (inc GST)`}
+        label={`Residual Value Payable after ${Math.round(i.leaseDurationYears)} Years (inc GST)`}
         value={`$ ${aud(residualPayableIncGst)}`}
       />
 
@@ -160,7 +150,6 @@ export default function BasicInformationReport(props: {
       />
 
       <Spacer />
-
 
       <div
         style={{
@@ -232,7 +221,11 @@ function Spacer() {
   return <div style={{ height: 10 }} />;
 }
 
-function KeyValue(props: { label: React.ReactNode; value: string; highlight?: boolean }) {
+function KeyValue(props: {
+  label: React.ReactNode;
+  value: string;
+  highlight?: boolean;
+}) {
   return (
     <div
       style={{

@@ -8,7 +8,7 @@ export const ATO_EV_HOME_CHARGING_RATE_PER_KM = 0.042;
 export type ChargingMethod =
   | "override"
   | "kwh_model"
-  | "ato_shortcut"
+  | "no_estimate"
   | "not_ev";
 
 export type ChargingEstimate = {
@@ -73,13 +73,10 @@ export function estimateAnnualChargingExpense(i: Inputs): ChargingEstimate {
   return {
     annualChargingExpense: 0,
     kwhPerYear,
-    method: "not_ev",
+    method: "no_estimate",
   };
 }
 
-export function annualChargingExpense(i: Inputs): number {
-  return estimateAnnualChargingExpense(i).annualChargingExpense;
-}
 
 /**
  * Annual amount used for *packaged* EV charging in this calculator.

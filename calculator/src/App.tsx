@@ -13,7 +13,7 @@ import {
   financedAmountExGstFromInputs,
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "./engine/effectiveinterest";
-import { residualPercentForYears } from "./engine/ato";
+import { residualFractionForYears } from "./engine/ato";
 import EffectiveInterestReport from "./components/EffectiveInterestReport";
 
 
@@ -496,22 +496,15 @@ export default function App() {
 
   const [leaseQuoteGuardMsg, setLeaseQuoteGuardMsg] = useState<string>("");
 
-  function normalizedResidualPctForYears(years: number): number {
-    const residualPctRaw = residualPercentForYears(years);
-    let residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
-    // Guard against double scaling (e.g. 0.002813 instead of 0.2813)
-    if (residualPct > 0 && residualPct < 0.01) residualPct *= 100;
-    return residualPct;
-  }
 
   // Definition 1 basis (same idea as Section 4)
   const guardLeaseYears = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
   const guardDeferMonths = Math.max(0, Math.round(inputs.monthsDeferred));
 
   const guardFinancedStandardExGst = financedAmountExGstFromInputs(inputs);
-  const guardResidualPct = normalizedResidualPctForYears(guardLeaseYears);
+  const guardResidualFraction = residualFractionForYears(guardLeaseYears);
   const guardResidualStandardExGst =
-    Math.max(0, guardFinancedStandardExGst - inputs.leaseDocFee) * guardResidualPct;
+    Math.max(0, guardFinancedStandardExGst - inputs.leaseDocFee) * guardResidualFraction;
 
   // Compute the live “equivalent effective rate” from the current input (Definition 1)
   const guardTotalLeaseFn = Math.max(0, inputs.vehicleLeasePerFn);

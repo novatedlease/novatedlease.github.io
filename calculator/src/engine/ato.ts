@@ -25,3 +25,7 @@ export function residualPercentForYears(years: number): number {
   const y = Math.round(years);
   return ATO_RESIDUAL_PCT[y] ?? 28.13;
 }
+
+export function residualFractionForYears(years: number): number {
+  return residualPercentForYears(years) / 100;
+}
