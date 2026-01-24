@@ -145,8 +145,8 @@ export function solveEffectiveAnnualRateFromFortnightlyLease(opts: {
     monthsDeferred: opts.monthsDeferred,
   };
 
-  const tol = opts.tolAbs ?? 0.01;
-  const maxIter = opts.maxIter ?? 80;
+  const tol = opts.tolAbs ?? 0.001;
+  const maxIter = opts.maxIter ?? 160;
   const maxRate = opts.maxRate ?? 1.5;
 
   // f(rate) = computed - target
@@ -304,8 +304,8 @@ export function effectiveAnnualRateFromFortnightlyLease(opts: {
   // the relationship explicit for debugging/maintenance.)
   void targetMonthly;
 
-  const tolFn = opts.tolAbs ?? 0.01;
-  const maxIter = opts.maxIter ?? 80;
+  const tolFn = opts.tolAbs ?? 0.001;
+  const maxIter = opts.maxIter ?? 160;
   const maxAnnualRate = opts.maxAnnualRate ?? 2.0;
 
   // Forward model returning fortnightly (positive)

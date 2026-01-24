@@ -118,7 +118,9 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
           borderLeft: "4px solid rgba(11, 92, 171, 0.6)",
           background: "rgba(11, 92, 171, 0.06)",
           borderRadius: 10,
-          marginBottom: 12,
+          marginBottom: 10,
+          maxWidth: 560,
+          width: "60%",
         }}
       >
         <div style={{ fontSize: 12, opacity: 0.9, fontWeight: 800 }}>{p.title}</div>
@@ -145,8 +147,8 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr auto",
-          gap: 10,
+          gridTemplateColumns: "340px 1fr",
+          gap: 12,
           alignItems: "baseline",
           padding: "2px 0",
         }}
@@ -166,7 +168,15 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
             </span>
           ) : null}
         </div>
-        <div style={{ fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>{p.value}</div>
+        <div
+          style={{
+            fontVariantNumeric: "tabular-nums",
+            whiteSpace: "nowrap",
+            justifySelf: "start",
+          }}
+        >
+          {p.value}
+        </div>
       </div>
     );
 
@@ -259,7 +269,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
                     <th style={{ textAlign: "right", padding: "8px 6px", whiteSpace: "nowrap" }}>
                       <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                         Interest
-                        <InfoTooltip text="Balance multiplied by effective interest rate / 12" />
+                        <InfoTooltip text="Interest is calculated using a higher‑precision rate than the rounded percentage shown above. This avoids compounding rounding errors in the amortisation schedule." />
                       </span>
                     </th>
                     <th style={{ textAlign: "right", padding: "8px 6px", whiteSpace: "nowrap" }}>Closing Balance</th>
@@ -283,10 +293,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
               <div style={{ fontSize: 12, opacity: 0.7, marginTop: 8 }}>
                 Payments are shown as negatives (parentheses) and are blank during deferred months.
                 <br />
-                The closing balance at the end of the schedule may not exactly match the residual value payable. This is expected:
-                the effective interest rate displayed above is rounded to two decimal places, and this rounded rate is used to
-                compute monthly interest in this table. When the underlying calculation uses the full (higher‑precision)
-                interest rate, the amortisation schedule reconciles exactly to the residual value.
+                The closing balance at the end of the schedule may not exactly match the residual value payable due to rounding error. 
               </div>
             </div>
           ) : null}
@@ -300,7 +307,6 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
         <SummaryBox
           title="Effective interest rate (recommended)"
           value={pct(rateDef1)}
-          subtitle="Definition 1: standard financed amount, excluding management fees"
         />
 
         <SectionTitle>Definition 1 (recommended)</SectionTitle>
@@ -315,12 +321,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
           <Row label={`↳ Equivalent to monthly lease over ${payableMonths} months`} value={money(monthlyEqDef1)} />
           <Row label="Months deferred" value={`${deferMonths} months`} />
         </div>
-        <div style={{ marginTop: 8, fontWeight: 900 }}>
-          Effective interest rate&nbsp;&nbsp;{pct(rateDef1)}
-          {!Number.isFinite(rateDef1) ? (
-            <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.75, fontStyle: "italic" }}>{noSolutionNote}</span>
-          ) : null}
-        </div>
+        
         <AmortisationTable
           financedAmount={financedStandardExGst}
           monthlyPayment={monthlyEqDef1}
@@ -342,14 +343,16 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
               </div>
             }
           >
+            <SummaryBox
+              title="Effective interest rate (inc. management fees)"
+              value={pct(rateDef1a)}
+            />
             <Row label="Financed Amount from standard calculations" value={money(financedStandardExGst)} />
             <Row label="Residual Value Payable (ex GST)" value={money(residualStandardExGst)} />
             <Row label="Fortnightly lease + Management fee" value={money(leaseFn + mgmtFeeFn)} />
             <Row label={`↳ Equivalent to monthly lease over ${payableMonths} months`} value={money(monthlyEqDef1a)} />
             <Row label="Months deferred" value={`${deferMonths} months`} />
-            <div style={{ marginTop: 8, fontWeight: 900 }}>
-              Effective interest rate (incorporating fees)&nbsp;&nbsp;{pct(rateDef1a)}
-            </div>
+            
             <AmortisationTable
               financedAmount={financedStandardExGst}
               monthlyPayment={monthlyEqDef1a}
@@ -372,14 +375,16 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
               </div>
             }
           >
+            <SummaryBox
+              title="Effective interest rate (using inflated financed amount)"
+              value={pct(rateDef2)}
+            />
             <Row label="Financed Amount that includes brokerage inflation" value={money(financedInflatedExGst)} />
             <Row label="Residual Value Payable (ex GST)" value={money(residualInflatedExGst)} />
             <Row label="Fortnightly lease" value={money(leaseFn)} />
             <Row label={`↳ Equivalent to monthly lease over ${payableMonths} months`} value={money(monthlyEqDef2)} />
             <Row label="Months deferred" value={`${deferMonths} months`} />
-            <div style={{ marginTop: 8, fontWeight: 900 }}>
-              Effective interest rate (using inflated financed amount)&nbsp;&nbsp;{pct(rateDef2)}
-            </div>
+            
             <AmortisationTable
               financedAmount={financedInflatedExGst}
               monthlyPayment={monthlyEqDef2}
