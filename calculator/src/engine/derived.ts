@@ -1,6 +1,6 @@
 import type { Inputs } from "./types";
 import { buildFyBreakdown } from "./fy_breakdown";
-import { annualChargingExpense } from "./charging";
+import { atoChargingClaimAnnual } from "./charging";
 
 export type AtiRow = {
   financialYearEnding: number;
@@ -20,7 +20,7 @@ export type Derived = {
    * Derived running costs using the same assumptions as the FY breakdown.
    * (Includes the ATO EV home charging shortcut rate.)
    */
-  assumedChargingClaimPerYear: number;
+  packagedChargingClaimPerYear: number;
   runningCostAnnual: number;
   runningCostFn: number;
   preTaxTotalFn: number;
@@ -40,8 +40,8 @@ export type Derived = {
 export function computeDerived(inputs: Inputs): Derived {
   const fortnights = Math.round(inputs.leaseDurationYears * 26);
 
-  // LeaseReport includes ATO EV home charging shortcut (4.2c / km) in running costs.
-  const assumedChargingClaimPerYear = annualChargingExpense(inputs);
+  // Packaged running costs use the ATO EV home charging shortcut (4.2c / km).
+  const packagedChargingClaimPerYear = atoChargingClaimAnnual(inputs);
 
   const runningCostAnnual =
     inputs.serviceMaintTyresAnnual +
@@ -49,7 +49,7 @@ export function computeDerived(inputs: Inputs): Derived {
     inputs.registrationAnnual +
     inputs.insuranceAnnual +
     inputs.managementFeesAnnual +
-    assumedChargingClaimPerYear;
+    packagedChargingClaimPerYear;
 
   const runningCostFn = runningCostAnnual / 26;
 
@@ -74,7 +74,7 @@ export function computeDerived(inputs: Inputs): Derived {
 
   return {
     fortnights,
-    assumedChargingClaimPerYear,
+    packagedChargingClaimPerYear,
     runningCostAnnual,
     runningCostFn,
     preTaxTotalFn,

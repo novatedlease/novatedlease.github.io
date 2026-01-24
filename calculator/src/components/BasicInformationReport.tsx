@@ -3,6 +3,7 @@ import { calcResidualPayableIncGst } from "../engine/types";
 import { taxSummaryAUResident } from "../engine/tax_au";
 import { residualPercentForYears, gstSaved } from "../engine/ato";
 import { financedAmountExGstFromInputs, effectiveAnnualRateFromFortnightlyLease } from "../engine/effectiveinterest";
+import { estimateAnnualChargingExpense, atoChargingClaimAnnual } from "../engine/charging";
 import { aud, aud0, pct } from "../utils/format";
 import { InfoTooltip } from "./ui/InfoTooltip";
 
@@ -79,13 +80,11 @@ export default function BasicInformationReport(props: {
   })();
 
 
-  // Electricity model
-  const kwhPerYear = (i.annualMileageKm * i.avgWhPerKm) / 1000;
-  const chargingExpensePerYear =
-    i.overrideAnnualChargingExpense ?? kwhPerYear * i.avgAudPerKwh;
-
-  // ATO EV home charging shortcut (4.2c / km)
-  const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
+  // Charging: actual spend (best estimate) and packaged claim (ATO shortcut)
+  const chargingEstimate = estimateAnnualChargingExpense(i);
+  const chargingExpensePerYear = chargingEstimate.annualChargingExpense;
+  const kwhPerYear = chargingEstimate.kwhPerYear;
+  const assumedChargingClaimPerYear = atoChargingClaimAnnual(i);
   const chargingDelta = assumedChargingClaimPerYear - chargingExpensePerYear;
 
   // “post-reimbursement effective charging expense”

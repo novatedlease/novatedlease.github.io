@@ -4,8 +4,8 @@ import type { Inputs } from "../engine/types";
 import { calcResidualPayableIncGst } from "../engine/types";
 import { residualPercentForYears } from "../engine/ato";
 import { aud0 } from "../utils/format";
-import { buildFyBreakdown } from "../engine/fy_breakdown";
 import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
+import { computeDerived } from "../engine/derived";
 
 
 
@@ -15,9 +15,6 @@ export function LeaseReport(props: {
   taxRateInclMedicarePct?: number; // e.g. 47
 }) {
   const i = props.inputs;
-
-
-  const fortnights = Math.round(i.leaseDurationYears * 26);
 
   // Amount financed (simple approximation)
   const amountFinanced = financedAmountExGstFromInputs(i);
@@ -48,27 +45,18 @@ export function LeaseReport(props: {
     vehicleLeasePerFn: vehicleLeaseFn,
   };
 
-  const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
-  const runningCostAnnual =
-    i.serviceMaintTyresAnnual +
-    i.saveShareAnnual +
-    i.registrationAnnual +
-    i.insuranceAnnual +
-    i.managementFeesAnnual +
-    assumedChargingClaimPerYear;
+  // Single source of truth for packaged running costs and FY allocation inputs.
+  const d = computeDerived(inputsWithLv);
 
-  const runningCostFn = runningCostAnnual / 26;
+  const runningCostAnnual = d.runningCostAnnual;
+  const runningCostFn = d.runningCostFn;
 
   const preTaxVehicleLeaseAnnual = vehicleLeaseFn * 26;
   const preTaxRunningAnnual = runningCostAnnual;
-  const preTaxTotalFn = vehicleLeaseFn + runningCostFn;
+  const preTaxTotalFn = d.preTaxTotalFn;
 
   // Breakdown by Financial Years (engine)
-  const fyRows = buildFyBreakdown({
-    inputs: inputsWithLv,
-    fortnights,
-    preTaxTotalFn,
-  });
+  const fyRows = d.fyRows;
 
   const preTaxTotalAnnual = preTaxVehicleLeaseAnnual + preTaxRunningAnnual;
 

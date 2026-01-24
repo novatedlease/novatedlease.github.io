@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { LeaseReport } from "./components/LeaseReport";
 import BasicInformationReport from "./components/BasicInformationReport";
 import type { Inputs } from "./engine/types";
-import { buildFyBreakdown } from "./engine/fy_breakdown";
+import { computeDerived } from "./engine/derived";
 import { FinancialReport } from "./components/FinancialReport";
 import ATI from "./components/ATI";
 import SG from "./components/SG";
@@ -23,62 +23,19 @@ function estMarketValueFromDriveaway(driveawayCost: number): number {
 
 function buildAtiRowsFromFyBreakdown(inputs: Inputs) {
   // Match LeaseReport's FY breakdown so ATI's "Taxable Income Post NL" aligns.
-  const fortnights = Math.round(inputs.leaseDurationYears * 26);
-
-  // LeaseReport includes ATO EV home charging shortcut (4.2c / km) in running costs.
-  const assumedChargingClaimPerYear = inputs.annualMileageKm * 0.042;
-
-  const runningCostAnnual =
-    inputs.serviceMaintTyresAnnual +
-    inputs.saveShareAnnual +
-    inputs.registrationAnnual +
-    inputs.insuranceAnnual +
-    inputs.managementFeesAnnual +
-    assumedChargingClaimPerYear;
-
-  const runningCostFn = runningCostAnnual / 26;
-
-  // LeaseReport's pre-tax total per fortnight used for FY allocation.
-  const preTaxTotalFn = inputs.vehicleLeasePerFn + runningCostFn;
-
-  const fyRows = buildFyBreakdown({
-    inputs,
-    fortnights,
-    preTaxTotalFn,
-  });
-
-  return fyRows.map((r) => ({
-    financialYearEnding: r.fy,
-    taxableIncomePostNL: r.postNlTaxableIncome,
-  }));
+  const inputsForCalc: Inputs = {
+    ...inputs,
+    vehicleLeasePerFn: inputs.vehicleLeasePerFn + inputs.luxuryVehicleAdjPerFn,
+  };
+  return computeDerived(inputsForCalc).atiRows;
 }
 
 function buildSgRowsFromFyBreakdown(inputs: Inputs) {
-  const fortnights = Math.round(inputs.leaseDurationYears * 26);
-
-  const assumedChargingClaimPerYear = inputs.annualMileageKm * 0.042;
-
-  const runningCostAnnual =
-    inputs.serviceMaintTyresAnnual +
-    inputs.saveShareAnnual +
-    inputs.registrationAnnual +
-    inputs.insuranceAnnual +
-    inputs.managementFeesAnnual +
-    assumedChargingClaimPerYear;
-
-  const runningCostFn = runningCostAnnual / 26;
-  const preTaxTotalFn = inputs.vehicleLeasePerFn + runningCostFn;
-
-  const fyRows = buildFyBreakdown({
-    inputs,
-    fortnights,
-    preTaxTotalFn,
-  });
-
-  return fyRows.map((r) => ({
-    financialYearEnding: r.fy,
-    reducedPretaxIncome: r.originalTaxableIncome - r.postNlTaxableIncome,
-  }));
+  const inputsForCalc: Inputs = {
+    ...inputs,
+    vehicleLeasePerFn: inputs.vehicleLeasePerFn + inputs.luxuryVehicleAdjPerFn,
+  };
+  return computeDerived(inputsForCalc).sgRows;
 }
 
 

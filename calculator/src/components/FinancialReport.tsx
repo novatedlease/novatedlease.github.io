@@ -3,21 +3,11 @@ import { residualPercentForYears } from "../engine/ato";
 import { buildFyBreakdown } from "../engine/fy_breakdown";
 import { buildWorksheet130 } from "../engine/worksheet_130";
 import { useEffect } from "react";
+import { estimateAnnualChargingExpense, atoChargingClaimAnnual } from "../engine/charging";
+import { calcResidualPayableIncGst } from "../engine/types";
+import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
 
-// Local GST-saving helper.
-// For new cars (and used dealer sales with GST), GST component is 1/11 of the GST-inclusive price.
-// For private used sales (no GST), saving is zero.
-// The EV NL GST saving is commonly capped at $6,334.
-function gstSaved(opts: {
-  vehicleCondition: "New" | "Used – dealer sale (GST inc)" | "Used – private sale (no GST)";
-  vehicleBaseValue: number;
-}): number {
-  const cap = 6334;
-  if (opts.vehicleCondition === "Used – private sale (no GST)") return 0;
-  const gross = Math.max(0, opts.vehicleBaseValue);
-  const gstComponent = gross / 11;
-  return Math.min(cap, gstComponent);
-}
+// NOTE: GST saving helper comes from engine/ato (single source of truth)
 
 function aud2(n: number): string {
   return n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -111,12 +101,8 @@ useEffect(() => {
     ];
   };
 
-  // Actual charging cost
-  const kwhPerYear = (i.annualMileageKm * i.avgWhPerKm) / 1000;
-  const chargingExpensePerYear =
-    i.overrideAnnualChargingExpense !== undefined
-      ? i.overrideAnnualChargingExpense
-      : kwhPerYear * i.avgAudPerKwh;
+  // Actual charging cost (single source of truth)
+  const chargingExpensePerYear = estimateAnnualChargingExpense(i).annualChargingExpense;
 
   // Include GST only if GST saving passed on in NL
   const gstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
@@ -135,37 +121,33 @@ useEffect(() => {
   const nonNlRunningExpenseOverFortnights = (n: number) =>
     nonElectricRunningCostPerFn * Math.max(0, Math.round(n)) + electricityExpenseOverFortnights(n);
 
-  // NL claim method (ATO shortcut 4.2c/km)
-  const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
-  const chargingDeltaAnnual = assumedChargingClaimPerYear - chargingExpensePerYear;
+  // Packaged claim method (ATO shortcut 4.2c/km)
+  const packagedChargingClaimPerYear = atoChargingClaimAnnual(i);
+  const chargingDeltaAnnual = packagedChargingClaimPerYear - chargingExpensePerYear;
 
   // Worksheet uses NEGATIVE of LeaseReport delta, over lease years
   const chargingDeltaOverLease = -chargingDeltaAnnual * yearsLease;
 
-  // GST saving + amount financed
-  const gstSavedAmt = gstSaved({
-    vehicleCondition: i.vehicleCondition,
-    vehicleBaseValue: i.vehicleBaseValue,
+  // Amount financed (ex GST) + residual payable (inc GST) — use engine single source of truth
+  const amountFinancedExGst = financedAmountExGstFromInputs(i);
+  const residualPct = residualPercentForYears(yearsLease);
+  const residualPayableIncGst = calcResidualPayableIncGst({
+    amountFinancedExGst,
+    leaseDocFeeExGst: i.leaseDocFee,
+    residualPct,
   });
-  const amountFinanced = i.driveawayCost + i.leaseDocFee - gstSavedAmt;
-
-  // Residual payable (inc GST)
-  const residualPctRaw = residualPercentForYears(yearsLease);
-  // Some tables return percent values (e.g. 28.13) while calculations need a fraction (0.2813).
-  const residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
-  const residualPayableIncGst = (amountFinanced - i.leaseDocFee) * residualPct * 1.1;
 
 
   const preTaxLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
 
-  // Pre-tax running per fortnight (packaged): use assumedChargingClaimPerYear (NOT actual)
+  // Pre-tax running per fortnight (packaged): use ATO shortcut claim (NOT actual)
   const preTaxRunningFn =
     (i.serviceMaintTyresAnnual +
       i.saveShareAnnual +
       i.registrationAnnual +
       i.insuranceAnnual +
       i.managementFeesAnnual +
-      assumedChargingClaimPerYear) /
+      packagedChargingClaimPerYear) /
     26;
 
   const preTaxTotalFn = preTaxLeaseFn + preTaxRunningFn;
@@ -686,12 +668,8 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
     return { first, subsequent, total };
   };
 
-  // Actual charging cost
-  const kwhPerYear = (i.annualMileageKm * i.avgWhPerKm) / 1000;
-  const chargingExpensePerYear =
-    i.overrideAnnualChargingExpense !== undefined
-      ? i.overrideAnnualChargingExpense
-      : kwhPerYear * i.avgAudPerKwh;
+  // Actual charging cost (single source of truth)
+  const chargingExpensePerYear = estimateAnnualChargingExpense(i).annualChargingExpense;
 
   // Include GST only if GST saving passed on in NL
   const gstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
@@ -710,24 +688,22 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
   const nonNlRunningExpenseOverFortnights = (n: number) =>
     nonElectricRunningCostPerFn * Math.max(0, Math.round(n)) + electricityExpenseOverFortnights(n);
 
-  // NL claim method (ATO shortcut 4.2c/km)
-  const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
-  const chargingDeltaAnnual = assumedChargingClaimPerYear - chargingExpensePerYear;
+  // Packaged claim method (ATO shortcut 4.2c/km)
+  const packagedChargingClaimPerYear = atoChargingClaimAnnual(i);
+  const assumedChargingClaimPerYear = packagedChargingClaimPerYear;
+  const chargingDeltaAnnual = packagedChargingClaimPerYear - chargingExpensePerYear;
 
   // Worksheet uses NEGATIVE of LeaseReport delta, over lease years
   const chargingDeltaOverLease = -chargingDeltaAnnual * yearsLease;
 
-  // GST saving + amount financed
-  const gstSavedAmt = gstSaved({
-    vehicleCondition: i.vehicleCondition,
-    vehicleBaseValue: i.vehicleBaseValue,
+  // Amount financed (ex GST) + residual payable (inc GST) — engine single source of truth
+  const amountFinancedExGst = financedAmountExGstFromInputs(i);
+  const residualPct = residualPercentForYears(yearsLease);
+  const residualPayableIncGst = calcResidualPayableIncGst({
+    amountFinancedExGst,
+    leaseDocFeeExGst: i.leaseDocFee,
+    residualPct,
   });
-  const amountFinanced = i.driveawayCost + i.leaseDocFee - gstSavedAmt;
-
-  // Residual payable (inc GST)
-  const residualPctRaw = residualPercentForYears(yearsLease);
-  const residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
-  const residualPayableIncGst = (amountFinanced - i.leaseDocFee) * residualPct * 1.1;
 
   // Pre-tax totals (used for FY breakdown to compute take-home impact)
   const preTaxLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
@@ -738,7 +714,7 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
       i.registrationAnnual +
       i.insuranceAnnual +
       i.managementFeesAnnual +
-      assumedChargingClaimPerYear) /
+      packagedChargingClaimPerYear) /
     26;
 
   const preTaxTotalFn = preTaxLeaseFn + preTaxRunningFn;
