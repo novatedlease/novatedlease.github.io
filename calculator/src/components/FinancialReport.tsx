@@ -763,9 +763,10 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
     i.currentRegistrationAnnual +
     i.currentFuelAnnual +
     i.currentInsuranceAnnual;
-  const keepRunningOverLease = keepRunningAnnual * yearsLease;
-  const keepRunningPost = keepRunningAnnual * yearsPost;
-  const keepTotalSpentAt5 = keepRunningOverLease + keepRunningPost;
+    const keepRunningOverLease = keepRunningAnnual * yearsLease;
+    const keepTotalSpentAtLeaseEnd = keepRunningOverLease;
+    const keepRunningPost = keepRunningAnnual * yearsPost;
+    const keepTotalSpentAt5 = keepRunningOverLease + keepRunningPost;
 
   // Asset values at end of lease (interpolated)
   const newEvValueAtLeaseEnd = carValueAtYears({
@@ -821,6 +822,7 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
     // Keep (optional)
     keepEnabled,
     keepRunningOverLease,
+    keepTotalSpentAtLeaseEnd,
     keepRunningPost,
     keepTotalSpentAt5,
 

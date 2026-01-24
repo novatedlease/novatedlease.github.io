@@ -314,7 +314,7 @@ export default function InputsPanel(props: InputsPanelProps) {
           />
 
           <MoneyField
-            label={`Estimated Market Value after ${inputs.leaseDurationYears} Years`}
+            label={`Estimated Market Value after 5 Years`}
             tooltip={
               <InfoTooltip
                 text={
@@ -847,7 +847,7 @@ export default function InputsPanel(props: InputsPanelProps) {
               />
 
               <MoneyField
-                label={`Estimated Market Value after ${inputs.leaseDurationYears} Years`}
+                label={`Estimated Market Value after 5 Years`}
                 tooltip={
                   <>
                     <InfoTooltip text="e.g. simulate using carsales.com.au by comparing 4yo car and 9yo car, for example." />

@@ -43,6 +43,7 @@ function buildSgRowsFromFyBreakdown(inputs: Inputs) {
 type YesNo = "Yes" | "No";
 
 type OutputTab = "Summary" | "Details";
+type SummaryHorizon = "five_year" | "lease_end";
 
 function TabButton(props: {
   label: OutputTab;
@@ -416,6 +417,17 @@ export default function App() {
   }, []);
 
   const [outputTab, setOutputTab] = useState<OutputTab>("Summary");
+  const [summaryHorizon, setSummaryHorizon] = useState<SummaryHorizon>("five_year");
+
+  // Used for dynamic label on summary horizon selector
+  const leaseYearsLabel = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
+
+  // Ensure that when leaseYearsLabel === 5, summaryHorizon cannot be "lease_end"
+  useEffect(() => {
+    if (leaseYearsLabel === 5 && summaryHorizon === "lease_end") {
+      setSummaryHorizon("five_year");
+    }
+  }, [leaseYearsLabel, summaryHorizon]);
 
 
   const [copiedLink, setCopiedLink] = useState(false);
@@ -633,6 +645,7 @@ export default function App() {
               setLeaseQuoteGuardMsg("");
               setOutputTab("Summary");
               setCopiedLink(false);
+              setSummaryHorizon("five_year");
             }}
           />
         </div>
@@ -652,7 +665,7 @@ export default function App() {
             style={{
               display: "flex",
               gap: 8,
-              alignItems: "center",
+              alignItems: "flex-start",
               justifyContent: "space-between",
               marginBottom: 12,
             }}
@@ -661,43 +674,165 @@ export default function App() {
               style={{
                 fontWeight: 800,
                 fontSize: 18,
+                paddingTop: 6,
               }}
             >
               Outputs
             </div>
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <button
-                type="button"
-                onClick={copyShareLink}
-                style={{
-                  padding: "8px 10px",
-                  borderRadius: 10,
-                  border: "1px solid rgba(0,0,0,0.18)",
-                  background: copiedLink ? "rgba(11, 92, 171, 0.12)" : "rgba(0,0,0,0.02)",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                }}
-                title="Copy a link that includes all your inputs"
-              >
-                {copiedLink ? "Copied!" : "Copy share link"}
-              </button>
+            {/* Right-side controls: Copy link and tab buttons, with summary horizon selector nested below tabs */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-end" }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <button
+                  type="button"
+                  onClick={copyShareLink}
+                  style={{
+                    padding: "8px 10px",
+                    borderRadius: 10,
+                    border: "1px solid rgba(0,0,0,0.18)",
+                    background: copiedLink ? "rgba(11, 92, 171, 0.12)" : "rgba(0,0,0,0.02)",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
+                  title="Copy a link that includes all your inputs"
+                >
+                  {copiedLink ? "Copied!" : "Copy share link"}
+                </button>
 
-              <TabButton
-                label="Summary"
-                active={outputTab === "Summary"}
-                onClick={() => setOutputTab("Summary")}
-              />
-              <TabButton
-                label="Details"
-                active={outputTab === "Details"}
-                onClick={() => setOutputTab("Details")}
-              />
+                <TabButton
+                  label="Summary"
+                  active={outputTab === "Summary"}
+                  onClick={() => setOutputTab("Summary")}
+                />
+                <TabButton
+                  label="Details"
+                  active={outputTab === "Details"}
+                  onClick={() => setOutputTab("Details")}
+                />
+              </div>
+
+              {outputTab === "Summary" && (
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{ fontSize: 12, opacity: 0.7, fontWeight: 700 }}>
+                    Summary horizon
+                  </div>
+                  {leaseYearsLabel === 5 ? (
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        height: 34,
+                        borderRadius: 999,
+                        border: "1px solid rgba(0,0,0,0.18)",
+                        background: "rgba(0,0,0,0.04)",
+                        padding: 2,
+                        userSelect: "none",
+                      }}
+                      aria-label="Summary time horizon"
+                      title="Lease duration is 5 years, so lease-end equals 5-year horizon"
+                    >
+                      <div
+                        style={{
+                          height: 30,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          padding: "0 12px",
+                          borderRadius: 999,
+                          background: "#fff",
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                          fontWeight: 900,
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        @ 5y
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        position: "relative",
+                        height: 34,
+                        borderRadius: 999,
+                        border: "1px solid rgba(0,0,0,0.18)",
+                        background: "rgba(0,0,0,0.04)",
+                        overflow: "hidden",
+                        userSelect: "none",
+                        minWidth: 160,
+                      }}
+                      role="group"
+                      aria-label="Summary time horizon"
+                    >
+                      {/* Sliding knob */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 2,
+                          bottom: 2,
+                          left: 2,
+                          width: "calc(50% - 2px)",
+                          borderRadius: 999,
+                          background: "#fff",
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                          transform:
+                            summaryHorizon === "five_year" ? "translateX(0)" : "translateX(100%)",
+                          transition: "transform 180ms ease",
+                        }}
+                      />
+
+                      {/* Click targets + labels */}
+                      <div
+                        style={{
+                          position: "relative",
+                          display: "grid",
+                          gridTemplateColumns: "1fr 1fr",
+                          height: "100%",
+                        }}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setSummaryHorizon("five_year")}
+                          style={{
+                            border: "none",
+                            background: "transparent",
+                            cursor: "pointer",
+                            fontSize: 14,
+                            fontWeight: summaryHorizon === "five_year" ? 900 : 750,
+                            opacity: summaryHorizon === "five_year" ? 1 : 0.85,
+                            whiteSpace: "nowrap",
+                          }}
+                          aria-pressed={summaryHorizon === "five_year"}
+                          title="Show summary framed over 5 years (standardised comparison)"
+                        >
+                          @ 5y
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setSummaryHorizon("lease_end")}
+                          style={{
+                            border: "none",
+                            background: "transparent",
+                            cursor: "pointer",
+                            fontSize: 14,
+                            fontWeight: summaryHorizon === "lease_end" ? 900 : 750,
+                            opacity: summaryHorizon === "lease_end" ? 1 : 0.85,
+                            whiteSpace: "nowrap",
+                          }}
+                          aria-pressed={summaryHorizon === "lease_end"}
+                          title="Show summary framed over the lease term (ends at residual)"
+                        >
+                          @ {leaseYearsLabel}y
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
           {outputTab === "Summary" ? (
-            <SummaryView inputs={inputs} />
+            <SummaryView inputs={inputs} summaryHorizon={summaryHorizon} />
           ) : (
             <>
               <div

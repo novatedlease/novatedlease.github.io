@@ -10,13 +10,14 @@ type Props = {
    * If omitted, Summary defaults to 47% (common top bracket) until we wire this from the engine.
    */
   taxRateInclMedicarePct?: number;
+  summaryHorizon?: "five_year" | "lease_end";
 };
 
 function fmtAud0(n: number): string {
   return `$${Math.round(n).toLocaleString("en-AU")}`;
 }
 
-export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
+export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHorizon }: Props) {
   // Single source of truth for all summary numbers used in this view
   const s = useMemo(
     () =>
@@ -31,31 +32,47 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
     "Why is electricity treated separately?\n\n" +
     "For most running costs under a novated lease (for example servicing, insurance, or car washes), the amount you spend and the amount you claim are the same — so the analysis can treat them as one effective cost.\n\n" +
     "Electricity is different: under the ATO EV home‑charging claim rule, the claimable amount (based on 4.2c/km) can differ materially from your actual out‑of‑pocket electricity cost. You first pay the real bill, then claim a distance‑based amount using pre‑tax income. That gap can create a genuine net gain or loss, so it needs to be shown explicitly.";
-  // Summary is always framed over 5 years of ownership, regardless of lease duration.
-  const years = 5;
+  // Summary is always framed over {years} years of ownership
+  const horizon: "five_year" | "lease_end" = summaryHorizon ?? "five_year";
+  const isLeaseEnd = horizon === "lease_end";
+  const years = isLeaseEnd ? s.yearsLease : 5;
+
+  const nlTotalSpent = isLeaseEnd ? s.nlTotalSpentAtLeaseEnd : s.nlTotalSpentAt5;
+  const offsetTotalSpent = isLeaseEnd ? s.offsetTotalSpentAtLeaseEnd : s.offsetTotalSpentAt5;
+  const loanTotalSpent = isLeaseEnd ? s.loanTotalSpentAtLeaseEnd : s.loanTotalSpentAt5;
+  const keepTotalSpent = isLeaseEnd ? s.keepTotalSpentAtLeaseEnd : s.keepTotalSpentAt5;
+
+  const nlInterestTotal = isLeaseEnd ? s.irNl.first : s.irNl.total;
+  const cashInterestTotal = isLeaseEnd ? s.irCash.first : s.irCash.total;
+  const loanInterestTotal = isLeaseEnd ? s.irLoan.first : s.irLoan.total;
+  const keepInterestTotal = isLeaseEnd ? s.irKeep.first : s.irKeep.total;
+
+  const evEndValue = isLeaseEnd ? s.newEvValueAtLeaseEnd : inputs.estimatedMarketValueAtEnd;
+  const currentEndValue = isLeaseEnd ? s.currentCarValueAtLeaseEnd : inputs.currentCarMarketValueAtEnd;
 
   const titleA = "New EV via Novated Lease";
   const titleB = "New EV via Offset Cash";
   const titleLoan = "New EV via Car Loan";
 
-  // NL vs Offset Cash (5-year framing)
-  const cashflowSaving = s.offsetTotalSpentAt5 - s.nlTotalSpentAt5;
+  // NL vs Offset Cash (horizon-aware)
+  const cashflowSaving = offsetTotalSpent - nlTotalSpent;
+
 
   // Home-loan interest: amounts are negative (costs). “Saving” is positive when NL incurs LESS interest.
-  const homeLoanInterestSaving = s.irNl.total - s.irCash.total;
+  const homeLoanInterestSaving = nlInterestTotal - cashInterestTotal;
 
   const totalSaving = cashflowSaving + homeLoanInterestSaving;
 
-  // NL vs Car Loan (optional) — 5-year framing
-  const cashflowSavingVsLoan = s.loanTotalSpentAt5 - s.nlTotalSpentAt5;
-  const homeLoanInterestSavingVsLoan = s.irNl.total - s.irLoan.total;
+  // NL vs Car Loan (optional) — horizon-aware
+  const cashflowSavingVsLoan = loanTotalSpent - nlTotalSpent;
+  const homeLoanInterestSavingVsLoan = nlInterestTotal - loanInterestTotal;
   const totalSavingVsLoan = cashflowSavingVsLoan + homeLoanInterestSavingVsLoan;
 
   // Electricity delta over the lease (benefit if positive)
   const chargingDeltaTotal = s.chargingDeltaBenefitOverLease;
 
-  // Post-lease running costs component (5-year framing). This component should not be affected by charging delta.
-  const nlPostLeaseRunningCosts = Math.max(0, s.nlTotalSpentAt5 - s.nlTotalSpentAtLeaseEnd);
+  // Post-lease running costs component (only applicable in 5-year horizon). This component should not be affected by charging delta.
+  const nlPostLeaseRunningCosts = isLeaseEnd ? 0 : Math.max(0, s.nlTotalSpentAt5 - s.nlTotalSpentAtLeaseEnd);
 
   // Headline NL cashflow total (exclude charging delta): lease payments + residual + post-lease running costs only.
   const nlCashflowTotalExclChargingDelta =
@@ -66,25 +83,22 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
   const showLoan = inputs.compareWithCarLoan;
 
   // Interest impacts shown as positive dollar magnitudes in prose (they are stored as negative costs)
-  const nlHomeLoanInterestImpact = s.irNl.total;
-  const cashHomeLoanInterestImpact = s.irCash.total;
-  const loanHomeLoanInterestImpact = s.irLoan.total;
-  const currentHomeLoanInterestImpact = s.irKeep.total;
+  const nlHomeLoanInterestImpact = nlInterestTotal;
+  const cashHomeLoanInterestImpact = cashInterestTotal;
+  const loanHomeLoanInterestImpact = loanInterestTotal;
+  const currentHomeLoanInterestImpact = keepInterestTotal;
 
-  // Asset values: use explicit 5-year values (inputs are defined as 5-year end values)
-  const evEndValue = inputs.estimatedMarketValueAtEnd;
-  const currentEndValue = inputs.currentCarMarketValueAtEnd;
 
   // Selling current car now provides cash-in
   const saleProceedsNow = s.extraCashFromSaleOfOldCar;
 
-  const keepRunningCostTotal = s.keepTotalSpentAt5;
+  const keepRunningCostTotal = keepTotalSpent;
 
   // NL vs Keep decomposition (must sum to headline)
   const assetDelta = evEndValue - currentEndValue;
 
   // Cash delta: compare 5-year cash outlays (NL is reduced by sale proceeds now)
-  const cashDelta = keepRunningCostTotal - (s.nlTotalSpentAt5 - saleProceedsNow);
+  const cashDelta = keepRunningCostTotal - (nlTotalSpent - saleProceedsNow);
 
   // Interest delta: positive when NL incurs LESS interest than keeping
   const interestDelta = nlHomeLoanInterestImpact - currentHomeLoanInterestImpact;
@@ -142,15 +156,15 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
 
           <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>
             <li>
-              {titleA} (cashflow over 5 years): {fmtAud0(s.leasePaymentsOverLease)} in lease payments,{" "}
+              {titleA} (cashflow over {years} years): {fmtAud0(s.leasePaymentsOverLease)} in lease payments,{" "}
               {fmtAud0(s.residualPayableIncGst)} residual
               {nlPostLeaseRunningCosts > 0 ? <> and {fmtAud0(nlPostLeaseRunningCosts)} post-lease running costs</> : null} ={" "}
               <b>{fmtAud0(nlCashflowTotalExclChargingDelta)} total</b>.
             </li>
             <li>
-              {titleB} (cashflow over 5 years): {fmtAud0(inputs.driveawayCost)} driveaway, and{" "}
-              {fmtAud0(Math.max(0, s.offsetTotalSpentAt5 - inputs.driveawayCost))} running costs ={" "}
-              <b>{fmtAud0(s.offsetTotalSpentAt5)} total</b>.
+              {titleB} (cashflow over {years} years): {fmtAud0(inputs.driveawayCost)} driveaway, and{" "}
+              {fmtAud0(Math.max(0, offsetTotalSpent - inputs.driveawayCost))} running costs ={" "}
+              <b>{fmtAud0(offsetTotalSpent)} total</b>.
             </li>
             <li>
               Electricity: novated lease&apos;s calculation assumes {fmtAud0(s.assumedChargingClaimPerYear)} per year (ATO claiming
@@ -159,7 +173,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
               <b>
                 {fmtAud0(Math.abs(chargingDeltaTotal))} {chargingDeltaTotal >= 0 ? "gain" : "loss"}
               </b>{" "}
-              in the NL pathway. <InfoTooltip text={electricityTooltipText} width={420} />
+              in the NL pathway over the lease term. <InfoTooltip text={electricityTooltipText} width={420} />
             </li>
             <li>
               Besides, your car ownership and running costs result in about <b>{fmtAud0(-nlHomeLoanInterestImpact)}</b> of additional
@@ -209,7 +223,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
 
             <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>
               <li>
-                {titleA} (cashflow over 5 years): {fmtAud0(s.leasePaymentsOverLease)} in lease payments,{" "}
+                {titleA} (cashflow over {years} years): {fmtAud0(s.leasePaymentsOverLease)} in lease payments,{" "}
                 {fmtAud0(s.residualPayableIncGst)} residual
                 {nlPostLeaseRunningCosts > 0 ? <> and {fmtAud0(nlPostLeaseRunningCosts)} post-lease running costs</> : null} ={" "}
                 <b>{fmtAud0(nlCashflowTotalExclChargingDelta)} total</b>.
@@ -221,13 +235,13 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
                 <b>
                   {fmtAud0(Math.abs(chargingDeltaTotal))} {chargingDeltaTotal >= 0 ? "gain" : "loss"}
                 </b>{" "}
-                in the NL pathway. <InfoTooltip text={electricityTooltipText} width={420} />
+                in the NL pathway over the lease term. <InfoTooltip text={electricityTooltipText} width={420} />
               </li>
               <li>
-                {titleLoan} (cashflow over 5 years): deposit {fmtAud0(inputs.carLoanInitialDeposit)}, loan repayments + fees{" "}
+                {titleLoan} (cashflow over {years} years): deposit {fmtAud0(inputs.carLoanInitialDeposit)}, loan repayments + fees{" "}
                 {fmtAud0(s.loanPaymentTotalInclFees)}, and running costs{" "}
-                {fmtAud0(Math.max(0, s.loanTotalSpentAt5 - (inputs.carLoanInitialDeposit + s.loanPaymentTotalInclFees)))} ={" "}
-                <b>{fmtAud0(s.loanTotalSpentAt5)} total</b>.
+                {fmtAud0(Math.max(0, loanTotalSpent - (inputs.carLoanInitialDeposit + s.loanPaymentTotalInclFees)))} ={" "}
+                <b>{fmtAud0(loanTotalSpent)} total</b>.
               </li>
               <li>
                 Besides, your car ownership and running costs result in about <b>{fmtAud0(-nlHomeLoanInterestImpact)}</b> of additional
@@ -283,7 +297,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct }: Props) {
                 difference <b>{fmtAud0(assetDelta)}</b>).
               </li>
               <li>
-                Cashflows (over 5 years): NL spends <b>{fmtAud0(s.nlTotalSpentAt5)}</b> but recovers <b>{fmtAud0(saleProceedsNow)}</b>{" "}
+                Cashflows (over {years} years): NL spends <b>{fmtAud0(nlTotalSpent)}</b> but recovers <b>{fmtAud0(saleProceedsNow)}</b>{" "}
                 from selling the current car now; keeping the current car spends <b>{fmtAud0(keepRunningCostTotal)}</b> in running
                 costs.
               </li>
