@@ -4,8 +4,9 @@ import { buildFyBreakdown } from "../engine/fy_breakdown";
 import { buildWorksheet130 } from "../engine/worksheet_130";
 import { useEffect } from "react";
 import { estimateAnnualChargingExpense, atoChargingClaimAnnual } from "../engine/charging";
-import { calcResidualPayableIncGst } from "../engine/types";
+import { calcResidualPayableIncGst, isFbtApplicable } from "../engine/types";
 import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
+import { computeLeasePaymentsOverLease } from "../engine/lease_payments";
 
 // NOTE: GST saving helper comes from engine/ato (single source of truth)
 
@@ -114,12 +115,23 @@ useEffect(() => {
   const electricityExpenseOverFortnights = (n: number) =>
     Math.floor(Math.max(0, Math.round(n)) / 4) * (chargingExpensePerFn * 4);
 
-  // Non-electric running costs: spread evenly per fortnight
-  const nonElectricRunningCostPerFn =
+  // Non-energy running costs: spread evenly per fortnight
+  const nonEnergyRunningCostPerFn =
     ((i.serviceMaintTyresAnnual + i.registrationAnnual + i.insuranceAnnual) * gstMult) / 26;
 
-  const nonNlRunningExpenseOverFortnights = (n: number) =>
-    nonElectricRunningCostPerFn * Math.max(0, Math.round(n)) + electricityExpenseOverFortnights(n);
+  const energyExpenseOverFortnights = (n: number) => {
+    const nn = Math.max(0, Math.round(n));
+    if (i.vehicleType === "EV") return electricityExpenseOverFortnights(nn);
+
+    // Non-EV: treat fuel as a regular recurring cost (spread evenly)
+    const fuelPerFn = (i.fuelAnnual * gstMult) / 26;
+    return fuelPerFn * nn;
+  };
+
+  const nonNlRunningExpenseOverFortnights = (n: number) => {
+    const nn = Math.max(0, Math.round(n));
+    return nonEnergyRunningCostPerFn * nn + energyExpenseOverFortnights(nn);
+  };
 
   // Packaged claim method (ATO shortcut 4.2c/km)
   const packagedChargingClaimPerYear = atoChargingClaimAnnual(i);
@@ -140,14 +152,16 @@ useEffect(() => {
 
   const preTaxLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
 
-  // Pre-tax running per fortnight (packaged): use ATO shortcut claim (NOT actual)
+  // Pre-tax running per fortnight (packaged): EV uses ATO charging claim; non-EV uses packaged fuel.
+  const packagedEnergyAnnual = i.vehicleType === "EV" ? packagedChargingClaimPerYear : i.fuelAnnual;
+
   const preTaxRunningFn =
     (i.serviceMaintTyresAnnual +
       i.saveShareAnnual +
       i.registrationAnnual +
       i.insuranceAnnual +
       i.managementFeesAnnual +
-      packagedChargingClaimPerYear) /
+      packagedEnergyAnnual) /
     26;
 
   const preTaxTotalFn = preTaxLeaseFn + preTaxRunningFn;
@@ -155,8 +169,22 @@ useEffect(() => {
   // IMPORTANT: leasePaymentsOverLease is NOT simply (preTaxTotalFn * (1 - taxRate)) * fortnights.
   // It must be computed FY-by-FY using the effective “average lease tax bracket this FY”.
   // We reuse the engine FY breakdown (same logic as LeaseReport) and sum the take-home impact.
-  const fyRows = buildFyBreakdown({ inputs: i, fortnights, preTaxTotalFn });
-  const leasePaymentsOverLease = fyRows.reduce((sum, r) => sum + r.takeHomeImpactPerPay * r.count, 0);
+  const ecmAnnual = i.vehicleBaseValue * 0.2;
+  const ecmPerFn = ecmAnnual / 26;
+  const ecmGstPerFn = ecmPerFn / 11;
+
+  const fbtApplies = isFbtApplicable(i);
+
+  const actualPreTaxDeductionFn = preTaxTotalFn +
+    (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
+
+  const { leasePaymentsOverLease } = computeLeasePaymentsOverLease({
+    inputs: i,
+    fortnights,
+    preTaxTotalFn,
+    actualPreTaxDeductionFn,
+    ecmPerFn,
+  });
 
   // Post-lease running cost (real): svc/maint/tyres + rego + electricity(actual) + insurance
   const postLeaseRunningFortnights = Math.round(yearsPost * 26);
@@ -257,6 +285,7 @@ useEffect(() => {
     title: string;
     cashRows: Array<{ label: string; value: string; bold?: boolean }>;
     assetRows: Array<{ label: string; value: string; bold?: boolean; italic?: boolean }>;
+    liabilityRows: Array<{ label: string; value: string; bold?: boolean; italic?: boolean }>;
   }) => (
     <div style={{ marginTop: 14 }}>
       <div
@@ -271,7 +300,16 @@ useEffect(() => {
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, paddingTop: 10 }}>
         <div>
-          <div style={{ fontWeight: 700, marginBottom: 6 }}>Cash Flow</div>
+          <div
+            style={{
+              fontWeight: 700,
+              marginBottom: 6,
+              paddingBottom: 4,
+              borderBottom: "1px solid rgba(0,0,0,0.25)",
+            }}
+          >
+            Cash Flow
+          </div>
           <div style={{ display: "grid", gap: 6 }}>
             {p.cashRows.map((r, idx) => (
               <Row key={idx} label={r.label} value={r.value} bold={r.bold} />
@@ -279,9 +317,36 @@ useEffect(() => {
           </div>
         </div>
         <div>
-          <div style={{ fontWeight: 700, marginBottom: 6 }}>Asset / Liability</div>
+          <div
+            style={{
+              fontWeight: 700,
+              marginBottom: 6,
+              paddingBottom: 4,
+              borderBottom: "1px solid rgba(0,0,0,0.25)",
+            }}
+          >
+            Asset
+          </div>
           <div style={{ display: "grid", gap: 6 }}>
             {p.assetRows.map((r, idx) => (
+              <Row key={idx} label={r.label} value={r.value} bold={r.bold} italic={r.italic} />
+            ))}
+          </div>
+
+          <div style={{ height: 10 }} />
+
+          <div
+            style={{
+              fontWeight: 700,
+              marginBottom: 6,
+              paddingBottom: 4,
+              borderBottom: "1px solid rgba(0,0,0,0.25)",
+            }}
+          >
+            Liability
+          </div>
+          <div style={{ display: "grid", gap: 6 }}>
+            {p.liabilityRows.map((r, idx) => (
               <Row key={idx} label={r.label} value={r.value} bold={r.bold} italic={r.italic} />
             ))}
           </div>
@@ -293,9 +358,9 @@ useEffect(() => {
   type ScenarioKey = "nl" | "cash" | "loan" | "keep" | "ref";
 
   const scenarioTitles: Record<ScenarioKey, string> = {
-    nl: "New EV - Novated Lease",
-    cash: "New EV - Offset Cash",
-    loan: "New EV - Car Loan",
+    nl: "Novated Lease",
+    cash: "Offset Cash",
+    loan: "Car Loan",
     keep: "Keep Old Car",
     ref: "Reference (No Car)",
   };
@@ -568,7 +633,7 @@ useEffect(() => {
       </div>
 
       <SectionBlock
-        title="EV Bought via Novated Lease"
+        title="Novated Lease"
         cashRows={[
           { label: `Lease Payments over ${fortnights} fortnights`, value: money2(leasePaymentsOverLease) },
           { label: "- Charging Delta", value: money2(chargingDeltaOverLease) },
@@ -580,17 +645,19 @@ useEffect(() => {
           { label: "= Total Spent at 5 Years", value: money2(nlTotalSpentAt5), bold: true },
         ]}
         assetRows={[
-          { label: "Additional Home Loan Interest Accrued", value: "", bold: true, italic: false },
-          ...liabRowsFor("nl"),
           {
             label: "Car Value at 5 Years",
             value: money2(carValueAt5Years),
           },
         ]}
+        liabilityRows={[
+          { label: "Additional Home Loan Interest Accrued", value: "", bold: true, italic: false },
+          ...liabRowsFor("nl"),
+        ]}
       />
 
       <SectionBlock
-        title="EV Bought via Offset Cash"
+        title="Offset Cash"
         cashRows={[
           { label: "Driveaway Price", value: money2(i.driveawayCost) },
           { label: `+ Running Cost over ${yearsLease} Years`, value: money2(offsetRunningOverLease) },
@@ -601,15 +668,17 @@ useEffect(() => {
           { label: "= Total Spent at 5 Years", value: money2(offsetTotalSpentAt5), bold: true },
         ]}
         assetRows={[
+          { label: "Car Value at 5 Years", value: money2(i.estimatedMarketValueAtEnd) },
+        ]}
+        liabilityRows={[
           { label: "Additional Home Loan Interest Accrued", value: "", bold: true, italic: false },
           ...liabRowsFor("cash"),
-          { label: "Car Value at 5 Years", value: money2(i.estimatedMarketValueAtEnd) },
         ]}
       />
 
       {loanEnabled && (
         <SectionBlock
-          title="EV Bought via Car Loan"
+          title="Car Loan"
           cashRows={[
             { label: "Initial Deposit", value: money2(i.carLoanInitialDeposit) },
             { label: `+ Loan Payment over ${yearsLease} Years`, value: money2(loanPaymentTotalInclFees) },
@@ -621,9 +690,11 @@ useEffect(() => {
             { label: "= Total Spent at 5 Years", value: money2(loanTotalSpentAt5), bold: true },
           ]}
           assetRows={[
+            { label: "Car Value at 5 Years", value: money2(i.estimatedMarketValueAtEnd) },
+          ]}
+          liabilityRows={[
             { label: "Additional Home Loan Interest Accrued", value: "", bold: true, italic: false },
             ...liabRowsFor("loan"),
-            { label: "Car Value at 5 Years", value: money2(i.estimatedMarketValueAtEnd) },
           ]}
         />
       )}
@@ -639,9 +710,11 @@ useEffect(() => {
             { label: "= Total Spent at 5 Years", value: money2(keepTotalSpentAt5), bold: true },
           ]}
           assetRows={[
+            { label: "Car Value at 5 Years", value: money2(i.currentCarMarketValueAtEnd) },
+          ]}
+          liabilityRows={[
             { label: "Additional Home Loan Interest Accrued", value: "", bold: true, italic: false },
             ...liabRowsFor("keep"),
-            { label: "Car Value at 5 Years", value: money2(i.currentCarMarketValueAtEnd) },
           ]}
         />
       )}
@@ -681,12 +754,23 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
   const electricityExpenseOverFortnights = (n: number) =>
     Math.floor(Math.max(0, Math.round(n)) / 4) * (chargingExpensePerFn * 4);
 
-  // Non-electric running costs: spread evenly per fortnight
-  const nonElectricRunningCostPerFn =
+  // Non-energy running costs: spread evenly per fortnight
+  const nonEnergyRunningCostPerFn =
     ((i.serviceMaintTyresAnnual + i.registrationAnnual + i.insuranceAnnual) * gstMult) / 26;
 
-  const nonNlRunningExpenseOverFortnights = (n: number) =>
-    nonElectricRunningCostPerFn * Math.max(0, Math.round(n)) + electricityExpenseOverFortnights(n);
+  const energyExpenseOverFortnights = (n: number) => {
+    const nn = Math.max(0, Math.round(n));
+    if (i.vehicleType === "EV") return electricityExpenseOverFortnights(nn);
+
+    // Non-EV: treat fuel as a regular recurring cost (spread evenly)
+    const fuelPerFn = (i.fuelAnnual * gstMult) / 26;
+    return fuelPerFn * nn;
+  };
+
+  const nonNlRunningExpenseOverFortnights = (n: number) => {
+    const nn = Math.max(0, Math.round(n));
+    return nonEnergyRunningCostPerFn * nn + energyExpenseOverFortnights(nn);
+  };
 
   // Packaged claim method (ATO shortcut 4.2c/km)
   const packagedChargingClaimPerYear = atoChargingClaimAnnual(i);
@@ -708,13 +792,16 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
   // Pre-tax totals (used for FY breakdown to compute take-home impact)
   const preTaxLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
 
+  // Pre-tax running per fortnight (packaged): EV uses ATO charging claim; non-EV uses packaged fuel.
+  const packagedEnergyAnnual = i.vehicleType === "EV" ? packagedChargingClaimPerYear : i.fuelAnnual;
+
   const preTaxRunningFn =
     (i.serviceMaintTyresAnnual +
       i.saveShareAnnual +
       i.registrationAnnual +
       i.insuranceAnnual +
       i.managementFeesAnnual +
-      packagedChargingClaimPerYear) /
+      packagedEnergyAnnual) /
     26;
 
   const preTaxTotalFn = preTaxLeaseFn + preTaxRunningFn;

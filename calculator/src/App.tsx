@@ -882,6 +882,7 @@ export default function App() {
                   description="Estimates your Adjusted Taxable Income after novated leasing (useful for HECS, childcare subsidy, Medicare levy surcharge etc)."
                 >
                   <ATI
+                    inputs={inputs}
                     originalTaxableIncomePreNL={inputs.totalTaxableIncome}
                     leaseStartDate={new Date(inputs.leaseStartDate)}
                     leaseTermYears={inputs.leaseDurationYears}

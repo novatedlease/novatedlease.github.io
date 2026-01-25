@@ -1,9 +1,11 @@
 // engine/worksheet_130.ts
 import type { Inputs } from "./types";
-import { calcResidualPayableIncGst } from "./types";
+import { calcResidualPayableIncGst, isFbtApplicable } from "./types";
 import { gstSaved, residualPercentForYears } from "./ato";
 import { buildFortnightSchedule, fyForDate } from "./lease_schedule";
 import { buildFyBreakdown } from "./fy_breakdown";
+import { atoChargingClaimAnnual } from "./charging";
+import { computeLeasePaymentsOverLease } from "./lease_payments";
 
 export type Scenario = "nl" | "cash" | "loan" | "keep";
 
@@ -118,7 +120,9 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
       const isElecPay = idx % 4 === 0; // 4, 8, 12, ...
 
       const rowCore = {
-        cash: k === 0 ? -i.driveawayCost : 0,
+        cash:
+          (k === 0 ? -i.driveawayCost : 0) +
+          (i.vehicleType === "EV" ? 0 : -(i.fuelAnnual / 26) * gstMult),
         chargingDelta: 0,
         vehicle: 0,
         lvAdj: 0,
@@ -126,7 +130,7 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
         smt: isAnnualPay ? -i.serviceMaintTyresAnnual * gstMult : 0,
         saveShare: 0,
         rego: isAnnualPay ? -i.registrationAnnual * gstMult : 0,
-        electricity: isElecPay ? -(chargingExpensePerYear / 26) * 4 : 0, // NO GST multiplier
+        electricity: i.vehicleType === "EV" && isElecPay ? -(chargingExpensePerYear / 26) * 4 : 0, // NO GST multiplier
         insurance: isAnnualPay ? -i.insuranceAnnual * gstMult : 0,
 
         fees: 0,
@@ -169,7 +173,10 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
       const isElecPay = idx % 4 === 0; // 4, 8, 12, ...
 
       const rowCore = {
-        cash: (k === 0 ? -i.carLoanInitialDeposit : 0) + (inLoan ? -loanPaymentFn : 0),
+        cash:
+          (k === 0 ? -i.carLoanInitialDeposit : 0) +
+          (inLoan ? -loanPaymentFn : 0) +
+          (i.vehicleType === "EV" ? 0 : -(i.fuelAnnual / 26) * gstMult),
         chargingDelta: 0,
         vehicle: 0,
         lvAdj: 0,
@@ -177,7 +184,7 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
         smt: isAnnualPay ? -i.serviceMaintTyresAnnual * gstMult : 0,
         saveShare: 0,
         rego: isAnnualPay ? -i.registrationAnnual * gstMult : 0,
-        electricity: isElecPay ? -(chargingExpensePerYear / 26) * 4 : 0, // NO GST multiplier
+        electricity: i.vehicleType === "EV" && isElecPay ? -(chargingExpensePerYear / 26) * 4 : 0, // NO GST multiplier
         insurance: isAnnualPay ? -i.insuranceAnnual * gstMult : 0,
 
         fees: inLoan ? -loanFeeFn : 0,
@@ -241,8 +248,11 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
 
   // --- NL worksheet ---
 
-  // Charging inputs (actual vs claim)
-  const assumedChargingClaimPerYear = i.annualMileageKm * 0.042;
+  const fbtApplies = isFbtApplicable(i);
+
+  // Charging inputs (actual vs claim) — EV only.
+  // (Non-EV has no electricity claim and no charging delta.)
+  const assumedChargingClaimPerYear = i.vehicleType === "EV" ? atoChargingClaimAnnual(i) : 0;
 
   // Packaged pre-tax components per fortnight (during lease)
   const preTaxVehicleFn = i.vehicleLeasePerFn;
@@ -253,7 +263,7 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
   const preTaxRegoFn = i.registrationAnnual / 26;
   const preTaxInsuranceFn = i.insuranceAnnual / 26;
   const preTaxFeesFn = i.managementFeesAnnual / 26;
-  const preTaxElectricityClaimFn = assumedChargingClaimPerYear / 26;
+  const preTaxEnergyFn = (i.vehicleType === "EV" ? assumedChargingClaimPerYear : i.fuelAnnual) / 26;
 
   const preTaxTotalFn =
     preTaxVehicleFn +
@@ -263,12 +273,31 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
     preTaxRegoFn +
     preTaxInsuranceFn +
     preTaxFeesFn +
-    preTaxElectricityClaimFn;
+    preTaxEnergyFn;
 
   // FY effective brackets (same engine used by LeaseReport)
   const fyRows = buildFyBreakdown({ inputs: i, fortnights: leaseFortnights, preTaxTotalFn });
   const fyToBracket = new Map<number, number>();
   for (const r of fyRows) fyToBracket.set(r.fy, r.avgLeaseTaxBracketPct);
+
+  // Exact (FBT-aware) per-pay take-home impact for the NL pathway.
+  // For FBT-exempt: matches the FY breakdown engine.
+  // For FBT-applicable: includes ECM + exact tax per FY.
+  const ecmAnnual = i.vehicleBaseValue * 0.2;
+  const ecmPerFn = ecmAnnual / 26;
+  const ecmGstPerFn = ecmPerFn / 11;
+  const actualPreTaxDeductionFn = preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
+
+  const nlLeasePayments = computeLeasePaymentsOverLease({
+    inputs: i,
+    fortnights: leaseFortnights,
+    preTaxTotalFn,
+    actualPreTaxDeductionFn,
+    ecmPerFn,
+  });
+
+  const fyToTakeHomeImpactPerPay = new Map<number, number>();
+  for (const r of nlLeasePayments.fyRows) fyToTakeHomeImpactPerPay.set(r.fy, r.takeHomeImpactPerPay);
 
   // Post-lease running costs (real costs) for remaining fortnights up to 130
   const postLeaseGstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
@@ -292,9 +321,6 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
     const idx = k + 1;
     const fy = fyForDate(d);
     const avgBracketPct = fyToBracket.get(fy) ?? 0;
-    const avgBracket = avgBracketPct / 100;
-    const postTaxMult = 1 - avgBracket; // IMPORTANT: post-tax impact multiplier
-
     const inLease = k < leaseFortnights;
     const isResidualPayRow = k === leaseFortnights;
 
@@ -305,23 +331,54 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
     const isElecPay = idx % 4 === 0; // 4, 8, 12, ...
 
     if (inLease) {
-      // Columns are “post-tax cash impact” using postTaxMult.
-      // Costs are negative (parentheses in sheet), benefits positive.
+      // chargingDelta: (claim - actual) per fortnight (EV only), not bracket-multiplied.
+      const chargingDeltaFn = (assumedChargingClaimPerYear - chargingExpensePerYear) / 26;
 
-      // chargingDelta matches your sample: roughly (claim - actual) per fortnight (no bracket multiplier).
-      const chargingDeltaFn =
-        (assumedChargingClaimPerYear - chargingExpensePerYear) / 26;
+      // FBT-applicable: use exact per-pay take-home impact (includes ECM + exact tax).
+      if (fbtApplies) {
+        const takeHomeImpactPerPay = fyToTakeHomeImpactPerPay.get(fy) ?? 0;
+
+        const rowCore = {
+          cash: 0,
+          chargingDelta: i.vehicleType === "EV" ? chargingDeltaFn : 0,
+
+          // Collapse all packaged deductions into one net cash impact bucket.
+          vehicle: -takeHomeImpactPerPay,
+          lvAdj: 0,
+          smt: 0,
+          saveShare: 0,
+          rego: 0,
+          electricity: 0,
+          insurance: 0,
+          fees: 0,
+        };
+
+        return {
+          idx,
+          date: d,
+          fy,
+          avgBracketPct,
+          ...rowCore,
+          delta: sumCols(rowCore),
+          ae: 0,
+          af: 0,
+        };
+      }
+
+      // FBT-exempt: keep legacy per-column model using FY effective bracket.
+      const avgBracket = avgBracketPct / 100;
+      const postTaxMult = 1 - avgBracket;
 
       const rowCore = {
         cash: 0,
-        chargingDelta: chargingDeltaFn,
+        chargingDelta: i.vehicleType === "EV" ? chargingDeltaFn : 0,
 
         vehicle: -preTaxVehicleFn * postTaxMult,
         lvAdj: -preTaxLvAdjFn * postTaxMult,
         smt: -preTaxSmtFn * postTaxMult,
         saveShare: -preTaxSaveShareFn * postTaxMult,
         rego: -preTaxRegoFn * postTaxMult,
-        electricity: -preTaxElectricityClaimFn * postTaxMult,
+        electricity: i.vehicleType === "EV" ? -preTaxEnergyFn * postTaxMult : 0,
         insurance: -preTaxInsuranceFn * postTaxMult,
         fees: -preTaxFeesFn * postTaxMult,
       };
@@ -340,7 +397,9 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
 
     // Post-lease: no salary packaging; just real running costs
     const rowCore = {
-      cash: isResidualPayRow ? -residualIncGst : 0,
+      cash:
+        (isResidualPayRow ? -residualIncGst : 0) +
+        (i.vehicleType === "EV" ? 0 : -(i.fuelAnnual / 26) * postLeaseGstMult),
       chargingDelta: 0,
 
       vehicle: 0,
@@ -350,7 +409,7 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
 
       smt: isAnnualPay ? -i.serviceMaintTyresAnnual * postLeaseGstMult : 0,
       rego: isAnnualPay ? -i.registrationAnnual * postLeaseGstMult : 0,
-      electricity: isElecPay ? -(chargingExpensePerYear / 26) * 4 : 0, // NO GST multiplier
+      electricity: i.vehicleType === "EV" && isElecPay ? -(chargingExpensePerYear / 26) * 4 : 0, // NO GST multiplier
       insurance: isAnnualPay ? -i.insuranceAnnual * postLeaseGstMult : 0,
     };
 

@@ -1,5 +1,8 @@
 import { useMemo, useState } from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
+import type { Inputs } from "../engine/types";
+import { isFbtApplicable } from "../engine/types";
+import { computeDerived } from "../engine/derived";
 
 /**
  * ATI = Adjusted Taxable Income (secondary to novated lease)
@@ -21,6 +24,8 @@ export type AtiProps = {
   originalTaxableIncomePreNL: number;
   leaseStartDate: Date;
   leaseTermYears: number;
+  /** Full calculator inputs, so ATI can use canonical truth helpers (e.g. isFbtApplicable). */
+  inputs: Inputs;
   /** FBT base value used for RFBA (you mentioned this lives in App.tsx). */
   fbtBaseValue: number;
   /** 1.8868 by default (Type 2 gross-up). */
@@ -142,6 +147,7 @@ function formatDateAU(d: Date): string {
 }
 
 export default function ATI(props: AtiProps) {
+  const fbtApplicable = isFbtApplicable(props.inputs);
   const [purpose, setPurpose] = useState<AtiCalculationPurpose>("standard");
 
   const grossUp = props.grossUpRate ?? 1.8868;
@@ -176,12 +182,45 @@ export default function ATI(props: AtiProps) {
     return map;
   }, [props.leaseStartDate, leaseEndDate, props.fbtBaseValue, grossUp, statutoryRate]);
 
+  const taxableIncomePostNlByFinancialYearEnding = useMemo(() => {
+    // Mirror LeaseReport.tsx: treat LV adjustment as part of vehicle lease per fortnight.
+    const i = props.inputs;
+    const vehicleLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
+    const inputsWithLv: Inputs = { ...i, vehicleLeasePerFn: vehicleLeaseFn };
+
+    const d = computeDerived(inputsWithLv);
+    const fbtApplies = isFbtApplicable(i);
+
+    // ECM / Employee contribution method (assumed when FBT applies)
+    const vehicleDutiableValue = Math.max(0, i.vehicleBaseValue);
+    const fbtStatutoryRate = 0.2;
+    const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
+    const ecmPerFn = ecmAnnual / 26;
+    const ecmGstPerFn = ecmPerFn / 11;
+
+    // Actual pre-tax deduction after ECM adjustments (FBT-applicable only)
+    const actualPreTaxDeductionFn = d.preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
+
+    const out = new Map<number, number>();
+    for (const r of d.fyRows as any[]) {
+      const fy = (r as any).fy;
+      const originalTaxableIncome = (r as any).originalTaxableIncome;
+      const count = (r as any).count;
+
+      const preTaxDeductionThisFy = actualPreTaxDeductionFn * count;
+      const postNlTaxableIncome = originalTaxableIncome - preTaxDeductionThisFy;
+      out.set(fy, postNlTaxableIncome);
+    }
+
+    return out;
+  }, [props.inputs]);
+
   const computedRows = useMemo(() => {
     return props.rows
       .slice()
       .sort((a, b) => a.financialYearEnding - b.financialYearEnding)
       .map(r => {
-        const rfba = rfbaByFinancialYearEnding.get(r.financialYearEnding) ?? 0;
+        const rfba = fbtApplicable ? 0 : (rfbaByFinancialYearEnding.get(r.financialYearEnding) ?? 0);
 
         // For some means tests (e.g. CCS) when employed by certain FBT-exempt employers,
         // the reportable fringe benefits amount may be assessed at a reduced proportion.
@@ -195,14 +234,16 @@ export default function ATI(props: AtiProps) {
 
         const rfbaForAti = rfbaAdjusted;
 
-        const adjusted = r.taxableIncomePostNL + rfbaForAti;
+        const taxableIncomePostNL = taxableIncomePostNlByFinancialYearEnding.get(r.financialYearEnding) ?? r.taxableIncomePostNL;
+        const adjusted = taxableIncomePostNL + rfbaForAti;
         return {
           ...r,
+          taxableIncomePostNL,
           rfba: rfbaForAti,
           adjustedTaxableIncome: adjusted,
         };
       });
-  }, [props.rows, rfbaByFinancialYearEnding, purpose, rfbaTwoThirdsFromYear]);
+  }, [props.rows, taxableIncomePostNlByFinancialYearEnding, rfbaByFinancialYearEnding, purpose, rfbaTwoThirdsFromYear, fbtApplicable]);
 
   return (
     <div style={{ padding: "12px 0", fontSize: 14, lineHeight: 1.35 }}>
@@ -293,6 +334,13 @@ export default function ATI(props: AtiProps) {
           </tbody>
         </table>
       </div>
+
+      {fbtApplicable && (
+        <div style={{ marginTop: 10, fontStyle: "italic", fontSize: 12, opacity: 0.8 }}>
+          RFBA is shown as $0 because this is an FBT-applicable lease and we assume Employee Contribution Method (ECM)
+          is used to reduce FBT to zero.
+        </div>
+      )}
 
       <div
         style={{

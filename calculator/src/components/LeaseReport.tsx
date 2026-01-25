@@ -1,11 +1,12 @@
 import React from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
-import { calcResidualPayableIncGst } from "../engine/types";
+import { calcResidualPayableIncGst, isFbtApplicable } from "../engine/types";
 import { residualPercentForYears } from "../engine/ato";
 import { aud0 } from "../utils/format";
 import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
 import { computeDerived } from "../engine/derived";
+import { taxSummaryAUResident } from "../engine/tax_au";
 
 
 
@@ -15,6 +16,16 @@ export function LeaseReport(props: {
   taxRateInclMedicarePct?: number; // e.g. 47
 }) {
   const i = props.inputs;
+
+  const fbtApplies = isFbtApplicable(i);
+
+  // ECM / Employee contribution method (only relevant when FBT applies)
+  // Using vehicle base value as the dutiable value proxy (matches BasicInformationReport).
+  const vehicleDutiableValue = Math.max(0, i.vehicleBaseValue);
+  const fbtStatutoryRate = 0.2;
+  const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
+  const ecmPerFn = ecmAnnual / 26;
+  const ecmGstPerFn = ecmPerFn / 11;
 
   // Amount financed (simple approximation)
   const amountFinanced = financedAmountExGstFromInputs(i);
@@ -58,11 +69,74 @@ export function LeaseReport(props: {
   // Breakdown by Financial Years (engine)
   const fyRows = d.fyRows;
 
+  // (removed: old maxAvgLeaseTaxRate and any previous correctedAvgLeaseTaxRateForFy/maxAfterTaxFactorForPreTax helper)
+
+  // Actual pre-tax deduction after ECM adjustments (FBT-applicable only)
   const preTaxTotalAnnual = preTaxVehicleLeaseAnnual + preTaxRunningAnnual;
+  const preTaxTotalLifetime = preTaxTotalAnnual * i.leaseDurationYears;
+
+  const actualPreTaxDeductionFn = preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
+  const actualPreTaxDeductionAnnual = preTaxTotalAnnual + (fbtApplies ? -ecmAnnual + ecmGstPerFn * 26 : 0);
+  const actualPreTaxDeductionLifetime =
+    preTaxTotalLifetime + (fbtApplies ? (-ecmAnnual + ecmGstPerFn * 26) * i.leaseDurationYears : 0);
+
+  // For Fortnight/Annual columns we want the MOST expensive FY take-home impact.
+  // Pre-tax dollars reduce take-home by (1 - taxRate), so we want the MAX of (1 - taxRate).
+  const correctedAvgLeaseTaxRateForFy = (r: (typeof fyRows)[number]) => {
+    // Non-FBT path: use engine-provided average bracket
+    if (!fbtApplies) {
+      const rate = r.avgLeaseTaxBracketPct / 100;
+      return Number.isFinite(rate) ? Math.min(1, Math.max(0, rate)) : 0;
+    }
+
+    // FBT-applicable path: replicate FYTable logic with exact tax
+    const preTaxDeductionThisFy = actualPreTaxDeductionFn * r.count;
+    if (!(preTaxDeductionThisFy > 0) || !Number.isFinite(preTaxDeductionThisFy)) return 0;
+
+    const postTaxEcmThisFy = ecmPerFn * r.count;
+
+    const postNlTaxableIncome = r.originalTaxableIncome - preTaxDeductionThisFy;
+    const postNlTax = taxSummaryAUResident(postNlTaxableIncome).totalTax;
+
+    const postNlTakeHome = postNlTaxableIncome - postNlTax - postTaxEcmThisFy;
+
+    const denom = r.originalTaxableIncome - postNlTaxableIncome; // should equal preTaxDeductionThisFy
+    if (!(denom > 0) || !Number.isFinite(denom)) return 0;
+
+    // Match FYTable: 1 - ((beforeTH - afterTH - postTaxECM) / (beforeTI - afterTI))
+    const numer = r.originalTakeHome - postNlTakeHome - postTaxEcmThisFy;
+    const ratio = numer / denom;
+    const taxRate = 1 - ratio;
+
+    // Clamp + guard
+    if (!Number.isFinite(taxRate)) return 0;
+    return Math.min(1, Math.max(0, taxRate));
+  };
+
+  const maxAfterTaxFactorForPreTax =
+    fyRows.length > 0 ? Math.max(...fyRows.map((r) => 1 - correctedAvgLeaseTaxRateForFy(r))) : 0;
+
+  // Pre-tax deductions reduce take-home by (1 - taxRate) dollars per pre-tax dollar.
+  // For the headline Fortnight/Annual columns we use the MOST expensive (highest) FY after-tax factor.
+  const preTaxEquivalentPostTaxImpactFn = actualPreTaxDeductionFn * maxAfterTaxFactorForPreTax;
+  const preTaxEquivalentPostTaxImpactAnnual = preTaxEquivalentPostTaxImpactFn * 26;
+
+  // Lifetime: apply the per-FY corrected average lease tax rate to each FY's pay count
+  const preTaxEquivalentPostTaxImpactLifetime = fyRows.reduce(
+    (acc, r) => acc + actualPreTaxDeductionFn * (1 - correctedAvgLeaseTaxRateForFy(r)) * r.count,
+    0
+  );
+
+  const postTaxComponentFn = fbtApplies ? ecmPerFn : 0;
+  const postTaxComponentAnnual = postTaxComponentFn * 26;
+  const postTaxComponentLifetime = fbtApplies ? ecmPerFn * fyRows.reduce((a, r) => a + r.count, 0) : 0;
+
+  const totalTakeHomeImpactFn = preTaxEquivalentPostTaxImpactFn + postTaxComponentFn;
+  const totalTakeHomeImpactAnnual = totalTakeHomeImpactFn * 26;
+  const totalTakeHomeImpactLifetime = preTaxEquivalentPostTaxImpactLifetime + postTaxComponentLifetime;
 
   const preTaxVehicleLeaseLifetime = preTaxVehicleLeaseAnnual * i.leaseDurationYears;
   const preTaxRunningLifetime = preTaxRunningAnnual * i.leaseDurationYears;
-  const preTaxTotalLifetime = preTaxTotalAnnual * i.leaseDurationYears;
 
   // Post-tax equivalent (take-home impact) — derived from FY breakdown
   // Fortnight + Annual columns show the MOST expensive FY effect when it varies.
@@ -99,64 +173,181 @@ export function LeaseReport(props: {
 
       <div style={{ fontWeight: 900, fontSize: 14, margin: "10px 0 6px" }}>1.1 Summary</div>
 
-      <div
-        style={{
-          fontWeight: 800,
-          fontSize: 14,
-          margin: "10px 0 6px",
-          paddingLeft: 8,
-          borderLeft: "3px solid rgba(0,0,0,0.08)",
-        }}
-      >
-        Pre-Tax
-      </div>
-      <Table
-        rows={[
-          [
-            lvAdjFn > 0 ? "Vehicle Lease + LV Adjustment" : "Vehicle Lease",
-            preTaxFmt(vehicleLeaseFn),
-            preTaxFmt(preTaxVehicleLeaseAnnual),
-            preTaxFmt(preTaxVehicleLeaseLifetime),
-          ],
-          ["Running Cost", preTaxFmt(runningCostFn), preTaxFmt(preTaxRunningAnnual), preTaxFmt(preTaxRunningLifetime)],
-          ["= Total", preTaxFmt(preTaxTotalFn), preTaxFmt(preTaxTotalAnnual), preTaxFmt(preTaxTotalLifetime)],
-        ]}
-      />
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead>
+            <tr>
+              <th style={thLeft}></th>
+              <th style={th}>Fortnight</th>
+              <th style={th}>Annual</th>
+              <th style={th}>Lease Lifetime</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* PRE-TAX COMPONENT */}
+            <tr>
+              <td
+                colSpan={4}
+                style={{
+                  padding: "10px 6px 6px",
+                  fontWeight: 800,
+                  borderBottom: "1px solid rgba(0,0,0,0.15)",
+                  textAlign: "left",
+                  background: "rgba(0,0,0,0.035)",
+                }}
+              >
+                Pre-Tax Component
+              </td>
+            </tr>
+            <tr>
+              <td style={tdLeft(false)}>{lvAdjFn > 0 ? "Vehicle Lease + LV Adjustment" : "Vehicle Lease"}</td>
+              <td style={td(false)}>{preTaxFmt(vehicleLeaseFn)}</td>
+              <td style={td(false)}>{preTaxFmt(preTaxVehicleLeaseAnnual)}</td>
+              <td style={td(false)}>{preTaxFmt(preTaxVehicleLeaseLifetime)}</td>
+            </tr>
+            <tr>
+              <td style={tdLeft(false)}>Running Cost</td>
+              <td style={td(false)}>{preTaxFmt(runningCostFn)}</td>
+              <td style={td(false)}>{preTaxFmt(preTaxRunningAnnual)}</td>
+              <td style={td(false)}>{preTaxFmt(preTaxRunningLifetime)}</td>
+            </tr>
 
-      <div
-        style={{
-          fontWeight: 800,
-          fontSize: 14,
-          margin: "14px 0 6px",
-          paddingLeft: 8,
-          borderLeft: "3px solid rgba(0,0,0,0.08)",
-        }}
-      >
-        Post-Tax Equivalent (i.e. take home impact)
+            {fbtApplies ? (
+              <>
+                <tr>
+                  <td style={tdLeft(false)}>Less Employee Contribution</td>
+                  <td style={td(false)}>{preTaxFmt(-ecmPerFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(-ecmAnnual)}</td>
+                  <td style={td(false)}>{preTaxFmt(-ecmAnnual * i.leaseDurationYears)}</td>
+                </tr>
+                <tr>
+                  <td style={tdLeft(false)}>Add Employee Contribution GST</td>
+                  <td style={td(false)}>{preTaxFmt(ecmGstPerFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(ecmGstPerFn * 26)}</td>
+                  <td style={td(false)}>{preTaxFmt(ecmGstPerFn * 26 * i.leaseDurationYears)}</td>
+                </tr>
+              </>
+            ) : null}
+
+            <tr>
+              <td style={tdLeft(true)}>= Total Pre-Tax Deduction</td>
+              <td style={td(true)}>{preTaxFmt(actualPreTaxDeductionFn)}</td>
+              <td style={td(true)}>{preTaxFmt(actualPreTaxDeductionAnnual)}</td>
+              <td style={td(true)}>{preTaxFmt(actualPreTaxDeductionLifetime)}</td>
+            </tr>
+
+            {/* POST-TAX COMPONENT */}
+            {fbtApplies ? (
+              <>
+                <tr>
+                  <td
+                    colSpan={4}
+                    style={{
+                      padding: "14px 6px 6px",
+                      fontWeight: 800,
+                      borderBottom: "1px solid rgba(0,0,0,0.15)",
+                      textAlign: "left",
+                      background: "rgba(0,0,0,0.035)",
+                    }}
+                  >
+                    Post-Tax Component
+                  </td>
+                </tr>
+                <tr>
+                  <td style={tdLeft(false)}>Employee Contribution Method</td>
+                  <td style={td(false)}>{preTaxFmt(ecmPerFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(ecmAnnual)}</td>
+                  <td style={td(false)}>{preTaxFmt(ecmAnnual * i.leaseDurationYears)}</td>
+                </tr>
+              </>
+            ) : null}
+
+            {/* TAKE HOME IMPACT */}
+            <tr>
+              <td
+                colSpan={4}
+                style={{
+                  padding: "14px 6px 6px",
+                  fontWeight: 800,
+                  borderBottom: "1px solid rgba(0,0,0,0.15)",
+                  textAlign: "left",
+                  background: "rgba(0,0,0,0.035)",
+                }}
+              >
+                Take Home Impact (Combining Above)
+              </td>
+            </tr>
+
+            {fbtApplies ? (
+              <>
+                <tr>
+                  <td style={tdLeft(false)}>
+                    Pre-Tax Deduction&apos;s Equivalent Post-Tax Impact
+                    <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.7, fontSize: 12 }}>
+                      <InfoInline text="Fortnight/Annual use the most expensive FY take-home impact factor for pre-tax dollars (i.e., the largest (1 − taxRate) across FYs)." />
+                    </span>
+                  </td>
+                  <td style={td(false)}>{preTaxFmt(preTaxEquivalentPostTaxImpactFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(preTaxEquivalentPostTaxImpactAnnual)}</td>
+                  <td style={td(false)}>{preTaxFmt(preTaxEquivalentPostTaxImpactLifetime)}</td>
+                </tr>
+                <tr>
+                  <td style={tdLeft(false)}>Post-Tax Component</td>
+                  <td style={td(false)}>{preTaxFmt(postTaxComponentFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(postTaxComponentAnnual)}</td>
+                  <td style={td(false)}>{preTaxFmt(postTaxComponentLifetime)}</td>
+                </tr>
+                <tr>
+                  <td style={{ ...tdLeft(true), background: "rgba(0,0,0,0.06)" }}>= Total Take Home Impact</td>
+                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(totalTakeHomeImpactFn)}</td>
+                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(totalTakeHomeImpactAnnual)}</td>
+                  <td style={{ ...td(true, true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(totalTakeHomeImpactLifetime)}</td>
+                </tr>
+              </>
+            ) : (
+              <>
+                <tr>
+                  <td style={tdLeft(false)}>
+                    {lvAdjFn > 0 ? "Vehicle Lease + LV Adjustment" : "Vehicle Lease"}
+                    <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.7, fontSize: 12 }}>
+                      <InfoInline text={mostExpensiveImpactNote} />
+                    </span>
+                  </td>
+                  <td style={td(false)}>{preTaxFmt(postTaxVehicleLeaseFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(postTaxVehicleLeaseAnnual)}</td>
+                  <td style={td(false)}>{preTaxFmt(postTaxVehicleLeaseLifetime)}</td>
+                </tr>
+                <tr>
+                  <td style={tdLeft(false)}>Running Cost</td>
+                  <td style={td(false)}>{preTaxFmt(postTaxRunningFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(postTaxRunningAnnual)}</td>
+                  <td style={td(false)}>{preTaxFmt(postTaxRunningLifetime)}</td>
+                </tr>
+                <tr>
+                  <td style={{ ...tdLeft(true), background: "rgba(0,0,0,0.06)" }}>= Total Take Home Impact</td>
+                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(postTaxTotalFn)}</td>
+                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(postTaxTotalAnnual)}</td>
+                  <td style={{ ...td(true, true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(postTaxTotalLifetime)}</td>
+                </tr>
+              </>
+            )}
+          </tbody>
+        </table>
       </div>
-      <Table
-        rows={[
-          [
-            lvAdjFn > 0 ? "Vehicle Lease + LV Adjustment" : "Vehicle Lease",
-            preTaxFmt(postTaxVehicleLeaseFn),
-            preTaxFmt(postTaxVehicleLeaseAnnual),
-            preTaxFmt(postTaxVehicleLeaseLifetime),
-          ],
-          ["Running Cost", preTaxFmt(postTaxRunningFn), preTaxFmt(postTaxRunningAnnual), preTaxFmt(postTaxRunningLifetime)],
-          ["= Total", preTaxFmt(postTaxTotalFn), preTaxFmt(postTaxTotalAnnual), preTaxFmt(postTaxTotalLifetime)],
-        ]}
-        emphasizeLastRowValue
-        headerInfo={{ fortnight: mostExpensiveImpactNote, annual: mostExpensiveImpactNote }}
-      />
       <div style={{ marginTop: 6, fontSize: 12, opacity: 0.75 }}>
-        * REMINDER: After {preTaxFmt(postTaxTotalLifetime)}, <b>you still have to pay {preTaxFmt(residualPayableIncGst)} in 
+        * REMINDER: After {preTaxFmt(fbtApplies ? totalTakeHomeImpactLifetime : postTaxTotalLifetime)}, <b>you still have to pay {preTaxFmt(residualPayableIncGst)} in 
         residual value</b> to fully own the vehicle at the conclusion of the lease.
       </div>
 
       <Spacer />
 
       <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 6px" }}>1.2 Breakdown by Financial Years</div>
-      <FYTable fyRows={fyRows} />
+      <FYTable
+        fyRows={fyRows}
+        fbtApplies={fbtApplies}
+        actualPreTaxDeductionFn={actualPreTaxDeductionFn}
+        ecmPerFn={ecmPerFn}
+      />
 
       <div style={{ marginTop: 12, fontSize: 12, opacity: 0.75 }}>
         <div>
@@ -172,7 +363,10 @@ export function LeaseReport(props: {
 }
 
 function preTaxFmt(n: number): string {
-  return `$ ${n.toLocaleString("en-AU", { maximumFractionDigits: 2 })}`;
+  return `$ ${n.toLocaleString("en-AU", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 }
 
 function Spacer() {
@@ -183,43 +377,6 @@ function InfoInline(props: { text: React.ReactNode; width?: number }) {
   return <InfoTooltip text={props.text} width={props.width} />;
 }
 
-function Table(props: {
-  rows: Array<[string, string, string, string]>;
-  emphasizeLastRowValue?: boolean;
-  headerInfo?: { fortnight?: React.ReactNode; annual?: React.ReactNode };
-}) {
-  return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th style={thLeft}></th>
-            <th style={th}>
-              Fortnight{props.headerInfo?.fortnight ? <InfoInline text={props.headerInfo.fortnight} /> : null}
-            </th>
-            <th style={th}>
-              Annual{props.headerInfo?.annual ? <InfoInline text={props.headerInfo.annual} /> : null}
-            </th>
-            <th style={th}>Lease Lifetime</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.rows.map((r, idx) => {
-            const isLast = idx === props.rows.length - 1;
-            return (
-              <tr key={idx}>
-                <td style={tdLeft(isLast)}>{r[0]}</td>
-                <td style={td(isLast)}>{r[1]}</td>
-                <td style={td(isLast)}>{r[2]}</td>
-                <td style={td(isLast, props.emphasizeLastRowValue)}>{r[3]}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
 function FYTable(props: {
   fyRows: Array<{
@@ -234,6 +391,11 @@ function FYTable(props: {
     takeHomeImpactPerPay: number;
     avgLeaseTaxBracketPct: number;
   }>;
+  fbtApplies: boolean;
+  // Actual pre-tax deduction PER PAY (fortnight) after ECM adjustments (from 1.1)
+  actualPreTaxDeductionFn: number;
+  // Post-tax ECM payment PER PAY (fortnight)
+  ecmPerFn: number;
 }) {
   const years = props.fyRows.map((r) => r.fy);
 
@@ -243,14 +405,67 @@ function FYTable(props: {
 
   const get = (fy: number) => props.fyRows.find((r) => r.fy === fy)!;
 
+  const correctedPostNl = (r: (typeof props.fyRows)[number]) => {
+    if (!props.fbtApplies) {
+      return {
+        postNlTaxableIncome: r.postNlTaxableIncome,
+        postNlTax: r.postNlTax,
+        postTaxEcm: 0,
+        postNlTakeHome: r.postNlTakeHome,
+        takeHomeImpactPerPay: r.takeHomeImpactPerPay,
+      };
+    }
+
+    // Pre-tax deduction in this FY (uses correct pay count)
+    const preTaxDeductionThisFy = props.actualPreTaxDeductionFn * r.count;
+
+    // Post-tax ECM payments in this FY
+    const postTaxEcmThisFy = props.ecmPerFn * r.count;
+
+    // Taxable income after novated lease (pre-tax deduction applied for the correct pay-count)
+    const postNlTaxableIncome = r.originalTaxableIncome - preTaxDeductionThisFy;
+
+    // Exact tax (income tax + Medicare levy) applied to the post-NL taxable income
+    const postNlTax = taxSummaryAUResident(postNlTaxableIncome).totalTax;
+
+    // Take home after lease = post-NL taxable income minus exact tax, then minus post-tax ECM payment
+    const postNlTakeHome = postNlTaxableIncome - postNlTax - postTaxEcmThisFy;
+
+    // Exact per-pay impact for this FY
+    const takeHomeImpactPerPay = r.count > 0 ? (r.originalTakeHome - postNlTakeHome) / r.count : 0;
+
+    return {
+      postNlTaxableIncome,
+      postNlTax,
+      postTaxEcm: postTaxEcmThisFy,
+      postNlTakeHome,
+      takeHomeImpactPerPay,
+    };
+  };
+
+  const avgLeaseBracketPctForFy = (r: (typeof props.fyRows)[number]) => {
+    if (!props.fbtApplies) return r.avgLeaseTaxBracketPct;
+
+    const c = correctedPostNl(r);
+
+    const denom = r.originalTaxableIncome - c.postNlTaxableIncome;
+    if (denom <= 0) return 0;
+
+    // Per spec: ([take home before] - [take home after] - [post-tax ECM]) / ([orig taxable] - [post taxable])
+    const numer = r.originalTakeHome - c.postNlTakeHome - c.postTaxEcm;
+
+    const rate = numer / denom;
+    return (1 - rate) * 100;
+  };
+
   const takeHomeRowCellStyle = (isLabel: boolean) => ({
     ...(isLabel ? tdLeft(true) : td(true)),
     background: "rgba(0,0,0,0.015)",
   });
 
-  const GroupCell = (props: { text: string }) => (
+  const GroupCell = (props: { text: string; rowSpan?: number }) => (
     <td
-      rowSpan={3}
+      rowSpan={props.rowSpan ?? 3}
       style={{
         borderBottom: "1px solid rgba(0,0,0,0.25)",
         textAlign: "center",
@@ -307,7 +522,7 @@ function FYTable(props: {
         <tbody>
           {/* BEFORE LEASE (grouped) */}
           <tr>
-            {GroupCell({ text: "Before Lease" })}
+            {GroupCell({ text: "Before Lease", rowSpan: 3 })}
             <td style={tdLeft(false)}>Taxable Income</td>
             {years.map((y) => {
               const r = get(y);
@@ -345,13 +560,13 @@ function FYTable(props: {
 
           {/* AFTER LEASE (grouped) */}
           <tr>
-            {GroupCell({ text: "After Lease" })}
+            {GroupCell({ text: "After Lease", rowSpan: props.fbtApplies ? 4 : 3 })}
             <td style={tdLeft(false)}>Taxable Income</td>
             {years.map((y) => {
               const r = get(y);
               return (
                 <td key={y} style={td(false)}>
-                  {money0(r.postNlTaxableIncome)}
+                  {money0(correctedPostNl(r).postNlTaxableIncome)}
                 </td>
               );
             })}
@@ -362,18 +577,31 @@ function FYTable(props: {
               const r = get(y);
               return (
                 <td key={y} style={td(false)}>
-                  {money0(r.postNlTax)}
+                  {money0(correctedPostNl(r).postNlTax)}
                 </td>
               );
             })}
           </tr>
+          {props.fbtApplies ? (
+            <tr>
+              <td style={tdLeft(false)}>Post-tax payment for ECM</td>
+              {years.map((y) => {
+                const r = get(y);
+                return (
+                  <td key={y} style={td(false)}>
+                    {money0(correctedPostNl(r).postTaxEcm)}
+                  </td>
+                );
+              })}
+            </tr>
+          ) : null}
           <tr>
             <td style={takeHomeRowCellStyle(true)}>Take Home</td>
             {years.map((y) => {
               const r = get(y);
               return (
                 <td key={y} style={takeHomeRowCellStyle(false)}>
-                  {money0(r.postNlTakeHome)}
+                  {money0(correctedPostNl(r).postNlTakeHome)}
                 </td>
               );
             })}
@@ -384,7 +612,7 @@ function FYTable(props: {
             <td style={takeHomeRowCellStyle(true)}>Take Home Impact</td>
             {years.map((y) => {
               const r = get(y);
-              const delta = r.postNlTakeHome - r.originalTakeHome;
+              const delta = r.originalTakeHome - r.postNlTakeHome;
               return (
                 <td key={y} style={takeHomeRowCellStyle(false)}>
                   {money0(delta)}
@@ -415,7 +643,7 @@ function FYTable(props: {
               const r = get(y);
               return (
                 <td key={y} style={td(false)}>
-                  {money2(r.takeHomeImpactPerPay)}
+                  {money2(correctedPostNl(r).takeHomeImpactPerPay)}
                 </td>
               );
             })}
@@ -427,7 +655,7 @@ function FYTable(props: {
               const r = get(y);
               return (
                 <td key={y} style={td(true)}>
-                  {pct0(r.avgLeaseTaxBracketPct)}
+                  {pct0(avgLeaseBracketPctForFy(r))}
                 </td>
               );
             })}

@@ -861,9 +861,22 @@ export default function InputsPanel(props: InputsPanelProps) {
               <MoneyField
                 label={`Estimated Market Value after 5 Years`}
                 tooltip={
+                  <InfoTooltip
+                text={
                   <>
-                    <InfoTooltip text="e.g. simulate using carsales.com.au by comparing 4yo car and 9yo car, for example." />
+                    <p style={{ margin: "0 0 10px 0" }}>
+                      <b>Suggest:</b>  Simulate using carsales.com.au by comparing 4yo car and 9yo car, for example.
+                    </p>
+                    <p style={{ margin: "0 0 10px 0" }}>
+                      <b>If your lease is shorter than 5 years</b>, please still enter the 5-year estimated value; the calculator will estimate the value for the interim time using an
+                      exponential decay model (a constant percentage drop each year until it reaches the 5-year value.
+                    </p>
+                    <p style={{ margin: 0 }}>
+                      This is intended to better match typical market depreciation than a straight-line model.
+                    </p>
                   </>
+                }
+              />
                 }
                 value={inputs.currentCarMarketValueAtEnd}
                 step={100}

@@ -40,8 +40,11 @@ export type Derived = {
 export function computeDerived(inputs: Inputs): Derived {
   const fortnights = Math.round(inputs.leaseDurationYears * 26);
 
-  // Packaged running costs use the ATO EV home charging shortcut (4.2c / km).
-  const packagedChargingClaimPerYear = atoChargingClaimAnnual(inputs);
+  // Packaged running costs use the ATO EV home charging shortcut (4.2c / km) for EVs only.
+  const packagedChargingClaimPerYear = inputs.vehicleType === "EV" ? atoChargingClaimAnnual(inputs) : 0;
+
+  // Packaged energy cost: EV uses the ATO shortcut claim; non-EV uses user-entered fuel.
+  const packagedEnergyAnnual = inputs.vehicleType === "EV" ? packagedChargingClaimPerYear : inputs.fuelAnnual;
 
   const runningCostAnnual =
     inputs.serviceMaintTyresAnnual +
@@ -49,7 +52,7 @@ export function computeDerived(inputs: Inputs): Derived {
     inputs.registrationAnnual +
     inputs.insuranceAnnual +
     inputs.managementFeesAnnual +
-    packagedChargingClaimPerYear;
+    packagedEnergyAnnual;
 
   const runningCostFn = runningCostAnnual / 26;
 
