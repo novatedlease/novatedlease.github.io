@@ -46,7 +46,7 @@ type OutputTab = "Summary" | "Details";
 type SummaryHorizon = "five_year" | "lease_end";
 
 function TabButton(props: {
-  label: OutputTab;
+  label: React.ReactNode;
   active: boolean;
   onClick: () => void;
 }) {
@@ -328,6 +328,49 @@ function encodeInputsToUrlParam(inputs: Inputs): string {
   return toBase64Url(JSON.stringify(payload));
 }
 
+// ------------------------------
+// Local "saved quotes" (browser storage)
+// ------------------------------
+
+type SavedQuoteV1 = {
+  v: 1;
+  id: string;
+  name: string;
+  createdAtIso: string;
+  inputs: Partial<Inputs>;
+};
+
+type SavedQuotesStoreV1 = { v: 1; quotes: SavedQuoteV1[] };
+
+const QUOTES_STORE_KEY = "nl_saved_quotes_v1";
+
+function safeLoadQuotes(): SavedQuoteV1[] {
+  try {
+    const raw = window.localStorage.getItem(QUOTES_STORE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as SavedQuotesStoreV1;
+    if (!parsed || parsed.v !== 1 || !Array.isArray(parsed.quotes)) return [];
+    return parsed.quotes
+      .filter((q) => q && q.v === 1 && typeof q.id === "string" && typeof q.name === "string")
+      .slice(0, 50);
+  } catch {
+    return [];
+  }
+}
+
+function safeSaveQuotes(quotes: SavedQuoteV1[]) {
+  try {
+    const payload: SavedQuotesStoreV1 = { v: 1, quotes: quotes.slice(0, 50) };
+    window.localStorage.setItem(QUOTES_STORE_KEY, JSON.stringify(payload));
+  } catch {
+    // ignore
+  }
+}
+
+function newQuoteId(): string {
+  return `q_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+}
+
 export default function App() {
   const defaultInputs: Inputs = (() => {
     const base: Inputs = {
@@ -458,6 +501,12 @@ export default function App() {
 
   const [copiedLink, setCopiedLink] = useState(false);
 
+  const [quotesOpen, setQuotesOpen] = useState<boolean>(false);
+const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => {
+  if (typeof window === "undefined") return [];
+  return safeLoadQuotes();
+});
+
   async function copyShareLink() {
     try {
       const encoded = encodeInputsToUrlParam(inputs);
@@ -493,6 +542,59 @@ export default function App() {
       // If clipboard fails, do nothing (silent)
     }
   }
+
+function persistQuotes(next: SavedQuoteV1[]) {
+  setSavedQuotes(next);
+  safeSaveQuotes(next);
+}
+
+function saveCurrentAsQuote(name?: string) {
+  const trimmed = (name ?? "").trim();
+  const fallback = `Quote ${savedQuotes.length + 1}`;
+  const q: SavedQuoteV1 = {
+    v: 1,
+    id: newQuoteId(),
+    name: trimmed || fallback,
+    createdAtIso: new Date().toISOString(),
+    inputs,
+  };
+  persistQuotes([q, ...savedQuotes]);
+}
+
+function loadQuote(q: SavedQuoteV1) {
+  // Coerce via existing input coercion to survive schema changes over time
+  const next = coerceInputsFromUrl(q.inputs as Partial<Inputs>, defaultInputs);
+  setInputs(next);
+  setLeaseQuoteGuardMsg("");
+  setOutputTab("Summary");
+  setCopiedLink(false);
+  setQuotesOpen(false);
+}
+
+function deleteQuote(id: string) {
+  persistQuotes(savedQuotes.filter((q) => q.id !== id));
+}
+
+function renameQuote(id: string, name: string) {
+  const trimmed = name.trim();
+  if (!trimmed) return;
+  persistQuotes(savedQuotes.map((q) => (q.id === id ? { ...q, name: trimmed } : q)));
+}
+
+useEffect(() => {
+  if (!quotesOpen) return;
+
+  const onDown = (e: MouseEvent) => {
+    const target = e.target as HTMLElement | null;
+    if (!target) return;
+
+    const container = document.getElementById("nl-quotes-anchor");
+    if (container && !container.contains(target)) setQuotesOpen(false);
+  };
+
+  window.addEventListener("mousedown", onDown);
+  return () => window.removeEventListener("mousedown", onDown);
+}, [quotesOpen]);
 
   useEffect(() => {
     const desired = estMarketValueFromDriveaway(inputs.driveawayCost);
@@ -678,22 +780,212 @@ export default function App() {
       >
         <h1 style={{ margin: 0 }}>Novated Lease Calculator</h1>
 
+<div
+  id="nl-quotes-anchor"
+  style={{ display: "flex", gap: 8, alignItems: "center", position: "relative" }}
+>
+  <button
+    type="button"
+    onClick={copyShareLink}
+    style={{
+      padding: "8px 10px",
+      borderRadius: 10,
+      border: "1px solid rgba(0,0,0,0.18)",
+      background: copiedLink ? "rgba(11, 92, 171, 0.12)" : "rgba(0,0,0,0.02)",
+      fontWeight: 700,
+      cursor: "pointer",
+      whiteSpace: "nowrap",
+      minWidth: 110,
+      textAlign: "center",
+    }}
+    title="Copy a shareable link that includes all your inputs"
+  >
+    {copiedLink ? "Copied!" : "🔗 Copy link"}
+  </button>
+
+  <button
+    type="button"
+    onClick={() => setQuotesOpen((p) => !p)}
+    style={{
+      padding: "8px 10px",
+      borderRadius: 10,
+      border: "1px solid rgba(0,0,0,0.18)",
+      background: quotesOpen ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.02)",
+      fontWeight: 700,
+      cursor: "pointer",
+      whiteSpace: "nowrap",
+    }}
+    aria-expanded={quotesOpen}
+    aria-haspopup="dialog"
+    title="Save, load, rename or delete saved quotes on this device"
+    >
+    💾 Quotes
+  </button>
+
+  {quotesOpen && (
+    <div
+      role="dialog"
+      aria-label="Saved quotes"
+      style={{
+        position: "absolute",
+        right: 0,
+        top: "calc(100% + 8px)",
+        width: 360,
+        maxWidth: "90vw",
+        border: "1px solid rgba(0,0,0,0.18)",
+        borderRadius: 12,
+        background: "#fff",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.18)",
+        padding: 12,
+        zIndex: 50,
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+        <div style={{ fontWeight: 900 }}>Saved quotes (this device)</div>
         <button
           type="button"
-          onClick={copyShareLink}
+          onClick={() => setQuotesOpen(false)}
+          style={{
+            border: "1px solid rgba(0,0,0,0.18)",
+            background: "rgba(0,0,0,0.02)",
+            borderRadius: 10,
+            padding: "6px 10px",
+            cursor: "pointer",
+            fontWeight: 800,
+          }}
+        >
+          Close
+        </button>
+      </div>
+
+      <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
+        <button
+          type="button"
+          onClick={() => {
+            const name = window.prompt("Name this quote (optional):", "");
+            if (name === null) return;
+            saveCurrentAsQuote(name);
+          }}
           style={{
             padding: "8px 10px",
             borderRadius: 10,
             border: "1px solid rgba(0,0,0,0.18)",
-            background: copiedLink ? "rgba(11, 92, 171, 0.12)" : "rgba(0,0,0,0.02)",
-            fontWeight: 700,
+            background: "rgba(11, 92, 171, 0.08)",
+            fontWeight: 800,
             cursor: "pointer",
-            whiteSpace: "nowrap",
           }}
-          title="Copy a link that includes all your inputs"
+          title="Save the current inputs as a quote on this device"
         >
-          {copiedLink ? "Copied!" : "Copy share link"}
+          Save current
         </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            if (!window.confirm("Delete ALL saved quotes on this device?")) return;
+            persistQuotes([]);
+          }}
+          style={{
+            padding: "8px 10px",
+            borderRadius: 10,
+            border: "1px solid rgba(0,0,0,0.18)",
+            background: "rgba(0,0,0,0.02)",
+            fontWeight: 800,
+            cursor: "pointer",
+          }}
+          title="Clear all saved quotes"
+        >
+          Clear all
+        </button>
+      </div>
+
+      {savedQuotes.length === 0 ? (
+        <div style={{ fontSize: 13, opacity: 0.8, lineHeight: 1.35 }}>
+          No saved quotes yet. Use <b>Save current</b> to store your quote on this device.
+        </div>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, maxHeight: 320, overflow: "auto" }}>
+          {savedQuotes.map((q) => (
+            <div
+              key={q.id}
+              style={{
+                border: "1px solid rgba(0,0,0,0.12)",
+                borderRadius: 12,
+                padding: 10,
+                background: "rgba(0,0,0,0.01)",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline" }}>
+                <div style={{ fontWeight: 900, fontSize: 14, lineHeight: 1.2 }}>{q.name}</div>
+                <div style={{ fontSize: 11, opacity: 0.6, whiteSpace: "nowrap" }}>
+                  {new Date(q.createdAtIso).toLocaleDateString("en-AU")}
+                </div>
+              </div>
+
+              <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
+                <button
+                  type="button"
+                  onClick={() => loadQuote(q)}
+                  style={{
+                    padding: "6px 10px",
+                    borderRadius: 10,
+                    border: "1px solid rgba(0,0,0,0.18)",
+                    background: "rgba(0,0,0,0.02)",
+                    fontWeight: 800,
+                    cursor: "pointer",
+                  }}
+                >
+                  Load
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next = window.prompt("Rename quote:", q.name);
+                    if (next === null) return;
+                    renameQuote(q.id, next);
+                  }}
+                  style={{
+                    padding: "6px 10px",
+                    borderRadius: 10,
+                    border: "1px solid rgba(0,0,0,0.18)",
+                    background: "rgba(0,0,0,0.02)",
+                    fontWeight: 800,
+                    cursor: "pointer",
+                  }}
+                >
+                  Rename
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!window.confirm(`Delete "${q.name}"?`)) return;
+                    deleteQuote(q.id);
+                  }}
+                  style={{
+                    padding: "6px 10px",
+                    borderRadius: 10,
+                    border: "1px solid rgba(0,0,0,0.18)",
+                    background: "rgba(0,0,0,0.02)",
+                    fontWeight: 800,
+                    cursor: "pointer",
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ marginTop: 10, fontSize: 11, opacity: 0.65, lineHeight: 1.3 }}>
+        Saved quotes live in this browser on this device only. Clearing browser data will remove them.
+      </div>
+    </div>
+  )}
+</div>
       </div>
 
       <div
@@ -765,12 +1057,12 @@ export default function App() {
             <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-end" }}>
               <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
                 <TabButton
-                  label="Summary"
+                  label="🧾 Summary"
                   active={outputTab === "Summary"}
                   onClick={() => setOutputTab("Summary")}
                 />
                 <TabButton
-                  label="Details"
+                  label="🔎 Details"
                   active={outputTab === "Details"}
                   onClick={() => setOutputTab("Details")}
                 />

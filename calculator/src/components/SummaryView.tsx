@@ -50,9 +50,9 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
   const evEndValue = isLeaseEnd ? s.newEvValueAtLeaseEnd : inputs.estimatedMarketValueAtEnd;
   const currentEndValue = isLeaseEnd ? s.currentCarValueAtLeaseEnd : inputs.currentCarMarketValueAtEnd;
 
-  const titleA = "New EV via Novated Lease";
-  const titleB = "New EV via Offset Cash";
-  const titleLoan = "New EV via Car Loan";
+  const titleA = "Novated Lease";
+  const titleB = "Offset Cash";
+  const titleLoan = "Car Loan";
 
   // NL vs Offset Cash (horizon-aware)
   const cashflowSaving = offsetTotalSpent - nlTotalSpent;
@@ -284,7 +284,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
 
           <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55, fontVariantNumeric: "tabular-nums" }}>
             <div style={{ marginBottom: 8 }}>
-              Over <b>{years}</b> years of ownership, leasing a new EV costs{" "}
+              Over <b>{years}</b> years of ownership, leasing a car costs{" "}
               <b>
                 {fmtAud0(Math.abs(nlVsKeepSaving))} {nlVsKeepSaving >= 0 ? "less" : "more"}
               </b>{" "}
@@ -293,7 +293,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
 
             <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>
               <li>
-                End assets: EV ends at <b>{fmtAud0(evEndValue)}</b> vs current car ends at <b>{fmtAud0(currentEndValue)}</b> (asset
+                End assets: leased car ends at <b>{fmtAud0(evEndValue)}</b> vs current car ends at <b>{fmtAud0(currentEndValue)}</b> (asset
                 difference <b>{fmtAud0(assetDelta)}</b>).
               </li>
               <li>

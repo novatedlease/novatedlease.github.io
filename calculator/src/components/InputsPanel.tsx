@@ -103,7 +103,7 @@ export default function InputsPanel(props: InputsPanelProps) {
             alignSelf: "flex-start",
           }}
         >
-          Reset
+          🔄 Reset
         </button>
       </div>
 
