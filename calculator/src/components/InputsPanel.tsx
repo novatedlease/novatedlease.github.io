@@ -552,7 +552,7 @@ export default function InputsPanel(props: InputsPanelProps) {
           <MoneyField
             label="Luxury Vehicle Adjustment (Per Fortnight)"
             tooltip={
-                <InfoTooltip text="Pre-tax. For vehicle valued > $68,108, some leases incur this ON TOP OF regular lease figure. It is normally listed as a separate item. 0 if irrelevant." />
+                <InfoTooltip text="Pre-tax. For vehicle valued > $69, 674, some leases incur this ON TOP OF regular lease figure. It is normally listed as a separate item. 0 if irrelevant." />
             }
             value={inputs.luxuryVehicleAdjPerFn}
             step={1}
@@ -565,7 +565,7 @@ export default function InputsPanel(props: InputsPanelProps) {
   <MoneyField
     label="Financed amount reported in your quote"
     tooltip={
-      <InfoTooltip text="This is only used for interest calculation. If you don't know this figure, leave it as this pre-calculated figure. If you have a financed amount figure, make sure it does not contain first year insurance, otherwise the calculation will in interest-rate section will be invalid." />
+      <InfoTooltip text="This is only used for interest calculation. If you don't know this figure, leave it as this pre-calculated figure. If you have a financed amount figure, make sure it does not contain first year insurance or other after-market add-ons, otherwise the calculation will in interest-rate section is invalid." />
     }
     value={inputs.financedAmountForInterestCalcExGst}
     step={100}

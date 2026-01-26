@@ -1,4 +1,5 @@
 import type { Inputs } from "./types";
+import { isFbtApplicable } from "./types";
 import { buildFyBreakdown } from "./fy_breakdown";
 import { atoChargingClaimAnnual } from "./charging";
 
@@ -65,6 +66,16 @@ export function computeDerived(inputs: Inputs): Derived {
     preTaxTotalFn,
   });
 
+  // For FBT-applicable leases, the *actual* pre-tax deduction is reduced by ECM and increased by the GST credit on ECM.
+  // This matches the mechanism used in LeaseReport section 1.2.
+  const fbtApplies = isFbtApplicable(inputs);
+  const vehicleDutiableValue = Math.max(0, inputs.vehicleBaseValue);
+  const fbtStatutoryRate = 0.2;
+  const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
+  const ecmPerFn = ecmAnnual / 26;
+  const ecmGstPerFn = ecmPerFn / 11;
+  const actualPreTaxDeductionFn = preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
+
   const atiRows: AtiRow[] = fyRows.map((r) => ({
     financialYearEnding: r.fy,
     taxableIncomePostNL: r.postNlTaxableIncome,
@@ -72,7 +83,9 @@ export function computeDerived(inputs: Inputs): Derived {
 
   const sgRows: SgRow[] = fyRows.map((r) => ({
     financialYearEnding: r.fy,
-    reducedPretaxIncome: r.originalTaxableIncome - r.postNlTaxableIncome,
+    reducedPretaxIncome: fbtApplies
+      ? actualPreTaxDeductionFn * r.count
+      : r.originalTaxableIncome - r.postNlTaxableIncome,
   }));
 
   return {

@@ -37,7 +37,6 @@ export default function BasicInformationReport(props: {
   // where taxRate is the marginal rate incl. Medicare Levy.
   const fbtDeltaPerFn = ecmPerFn * taxRate + (ecmPerFn / 11) * (1 - taxRate);
 
-  const fortnights = Math.round(i.leaseDurationYears * 26);
 
   // Vehicle GST saved
   const vehicleGstSaved = gstSaved(i);
@@ -106,20 +105,7 @@ export default function BasicInformationReport(props: {
         BASIC INFORMATION
       </div>
 
-      <KeyValue
-        label="Income Tax Bracket (inc. Medicare Levy)"
-        value={`${Math.round(taxRatePct)}%`}
-      />
-      <KeyValue
-        label="Lease Duration (Years)"
-        value={String(i.leaseDurationYears)}
-      />
-      <KeyValue label="Fortnights" value={String(fortnights)} />
-
-      <Spacer />
-
       <KeyValue label="Vehicle condition" value={i.vehicleCondition} />
-      <KeyValue label="GST Saving Passed On" value={i.gstSavingPassedOn} />
       <KeyValue
         label={
           <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>

@@ -356,7 +356,7 @@ export default function ATI(props: AtiProps) {
       >
         <div style={{ fontWeight: 700, marginBottom: 6 }}>Note</div>
         <ul style={{ margin: 0, paddingLeft: 18 }}>
-          <li>Please refer to the <a href="https://novatedlease.guide/special-and-policy/childcare-subsidy/#step-3-calculate-adjusted-taxable-income">Adjusted Taxable Income</a> article for elaboration on how this affects you.</li>
+          <li>Please refer to the <a href="https://novatedlease.guide/special-and-policy/childcare-subsidy/">Adjusted Taxable Income</a> article for elaboration on how this affects you.</li>
           <li>
             In short, the adjusted taxable income is the figure that childcare subsidy, Medicare levy surcharge, child support, etc
             are tested on, rather than original taxable income.

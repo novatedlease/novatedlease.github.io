@@ -109,14 +109,75 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
     <div style={{ marginTop: 10, fontSize: 13, opacity: 0.75, fontStyle: "italic" }}>
       <div>
         ⚠️ Some effects are not accounted for (for example, changes in government subsidies), as these are too complex to fully
-        calculate. Explore further in <b>Details – Section 4: Adjusted Taxable Income</b>.
+        calculate. calculate.{" "}
+<button
+  type="button"
+  onClick={() => {
+    window.dispatchEvent(
+      new CustomEvent("nlguide:navigate", {
+        detail: { tab: "Details", anchorId: "details-section-4-ati" },
+      })
+    );
+  }}
+  style={{
+    padding: 0,
+    border: "none",
+    background: "none",
+    color: "rgba(11, 92, 171, 0.95)",
+    cursor: "pointer",
+    font: "inherit",
+    textDecoration: "underline",
+  }}
+>
+  <b>Explore further in Details – Section 4: Adjusted Taxable Income</b>
+</button>
+..
       </div>
+
+
 
       {inputs.superFromPreNlIncome === "No" ? (
         <div style={{ marginTop: 8 }}>
-          ⚠️ Because your employer calculates Super Guarantee based on your post-novated-lease income, your super contributions may be materially reduced and are not reflected in the figures above. See <b>Details – Section 5: Super Guarantee</b> for the estimated impact.
+          ⚠️ Because your employer calculates Super Guarantee based on your post-novated-lease income, your super contributions may be materially reduced and are not reflected in the figures above.{" "}
+<button
+  type="button"
+  onClick={() => {
+    window.dispatchEvent(
+      new CustomEvent("nlguide:navigate", {
+        detail: { tab: "Details", anchorId: "details-section-5-sg" },
+      })
+    );
+  }}
+  style={{
+    padding: 0,
+    border: "none",
+    background: "none",
+    color: "rgba(11, 92, 171, 0.95)",
+    cursor: "pointer",
+    font: "inherit",
+    textDecoration: "underline",
+  }}
+>
+  <b>See Details – Section 5: Super Guarantee</b>
+</button>
+{" "}
+for the estimated impact.
         </div>
       ) : null}
+
+      <div style={{ marginTop: 8 }}>
+      ⚠️ Novated leasing is a complex financial instrument with many caveats. Beyond the numerical outcomes shown here, it is
+      important to consider the broader risks and trade-offs discussed here:{" "}
+      <a
+        href="https://novatedlease.guide/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <b>Start with a holistic view rather than the savings figure</b>
+      </a>
+      .
+    </div>
+          
     </div>
   );
 

@@ -488,6 +488,52 @@ export default function App() {
   const [outputTab, setOutputTab] = useState<OutputTab>("Summary");
   const [summaryHorizon, setSummaryHorizon] = useState<SummaryHorizon>("five_year");
 
+  // Allow other components (e.g. Summary disclaimers) to navigate to a Details section.
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const ce = e as CustomEvent<{ tab?: OutputTab; anchorId?: string }>;
+      const tab = ce.detail?.tab;
+      const anchorId = ce.detail?.anchorId;
+
+      if (tab === "Summary" || tab === "Details") {
+        setOutputTab(tab);
+      }
+
+      if (anchorId) {
+        // Defer until after the target tab content has rendered
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const container = document.getElementById(anchorId);
+            if (!container) return;
+
+            // If this anchor wraps a collapsible <details>, open it before scrolling.
+            const details = container.querySelector("details") as HTMLDetailsElement | null;
+            if (details && !details.open) {
+              details.open = true;
+              // Ensure React state inside CollapsibleSection sees the open state.
+              details.dispatchEvent(new Event("toggle"));
+            }
+
+            // Scroll to the outer collapsible container so the whole header is visible.
+            const detailsEl = container.querySelector("details") as HTMLDetailsElement | null;
+            const target = detailsEl ?? container;
+
+            // Account for the always-visible site header/tabs (MkDocs Material) so the section header isn't hidden.
+            const headerH = (document.querySelector(".md-header") as HTMLElement | null)?.getBoundingClientRect().height ?? 0;
+            const tabsH = (document.querySelector(".md-tabs") as HTMLElement | null)?.getBoundingClientRect().height ?? 0;
+            const offset = headerH + tabsH + 12; // extra breathing room
+
+            const top = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+          });
+        });
+      }
+    };
+
+    window.addEventListener("nlguide:navigate", handler as EventListener);
+    return () => window.removeEventListener("nlguide:navigate", handler as EventListener);
+  }, []);
+
   // Used for dynamic label on summary horizon selector
   const leaseYearsLabel = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
 
@@ -741,6 +787,100 @@ useEffect(() => {
       color: "rgba(0,0,0,0.9)",
     }}
   >
+    <style>{`
+      @media print {
+        /* Page + base */
+        @page { margin: 14mm; }
+        html, body {
+          background: #fff !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        /* Hide things that don't belong on paper */
+        #nl-quotes-anchor,
+        button,
+        input,
+        select,
+        textarea {
+          /* We'll selectively re-enable content buttons if needed; default is hide */
+        }
+
+        /* Stack Inputs above Outputs for printing */
+        .nl-layout {
+          display: block !important;
+        }
+
+        .nl-left {
+          display: block !important;
+          width: 100% !important;
+          margin-bottom: 16px !important;
+          page-break-after: avoid;
+        }
+
+        .nl-right {
+          width: 100% !important;
+          border: none !important;
+          padding: 0 !important;
+          background: transparent !important;
+        }
+
+        /* Hide interactive controls in Outputs header (tabs, horizon selector, copy link, etc.) */
+        .nl-right button {
+          display: none !important;
+        }
+
+        /* Remove decorative borders/shadows and ensure readable typography */
+        #nl-calculator-root * {
+          box-shadow: none !important;
+          text-shadow: none !important;
+        }
+
+        /* Make sure Details content prints even if a <details> section is collapsed */
+        details.nl-collapsible {
+          border: 1px solid rgba(0,0,0,0.20) !important;
+          background: #fff !important;
+        }
+        details.nl-collapsible > summary {
+          /* Keep the blue header text visible */
+          display: block !important;
+        }
+        details.nl-collapsible:not([open]) > :not(summary) {
+          display: block !important;
+        }
+
+        /* Remove the +/- pill on the right of the summary when printing */
+        .nl-collapsible-summary [aria-hidden] {
+          display: none !important;
+        }
+
+        /* Avoid ugly mid-section page breaks */
+        details.nl-collapsible,
+        details.nl-collapsible > summary,
+        details.nl-collapsible > div {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+
+        /* Give each section breathing room */
+        details.nl-collapsible {
+          margin-top: 10px !important;
+        }
+
+        /* If the user prints from Summary tab, keep it tidy */
+        .nl-right h2,
+        .nl-right h3 {
+          break-after: avoid;
+        }
+
+        /* Make links useful on paper */
+        a[href^="http"]:after {
+          content: " (" attr(href) ")";
+          font-size: 10px;
+          opacity: 0.7;
+        }
+      }
+    `}</style>
       {isPhoneViewport && (
         <div
           style={{
@@ -1231,7 +1371,7 @@ useEffect(() => {
                 </CollapsibleSection>
               </div>
 
-              <div style={{ marginTop: 16 }}>
+              <div id="details-section-4-ati" style={{ marginTop: 16 }}>
                 <CollapsibleSection
                   title="SECTION 4: ADJUSTED TAXABLE INCOME"
                   description="Estimates your Adjusted Taxable Income after novated leasing (useful for HECS, childcare subsidy, Medicare levy surcharge etc)."
@@ -1247,7 +1387,7 @@ useEffect(() => {
                 </CollapsibleSection>
               </div>              
 
-              <div style={{ marginTop: 16 }}>
+              <div id="details-section-5-sg"  style={{ marginTop: 16 }}>
                 <CollapsibleSection
                   title="SECTION 5: SUPER GUARANTEE"
                   muted={inputs.superFromPreNlIncome === "Yes"}
