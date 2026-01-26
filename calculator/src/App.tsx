@@ -661,13 +661,40 @@ export default function App() {
           <div style={{ fontSize: 13, lineHeight: 1.35 }}>
             <div style={{ fontWeight: 900, marginBottom: 2 }}>Better on a bigger screen</div>
             <div style={{ opacity: 0.9 }}>
-              If you’re on a phone, rotating to <b>landscape</b> will improve the layout. For the best experience, use a
+              If you’re on a phone, rotating to <b>landscape</b> will improve the layout for the outputs. For the best experience, use a
               <b> tablet</b> or <b>computer</b>.
             </div>
           </div>
         </div>
       )}
-      <h1 style={{ marginBottom: 8 }}>Novated Lease Calculator</h1>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "baseline",
+          justifyContent: "space-between",
+          gap: 12,
+          marginBottom: 8,
+        }}
+      >
+        <h1 style={{ margin: 0 }}>Novated Lease Calculator</h1>
+
+        <button
+          type="button"
+          onClick={copyShareLink}
+          style={{
+            padding: "8px 10px",
+            borderRadius: 10,
+            border: "1px solid rgba(0,0,0,0.18)",
+            background: copiedLink ? "rgba(11, 92, 171, 0.12)" : "rgba(0,0,0,0.02)",
+            fontWeight: 700,
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+          }}
+          title="Copy a link that includes all your inputs"
+        >
+          {copiedLink ? "Copied!" : "Copy share link"}
+        </button>
+      </div>
 
       <div
         className="nl-layout"
@@ -685,6 +712,7 @@ export default function App() {
             borderRadius: 12,
             padding: 16,
             background: "rgba(0,0,0,0.03)",
+            overflow: "hidden"
           }}
         >
           <InputsPanel
@@ -736,23 +764,6 @@ export default function App() {
             {/* Right-side controls: Copy link and tab buttons, with summary horizon selector nested below tabs */}
             <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-end" }}>
               <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <button
-                  type="button"
-                  onClick={copyShareLink}
-                  style={{
-                    padding: "8px 10px",
-                    borderRadius: 10,
-                    border: "1px solid rgba(0,0,0,0.18)",
-                    background: copiedLink ? "rgba(11, 92, 171, 0.12)" : "rgba(0,0,0,0.02)",
-                    fontWeight: 700,
-                    cursor: "pointer",
-                    whiteSpace: "nowrap",
-                  }}
-                  title="Copy a link that includes all your inputs"
-                >
-                  {copiedLink ? "Copied!" : "Copy share link"}
-                </button>
-
                 <TabButton
                   label="Summary"
                   active={outputTab === "Summary"}

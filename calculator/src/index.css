@@ -43,3 +43,143 @@ html, body, #root {
     grid-template-columns: 1fr;
   }
 }
+
+/* --- Ultra-compact mobile layout for calculator --- */
+@media (max-width: 900px) and (orientation: portrait) {
+
+  /* Shrink all fonts proportionally */
+  #nl-calculator-root {
+    font-size: 78%;
+    line-height: 1.2;
+    padding: 2px; /* ultra-compact on phone */
+
+    /* Shrink InputsPanel sub-cards (InputsPanel inline styles use these CSS variables) */
+    --nl-subcard-padding: 8px;
+    --nl-subcard-radius: 10px;
+  }
+
+  /* Collapse main layout spacing */
+  #nl-calculator-root .nl-layout {
+    gap: 6px; /* was 16px */
+  }
+
+  /* Tighten column padding */
+  #nl-calculator-root .nl-col {
+    padding: 4px !important;
+  }
+
+  /* Collapsible headers */
+  #nl-calculator-root .nl-collapsible summary {
+    padding: 6px 8px !important;
+  }
+
+  /* Collapsible content */
+  #nl-calculator-root .nl-collapsible > div {
+    padding: 6px !important;
+  }
+
+  /* Tables */
+  #nl-calculator-root table {
+    font-size: 88%;
+  }
+
+  #nl-calculator-root th,
+  #nl-calculator-root td {
+    padding: 3px 5px !important;
+  }
+
+  /* Buttons / pills */
+  #nl-calculator-root button {
+    padding: 5px 7px !important;
+  }
+
+  /* Tighten headings and paragraph spacing inside the calculator */
+  #nl-calculator-root h1 {
+    margin: 6px 0 8px !important;
+    font-size: 1.35rem;
+  }
+
+  #nl-calculator-root h2,
+  #nl-calculator-root h3 {
+    margin: 8px 0 6px !important;
+  }
+
+  #nl-calculator-root p {
+    margin: 6px 0 !important;
+  }
+
+  /* Make form controls more compact */
+  #nl-calculator-root input,
+  #nl-calculator-root select,
+  #nl-calculator-root textarea {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  /* Reduce rounding and borders' visual bulk a touch */
+  #nl-calculator-root * {
+    scroll-margin-top: 60px;
+  }
+
+  /* Make sizing predictable on small screens */
+  #nl-calculator-root {
+    box-sizing: border-box;
+  }
+  #nl-calculator-root *,
+  #nl-calculator-root *::before,
+  #nl-calculator-root *::after {
+    box-sizing: inherit;
+  }
+
+  /* Prevent form controls from overflowing the column width, but keep them readable */
+  #nl-calculator-root input,
+  #nl-calculator-root select,
+  #nl-calculator-root textarea {
+    width: auto !important;
+    flex: 0 1 240px;           /* prefer ~240px, but allow shrinking */
+    max-width: 100% !important; /* never crowd out the label */
+    min-width: 160px;          /* avoid truncating common currency figures */
+  }
+
+  #nl-calculator-root input,
+  #nl-calculator-root select,
+  #nl-calculator-root textarea {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Right-align entry fields in label–value rows */
+  #nl-calculator-root .nl-row,
+  #nl-calculator-root .nl-field,
+  #nl-calculator-root .nl-input-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  /* Some wrappers may be flex items; allow them to shrink */
+  #nl-calculator-root .nl-col * {
+    min-width: 0;
+  }
+
+  /* Tighten InputsPanel small cards so they don't overhang the parent card */
+  #nl-calculator-root .nl-input-subcard {
+    /* Nudge in by 1px so borders never get clipped by parent overflow */
+    width: calc(100% - 2px) !important;
+    max-width: calc(100% - 2px) !important;
+    box-sizing: border-box;
+    margin-left: 1px !important;
+    margin-right: 1px !important;
+    overflow: hidden; /* keep inner content tidy */
+  }
+
+  #nl-calculator-root .nl-col {
+    overflow-x: hidden;
+  }
+
+  /* If any sub-cards are using negative margins or extra side padding internally */
+  #nl-calculator-root .nl-input-subcard > * {
+    max-width: 100%;
+  }
+}

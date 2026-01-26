@@ -58,17 +58,28 @@ export default function InputsPanel(props: InputsPanelProps) {
   const leaseFbtTypeLabel = evEligibilityCriteriaSatisfied ? "FBT-Exempt" : "FBT-Applicable";
 
   return (
-    <div style={{ flex: 1, minWidth: 360, maxWidth: 560, fontSize: 14, lineHeight: 1.35 }}>
+    <div
+      style={{
+        flex: 1,
+        minWidth: 0,
+        width: "100%",
+        maxWidth: 560,
+        fontSize: 14,
+        lineHeight: 1.35,
+      }}
+    >
       <div
         style={{
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "space-between",
-          gap: 12,
+          flexWrap: "wrap",
+          rowGap: 8,
+          columnGap: 12,
           marginBottom: 12,
         }}
       >
-        <div style={{ fontWeight: 800, fontSize: 18 }}>Inputs</div>
+        <div style={{ fontWeight: 800, fontSize: 18, lineHeight: 1.1, paddingTop: 4 }}>Inputs</div>
         <button
           type="button"
           onClick={() => {
@@ -88,6 +99,8 @@ export default function InputsPanel(props: InputsPanelProps) {
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
+            flexShrink: 0,
+            alignSelf: "flex-start",
           }}
         >
           Reset
@@ -95,7 +108,7 @@ export default function InputsPanel(props: InputsPanelProps) {
       </div>
 
       <div style={{ display: "grid", gap: 12 }}>
-        <Section title="FBT-EXEMPTION ELIGIBILITY">
+        <Section title="FBT-EXEMPTION ELIGIBILITY" className="nl-input-subcard">
           {/* EV/NON-EV Toggle */}
           <FieldRow
             label="Vehicle Type"
@@ -208,6 +221,7 @@ export default function InputsPanel(props: InputsPanelProps) {
 
         <Section
           title="VEHICLE DETAILS"
+          className="nl-input-subcard"
           highlight={isEv && !isFbtExemptEligible}
           banner={
             (isEv && !isFbtExemptEligible) ? (
@@ -348,7 +362,7 @@ export default function InputsPanel(props: InputsPanelProps) {
             
         </Section>
 
-        <Section title="FINANCIALS">
+        <Section title="FINANCIALS" className="nl-input-subcard">
           <MoneyField
             label="Total Taxable Income"
             tooltip={
@@ -396,7 +410,7 @@ export default function InputsPanel(props: InputsPanelProps) {
           />
         </Section>
 
-        <Section title="VEHICLE LEASE DETAILS">
+        <Section title="VEHICLE LEASE DETAILS" className="nl-input-subcard">
           <MoneyField
             label="Lease Documentation Fee"
             tooltip={
@@ -573,6 +587,7 @@ export default function InputsPanel(props: InputsPanelProps) {
 
         <Section
           title={`ANNUAL PACKAGED RUNNING COST (${inputs.gstSavingPassedOn === "Yes" ? "ex GST" : "inc GST"})`}
+           className="nl-input-subcard"
         >
           <SelectYesNo
             label="GST Saving Passed On in NL"
@@ -643,10 +658,10 @@ export default function InputsPanel(props: InputsPanelProps) {
 
           {inputs.vehicleType === "EV" ? (
             <MoneyField
-              label="Electricity (annual)"
+              label="Electricity"
               tooltip={
                 <>
-                  <InfoTooltip text="Annual figure, automatically populated with 0.042/km calculation (ATO rule); manually change if you choose other claim methods." />
+                  <InfoTooltip text="Annual figure, automatically populated with 0.042/km calculation (ATO rule); manually change if you choose other claim methods. Please note that this is the allowed claim amount rather than your true expense; you have to enter your true expense in the electricity section later." />
                 </>
               }
               value={inputs.electricityAnnual}
@@ -697,7 +712,7 @@ export default function InputsPanel(props: InputsPanelProps) {
         </Section>
 
         {inputs.vehicleType === "EV" ? (
-          <Section title="ELECTRICITY">
+          <Section title="ELECTRICITY" className="nl-input-subcard">
             <MoneyField
               label="Average AUD per kWh"
               tooltip={
@@ -772,6 +787,7 @@ export default function InputsPanel(props: InputsPanelProps) {
 
 <Section
   title="COMPARE WITH CAR LOAN"
+   className="nl-input-subcard"
   headerRight={
     <>
       <InfoTooltip text="Skip this section and leave it off if you are not comparing against a traditional car loan." />
@@ -833,6 +849,7 @@ export default function InputsPanel(props: InputsPanelProps) {
 
         <Section
   title="COMPARE WITH KEEPING CURRENT CAR"
+   className="nl-input-subcard"
   headerRight={
     <>
       <InfoTooltip text='Skip this section and leave it off if you are not comparing against "keeping current car".' />
@@ -938,34 +955,56 @@ function Section(props: {
   highlight?: boolean;
   banner?: React.ReactNode;
   headerRight?: React.ReactNode;
+  className?: string;
 }) {
   return (
     <div
+      className={props.className}
       style={{
         border: props.highlight ? "2px solid rgba(200,0,0,0.45)" : "1px solid rgba(0,0,0,0.12)",
-        borderRadius: 12,
-        padding: 12,
+        borderRadius: "var(--nl-subcard-radius, 12px)",
+        padding: "var(--nl-subcard-padding, 12px)",
+        width: "100%",
         background: props.highlight ? "rgba(200,0,0,0.04)" : undefined,
         boxShadow: props.highlight ? "0 0 0 4px rgba(200,0,0,0.08)" : "none",
         transition: "box-shadow 220ms ease, border-color 220ms ease, background 220ms ease",
       }}
     >
       <div
-  style={{
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 10,
-    marginBottom: 10,
-  }}
->
-  <div style={{ fontWeight: 900, fontSize: 14 }}>{props.title}</div>
-  {props.headerRight ? (
-    <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-      {props.headerRight}
-    </div>
-  ) : null}
-</div>
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          gap: 10,
+          marginBottom: 10,
+        }}
+      >
+        <div
+          style={{
+            fontWeight: 900,
+            fontSize: 14,
+            lineHeight: 1.2,
+            flex: "1 1 auto",
+            paddingTop: 1,
+          }}
+        >
+          {props.title}
+        </div>
+        {props.headerRight ? (
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              alignSelf: "flex-start",
+              paddingTop: 1,
+              flexShrink: 0,
+            }}
+          >
+            {props.headerRight}
+          </div>
+        ) : null}
+      </div>
       {props.banner ? <div style={{ marginBottom: 10 }}>{props.banner}</div> : null}
       <div style={{ display: "grid", gap: 10 }}>{props.children}</div>
     </div>
@@ -991,7 +1030,7 @@ function FieldRow(props: { label: React.ReactNode; tooltip?: React.ReactNode; ch
         </div>
       </div>
 
-      <div>{props.children}</div>
+      <div style={{ minWidth: 0 }}>{props.children}</div>
     </div>
   );
 }
@@ -999,6 +1038,8 @@ function FieldRow(props: { label: React.ReactNode; tooltip?: React.ReactNode; ch
 function inputStyle(): React.CSSProperties {
   return {
     width: "100%",
+    minWidth: 0,
+    boxSizing: "border-box",
     padding: "8px 10px",
     borderRadius: 10,
     border: "1px solid rgba(0,0,0,0.18)",
@@ -1156,7 +1197,12 @@ function NumberField(props: {
 function DateField(props: { label: React.ReactNode;   tooltip?: React.ReactNode;  value: string; onChange: (v: string) => void }) {
   return (
     <FieldRow label={props.label} tooltip={props.tooltip}>
-      <input type="date" style={inputStyle()} value={props.value} onChange={(e) => props.onChange(e.target.value)} />
+      <input
+        type="date"
+        style={{ ...inputStyle(), minWidth: 0, maxWidth: "100%" }}
+        value={props.value}
+        onChange={(e) => props.onChange(e.target.value)}
+      />
     </FieldRow>
   );
 }
