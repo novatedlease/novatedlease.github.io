@@ -1,6 +1,5 @@
 import type { Inputs } from "../engine/types";
 import { residualPercentForYears } from "../engine/ato";
-import { buildFyBreakdown } from "../engine/fy_breakdown";
 import { buildWorksheet130 } from "../engine/worksheet_130";
 import { useEffect } from "react";
 import { estimateAnnualChargingExpense, atoChargingClaimAnnual } from "../engine/charging";
@@ -806,8 +805,23 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
 
   const preTaxTotalFn = preTaxLeaseFn + preTaxRunningFn;
 
-  const fyRows = buildFyBreakdown({ inputs: i, fortnights, preTaxTotalFn });
-  const leasePaymentsOverLease = fyRows.reduce((acc, r) => acc + r.takeHomeImpactPerPay * r.count, 0);
+// IMPORTANT: leasePaymentsOverLease is NOT simply (preTaxTotalFn * (1 - taxRate)) * fortnights.
+// It must be computed FY-by-FY using the effective “average lease tax bracket this FY”.
+// For FBT-applicable leases, the *actual* pre-tax deduction is reduced by ECM and increased by the GST credit on ECM.
+const ecmAnnual = i.vehicleBaseValue * 0.2;
+const ecmPerFn = ecmAnnual / 26;
+const ecmGstPerFn = ecmPerFn / 11;
+
+const fbtApplies = isFbtApplicable(i);
+const actualPreTaxDeductionFn = preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
+
+const { leasePaymentsOverLease } = computeLeasePaymentsOverLease({
+  inputs: i,
+  fortnights,
+  preTaxTotalFn,
+  actualPreTaxDeductionFn,
+  ecmPerFn,
+});
 
   // Post-lease running cost (real): svc/maint/tyres + rego + electricity(actual) + insurance
   const postLeaseRunningFortnights = Math.round(yearsPost * 26);

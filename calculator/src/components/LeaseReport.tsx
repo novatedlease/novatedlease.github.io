@@ -612,7 +612,7 @@ function FYTable(props: {
             <td style={takeHomeRowCellStyle(true)}>Take Home Impact</td>
             {years.map((y) => {
               const r = get(y);
-              const delta = r.originalTakeHome - r.postNlTakeHome;
+              const delta = r.originalTakeHome - correctedPostNl(r).postNlTakeHome;
               return (
                 <td key={y} style={takeHomeRowCellStyle(false)}>
                   {money0(delta)}

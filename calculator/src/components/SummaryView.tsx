@@ -177,7 +177,7 @@ for the estimated impact.
       </a>
       .
     </div>
-          
+
     </div>
   );
 
@@ -227,6 +227,7 @@ for the estimated impact.
               {fmtAud0(Math.max(0, offsetTotalSpent - inputs.driveawayCost))} running costs ={" "}
               <b>{fmtAud0(offsetTotalSpent)} total</b>.
             </li>
+            {inputs.vehicleType === "EV" ? (
             <li>
               Electricity: novated lease&apos;s calculation assumes {fmtAud0(s.assumedChargingClaimPerYear)} per year (ATO claiming
               rule) but the actual expense is {fmtAud0(s.chargingExpensePerYear)} per year. That difference accounts for an
@@ -236,6 +237,7 @@ for the estimated impact.
               </b>{" "}
               in the NL pathway over the lease term. <InfoTooltip text={electricityTooltipText} width={420} />
             </li>
+            ) : null}
             <li>
               Besides, your car ownership and running costs result in about <b>{fmtAud0(-nlHomeLoanInterestImpact)}</b> of additional
               home-loan interest under the novated lease, compared with about <b>{fmtAud0(-cashHomeLoanInterestImpact)}</b> if you buy
@@ -289,6 +291,7 @@ for the estimated impact.
                 {nlPostLeaseRunningCosts > 0 ? <> and {fmtAud0(nlPostLeaseRunningCosts)} post-lease running costs</> : null} ={" "}
                 <b>{fmtAud0(nlCashflowTotalExclChargingDelta)} total</b>.
               </li>
+              {inputs.vehicleType === "EV" ? (
               <li>
                 Electricity: novated lease&apos;s calculation assumes {fmtAud0(s.assumedChargingClaimPerYear)} per year (ATO claiming
                 rule) but the actual expense is {fmtAud0(s.chargingExpensePerYear)} per year. That difference accounts for an
@@ -298,6 +301,7 @@ for the estimated impact.
                 </b>{" "}
                 in the NL pathway over the lease term. <InfoTooltip text={electricityTooltipText} width={420} />
               </li>
+              ) : null}
               <li>
                 {titleLoan} (cashflow over {years} years): deposit {fmtAud0(inputs.carLoanInitialDeposit)}, loan repayments + fees{" "}
                 {fmtAud0(s.loanPaymentTotalInclFees)}, and running costs{" "}
