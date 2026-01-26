@@ -399,6 +399,30 @@ export default function App() {
     return initial;
   });
 
+  // Small-screen (phone) layout hint (more reliable on iPhone Safari)
+  const [isPhoneViewport, setIsPhoneViewport] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 900px) and (orientation: portrait)").matches;
+  });
+
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 900px) and (orientation: portrait)");
+    const update = () => setIsPhoneViewport(mql.matches);
+
+    // Set once on mount
+    update();
+
+    // iOS Safari compatibility: addEventListener may not exist on older versions
+    if (typeof mql.addEventListener === "function") {
+      mql.addEventListener("change", update);
+      return () => mql.removeEventListener("change", update);
+    }
+
+    // Fallback
+    mql.addListener(update);
+    return () => mql.removeListener(update);
+  }, []);
+
 
 
   // If user arrived via a share URL (?c=...), we load it on first render via the useState initializer,
@@ -615,6 +639,34 @@ export default function App() {
       color: "rgba(0,0,0,0.9)",
     }}
   >
+      {isPhoneViewport && (
+        <div
+          style={{
+            marginBottom: 12,
+            padding: "10px 12px",
+            border: "1px solid rgba(0,0,0,0.18)",
+            borderRadius: 12,
+            background: "rgba(11, 92, 171, 0.08)",
+            color: "rgba(0,0,0,0.88)",
+            display: "flex",
+            gap: 10,
+            alignItems: "flex-start",
+          }}
+          role="note"
+          aria-label="Small screen layout hint"
+        >
+          <div aria-hidden style={{ fontSize: 18, lineHeight: 1 }}>
+            📱
+          </div>
+          <div style={{ fontSize: 13, lineHeight: 1.35 }}>
+            <div style={{ fontWeight: 900, marginBottom: 2 }}>Better on a bigger screen</div>
+            <div style={{ opacity: 0.9 }}>
+              If you’re on a phone, rotating to <b>landscape</b> will improve the layout. For the best experience, use a
+              <b> tablet</b> or <b>computer</b>.
+            </div>
+          </div>
+        </div>
+      )}
       <h1 style={{ marginBottom: 8 }}>Novated Lease Calculator</h1>
 
       <div
