@@ -34,6 +34,8 @@ markdown_extensions:
 nav:
   - Home: index.md
 
+  - Calculator: calculator/index.md
+
   - Start here:
       - What is a novated lease, really?: start-here/what-is-novated-lease.md
       - EV vs ICE novated leases compared: start-here/ev-vs-ice-compared.md      
