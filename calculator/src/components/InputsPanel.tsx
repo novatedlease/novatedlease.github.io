@@ -18,6 +18,10 @@ export type InputsPanelProps = {
 
 export default function InputsPanel(props: InputsPanelProps) {
   const { inputs, setInputs } = props;
+  // Auto-fill for packaged Electricity (ATO shortcut method: 4.2c/km) until user manually overrides
+  const ATO_EV_HOME_CHARGING_RATE_PER_KM = 0.042;
+  const [electricityAnnualTouched, setElectricityAnnualTouched] = useState<boolean>(false);
+  const lastAutoElectricityAnnualRef = useRef<number | null>(null);
     const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
   const prevLeaseDurationRef = useRef<number>(inputs.leaseDurationYears);
 
@@ -28,6 +32,32 @@ export default function InputsPanel(props: InputsPanelProps) {
       setNeedsLeaseRequote(true);
     }
   }, [inputs.leaseDurationYears]);
+
+  // Auto-populate EV packaged Electricity annual field from annual mileage, unless manually overridden
+  useEffect(() => {
+    if (inputs.vehicleType !== "EV") {
+      // Reset touch state when switching away from EV
+      setElectricityAnnualTouched(false);
+      lastAutoElectricityAnnualRef.current = null;
+      return;
+    }
+
+    const auto = inputs.annualMileageKm * ATO_EV_HOME_CHARGING_RATE_PER_KM;
+    const current = inputs.electricityAnnual;
+    const lastAuto = lastAutoElectricityAnnualRef.current;
+
+    const currentMatchesLastAuto =
+      lastAuto !== null && Math.abs(current - lastAuto) < 0.01;
+
+    if (!electricityAnnualTouched || currentMatchesLastAuto) {
+      if (Math.abs(current - auto) >= 0.01) {
+        lastAutoElectricityAnnualRef.current = auto;
+        setInputs((p) => ({ ...p, electricityAnnual: auto }));
+      } else {
+        lastAutoElectricityAnnualRef.current = auto;
+      }
+    }
+  }, [inputs.vehicleType, inputs.annualMileageKm]);
 
   const [vehicleLeasePerFnText, setVehicleLeasePerFnText] = useState<string>(
   fmtMoneyInput(inputs.vehicleLeasePerFn)
@@ -661,13 +691,16 @@ export default function InputsPanel(props: InputsPanelProps) {
               label="Electricity"
               tooltip={
                 <>
-                  <InfoTooltip text="Annual figure, automatically populated with 0.042/km calculation (ATO rule); manually change if you choose other claim methods. Please note that this is the allowed claim amount rather than your true expense; you have to enter your true expense in the electricity section later." />
+                  <InfoTooltip text="Annual figure. Auto-filled from Annual Mileage × 4.2c/km (ATO shortcut method). You can override if you choose other claim methods. Note: this is the allowed claim amount, not your true out-of-pocket electricity expense (enter that in the Electricity section below)." />
                 </>
               }
               value={inputs.electricityAnnual}
               step={10}
               min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, electricityAnnual: v }))}
+              onChange={(v) => {
+                setElectricityAnnualTouched(true);
+                setInputs((p) => ({ ...p, electricityAnnual: v }));
+              }}
             />
           ) : (
             <MoneyField

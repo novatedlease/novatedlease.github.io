@@ -4,7 +4,6 @@ import { calcResidualPayableIncGst, isFbtApplicable } from "./types";
 import { gstSaved, residualPercentForYears } from "./ato";
 import { buildFortnightSchedule, fyForDate } from "./lease_schedule";
 import { buildFyBreakdown } from "./fy_breakdown";
-import { atoChargingClaimAnnual } from "./charging";
 import { computeLeasePaymentsOverLease } from "./lease_payments";
 
 export type Scenario = "nl" | "cash" | "loan" | "keep";
@@ -251,8 +250,9 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
   const fbtApplies = isFbtApplicable(i);
 
   // Charging inputs (actual vs claim) — EV only.
-  // (Non-EV has no electricity claim and no charging delta.)
-  const assumedChargingClaimPerYear = i.vehicleType === "EV" ? atoChargingClaimAnnual(i) : 0;
+  // Claimable (packaged) electricity comes from InputsPanel `electricityAnnual` (user-adjustable).
+  // InputsPanel may default this to the ATO 4.2c/km shortcut, but users can override it.
+  const assumedChargingClaimPerYear = i.vehicleType === "EV" ? i.electricityAnnual : 0;
 
   // Packaged pre-tax components per fortnight (during lease)
   const preTaxVehicleFn = i.vehicleLeasePerFn;

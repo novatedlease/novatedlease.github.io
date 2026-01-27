@@ -7,7 +7,7 @@ import {
   financedAmountExGstFromInputs,
   effectiveAnnualRateFromFortnightlyLease,
 } from "../engine/effectiveinterest";
-import { estimateAnnualChargingExpense, atoChargingClaimAnnual } from "../engine/charging";
+import { estimateAnnualChargingExpense } from "../engine/charging";
 import { aud, aud0, pct } from "../utils/format";
 import { InfoTooltip } from "./ui/InfoTooltip";
 
@@ -87,11 +87,12 @@ export default function BasicInformationReport(props: {
     }
   })();
 
-  // Charging: actual spend (best estimate) and packaged claim (ATO shortcut)
+  // Charging: actual spend (best estimate) and packaged claim (from InputsPanel, user-adjustable).
+  // InputsPanel may default this to the ATO 4.2c/km shortcut, but users can override it.
   const chargingEstimate = estimateAnnualChargingExpense(i);
   const chargingExpensePerYear = chargingEstimate.annualChargingExpense;
   const kwhPerYear = chargingEstimate.kwhPerYear;
-  const assumedChargingClaimPerYear = atoChargingClaimAnnual(i);
+  const assumedChargingClaimPerYear = i.vehicleType === "EV" ? i.electricityAnnual : 0;
   const chargingDelta = assumedChargingClaimPerYear - chargingExpensePerYear;
 
   // “post-reimbursement effective charging expense”
@@ -232,7 +233,7 @@ export default function BasicInformationReport(props: {
         label={
           <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
             Assumed Charging per year (NL claim method)
-            <InfoTooltip text="How much the ATO lets you claim for home charging using the 4.2c/km shortcut (0.042 × km). This can be higher or lower than what you truly spent." />
+            <InfoTooltip text="The packaged (claimable) electricity amount used in the novated lease. This value comes from the Electricity input in the Inputs Panel (it may default to the ATO 4.2c/km shortcut, but you can override it)." />
           </span>
         }
         value={`$ ${aud(assumedChargingClaimPerYear)}`}

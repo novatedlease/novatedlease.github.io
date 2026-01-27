@@ -2,7 +2,7 @@ import type { Inputs } from "../engine/types";
 import { residualPercentForYears } from "../engine/ato";
 import { buildWorksheet130 } from "../engine/worksheet_130";
 import { useEffect } from "react";
-import { estimateAnnualChargingExpense, atoChargingClaimAnnual } from "../engine/charging";
+import { estimateAnnualChargingExpense } from "../engine/charging";
 import { calcResidualPayableIncGst, isFbtApplicable } from "../engine/types";
 import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
 import { computeLeasePaymentsOverLease } from "../engine/lease_payments";
@@ -132,9 +132,10 @@ useEffect(() => {
     return nonEnergyRunningCostPerFn * nn + energyExpenseOverFortnights(nn);
   };
 
-  // Packaged claim method (ATO shortcut 4.2c/km)
-  const packagedChargingClaimPerYear = atoChargingClaimAnnual(i);
-  const chargingDeltaAnnual = packagedChargingClaimPerYear - chargingExpensePerYear;
+  // Packaged (claimable) electricity figure should come from InputsPanel (user-adjustable).
+  // Default in InputsPanel is the ATO shortcut (4.2c/km), but users may override it.
+  const packagedChargingClaimPerYear = i.vehicleType === "EV" ? i.electricityAnnual : 0;
+  const chargingDeltaAnnual = i.vehicleType === "EV" ? packagedChargingClaimPerYear - chargingExpensePerYear : 0;
 
   // Worksheet uses NEGATIVE of LeaseReport delta, over lease years
   const chargingDeltaOverLease = -chargingDeltaAnnual * yearsLease;
@@ -151,8 +152,8 @@ useEffect(() => {
 
   const preTaxLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
 
-  // Pre-tax running per fortnight (packaged): EV uses ATO charging claim; non-EV uses packaged fuel.
-  const packagedEnergyAnnual = i.vehicleType === "EV" ? packagedChargingClaimPerYear : i.fuelAnnual;
+  // Pre-tax running per fortnight (packaged): EV uses InputsPanel electricityAnnual (claimable); non-EV uses fuel.
+  const packagedEnergyAnnual = i.vehicleType === "EV" ? i.electricityAnnual : i.fuelAnnual;
 
   const preTaxRunningFn =
     (i.serviceMaintTyresAnnual +
@@ -771,10 +772,11 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
     return nonEnergyRunningCostPerFn * nn + energyExpenseOverFortnights(nn);
   };
 
-  // Packaged claim method (ATO shortcut 4.2c/km)
-  const packagedChargingClaimPerYear = atoChargingClaimAnnual(i);
+  // Packaged (claimable) electricity figure should come from InputsPanel (user-adjustable).
+  // Default in InputsPanel is the ATO shortcut (4.2c/km), but users may override it.
+  const packagedChargingClaimPerYear = i.vehicleType === "EV" ? i.electricityAnnual : 0;
   const assumedChargingClaimPerYear = packagedChargingClaimPerYear;
-  const chargingDeltaAnnual = packagedChargingClaimPerYear - chargingExpensePerYear;
+  const chargingDeltaAnnual = i.vehicleType === "EV" ? packagedChargingClaimPerYear - chargingExpensePerYear : 0;
 
   // Worksheet uses NEGATIVE of LeaseReport delta, over lease years
   const chargingDeltaOverLease = -chargingDeltaAnnual * yearsLease;
@@ -791,8 +793,8 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
   // Pre-tax totals (used for FY breakdown to compute take-home impact)
   const preTaxLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
 
-  // Pre-tax running per fortnight (packaged): EV uses ATO charging claim; non-EV uses packaged fuel.
-  const packagedEnergyAnnual = i.vehicleType === "EV" ? packagedChargingClaimPerYear : i.fuelAnnual;
+  // Pre-tax running per fortnight (packaged): EV uses InputsPanel electricityAnnual (claimable); non-EV uses fuel.
+  const packagedEnergyAnnual = i.vehicleType === "EV" ? i.electricityAnnual : i.fuelAnnual;
 
   const preTaxRunningFn =
     (i.serviceMaintTyresAnnual +

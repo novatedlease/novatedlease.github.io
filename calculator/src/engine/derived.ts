@@ -1,7 +1,6 @@
 import type { Inputs } from "./types";
 import { isFbtApplicable } from "./types";
 import { buildFyBreakdown } from "./fy_breakdown";
-import { atoChargingClaimAnnual } from "./charging";
 
 export type AtiRow = {
   financialYearEnding: number;
@@ -19,7 +18,8 @@ export type Derived = {
 
   /**
    * Derived running costs using the same assumptions as the FY breakdown.
-   * (Includes the ATO EV home charging shortcut rate.)
+   * For EVs, the packaged (claimable) electricity amount comes from `inputs.electricityAnnual`
+   * (user-adjustable in InputsPanel; default may be the ATO 4.2c/km shortcut).
    */
   packagedChargingClaimPerYear: number;
   runningCostAnnual: number;
@@ -41,11 +41,12 @@ export type Derived = {
 export function computeDerived(inputs: Inputs): Derived {
   const fortnights = Math.round(inputs.leaseDurationYears * 26);
 
-  // Packaged running costs use the ATO EV home charging shortcut (4.2c / km) for EVs only.
-  const packagedChargingClaimPerYear = inputs.vehicleType === "EV" ? atoChargingClaimAnnual(inputs) : 0;
+  // Packaged running costs: for EVs use the user-adjustable claimable electricity figure from InputsPanel.
+  // (Default there may be the ATO shortcut 4.2c/km, but users can override it.)
+  const packagedChargingClaimPerYear = inputs.vehicleType === "EV" ? inputs.electricityAnnual : 0;
 
-  // Packaged energy cost: EV uses the ATO shortcut claim; non-EV uses user-entered fuel.
-  const packagedEnergyAnnual = inputs.vehicleType === "EV" ? packagedChargingClaimPerYear : inputs.fuelAnnual;
+  // Packaged energy cost: EV uses claimable electricity; non-EV uses user-entered fuel.
+  const packagedEnergyAnnual = inputs.vehicleType === "EV" ? inputs.electricityAnnual : inputs.fuelAnnual;
 
   const runningCostAnnual =
     inputs.serviceMaintTyresAnnual +

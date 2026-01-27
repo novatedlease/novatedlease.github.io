@@ -5,7 +5,31 @@
 
 #nl-calculator-root {
   /* keeps the calculator content from touching the edges */
-  padding: 16px;
+  padding: 8px 16px 16px;
+}
+
+/* Reduce the “big blank space” at the top in the MkDocs embed.
+   Most of it is usually the default top margin on the first heading/element. */
+#nl-calculator-root > :first-child {
+  margin-top: 0 !important;
+}
+
+/* The calculator page title is an h1 with a large default top margin in many browsers.
+   Force it to sit flush under the MkDocs header. */
+#nl-calculator-root h1 {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Keep left/right panel grid aligned closer to the title */
+#nl-calculator-root .nl-layout {
+  margin-top: 0 !important;
+}
+
+#nl-calculator-root h1:first-child,
+#nl-calculator-root h2:first-child,
+#nl-calculator-root h3:first-child {
+  margin-top: 0 !important;
 }
 
 /* Make inputs look reasonable without affecting the whole site */
