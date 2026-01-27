@@ -4,9 +4,29 @@ hide:
   - toc
 ---
 
-# Novated Leases — A Practical Reference Guide
+# Novated Leases — A Practical Reference Guide & Calculator
 
-I’m the author of a [free, comprehensive Australian novated lease calculator](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) and have been answering questions about novated lease on Reddit, Facebook, and other forums since 2023. This guide collects and organises the common explanations I’ve shared repeatedly into one self-contained resource.[^1]
+<div style="margin: 12px 0 20px 0;">
+
+<a href="/calculator/" style="display: inline-block; padding: 14px 20px; background: #2b6cb0; color: white; font-size: 1.1em; font-weight: 700; border-radius: 8px; text-decoration: none;">
+  👉 Launch the Free Novated Lease Calculator
+</a>
+<div style="margin-top: 6px; font-size: 0.85em; color: rgba(0,0,0,0.6);">
+  Independent • Educational • No signup • Australian context
+</div>
+
+ </div>
+
+---
+
+I’m the author of a free, comprehensive Australian novated lease calculator and have been answering questions about novated leases on Reddit, Facebook, and other forums since 2023. This guide collects and organises the common explanations I’ve shared repeatedly into one self‑contained, practical reference.[^1]
+
+<p style="text-align: center; font-size: 0.95em; margin-top: 12px;">
+  Prefer to jump straight to the numbers? → 
+  <a href="/calculator/" style="font-weight: 600;">
+    Open the Novated Lease Calculator
+  </a>
+</p>
 
 <div class="grid cards" markdown>
 
@@ -70,11 +90,13 @@ I’m the author of a [free, comprehensive Australian novated lease calculator](
 
 ---
 
-!!! info "Optional Support"
-    Both this guide and the spreadsheet are free. If they prove helpful, consider:
+!!! info "Support This Independent Calculator & Guide"
+    This calculator and guide are provided free as an independent, unbiased educational resource — something that is surprisingly hard to find in the novated-lease space.
+
+    If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ at BuyMeACoffee.com
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
 
 [^1]: I used LLM to help synthesise 70 of my old comments into this guide. Everything was checked and rewritten by me to keep my usual style as much as possible, though some LLM-style and infamous em-dash may remain. All contents are mine and there is no machine-hallucination. 
 
