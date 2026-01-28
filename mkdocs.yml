@@ -1,6 +1,6 @@
-site_name: Novated Lease Guides and Calculator
+site_name: Novated Lease Guide & Calculator
 site_url: https://novatedlease.guide
-site_description: Independent, evidence-based explanations of novated leases in Australia
+site_description: Independent, evidence-based guide and calculator for understanding novated leases in Australia, including EV and ICE comparisons, tax effects, risks, and net financial outcomes.
 site_author: changyang1230
 copyright: |
   <strong>Disclaimer</strong> &middot; This site provides general information and educational commentary only.
@@ -9,6 +9,8 @@ copyright: |
 theme:
   name: material
   custom_dir: docs/overrides
+  logo: assets/images/logo.png
+  favicon: assets/images/logo.png
   features:
     - navigation.tabs
     - navigation.tabs.sticky
@@ -18,8 +20,8 @@ theme:
     - navigation.tracking
     - toc.integrate  
     - toc.follow
-    
 
+      
 markdown_extensions:
   - footnotes
   - tables

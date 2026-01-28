@@ -108,7 +108,7 @@ This creates a genuine trade-off:
 - **ICE novated leases**:  
   higher income tax (and therefore costlier lease), but typically little or no RFBA and hence a smaller impact on adjusted taxable income (often preserving means-tested benefits)
 
-As a general observation, the take-home pay benefit of an EV novated lease often outweighs the reduction in means-tested subsidies. However, this is highly dependent on individual circumstances and should [always be calculated](../costs-and-savings/use-nl-spreadsheet.md) rather than assumed.
+As a general observation, the take-home pay benefit of an EV novated lease often outweighs the reduction in means-tested subsidies. However, this is highly dependent on individual circumstances and should always be calculated rather than assumed. You can model the **full net outcome** — including income tax savings, RFBA effects, and opportunity cost — using the [novated lease calculator](../calculator/index.md).
 
 ---
 

@@ -1,7 +1,40 @@
 {% extends "base.html" %}
 
+{% block htmltitle %}
+  {% if page.url == "calculator/" %}
+    <title>Novated Lease Calculator — Compare Net Outcomes</title>
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+
 {% block extrahead %}
   {{ super() }}
+
+  <!-- Open Graph / Social previews -->
+  {% set og_image = "https://novatedlease.guide/assets/images/og-default.png" %}
+  {% set page_title = (page.title if page else config.site_name) %}
+  {% set og_title = page_title ~ " — " ~ config.site_name %}
+  {% if page and page.url == "calculator/" %}
+    {% set og_title = "Novated Lease Calculator — Compare Net Outcomes" %}
+  {% endif %}
+
+  {% set meta_description = (page.meta.get('description') if page and page.meta else None) %}
+  {% set og_description = (meta_description if meta_description else config.site_description) %}
+  {% set og_url = (page.canonical_url if page and page.canonical_url else config.site_url) %}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ og_title }}" />
+  <meta property="og:description" content="{{ og_description }}" />
+  <meta property="og:url" content="{{ og_url }}" />
+  <meta property="og:image" content="{{ og_image }}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ og_title }}" />
+  <meta name="twitter:description" content="{{ og_description }}" />
+  <meta name="twitter:image" content="{{ og_image }}" />
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-52RWVTCGLP"></script>

@@ -38,6 +38,8 @@ A novated lease simply divides the cost of the car into:
 
 Ignoring the residual is equivalent to ignoring part of the purchase price.
 
+This is exactly why residual values must be included when assessing whether a novated lease makes sense overall. You can see how residual values form part of the **net financial outcome** when you model realistic scenarios in the [novated lease calculator](../calculator/index.md).
+
 ---
 
 ## Market value ≠ residual value

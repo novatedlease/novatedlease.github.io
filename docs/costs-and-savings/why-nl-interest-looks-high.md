@@ -143,7 +143,7 @@ If headline interest rates are unreliable, how should two novated lease quotes b
 
 There are two possible approaches:
 
-- estimate the effective interest rate using a **standardised methodology** (for example, using the [novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) interest rate tab that applies the same assumptions to all quotes), or  
+- estimate the effective interest rate using a **standardised methodology** (for example, using the [novated lease calculator](../calculator/index.md)'s automatically derived effective interest rate and use it across different quotes), or  
 - more simply, compare the **total vehicle lease cost plus fees**, excluding running costs.
 
 Running costs are not financing costs; they are prepaid budgets. They do not change your outcomes all else being equal. 
@@ -156,7 +156,8 @@ In short, a meaningful comparison requires modelling:
 - compared against realistic alternatives (car loan or offset cash; not a strawman lease),
 - incorporating tax, fees, residuals, and opportunity cost.
 
-Only then does the interest rate take its proper place — as **one of the many inputs**, not the sole verdict.
+
+If you want to see how all of these components interact in practice — interest, fees, residuals, tax treatment, and opportunity cost — you can **model the full net outcome** using the [novated lease calculator](../calculator/index.md), rather than relying on the headline interest rate alone.
 
 ---
 

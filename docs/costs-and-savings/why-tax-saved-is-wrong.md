@@ -14,6 +14,8 @@ The problem is that **“tax saved” is not a measure of whether you are better
 
 On its own, it is a misleading and incomplete metric.
 
+If you want to see how this plays out numerically, you can **model the full net outcome** using the [novated lease calculator](../calculator/index.md), rather than relying on headline “tax saved” figures.
+
 ---
 
 ## The printer analogy
@@ -84,6 +86,8 @@ then it is entirely possible to:
 
 > **pay $40,000 extra in order to “save” $39,000 in tax**,  
 > while also accepting multiple non-financial downsides.
+
+This trade-off becomes much clearer when you compare realistic alternatives side by side. The [novated lease calculator](../calculator/index.md) is designed to make these comparisons explicit by focusing on overall financial position, not tax in isolation.
 
 In that situation:
 
@@ -173,7 +177,7 @@ That requires comparing:
 - against realistic alternatives,
 - across cashflow, assets, and liabilities.
 
-This is what [the novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) sets out to achieve.
+This is what the [novated lease calculator](../calculator/index.md) and the original spreadsheet aim to achieve — comparing realistic alternatives on a like-for-like basis. 
 
 ---
 
@@ -197,4 +201,4 @@ A novated lease can be worthwhile if:
     If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
