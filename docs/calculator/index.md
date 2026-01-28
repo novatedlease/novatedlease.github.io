@@ -1,7 +1,6 @@
 ---
 title: "Novated Lease Calculator"
-seo:
-  title: "Novated Lease Calculator"
+description: An independent Australian novated lease calculator that compares real net outcomes — not headline “tax saved” claims — across EV and ICE options.
 hide:
   - navigation
   - toc
