@@ -570,7 +570,16 @@ export default function InputsPanel(props: InputsPanelProps) {
               <div style={{ display: "flex", alignItems: "baseline", gap: 6, flexWrap: "wrap" }}>
                 <span style={{ fontWeight: 800, opacity: 0.75 }}>Effective interest rate:</span>
                 <span style={{ fontWeight: 900 }}>{props.formatPct(props.guardLiveRatePct)}</span>
-                <span style={{ opacity: 0.7 }}>(Definition 1)</span>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 6, opacity: 0.7 }}>
+                  <span>(Definition 1)</span>
+                  <InfoTooltip
+                    text={
+                      <>
+                        <b>WARNING:</b> The calculated effective interest rate is invalid if the financed figure contains insurance, repair package or other vehicle add-ons that are not part of the FBT base value, as the financed amount used in this calculator does not consider these add-ons. The presence of these add-ons also make comparison with other financiers invalid if they do not contain equivalent add-ons.
+                      </>
+                    }
+                  />
+                </span>
               </div>
 
               {props.guardMessage ? (
@@ -595,7 +604,23 @@ export default function InputsPanel(props: InputsPanelProps) {
   <MoneyField
     label="Financed amount reported in your quote"
     tooltip={
-      <InfoTooltip text="This is only used for interest calculation. If you don't know this figure, leave it as this pre-calculated figure. If you have a financed amount figure, make sure it does not contain first year insurance or other after-market add-ons, otherwise the calculation will in interest-rate section is invalid." />
+      <InfoTooltip
+        text={
+          <>
+            <p style={{ margin: "0 0 8px 0" }}>
+              This is only used for interest calculation.
+            </p>
+            <p style={{ margin: "0 0 8px 0" }}>
+              <b>
+                If you don't know this figure, leave it as this pre-calculated figure. If you have a financed amount figure, make sure it does not contain first year insurance or other after-market add-ons.
+              </b>
+            </p>
+            <p style={{ margin: 0 }}>
+              <b>WARNING:</b> The calculated effective interest rate is invalid if the financed figure contains insurance, repair package or other vehicle add-ons that are not part of the FBT base value, as the financed amount used in this calculator does not consider these add-ons. The presence of these add-ons also make comparison with other financiers invalid if they do not contain equivalent add-ons.
+            </p>
+          </>
+        }
+      />
     }
     value={inputs.financedAmountForInterestCalcExGst}
     step={100}
@@ -690,9 +715,11 @@ export default function InputsPanel(props: InputsPanelProps) {
             <MoneyField
               label="Electricity"
               tooltip={
-                <>
-                  <InfoTooltip text="Annual figure. Auto-filled from Annual Mileage × 4.2c/km (ATO shortcut method). You can override if you choose other claim methods. Note: this is the allowed claim amount, not your true out-of-pocket electricity expense (enter that in the Electricity section below)." />
-                </>
+                <InfoTooltip text={
+                  <>
+                    Annual figure. Auto-filled from Annual Mileage × 4.2c/km (ATO shortcut method). You can override if you choose other claim methods. <b>Note:</b> this is the allowed claim amount by ATO, not your true out-of-pocket electricity expense (which should be entered in the Electricity section below).
+                  </>
+                } />
               }
               value={inputs.electricityAnnual}
               step={10}
@@ -704,7 +731,7 @@ export default function InputsPanel(props: InputsPanelProps) {
             />
           ) : (
             <MoneyField
-              label="Fuel (annual)"
+              label="Fuel"
               tooltip={
                 <>
                   <InfoTooltip text="Annual figure. Enter your expected fuel cost for the year (petrol/diesel)." />
@@ -731,7 +758,7 @@ export default function InputsPanel(props: InputsPanelProps) {
           />
 
           <MoneyField
-            label="Management / Membership Fees"
+            label="Management Fees"
             tooltip={
               <>
                 <InfoTooltip text="Annual figure, sum of all novated lease membership / management fees." />
@@ -777,7 +804,7 @@ export default function InputsPanel(props: InputsPanelProps) {
     defaultOpen={Boolean(inputs.overrideAnnualChargingExpense)}
   >
     <MoneyField
-      label="Annual Charging Expense (set 0 to clear)"
+      label="Annual Charging Expense"
       tooltip={
         <>
           <InfoTooltip text="If you have a better estimate of annual charging expense, enter it here (e.g. frequent public charging). Otherwise leave it as 0." />

@@ -109,7 +109,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
     <div style={{ marginTop: 10, fontSize: 13, opacity: 0.75, fontStyle: "italic" }}>
       <div>
         ⚠️ Some effects are not accounted for (for example, changes in government subsidies), as these are too complex to fully
-        calculate. calculate.{" "}
+        calculate. {" "}
 <button
   type="button"
   onClick={() => {
