@@ -15,11 +15,20 @@ hide:
   Independent • Educational • No signup • Australian context
 </div>
 
+<p style="text-align: left; font-size: 0.85em; color: rgba(0,0,0,0.6); margin-top: 8px;">
+  Suggested Reading: <a href="/start-here/is-it-worth-it/">Is a novated lease right for me</a>
+  &nbsp;·&nbsp;
+  <a href="/costs-and-savings/why-tax-saved-is-wrong/">Why "tax saving" is misleading</a>
+</p>
+
  </div>
+
 
 ---
 
-I’m the author of a free, comprehensive Australian novated lease calculator and have been answering questions about novated leases on Reddit, Facebook, and other forums since 2023. This guide collects and organises the common explanations I’ve shared repeatedly into one self‑contained, practical reference.[^1]
+I’m the author of a free, comprehensive Australian novated lease calculator and have been answering questions about novated leases on Reddit, Facebook, and other forums since 2023.
+
+This guide collects and organises the explanations I’ve shared repeatedly (often in response to misleading claims or confusing marketing) into one self‑contained, practical reference.[^1]
 
 <p style="text-align: center; font-size: 0.95em; margin-top: 12px;">
   Prefer to jump straight to the numbers? → 
@@ -27,6 +36,7 @@ I’m the author of a free, comprehensive Australian novated lease calculator an
     Open the Novated Lease Calculator
   </a>
 </p>
+
 
 <div class="grid cards" markdown>
 
@@ -37,13 +47,14 @@ I’m the author of a free, comprehensive Australian novated lease calculator an
     -   [What is a novated lease — really?](start-here/what-is-novated-lease.md)
     -   [Why EV and ICE novated leases are functionally different products](start-here/ev-vs-ice-compared.md)
     -   [Is a novated lease right for me?](start-here/is-it-worth-it.md)
+    -   [How to read a novated lease quote?](start-here/how-to-read-a-novated-lease-quote.md)
 
 -   **:material-cogs: Mechanisms explained**
     
     Understand the financial mechanics behind novated leases.
     
     -   [Why “tax saved” is the wrong way to evaluate a novated lease](costs-and-savings/why-tax-saved-is-wrong.md)
-    -   [Why are novated lease effective interest rates sky high — yet may still work](costs-and-savings/why-nl-interest-looks-high.md)
+    -   [Why novated lease effective interest rates look high — yet may still work](costs-and-savings/why-nl-interest-looks-high.md)
     -   [FBT, RFBA, and adjusted taxable income — explained clearly](costs-and-savings/fbt-rfba-ati-explained.md)
     -   [All about residual values](costs-and-savings/why-residual-values-matter.md)
     -   [How to use the novated lease spreadsheet (and what it can and cannot tell you)](costs-and-savings/use-nl-spreadsheet.md)
@@ -99,4 +110,3 @@ I’m the author of a free, comprehensive Australian novated lease calculator an
     - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
 
 [^1]: I used LLM to help synthesise 70 of my old comments into this guide. Everything was checked and rewritten by me to keep my usual style as much as possible, though some LLM-style and infamous em-dash may remain. All contents are mine and there is no machine-hallucination. 
-

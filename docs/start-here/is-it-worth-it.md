@@ -10,14 +10,12 @@ The right question is:
 
 Novated leases are highly **context-dependent**.  They can be extremely favourable in some situations, and mediocre or even harmful in others.
 
-The impact of a novated lease within an individual can be mixed depending on individual circumstances. You need to consider its effects across multiple domains at the same time.
-
 
 ---
 
 ## Start with a holistic view rather than the savings figure
 
-Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **[$46,000 better off than paying cash](../about/about-me.md#the-mind-blowing-discovery)**. 
+Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **[$46,000 better off than paying cash](../about/about-me.md#the-mind-blowing-discovery)**. (The default figures and calculation in [this website's calculator](../calculator/index.md) are faithful reproduction of my personal circumstances except the income figure)
 
 However, beyond simply crunching the savings figures, I would encourage people to **take a more holistic view** of whether they are an appropriate candidate for a novated lease.
 
@@ -41,7 +39,7 @@ A novated lease tends to be more favourable if you:
   novated leases significantly reduce borrowing capacity - I have seen estimates where a $70k car reduces borrowing power by $200k or more
 
 - **have considered [the impact on government subsidies](../costs-and-savings/fbt-rfba-ati-explained.md)**  
-  childcare subsidy, HECS/HELP repayments, Division 293 tax, etc, can all be affected via reportable fringe benefits. (This is more specific for EV; novated lease for ICE typically does not negatively affect government subsidies)
+  childcare subsidy, HECS/HELP repayments, Division 293 tax, etc, can all be affected via reportable fringe benefits. (This impact is primarily relevant for FBT-exempt EV novated leases; ICE novated leases typically do not worsen eligibility for most government subsidies.)
 
 - **have checked [how your employer calculates super guarantee](../special-and-policy/super-guarantee.md)**  
   a small but non-trivial number of payroll departments calculate super on *post-novated-lease salary*, which can cost you $1,000+ per year in lost employer contributions

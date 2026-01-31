@@ -1,4 +1,4 @@
-# Risk mitigation strategies for early termination risk
+# Risk mitigation strategies for early termination
 
 This article builds on the discussion of [early termination and the risk of high payouts](early-termination.md).
 
@@ -8,6 +8,7 @@ There are three primary strategies to mitigate this risk:
 - **"lease protection" type insurance**
 - **ensuring car insurance covers the payout**
 
+All of these strategies involve trade-offs. None of them eliminate risk entirely; they only reduce its magnitude.
 
 ## Lease-splitting reduces the maximum damage during early termination
 
@@ -46,7 +47,7 @@ This asymmetry is what makes shorter initial terms disproportionately important 
 
 When you enter a novated lease, you are effectively paying down the car’s value from its original price down to the residual value using **pre‑tax dollars**, with financing costs attached.
 
-You can think of this pre‑tax financed portion as the **“at‑risk portion”** in a catastrophic early‑termination scenario.
+You can think of this pre-tax financed portion as the **“at-risk portion”** — the part that causes disproportionate damage in a catastrophic early‑termination scenario.
 
 Why?
 
@@ -80,7 +81,7 @@ By contrast, under a **1 + 4 structure**:
 
 At any point in time, the maximum exposed “at‑risk” portion is materially lower than under a straight 5‑year commitment.
 
-In most cases, this means that even in a worst‑case early‑termination scenario, the total financial damage is still **no worse than a cash purchase**, rather than substantially worse.
+In most cases, this means that even in a worst‑case early‑termination scenario, the total financial damage is **no worse than a cash purchase**, rather than substantially worse — which is the critical difference.
 
 ---
 
@@ -128,7 +129,7 @@ Lease protection insurance may make sense for some people, but it is not “free
 
 ## Ensure accident insurance payout is adequate 
 
-As discussed in the [“How bad can it get?” article](how-bad-can-early-termination-get.md), if a leased vehicle is written off without new-for-old replacement (e.g. after the second year of typical policies), quite often the default "agreed value" payout is insufficient to cover the immediately payable remaining-leases as stipulated by the lease. 
+As discussed in the [“How bad can it get?” article](how-bad-can-early-termination-get.md), if a leased vehicle is written off without new-for-old replacement (e.g. after the second year of typical policies), the default “agreed value” payout is often insufficient to cover the immediately payable remaining lease obligations stipulated by the lease.
 
 Two main ways to help cover this shortfall are:
 
@@ -142,7 +143,7 @@ Again, similar principle applies i.e. these approaches both cause additional exp
 
 If you remember nothing else:
 
-> **While early termination risk may always exist, there are some practical ways to mitigate it.**
+> **While early termination risk can never be eliminated entirely, there are practical ways to materially reduce its impact.**
 
 Understanding that upfront turns early termination from a nasty shock into a quantifiable and mitigable risk.
 

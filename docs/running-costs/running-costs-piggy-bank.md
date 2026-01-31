@@ -12,7 +12,7 @@ None of that is true.
 
 Running costs budgeting in a novated lease is best thought of as **a piggy bank funded with your pre-tax income**.
 
-Over- or under-budgeting the running cost in the beginning does not by itself lead to losses at the conclusion of the lease. [^1]
+Over- or under-budgeting running costs at the beginning does not, by itself, create losses at the conclusion of the lease. [^1]
 
 ---
 
@@ -31,7 +31,7 @@ That budget might be based on:
 - charging,
 - etc.
 
-For example, if you tell them you expect to drive **25,000 km per year**, and you’re using the ATO shortcut method:
+For example, if you tell them you expect to drive **25,000 km per year**, and you’re using the [ATO 4.2c/km method](../running-costs/ato-42c-per-km-shortcut.md):
 
 - 25,000 × $0.042 = **$1,050 per year**
 
@@ -110,7 +110,7 @@ Because it flows back through payroll, it will be taxed at that point (as normal
 
 Over-budgeting just means you temporarily parked too much pre-tax money in the piggy bank.
 
-Importantly, the overbudgeted running cost **can't be used to pay down the residual value** of the car, as this has to be paid with post-tax dollars. 
+Importantly, the over-budgeted running costs **can't be used to pay down the residual value** of the car, as this has to be paid with post-tax dollars. 
 
 ---
 
@@ -137,6 +137,8 @@ This usually happens like this:
 - their take-home pay looks great,
 - and they mentally anchor to that number as *“what the car costs me”*.
 
+This is the same anchoring error discussed in [why “tax saved” is misleading](../costs-and-savings/why-tax-saved-is-wrong.md).
+
 For a while, everything feels fine because the piggy bank is quietly being under-funded relative to reality.
 
 
@@ -162,7 +164,7 @@ People often experience this as:
 
 > “My novated lease suddenly got more expensive.”
 
-It is important to note that this is an expectation problem, not a novated-lease structure problem. 
+It is important to note that this is an **expectation problem**, not a novated lease problem. 
 
 The same issue would have arisen if you bought the car upfront thinking that the insurance premium would always be $1,500 per year, only to be shocked when it rose to $2,000 the next year. 
 
@@ -180,6 +182,8 @@ A sensible approach is to:
 
 People should anchor their novated-lease calculations primarily on the vehicle cost component, since that is the fixed financial cost determined upfront. Running costs should be treated as a separate, variable consideration.
 
+The [novated lease calculator](../calculator/index.md) separates vehicle costs from running costs for this exact reason.
+
 ---
 
 ## Key takeaway
@@ -188,7 +192,7 @@ If you remember nothing else:
 
 > **Running costs in a novated lease are just a pre-tax piggy bank.**
 
-You estimate > Money gets set aside > You claim what you actually use.
+You estimate → money gets set aside → you claim what you actually use.
 
 If you get the estimate wrong, you adjust it as you go. 
 
@@ -206,4 +210,4 @@ If you get the estimate wrong, you adjust it as you go.
     If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

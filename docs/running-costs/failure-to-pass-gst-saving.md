@@ -12,6 +12,8 @@ Under a *typical* novated lease arrangement, this GST should **not be a real cos
 
 But that assumption is not universally true.
 
+When GST savings are not passed on, **every running cost becomes about 10% more expensive than it needs to be**, quietly eroding the benefit of the novated lease.
+
 ---
 
 ## How GST savings normally work in a novated lease
@@ -25,7 +27,7 @@ Under most novated lease arrangements:
     - maintenance,
 - those GST credits are then **passed on to you**, meaning:
     - you effectively pay only the *GST-exclusive* amount
-    - funded using **pre-tax income**.
+    - funded using pre-tax income from your salary.
 
 ### Example: when GST savings *are* passed on
 
@@ -37,11 +39,11 @@ Suppose you pay **$11** for a car wash:
 If your employer passes on the GST credit:
 
 - you effectively only pay the **$10 base cost**,
-- funded using pre-tax income.
+- funded using pre-tax income from your salary.
 
 If you are on the **top marginal tax bracket (45% + 2% Medicare levy)**:
 
-- take-home impact = $10 × (1 − 47%) = **$5.30**
+- take-home cost = $10 × (1 − 47%) = **$5.30**
 
 The GST component has effectively disappeared.
 
@@ -60,9 +62,9 @@ In effect:
 
 Using the same $11 car wash example:
 
-- you now pay the full **$11** using pre-tax income,
+- you now pay the full **$11** using pre-tax income from your salary,
 - at the top tax bracket:
-  - take-home impact = $11 × (1 − 47%) = **$5.83**
+  - take-home cost = $11 × (1 − 47%) = **$5.83**
 
 That is a **10% increase in effective cost**, purely because the GST credit was not passed on.
 
@@ -76,15 +78,17 @@ Failing to pass on GST credits means:
 - every fuel fill, service, tyre replacement, and insurance premium is affected,
 - the cumulative impact over a multi-year lease can be material.
 
+Over a five-year lease, this can amount to **thousands of dollars of unnecessary extra cost**.
+
 This erodes the “savings” people expect from novated leasing.
 
 ---
 
 ## Where this is most commonly seen
 
-Anecdotally, this practice appears **disproportionately common in some Victorian public hospitals**.
+Anecdotally, this practice appears **more common in some Victorian public hospitals**.
 
-That does *not* mean it is universal, but it is common enough to warrant explicit checking.
+That does *not* mean it is universal, but it is common enough to warrant explicit checking in your quote.
 
 Many employees assume GST savings are automatic, but they are not.
 
@@ -167,4 +171,4 @@ Check your quote. A 10% leakage on running costs can quietly undo a meaningful c
     If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

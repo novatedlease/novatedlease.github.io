@@ -9,7 +9,7 @@ This assumption is wrong.
 
 While both arrangements are called “novated leases”, **they operate under fundamentally different tax mechanics**, and therefore behave very differently in practice.
 
-Failing to separate the two leads to poor comparisons and misleading conclusions. It also explains why many comments confidently assert that “novated leases are never worth it”, often based on outdated experience with novated lease for ICE vehicles and without any awareness of the FBT exemption that applies to eligible EVs.
+Failing to separate the two leads to poor comparisons and misleading conclusions. It also explains why many comments confidently assert that “novated leases are never worth it”, often based on outdated experience with novated leases for ICE vehicles and without any awareness of the FBT exemption that applies to eligible EVs.
 
 ---
 
@@ -21,7 +21,7 @@ The single most important distinction is this:
 - **Plug-in hybrid EVs** were also FBT-exempt prior to 1 April 2025, with all pre-existing leases grandfathered until the end of their term.
 - **ICE (petrol and diesel cars)** novated leases are not exempt.
 
-This is not a minor technicality. FBT exemption produces cost difference of **thousands of dollars per year**. 
+This is not a minor technicality. It fundamentally changes how much of the vehicle’s cost can be funded using pre-tax income. FBT exemption produces cost differences of **thousands of dollars per year**. 
 
 ---
 
@@ -58,6 +58,8 @@ As a result:
 - a much larger proportion of costs can be funded using **pre-tax income**
 - income tax reductions are far more substantial
 
+If these distinctions sound abstract, the [novated lease calculator](../calculator/index.md) allows you to model EV and ICE scenarios side by side under their respective rules.
+
 This is a deliberate policy choice introduced in 2022 to encourage EV uptake.
 
 However, this policy change applies to **EVs ([subject to future review](../special-and-policy/ev-fbt-exemption-review-timing.md)), and previously to PHEVs (up to 1 April 2025)**; not to novated leasing as a general concept.
@@ -83,6 +85,9 @@ EV novated leases appear more attractive because:
 
 ICE vehicles continue to operate under the original rules.
 
+!!! note "Why discussions often go nowhere"
+    Many arguments about novated leases fail because one person is implicitly discussing EV novated leases, while the other is thinking about ICE novated leases — without realising they are analysing different products.
+
 ---
 
 ## RFBA and adjusted taxable income: where the trade-off appears
@@ -95,11 +100,6 @@ Although EV novated leases are FBT-exempt, the benefit is still reported as a **
 - but it *does* affect adjusted taxable income (ATI)
 - which in turn affects HECS/HELP repayments, childcare subsidy, Division 293 tax, and other means-tested outcomes
 
-ICE novated leases, by contrast:
-
-- often generate little or no RFBA once ECM is applied
-- but achieve this by shifting more cost into post-tax payments
-
 This creates a genuine trade-off:
 
 - **EV novated leases**:  
@@ -108,7 +108,7 @@ This creates a genuine trade-off:
 - **ICE novated leases**:  
   higher income tax (and therefore costlier lease), but typically little or no RFBA and hence a smaller impact on adjusted taxable income (often preserving means-tested benefits)
 
-As a general observation, the take-home pay benefit of an EV novated lease often outweighs the reduction in means-tested subsidies. However, this is highly dependent on individual circumstances and should always be calculated rather than assumed. You can model the **full net outcome** — including income tax savings, RFBA effects, and opportunity cost — using the [novated lease calculator](../calculator/index.md).
+As a general observation, the take-home pay benefit of an EV novated lease often outweighs the reduction in means-tested subsidies. However, this is highly dependent on individual circumstances and should always be calculated rather than assumed. You can model the **net outcome** — including income tax savings, RFBA effects, and opportunity cost — using the [novated lease calculator](../calculator/index.md).
 
 ---
 
@@ -157,4 +157,4 @@ If you remember nothing else:
     If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

@@ -207,7 +207,12 @@ export default function BasicInformationReport(props: {
           fontStyle: "italic",
         }}
       >
-        Electricity Report (Annual)
+        <>Annual Electricity Report (<a
+  href="https://novatedlease.guide/running-costs/ato-42c-per-km-shortcut/"
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ textDecoration: "underline" }}
+>Learn More</a>)</>
       </div>
       <KeyValue
         label={
@@ -253,7 +258,22 @@ export default function BasicInformationReport(props: {
         label={
           <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
             Post-Reimbursement Effective Charging Expense
-            <InfoTooltip text="A simplified estimate of your effective charging cost after the tax benefit of the claim: actual expense − (claim × marginal tax rate). A negative value means you effectively profit from charging cheaply and claiming via the distance method." />
+            <InfoTooltip
+              text={
+                <>
+                  <p style={{ margin: "0 0 10px 0" }}>
+                    A simplified estimate of your effective charging cost after the tax benefit of the claim: actual expense − (claim ×
+                    marginal tax rate). A negative value means you effectively profit from charging cheaply and claiming via the distance
+                    method.
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    <b>Example:</b> In the default example, we spent $371.25 in charging in reality; however ATO&apos;s 4.2c/km rule allowed us
+                    to claim $630 dollars. This $630 effectively translates to $630 * 47% (default example&apos;s tax bracket) = $296.10 in tax
+                    refund. Once all is accounted for, this is equivalent to $371.25 - $296.10 = $75.15 net charging expense.
+                  </p>
+                </>
+              }
+            />
           </span>
         }
         value={`$ ${aud(postReimbursementEffectiveChargingExpense)}`}

@@ -27,7 +27,7 @@ This applies to **home charging**, and it is:
 
 In other words:
 
-> **When it comes to claiming home-charging expense, the ATO does not care how you actually charged the car. They only care how far you drove it.**
+> **When it comes to claiming home charging expense, the ATO does not care how you actually charged the car. They only care how far you drove it.**
 
 This makes the method simple, cheap to comply with, and very predictable.
 
@@ -41,7 +41,7 @@ A very common misunderstanding is this:
 
 That is **not** how it works.
 
-The 4.2c/km amount behaves like a **tax deduction**, not a refund.
+The 4.2c/km amount behaves like a **tax deduction**, not a cash reimbursement.
 
 ### Example
 
@@ -58,11 +58,11 @@ For someone on **30% tax + 2% Medicare levy**:
 
 - Net benefit = $420 × 32% = **$134.40**
 
-So you are not being paid $420; you are reducing your tax bill by $134.40
+So you are not being paid $420; you are reducing your tax bill by $134.40.
 
 ---
 
-## The counter-intuitive bit: you can "make money from charging-and-driving"
+## The counter-intuitive bit: you can make a net financial gain from charging and driving
 
 Because the claim is **distance-based**, not cost-based, something interesting can happen.
 
@@ -76,9 +76,11 @@ then the **actual electricity cost** of driving those kilometres can be **lower*
 
 In that situation, the net effect is that:
 
-> **you make net profit from charging your EV.**
+> **you can make a net financial gain from charging your EV.**
 
 This feels wrong intuitively, but it is simply a consequence of the shortcut being deliberately conservative and administratively simple.
+
+This does not eliminate other novated-lease risks, but nevertheless is an interesting "perk" of EV novated lease. 
 
 ---
 ### Example
@@ -98,6 +100,26 @@ When you claim the $630,
 - Tax refund = $630 × 47% = **$296.10**
 
 Once you reconcile with your actual expense, post-claiming you have made **$116.10 profit** from charging the car. 
+
+The calculations above are automatically performed in the **Detail - Basic Information - Annual Electricty Report**, under **Post-Reimbursement Effective Charging Expense** figure.
+
+!!! info "Myth-busting: "If I charge mostly for free, I shouldn’t claim electricity""
+    A common mistake is to remove or minimise the electricity claim (e.g. "$50 per month for charging") on the assumption that
+    *"I charge mostly for free on solar / work, so why would I include this cost?"*
+
+    This is a **mathematical error caused by misunderstanding the mechanics**.
+
+    When you "budget $50 per month" for EV charging under a novated lease, you are **not spending $50**.
+    You are instead **setting aside $50 of gross (pre-tax) income** that is sheltered from income tax.
+
+    If your actual charging cost is low (or close to zero), you still keep the **tax benefit** of that claim — which results in a
+    **net financial gain**, as demonstrated in the examples above.
+
+    In practice, this means you should **almost never skip the electricity claim**, even if you charge very cheaply or for free.
+    Doing so simply leaves money on the table.
+
+    The only realistic exception would be if claiming electricity incurs additional administrative costs that outweighs the financial
+    benefit. This does **not** appear to apply for most major novated lease providers.
 
 ---
 
@@ -130,21 +152,25 @@ If you choose this approach, you can't claim any home charging.
 
 ---
 
-### 3. Mixed method (home + commercial charging)
+### 3. Mixed method (home charging + commercial charging)
 
 This is the least common, but sometimes **most beneficial**, and it’s the method I personally use some years. 
+
+It is also the most record-keeping-intensive approach, and only worthwhile if the additional deduction meaningfully exceeds the extra effort.
 
 You can do this **only if**:
 
 - your vehicle can reliably report **how much charging occurred at home vs elsewhere**, and
 - you keep proper records i.e. odometer reading for the period covering each FBT year i.e. **1 April to 31 March**
 
+Note that EV charging claims follow the **FBT year (1 April – 31 March)**, not the income tax year.
+
 The method works like this:
 
-- home-charging distance → claimed at **4.2c/km** (pro-rated based on charging ratio),
+- home charging distance → claimed at **4.2c/km** (pro-rated based on charging ratio),
 - commercial charging → claimed using **actual invoices**.
 
-The home-charging to commercial-charging ratio is derived from the energy split (kWh charged at home as a proportion of total charging).
+The home charging to commercial charging ratio is derived from the energy split (kWh charged at home as a proportion of total charging).
 
 Depending on:
 
@@ -157,14 +183,14 @@ this mixed approach can result in a **higher total deduction** than using the sh
 
 **Example:**
 
-From period of **1/4/2023 to 31/3/2024**, an EV has driven **12,418km**. According to the Tesla app, over this period, **1,447 kWh** is charged at home out of **2,432 kWh** total, which is **59.5%**. 
+From the period **1/4/2023 to 31/3/2024**, an EV has driven **12,418km**. According to the Tesla app, over this period, **1,447 kWh** is charged at home out of **2,432 kWh** total, which is **59.5%**. 
 
 This means we can apportion the 12,418km to: 
 
 - 7,389km (59.5%) charged at home
 - the rest charged elsewhere.
 
-We then use the 4.2c/km rule to calculate the home-portion charging expense, alongside all the commercial charging invoices in this time period, and claim both amounts. 
+We then use the 4.2c/km rule to calculate the home portion charging expense, alongside all the commercial charging invoices in this time period, and claim both amounts. 
 
 ---
 
@@ -212,4 +238,4 @@ For others, more precise methods may make sense, but only if you are willing and
     If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

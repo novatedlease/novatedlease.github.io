@@ -2,11 +2,13 @@
 
 Early termination is the **single largest asymmetric risk** in a novated lease.
 
-**When it does happen, the financial impact is severe and verging on counter-intuitive**.
+When it does happen, the financial impact is severe and often counter-intuitive.
 
-This should be read together with the high level overview of "why early termination leads to financial damage" in the [early termination](early-termination.md) page. 
+This page is not about whether novated leases are *usually* a good idea.
 
-This page focuses on demonstrating the impact with **worked numerical examples**, using a real-world lease.
+It focuses on demonstrating, with real numbers, **how large the downside can be when early termination occurs**, and why this risk deserves explicit consideration, even if the probability feels low.
+
+For a conceptual explanation of *why* early termination causes financial damage, see the [early termination overview](early-termination.md).
 
 ---
 
@@ -25,7 +27,7 @@ I am going to use my actual lease as an example.
 Original car funding: 
 
 - **Under FBT-exempt novated lease, the take-home impact for 5 years:** $41,165.68 + $23,234.63 = $64,400.31. 
-- Compare this to the driveaway price of $81,422.50 which is a full **$17k cheaper** from cashflow perspective. (Note that this is only a consideration of the vehicle cost alone, running cost is skipped in this analysis)
+- Compare this to the drive-away price of $81,422.50 which is a full **$17k cheaper** from cashflow perspective. (Note that this is only a consideration of the vehicle cost alone, running cost is skipped in this analysis)
 
 Now consider the scenario where I am **made redundant 3 months (6 fortnights) into the lease**. 
 
@@ -35,7 +37,9 @@ Now consider the scenario where I am **made redundant 3 months (6 fortnights) in
     - Note that I will also have to pay the **GST, so another 10%**: $74,086.28 x 1.1 = $81,494.91. 
 - **Residual value payable (inc GST):** $23,234.63. 
 - **Grand total paid for the car:** $1,899.96 + $81,494.91 + $23,234.63 = $106,629.50. 
-- Observe this is now **$25k costlier** than the driveaway price of $81,422.50. 
+- Observe this is now **$25k costlier** than the drive-away price of $81,422.50. 
+
+The damage arises because the remaining lease commitments lose their pre-tax treatment. 
 
 Note that 
 
@@ -72,9 +76,10 @@ Now let's analyse what happens to the lease payout:
 Note two things: 
 
 - My insurance agreed value payout is **$52,000**; however I am actually supposed to **pay $73,183.12 to conclude the lease**. Therefore I will be **out of pocket a further $21,183.12** to fully settle the account. 
-- This is the ultimate irony of novated lease: in this example of a vehicle write off with insufficient insurance coverage, I get **a shock bill of $21k** out of pocket, and worse of all **I will have no car** after the insurance payout, as the payout is merely to settle the remaining lease obligation, and does not include any replacement car. 
+- This is the ultimate irony of novated leasing: in a write-off with insufficient insurance coverage, you can receive a large insurance payout yet still face a **five-figure out-of-pocket bill — and have no car at the end of it**.
     - Contrast this with typical arrangement of an outright car ownership: The agreed value is typically the **estimated market value** of your vehicle, so when you receive the payout, you could theoretically use it to **buy an equivalent vehicle as replacement** without significant out of pocket expense.
     - Theoretically in the case of novated lease, once the bill is settled, you could also "continue ownership" by starting a new lease; however the total amount spent would remain higher, and frankly after such experience most users may no longer wish to take up another lease. 
+
 
 ---
 
@@ -105,7 +110,7 @@ These are some suggested strategies (not financial advice and not a comprehensiv
 
 If you remember nothing else:
 
-> **Early termination can destroy the entire financial benefit of a novated lease, therefore understanding, quantifying and mitigating this scenario should form part of consideration when one considers novated lease.**
+> **Early termination can destroy the entire financial benefit of a novated lease, therefore understanding, quantifying, and mitigating this scenario should form part of the decision to enter a novated lease.**
 
 Novated leasing should therefore be evaluated not only on expected savings, but on:
 
@@ -122,4 +127,4 @@ Novated leasing should therefore be evaluated not only on expected savings, but 
     If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

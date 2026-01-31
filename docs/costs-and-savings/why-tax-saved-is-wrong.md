@@ -4,15 +4,14 @@ One of the most common ways novated leases are marketed is via a single headline
 
 > **“Tax saved”**
 
+
 Or sometimes, more insidiously:
 
 > **“Savings”**
 
-At face value, this sounds sensible. Tax is a real cost, and paying less tax feels synonymous with being better off.
+This figure is often presented as if it directly answers the question people actually care about — *“Will I be better off?”*
 
-The problem is that **“tax saved” is not a measure of whether you are better off**.
-
-On its own, it is a misleading and incomplete metric.
+At face value, this sounds sensible. Tax is a cost, and the amount of tax saved feels synonymous with the amount one is better off by. The problem is that **“tax saved” is not a complete measure of one's net outcome**. Consideration of tax saving in isolation is incomplete and hugely misleading. 
 
 If you want to see how this plays out numerically, you can **model the full net outcome** using the [novated lease calculator](../calculator/index.md), rather than relying on headline “tax saved” figures.
 
@@ -63,7 +62,7 @@ For example, if you spend $1,000 of pre-tax income and your marginal tax rate is
 
 Similarly, at marginal tax rates of 37% or 45%, spending pre-tax dollars is equivalent to receiving an effective **39% or 47% discount**, respectively. (This is the fundamental reason why higher tax bracket earners derive the most saving from novated leases overall.)
 
-However, a discount is only beneficial if **the discounted price is lower than the best alternative**.
+However, a discount is only beneficial if the discounted price is lower than the best alternative.
 
 A 32%, 39%, or 47% discount does not automatically make something good value, especially if:
 
@@ -85,7 +84,7 @@ If a novated lease arrangement results in:
 then it is entirely possible to:
 
 > **pay $40,000 extra in order to “save” $39,000 in tax**,  
-> while also accepting multiple non-financial downsides.
+> while also accepting multiple downsides.
 
 This trade-off becomes much clearer when you compare realistic alternatives side by side. The [novated lease calculator](../calculator/index.md) is designed to make these comparisons explicit by focusing on overall financial position, not tax in isolation.
 

@@ -1,16 +1,18 @@
-# What happens if a novated lease ends early - redundancy, job transfer, vehicle write-off etc
+# What happens if a novated lease ends early (redundancy, job transfer, vehicle write-off, etc.)
 
 When a novated lease ends early — for example due to resignation, redundancy, or employer change — **the novation terminates**.
 
-It may also arise following a vehicle write-off in a car accident, where insurance proceeds are insufficient or a replacement vehicle is not provided, resulting in the lease being **effectively terminated through an accelerated payout**.
+It may also arise following a vehicle write-off, where insurance proceeds are insufficient or no replacement vehicle is provided, resulting in the lease being **effectively terminated through an accelerated payout**.
 
-Without adequate risk mitigation, such a transition may turn a novated lease from financially attractive into financially unfavourable.
+Without adequate [risk mitigation](risk-mitigation.md), such a transition may turn a novated lease from financially attractive into financially unfavourable.
 
 This page is a high-level overview of the consequences of early termination; numerical examples are discussed in the [“How bad can early termination get?” page](how-bad-can-early-termination-get.md). Risk mitigation strategies are discussed in [a separate article](risk-mitigation.md). 
 
 ---
 
 ## Common situations where early termination occurs
+
+Early termination is rarely the result of reckless behaviour; it often arises from normal life events.
 
 Causes may include:
 
@@ -32,7 +34,7 @@ Early termination usually requires one of the following:
 - paying out the remaining lease balance and residual in cash, or  
 - refinancing the remaining balance (and residual) into a personal loan or lease. 
 
-There is no mechanism by which early termination causes the residual or remaining lease to be waived.
+There is **no mechanism** by which early termination causes the residual or remaining lease to be waived.
 
 Note that the lease payout: 
 
@@ -55,7 +57,7 @@ When a lease ends early, the residual **is immediately payable alongside the rem
 ---
 ## Why does early termination make a novated lease expensive?
 
-Under the hood, a novated lease usually contains several **intrinsically expensive** components:
+Under the hood, a novated lease usually contains several **intrinsically expensive components**:
 
 - the vehicle is financed at a **higher-than-typical car loan** *effective* interest rate, sometimes in the double digits (e.g. ~11%)
 - there is often an ongoing monthly administration or management fee
@@ -117,7 +119,7 @@ This is precisely why early termination can sometimes result in a worse overall 
 
 If you remember nothing else:
 
-> **Early termination could turn a novated lease from a good deal into a bad one.**
+> **Early termination can turn a novated lease from a good deal into a bad one.**
 
 Understanding that upfront turns early termination from a nasty shock into a quantifiable and mitigable risk.
 
@@ -130,4 +132,4 @@ Understanding that upfront turns early termination from a nasty shock into a qua
     If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
