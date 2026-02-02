@@ -15,6 +15,7 @@ import {
 } from "./engine/effectiveinterest";
 import { residualFractionForYears } from "./engine/ato";
 import EffectiveInterestReport from "./components/EffectiveInterestReport";
+import WhatIf from "./components/WhatIf";
 
 
 function estMarketValueFromDriveaway(driveawayCost: number): number {
@@ -1404,6 +1405,15 @@ useEffect(() => {
                   ) : (
                     <SG rows={buildSgRowsFromFyBreakdown(inputs)} />
                   )}
+                </CollapsibleSection>
+              </div>
+
+              <div style={{ marginTop: 16 }}>
+                <CollapsibleSection
+                  title="SECTION 6: WHAT IF..."
+                  description="A sensitivity check that compares your quoted vehicle repayment to a hypothetical lease priced at an assumed wholesale finance rate (e.g. 7.0%)."
+                >
+                  <WhatIf inputs={inputs} />
                 </CollapsibleSection>
               </div>
             </>

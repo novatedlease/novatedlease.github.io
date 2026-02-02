@@ -385,7 +385,11 @@ useEffect(() => {
               padding: "6px 6px",
               borderBottom: "1px solid rgba(0,0,0,0.08)",
               fontWeight: r.bold ? 800 : 500,
-              whiteSpace: "nowrap",
+              // Cap label column width for mobile; allow wrapping
+              maxWidth: 300,
+              width: 300,
+              whiteSpace: "normal",
+              overflowWrap: "anywhere",
             }}
           >
             {r.label}

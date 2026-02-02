@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
 import { calcResidualPayableIncGst, isFbtApplicable } from "../engine/types";
@@ -16,6 +16,8 @@ export function LeaseReport(props: {
   taxRateInclMedicarePct?: number; // e.g. 47
 }) {
   const i = props.inputs;
+
+  const [fyExpanded, setFyExpanded] = useState(false);
 
   const fbtApplies = isFbtApplicable(i);
 
@@ -341,22 +343,57 @@ export function LeaseReport(props: {
 
       <Spacer />
 
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "14px 0 6px" }}>1.2 Breakdown by Financial Years</div>
-      <FYTable
-        fyRows={fyRows}
-        fbtApplies={fbtApplies}
-        actualPreTaxDeductionFn={actualPreTaxDeductionFn}
-        ecmPerFn={ecmPerFn}
-      />
-
-      <div style={{ marginTop: 12, fontSize: 12, opacity: 0.75 }}>
-        <div>
-          * The take home figure does not consider other subsidies and liabilities (e.g., HECS, childcare subsidy, Medicare Levy Surcharge, other salary packaging, etc.).
-        </div>
-        <div style={{ marginTop: 6 }}>
-          * “Average Lease Tax Bracket” means the average discount effect for the pre-tax dollars used in that financial year. Normally this is equivalent to your marginal tax rate + 2% Medicare levy; however it can change if the novated lease drops you into a lower income tax bracket.
-        </div>
+      <div style={{ margin: "14px 0 6px" }}>
+        <button
+          type="button"
+          onClick={() => setFyExpanded((v) => !v)}
+          aria-label={fyExpanded ? "Collapse breakdown by financial years" : "Expand breakdown by financial years"}
+          aria-expanded={fyExpanded}
+          style={{
+            border: "none",
+            background: "transparent",
+            padding: 0,
+            cursor: "pointer",
+            display: "inline-flex",
+            alignItems: "baseline",
+            gap: 8,
+            fontWeight: 900,
+            fontSize: 14,
+            lineHeight: 1.2,
+          }}
+        >
+          <span>1.2 Breakdown by Financial Years</span>
+          <span style={{ fontSize: 14, lineHeight: 1, color: "rgba(0,0,0,0.55)", minWidth: 18, textAlign: "center" }}>
+            {fyExpanded ? "▾" : "▸"}
+          </span>
+        </button>
       </div>
+      {fyExpanded ? (
+        <>
+          <FYTable
+            fyRows={fyRows}
+            fbtApplies={fbtApplies}
+            actualPreTaxDeductionFn={actualPreTaxDeductionFn}
+            ecmPerFn={ecmPerFn}
+          />
+
+          <div style={{ marginTop: 12, fontSize: 12, opacity: 0.75 }}>
+            <div>
+              * The take home figure does not consider other subsidies and liabilities (e.g., HECS, childcare subsidy, Medicare Levy
+              Surcharge, other salary packaging, etc.).
+            </div>
+            <div style={{ marginTop: 6 }}>
+              * “Average Lease Tax Bracket” means the average discount effect for the pre-tax dollars used in that financial year.
+              Normally this is equivalent to your marginal tax rate + 2% Medicare levy; however it can change if the novated lease
+              drops you into a lower income tax bracket.
+            </div>
+          </div>
+        </>
+      ) : (
+        <div style={{ fontSize: 12, opacity: 0.65, marginTop: 4 }}>
+          (collapsed)
+        </div>
+      )}
 
     </div>
   );
