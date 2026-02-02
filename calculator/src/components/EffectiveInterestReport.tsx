@@ -147,13 +147,15 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "340px 1fr",
-          gap: 12,
+          // Cap label width so values stay readable on mobile
+          gridTemplateColumns: "minmax(0, 300px) minmax(110px, max-content)",
+          columnGap: 10,
+          rowGap: 2,
           alignItems: "baseline",
           padding: "2px 0",
         }}
       >
-        <div style={{ fontWeight: 600 }}>
+        <div style={{ fontWeight: 600, minWidth: 0, overflowWrap: "anywhere" }}>
           {p.label}
           {p.note ? (
             <span

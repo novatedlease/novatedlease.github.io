@@ -58,7 +58,7 @@ Unlike most novated lease calculators, the outputs focus on **net outcomes** —
 Yes. This calculator is built specifically for the Australian tax system and incorporates Australian income tax brackets, Medicare levy, GST, fringe benefits tax (FBT) rules, and ATO guidance where applicable.
 
 ### Does “tax saved” equal real savings?
-No. Tax savings [are only one component](../costs-and-savings/why-tax-saved-is-wrong.md). A novated lease can also introduce higher interest rates, management fees, and risks around early termination. This calculator focuses on **net financial impact**, not just tax reduction. You would notice that the calculator does not mention "amount of tax saved" anywhere for this reason. 
+No. Tax savings [are only one component](../costs-and-savings/why-tax-saved-is-wrong.md). A novated lease can also introduce higher interest rates, management fees, and risks around early termination. This calculator focuses on **net financial impact**, not just tax reduction. You would notice that the calculator does not compute "amount of tax saved" for this very reason. 
 
 ### Does this calculator work for electric vehicles?
 Yes. It supports **FBT‑exempt EV novated leases** as well as **FBT‑applicable non‑EV leases**, and highlights how the outcomes differ between the two. It also automatically detects if an EV does not qualify for FBT-exemption, e.g. if the FBT base value is above LCT threshold or if it was first held and used prior to 1/7/2022. 
@@ -67,9 +67,47 @@ Yes. It supports **FBT‑exempt EV novated leases** as well as **FBT‑applicabl
 Yes. For EV novated leases, the calculator estimates [the effect of the reportable fringe benefit amount (RFBA)](../special-and-policy/childcare-subsidy.md) on adjusted taxable income, which can affect HECS repayments, childcare subsidy, and Division 293 tax.
 
 ### Is this calculator affiliated with any novated lease provider?
-No. This tool is independent and is not affiliated with any novated lease company, financier, or employer salary‑packaging provider. There is no single mention or link to any novated lease providers. 
+No. This tool is independent and is not affiliated with any novated lease company, financier, or employer salary‑packaging provider. While I have gotten to know some industry insiders through my online participation, I do not funnel any referral nor receive any kickback. 
 
----
+### What are the limitations of this calculator?
+
+Like all financial models, this calculator is a simulation based on explicit assumptions. While care has been taken to make these assumptions realistic and transparent, there are important limitations to be aware of:
+
+- **Primary endpoint is financial position at 5 years.** The model assumes that, under a novated lease, the residual value is paid out at the end of the lease. The conclusions may not apply if the residual is rolled over into a subsequent lease. Outcomes may also diverge beyond year 5, as vehicle depreciation, opportunity cost of funds (e.g. offset balances), and financing dynamics can change in both magnitude and direction from year 6 onwards.
+
+- **Home loan interest rate is assumed to be constant** throughout the lease duration. If you wish to explore the effect of rising or falling interest rates, you can manually adjust the interest rate inputs to approximate different scenarios.
+
+- **Offset account impact is calculated on a fortnightly basis.** In reality, home loan interest is typically calculated daily and charged monthly. The discrepancy introduced by this simplification should be small, but it is not zero.
+
+- **Insurance premiums, registration, and maintenance costs are assumed to remain constant** over the lease term. In practice, these costs often change over time.
+
+- **Residual value methodologies vary between leasing companies.** The approach used here reflects the most common industry practice, but it may not match every provider exactly. 
+
+- **Market value depreciation is interpolated for 1–4 year lease terms.** Depreciation rates for both EVs and ICE vehicles change over time, particularly for EVs where rapid technological evolution may accelerate depreciation. The default assumption of ~40% depreciation at 5 years may not remain valid in all market conditions, and users should apply judgment when modifying these assumptions.
+
+- **Running costs are assumed to contain a uniform 10% GST component.** This is a simplification. Some real-world expenses contain substantially less GST (for example, vehicle registration). The model assumes GST is always 1/11 of the gross cost.
+
+- **Tyre replacement frequency is not explicitly modelled**, and no separate tyre budget is included in the default running cost assumptions.
+
+- **Income tax and Medicare levy calculations do not model partial Medicare levy reductions** for singles earning below $34,027. It is assumed that most users considering novated leasing fall above this threshold.
+
+These limitations do not invalidate the calculator, but they do highlight why the outputs should be interpreted as *decision support*, not precise predictions. Sensitivity testing and judgment remain essential.
+
+### Who is this calculator less suitable for?
+
+While this calculator is designed to cover the most common novated lease scenarios faced by Australian employees, it may be less suitable or require extra interpretation for the following groups:
+
+- **Very low‑income earners.** At lower income levels, the interaction between income tax, Medicare levy (including partial reductions), and means‑tested benefits can be more complex and less reliably captured by a generalised model.
+
+- **People who frequently roll over novated leases.** This calculator models a *single lease cycle* and assumes the residual value is paid out at the end of the lease. If you routinely roll residuals into subsequent leases, your long‑term outcomes may differ materially from those shown here.
+
+- **People who could otherwise claim work‑related vehicle use outside a novated lease.** If you are able to claim deductions for work use of a vehicle under a cash‑purchase or car‑loan pathway (for example via logbook or cents‑per‑kilometre methods), those alternatives may warrant separate modelling and comparison.
+
+- **People considering associate leases.** Associate leases have distinct financial consequence that is not modelled here, and outcomes can differ significantly from standard novated leasing arrangements (and may be more advantageous for certain personal circumstances).
+
+- **Company directors or business owners with access to alternative structures.** If you operate through your own company or trust and may be eligible for FBT‑exempt vehicle benefits or other business‑specific arrangements, this calculator may not fully capture the options available to you.
+
+In these situations, the calculator can still provide useful context, but the results should be interpreted with additional caution and, where appropriate, supplemented with tailored advice.
 
 !!! info "Support This Independent Calculator & Guide"
     This calculator and guide are provided free as an independent, unbiased educational resource — something that is surprisingly hard to find in the novated-lease space.

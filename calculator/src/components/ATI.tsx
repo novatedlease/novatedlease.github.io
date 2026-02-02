@@ -251,19 +251,20 @@ export default function ATI(props: AtiProps) {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "260px 1fr",
+          gridTemplateColumns: "minmax(0, 300px) minmax(160px, 1fr)",
           rowGap: 8,
           columnGap: 12,
           alignItems: "center",
           marginBottom: 10,
         }}
       >
-        <div style={{ fontSize: 14, opacity: 0.9 }}>Calculation Purpose</div>
+        <div style={{ fontSize: 14, opacity: 0.9, minWidth: 0, overflowWrap: "anywhere" }}>Calculation Purpose</div>
         <select
           value={purpose}
           onChange={e => setPurpose(e.target.value as AtiCalculationPurpose)}
           style={{
             width: "100%",
+            minWidth: 160,
             borderRadius: 10,
             border: "1px solid rgba(0,0,0,0.18)",
             padding: "10px 12px",
@@ -293,12 +294,20 @@ export default function ATI(props: AtiProps) {
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "260px 1fr", rowGap: 8, columnGap: 12, marginBottom: 14 }}>
-        <div style={{ fontSize: 14, opacity: 0.9 }}>Original Taxable Income Pre-NL</div>
-        <div>{formatMoney(props.originalTaxableIncomePreNL)}</div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 300px) minmax(160px, 1fr)",
+          rowGap: 8,
+          columnGap: 12,
+          marginBottom: 14,
+        }}
+      >
+        <div style={{ fontSize: 14, opacity: 0.9, minWidth: 0, overflowWrap: "anywhere" }}>Original Taxable Income Pre-NL</div>
+        <div style={{ whiteSpace: "nowrap" }}>{formatMoney(props.originalTaxableIncomePreNL)}</div>
 
-        <div style={{ fontSize: 14, opacity: 0.9 }}>Novated Lease Period (Start : End)</div>
-        <div>
+        <div style={{ fontSize: 14, opacity: 0.9, minWidth: 0, overflowWrap: "anywhere" }}>Novated Lease Period (Start : End)</div>
+        <div style={{ whiteSpace: "nowrap" }}>
           {formatDateAU(props.leaseStartDate)} <span style={{ margin: "0 10px" }}>to</span> {formatDateAU(leaseEndDate)}
         </div>
       </div>

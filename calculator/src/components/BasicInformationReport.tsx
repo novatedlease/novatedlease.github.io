@@ -108,13 +108,11 @@ export default function BasicInformationReport(props: {
 
       <KeyValue label="Vehicle condition" value={i.vehicleCondition} />
       <KeyValue
-        label={
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            Vehicle GST saved
-            <InfoTooltip
-              text="GST saving on the vehicle purchase is calculated as dutiable value ÷ 11 but is capped at $6,334. Note that part of this initial GST saving is negated during the final residual payment if the vehicle is paid out at lease end."
-            />
-          </span>
+        label="Vehicle GST saved"
+        tooltip={
+          <InfoTooltip
+            text="GST saving on the vehicle purchase is calculated as dutiable value ÷ 11 but is capped at $6,334. Note that part of this initial GST saving is negated during the final residual payment if the vehicle is paid out at lease end."
+          />
         }
         value={
           i.vehicleCondition === "Used – private sale (no GST)"
@@ -124,12 +122,8 @@ export default function BasicInformationReport(props: {
       />
 
       <KeyValue
-        label={
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            Amount Financed
-            <InfoTooltip text="= Drive-away cost + documentation fee − GST saved" />
-          </span>
-        }
+        label="Amount Financed"
+        tooltip={<InfoTooltip text="= Drive-away cost + documentation fee − GST saved" />}
         value={`$ ${aud(amountFinanced)}`}
       />
       <KeyValue
@@ -169,12 +163,8 @@ export default function BasicInformationReport(props: {
           <KeyValue label="Vehicle Dutiable Value" value={`$ ${aud(vehicleDutiableValue)}`} />
           <KeyValue label="FBT Statutory Rate" value={`${Math.round(fbtStatutoryRate * 100)}%`} />
           <KeyValue
-            label={
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                Annual Employee Contribution (Post Tax)
-                <InfoTooltip text="Calculated as vehicle dutiable value × 20% (statutory method)." />
-              </span>
-            }
+            label="Annual Employee Contribution (Post Tax)"
+            tooltip={<InfoTooltip text="Calculated as vehicle dutiable value × 20% (statutory method)." />}
             value={`$ ${aud(ecmAnnual)}`}
           />
           <KeyValue
@@ -182,12 +172,8 @@ export default function BasicInformationReport(props: {
             value={`$ ${aud(ecmPerFn)}`}
           />
           <KeyValue
-            label={
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                FBT Delta (Fortnightly)
-                <InfoTooltip text="How much more this lease costs per fortnight post‑tax compared with an FBT‑exempt EV lease. Formula: (ECM_fn × taxRate) + (ECM_fn ÷ 11 × (1 − taxRate)), where taxRate is your marginal rate incl. Medicare." />
-              </span>
-            }
+            label="FBT Delta (Fortnightly)"
+            tooltip={<InfoTooltip text="How much more this lease costs per fortnight post‑tax compared with an FBT‑exempt EV lease. Formula: (ECM_fn × taxRate) + (ECM_fn ÷ 11 × (1 − taxRate)), where taxRate is your marginal rate incl. Medicare." />}
             value={`$ ${aud(fbtDeltaPerFn)}`}
           />
 
@@ -215,66 +201,48 @@ export default function BasicInformationReport(props: {
 >Learn More</a>)</>
       </div>
       <KeyValue
-        label={
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            kWh per year
-            <InfoTooltip text="Calculated as estimated annual mileage × efficiency (Wh/km)." />
-          </span>
-        }
+        label="kWh per year"
+        tooltip={<InfoTooltip text="Calculated as estimated annual mileage × efficiency (Wh/km)." />}
         value={aud0(kwhPerYear)}
       />
 
       <KeyValue
-        label={
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            Charging Expense per year
-            <InfoTooltip text="Your estimated real out-of-pocket charging cost based on your tariff (or your override, if provided)." />
-          </span>
-        }
+        label="Charging Expense per year"
+        tooltip={<InfoTooltip text="Your estimated real out-of-pocket charging cost based on your tariff (or your override, if provided)." />}
         value={`$ ${aud(chargingExpensePerYear)}`}
       />
 
       <KeyValue
-        label={
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            Assumed Charging per year (NL claim method)
-            <InfoTooltip text="The packaged (claimable) electricity amount used in the novated lease. This value comes from the Electricity input in the Inputs Panel (it may default to the ATO 4.2c/km shortcut, but you can override it)." />
-          </span>
-        }
+        label="Assumed Charging per year (NL claim method)"
+        tooltip={<InfoTooltip text="The packaged (claimable) electricity amount used in the novated lease. This value comes from the Electricity input in the Inputs Panel (it may default to the ATO 4.2c/km shortcut, but you can override it)." />}
         value={`$ ${aud(assumedChargingClaimPerYear)}`}
       />
 
       <KeyValue
-        label={
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            Charging Delta
-            <InfoTooltip text="Difference between the claimable amount and your actual charging expense. Positive = claim exceeds actual cost; negative = you spent more than you can claim." />
-          </span>
-        }
+        label="Charging Delta"
+        tooltip={<InfoTooltip text="Difference between the claimable amount and your actual charging expense. Positive = claim exceeds actual cost; negative = you spent more than you can claim." />}
         value={`$ ${aud(chargingDelta)}`}
       />
 
       <KeyValue
-        label={
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            Post-Reimbursement Effective Charging Expense
-            <InfoTooltip
-              text={
-                <>
-                  <p style={{ margin: "0 0 10px 0" }}>
-                    A simplified estimate of your effective charging cost after the tax benefit of the claim: actual expense − (claim ×
-                    marginal tax rate). A negative value means you effectively profit from charging cheaply and claiming via the distance
-                    method.
-                  </p>
-                  <p style={{ margin: 0 }}>
-                    <b>Example:</b> In the default example, we spent $371.25 in charging in reality; however ATO&apos;s 4.2c/km rule allowed us
-                    to claim $630 dollars. This $630 effectively translates to $630 * 47% (default example&apos;s tax bracket) = $296.10 in tax
-                    refund. Once all is accounted for, this is equivalent to $371.25 - $296.10 = $75.15 net charging expense.
-                  </p>
-                </>
-              }
-            />
-          </span>
+        label="Post-Reimbursement Effective Charging Expense"
+        tooltip={
+          <InfoTooltip
+            text={
+              <>
+                <p style={{ margin: "0 0 10px 0" }}>
+                  A simplified estimate of your effective charging cost after the tax benefit of the claim: actual expense − (claim ×
+                  marginal tax rate). A negative value means you effectively profit from charging cheaply and claiming via the distance
+                  method.
+                </p>
+                <p style={{ margin: 0 }}>
+                  <b>Example:</b> In the default example, we spent $371.25 in charging in reality; however ATO&apos;s 4.2c/km rule allowed us
+                  to claim $630 dollars. This $630 effectively translates to $630 * 47% (default example&apos;s tax bracket) = $296.10 in tax
+                  refund. Once all is accounted for, this is equivalent to $371.25 - $296.10 = $75.15 net charging expense.
+                </p>
+              </>
+            }
+          />
         }
         value={`$ ${aud(postReimbursementEffectiveChargingExpense)}`}
         highlight
@@ -291,6 +259,7 @@ function Spacer() {
 
 function KeyValue(props: {
   label: React.ReactNode;
+  tooltip?: React.ReactNode;
   value: string;
   highlight?: boolean;
 }) {
@@ -298,16 +267,28 @@ function KeyValue(props: {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "340px 1fr",
-        gap: 12,
+        // Match InputsPanel: label | tooltip | value
+        // Keep labels close to values on desktop but wrap on mobile.
+        gridTemplateColumns: "minmax(0, 300px) 24px minmax(110px, max-content)",
+        columnGap: 10,
+        rowGap: 2,
         padding: "2px 0",
+        alignItems: "center",
       }}
     >
-      <div style={{ opacity: 0.85 }}>{props.label}</div>
+      <div style={{ opacity: 0.85, minWidth: 0, lineHeight: 1.25, overflowWrap: "anywhere" }}>
+        {props.label}
+      </div>
+      <div style={{ width: 24, display: "flex", justifyContent: "center" }}>
+        {props.tooltip ?? null}
+      </div>
       <div
         style={{
           fontWeight: props.highlight ? 700 : 600,
           color: props.highlight ? "#0b5cab" : "inherit",
+          justifySelf: "start",
+          textAlign: "left",
+          whiteSpace: "nowrap",
         }}
       >
         {props.value}

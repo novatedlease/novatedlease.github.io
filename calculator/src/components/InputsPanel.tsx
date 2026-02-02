@@ -923,7 +923,7 @@ export default function InputsPanel(props: InputsPanelProps) {
   {inputs.compareWithCurrentCar && (
     <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
               <MoneyField
-                label="Current Market Value Now"
+                label="Current Market Value"
                 tooltip={
                   <>
                     <InfoTooltip text="Tips: look up carsales.com.au or equivalent website." />

@@ -94,6 +94,7 @@ This guide collects and organises the explanations I’ve shared repeatedly (oft
     More about me, story behind this guide and general disclaimer
     
     -   [Who I am and how I became "that novated lease guy"](about/about-me.md)
+    -   [History of the novated lease calculator](about/history.md)
     -   [Disclaimer](about/disclaimer.md)
 
 
