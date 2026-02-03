@@ -56,7 +56,7 @@ If you’d like to discuss your **own circumstances or quotes**, these community
 - **[Facebook Group – Novated Lease Q&A Australia](https://www.facebook.com/groups/602788952082399)**  
   *Note: the group admin runs a novated lease consulting service. I am not affiliated.*
 
-- **[Whirlpool Forums – Novated Lease]([https://forums.whirlpool.net.au/thread/30621vx3)**
+- **[Whirlpool Forums – Novated Lease](https://forums.whirlpool.net.au/thread/30621vx3)**
 
 - **[Whirlpool Forums – Electric Car on Novated Lease](https://forums.whirlpool.net.au/thread/3yqm6m0v)**
 
