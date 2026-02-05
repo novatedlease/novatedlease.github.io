@@ -133,8 +133,8 @@ This is the number used for childcare subsidy, HECS/HELP, child support, and Div
 If you have a HELP or HECS debt, you can estimate the additional repayment caused by a novated lease as follows:
 
 1. Ensure the “total taxable income” you start with reflects your **true taxable income as per ATO rules** (all income minus all deductions).
-2. In Section 3 of the spreadsheet’s main calculation page, look under the **adjusted taxable income** column.
-3. The spreadsheet calculates ATI for each year based on your lease details.
+2. In Section 4 of the calculator's detail tab, look under the **adjusted taxable income** column.
+3. The calculator calculates ATI for each year based on your lease details.
 4. Suppose:
 
     - Original taxable income: $100,000  

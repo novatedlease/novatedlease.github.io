@@ -2,8 +2,7 @@
 
 A common source of confusion in discussions about novated leasing is the assumption that:
 
-> an EV novated lease and an ICE novated lease are essentially the same thing,  
-> just with different cars.
+> an EV novated lease and an ICE novated lease are essentially the same thing, just with different cars.
 
 This assumption is wrong.
 
@@ -103,10 +102,10 @@ Although EV novated leases are FBT-exempt, the benefit is still reported as a **
 This creates a genuine trade-off:
 
 - **EV novated leases**:  
-  lower income tax (and therefore cheaper lease), but often higher adjusted taxable income (and therefore worse outcomes for means-tested subsidies)
+  cheaper lease, but often higher adjusted taxable income (and therefore worse outcomes for means-tested subsidies)
 
 - **ICE novated leases**:  
-  higher income tax (and therefore costlier lease), but typically little or no RFBA and hence a smaller impact on adjusted taxable income (often preserving means-tested benefits)
+  costlier lease, but typically no RFBA and hence a smaller impact on adjusted taxable income (often better means-tested benefits)
 
 As a general observation, the take-home pay benefit of an EV novated lease often outweighs the reduction in means-tested subsidies. However, this is highly dependent on individual circumstances and should always be calculated rather than assumed. You can model the **net outcome** — including income tax savings, RFBA effects, and opportunity cost — using the [novated lease calculator](../calculator/index.md).
 

@@ -436,6 +436,7 @@ export default function App() {
 
   const urlInitRef = useRef<{ encoded: string | null }>({ encoded: null });
   const lastAutoFinancedRef = useRef<number | null>(null);
+  const lastAutoEstMarketValueRef = useRef<number | null>(null);
 
   const [inputs, setInputs] = useState<Inputs>(() => {
     const { inputs: initial, encoded } = readInputsFromUrl(defaultInputs);
@@ -643,12 +644,26 @@ useEffect(() => {
   return () => window.removeEventListener("mousedown", onDown);
 }, [quotesOpen]);
 
+  // Auto-fill "Estimated market value after 5 years" from driveaway cost (rule-of-thumb) UNTIL the user overrides it.
+  // Important: when arriving via a share-link, we must not clobber a user-provided override.
   useEffect(() => {
-    const desired = estMarketValueFromDriveaway(inputs.driveawayCost);
-    if (inputs.estimatedMarketValueAtEnd !== desired) {
-      setInputs((p) => ({ ...p, estimatedMarketValueAtEnd: desired }));
+    const auto = estMarketValueFromDriveaway(inputs.driveawayCost);
+    const cur = inputs.estimatedMarketValueAtEnd;
+    const lastAuto = lastAutoEstMarketValueRef.current;
+
+    const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;
+
+    const shouldSync =
+      cur === 0 ||
+      (lastAuto !== null && withinCent(cur, lastAuto)) ||
+      (lastAuto === null && withinCent(cur, auto));
+
+    if (shouldSync && !withinCent(cur, auto)) {
+      setInputs((p) => ({ ...p, estimatedMarketValueAtEnd: auto }));
     }
-  }, [inputs.driveawayCost]);
+
+    lastAutoEstMarketValueRef.current = auto;
+  }, [inputs.driveawayCost, inputs.estimatedMarketValueAtEnd]);
 
   // Keep "Financed amount (for interest calc)" in sync with the standard calculation,
   // but only until the user manually overrides it.
@@ -1363,7 +1378,7 @@ useEffect(() => {
 
 
 
-              <div style={{ marginTop: 16 }}>
+              <div id="details-section-3-effective-interest-rate" style={{ marginTop: 16 }}>
                 <CollapsibleSection
                   title="SECTION 3: EFFECTIVE INTEREST RATE"
                   description="Back-calculates the implied interest rate from your lease payment and residual, and optionally shows an amortisation schedule."

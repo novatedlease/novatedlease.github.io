@@ -9,10 +9,10 @@ hide:
 <div style="margin: 12px 0 20px 0;">
 
 <a href="/calculator/" style="display: inline-block; padding: 14px 20px; background: #2b6cb0; color: white; font-size: 1.1em; font-weight: 700; border-radius: 8px; text-decoration: none;">
-  👉 Launch the Free Novated Lease Calculator
+  👉 Launch the Novated Lease Calculator
 </a>
 <div style="margin-top: 6px; font-size: 0.85em; color: rgba(0,0,0,0.6);">
-  Independent • Educational • No signup • Australian context
+  Free • Independent • Comprehensive • Educational 
 </div>
 
 <p style="text-align: left; font-size: 0.85em; color: rgba(0,0,0,0.6); margin-top: 8px;">
@@ -28,7 +28,7 @@ hide:
 
 I’m the author of a free, comprehensive Australian novated lease calculator and have been answering questions about novated leases on Reddit, Facebook, and other forums since 2023.
 
-This guide collects and organises the explanations I’ve shared repeatedly (often in response to misleading claims or confusing marketing) into one self‑contained, practical reference.[^1]
+This site combines the interactive calculator with a collection of self-contained, practical explanations, organising the guidance I’ve shared repeatedly (often in response to misleading claims or confusing marketing) into one coherent reference. [^1]
 
 <p style="text-align: center; font-size: 0.95em; margin-top: 12px;">
   Prefer to jump straight to the numbers? → 
@@ -48,6 +48,7 @@ This guide collects and organises the explanations I’ve shared repeatedly (oft
     -   [Why EV and ICE novated leases are functionally different products](start-here/ev-vs-ice-compared.md)
     -   [Is a novated lease right for me?](start-here/is-it-worth-it.md)
     -   [How to read a novated lease quote?](start-here/how-to-read-a-novated-lease-quote.md)
+    -   [How to use the novated lease calculator](start-here/use-nl-calculator.md)
 
 -   **:material-cogs: Mechanisms explained**
     
@@ -57,7 +58,6 @@ This guide collects and organises the explanations I’ve shared repeatedly (oft
     -   [Why novated lease effective interest rates look high — yet may still work](costs-and-savings/why-nl-interest-looks-high.md)
     -   [FBT, RFBA, and adjusted taxable income — explained clearly](costs-and-savings/fbt-rfba-ati-explained.md)
     -   [All about residual values](costs-and-savings/why-residual-values-matter.md)
-    -   [How to use the novated lease spreadsheet (and what it can and cannot tell you)](costs-and-savings/use-nl-spreadsheet.md)
 
 -   **:material-cash-multiple: Running costs & claiming**
     

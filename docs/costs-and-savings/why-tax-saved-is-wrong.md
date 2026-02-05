@@ -176,7 +176,7 @@ That requires comparing:
 - against realistic alternatives,
 - across cashflow, assets, and liabilities.
 
-This is what the [novated lease calculator](../calculator/index.md) and the original spreadsheet aim to achieve — comparing realistic alternatives on a like-for-like basis. 
+This is what the [novated lease calculator](../calculator/index.md) aims to achieve — comparing realistic alternatives on a like-for-like basis. 
 
 ---
 

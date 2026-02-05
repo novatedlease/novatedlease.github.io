@@ -123,20 +123,63 @@ export default function BasicInformationReport(props: {
 
       <KeyValue
         label="Amount Financed"
-        tooltip={<InfoTooltip text="= Drive-away cost + documentation fee − GST saved" />}
+        tooltip={<InfoTooltip text="= Drive-away cost + documentation fee − GST saved. If the amount differs, then it may be due to inflation with brokerage, or contains insurance, repair package etc. Peruse your lease quote fineprints to find these potential source."/>}
         value={`$ ${aud(amountFinanced)}`}
       />
       <KeyValue
         label={`ATO-Mandated Residual Value % for ${Math.round(i.leaseDurationYears)} Years`}
+        tooltip={
+          <InfoTooltip
+            text={
+              <>
+                <p style={{ margin: "0 0 6px 0" }}>ATO statutory residual values for novated leases:</p>
+                <ul style={{ margin: 0, paddingLeft: 18 }}>
+                  <li>1 year lease → 65.63% residual</li>
+                  <li>2 year lease → 56.25% residual</li>
+                  <li>3 year lease → 46.88% residual</li>
+                  <li>4 year lease → 37.50% residual</li>
+                  <li>5 year lease → 28.13% residual</li>
+                </ul>
+              </>
+            }
+          />
+        }
         value={pct(residualPct)}
       />
       <KeyValue
         label={`Residual Value Payable after ${Math.round(i.leaseDurationYears)} Years (inc GST)`}
+        tooltip={<InfoTooltip text="The amount you must pay at the end of the lease to own the vehicle, including GST. Derived by (Amount financed - documentation fee) x residual value %."/>}
         value={`$ ${aud(residualPayableIncGst)}`}
       />
 
       <KeyValue
-        label="Effective Interest Rate (Definition 1)"
+        label={
+          <button
+            type="button"
+            onClick={() => {
+              window.dispatchEvent(
+                new CustomEvent("nlguide:navigate", {
+                  detail: {
+                    tab: "Details",
+                    anchorId: "details-section-3-effective-interest-rate",
+                  },
+                })
+              );
+            }}
+            style={{
+              padding: 0,
+              border: "none",
+              background: "none",
+              color: "rgba(11, 92, 171, 0.95)",
+              cursor: "pointer",
+              font: "inherit",
+              textDecoration: "underline",
+              textAlign: "left",
+            }}
+          >
+            Effective Interest Rate (Definition 1)
+          </button>
+        }
         value={
           effectiveInterestRatePct == null
             ? "—"

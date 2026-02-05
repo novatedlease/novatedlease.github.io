@@ -109,7 +109,6 @@ Running costs should:
 
 - reflect realistic usage
 - pass through GST savings where applicable
-- not affect outcomes if over- or under-budgeted
 
 See:
 - [ATO 4.2c/km shortcut](../running-costs/ato-42c-per-km-shortcut.md)
@@ -118,7 +117,7 @@ See:
 !!! warning "Skipping charging or running-cost claims leaves money on the table"
     Claiming running costs almost always results in a financial advantage compared to not claiming, all else being equal.
     
-    Removing them because you "charge cheaply anyway" is a mathematical error - read more in the 4.2c/km shortcut article.
+    Removing them because you "charge cheaply anyway" is a mathematical error - read more in the [4.2c/km shortcut article](../running-costs/ato-42c-per-km-shortcut.md).
 
 ---
 
@@ -143,13 +142,13 @@ This total is what you should compare against:
 
 ### Super guarantee
 
-Some employers calculate superannuation contributions based on **post–novated lease income** rather than your pre‑salary‑packaging salary.
+Some employers calculate superannuation contributions based on **post–novated lease income** rather than your pre‑salary‑packaging salary. The specific calculation method needs to be explicityly clarified with your payroll department.
 
-This can result in a **significant reduction in super contributions**, potentially amounting to many thousands of dollars over the life of the lease.
+ThisIf superannuation contribution is calculated on post-novated leaes income, it can result in a **significant reduction in super contributions**, potentially amounting to many thousands of dollars over the life of the lease.
 
 While this practice is not common (estimated at around 5–10% based on informal polling), it represents a **non‑trivial downside risk** and should be explicitly clarified with payroll before entering into a novated lease.
 
-If this applies in your case, the lost super should be incorporated into your overall cost–benefit and risk analysis.
+If this applies in your case, the lost super should be incorporated into your overall cost–benefit and risk analysis. 
 
 !!! warning "Always check how your payroll calculates your super guarantee"
     You could lose many thousands in your super if the contribution is based on your post-NL income.

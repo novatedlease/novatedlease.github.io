@@ -46,6 +46,8 @@ This calculator compares **novated lease vs cash purchase vs car loan vs keeping
 
 ## How to use this calculator
 
+Read the [full instruction](../start-here/use-nl-calculator.md) here. 
+
 **If you have a quote:** Enter your vehicle price, lease details, annual kilometres, and tax details. The calculator then models the cashflows over the lease period and compares your overall financial position across different funding options.
 
 **If you do not have a quote:** Look up the vehicle’s base and drive‑away price online, estimate typical running costs, choose a lease term (1–5 years), and enter a fortnightly lease amount consistent with an effective interest rate of roughly **8–12%** (a common market range). This will give you a reasonable **ballpark estimate** of the overall financial outcome.

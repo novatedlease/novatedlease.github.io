@@ -203,7 +203,7 @@ ATI increase (in the case of EV novated lease) matter most if you:
 
 If none of these apply, RFBA may be largely irrelevant.
 
-If one or more apply, RFBA can materially change the outcome. You can use [the novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) to simulate changes to ATI and the downstream impact on government liabilities and subsidies.
+If one or more apply, RFBA can materially change the outcome. You can use [the novated lease calculator](../calculator/index.md) to simulate changes to ATI and the downstream impact on government liabilities and subsidies.
 
 ---
 

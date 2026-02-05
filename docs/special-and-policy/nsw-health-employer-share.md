@@ -134,7 +134,7 @@ What it means in the context of novated lease:
 
 While people on higher marginal tax brackets may still potentially derive net profit, for people on 30+2% marginal rate, it is possible for the net economical impact to be near zero once everything is accounted for. 
 
-The [novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) has a built-in function to evaluate the net cost of the novated lease, and the section on adjusted taxable income helps evaluate the impact on ATI-related means-testing e.g. childcare subsidy and HECS repayment. 
+The [novated lease calculator](../calculator/index.md) has a built-in function to evaluate the net cost of the novated lease, and the section on adjusted taxable income helps evaluate the impact on ATI-related means-testing e.g. childcare subsidy and HECS repayment. 
 
 ---
 

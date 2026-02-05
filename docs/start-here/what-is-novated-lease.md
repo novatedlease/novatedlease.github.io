@@ -2,7 +2,7 @@
 
 This section explains how novated leases work and how to think about them.
 
-First and foremost: **novated leases are only available and relevant for salaried employees**. 
+First and foremost: **novated leases are only available and relevant for salaried employees**. It is not applicable if you are a business owner or a sole trader. 
 
 Novated lease is a **salary packaging arrangement** that allows part of your vehicle costs to be paid from your salary **before income tax is withheld**. 
 
@@ -68,14 +68,13 @@ So for someone on the top marginal rate:
 > spending **$1,000 pre-tax**  
 > is economically similar to spending **~$530 post-tax**
 
-This is the entire reason novated leases can work.
+This is the entire reason novated leases can work well.
 
 ---
 
 ### The catch that existed for decades: FBT
 
-Novated leases have existed for many decades, but there has *always* been a major catch:  
-**[Fringe Benefits Tax (FBT)](../costs-and-savings/fbt-rfba-ati-explained.md).**
+Novated leases have existed for many decades, but there has *always* been a major catch:  **[Fringe Benefits Tax (FBT)](../costs-and-savings/fbt-rfba-ati-explained.md).**
 
 FBT is:
 
@@ -90,7 +89,7 @@ Since employers generally do not want to pay FBT, a workaround is commonly used.
 
 ### The workaround: paying part of the lease post-tax (ECM)
 
-ATO rules allow the employer’s FBT liability to be reduced to zero if the employee pays **part of the lease using post-tax income**.
+ATO rules allow the employer’s **FBT liability to be reduced to zero** if the employee pays **part of the lease using post-tax income**.
 
 This is commonly called the **Employee Contribution Method (ECM)**.
 
@@ -122,7 +121,7 @@ This is why, for most of its history, novated leasing was **often not as good a 
 
 Everything changed when the government introduced the **FBT exemption for low-emission vehicles** in 2022.
 
-For eligible **EVs and (previously) PHEVs** below the luxury car tax threshold (as of FY 2024-25: $91,387):
+For eligible **EVs and (previously) PHEVs** below the luxury car tax threshold (as of FY 2025-26: $91,387):
 
 - the car benefit is **exempt from FBT**
 - there is **no need for ECM**
@@ -161,7 +160,7 @@ while quietly ignoring:
 
 This is why careful, apples-to-apples comparison as well as understanding of caveats are essential.
 
-It is the fundamental motivation behind [the novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/). I was curious to find out exactly what the "saving" means and many hundreds of hours of nerdy labour later the calculator was the product. Many people have found the tool useful which I take pride in and am grateful for. 
+It is the fundamental motivation behind [the novated lease calculator](../calculator/index.md). I was curious to find out exactly what the "saving" means and many hundreds of hours of nerdy labour later the calculator was the product. Many people have found the tool useful which I take pride in and am grateful for. 
 
 ---
 
@@ -192,13 +191,8 @@ Everything else in this guide builds on those foundations.
 
     If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
-<<<<<<< HEAD
-    - :simple-tesla: [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla,  or
-    - :coffee: [Buying me a cuppa](https://buymeacoffee.com/changyang1230)  at BuyMeACoffee.com
-=======
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
     - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
->>>>>>> calculator-dev
 
 
 [^1]: This relationship is slightly altered if the pre-tax dollar spending brings the gross salary amount past the marginal tax threshold. E.g. if the gross salary is $10,000 above 37+2% threshold, then spending $15,000 would mean the first $10,000 portion enjoys 39% effective discount and the subsequent $5,000 portion enjoys 32% effective discount.

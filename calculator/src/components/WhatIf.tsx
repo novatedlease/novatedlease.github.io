@@ -208,7 +208,7 @@ export default function WhatIf({ inputs }: WhatIfProps) {
       </div>
 
       <SummaryCard
-        title="Difference"
+        title="You paid"
         value={`${moneyNoCents(Math.abs(diffTotal))} ${moreOrLess(diffTotal)} (pre-tax)`}
         subtitle={
           <>
@@ -237,7 +237,7 @@ export default function WhatIf({ inputs }: WhatIfProps) {
           <tbody>
             <tr style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
               <td style={{ padding: "6px 4px", fontWeight: 600 }}>
-                Wholesale (hypothetical)
+                Wholesale (Assumed)
               </td>
               <td style={{ padding: "6px 4px" }}>{fmtPct(assumedAnnualRate)}</td>
               <td style={{ padding: "6px 4px" }}>{money(hypotheticalPerFn2dp)}</td>

@@ -46,27 +46,6 @@ export default function InputsPanel(props: InputsPanelProps) {
     const current = inputs.electricityAnnual;
     const lastAuto = lastAutoElectricityAnnualRef.current;
 
-        // IMPORTANT: When arriving via a share-link, `electricityAnnualTouched` will start as false.
-    // If the shared payload contains a user-overridden Electricity value, do NOT clobber it
-    // with the auto-filled ATO shortcut on the first render.
-    if (lastAuto === null) {
-      // First run after mount (or after switching back to EV)
-      lastAutoElectricityAnnualRef.current = auto;
-
-      // If the current value differs from the ATO auto value, assume it is an intentional override
-      // (e.g. loaded from a shared URL / saved quote) and mark as touched.
-      if (Math.abs(current - auto) >= 0.01) {
-        setElectricityAnnualTouched(true);
-        return;
-      }
-
-      // Otherwise keep it in sync with auto.
-      if (Math.abs(current - auto) >= 0.01) {
-        setInputs((p) => ({ ...p, electricityAnnual: auto }));
-      }
-      return;
-    }
-
     // IMPORTANT: When arriving via a share-link, `electricityAnnualTouched` will start as false.
     // If the shared payload contains a user-overridden Electricity value, do NOT clobber it
     // with the auto-filled ATO shortcut on the first render.

@@ -15,7 +15,7 @@ Novated leases are highly **context-dependent**.  They can be extremely favourab
 
 ## Start with a holistic view rather than the savings figure
 
-Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **[$46,000 better off than paying cash](../about/about-me.md#the-mind-blowing-discovery)**. (The default figures and calculation in [this website's calculator](../calculator/index.md) are faithful reproduction of my personal circumstances except the income figure)
+Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases *can* be a genuinely great deal.  In my own case, I was **[$46,000 better off than paying cash](../about/about-me.md#the-mind-blowing-discovery)**. (The default figures and calculation in [the novated lease calculator](../calculator/index.md) are faithful reproduction of my personal circumstances except the income figure)
 
 However, beyond simply crunching the savings figures, I would encourage people to **take a more holistic view** of whether they are an appropriate candidate for a novated lease.
 
@@ -36,7 +36,7 @@ A novated lease tends to be more favourable if you:
   avoiding a large upfront cash payment can save substantial home-loan interest at today’s rates
 
 - **do not need to borrow heavily during the lease term**  
-  novated leases significantly reduce borrowing capacity - I have seen estimates where a $70k car reduces borrowing power by $200k or more
+  novated leases significantly reduce borrowing capacity - I have seen estimates where leasing a $70k car reduces borrowing power by $200k or more
 
 - **have considered [the impact on government subsidies](../costs-and-savings/fbt-rfba-ati-explained.md)**  
   childcare subsidy, HECS/HELP repayments, Division 293 tax, etc, can all be affected via reportable fringe benefits. (This impact is primarily relevant for FBT-exempt EV novated leases; ICE novated leases typically do not worsen eligibility for most government subsidies.)
@@ -82,9 +82,9 @@ For most people, this is **not a realistic alternative**. Their true alternative
 - a competitively priced car loan
 - keeping current car
 
-The [novated lease spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) computes the **true saving** based on these realistic benchmarks. 
+The [novated lease calculator](../calculator/index.md) computes the **true saving** based on these realistic benchmarks. 
 
-Often, a quote’s self-reported “savings” figure is misleadingly higher than the savings derived against these more meaningful and realistic benchmarks.
+Often, a quote’s self-reported “savings” figure is misleadingly higher than the savings derived against these more meaningful and realistic benchmarks. In some cases, you would even see the horrifying mischaracterisation of "$20,000 saving" in a quote when a careful analysis reveals a net loss of $5,000 when compared to cash purchase. (real example being added to the guide in the near future)
 
 Having a **realistic savings figure** helps you arrive at a **more informed decision** when combined with the other factors discussed above.
 
@@ -104,9 +104,9 @@ This is the comparison most novated lease calculators (and most discussions) are
 
 This is the comparison under which statements like:
 
-> “I was $46,000 better off than paying cash”
+> “I was $46,000 better off than paying cash for this car”
 
-are meaningful and correct.
+are potentially meaningful and correct.
 
 ### Benchmark 2: Saving compared to *not buying a new car at all*
 
@@ -116,7 +116,9 @@ However, there is another baseline that is often overlooked:
 
 This comparison is often the **most important yet the most overlooked**. 
 
-The traditional rule of thumb goes "keeping your current car is always the cheapest". In the case of FBT-exempt EV novated lease, this rule of thumb is **no longer always true**. 
+The traditional rule of thumb goes "keeping your current car is always the cheapest". And for many people and many scenarios, this remains true. 
+
+In the case of FBT-exempt EV novated lease, however, this rule of thumb is **no longer always true especially if one belongs to higher tax bracket**. 
 
 In my personal circumstances, based on a few reasonable assumptions, over 5-years the net financial position for "keeping current $25k car" is roughly similar to "selling this car and getting a $81k EV via NL and paying the balloon to own outright in the end". 
 
@@ -134,7 +136,7 @@ An analogy would be someone saying they "**saved 30k** by bargaining the Mercede
 
 Neither option is objectively better. For someone who values the Mercedes, the $30k “value saving” is absolutely real; for someone focused purely on minimising total cost, the Toyota still represents the greater saving. 
 
-You need to be clear what the **benchmark** is. The novated lease calculator helps you make such benchmarking as it is written with this in mind. 
+You need to be clear what the **benchmark** is. The [novated lease calculator](../calculator/index.md) helps you make such benchmarking as it is written with this in mind. 
 
 ---
 
