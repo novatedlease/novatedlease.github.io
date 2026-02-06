@@ -1,4 +1,4 @@
-# Real-Life Example: How the marketed "$21,320 savings" is in fact "$5,591 net loss"
+# Real-Life Example: How the marketed $21,320 savings is in fact $5,591 net loss
 
 ---
 
