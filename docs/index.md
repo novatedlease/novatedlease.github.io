@@ -19,6 +19,8 @@ hide:
   Suggested Reading: <a href="/start-here/is-it-worth-it/">Is a novated lease right for me</a>
   &nbsp;·&nbsp;
   <a href="/costs-and-savings/why-tax-saved-is-wrong/">Why "tax saving" is misleading</a>
+  &nbsp;·&nbsp;
+  <a href="/costs-and-savings/false-saving-example/">$21,320 “savings” → $5,591 net loss (worked example)</a>
 </p>
 
  </div>
@@ -55,6 +57,7 @@ This site combines the interactive calculator with a collection of self-containe
     Understand the financial mechanics behind novated leases.
     
     -   [Why “tax saved” is the wrong way to evaluate a novated lease](costs-and-savings/why-tax-saved-is-wrong.md)
+    -   [Real-Life Example: How The Marketed "$21,320 Savings" is in fact "$5,591 net Loss"](costs-and-savings/false-saving-example.md)
     -   [Why novated lease effective interest rates look high — yet may still work](costs-and-savings/why-nl-interest-looks-high.md)
     -   [FBT, RFBA, and adjusted taxable income — explained clearly](costs-and-savings/fbt-rfba-ati-explained.md)
     -   [All about residual values](costs-and-savings/why-residual-values-matter.md)

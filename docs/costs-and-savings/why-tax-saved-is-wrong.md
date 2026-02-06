@@ -11,7 +11,12 @@ Or sometimes, more insidiously:
 
 This figure is often presented as if it directly answers the question people actually care about — *“Will I be better off?”*
 
+
 At face value, this sounds sensible. Tax is a cost, and the amount of tax saved feels synonymous with the amount one is better off by. The problem is that **“tax saved” is not a complete measure of one's net outcome**. Consideration of tax saving in isolation is incomplete and hugely misleading. 
+
+A concrete numerical example of this problem is worked through in detail here, using a real novated lease quote that advertised a large “saving” figure but resulted in a worse net outcome once all cashflows and opportunity costs were considered:  
+
+[How the marketed “$21,320 savings” is in fact a $5,591 net loss](false-saving-example.md)
 
 If you want to see how this plays out numerically, you can **model the full net outcome** using the [novated lease calculator](../calculator/index.md), rather than relying on headline “tax saved” figures.
 
