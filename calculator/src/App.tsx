@@ -17,6 +17,8 @@ import { residualFractionForYears } from "./engine/ato";
 import EffectiveInterestReport from "./components/EffectiveInterestReport";
 import WhatIf from "./components/WhatIf";
 
+import { trackEvent, trackOncePerSession } from "./utils/analytics";
+
 
 function estMarketValueFromDriveaway(driveawayCost: number): number {
   return Math.round((driveawayCost * 0.4) / 1000) * 1000;
@@ -76,6 +78,7 @@ type CollapsibleSectionProps = {
   defaultOpen?: boolean;
   children: React.ReactNode;
   muted?: boolean;
+  analyticsId?: string;
 };
 
 function CollapsibleSection(props: CollapsibleSectionProps) {
@@ -89,6 +92,12 @@ function CollapsibleSection(props: CollapsibleSectionProps) {
       onToggle={(e) => {
         const el = e.currentTarget as HTMLDetailsElement;
         setIsOpen(el.open);
+
+        if (el.open && props.analyticsId) {
+          trackOncePerSession(`expand_${props.analyticsId}`, "breakdown_expanded", {
+            section: props.analyticsId,
+          });
+        }
       }}
       style={{
         border: "1px solid rgba(0,0,0,0.15)",
@@ -444,6 +453,14 @@ export default function App() {
     return initial;
   });
 
+  function handleUserInput(field: string) {
+    // Primary engagement conversion: first intentional interaction with any input
+    trackOncePerSession("calculator_started", "calculator_started", { field });
+
+    // Optional: lightweight debugging/insight (keep as non-key event)
+    trackEvent("input_changed", { field });
+  }
+
   // Small-screen (phone) layout hint (more reliable on iPhone Safari)
   const [isPhoneViewport, setIsPhoneViewport] = useState<boolean>(() => {
     if (typeof window === "undefined") return false;
@@ -557,6 +574,8 @@ const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => {
 
   async function copyShareLink() {
     try {
+      trackEvent("copy_link_clicked");
+      trackOncePerSession("copy_link_clicked", "copy_link_clicked");
       const encoded = encodeInputsToUrlParam(inputs);
 
       const params = new URLSearchParams(window.location.search);
@@ -597,6 +616,8 @@ function persistQuotes(next: SavedQuoteV1[]) {
 }
 
 function saveCurrentAsQuote(name?: string) {
+  trackEvent("save_quote_clicked");
+  trackOncePerSession("save_quote_clicked", "save_quote_clicked");
   const trimmed = (name ?? "").trim();
   const fallback = `Quote ${savedQuotes.length + 1}`;
   const q: SavedQuoteV1 = {
@@ -1177,6 +1198,7 @@ useEffect(() => {
               setCopiedLink(false);
               setSummaryHorizon("five_year");
             }}
+            onUserInput={handleUserInput}
           />
         </div>
 
@@ -1220,7 +1242,10 @@ useEffect(() => {
                 <TabButton
                   label="🔎 Details"
                   active={outputTab === "Details"}
-                  onClick={() => setOutputTab("Details")}
+                  onClick={() => {
+                    setOutputTab("Details");
+                    trackOncePerSession("details_tab_opened", "details_tab_opened");
+                  }}
                 />
               </div>
 
@@ -1363,6 +1388,7 @@ useEffect(() => {
                 title="SECTION 1: LEASE PAYMENTS"
                 description="Shows your pre-tax lease and take-home impact (fortnightly, annual, and total), and a year-by-year breakdown to help you see what changes if your income is near a marginal tax bracket threshold.
 "
+                analyticsId="section_1_lease_payments"
               >
                 <LeaseReport inputs={inputs} taxRateInclMedicarePct={47} />
               </CollapsibleSection>
@@ -1371,6 +1397,7 @@ useEffect(() => {
                 <CollapsibleSection
                   title="SECTION 2: FINANCIAL SUMMARY"
                   description="A full worksheet of cashflow, asset and liability under each pathway e.g. NL vs loan vs cash vs keeping current car."
+                  analyticsId="section_2_financial_summary"
                 >
                   <FinancialReport inputs={inputs} taxRateInclMedicarePct={47} />
                 </CollapsibleSection>
@@ -1382,6 +1409,7 @@ useEffect(() => {
                 <CollapsibleSection
                   title="SECTION 3: EFFECTIVE INTEREST RATE"
                   description="Back-calculates the implied interest rate from your lease payment and residual, and optionally shows an amortisation schedule."
+                  analyticsId="section_3_effective_interest_rate"
                 >
                   <EffectiveInterestReport inputs={inputs} />
                 </CollapsibleSection>
@@ -1391,6 +1419,7 @@ useEffect(() => {
                 <CollapsibleSection
                   title="SECTION 4: ADJUSTED TAXABLE INCOME"
                   description="Estimates your Adjusted Taxable Income after novated leasing (useful for HECS, childcare subsidy, Medicare levy surcharge etc)."
+                  analyticsId="section_4_ati"
                 >
                   <ATI
                     inputs={inputs}
@@ -1412,6 +1441,7 @@ useEffect(() => {
                       ? "This section is not applicable because you indicated your employer pays Super Guarantee based on your pre‑novated‑lease income."
                       : "Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
                   }
+                  analyticsId="section_5_sg"
                 >
                   {inputs.superFromPreNlIncome === "Yes" ? (
                     <div style={{ fontSize: 13, lineHeight: 1.45, opacity: 0.9 }}>
@@ -1427,6 +1457,7 @@ useEffect(() => {
                 <CollapsibleSection
                   title="SECTION 6: WHAT IF..."
                   description="A sensitivity check that compares your quoted vehicle repayment to a hypothetical lease priced at an assumed wholesale finance rate (e.g. 7.0%)."
+                  analyticsId="section_6_what_if"
                 >
                   <WhatIf inputs={inputs} />
                 </CollapsibleSection>

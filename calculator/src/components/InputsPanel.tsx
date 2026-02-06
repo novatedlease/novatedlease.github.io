@@ -14,15 +14,17 @@ export type InputsPanelProps = {
   // Formatting helpers (keep App.tsx as the source of truth)
   formatPct: (pct: number) => string;
   onResetDefaults?: () => void;
+  onUserInput?: (field: string) => void;
 };
 
 export default function InputsPanel(props: InputsPanelProps) {
   const { inputs, setInputs } = props;
+  const touch = (field: string) => props.onUserInput?.(field);
   // Auto-fill for packaged Electricity (ATO shortcut method: 4.2c/km) until user manually overrides
   const ATO_EV_HOME_CHARGING_RATE_PER_KM = 0.042;
   const [electricityAnnualTouched, setElectricityAnnualTouched] = useState<boolean>(false);
   const lastAutoElectricityAnnualRef = useRef<number | null>(null);
-    const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
+  const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
   const prevLeaseDurationRef = useRef<number>(inputs.leaseDurationYears);
 
   // When lease duration changes, users MUST update their per-fortnight lease quote.
@@ -134,6 +136,7 @@ export default function InputsPanel(props: InputsPanelProps) {
         <button
           type="button"
           onClick={() => {
+            touch("reset");
             setNeedsLeaseRequote(false);
             props.onResetDefaults?.();
           }}
@@ -206,7 +209,10 @@ export default function InputsPanel(props: InputsPanelProps) {
               >
                 <button
                   type="button"
-                  onClick={() => setInputs((p) => ({ ...p, vehicleType: "EV" }))}
+                  onClick={() => {
+                    touch("vehicleType");
+                    setInputs((p) => ({ ...p, vehicleType: "EV" }));
+                  }}
                   style={{
                     border: "none",
                     background: "transparent",
@@ -221,7 +227,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setInputs((p) => ({ ...p, vehicleType: "Non-EV" }))}
+                  onClick={() => {
+                    touch("vehicleType");
+                    setInputs((p) => ({ ...p, vehicleType: "Non-EV" }));
+                  }}
                   style={{
                     border: "none",
                     background: "transparent",
@@ -313,14 +322,15 @@ export default function InputsPanel(props: InputsPanelProps) {
               <InfoTooltip text="This determines FBT-exemption eligibility as well as GST treatment for initial purchase." />
             }
             value={inputs.vehicleCondition}
-            onChange={(v) =>
+            onChange={(v) => {
+              touch("vehicleCondition");
               setInputs((p) => ({
                 ...p,
                 vehicleCondition: v,
                 usedCarFirstHeldAfterJul2022: v === "New" ? false : p.usedCarFirstHeldAfterJul2022,
                 usedCarLctNeverPayable: v === "New" ? false : p.usedCarLctNeverPayable,
-              }))
-            }
+              }));
+            }}
           />
 
           {inputs.vehicleCondition !== "New" ? (
@@ -329,9 +339,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 <input
                   type="checkbox"
                   checked={inputs.usedCarFirstHeldAfterJul2022}
-                  onChange={(e) =>
-                    setInputs((p) => ({ ...p, usedCarFirstHeldAfterJul2022: e.target.checked }))
-                  }
+                  onChange={(e) => {
+                    touch("usedCarFirstHeldAfterJul2022");
+                    setInputs((p) => ({ ...p, usedCarFirstHeldAfterJul2022: e.target.checked }));
+                  }}
                   style={{ marginTop: 2 }}
                 />
                 <span>The car was first held and used after <b>1 July 2022</b></span>
@@ -341,7 +352,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 <input
                   type="checkbox"
                   checked={inputs.usedCarLctNeverPayable}
-                  onChange={(e) => setInputs((p) => ({ ...p, usedCarLctNeverPayable: e.target.checked }))}
+                  onChange={(e) => {
+                    touch("usedCarLctNeverPayable");
+                    setInputs((p) => ({ ...p, usedCarLctNeverPayable: e.target.checked }));
+                  }}
                   style={{ marginTop: 2 }}
                 />
                 <span>
@@ -359,7 +373,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.vehicleBaseValue}
             step={100}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, vehicleBaseValue: v }))}
+            onChange={(v) => {
+              touch("vehicleBaseValue");
+              setInputs((p) => ({ ...p, vehicleBaseValue: v }));
+            }}
           />
 
           <MoneyField
@@ -370,7 +387,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.driveawayCost}
             step={100}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, driveawayCost: v }))}
+            onChange={(v) => {
+              touch("driveawayCost");
+              setInputs((p) => ({ ...p, driveawayCost: v }));
+            }}
           />
 
           <MoneyField
@@ -396,7 +416,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.estimatedMarketValueAtEnd}
             step={100}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, estimatedMarketValueAtEnd: v }))}
+            onChange={(v) => {
+              touch("estimatedMarketValueAtEnd");
+              setInputs((p) => ({ ...p, estimatedMarketValueAtEnd: v }));
+            }}
           />
 
           <NumberField
@@ -407,7 +430,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.annualMileageKm}
             step={500}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, annualMileageKm: v }))}
+            onChange={(v) => {
+              touch("annualMileageKm");
+              setInputs((p) => ({ ...p, annualMileageKm: v }));
+            }}
           />
 
             
@@ -418,12 +444,14 @@ export default function InputsPanel(props: InputsPanelProps) {
             label="Total Taxable Income"
             tooltip={
                 <InfoTooltip text="The sum of ALL incomes MINUS deductions; not just the portion of income of the workplace via which you are arranging this NL." />
-              
             }
             value={inputs.totalTaxableIncome}
             step={1000}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, totalTaxableIncome: v }))}
+            onChange={(v) => {
+              touch("totalTaxableIncome");
+              setInputs((p) => ({ ...p, totalTaxableIncome: v }));
+            }}
           />
 
           <NumberField
@@ -448,7 +476,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.homeLoanOffsetInterestRate}
             step={0.01}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, homeLoanOffsetInterestRate: v }))}
+            onChange={(v) => {
+              touch("homeLoanOffsetInterestRate");
+              setInputs((p) => ({ ...p, homeLoanOffsetInterestRate: v }));
+            }}
           />
 
           <SelectYesNo
@@ -457,7 +488,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 <InfoTooltip text="Usually YES, but in ~10% cases the employer will calculate SG on post-NL amount. Check with your payroll - significant impact on saving!" />
             }
             value={inputs.superFromPreNlIncome}
-            onChange={(v) => setInputs((p) => ({ ...p, superFromPreNlIncome: v }))}
+            onChange={(v) => {
+              touch("superFromPreNlIncome");
+              setInputs((p) => ({ ...p, superFromPreNlIncome: v }));
+            }}
           />
         </Section>
 
@@ -470,7 +504,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.leaseDocFee}
             step={10}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, leaseDocFee: v }))}
+            onChange={(v) => {
+              touch("leaseDocFee");
+              setInputs((p) => ({ ...p, leaseDocFee: v }));
+            }}
           />
 
           <DateField
@@ -479,7 +516,10 @@ export default function InputsPanel(props: InputsPanelProps) {
               <InfoTooltip text='Automatically populated with "30 days from today", manually modify to suit.' />
             }
             value={inputs.leaseStartDate}
-            onChange={(v) => setInputs((p) => ({ ...p, leaseStartDate: v }))}
+            onChange={(v) => {
+              touch("leaseStartDate");
+              setInputs((p) => ({ ...p, leaseStartDate: v }));
+            }}
           />
 
           <LeaseDurationSelect
@@ -487,9 +527,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             tooltip={<InfoTooltip text="Integer, choose 1 to 5 years." />}
             value={inputs.leaseDurationYears}
             onChange={(v) => {
-  setInputs((p) => ({ ...p, leaseDurationYears: v }));
-  setNeedsLeaseRequote(true);
-}}
+              touch("leaseDurationYears");
+              setInputs((p) => ({ ...p, leaseDurationYears: v }));
+              setNeedsLeaseRequote(true);
+            }}
           />
 
 {needsLeaseRequote ? (
@@ -553,6 +594,7 @@ export default function InputsPanel(props: InputsPanelProps) {
           setVehicleLeasePerFnText(String(inputs.vehicleLeasePerFn));
           return;
         }
+        touch("vehicleLeasePerFn");
         props.onVehicleLeasePerFnChange(parsed);
         setVehicleLeasePerFnText(fmtMoneyInput(parsed));
         setNeedsLeaseRequote(false);
@@ -617,7 +659,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.luxuryVehicleAdjPerFn}
             step={1}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, luxuryVehicleAdjPerFn: v }))}
+            onChange={(v) => {
+              touch("luxuryVehicleAdjPerFn");
+              setInputs((p) => ({ ...p, luxuryVehicleAdjPerFn: v }));
+            }}
           />
 
 
@@ -646,7 +691,10 @@ export default function InputsPanel(props: InputsPanelProps) {
     value={inputs.financedAmountForInterestCalcExGst}
     step={100}
     min={0}
-    onChange={(v) => setInputs((p) => ({ ...p, financedAmountForInterestCalcExGst: v }))}
+    onChange={(v) => {
+      touch("financedAmountForInterestCalcExGst");
+      setInputs((p) => ({ ...p, financedAmountForInterestCalcExGst: v }));
+    }}
   />
 
   <NumberField
@@ -655,7 +703,10 @@ export default function InputsPanel(props: InputsPanelProps) {
     value={inputs.monthsDeferred}
     step={1}
     min={0}
-    onChange={(v) => setInputs((p) => ({ ...p, monthsDeferred: Math.max(0, Math.round(v)) }))}
+    onChange={(v) => {
+      touch("monthsDeferred");
+      setInputs((p) => ({ ...p, monthsDeferred: Math.max(0, Math.round(v)) }));
+    }}
   />
 </ExpandToggle>
 
@@ -679,7 +730,10 @@ export default function InputsPanel(props: InputsPanelProps) {
               />
             }
             value={inputs.gstSavingPassedOn}
-            onChange={(v) => setInputs((p) => ({ ...p, gstSavingPassedOn: v }))}
+            onChange={(v) => {
+              touch("gstSavingPassedOn");
+              setInputs((p) => ({ ...p, gstSavingPassedOn: v }));
+            }}
           />
           <div
             style={{
@@ -703,7 +757,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.serviceMaintTyresAnnual}
             step={10}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, serviceMaintTyresAnnual: v }))}
+            onChange={(v) => {
+              touch("serviceMaintTyresAnnual");
+              setInputs((p) => ({ ...p, serviceMaintTyresAnnual: v }));
+            }}
           />
 
           <MoneyField
@@ -716,7 +773,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.saveShareAnnual}
             step={10}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, saveShareAnnual: v }))}
+            onChange={(v) => {
+              touch("saveShareAnnual");
+              setInputs((p) => ({ ...p, saveShareAnnual: v }));
+            }}
           />
 
           <MoneyField
@@ -729,7 +789,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.registrationAnnual}
             step={10}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, registrationAnnual: v }))}
+            onChange={(v) => {
+              touch("registrationAnnual");
+              setInputs((p) => ({ ...p, registrationAnnual: v }));
+            }}
           />
 
           {inputs.vehicleType === "EV" ? (
@@ -746,6 +809,7 @@ export default function InputsPanel(props: InputsPanelProps) {
               step={10}
               min={0}
               onChange={(v) => {
+                touch("electricityAnnual");
                 setElectricityAnnualTouched(true);
                 setInputs((p) => ({ ...p, electricityAnnual: v }));
               }}
@@ -761,7 +825,10 @@ export default function InputsPanel(props: InputsPanelProps) {
               value={inputs.fuelAnnual}
               step={10}
               min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, fuelAnnual: v }))}
+              onChange={(v) => {
+                touch("fuelAnnual");
+                setInputs((p) => ({ ...p, fuelAnnual: v }));
+              }}
             />
           )}
 
@@ -775,7 +842,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.insuranceAnnual}
             step={10}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, insuranceAnnual: v }))}
+            onChange={(v) => {
+              touch("insuranceAnnual");
+              setInputs((p) => ({ ...p, insuranceAnnual: v }));
+            }}
           />
 
           <MoneyField
@@ -788,7 +858,10 @@ export default function InputsPanel(props: InputsPanelProps) {
             value={inputs.managementFeesAnnual}
             step={10}
             min={0}
-            onChange={(v) => setInputs((p) => ({ ...p, managementFeesAnnual: v }))}
+            onChange={(v) => {
+              touch("managementFeesAnnual");
+              setInputs((p) => ({ ...p, managementFeesAnnual: v }));
+            }}
           />
         </Section>
 
@@ -804,7 +877,10 @@ export default function InputsPanel(props: InputsPanelProps) {
               value={inputs.avgAudPerKwh}
               step={0.01}
               min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, avgAudPerKwh: v }))}
+              onChange={(v) => {
+                touch("avgAudPerKwh");
+                setInputs((p) => ({ ...p, avgAudPerKwh: v }));
+              }}
             />
 
             <NumberField
@@ -817,7 +893,10 @@ export default function InputsPanel(props: InputsPanelProps) {
               value={inputs.avgWhPerKm}
               step={1}
               min={0}
-              onChange={(v) => setInputs((p) => ({ ...p, avgWhPerKm: v }))}
+              onChange={(v) => {
+                touch("avgWhPerKm");
+                setInputs((p) => ({ ...p, avgWhPerKm: v }));
+              }}
             />
 
   <ExpandToggle
@@ -834,19 +913,23 @@ export default function InputsPanel(props: InputsPanelProps) {
       value={inputs.overrideAnnualChargingExpense ?? 0}
       step={10}
       min={0}
-      onChange={(v) =>
+      onChange={(v) => {
+        touch("overrideAnnualChargingExpense");
         setInputs((p) => ({
           ...p,
           overrideAnnualChargingExpense: v === 0 ? undefined : v,
-        }))
-      }
+        }));
+      }}
     />
 
     {inputs.overrideAnnualChargingExpense ? (
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <button
           type="button"
-          onClick={() => setInputs((p) => ({ ...p, overrideAnnualChargingExpense: undefined }))}
+          onClick={() => {
+            touch("overrideAnnualChargingExpense");
+            setInputs((p) => ({ ...p, overrideAnnualChargingExpense: undefined }));
+          }}
           style={{
             borderRadius: 10,
             border: "1px solid rgba(0,0,0,0.18)",
@@ -874,7 +957,10 @@ export default function InputsPanel(props: InputsPanelProps) {
       <InfoTooltip text="Skip this section and leave it off if you are not comparing against a traditional car loan." />
       <OnOffSwitch
         value={inputs.compareWithCarLoan}
-        onChange={(v) => setInputs((p) => ({ ...p, compareWithCarLoan: v }))}
+        onChange={(v) => {
+          touch("compareWithCarLoan");
+          setInputs((p) => ({ ...p, compareWithCarLoan: v }));
+        }}
       />
     </>
   }
@@ -886,7 +972,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 value={inputs.carLoanInitialDeposit}
                 step={100}
                 min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, carLoanInitialDeposit: v }))}
+                onChange={(v) => {
+                  touch("carLoanInitialDeposit");
+                  setInputs((p) => ({ ...p, carLoanInitialDeposit: v }));
+                }}
               />
 
               <ReadOnlyValue
@@ -909,7 +998,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 value={inputs.carLoanInterestRatePct}
                 step={0.01}
                 min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, carLoanInterestRatePct: v }))}
+                onChange={(v) => {
+                  touch("carLoanInterestRatePct");
+                  setInputs((p) => ({ ...p, carLoanInterestRatePct: v }));
+                }}
               />
 
               <MoneyField
@@ -922,7 +1014,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 value={inputs.carLoanMonthlyFee}
                 step={1}
                 min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, carLoanMonthlyFee: v }))}
+                onChange={(v) => {
+                  touch("carLoanMonthlyFee");
+                  setInputs((p) => ({ ...p, carLoanMonthlyFee: v }));
+                }}
               />
             </div>
           )}
@@ -936,7 +1031,10 @@ export default function InputsPanel(props: InputsPanelProps) {
       <InfoTooltip text='Skip this section and leave it off if you are not comparing against "keeping current car".' />
       <OnOffSwitch
         value={inputs.compareWithCurrentCar}
-        onChange={(v) => setInputs((p) => ({ ...p, compareWithCurrentCar: v }))}
+        onChange={(v) => {
+          touch("compareWithCurrentCar");
+          setInputs((p) => ({ ...p, compareWithCurrentCar: v }));
+        }}
       />
     </>
   }
@@ -953,7 +1051,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 value={inputs.currentCarMarketValueNow}
                 step={100}
                 min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, currentCarMarketValueNow: v }))}
+                onChange={(v) => {
+                  touch("currentCarMarketValueNow");
+                  setInputs((p) => ({ ...p, currentCarMarketValueNow: v }));
+                }}
               />
 
               <MoneyField
@@ -979,7 +1080,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 value={inputs.currentCarMarketValueAtEnd}
                 step={100}
                 min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, currentCarMarketValueAtEnd: v }))}
+                onChange={(v) => {
+                  touch("currentCarMarketValueAtEnd");
+                  setInputs((p) => ({ ...p, currentCarMarketValueAtEnd: v }));
+                }}
               />
 
               <div style={{ fontWeight: 700, opacity: 0.85, marginTop: 6 }}>ANNUAL RUNNING COST (inc GST)</div>
@@ -989,7 +1093,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 value={inputs.currentServiceMaintTyresAnnual}
                 step={10}
                 min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, currentServiceMaintTyresAnnual: v }))}
+                onChange={(v) => {
+                  touch("currentServiceMaintTyresAnnual");
+                  setInputs((p) => ({ ...p, currentServiceMaintTyresAnnual: v }));
+                }}
               />
 
               <MoneyField
@@ -997,7 +1104,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 value={inputs.currentRegistrationAnnual}
                 step={10}
                 min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, currentRegistrationAnnual: v }))}
+                onChange={(v) => {
+                  touch("currentRegistrationAnnual");
+                  setInputs((p) => ({ ...p, currentRegistrationAnnual: v }));
+                }}
               />
 
               <MoneyField
@@ -1010,7 +1120,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 value={inputs.currentFuelAnnual}
                 step={10}
                 min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, currentFuelAnnual: v }))}
+                onChange={(v) => {
+                  touch("currentFuelAnnual");
+                  setInputs((p) => ({ ...p, currentFuelAnnual: v }));
+                }}
               />
 
               <MoneyField
@@ -1018,7 +1131,10 @@ export default function InputsPanel(props: InputsPanelProps) {
                 value={inputs.currentInsuranceAnnual}
                 step={10}
                 min={0}
-                onChange={(v) => setInputs((p) => ({ ...p, currentInsuranceAnnual: v }))}
+                onChange={(v) => {
+                  touch("currentInsuranceAnnual");
+                  setInputs((p) => ({ ...p, currentInsuranceAnnual: v }));
+                }}
               />
             </div>
           )}
