@@ -97,7 +97,7 @@ $76,545.46 (vehicle) + $24,453 (running costs) = **$100,998.46**
 A key factor often missed is the opportunity cost of using offset cash versus leasing.
 
 - Using $76,545.46 from the offset account reduces interest savings on the home loan.
-- At 5.4% interest, this results in approximately $4,000 of lost interest savings over 5 years.
+- E.g. At 5.4% interest, this results in approximately $4,000 of lost interest savings the first year.
 
 The novated lease calculator simulates fortnight-by-fortnight interest impacts:
 
