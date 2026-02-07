@@ -16,6 +16,7 @@ import {
 import { residualFractionForYears } from "./engine/ato";
 import EffectiveInterestReport from "./components/EffectiveInterestReport";
 import WhatIf from "./components/WhatIf";
+import WorstCase from "./components/WorstCase";
 
 import { trackEvent, trackOncePerSession } from "./utils/analytics";
 
@@ -1385,9 +1386,8 @@ useEffect(() => {
               </div>
 
               <CollapsibleSection
-                title="SECTION 1: LEASE PAYMENTS"
-                description="Shows your pre-tax lease and take-home impact (fortnightly, annual, and total), and a year-by-year breakdown to help you see what changes if your income is near a marginal tax bracket threshold.
-"
+                title="💳 SECTION 1: LEASE PAYMENTS"
+                description="Shows your pre-tax lease payments and their impact on take-home pay (fortnightly, annual, and total), with a year-by-year breakdown highlighting changes near marginal tax thresholds."
                 analyticsId="section_1_lease_payments"
               >
                 <LeaseReport inputs={inputs} taxRateInclMedicarePct={47} />
@@ -1395,8 +1395,8 @@ useEffect(() => {
 
               <div style={{ marginTop: 16 }}>
                 <CollapsibleSection
-                  title="SECTION 2: FINANCIAL SUMMARY"
-                  description="A full worksheet of cashflow, asset and liability under each pathway e.g. NL vs loan vs cash vs keeping current car."
+                  title="📊 SECTION 2: FINANCIAL SUMMARY"
+                  description="A side-by-side worksheet comparing cashflow, assets, and liabilities under each pathway — novated lease, loan, cash purchase, or keeping your current car."
                   analyticsId="section_2_financial_summary"
                 >
                   <FinancialReport inputs={inputs} taxRateInclMedicarePct={47} />
@@ -1407,8 +1407,8 @@ useEffect(() => {
 
               <div id="details-section-3-effective-interest-rate" style={{ marginTop: 16 }}>
                 <CollapsibleSection
-                  title="SECTION 3: EFFECTIVE INTEREST RATE"
-                  description="Back-calculates the implied interest rate from your lease payment and residual, and optionally shows an amortisation schedule."
+                  title="📉 SECTION 3: EFFECTIVE INTEREST RATE"
+                  description="Back-calculates the implied interest rate hidden in your lease payment and residual, with an optional amortisation schedule."
                   analyticsId="section_3_effective_interest_rate"
                 >
                   <EffectiveInterestReport inputs={inputs} />
@@ -1417,8 +1417,8 @@ useEffect(() => {
 
               <div id="details-section-4-ati" style={{ marginTop: 16 }}>
                 <CollapsibleSection
-                  title="SECTION 4: ADJUSTED TAXABLE INCOME"
-                  description="Estimates your Adjusted Taxable Income after novated leasing (useful for HECS, childcare subsidy, Medicare levy surcharge etc)."
+                  title="🧮 SECTION 4: ADJUSTED TAXABLE INCOME"
+                  description="Estimates how novated leasing changes your Adjusted Taxable Income — relevant for HECS repayments, childcare subsidy, and Medicare levy surcharge."
                   analyticsId="section_4_ati"
                 >
                   <ATI
@@ -1434,7 +1434,7 @@ useEffect(() => {
 
               <div id="details-section-5-sg"  style={{ marginTop: 16 }}>
                 <CollapsibleSection
-                  title="SECTION 5: SUPER GUARANTEE"
+                  title="🏦 SECTION 5: SUPER GUARANTEE"
                   muted={inputs.superFromPreNlIncome === "Yes"}
                   description={
                     inputs.superFromPreNlIncome === "Yes"
@@ -1455,11 +1455,21 @@ useEffect(() => {
 
               <div style={{ marginTop: 16 }}>
                 <CollapsibleSection
-                  title="SECTION 6: WHAT IF..."
-                  description="A sensitivity check that compares your quoted vehicle repayment to a hypothetical lease priced at an assumed wholesale finance rate (e.g. 7.0%)."
+                  title="🧪 SECTION 6: RATE SENSITIVITY CHECK"
+                  description="Stress-tests your quoted lease by comparing it with the same car financed at an assumed wholesale interest rate (e.g. 7.0%)."
                   analyticsId="section_6_what_if"
                 >
                   <WhatIf inputs={inputs} />
+                </CollapsibleSection>
+              </div>
+
+              <div id="details-section-7-worst-case" style={{ marginTop: 16 }}>
+                <CollapsibleSection
+                  title="⚠️ SECTION 7: EARLY TERMINATION RISK"
+                  description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash."
+                  analyticsId="section_7_worst_case_scenario"
+                >
+                  <WorstCase inputs={inputs} />
                 </CollapsibleSection>
               </div>
             </>

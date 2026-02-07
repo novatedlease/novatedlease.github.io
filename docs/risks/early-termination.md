@@ -6,7 +6,8 @@ It may also arise following a vehicle write-off, where insurance proceeds are in
 
 Without adequate [risk mitigation](risk-mitigation.md), such a transition may turn a novated lease from financially attractive into financially unfavourable.
 
-This page is a high-level overview of the consequences of early termination; numerical examples are discussed in the [“How bad can early termination get?” page](how-bad-can-early-termination-get.md). Risk mitigation strategies are discussed in [a separate article](risk-mitigation.md). 
+
+For a visual, time-based illustration of how early termination risk evolves over the life of a lease (including break-even points and comparison against a cash purchase), see **Section 7: Early Termination Risk** in the [novated lease calculator](../calculator/index.md).
 
 ---
 

@@ -10,6 +10,8 @@ It focuses on demonstrating, with real numbers, **how large the downside can be 
 
 For a conceptual explanation of *why* early termination causes financial damage, see the [early termination overview](early-termination.md).
 
+If you would like to see how early termination plays out *across time*, including the changing break-even point and comparison against a cash purchase, see **Section 7: Early Termination Risk** in the [novated lease calculator](../calculator/index.md). That section provides a visual, time-based illustration of the same mechanics discussed below.
+
 ---
 
 ## Example 1: Being made redundant 3 months into a 5-year lease
