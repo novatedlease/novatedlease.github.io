@@ -206,10 +206,7 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
     <div>
       <div style={{ fontSize: 13, color: "#333", lineHeight: 1.45 }}>
         <p style={{ margin: "0 0 8px 0" }}>
-          Early termination is an asymmetric risk in a novated lease: if your employment ends (e.g. redundancy), you may be forced to settle the remaining vehicle finance using post‑tax dollars (and often GST), plus the residual.
-        </p>
-        <p style={{ margin: "0 0 8px 0" }}>
-          In <strong>Example 1</strong>, terminating a 5‑year lease about 3 months in means you’ve already paid some lease instalments, but you’re also forced to pay out the remaining finance (post‑tax and GST‑inclusive) plus the residual. In some scenarios, total out‑of‑pocket can exceed what you would have spent buying outright.
+          Early termination is an asymmetric risk in a novated lease: if your employment ends (e.g. redundancy), you may be forced to settle the remaining vehicle finance using post‑tax dollars (plus GST), plus the residual. In some scenarios, total out‑of‑pocket can exceed what you would have spent buying outright.
         </p>
         <p style={{ margin: "0 0 8px 0" }}>
           Read the worked example and full context here:{" "}
