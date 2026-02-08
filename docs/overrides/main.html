@@ -47,4 +47,53 @@
       anonymize_ip: true
     });
   </script>
+  <!-- Track Buy Me a Coffee & Tesla referral link clicks (GA4) -->
+  <script>
+    (function () {
+      function fireGa4(eventName, params) {
+        try {
+          if (typeof window.gtag === "function") {
+            window.gtag("event", eventName, params);
+            return;
+          }
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: eventName, ...params });
+        } catch (e) {}
+      }
+
+      function trackLinkClicks() {
+        var links = document.querySelectorAll(
+          'a[href^="https://buymeacoffee.com/"], a[href^="https://www.buymeacoffee.com/"], a[href^="https://ts.la/"]'
+        );
+
+        links.forEach(function (a) {
+          a.addEventListener(
+            "click",
+            function () {
+              var href = a.getAttribute("href") || "";
+              var label = href.includes("buymeacoffee.com")
+                ? "buymeacoffee"
+                : href.includes("ts.la")
+                ? "tesla_referral"
+                : "outbound";
+
+              fireGa4("support_link_click", {
+                link_label: label,
+                link_url: href,
+                page_path: window.location.pathname,
+                page_title: document.title
+              });
+            },
+            { capture: true }
+          );
+        });
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", trackLinkClicks);
+      } else {
+        trackLinkClicks();
+      }
+    })();
+  </script>
 {% endblock %}
