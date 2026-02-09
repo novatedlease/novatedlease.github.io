@@ -46,6 +46,8 @@ The portion of the vehicle cost that remains as a residual, which is:
 
 ### Residual values are predefined and highly asymmetric
 
+![](../images/RV.png){width=50%}
+
 As discussed in the [residual value article](../costs-and-savings/why-residual-values-matter.md), Part B follows a predefined schedule:
 
 - End of year 1 → **65.63%**

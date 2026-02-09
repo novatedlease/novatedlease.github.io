@@ -277,9 +277,7 @@ export default function WhatIf({ inputs }: WhatIfProps) {
         </div>
 
         <div style={{ marginTop: 8, fontSize: 12, lineHeight: 1.4, opacity: 0.75 }}>
-          <b>Note:</b> This is a <b>pre-tax</b> repayment difference, not your net (after-tax) saving. The take-home impact depends on your
-          marginal tax rate (and any threshold effects), and cashflow timing can change the overall outcome. To approximate the net impact,
-          enter the hypothetical vehicle lease amount in the Inputs panel and compare the Summary outcomes.
+          <b>Note:</b> This shows the <b>pre-tax</b> repayment difference only, not the net (after-tax) impact on your take-home pay. The actual net effect depends on your marginal tax rate (including any threshold effects), as well as the secondary benefit from reduced home loan interest. To approximate the net impact, enter the hypothetical vehicle lease amount in the Inputs panel (i.e. <b>{money(hypotheticalPerFn2dp)} per fortnight, pre-tax</b>) and compare the Summary outcomes.
         </div>
       </div>
 

@@ -22,6 +22,8 @@ Understanding why 1 + 4 helps requires understanding how residual values beh
 
 ### Residual values do *not* fall linearly
 
+![](../images/RV.png){width=50%}
+
 [Residual values](../costs-and-savings/why-residual-values-matter.md) are not linear over time.
 
 Under the ATO residual framework:
@@ -97,7 +99,7 @@ The upside is:
 
 For people without iron‑clad job security, this could be a sensible trade.
 
-**Important:** This is only one aspect of the broader trade-off between a single long lease and multiple shorter leases, which is discussed in more depth [elsewhere in this guide](lease-length-and-risk.md). Pay particular attention to the **timing of FBT-exemption review** if you are considering FBT-exempt novated lease. 
+**Important:** This is only one aspect of the broader trade-off between a single long lease and multiple shorter leases, which is discussed in more depth [elsewhere in this guide](lease-length-and-risk.md). Pay particular attention to the **[timing of FBT-exemption review](../special-and-policy/ev-fbt-exemption-review-timing.md)** if you are considering FBT-exempt novated lease. 
 
 ---
 

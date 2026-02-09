@@ -221,10 +221,13 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
         
         <ul style={{ margin: "0 0 10px 18px", padding: 0, color: "#444", fontSize: 12 }}>
           <li>
-            Many providers also charge an <strong>early termination fee</strong> (not modelled here yet).
+            Many providers also charge an <strong>early termination fee</strong> (not modelled here, typically a few hundred dollars).
           </li>
           <li>
-            By default, this section models <strong>cashflow only</strong>. Enabling ‘Adjust for home loan interest saved’ adds an approximate offset‑interest effect based on your home‑loan rate. Other potential impacts (e.g. borrowing capacity, subsidies) are not modelled.
+            By default, this section models <strong>cashflow only</strong>. Turn on <strong>“Adjust for home loan interest saved”</strong> to also estimate the offset‑interest effect from keeping more cash in your mortgage offset (by not paying the purchase price upfront). This is shown as a lower “effective total spent” for the novated lease line.
+          </li>
+          <li>
+            Other potential impacts (e.g. borrowing capacity, subsidies, superannuation) are not modelled.
           </li>
           <li>
             Cash‑pathway running costs are <strong>averaged per fortnight</strong> in this section for simplicity. In other sections they were modelled as <strong>lumpy</strong> payments (e.g. annual insurance, two-monthly electricity). This results in slight discrepancy in the final figure in cash pathway.
@@ -381,12 +384,12 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
                     <InfoTooltip text="Total out‑of‑pocket amount required to own the car outright at this termination point, including all running costs paid up to that time." />
                   </th>
                   <th style={thStyle}>
-                    Additional HL interest
-                    <InfoTooltip text="Estimated additional home‑loan interest incurred (vs the cash baseline) up to this timepoint, based on the offset‑interest model. This depends on your offset interest rate input." />
+                    Home Loan Interest Impact
+                    <InfoTooltip text="Estimated additional home‑loan interest incurred (vs the cash baseline) up to this timepoint, based on the offset‑interest model. Negative figure (typical) means the novated lease is saving interest compared to the cash pathway." />
                   </th>
                   <th style={{ ...thStyle, borderRight: "2px solid #ccc" }}>
                     Adjusted Total Spent
-                    <InfoTooltip text="Adjusted total out‑of‑pocket cost at this timepoint, defined as: Total Spent + HL interest impact." />
+                    <InfoTooltip text="Adjusted total cost at this timepoint, defined as: total spent + home loan interest impact." />
                   </th>
                   <th style={thStyle}>
                     Upfront cost

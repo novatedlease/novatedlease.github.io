@@ -42,7 +42,7 @@ Free, independent **Australian novated lease calculator** — use it to compare 
 
 ## About this calculator
 
-This calculator compares **novated lease vs cash purchase vs car loan vs keeping your current car**, for both **FBT-exempt EVs** and **FBT-applicable petrol or diesel vehicles**, while accounting for income tax, Medicare levy and GST, effective interest and fees, residual (balloon) value, opportunity cost (for example money kept in a home loan offset), and reportable fringe benefit amount (RFBA) / adjusted taxable income impacts.
+This calculator compares **novated lease vs cash purchase vs car loan vs keeping your current car**, for both **FBT-exempt EVs** and **FBT-applicable petrol or diesel vehicles**, while accounting for income tax, Medicare levy and GST, effective interest and fees, residual (balloon) value, opportunity cost (for example money kept in a home loan offset), reportable fringe benefit amount (RFBA) / adjusted taxable income, and superannuation contribution impacts. 
 
 ## How to use this calculator
 
