@@ -83,6 +83,8 @@ In other words, residual values exist to **protect the tax system from abuse**. 
 
 ## Residual values table
 
+![](../images/RV.png){width=50%}
+
 Residual values are not set at random.
 
 They are constrained by **ATO minimum residual guidelines**, which specify the *lowest* residual value permitted for a given lease term.
