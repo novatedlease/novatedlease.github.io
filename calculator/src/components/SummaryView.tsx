@@ -198,12 +198,43 @@ for the estimated impact.
     </div>
   );
 
+  const OpenDetailsButton = (p: { anchorId?: string; label?: string }) => (
+    <button
+      type="button"
+      onClick={() => {
+        window.dispatchEvent(
+          new CustomEvent("nlguide:navigate", {
+            detail: { tab: "Details", anchorId: p.anchorId ?? "details-section-2-financial-summary" },
+          })
+        );
+      }}
+      style={{
+        padding: "4px 8px",
+        borderRadius: 999,
+        border: "1px solid rgba(0,0,0,0.14)",
+        background: "rgba(0,0,0,0.03)",
+        fontWeight: 700,
+        fontSize: 12,
+        cursor: "pointer",
+        whiteSpace: "nowrap",
+        opacity: 0.85,
+      }}
+      title="Open the Details tab (full breakdown)"
+    >
+      {p.label ?? "Go to Details →"}
+    </button>
+  );
+
+
   return (
     <div style={{ display: "grid", gap: 16 }}>
       {/* Card 1: NL vs Offset Cash */}
       <div style={{ border: "1px solid rgba(0,0,0,0.15)", borderRadius: 12, padding: 16 }}>
-        <div style={{ fontWeight: 900, marginBottom: 6 }}>
-          Summary — {titleA} vs {titleB}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
+          <div style={{ fontWeight: 900 }}>
+            Summary — {titleA} vs {titleB}
+          </div>
+          <OpenDetailsButton />
         </div>
 
         <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55, fontVariantNumeric: "tabular-nums" }}>
@@ -271,8 +302,11 @@ for the estimated impact.
       {/* Card 2: NL vs Car Loan (optional) */}
       {showLoan && (
         <div style={{ border: "1px solid rgba(0,0,0,0.15)", borderRadius: 12, padding: 16 }}>
-          <div style={{ fontWeight: 900, marginBottom: 6 }}>
-            Summary — {titleA} vs {titleLoan}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
+            <div style={{ fontWeight: 900 }}>
+              Summary — {titleA} vs {titleLoan}
+            </div>
+            <OpenDetailsButton />
           </div>
 
           <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55, fontVariantNumeric: "tabular-nums" }}>
@@ -343,8 +377,11 @@ for the estimated impact.
       {/* Card 3: NL vs Keeping Current Car (optional) */}
       {showCurrentCar && (
         <div style={{ border: "1px solid rgba(0,0,0,0.15)", borderRadius: 12, padding: 16 }}>
-          <div style={{ fontWeight: 900, marginBottom: 6 }}>
-            Summary — {titleA} vs Keeping Current Car
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
+            <div style={{ fontWeight: 900 }}>
+              Summary — {titleA} vs Keeping Current Car
+            </div>
+            <OpenDetailsButton />
           </div>
 
           <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55, fontVariantNumeric: "tabular-nums" }}>

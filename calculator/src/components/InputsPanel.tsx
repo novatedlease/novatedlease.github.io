@@ -27,6 +27,24 @@ export default function InputsPanel(props: InputsPanelProps) {
   const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
   const prevLeaseDurationRef = useRef<number>(inputs.leaseDurationYears);
 
+  const DEFAULTS_NOTICE_DISMISSED_KEY = "nl_defaults_notice_dismissed_v1";
+  const [showDefaultsNotice, setShowDefaultsNotice] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem(DEFAULTS_NOTICE_DISMISSED_KEY) !== "1";
+    } catch {
+      return true;
+    }
+  });
+
+  const dismissDefaultsNotice = () => {
+    try {
+      localStorage.setItem(DEFAULTS_NOTICE_DISMISSED_KEY, "1");
+    } catch {
+      // ignore
+    }
+    setShowDefaultsNotice(false);
+  };
+
   // When lease duration changes, users MUST update their per-fortnight lease quote.
   useEffect(() => {
     if (prevLeaseDurationRef.current !== inputs.leaseDurationYears) {
@@ -160,6 +178,56 @@ export default function InputsPanel(props: InputsPanelProps) {
           🔄 Reset
         </button>
       </div>
+
+      {showDefaultsNotice ? (
+        <div
+          style={{
+            marginBottom: 14,
+            padding: "12px 12px",
+            borderRadius: 12,
+            border: "1px solid rgba(11, 92, 171, 0.35)",
+            background: "rgba(11, 92, 171, 0.06)",
+            fontSize: 12,
+            lineHeight: 1.4,
+            position: "relative",
+          }}
+        >
+          <button
+            type="button"
+            aria-label="Dismiss notice"
+            onClick={() => {
+              touch("defaultsNoticeDismissed");
+              dismissDefaultsNotice();
+            }}
+            style={{
+              position: "absolute",
+              top: 8,
+              right: 8,
+              border: "1px solid rgba(0,0,0,0.14)",
+              background: "rgba(255,255,255,0.85)",
+              borderRadius: 999,
+              width: 26,
+              height: 26,
+              cursor: "pointer",
+              fontWeight: 900,
+              lineHeight: 1,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              opacity: 0.75,
+            }}
+            title="Don’t show again"
+          >
+            ×
+          </button>
+          <div style={{ fontWeight: 900, marginBottom: 6 }}>
+            ⚠️ Default values are examples only
+          </div>
+          <div style={{ opacity: 0.95 }}>
+            The numbers shown here (including the per‑fortnight lease amount) are <b>not auto‑generated quotes</b>. Please enter <b>your own quote</b>, or estimate using an effective rate of roughly <b>8–12%</b>.
+          </div>
+        </div>
+      ) : null}
 
       <div style={{ display: "grid", gap: 12 }}>
         <Section title="FBT-EXEMPTION ELIGIBILITY" className="nl-input-subcard">
