@@ -179,3 +179,15 @@ While novated leasing may be financially preferable to some loan options, the di
 ---
 
 This example underscores the importance of comprehensive financial analysis when considering novated leasing offers. Using detailed calculators will help consumers make informed decisions aligned with their personal financial circumstances.
+
+
+---
+
+
+!!! info "Support This Independent Calculator & Guide"
+    This calculator and guide are provided free as an independent, unbiased educational resource — something that is surprisingly hard to find in the novated-lease space.
+
+    If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 

@@ -40,6 +40,19 @@ Free, independent **Australian novated lease calculator** — use it to compare 
 <link rel="stylesheet" href="/assets/calculator/style.css" />
 <script type="module" src="/assets/calculator/main.js"></script>
 
+
+
+!!! info "Support This Independent Calculator & Guide"
+    This calculator and guide are provided free as an independent, unbiased educational resource — something that is surprisingly hard to find in the novated-lease space.
+
+    If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+
+---
+
+
 ## About this calculator
 
 This calculator compares **novated lease vs cash purchase vs car loan vs keeping your current car**, for both **FBT-exempt EVs** and **FBT-applicable petrol or diesel vehicles**, while accounting for income tax, Medicare levy and GST, effective interest and fees, residual (balloon) value, opportunity cost (for example money kept in a home loan offset), reportable fringe benefit amount (RFBA) / adjusted taxable income, and superannuation contribution impacts. 
@@ -94,13 +107,16 @@ However, as emphasised throughout this website, individual tax or GST savings fi
 The net outcome remains the only meaningful decision metric.
 
 ### Does this calculator work for electric vehicles?
-Yes. It supports **FBT‑exempt EV novated leases** as well as **FBT‑applicable non‑EV leases**, and highlights how the outcomes differ between the two. It also automatically detects if an EV does not qualify for FBT-exemption, e.g. if the FBT base value is above LCT threshold or if it was first held and used prior to 1/7/2022. 
+
+Yes. It supports **FBT‑exempt EV novated leases** as well as **FBT‑applicable non‑EV leases**, and highlights how the outcomes differ between the two. It also automatically detects if an EV does not qualify for FBT-exemption, e.g. if the FBT base value is above LCT threshold or if it was first held and used prior to 1/7/2022.
 
 ### Does it consider childcare subsidy, HECS, or Div 293 impacts?
+
 Yes. For EV novated leases, the calculator estimates [the effect of the reportable fringe benefit amount (RFBA)](../special-and-policy/childcare-subsidy.md) on adjusted taxable income, which can affect HECS repayments, childcare subsidy, and Division 293 tax.
 
 ### Is this calculator affiliated with any novated lease provider?
-No. This tool is independent and is not affiliated with any novated lease company, financier, or employer salary‑packaging provider. While I have gotten to know some industry insiders through my online participation, I do not funnel any referral nor receive any kickback. 
+
+No. This tool is independent and is not affiliated with any novated lease company, financier, or employer salary‑packaging provider. While I have gotten to know some industry insiders through my online participation, I do not funnel any referral nor receive any kickback.
 
 ### What are the limitations of this calculator?
 
@@ -114,7 +130,7 @@ Like all financial models, this calculator is a simulation based on explicit ass
 
 - **Insurance premiums, registration, and maintenance costs are assumed to remain constant** over the lease term. In practice, these costs often change over time.
 
-- **Residual value methodologies vary between leasing companies.** The approach used here reflects the most common industry practice, but it may not match every provider exactly. 
+- **Residual value methodologies vary between leasing companies.** The approach used here reflects the most common industry practice, but it may not match every provider exactly.
 
 - **Market value depreciation is interpolated for 1–4 year lease terms.** Depreciation rates for both EVs and ICE vehicles change over time, particularly for EVs where rapid technological evolution may accelerate depreciation. The default assumption of ~40% depreciation at 5 years may not remain valid in all market conditions, and users should apply judgment when modifying these assumptions.
 
@@ -142,10 +158,13 @@ While this calculator is designed to cover the most common novated lease scenari
 
 In these situations, the calculator can still provide useful context, but the results should be interpreted with additional caution and, where appropriate, supplemented with tailored advice.
 
+---
+
+
 !!! info "Support This Independent Calculator & Guide"
     This calculator and guide are provided free as an independent, unbiased educational resource — something that is surprisingly hard to find in the novated-lease space.
 
     If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
