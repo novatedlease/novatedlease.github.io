@@ -48,7 +48,7 @@ This calculator compares **novated lease vs cash purchase vs car loan vs keeping
 
 Read the [full instruction](../start-here/use-nl-calculator.md) here. 
 
-**If you have a quote:** Enter your vehicle price, lease details, annual kilometres, and tax details. The calculator then models the cashflows over the lease period and compares your overall financial position across different funding options.
+**If you have a quote:** Enter your vehicle price, lease details, annual kilometres, and financial details based on the quote. The calculator then models the cashflow, asset and liability over the lease period and compares your overall financial position across different funding options.
 
 **If you do not have a quote:** Look up the vehicle’s base and drive‑away price online, estimate typical running costs, choose a lease term (1–5 years), and enter a fortnightly lease amount consistent with an effective interest rate of roughly **8–12%** (a common market range). This will give you a reasonable **ballpark estimate** of the overall financial outcome.
 
@@ -56,11 +56,42 @@ Unlike most novated lease calculators, the outputs focus on **net outcomes** —
 
 ## Frequently asked questions
 
-### Is this an Australian novated lease calculator?
-Yes. This calculator is built specifically for the Australian tax system and incorporates Australian income tax brackets, Medicare levy, GST, fringe benefits tax (FBT) rules, and ATO guidance where applicable.
+### Are you sure of the maths?
 
-### Does “tax saved” equal real savings?
-No. Tax savings [are only one component](../costs-and-savings/why-tax-saved-is-wrong.md). A novated lease can also introduce higher interest rates, management fees, and risks around early termination. This calculator focuses on **net financial impact**, not just tax reduction. You would notice that the calculator does not compute "amount of tax saved" for this very reason. 
+This calculator is the direct evolution of [a spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) that has been in continuous public use for over two years. It has been widely shared, scrutinised, and informally peer-reviewed by financially literate users, with numerous edge cases tested and minor issues corrected over time.
+
+This web-based version was not a direct port of the spreadsheet; instead it was rebuilt from first principles. Core components e.g. income tax modelling, Medicare levy calculation, fortnight-by-fortnight opportunity cost modelling, and pre-tax to post-tax cashflow conversion were independently re-derived and implemented in a new calculation engine.
+
+The outputs of this engine were then systematically verified against the original spreadsheet across a broad range of test scenarios. The two implementations match to the cent for all test cases.
+
+No financial model of this complexity can claim absolute infallibility. However, given the independent re-derivation, cross-verification, and sustained public scrutiny, the mathematical integrity of this calculator is likely robust.
+
+For those who value full transparency, the original spreadsheet remains available and exposes the underlying formulae in full. You are welcome to audit the logic yourself.
+
+If you believe you have identified a genuine discrepancy, please feel free to [reach out](../about/contact.md). Serious scrutiny is welcome.
+
+### Why doesn’t this calculator display a “tax saving” figure?
+
+You may notice that this calculator does not prominently display a single “tax saved” number — and that is deliberate.
+
+Novated lease providers often emphasise tax savings because it is psychologically compelling. However, tax reduction is only one component of the overall financial equation. A novated lease may also involve higher effective interest rates, management fees, brokerage, GST interactions, and early‑termination risks. Focusing solely on “tax saved” can therefore be misleading as explained in [this explanatory article](../costs-and-savings/why-tax-saved-is-wrong.md) and [a fully worked example](../costs-and-savings/false-saving-example.md).
+
+This calculator is designed to model **net financial impact** i.e. the change in your overall position, rather than isolate one attractive component of the transaction.
+
+If you nevertheless wish to derive the income tax saving component, you may do so manually via:
+
+`Output > Details > 1.2 Breakdown by Financial Years`
+
+For each financial year, compare the “Income Tax + Medicare Levy” figures before and after the lease. The difference represents the income tax and Medicare levy reduction attributable to the novated lease.
+
+Some quotes also advertise a “GST saving.” This typically consists of two parts:
+
+- **Vehicle purchase GST saving** — found in `Details > Vehicle GST saved`
+- **Running cost GST saving** — found in `Details > 1.1 Summary > Pre‑tax component > Running cost (vehicle lifetime)` (multiply this amount by 10%)
+
+However, as emphasised throughout this website, individual tax or GST savings figures are not meaningful in isolation. The relevant question is not “How much tax did I save?” but rather “Am I financially better or worse off overall?”
+
+The net outcome remains the only meaningful decision metric.
 
 ### Does this calculator work for electric vehicles?
 Yes. It supports **FBT‑exempt EV novated leases** as well as **FBT‑applicable non‑EV leases**, and highlights how the outcomes differ between the two. It also automatically detects if an EV does not qualify for FBT-exemption, e.g. if the FBT base value is above LCT threshold or if it was first held and used prior to 1/7/2022. 
