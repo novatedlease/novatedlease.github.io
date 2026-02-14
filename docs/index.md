@@ -69,6 +69,7 @@ This site combines the interactive calculator with a collection of self-containe
     -   [Running cost budgets are a “piggy bank”](running-costs/running-costs-piggy-bank.md)
     -   [The ATO 4.2c/km EV charging shortcut — how it actually works](running-costs/ato-42c-per-km-shortcut.md)
     -   [Failure to pass on GST savings — an overlooked cost in some novated leases](running-costs/failure-to-pass-gst-saving.md)
+    -   [Consideration of Insurance Premium vs Excess in a Novated Lease Environment](running-costs/insurance-premium-and-excess.md)
 
 -   **:material-alert-circle: Risks & exit strategies**
     
