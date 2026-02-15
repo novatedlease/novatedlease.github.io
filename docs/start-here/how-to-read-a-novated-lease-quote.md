@@ -10,10 +10,9 @@ A novated lease quote typically combines:
 
 - vehicle financing
 - tax concessions (income tax, FBT, GST)
-- running-cost budgets and the derived savings when paid with pre-tax salary
-- assumptions about employment continuity and insurance outcomes
+- running-cost budgets and the derived savings when paid using pre-tax income
 
-Many of the numbers shown are **estimations**, not guaranteed outcomes. Most importantly, the quoted outcomes assume continuous employment for the full lease term.
+Many of the numbers shown are **estimations**, not guaranteed outcomes. Most importantly, the quoted outcomes assume continuous employment and uneventful leasing for the entire lease term.
 
 !!! warning "Do not treat a quote as a guaranteed cost"
     A novated lease quote assumes that employment, tax settings, and vehicle use remain stable for the full lease term.
@@ -32,14 +31,16 @@ This number:
 
 - does **not** represent net financial benefit,
 - is based on a hypothetical benchmark of how much the same lease would cost if paid entirely with post-tax income,
-- and may include “tax savings” on items you would not otherwise have purchased (e.g. lease protection insurance).
+- and may include “tax savings” on items you would not otherwise have purchased outside a lease structure (e.g. lease protection insurance).
 
 See: [why “tax saved” is misleading](../costs-and-savings/why-tax-saved-is-wrong.md)
 
 !!! warning "High tax savings do not imply a good deal"
-    Tax saving is not synonymous to net saving.
+    Tax saving is not synonymous with net saving.
     
     The correct question is whether the *net outcome* beats realistic alternatives.
+
+    It is entirely possible for a quote touting huge "savings" figure to in fact be a net loss when compared to a realistic alternative as I explore in [this article](../costs-and-savings/false-saving-example.md). 
 
 ---
 
@@ -50,8 +51,8 @@ This is a poorly regulated area and one of the most common sources of confusion.
 Effective interest rates in novated leases:
 
 - are defined inconsistently between providers,
-- are calculated on different bases,
-- and are often **not comparable** to rates derived using standard amortisation schedule.
+- are often calculated on different bases,
+- and are often **not comparable** to rates derived using a standard amortisation schedule.
 
 Compounding this problem, some providers prominently advertise a so‑called “base rate”, particularly when the true effective interest rate would look unpalatable if disclosed.
 
@@ -59,10 +60,14 @@ For example, a quote may claim a “base rate” of 8.79%, while the effective i
 
 The base rate is largely meaningless in isolation when thousands of dollars of additional fees are embedded into the financed amount.
 
+Given how many novated lease providers provide inconsistent and artificially low "interest rate", I recommend not relying on these self-reported figure, but instead using a standardised method such as the one incorporated in [this site's calculator](../calculator/index.md). 
+
 See: [Why novated lease interest rates are inherently unreliable](../costs-and-savings/why-nl-interest-looks-high.md#why-novated-lease-interest-rates-are-inherently-unreliable)
 
 !!! warning "Do not reject or accept a quote based on interest rate alone"
     A lower interest rate can still produce a worse overall outcome. A quoted “8%” can easily translate to 11% or higher when calculated using standard amortisation methods.
+
+    Company A's 8% could sometimes be more expensive than Company B's 10%. 
 
 ---
 
@@ -77,11 +82,11 @@ It includes:
 
 Running costs are *budgets*, not spending.
 
-Therefore, when comparing fortnightly deductions between two quotes, either compare only the vehicle finance + admin (and ignore all other running cost portion), or take care to ensure that both quotes use identical running cost estimates.
+Therefore, when comparing fortnightly deductions between two quotes, either compare only the vehicle finance + admin (and ignore all other running-cost portions), or take care to ensure that both quotes use identical running cost estimates.
 
 See: [running costs as a piggy bank](../running-costs/running-costs-piggy-bank.md)
 
-!!! warning "Do not compare deductions between quotes"
+!!! warning "Do not compare deductions between quotes directly without reconciling running-cost budget discrepancies"
     Different quotes may assume different running-cost budgets, making overall deductions non-comparable.
 
 ---
@@ -96,10 +101,15 @@ The financed amount should broadly equal:
 - plus documentation fee
 - minus GST savings (up to the annual statutory cap — currently $6,334)
 
+If the financed amount cannot be reconciled, the quote is incomplete and may contain undisclosed brokerage. Ask your novated lease consultant to explain their derivation of the financed figure if it does not match the above. 
+
+Many novated lease providers incorporate the first-year comprehensive insurance premium into the financed amount. Reject this if possible and insist on claiming the comprehensive insurance under "running costs". 
+
+When the insurance premium is included in the financed amount, it attracts interest over time, and may also contribute to worse payout figures in the event of [early termination](../risks/early-termination.md). 
+
 !!! warning "Bundled add-ons inflate financing"
     Insurance, servicing, or accessories bundled into the financed amount increase interest and early-termination risk.
 
-If the financed amount cannot be reconciled, the quote is incomplete and may contain undisclosed brokerage.
 
 ---
 
@@ -117,7 +127,7 @@ See:
 !!! warning "Skipping charging or running-cost claims leaves money on the table"
     Claiming running costs almost always results in a financial advantage compared to not claiming, all else being equal.
     
-    Removing them because you "charge cheaply anyway" is a mathematical error - read more in the [4.2c/km shortcut article](../running-costs/ato-42c-per-km-shortcut.md).
+    Removing them because you "charge cheaply anyway" is a mathematical error – read more in the [4.2c/km shortcut article](../running-costs/ato-42c-per-km-shortcut.md).
 
 ---
 
@@ -142,13 +152,13 @@ This total is what you should compare against:
 
 ### Super guarantee
 
-Some employers calculate superannuation contributions based on **post–novated lease income** rather than your pre‑salary‑packaging salary. The specific calculation method needs to be explicityly clarified with your payroll department.
+Some employers calculate superannuation contributions based on **post–novated lease income** rather than your pre‑salary‑packaging salary. The specific calculation method needs to be explicitly clarified with your payroll department.
 
-ThisIf superannuation contribution is calculated on post-novated leaes income, it can result in a **significant reduction in super contributions**, potentially amounting to many thousands of dollars over the life of the lease.
+If superannuation contributions are calculated on post-novated lease income, this can result in a **significant reduction in employer super contributions**, potentially amounting to many thousands of dollars over the life of the lease.
 
-While this practice is not common (estimated at around 5–10% based on informal polling), it represents a **non‑trivial downside risk** and should be explicitly clarified with payroll before entering into a novated lease.
+While this practice is not common (estimated at around 5–10% based on informal polling), it represents a **non‑trivial downside risk**.
 
-If this applies in your case, the lost super should be incorporated into your overall cost–benefit and risk analysis. 
+If this applies in your case, the lost super should be incorporated into your overall cost–benefit analysis. 
 
 !!! warning "Always check how your payroll calculates your super guarantee"
     You could lose many thousands in your super if the contribution is based on your post-NL income.
@@ -185,7 +195,7 @@ See: [adjusted taxable income explained](../special-and-policy/childcare-subsidy
 Before accepting a quote, ask:
 
 - Can I reproduce the financed amount from first principles?
-- Are insurance and other add-ons bundled to my financed amount, and do I want or need them?
+- Are insurance and other add-ons bundled into my financed amount, and do I want or need them?
 - Am I being quoted a **“base rate”** or a properly calculated **effective interest rate**?
 - Is the reported effective interest rate calculated using a transparent methodology?
 - Is GST passed on for eligible running costs?
@@ -199,7 +209,7 @@ The [novated lease calculator](../calculator/index.md) is designed to:
 - strip out running-cost noise
 - validate the effective interest rate
 - compare net outcomes across pathways
-- help estimate potential unstated downsides (e.g. loss in super guarantee and government subsidies)
+- help estimate potential unstated downsides (e.g. loss of super guarantee and government subsidies)
 
 
 ---

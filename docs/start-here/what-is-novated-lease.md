@@ -4,7 +4,7 @@ This section explains how novated leases work and how to think about them.
 
 First and foremost: **novated leases are only available and relevant for salaried employees**. It is not applicable if you are a business owner or a sole trader. 
 
-Novated lease is a **salary packaging arrangement** that allows part of your vehicle costs to be paid from your salary **before income tax is withheld**. 
+A novated lease is a **salary packaging arrangement** that allows part of your vehicle costs to be paid from your salary **before income tax is withheld**. 
 
 Understanding the leasing mechanism and its caveats is essential. Much of the confusion around novated leases comes from skipping this step and jumping straight to marketing numbers.
 
@@ -12,7 +12,7 @@ Understanding the leasing mechanism and its caveats is essential. Much of the co
 
 ## High-level mechanism of a novated lease
 
-At a high level, novated lease changes the timepoint at which income tax is collected in relation to your spending. 
+At a high level, a novated lease changes the timepoint at which income tax is collected in relation to your spending. 
 
 ---
 
@@ -57,7 +57,7 @@ This is what people mean when they say you are “spending pre-tax money”.
 
 If you do the maths, spending pre-tax income has a very specific effect.
 
-The net result is equivalent to receiving a **discount equal to your marginal tax rate plus the Medicare levy**:[^1]
+The net result is economically equivalent to receiving a **discount equal to your marginal tax rate plus the Medicare levy**:[^1]
 
 - 30% tax bracket → **32% effective discount**
 - 37% tax bracket → **39% effective discount**
@@ -99,7 +99,7 @@ However, this has an important consequence:
 
 And the required post-tax contribution is not trivial.
 
-Under the most common method, it is roughly:
+Under the most common method, the required post-tax contribution is roughly:
 
 > **20% of the car’s value per year**
 
@@ -109,9 +109,9 @@ This is why, for most of its history, novated leasing was **often not as good a 
 
 > **Example**
 >
-> In my lease for a car with FBT base value $75,500, I pay roughly $19,000 pre-tax for my FBT-exempt novated lease. 
+> In my lease for a car with FBT base value $75,500, I pay roughly $19,000 pre-tax per year for my FBT-exempt novated lease. 
 >
-> If this lease is FBT-applicable, I would instead have to pay $15,100 post-tax, with only roughly ~$4,000 pre-tax remaining.[^2]
+> If this lease were FBT-applicable, I would instead have to pay $15,100 post-tax, with only around $4,000 pre-tax remaining.[^2]
 > 
 > This results in much lower saving due to much less payment being funded with pre-tax dollars. 
 
@@ -121,7 +121,7 @@ This is why, for most of its history, novated leasing was **often not as good a 
 
 Everything changed when the government introduced the **FBT exemption for low-emission vehicles** in 2022.
 
-For eligible **EVs and (previously) PHEVs** below the luxury car tax threshold (as of FY 2025-26: $91,387):
+For eligible **EVs (and previously PHEVs)** below the luxury car tax threshold (FY 2025-26: $91,387):
 
 - the car benefit is **exempt from FBT**
 - there is **no need for ECM**
@@ -137,7 +137,7 @@ Without the FBT encumbrance, **the pre-tax “discount effect” is amplified**.
 
 In practical terms, this removes a cost that was previously **many thousands of dollars per year** for an equivalently priced car.
 
-Novated lease providers and financiers still take their cut via high “effective interest rates” and fees, but if you do the calculations carefully, the numbers can now work decisively in favour of the employee.
+Novated lease providers and financiers still take their cut via high “effective interest rates” and fees, but if you do the calculations carefully, the numbers can now work decisively in the employee's favour.
 
 In some cases, the difference can be **many tens of thousands of dollars** over the life of the car, compared to cash or a conventional loan. 
 
@@ -151,16 +151,17 @@ Most novated lease calculators emphasise:
 
 - “tax saved” figures
 
-while quietly ignoring:
+while quietly minimising your attention on:
 
 - interest and fees you would not otherwise pay
-- residual values
-- opportunity cost
-- risk from early termination or policy change
+- risk from [early termination](../risks/early-termination.md) or [policy change](../special-and-policy/ev-fbt-exemption-review-timing.md)
+- reduced borrowing capacity
+- potentially reduced [super contribution](../special-and-policy/super-guarantee.md)
+- and other drawbacks. 
 
 This is why careful, apples-to-apples comparison as well as understanding of caveats are essential.
 
-It is the fundamental motivation behind [the novated lease calculator](../calculator/index.md). I was curious to find out exactly what the "saving" means and many hundreds of hours of nerdy labour later the calculator was the product. Many people have found the tool useful which I take pride in and am grateful for. 
+It is the fundamental motivation behind [the novated lease calculator](../calculator/index.md). I was curious to find out exactly what the advertised "saving" meant, and many hundreds of hours of nerdy labour later the calculator was the result. Many people have found the tool useful which I take pride in and am grateful for. 
 
 ---
 

@@ -8,7 +8,7 @@ This assumption is wrong.
 
 While both arrangements are called “novated leases”, **they operate under fundamentally different tax mechanics**, and therefore behave very differently in practice.
 
-Failing to separate the two leads to poor comparisons and misleading conclusions. It also explains why many comments confidently assert that “novated leases are never worth it”, often based on outdated experience with novated leases for ICE vehicles and without any awareness of the FBT exemption that applies to eligible EVs.
+Failing to separate the two leads to a conflation of the pros and cons of novated leasing. It also explains why many comments confidently assert that “novated leases are never worth it”, often based on outdated experience with novated leases for ICE vehicles and without any awareness of the FBT exemption that applies to eligible EVs.
 
 ---
 
@@ -20,7 +20,7 @@ The single most important distinction is this:
 - **Plug-in hybrid EVs** were also FBT-exempt prior to 1 April 2025, with all pre-existing leases grandfathered until the end of their term.
 - **ICE (petrol and diesel cars)** novated leases are not exempt.
 
-This is not a minor technicality. It fundamentally changes how much of the vehicle’s cost can be funded using pre-tax income. FBT exemption produces cost differences of **thousands of dollars per year**. 
+This is not a minor technicality. It fundamentally changes how much of the vehicle’s cost can be funded using pre-tax income. In most cases, FBT exemption produces cost differences of **thousands of dollars per year**. 
 
 ---
 
@@ -32,15 +32,14 @@ Because employers generally do not want to pay FBT themselves, ICE novated lease
 
 This is done using the **Employee Contribution Method (ECM)**:
 
-- a substantial portion of lease repayments and running costs is paid using **post-tax income**
-- this reduces the taxable value of the benefit
-- and brings the employer’s FBT payable down to zero
+- a substantial portion of lease repayments and running costs is paid using **post-tax income**.
+- this brings the employer’s FBT payable down to zero.
 
 The practical consequences are:
 
-- limited pre-tax benefit, as only a smaller portion of the lease is now funded pre-tax
-- modest tax savings at best
-- an outcome that is often only marginally better than straightforward alternatives (except in high marginal tax, high running cost and [a short lease term](../risks/lease-length-and-risk.md#one-year-is-best-rule-of-thumb-when-fbt-applies))
+- only a relatively small portion of the lease is funded pre-tax
+- therefore most people only achieve modest tax savings
+- the net outcome is often only marginally better than straightforward alternatives (except in cases of high marginal tax rates, high running costs, and [a short lease term](../risks/lease-length-and-risk.md#one-year-is-best-rule-of-thumb-when-fbt-applies))
 
 This is why many people conclude that “novated leases aren’t worth it”, based largely on their previous experience with ICE vehicles.
 
@@ -50,42 +49,21 @@ This is why many people conclude that “novated leases aren’t worth it”, ba
 
 For eligible EVs, the car benefit itself is **FBT-exempt**.
 
-This removes the need for ECM entirely.
+This removes the need for post-tax lease payments entirely.
 
 As a result:
 
 - a much larger proportion of costs can be funded using **pre-tax income**
 - income tax reductions are far more substantial
 
-If these distinctions sound abstract, the [novated lease calculator](../calculator/index.md) allows you to model EV and ICE scenarios side by side under their respective rules.
-
 This is a deliberate policy choice introduced in 2022 to encourage EV uptake.
 
-However, this policy change applies to **EVs ([subject to future review](../special-and-policy/ev-fbt-exemption-review-timing.md)), and previously to PHEVs (up to 1 April 2025)**; not to novated leasing as a general concept.
+This policy change applies to **EVs ([subject to future review](../special-and-policy/ev-fbt-exemption-review-timing.md)), and previously to PHEVs (up to 1 April 2025)** — not to novated leasing as a general concept.
 
----
-
-## Why people conclude “novated leases are good now”
-
-Many people look at EV novated lease figures and infer:
-
-> “Novated leases are now good deals.”
-
-What has actually changed is narrower than that:
-
-- novated leasing as a structure has not fundamentally changed
-- the **tax treatment of a specific class of vehicles** has changed
-
-EV novated leases appear more attractive because:
-
-- FBT is removed from the equation
-- more costs are funded with pre-tax income
-- income tax reductions become much more significant
-
-ICE vehicles continue to operate under the original rules.
+If these distinctions sound abstract, the [novated lease calculator](../calculator/index.md) allows you to model EV and ICE scenarios side by side under their respective rules. You could simulate the financial differences by choosing between EV and non-EV in the first toggle and reviewing the outputs. 
 
 !!! note "Why discussions often go nowhere"
-    Many arguments about novated leases fail because one person is implicitly discussing EV novated leases, while the other is thinking about ICE novated leases — without realising they are analysing different products.
+    Many arguments about novated leases fail because one person is implicitly discussing EV novated leases, while the other is thinking about ICE novated leases — without realising they are analysing functionally different products.
 
 ---
 
@@ -105,7 +83,7 @@ This creates a genuine trade-off:
   cheaper lease, but often higher adjusted taxable income (and therefore worse outcomes for means-tested subsidies)
 
 - **ICE novated leases**:  
-  costlier lease, but typically no RFBA and hence a smaller impact on adjusted taxable income (often better means-tested benefits)
+  costlier lease, but typically no RFBA (once structured with post-tax payment) and hence a smaller impact on adjusted taxable income (often better means-tested benefits)
 
 As a general observation, the take-home pay benefit of an EV novated lease often outweighs the reduction in means-tested subsidies. However, this is highly dependent on individual circumstances and should always be calculated rather than assumed. You can model the **net outcome** — including income tax savings, RFBA effects, and opportunity cost — using the [novated lease calculator](../calculator/index.md).
 
@@ -124,7 +102,7 @@ They can still make sense in specific, relatively narrow circumstances, typicall
 
 In such cases, it is possible to calculate a modest net benefit from an ICE novated lease (compared to funding the same vehicle with offset cash or a car loan). 
 
-However, for the same individuals and usage patterns, the **numerical benefit is usually substantially larger under an EV novated lease**, assuming eligibility and similar vehicle value.
+However, for the same individuals and usage patterns, the **numerical benefit is usually substantially larger for an EV novated lease**, assuming eligibility and similar vehicle value.
 
 ---
 
