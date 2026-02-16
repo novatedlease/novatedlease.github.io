@@ -2,7 +2,7 @@
 
 Residual value is one of the **most important variables** in a novated lease, and misunderstanding it is a major reason people misjudge whether a lease is good value.
 
-Unfortunately, some novated lease providers fail to adequately emphasise or explain residual values to first‑time lessees. As a result, some people are surprised to discover that they still owe tens of thousands of dollars at the end of the lease if they wish to keep the vehicle.
+Unfortunately, some novated lease providers do not adequately explain residual values to first‑time lessees. As a result, some people are surprised to discover that they still owe tens of thousands of dollars at the end of the lease if they wish to keep the vehicle.
 
 ---
 
@@ -60,7 +60,7 @@ Many people understand *what* the residual or balloon payment is, but struggle t
 
 The answer is simple: **because the ATO requires it**.
 
-The concept of a mandatory minimum residual value was introduced by the ATO decades ago, first in **[IT 28 (1960)][it28]** and later clarified in **[TD 93/142][td93142]** (with subsequent addendums).
+The concept of a mandatory minimum residual value was introduced by the ATO decades ago, first in **[IT 28 (1960)][it28]** and later clarified in **[TD 93/142][td93142]** (with subsequent addenda).
 
 You *can* read those rulings directly, but they are dense, technical, and heavy on legal terminology.
 
@@ -77,7 +77,7 @@ To prevent this, the ATO enforces minimum residual values that:
 - assume the asset still has **some remaining economic value** at the end of the lease, and  
 - very coarsely correspond to real‑world depreciation over time.
 
-In other words, residual values exist to **protect the tax system from abuse**. They ensure that lease payments broadly reflect depreciation of the asset, rather than the full asset value.
+In other words, residual values exist to **protect the tax system from abuse**. They ensure that lease payments broadly reflect depreciation of the asset rather than its full cost.
 
 ---
 
@@ -97,17 +97,17 @@ In particular:
 - 4 year lease → 37.50% residual  
 - 5 year lease → 28.13% residual  
 
-Providers may choose to set residuals **above** these minimums, but they cannot set them below.
+Providers may set residuals **above** these minimums, but they cannot set them below.
 
 ---
 
 ### How was residual value derived?
 
-At first glance, the ATO residual table can look like a random list of percentages from 1 to 5 years.
+At first glance, the ATO residual table can look like a random list of percentages across 1 to 5 years.
 
 It isn’t.
 
-There is explicit mathematics behind these numbers, and it is laid out in **TD 93/142**.
+There is explicit mathematics behind these numbers, laid out in **TD 93/142**.
 
 The underlying assumption is that:
 
@@ -174,7 +174,7 @@ If they do so, you may indeed derive **greater tax savings**.
 
 However, this sits on **murkier legal ground**.
 
-The further the applied residual deviates from what the underlying ATO model implies, the greater the risk that the arrangement could be challenged as **not being a genuine lease** if the ATO were to scrutinise or tighten enforcement.
+The further the applied residual deviates from what the underlying ATO model implies, the greater the risk that the arrangement could be challenged as **not being a genuine lease** if the ATO were to scrutinise it more closely. 
 
 In other words:
 

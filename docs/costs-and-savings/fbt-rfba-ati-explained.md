@@ -59,6 +59,8 @@ This exemption dramatically [reduces the cost](../start-here/ev-vs-ice-compared.
 
 However — and this is where most confusion begins — **even though the fringe benefit *tax* is exempt, the fringe benefit itself is still recorded and taken into account for certain means-tested assessments**.
 
+To understand why, we need to distinguish between FBT and RFBA.
+
 ---
 
 ## What is RFBA?
@@ -78,19 +80,19 @@ But RFBA **is used** by other systems to assess your economic capacity.
 ### How is RFBA calculated?
 
 RFBA is calculated using a **[standardised formula set by the ATO](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/taxable-value-of-a-car-fringe-benefit#Statutoryformulamethod10)**.[^1]
-It is **not negotiated**, and novated lease providers do **not** get to invent this number.
 
-For car fringe benefits, the reportable amount is broadly calculated as:
+It is broadly calculated as:
 
 > **RFBA  
 > = Taxable value of the car benefit × 20% × 1.8868 × proportion of FBT year car is available**
 
 The factor **1.8868** is the **gross-up rate** used to convert the taxable value of a fringe benefit into its reportable equivalent for means-testing purposes.
 
-Two important points follow from this:
+Three important points follow from this:
 
 1. **The taxable value is driven primarily by the car’s value**, not by how the car is financed.  
 2. **The lease interest rate / repayment does not affect RFBA.** i.e. for the same car, a lease with 6% effective interest rate would have the same RFBA as a lease with 12% effective interest rate. 
+3. **It is not influenced by the running cost in this statutory formula method.**
 
 
 ---
@@ -166,7 +168,7 @@ Because EVs are FBT-exempt:
 
 The result is that:
 
-- Depending on the lease duration and the effective interest rate, ATI can often end up **higher than your pre-lease taxable income** even though your take-home pay increases
+- Depending on lease duration and effective interest rate, ATI can end up higher than your pre-lease taxable income even though your take-home pay increases.
 - With EV novated leases, you often end up with **worse childcare subsidy, HECS repayment etc**.
 
 This is one of the main reasons [headline tax savings can be misleading](why-tax-saved-is-wrong.md).
@@ -197,7 +199,7 @@ ATI increase (in the case of EV novated lease) matter most if you:
 - have HECS / HELP debt
 - receive childcare subsidy
 - pay child support
-- pay medicare levy surcharge
+- pay Medicare Levy Surcharge
 - are near the Division 293 threshold
 - rely on other means-tested benefits
 
@@ -207,22 +209,19 @@ If one or more apply, RFBA can materially change the outcome. You can use [the n
 
 ---
 
-## Why this is often poorly explained
 
-Most novated lease providers focus on:
+## Quick comparison: EV vs non-EV novated leases
 
-- headline tax savings
-- take-home pay comparisons
+The table below summarises the typical structural differences between **FBT-exempt (EV)** and **FBT-applicable (non-EV)** novated leases:
 
-RFBA is often:
+| Feature | FBT-exempt (EV) novated lease | FBT-applicable (non-EV) novated lease |
+|----------|--------------------------------|----------------------------------------|
+| Lease cost (repayments) | Usually **lower**  | Usually **higher** (part of lease is paid post-tax) |
+| RFBA | **Present** (benefit still reportable) | **Zero** after full ECM |
+| Adjusted Taxable Income (ATI) | Often **higher than before NL** (RFBA added back) | **Lower than before NL** |
+| Means-tested subsidies / liabilities | Often **worse off** | Often **better or neutral** |
 
-- buried in fine print
-- mentioned briefly
-- or not explained at all
-
-This often leads to shock tax bills and forms a major reason behind some of the "novated lease is a scam" feedback. 
-
-This issue forms part of the caveats in considering "[is a novated lease right for me?](../start-here/is-it-worth-it.md#start-with-a-holistic-view-rather-than-the-savings-figure)". 
+These are general tendencies rather than universal rules. The actual outcome depends on income level, lease structure, and personal circumstances. You can calculate the RFBA and ATI for your lease in the [novated lease calculator](../calculator/index.md). 
 
 ---
 
@@ -232,13 +231,15 @@ There is an additional [in-depth article on adjusted taxable income](../special-
 
 ---
 
+
+
 ## Key takeaway
 
 If you remember nothing else:
 
 > **FBT exemption reduces the cost of EV novated leases, but paradoxically can worsen means-tested government subsidies and liabilities.** 
 
-> **FBT-applicable novated lease i.e. non-EV is usually more expensive in lease repayment, however it usually improves government subsidies and liability with the typical ECM.**
+> **FBT-applicable (non-EV) novated leases are usually more expensive in repayments, but often improve means-tested subsidies and liabilities through ECM.**
 
 
 
@@ -254,6 +255,6 @@ If you remember nothing else:
     - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
 
 ---
-[^1]: This "statutory formula" method is the most common. If you have adequate record you may opt for "operating cost method" which is not discussed in this guide. 
+[^1]: This "statutory formula" method is the most common. If you have adequate records, you may opt for the "operating cost method" which is not discussed in this guide. 
 
 

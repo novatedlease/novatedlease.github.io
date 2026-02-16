@@ -2,14 +2,13 @@
 
 One of the most common objections to novated leasing goes something like this:
 
-> “Why would I take a novated lease at 10–12% interest  
-> when I can get a car loan at 6%?”
+> “Why would I take a novated lease at 10–12% interest when I can get a car loan at 6%?”
 
 At face value, this sounds like a decisive argument. In reality, it isn’t.
 
 The “interest rate” on a novated lease is not directly comparable to a standard car loan interest rate.
 
-This is one of the most conceptual errors in novated lease alongside the [common fixation on “tax saved”](../costs-and-savings/why-tax-saved-is-wrong.md).
+This is one of the most common conceptual errors in novated leasing, alongside the [common fixation on “tax saved”](../costs-and-savings/why-tax-saved-is-wrong.md).
 
 And no — you also can’t “convert” a novated lease rate into a post-tax equivalent and treat that as a valid comparison. That calculation is conceptually wrong, because the tax treatment does not apply neatly to the interest component.
 
@@ -28,7 +27,6 @@ It is a bundled financial arrangement that combines:
 
 - financing,
 - tax treatments (both income tax and GST),
-- salary packaging mechanics,
 - and running cost management.
 
 The quoted interest rate applies only to **one component** of that structure, namely the financing component.
@@ -47,7 +45,7 @@ Novated leases (particularly the FBT-exempt variety) often generate such large o
 
 An additional factor is market structure. For historical and administrative reasons, many large corporations and public-sector employers have established **effectively exclusive salary-packaging arrangements with a single provider**. Within such a quasi-monopolistic setting, there is little competitive pressure on pricing.
 
-In other words, a sole workplace novated lease provider has little incentive to compete on price when employees are effectively forced to choose between accepting a still-reasonably-good deal (after margin extraction) or walking away from novated leasing entirely.
+In other words, a sole workplace novated lease provider has little incentive to compete on price when employees must choose between accepting a still-reasonably-good deal (after margin extraction) or walking away from novated leasing entirely.
 
 The result is that interest rates are set not by competitive lending markets, but by how much margin can be extracted without breaking the deal’s perceived attractiveness.
 
@@ -64,10 +62,9 @@ For novated leases, however, this logic breaks down.
 
 The tax benefit does **not** apply neatly to the interest component alone. Instead:
 
-- the tax benefit applies to the **entire lease cost** (for FBT-exempt leases),  
+- the tax benefit applies to the **entire lease payment** (for FBT-exempt leases),  
 - GST treatment further distorts the arithmetic,  
-- running costs receive their own “discount effect”,  
-- and different components of the lease are treated inconsistently for tax purposes.
+- and running costs receive their own “discount effect”,  
 
 As a result, attempting to “convert” a novated lease interest rate into a post-tax equivalent (e.g. “12% becomes 8.4%”) is conceptually wrong.
 
@@ -76,19 +73,19 @@ As a result, attempting to “convert” a novated lease interest rate into a po
 
     It does not.
 
-    Tax concessions apply unevenly across lease payments, residuals, GST treatment, and running costs — which makes any single “equivalent rate” mathematically invalid.
+    Tax concessions apply unevenly across lease payments, running costs as well as their associated GST — which makes any single “equivalent rate” mathematically invalid.
 
 ## Why novated lease interest rates are inherently unreliable
 
 Many people have formed the habit of comparing novated lease interest rates in the same way they compare home loan rates.
 
-This approach is fraught with danger and traps. Below we list three reasons. 
+This approach is unreliable for several reasons.
 
 ### Effective interest rate is inconsistently defined
 
 Another problem is the lack of any regulated or standardised definition of an “effective interest rate” for novated leases.
 
-Unlike home loans — where comparison rates must be calculated using a prescribed methodology under the National Credit Code — novated lease providers are free to include or exclude different components when reporting an interest rate, such as:
+Unlike home loans — where comparison rates must be calculated using a prescribed methodology under the [National Credit Code](https://www.asic.gov.au/regulatory-resources/credit/credit-general-conduct-obligations/national-credit-code/#comparison-rates) — novated lease providers are free to include or exclude different components when reporting an interest rate, such as:
 
 - administration or account-keeping fees,  
 - brokerage or commissions,  
@@ -102,7 +99,7 @@ This creates situations where:
 
 I have personally seen cases where a self-reported “8%” lease turned out to be more expensive than a “10%” lease once all components were properly accounted for. That is the outcome when **methodologies are inconsistent**.
 
-In other words, the number being compared is often not the same number at all.
+In other words, the numbers being compared are often not the same entity at all.
 
 ---
 
@@ -115,9 +112,9 @@ This matters because:
 - amounts included in the financed balance attract interest over the life of the lease  
 - genuine running costs (rego, fuel, insurance when budgeted normally) do **not** attract interest; they are [simply set aside and claimed as needed](../running-costs/running-costs-piggy-bank.md)  
 
-If insurance is bundled into the financed amount, you are now **paying interest on your insurance**, which could have been avoided.
+If insurance is bundled into the financed amount, you are now **paying interest on your insurance**, which could have been avoided. It also forms part of [early termination](../risks/how-bad-can-early-termination-get.md) payout, and may increase the likelihood that "you were better off if you paid cash" in the event of early termination. 
 
-Ask explicitly whether insurance can be funded from the running cost allowance instead.
+Ask explicitly whether insurance can instead be funded from the running cost allowance.
 
 ---
 
@@ -144,7 +141,7 @@ In that particular example:
   > + undisclosed brokerage  
   > = **$68,000**
 
-The provider then calculated and advertised their “interest rate” based on this inflated figure, making the rate appear artificially lower than that of another provider who calculated interest on the correct $60,000 figure, even though the **total cost to the employee was higher**.
+The provider then calculated and advertised their “interest rate” based on this inflated figure, making the rate appear artificially lower than that of another provider calculating interest on the correct $60,000.
 
 ---
 
@@ -154,7 +151,7 @@ If headline interest rates are unreliable, how should two novated lease quotes b
 
 There are two possible approaches:
 
-- estimate the effective interest rate using a **standardised methodology** (for example, using the [novated lease calculator](../calculator/index.md)'s automatically derived effective interest rate and use it across different quotes), or  
+- estimate the effective interest rate using a **standardised methodology** (for example, using the [novated lease calculator](../calculator/index.md)’s automatically derived effective rate across different quotes), or
 - more simply, compare the **total vehicle lease cost plus fees**, excluding running costs.
 
 Running costs are not financing costs; they are [prepaid budgets](../running-costs/running-costs-piggy-bank.md). They do not change your outcomes all else being equal. 
