@@ -153,7 +153,7 @@ Choosing a lease duration is therefore **both a financial decision and a policy-
 !!! info "Support this independent calculator & guide"
     This site is provided free as an independent, unbiased educational resource — something surprisingly rare in the novated-lease space.
 
-    If it has helped you make a more informed decision, find a beter deal or avoid a costly mistake, consider supporting its continued development:
+    If it has helped you make a more informed decision, find a better deal or avoid a costly mistake, consider supporting its continued development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
     - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
