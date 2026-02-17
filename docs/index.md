@@ -61,6 +61,7 @@ This site combines the interactive calculator with a collection of self-containe
     -   [Why novated lease effective interest rates look high — yet may still work](costs-and-savings/why-nl-interest-looks-high.md)
     -   [FBT, RFBA, and adjusted taxable income — explained clearly](costs-and-savings/fbt-rfba-ati-explained.md)
     -   [All about residual values](costs-and-savings/why-residual-values-matter.md)
+    -   [You don't have to sell your car above residual value](costs-and-savings/residual-values-vs-sales-price.md)
 
 -   **:material-cash-multiple: Running costs & claiming**
     
