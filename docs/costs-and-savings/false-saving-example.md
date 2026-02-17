@@ -1,4 +1,4 @@
-# Real-Life Example: How the marketed $21,320 savings is in fact a $5,591 net loss
+# Real-life example: How a marketed "$21,320 savings" result in a $5,591 net loss
 
 ---
 
@@ -179,10 +179,10 @@ While novated leasing may be financially preferable to some loan options, the tr
 ---
 
 
-!!! info "Support This Independent Calculator & Guide"
-    This calculator and guide are provided free as an independent, unbiased educational resource — something that is surprisingly hard to find in the novated-lease space.
+!!! info "Support this independent calculator & guide"
+    This site is provided free as an independent, unbiased educational resource — something surprisingly rare in the novated-lease space.
 
-    If this tool has helped you better understand your options, make a more informed decision or avoid costly mistake, consider supporting its ongoing development:
+    If it has helped you make a more informed decision, find a beter deal or avoid a costly mistake, consider supporting its continued development:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
     - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 

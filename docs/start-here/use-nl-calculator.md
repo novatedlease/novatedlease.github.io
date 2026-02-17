@@ -190,7 +190,7 @@ The **Details** tab contains the full underlying breakdown:
 
 ---
 
-!!! info "Support This Independent Calculator & Guide"
+!!! info "Support this independent calculator & guide"
     This calculator and guide are provided free as an independent, unbiased educational resource — something that is surprisingly rare in the novated‑lease space.
 
     If it has helped you understand your options, avoid costly mistakes, or make a more informed decision, consider supporting ongoing development:
