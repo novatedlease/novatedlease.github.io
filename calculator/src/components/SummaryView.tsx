@@ -106,32 +106,34 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
   const nlVsKeepSaving = assetDelta + cashDelta + interestDelta;
 
   const DisclaimerLine = () => (
-    <div style={{ marginTop: 10, fontSize: 13, opacity: 0.75, fontStyle: "italic" }}>
+    <div style={{ marginTop: 10, fontSize: 13, opacity: 0.75, fontStyle: "italic", textAlign: "left" }}>
       <div>
         ⚠️ Some effects are not accounted for (for example, changes in government subsidies), as these are too complex to fully
-        calculate. {" "}
-<button
-  type="button"
-  onClick={() => {
-    window.dispatchEvent(
-      new CustomEvent("nlguide:navigate", {
-        detail: { tab: "Details", anchorId: "details-section-4-ati" },
-      })
-    );
-  }}
-  style={{
-    padding: 0,
-    border: "none",
-    background: "none",
-    color: "rgba(11, 92, 171, 0.95)",
-    cursor: "pointer",
-    font: "inherit",
-    textDecoration: "underline",
-  }}
->
-  <b>Explore further in Details – Section 4: Adjusted Taxable Income</b>
-</button>
-..
+        calculate. {
+          " "
+        }
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            window.dispatchEvent(
+              new CustomEvent("nlguide:navigate", {
+                detail: { tab: "Details", anchorId: "details-section-4-ati" },
+              })
+            );
+          }}
+          style={{
+            display: "inline",
+            color: "rgba(11, 92, 171, 0.95)",
+            cursor: "pointer",
+            font: "inherit",
+            textDecoration: "underline",
+            verticalAlign: "baseline",
+          }}
+        >
+          <b>Explore further in Details – Section 4: Adjusted Taxable Income</b>
+        </a>
+        .
       </div>
 
 
@@ -139,29 +141,29 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
       {inputs.superFromPreNlIncome === "No" ? (
         <div style={{ marginTop: 8 }}>
           ⚠️ Because your employer calculates Super Guarantee based on your post-novated-lease income, your super contributions may be materially reduced and are not reflected in the figures above.{" "}
-<button
-  type="button"
-  onClick={() => {
-    window.dispatchEvent(
-      new CustomEvent("nlguide:navigate", {
-        detail: { tab: "Details", anchorId: "details-section-5-sg" },
-      })
-    );
-  }}
-  style={{
-    padding: 0,
-    border: "none",
-    background: "none",
-    color: "rgba(11, 92, 171, 0.95)",
-    cursor: "pointer",
-    font: "inherit",
-    textDecoration: "underline",
-  }}
->
-  <b>See Details – Section 5: Super Guarantee</b>
-</button>
-{" "}
-for the estimated impact.
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.dispatchEvent(
+                new CustomEvent("nlguide:navigate", {
+                  detail: { tab: "Details", anchorId: "details-section-5-sg" },
+                })
+              );
+            }}
+            style={{
+              display: "inline",
+              color: "rgba(11, 92, 171, 0.95)",
+              cursor: "pointer",
+              font: "inherit",
+              textDecoration: "underline",
+              verticalAlign: "baseline",
+            }}
+          >
+            <b>See Details – Section 5: Super Guarantee</b>
+          </a>
+          {" "}
+          for the estimated impact.
         </div>
       ) : null}
 

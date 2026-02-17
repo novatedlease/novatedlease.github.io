@@ -373,7 +373,7 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
                   </th>
                   <th style={thStyle}>
                     Remaining Lease Payout
-                    <InfoTooltip text="If a lease is terminated early, remaining vehicle finance is typically payable using post‑tax dollars, plus GST. Future running costs are not payable. Modelled here as: (remaining fortnights) × (vehicle lease per fortnight) × 1.1." />
+                    <InfoTooltip text="If a lease is terminated early, remaining vehicle finance is typically payable using post‑tax dollars, plus GST. Future running costs are not payable. Modelled here as: (remaining fortnights) × (vehicle lease + luxury car adjustment per fortnight) × 1.1." />
                   </th>
                   <th style={thStyle}>
                     Residual
