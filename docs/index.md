@@ -16,7 +16,7 @@ hide:
 </div>
 
 <p style="text-align: left; font-size: 0.85em; color: rgba(0,0,0,0.6); margin-top: 8px;">
-  Suggested Reading: <a href="/start-here/is-it-worth-it/">Is a novated lease right for me</a>
+  Suggested Reading: <a href="/start-here/is-it-worth-it/">Is a novated lease worth it?</a>
   &nbsp;·&nbsp;
   <a href="/costs-and-savings/why-tax-saved-is-wrong/">Why "tax saving" is misleading</a>
   &nbsp;·&nbsp;

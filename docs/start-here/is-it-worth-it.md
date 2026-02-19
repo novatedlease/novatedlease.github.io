@@ -1,15 +1,82 @@
-# Is a novated lease right for me?
+---
+title: Is a Novated Lease Worth It in Australia? (2026 Guide)
+description: Is a novated lease worth it in Australia? Independent 2026 guide covering EV FBT exemption, GST savings, HECS impact, borrowing capacity and real net outcomes.
+---
 
-This is the wrong question to ask:
+# Is a novated lease worth it in Australia? (2026 Guide)
 
-> **“Are novated leases worth it?”**
+![Is a novated lease worth it in Australia decision illustration](../images/worthit.png){width=60%}
 
-The right question is:
+A novated lease can be worth it in Australia if you are on a higher marginal tax rate, have stable employment, and are leasing an FBT‑exempt electric vehicle. However, in lower tax brackets or where job security is uncertain, the financial advantage can disappear or reverse. The only reliable way to know is to compare against realistic alternatives such as paying cash, using a standard car loan, or keeping your existing car. You can model your own scenario using the [novated lease calculator](../calculator/index.md) on this site.
 
-> **“Given my circumstances, compared to my realistic alternatives, am I actually better off overall, and are the benefits worth the potential risks?”**
+Rather than asking simply “Are novated leases worth it?”, the better question is:
 
-Novated leases are highly **context-dependent**.  They can be extremely favourable in some situations, but mediocre or even harmful in others.
+> **Given my income, job stability, alternatives and risk tolerance, am I genuinely better off overall?**
 
+Novated leases are highly context‑dependent. They can be very favourable in some situations — particularly for higher tax brackets and FBT‑exempt EVs — but mediocre or even financially harmful in others.
+
+
+---
+
+### How does a novated lease potentially help save money
+
+Before weighing the risks and benchmarks, it helps to understand *where* the potential savings actually come from, which is especially pronounced in the context of EVs.
+
+1. **Pre‑tax funding for the vehicle**  
+
+    - The car is primarily funded with pre‑tax income, with only the final residual (balloon) payment made from post‑tax money.
+
+2. **Pre‑tax running costs**  
+
+    - Registration, insurance, electricity, servicing and tyres are typically bundled and funded using pre‑tax salary.
+
+3. **GST savings**  
+
+    - Up to $6,334 of GST can be exempted on the vehicle value (subject to eligibility and thresholds).  
+    - Claimable running costs are generally GST‑free within the packaging structure.  
+    - *Important:* Some employers do not fully pass on GST savings — always confirm with your salary packaging provider.
+
+4. **Opportunity cost benefits**  
+
+    - Avoiding a large upfront payment can leave more money in a mortgage offset account, reducing home‑loan interest.
+
+5. **Fringe Benefits Tax (FBT) exemption for eligible EVs**  
+
+    - No FBT applies to eligible EVs below the luxury car tax threshold (currently $91,387 for FY 2024‑25 and 2025‑26).  
+    - Note that PHEV FBT exemption ended on 1 April 2025.
+
+6. **Lease interest offset by structural savings**  
+
+    - Lease rates may appear high (often 8–15%), but the effective cost can be outweighed by the combined tax, GST and FBT advantages, especially for EVs. 
+
+---
+
+### How using pre‑tax income creates a “discount”
+
+Using pre‑tax salary is economically similar to receiving a discount equivalent to your marginal tax rate.
+
+For example:
+
+- At a 45% tax rate + 2% Medicare levy, spending $1,000 pre‑tax is equivalent to roughly $530 post‑tax.
+- The higher your marginal tax bracket, the larger the effective discount.
+
+This structural tax effect is the core reason novated leases can work — but it only creates a genuine benefit when compared against realistic alternatives.
+
+---
+
+## Quick pros and cons overview
+
+For readers who prefer a high-level summary before diving deeper:
+
+| Potential Advantages | Potential Downsides |
+|----------------------|--------------------|
+| Pre-tax funding reduces effective cost | Early termination can be expensive |
+| GST savings on vehicle and running costs | Reduces borrowing capacity |
+| FBT exemption for eligible EVs | May affect HECS, childcare subsidy, Div 293, super contribution |
+| Cashflow preserved for offset accounts | Residual (balloon) payment required |
+| Bundled running costs for budgeting simplicity | Lease rates can appear high (8–15%) |
+
+The real outcome depends on your income, job stability, alternative financing options, and risk tolerance — which is why [modelling your own scenario](../calculator/index.md) is essential.
 
 ---
 
@@ -22,7 +89,8 @@ However, beyond simply crunching the savings figures, I encourage people to **ta
 
 ---
 
-### You are more likely to benefit if many of the following apply
+
+### When a novated lease is more likely to be worth it
 
 A novated lease tends to be more favourable if you:
 
@@ -55,7 +123,7 @@ A novated lease tends to be more favourable if you:
 
 ---
 
-### Where caution is warranted
+### When you should slow down
 
 You should slow down and be more sceptical if several of the following apply:
 
@@ -70,7 +138,7 @@ In these cases, **downside risks are more likely to outweigh headline savings**.
 
 ---
 
-## The importance of using the correct "savings" figure
+## The most common mistake: using the wrong savings benchmark
 
 As [elaborated elsewhere](../costs-and-savings/why-tax-saved-is-wrong.md), most novated lease quotes' "savings" figures are based on the benchmark of:
 
@@ -90,7 +158,7 @@ Having a **realistic savings figure** helps you arrive at a **more informed deci
 
 ---
 
-## “Savings” and frame of reference
+## Two completely different ways people define “saving”
 
 When people talk about “saving money” with a novated lease, it is crucial to be clear about **what the comparison actually is**.
 
@@ -164,6 +232,27 @@ If you remember nothing else:
 
 > **Novated leases are not universally good or bad — individual circumstances determine their appropriateness.**
 
+
+
+---
+
+## Frequently asked questions
+
+### Are novated leases worth it in Australia?
+
+Sometimes. They are more likely to be worth it for higher income earners with stable employment, particularly when leasing an FBT‑exempt EV. However, individual modelling against realistic alternatives is essential.
+
+### Is a novated car lease worth it for an EV?
+
+EV novated leases are often more competitive than petrol or diesel vehicles because of the FBT exemption. That said, reportable fringe benefits can affect HECS/HELP repayments, childcare subsidy, and other income-tested thresholds.
+
+### Is novated leasing worth it for low income earners?
+
+Generally less so. The effective tax benefit is smaller at lower marginal tax rates, while the structural risks (job change, early termination, write‑off) remain.
+
+### Does a novated lease affect borrowing capacity?
+
+Yes. Many lenders treat novated lease repayments as ongoing liabilities, which can significantly reduce borrowing capacity — sometimes by far more than the car’s purchase price.
 
 ---
 
