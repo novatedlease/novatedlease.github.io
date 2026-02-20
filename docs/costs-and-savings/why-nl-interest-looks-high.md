@@ -83,7 +83,7 @@ This approach is unreliable for several reasons.
 
 ### Effective interest rate is inconsistently defined
 
-Another problem is the lack of any regulated or standardised definition of an “effective interest rate” for novated leases.
+One problem in interest rate calculation is the lack of any regulated or standardised definition of an “effective interest rate” for novated leases.
 
 Unlike home loans — where comparison rates must be calculated using a prescribed methodology under the [National Credit Code](https://www.asic.gov.au/regulatory-resources/credit/credit-general-conduct-obligations/national-credit-code/#comparison-rates) — novated lease providers are free to include or exclude different components when reporting an interest rate, such as:
 

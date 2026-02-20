@@ -577,6 +577,7 @@ const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => {
     try {
       trackEvent("copy_link_clicked");
       trackOncePerSession("copy_link_clicked", "copy_link_clicked");
+
       const encoded = encodeInputsToUrlParam(inputs);
 
       const params = new URLSearchParams(window.location.search);
@@ -590,7 +591,27 @@ const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => {
         window.location.hash;
 
       const url = shareUrl;
-      if (navigator.clipboard?.writeText) {
+
+      // Rich clipboard: paste as a clickable sentence in apps that support HTML clipboard.
+      const linkText = "Check out my novated lease calculation output from novatedlease.guide";
+      const html = `<a href="${url}">${linkText}</a>`;
+
+      const ClipboardItemCtor = (window as any).ClipboardItem as
+        | (new (items: Record<string, Blob>) => ClipboardItem)
+        | undefined;
+
+      if (navigator.clipboard?.write && ClipboardItemCtor) {
+        const blobHtml = new Blob([html], { type: "text/html" });
+        const blobText = new Blob([`${linkText}\n${url}`], { type: "text/plain" });
+
+        await navigator.clipboard.write([
+          new ClipboardItemCtor({
+            "text/html": blobHtml,
+            "text/plain": blobText,
+          }),
+        ]);
+      } else if (navigator.clipboard?.writeText) {
+        // Fallback: plain URL
         await navigator.clipboard.writeText(url);
       } else {
         // Fallback for older browsers
@@ -604,6 +625,7 @@ const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => {
         document.execCommand("copy");
         document.body.removeChild(ta);
       }
+
       setCopiedLink(true);
       window.setTimeout(() => setCopiedLink(false), 1200);
     } catch {
