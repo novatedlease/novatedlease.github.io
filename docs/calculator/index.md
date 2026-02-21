@@ -9,7 +9,7 @@ hide:
 
 # Novated Lease Calculator (Australia)
 
-Free, independent **Australian novated lease calculator** — use it to compare net outcomes rather than misleading marketing figures.
+Free, independent **Australian novated lease calculator** designed to help you compare a novated lease vs cash purchase vs car loan using realistic assumptions. This EV and ICE novated lease calculator models income tax, Medicare levy, GST, FBT exemption, residual value, effective interest rate and opportunity cost — so you can assess **real net financial outcomes** rather than headline “tax saved” marketing claims.
 
 <style>
   /* Hide MkDocs/Material page title on this page only */
@@ -82,6 +82,16 @@ No financial model of this complexity can claim absolute infallibility. However,
 For those who value full transparency, the original spreadsheet remains available and exposes the underlying formulae in full. You are welcome to audit the logic yourself.
 
 If you believe you have identified a genuine discrepancy, please feel free to [reach out](../about/contact.md). Serious scrutiny is welcome.
+
+!!! warning "Known limitation (22 February 2026)"
+
+    A helpful Reddit user pointed out that the **post‑four‑year FBT base value discount** is not currently applied in the Employee Contribution Method (ECM) and its downstream calculations for FBT‑applicable leases.
+
+    In practical terms, for fortnights that fall within FBT years starting more than four years after lease commencement, the ECM post-tax payment should be reduced to **two‑thirds of its original amount**, with corresponding adjustments to the pre‑tax component. This would result in higher net savings during those periods.
+
+    At present, this discount is not reflected in the calculator outputs. Correcting it requires structural changes across multiple sections in this calculator.
+
+    This limitation only affects users with **FBT‑applicable leases longer than four years** which is uncommon as shorter leases are more popular among FBT-applicable leases. When applicable, the true financial saving is higher than what the current version of this calculator displays.
 
 ### Why doesn’t this calculator display a “tax saving” figure?
 
