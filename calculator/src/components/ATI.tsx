@@ -344,12 +344,45 @@ export default function ATI(props: AtiProps) {
         </table>
       </div>
 
-      {fbtApplicable && (
+            {fbtApplicable && (
         <div style={{ marginTop: 10, fontStyle: "italic", fontSize: 12, opacity: 0.8 }}>
           RFBA is shown as $0 because this is an FBT-applicable lease and we assume Employee Contribution Method (ECM)
           is used to reduce FBT to zero.
         </div>
       )}
+
+      <div
+        style={{
+          marginTop: 12,
+          padding: "10px 12px",
+          borderLeft: "4px solid rgba(0,0,0,0.25)",
+          background: "rgba(0,0,0,0.04)",
+          borderRadius: 8,
+          fontSize: 13,
+          lineHeight: 1.55,
+        }}
+      >
+        <div style={{ fontWeight: 700, marginBottom: 6 }}>Next step: see what ATI changes might affect</div>
+        <div style={{ opacity: 0.9, marginBottom: 8 }}>
+          Take your <b>reportable fringe benefit amount (RFBA)</b> and <b>updated Adjusted Taxable Income (ATI)</b> figures above and run them through these calculators to simulate downstream impacts.
+        </div>
+        <ul style={{ margin: 0, paddingLeft: 18 }}>
+          <li>
+            <a href="https://paycalculator.com.au/" target="_blank" rel="noreferrer">
+              paycalculator.com.au
+            </a>{" "}
+            — tax, Medicare levy surcharge, HELP, CCS etc.
+          </li>
+          <li>
+            <a href="https://www.ccschecker.com.au/" target="_blank" rel="noreferrer">
+              ccschecker.com.au
+            </a>{" "}
+            — childcare subsidy (CCS) estimates
+          </li>
+        </ul>
+      </div>
+
+
 
       <div
         style={{
