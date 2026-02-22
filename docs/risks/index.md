@@ -14,7 +14,7 @@ Common risk scenarios include:
 - changing employers who do not support novated leasing,
 - unpaid or extended leave,
 - vehicle write-off where insurance does not fully cover the payout,
-- policy changes (such as the EV FBT exemption ending).
+- policy changes (e.g. [if the EV FBT exemption is discontinued](../special-and-policy/ev-fbt-exemption-review-timing.md)).
 
 In these situations, the same lease that looked attractive on a fortnightly cashflow basis can turn into a **large post-tax lump-sum obligation**, often without the tax benefits that justified the arrangement in the first place.
 

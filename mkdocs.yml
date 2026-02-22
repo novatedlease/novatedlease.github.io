@@ -61,14 +61,14 @@ nav:
       - Consideration of Insurance Premium vs Excess in a Novated Lease Environment: running-costs/insurance-premium-and-excess.md
 
   - Risks & exit strategies:
-      - Overview: risks/index.md
+      - Overview of risks and exit strategies: risks/index.md
       - Lease length, residuals, and risk: risks/lease-length-and-risk.md
       - What happens if a novated lease ends early - redundancy, job transfer, vehicle write-off etc: risks/early-termination.md
       - How bad can early termination get - sample calculations: risks/how-bad-can-early-termination-get.md
       - Risk mitigation strategies for early termination risk: risks/risk-mitigation.md
 
   - Special cases & policy:
-      - Overview: special-and-policy/index.md
+      - Overview of special cases and policy: special-and-policy/index.md
       - The complicated impact on adjusted taxable income and childcare subsidy: special-and-policy/childcare-subsidy.md
       - FBT-exempt employer and novated lease - don't double count the FBT exemption!: special-and-policy/fbt-exemption-double-counting.md
       - Super guarantee and payroll risks: special-and-policy/super-guarantee.md

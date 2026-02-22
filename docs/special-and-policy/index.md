@@ -49,6 +49,9 @@ The articles in this section focus on the most important non-obvious interaction
 - **[Super guarantee and payroll risk](super-guarantee.md)**  
   Despite common assumptions, employers are not required to calculate super guarantee on pre-novated-lease salary. Most do — but some legally calculate SG on post-NL income. This page explains what the law actually says, with ATO citations.
 
+- **[NSW Health's Employer Share policy](nsw-health-employer-share.md)**  
+  For some NSW Health employees (especially doctors and nurses), there is a blanket policy requiring staff to “share” their tax savings from all salary packaging arrangements, including novated leases. This substantially reduces the net benefit they can achieve.
+
 - **[EV FBT exemption review timing](ev-fbt-exemption-review-timing.md)**  
   The EV FBT exemption is under formal review. While existing leases are likely to be grandfathered, lease *structure* (e.g. 5-year vs 1+1+1+1) determines how exposed you are to policy change risk.
 
@@ -71,6 +74,7 @@ That approach works **only** if none of the above special cases apply.
 If *any* of the following are true for you:
 
 - you work for a hospital, NFP, or public-sector employer,
+- you work for NSW Health and are affected by employer share policy,
 - you receive childcare subsidy or other family assistance,
 - you have HELP debt or are near Division 293 thresholds,
 - your employer uses a less common (but still legal) method of calculating super contributions,

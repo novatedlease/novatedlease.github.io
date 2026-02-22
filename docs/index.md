@@ -76,7 +76,7 @@ This site combines the interactive calculator with a collection of self-containe
     
     What to consider about risks and ending your lease early.
     
-    -   [Overview](risks/index.md)
+    -   [Overview of risks and exit strategies](risks/index.md)
     -   [Lease length, residuals, and risk: choosing the right duration](risks/lease-length-and-risk.md)
     -   [What happens if a novated lease ends early - redundancy, job transfer, vehicle write-off etc](risks/early-termination.md)
     -   [Early termination payouts: how bad can it get?](risks/how-bad-can-early-termination-get.md)
@@ -86,7 +86,7 @@ This site combines the interactive calculator with a collection of self-containe
     
     Edge cases and policy insights that affect novated leases.
     
-    -   [Overview](special-and-policy/index.md)
+    -   [Overview of special cases and policy](special-and-policy/index.md)
     -   [Novated leases, adjusted taxable income, and childcare subsidy — a deep dive](special-and-policy/childcare-subsidy.md)
     -   [Don’t double count the hospital / NFP FBT cap when judging a novated lease](special-and-policy/fbt-exemption-double-counting.md)
     -   [Super guarantee and payroll risks](special-and-policy/super-guarantee.md)
