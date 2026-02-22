@@ -9,10 +9,10 @@ hide:
 <div style="margin: 12px 0 20px 0;">
 
 <a href="/calculator/" style="display: inline-block; padding: 14px 20px; background: #2b6cb0; color: white; font-size: 1.1em; font-weight: 700; border-radius: 8px; text-decoration: none;">
-  👉 Launch the Novated Lease Calculator
+  👉 Open the Novated Lease Calculator
 </a>
-<div style="margin-top: 6px; font-size: 0.85em; color: rgba(0,0,0,0.6);">
-  Free • Independent • Comprehensive • Educational 
+<div style="margin-top: 6px; font-size: 0.9em; color: rgba(0,0,0,0.7);">
+  Independent • Evidence-driven • Practical • Unaffiliated
 </div>
 
 <p style="text-align: left; font-size: 0.85em; color: rgba(0,0,0,0.6); margin-top: 8px;">
@@ -28,18 +28,14 @@ hide:
 
 ---
 
-I’m the author of a free, comprehensive Australian novated lease calculator and have been answering questions about novated leases on Reddit, Facebook, and other forums since 2023.
+This site brings together an independent Australian novated lease calculator and a structured, practical reference guide.
 
-This site combines the interactive calculator with a collection of self-contained, practical explanations, organising the guidance I’ve shared repeatedly (often in response to misleading claims or confusing marketing) into one coherent reference. [^1]
-
-<p style="text-align: center; font-size: 0.95em; margin-top: 12px;">
-  Prefer to jump straight to the numbers? → 
-  <a href="/calculator/" style="font-weight: 600;">
-    Open the Novated Lease Calculator
-  </a>
-</p>
+It grew out of repeatedly analysing quotes, clarifying misconceptions, and responding to misleading claims in public discussions since 2023 — now organised into one coherent, searchable resource. [^1]
 
 
+
+
+<div style="height: 14px;"></div>
 <div class="grid cards" markdown>
 
 -   **:material-compass-outline: Start here**
@@ -70,7 +66,7 @@ This site combines the interactive calculator with a collection of self-containe
     -   [Running cost budgets are a “piggy bank”](running-costs/running-costs-piggy-bank.md)
     -   [The ATO 4.2c/km EV charging shortcut — how it actually works](running-costs/ato-42c-per-km-shortcut.md)
     -   [Failure to pass on GST savings — an overlooked cost in some novated leases](running-costs/failure-to-pass-gst-saving.md)
-    -   [Consideration of Insurance Premium vs Excess in a Novated Lease Environment](running-costs/insurance-premium-and-excess.md)
+    -   [Insurance premium vs excess in a novated lease](running-costs/insurance-premium-and-excess.md)
 
 -   **:material-alert-circle: Risks & exit strategies**
     
@@ -108,11 +104,11 @@ This site combines the interactive calculator with a collection of self-containe
 ---
 
 !!! info "Support this independent calculator & guide"
-    This site is provided free as an independent, unbiased educational resource — something surprisingly rare in the novated-lease space.
+    This calculator and guide are built and continuously maintained as an independent project.
 
-    If it has helped you make a more informed decision, find a better deal or avoid a costly mistake, consider supporting its continued development:
+    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
 
 [^1]: I used LLM to help synthesise 70 of my old comments into this guide. Everything was checked and rewritten by me to keep my usual style as much as possible, though some LLM-style and infamous em-dash may remain. All contents are mine and there is no machine-hallucination. 

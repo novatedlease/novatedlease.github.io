@@ -9,29 +9,38 @@ hide:
 
 # Novated Lease Calculator (Australia)
 
-Free, independent **Australian novated lease calculator** designed to help you compare a novated lease vs cash purchase vs car loan using realistic assumptions. This EV and ICE novated lease calculator models income tax, Medicare levy, GST, FBT exemption, residual value, effective interest rate and opportunity cost — so you can assess **real net financial outcomes** rather than headline “tax saved” marketing claims.
+
+Independent **Australian novated lease calculator** to compare novated lease vs cash purchase vs car loan vs keeping your current car, focused on your **real net financial outcome** — not just headline [“tax saved” figures that can be misleading](../costs-and-savings/false-saving-example.md).
+
+**Built and maintained** by [u/changyang1230](https://www.reddit.com/user/changyang1230) on Reddit — an Australian specialist doctor with formal training in statistics and a competitive mathematics background — and not affiliated with any financier or novated lease / salary packaging company.
 
 <style>
-  /* Hide MkDocs/Material page title on this page only */
-  .md-content__inner > h1 {
-    display: none;
-  }
-
   /* Reduce the top whitespace above the embedded calculator on this page */
   .md-content__inner {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
+    padding-top: 0.9rem !important;
   }
 
   /* Material adds vertical spacing around headings/first blocks; remove it here */
-  .md-content__inner > :first-child {
-    margin-top: 0 !important;
-  }
 
   /* Also tighten the main container a touch */
   .md-main__inner {
+    padding-top: 0.6rem !important;
+  }
+  /* Bring the calculator higher on the page */
+  .md-content__inner > h1 {
     margin-top: 0 !important;
-    padding-top: 0 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Tighten the intro paragraph spacing */
+  .md-content__inner > p:first-of-type {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Nudge the embedded app up */
+  #nl-calculator-root {
+    margin-top: 0 !important;
   }
 </style>
 
@@ -43,9 +52,9 @@ Free, independent **Australian novated lease calculator** designed to help you c
 
 
 !!! info "Support this independent calculator & guide"
-    This site is provided free as an independent, unbiased educational resource — something surprisingly rare in the novated-lease space.
+    This calculator and guide are built and continuously maintained as an independent project.
 
-    If it has helped you make a more informed decision, find a better deal or avoid a costly mistake, consider supporting its continued development:
+    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
     - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
@@ -172,9 +181,9 @@ In these situations, the calculator can still provide useful context, but the re
 
 
 !!! info "Support this independent calculator & guide"
-    This site is provided free as an independent, unbiased educational resource — something surprisingly rare in the novated-lease space.
+    This calculator and guide are built and continuously maintained as an independent project.
 
-    If it has helped you make a more informed decision, find a better deal or avoid a costly mistake, consider supporting its continued development:
+    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

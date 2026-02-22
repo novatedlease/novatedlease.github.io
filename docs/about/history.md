@@ -97,3 +97,13 @@ Rather than advertising tax saving, the calculator aims to show users:
 - how sensitive outcomes are to assumptions such as interest rates, income levels, and impact on subsidy, super etc. 
 
 The web-based version is not an endpoint, but the latest iteration of an ongoing attempt to make novated leasing analysis more transparent and grounded in real financial outcomes.
+
+---
+
+!!! info "Support this independent calculator & guide"
+    This calculator and guide are built and continuously maintained as an independent project.
+
+    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

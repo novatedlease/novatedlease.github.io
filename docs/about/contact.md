@@ -2,7 +2,10 @@
 
 If you have feedback, suggestions, or have spotted an error in the calculator or guides, I’d genuinely love to hear from you.
 
+
 This project exists because of community input — many of the most useful features and warnings came directly from questions, edge cases, and constructive criticism from readers.
+
+This site is not affiliated with any novated lease or salary packaging company.
 
 ---
 
@@ -32,7 +35,7 @@ To set expectations clearly (and to be fair to everyone):
 - Clarifications about how the calculator works
 - Reporting bugs, errors, or confusing explanations
 
-❌ **I can’t provide personalised advice on individual novated lease quotes**
+❌ **I do not provide personalised quote reviews or financial advice**
 
 This includes requests like:
 
@@ -40,15 +43,13 @@ This includes requests like:
 - “Is this a good deal for my situation?”
 - “Which provider should I choose?”
 
-Regrettably, I’m unable to respond to these requests and will have to ignore them.
-
-The calculator and the accompanying guide are designed to help you analyse quotes independently. Given the scale and reach of this project, I’m not able to provide individualised feedback, nor do I offer paid quote reviews or advisory services.
+To keep this project sustainable and fair to everyone, I’m not able to respond to individual quote review requests or provide personalised financial advice. The calculator and accompanying guide are designed to help you analyse quotes independently, and I do not offer paid quote reviews or advisory services.
 
 ---
 
 ## Where to ask personal situation questions
 
-If you’d like to discuss your **own circumstances or quotes**, these community forums are better places to do so:
+For discussion of **individual quotes or personal circumstances**, public community forums are more appropriate:
 
 - **[Reddit – r/NovatedLeasingAU](https://www.reddit.com/r/NovatedLeasingAU/)**  
 *Note: the subreddit moderator runs a novated leasing company. I am not affiliated.*
@@ -62,3 +63,13 @@ If you’d like to discuss your **own circumstances or quotes**, these community
 
 
 These platforms allow multiple perspectives, public scrutiny, and community discussion which are generally healthier than private DMs.
+
+---
+
+!!! info "Support this independent calculator & guide"
+    This calculator and guide are built and continuously maintained as an independent project.
+
+    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

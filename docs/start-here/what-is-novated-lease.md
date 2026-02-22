@@ -188,12 +188,12 @@ Everything else in this guide builds on those foundations.
 ---
 
 !!! info "Support this independent calculator & guide"
-    This site is provided free as an independent, unbiased educational resource — something surprisingly rare in the novated-lease space.
+    This calculator and guide are built and continuously maintained as an independent project.
 
-    If it has helped you make a more informed decision, find a better deal or avoid a costly mistake, consider supporting its continued development:
+    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
 
 
 [^1]: This relationship is slightly altered if the pre-tax dollar spending brings the gross salary amount past the marginal tax threshold. E.g. if the gross salary is $10,000 above 37+2% threshold, then spending $15,000 would mean the first $10,000 portion enjoys 39% effective discount and the subsequent $5,000 portion enjoys 32% effective discount.

@@ -191,9 +191,9 @@ The **Details** tab contains the full underlying breakdown:
 ---
 
 !!! info "Support this independent calculator & guide"
-    This calculator and guide are provided free as an independent, unbiased educational resource — something that is surprisingly rare in the novated‑lease space.
+    This calculator and guide are built and continuously maintained as an independent project.
 
-    If it has helped you understand your options, avoid costly mistakes, or make a more informed decision, consider supporting ongoing development:
+    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
 
-    - [Use my Tesla referral link](https://ts.la/chang705436) for a $350 discount when ordering a Tesla  
-    - [Buy me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

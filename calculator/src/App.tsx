@@ -973,12 +973,11 @@ useEffect(() => {
         style={{
           display: "flex",
           alignItems: "baseline",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
           gap: 12,
           marginBottom: 8,
         }}
       >
-        <h1 style={{ margin: 0 }}>Novated Lease Calculator</h1>
 
 <div
   id="nl-quotes-anchor"
