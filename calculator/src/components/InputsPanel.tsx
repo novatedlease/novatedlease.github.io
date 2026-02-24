@@ -84,8 +84,56 @@ export default function InputsPanel(props: InputsPanelProps) {
   }, [inputs.vehicleType, inputs.annualMileageKm]);
 
   const [vehicleLeasePerFnText, setVehicleLeasePerFnText] = useState<string>(
-  fmtMoneyInput(inputs.vehicleLeasePerFn)
-);
+    fmtMoneyInput(inputs.vehicleLeasePerFn)
+  );
+
+  const [hoveredRateArrow, setHoveredRateArrow] = useState<"up" | "down" | null>(null);
+
+  // Press-and-hold repeat for rate nudge arrows
+  const rateNudgeTimeoutRef = useRef<number | null>(null);
+  const rateNudgeIntervalRef = useRef<number | null>(null);
+
+  const clearRateNudgeTimers = () => {
+    if (rateNudgeTimeoutRef.current !== null) {
+      window.clearTimeout(rateNudgeTimeoutRef.current);
+      rateNudgeTimeoutRef.current = null;
+    }
+    if (rateNudgeIntervalRef.current !== null) {
+      window.clearInterval(rateNudgeIntervalRef.current);
+      rateNudgeIntervalRef.current = null;
+    }
+  };
+
+  const dispatchRateNudge = (direction: 1 | -1) => {
+    window.dispatchEvent(
+      new CustomEvent("nlguide:nudgeEffectiveRate", {
+        detail: { direction },
+      })
+    );
+  };
+
+  const startRateNudgeRepeat = (direction: 1 | -1) => {
+    // fire once immediately
+    dispatchRateNudge(direction);
+
+    // then after a short delay, repeat rapidly while held
+    clearRateNudgeTimers();
+    rateNudgeTimeoutRef.current = window.setTimeout(() => {
+      rateNudgeIntervalRef.current = window.setInterval(() => {
+        dispatchRateNudge(direction);
+      }, 110);
+    }, 320);
+  };
+
+  const stopRateNudgeRepeat = () => {
+    clearRateNudgeTimers();
+    setHoveredRateArrow(null);
+  };
+
+  useEffect(() => {
+    // cleanup on unmount
+    return () => clearRateNudgeTimers();
+  }, []);
 
   useEffect(() => {
     // Keep text synced to committed value (e.g. guard accept/reject, share-link load, etc.)
@@ -251,12 +299,12 @@ export default function InputsPanel(props: InputsPanelProps) {
           {/* Eligibility cue (only show when EV but not eligible) */}
           {isEv && !evEligibilityCriteriaSatisfied ? (
             <ReadOnlyValue
-              label="Eligible for FBT exemption"
+              label="Eligible for FBT Exemption"
               tooltip={<InfoTooltip text="Automatically determined from the next section" />}
               value="No"
             />
           ) : null}
-          <FieldRow label="Novated lease type">
+          <FieldRow label="Novated Lease Type">
             <div
               style={{
                 display: "inline-flex",
@@ -633,14 +681,144 @@ export default function InputsPanel(props: InputsPanelProps) {
               }}
             >
               <div style={{ display: "flex", alignItems: "baseline", gap: 6, flexWrap: "wrap" }}>
-                <span style={{ fontWeight: 800, opacity: 0.75 }}>Effective interest rate:</span>
-                <span style={{ fontWeight: 900 }}>{props.formatPct(props.guardLiveRatePct)}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.dispatchEvent(
+                      new CustomEvent("nlguide:navigate", {
+                        detail: {
+                          tab: "Details",
+                          anchorId: "details-section-3-effective-interest-rate",
+                        },
+                      })
+                    );
+                  }}
+                  style={{
+                    padding: 0,
+                    border: "none",
+                    background: "none",
+                    cursor: "pointer",
+                    font: "inherit",
+                    textAlign: "left",
+                    fontWeight: 800,
+                    opacity: 0.85,
+                    color: "rgba(11, 92, 171, 0.95)",
+                    textDecoration: "underline",
+                    textUnderlineOffset: 2,
+                  }}
+                >
+                  Effective interest rate:
+                </button>
+
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                  <span style={{ fontWeight: 900 }}>{props.formatPct(props.guardLiveRatePct)}</span>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      lineHeight: 0.9,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onPointerDown={(e) => {
+                        e.preventDefault();
+                        // Helps iOS Safari avoid text-selection/callout on long-press.
+                        try {
+                          e.currentTarget.setPointerCapture(e.pointerId);
+                        } catch {
+                          // ignore
+                        }
+                        setHoveredRateArrow("up");
+                        startRateNudgeRepeat(1);
+                      }}
+                      onPointerUp={stopRateNudgeRepeat}
+                      onPointerCancel={stopRateNudgeRepeat}
+                      onPointerLeave={stopRateNudgeRepeat}
+                      onMouseEnter={() => setHoveredRateArrow("up")}
+                      onMouseLeave={() => setHoveredRateArrow(null)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          dispatchRateNudge(1);
+                        }
+                      }}
+                      onContextMenu={(e) => e.preventDefault()}
+                      title="Increase effective interest rate by 0.1%"
+                      aria-label="Increase effective interest rate"
+                      style={{
+                        padding: 0,
+                        border: "none",
+                        background: "transparent",
+                        cursor: "pointer",
+                        fontSize: 12,
+                        lineHeight: 1,
+                        userSelect: "none",
+                        WebkitUserSelect: "none",
+                        WebkitTouchCallout: "none",
+                        touchAction: "none",
+                      }}
+                    >
+                      {hoveredRateArrow === "up" ? "▲" : "△"}
+                    </button>
+                    <button
+                      type="button"
+                      onPointerDown={(e) => {
+                        e.preventDefault();
+                        // Helps iOS Safari avoid text-selection/callout on long-press.
+                        try {
+                          e.currentTarget.setPointerCapture(e.pointerId);
+                        } catch {
+                          // ignore
+                        }
+                        setHoveredRateArrow("down");
+                        startRateNudgeRepeat(-1);
+                      }}
+                      onPointerUp={stopRateNudgeRepeat}
+                      onPointerCancel={stopRateNudgeRepeat}
+                      onPointerLeave={stopRateNudgeRepeat}
+                      onMouseEnter={() => setHoveredRateArrow("down")}
+                      onMouseLeave={() => setHoveredRateArrow(null)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          dispatchRateNudge(-1);
+                        }
+                      }}
+                      onContextMenu={(e) => e.preventDefault()}
+                      title="Decrease effective interest rate by 0.1%"
+                      aria-label="Decrease effective interest rate"
+                      style={{
+                        padding: 0,
+                        border: "none",
+                        background: "transparent",
+                        cursor: "pointer",
+                        fontSize: 12,
+                        lineHeight: 1,
+                        userSelect: "none",
+                        WebkitUserSelect: "none",
+                        WebkitTouchCallout: "none",
+                        touchAction: "none",
+                      }}
+                    >
+                      {hoveredRateArrow === "down" ? "▼" : "▽"}
+                    </button>
+                  </span>
+                </span>
+
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6, opacity: 0.7 }}>
-                  <span>(Definition 1)</span>
                   <InfoTooltip
                     text={
                       <>
-                        <b>WARNING:</b> The calculated effective interest rate is invalid if the financed figure contains insurance, repair package or other vehicle add-ons that are not part of the FBT base value, as the financed amount used in this calculator does not consider these add-ons. The presence of these add-ons also make comparison with other financiers invalid if they do not contain equivalent add-ons.
+                        <p style={{ margin: "0 0 8px 0" }}>
+                          You can adjust the effective interest rate manually using the △ / ▽ arrows. Each click changes the rate by <b>0.1%</b> intervals (press-and-hold to adjust continuously).
+                        </p>
+                        <p style={{ margin: 0 }}>
+                          <b>WARNING:</b> The calculated effective interest rate is invalid if the financed figure contains insurance, repair package or other vehicle add-ons that are not part of the FBT base value, as the financed amount used in this calculator does not consider these add-ons. The presence of these add-ons also make comparison with other financiers invalid if they do not contain equivalent add-ons.
+                        </p>
                       </>
                     }
                   />

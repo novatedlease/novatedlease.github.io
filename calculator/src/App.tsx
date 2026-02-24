@@ -557,6 +557,7 @@ export default function App() {
   // Used for dynamic label on summary horizon selector
   const leaseYearsLabel = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
 
+
   // Ensure that when leaseYearsLabel === 5, summaryHorizon cannot be "lease_end"
   useEffect(() => {
     if (leaseYearsLabel === 5 && summaryHorizon === "lease_end") {
@@ -826,7 +827,7 @@ useEffect(() => {
       setLeaseQuoteGuardMsg(
         `Rejected: outside plausible range (${formatMoney(guardMinVehicleLeaseFn)} to ${formatMoney(
           guardMaxVehicleLeaseFn
-        )}) given 0.1%–30% effective rate (Definition 1).`
+        )}) given 0.1%–30% effective rate.`
       );
       return;
     }
@@ -834,6 +835,80 @@ useEffect(() => {
     setInputs((p) => ({ ...p, vehicleLeasePerFn: next }));
     setLeaseQuoteGuardMsg("");
   }
+
+
+  // Keep latest guard values in a ref so the nudge handler can be registered once
+  const guardNudgeRef = useRef({
+    guardLiveRate,
+    guardFinancedStandardExGst,
+    guardResidualStandardExGst,
+    guardLeaseYears,
+    guardDeferMonths,
+    luxuryVehicleAdjPerFn: inputs.luxuryVehicleAdjPerFn,
+  });
+
+  useEffect(() => {
+    guardNudgeRef.current = {
+      guardLiveRate,
+      guardFinancedStandardExGst,
+      guardResidualStandardExGst,
+      guardLeaseYears,
+      guardDeferMonths,
+      luxuryVehicleAdjPerFn: inputs.luxuryVehicleAdjPerFn,
+    };
+  }, [
+    guardLiveRate,
+    guardFinancedStandardExGst,
+    guardResidualStandardExGst,
+    guardLeaseYears,
+    guardDeferMonths,
+    inputs.luxuryVehicleAdjPerFn,
+  ]);
+
+  // Allow the Inputs panel to nudge the effective interest rate (±0.1%) and recompute the lease per-fortnight.
+    useEffect(() => {
+      const handler = (e: Event) => {
+        const ce = e as CustomEvent<{ direction?: number }>;
+        const dirRaw = ce.detail?.direction;
+        const dir = dirRaw === -1 ? -1 : 1;
+
+        const snap = guardNudgeRef.current;
+        if (!Number.isFinite(snap.guardLiveRate)) return;
+
+        const curPct = snap.guardLiveRate * 100;
+
+        // Snap to 0.1% so repeated clicks keep moving reliably.
+        // Example: 9.13 -> 9.1, then +0.1 -> 9.2, +0.1 -> 9.3 ...
+        const curPctRounded1dp = Math.round(curPct * 10) / 10;
+        const nextPct = curPctRounded1dp + dir * 0.1;
+
+        const clampedPct = Math.max(0.1, Math.min(30, nextPct));
+        const nextRate = clampedPct / 100;
+
+        try {
+          const nextTotalLeaseFn = fortnightlyLeaseFromEffectiveAnnualRate({
+            financedAmountExGst: snap.guardFinancedStandardExGst,
+            residualValueExGst: snap.guardResidualStandardExGst,
+            leaseYears: snap.guardLeaseYears,
+            deferMonths: snap.guardDeferMonths,
+            effectiveAnnualRate: nextRate,
+          });
+
+          const nextVehicleOnly = Math.max(
+            0,
+            nextTotalLeaseFn - snap.luxuryVehicleAdjPerFn
+          );
+
+          handleVehicleLeasePerFnChange(nextVehicleOnly);
+        } catch {
+          // ignore engine errors
+        }
+      };
+
+      window.addEventListener("nlguide:nudgeEffectiveRate", handler as EventListener);
+      return () =>
+        window.removeEventListener("nlguide:nudgeEffectiveRate", handler as EventListener);
+    }, []);
 
   return (
   <div
