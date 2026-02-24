@@ -900,10 +900,22 @@ useEffect(() => {
 
         const curPct = snap.guardLiveRate * 100;
 
-        // Snap to 0.1% so repeated clicks keep moving reliably.
-        // Example: 9.13 -> 9.1, then +0.1 -> 9.2, +0.1 -> 9.3 ...
-        const curPctRounded1dp = Math.round(curPct * 10) / 10;
-        const nextPct = curPctRounded1dp + dir * 0.1;
+        // Step on a 0.1% grid, always moving to the closest next grid step in the chosen direction.
+        const curTimes10 = curPct * 10;
+
+        // Floating-point drift can make values like 91.999999 or 92.000001.
+        // Treat "close to grid" as exactly on the grid, otherwise step to the next grid in the chosen direction.
+        const EPS = 1e-3;
+        const nearest = Math.round(curTimes10);
+        const onGrid = Math.abs(curTimes10 - nearest) < EPS;
+
+        const baseTimes10 = onGrid
+          ? nearest
+          : dir > 0
+          ? Math.floor(curTimes10)
+          : Math.ceil(curTimes10);
+
+        const nextPct = (baseTimes10 + dir) / 10;
 
         const clampedPct = Math.max(0.1, Math.min(30, nextPct));
         const nextRate = clampedPct / 100;
