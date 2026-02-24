@@ -753,6 +753,7 @@ useEffect(() => {
   const guardResidualStandardExGst =
     Math.max(0, guardFinancedStandardExGst - inputs.leaseDocFee) * guardResidualFraction;
 
+
   // Compute the live “equivalent effective rate” from the current input (Definition 1)
   const guardTotalLeaseFn = Math.max(0, inputs.vehicleLeasePerFn);
 
@@ -812,6 +813,29 @@ useEffect(() => {
     return `$ ${x.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   }
 
+  // If the guard basis changes (e.g. lease term/defer months), update any existing rejection message
+  // so the displayed plausible range reflects the current term (avoids stale 5-year numbers).
+  useEffect(() => {
+    setLeaseQuoteGuardMsg((prev) => {
+      if (!prev) return "";
+      // Only rewrite known rejection messages.
+      if (!prev.startsWith("Rejected:")) return prev;
+      if (!Number.isFinite(guardMinVehicleLeaseFn) || !Number.isFinite(guardMaxVehicleLeaseFn)) {
+        return "";
+      }
+      return `Rejected: outside plausible range (${formatMoney(guardMinVehicleLeaseFn)} to ${formatMoney(
+        guardMaxVehicleLeaseFn
+      )}) given 0.1%–30% effective rate.`;
+    });
+  }, [
+    guardLeaseYears,
+    guardDeferMonths,
+    guardFinancedStandardExGst,
+    guardResidualStandardExGst,
+    guardMinVehicleLeaseFn,
+    guardMaxVehicleLeaseFn,
+  ]);
+
   function handleVehicleLeasePerFnChange(nextVehicleLeasePerFn: number) {
     const next = Math.max(0, nextVehicleLeasePerFn);
 
@@ -836,34 +860,33 @@ useEffect(() => {
     setLeaseQuoteGuardMsg("");
   }
 
+  // Keep the latest validator/updater function for the nudge handler (listener is registered once).
+  const handleVehicleLeasePerFnChangeRef = useRef<(nextVehicleLeasePerFn: number) => void>(() => {
+    // no-op until first assignment
+  });
+  handleVehicleLeasePerFnChangeRef.current = handleVehicleLeasePerFnChange;
 
-  // Keep latest guard values in a ref so the nudge handler can be registered once
+
+  // Keep latest guard values in a ref so the nudge handler can be registered once.
+  // IMPORTANT: Update `.current` synchronously during render so fast clicks (before effects run)
+  // still use the latest lease term / residual assumptions.
   const guardNudgeRef = useRef({
+    guardLiveRate: NaN,
+    guardFinancedStandardExGst: 0,
+    guardResidualStandardExGst: 0,
+    guardLeaseYears: 5,
+    guardDeferMonths: 0,
+    luxuryVehicleAdjPerFn: 0,
+  });
+
+  guardNudgeRef.current = {
     guardLiveRate,
     guardFinancedStandardExGst,
     guardResidualStandardExGst,
     guardLeaseYears,
     guardDeferMonths,
     luxuryVehicleAdjPerFn: inputs.luxuryVehicleAdjPerFn,
-  });
-
-  useEffect(() => {
-    guardNudgeRef.current = {
-      guardLiveRate,
-      guardFinancedStandardExGst,
-      guardResidualStandardExGst,
-      guardLeaseYears,
-      guardDeferMonths,
-      luxuryVehicleAdjPerFn: inputs.luxuryVehicleAdjPerFn,
-    };
-  }, [
-    guardLiveRate,
-    guardFinancedStandardExGst,
-    guardResidualStandardExGst,
-    guardLeaseYears,
-    guardDeferMonths,
-    inputs.luxuryVehicleAdjPerFn,
-  ]);
+  };
 
   // Allow the Inputs panel to nudge the effective interest rate (±0.1%) and recompute the lease per-fortnight.
     useEffect(() => {
@@ -899,7 +922,7 @@ useEffect(() => {
             nextTotalLeaseFn - snap.luxuryVehicleAdjPerFn
           );
 
-          handleVehicleLeasePerFnChange(nextVehicleOnly);
+          handleVehicleLeasePerFnChangeRef.current(nextVehicleOnly);
         } catch {
           // ignore engine errors
         }
