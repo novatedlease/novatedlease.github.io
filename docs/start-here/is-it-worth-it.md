@@ -7,13 +7,11 @@ description: Is a novated lease worth it in Australia? Independent 2026 guide co
 
 ![Is a novated lease worth it in Australia decision illustration](../images/worthit.png){width=60%}
 
-A novated lease can be worth it in Australia if you are on a higher marginal tax rate, have stable employment, and are leasing an FBT‑exempt electric vehicle. However, in lower tax brackets or where job security is uncertain, the financial advantage can disappear or reverse. The only reliable way to know is to compare against realistic alternatives such as paying cash, using a standard car loan, or keeping your existing car. You can model your own scenario using the [novated lease calculator](../calculator/index.md) on this site.
-
-Rather than asking simply “Are novated leases worth it?”, the better question is:
+Instead of asking “are novated leases worth it?”, the better question is:
 
 > **Given my income, job stability, alternatives and risk tolerance, am I genuinely better off overall?**
 
-Novated leases are highly context‑dependent. They can be very favourable in some situations — particularly for higher tax brackets and FBT‑exempt EVs — but mediocre or even financially harmful in others.
+Novated leases are highly **context‑dependent**. They can be very favourable in some situations — particularly for higher tax brackets and FBT‑exempt EVs — but mediocre or even harmful in others.
 
 
 ---
@@ -28,26 +26,26 @@ Before weighing the risks and benchmarks, it helps to understand *where* the pot
 
 2. **Pre‑tax running costs**  
 
-    - Registration, insurance, electricity, servicing and tyres are typically bundled and funded using pre‑tax salary.
+    - Registration, insurance, electricity, servicing and tyres can be funded using pre‑tax salary.
 
 3. **GST savings**  
 
-    - Up to $6,334 of GST can be exempted on the vehicle value (subject to eligibility and thresholds).  
+    - Up to $6,334 of GST can be exempted on the vehicle value [^1] [^2]
     - Claimable running costs are generally GST‑free within the packaging structure.  
-    - *Important:* Some employers do not fully pass on GST savings — always confirm with your salary packaging provider.
+    - *Important:* Some employers [do not fully pass on GST savings](../running-costs/failure-to-pass-gst-saving.md) — always confirm this in your quote. 
 
 4. **Opportunity cost benefits**  
 
-    - Avoiding a large upfront payment can leave more money in a mortgage offset account, reducing home‑loan interest.
+    - Avoiding a large upfront payment can leave more money in a mortgage offset account, reducing home loan interest.
 
 5. **Fringe Benefits Tax (FBT) exemption for eligible EVs**  
 
     - No FBT applies to eligible EVs below the luxury car tax threshold (currently $91,387 for FY 2024‑25 and 2025‑26).  
     - Note that PHEV FBT exemption ended on 1 April 2025.
 
-6. **Lease interest offset by structural savings**  
+6. **Lease interest offset by other savings**  
 
-    - Lease rates may appear high (often 8–15%), but the effective cost can be outweighed by the combined tax, GST and FBT advantages, especially for EVs. 
+    - While the effective interest rates under the hood of a lease may be high (often 8–12 if not higher%), in many cases, this is outweighed by the overall saving in other aspects.
 
 ---
 
@@ -57,10 +55,13 @@ Using pre‑tax salary is economically similar to receiving a discount equivalen
 
 For example:
 
-- At a 45% tax rate + 2% Medicare levy, spending $1,000 pre‑tax is equivalent to roughly $530 post‑tax.
-- The higher your marginal tax bracket, the larger the effective discount.
+- If you are on the 45% tax bracket, plus 2% Medicare levy, your effective marginal rate is 47%.
+- Spending $1,000 pre-tax only reduces your take-home pay by about $530.
+- In other words, that $1,000 expense, when paid with pretax dollars, feels the same as paying $530 using typical post-tax dollars. 
 
-This structural tax effect is the core reason novated leases can work — but it only creates a genuine benefit when compared against realistic alternatives.
+This pretax "discount" effect is the core reason novated leases can work despite the fees and interests. 
+
+However, this discount needs to be weighed up against additional fees and interests, as well as other potential caveats (see later) which may erode or even outweigh this benefit. 
 
 ---
 
@@ -70,11 +71,11 @@ For readers who prefer a high-level summary before diving deeper:
 
 | Potential Advantages | Potential Downsides |
 |----------------------|--------------------|
-| Pre-tax funding reduces effective cost | Early termination can be expensive |
-| GST savings on vehicle and running costs | Reduces borrowing capacity |
+| Pre-tax funding creates "discount" effect | Higher effective interest rate (often 8–12% or higher) |
+| GST savings on vehicle and running costs | Significantly reduced borrowing capacity |
 | FBT exemption for eligible EVs | May affect HECS, childcare subsidy, Div 293, super contribution |
-| Cashflow preserved for offset accounts | Residual (balloon) payment required |
-| Bundled running costs for budgeting simplicity | Lease rates can appear high (8–15%) |
+| Opportunity cost saved from not spending cash upfront | Residual (balloon) payment may surprise some |
+| Bundled running costs for budgeting simplicity | Early termination can be expensive |
 
 The real outcome depends on your income, job stability, alternative financing options, and risk tolerance — which is why [modelling your own scenario](../calculator/index.md) is essential.
 
@@ -118,7 +119,7 @@ A novated lease tends to be more favourable if you:
 
 - **have a clear exit strategy at the end of the lease**  
   you should be prepared (and able) to pay out the residual if you want to own the car outright at the end of the lease. 
-  otherwise, you risk being stuck perpetually leasing, which may no longer be attractive if FBT exemptions change. 
+  Otherwise, you risk being stuck perpetually leasing, which may no longer be attractive if FBT exemptions change. 
 
 
 ---
@@ -264,3 +265,6 @@ Yes. Many lenders treat novated lease repayments as ongoing liabilities, which c
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
     - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
 
+
+[^1]: Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the intiially "exempted" GST is still payable at this stage. 
+[^2]: If one purchases a car via private sale, as there is no GST component on the car purchase price, one does not get any GST saving when this car is leased. 

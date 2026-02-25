@@ -6,14 +6,6 @@ First and foremost: **novated leases are only available and relevant for salarie
 
 A novated lease is a **salary packaging arrangement** that allows part of your vehicle costs to be paid from your salary **before income tax is withheld**. 
 
-Understanding the leasing mechanism and its caveats is essential. Much of the confusion around novated leases comes from skipping this step and jumping straight to marketing numbers.
-
----
-
-## High-level mechanism of a novated lease
-
-At a high level, a novated lease changes the timepoint at which income tax is collected in relation to your spending. 
-
 ---
 
 ### How salary and spending normally works (PAYG)
@@ -74,7 +66,7 @@ This is the entire reason novated leases can work well.
 
 ### The catch that existed for decades: FBT
 
-Novated leases have existed for many decades, but there has *always* been a major catch:  **[Fringe Benefits Tax (FBT)](../costs-and-savings/fbt-rfba-ati-explained.md).**
+Novated leases have existed for many decades, but historically there has been a major catch:  **[Fringe Benefits Tax (FBT)](../costs-and-savings/fbt-rfba-ati-explained.md).**
 
 FBT is:
 
@@ -137,7 +129,7 @@ Without the FBT encumbrance, **the pre-tax “discount effect” is amplified**.
 
 In practical terms, this removes a cost that was previously **many thousands of dollars per year** for an equivalently priced car.
 
-Novated lease providers and financiers still take their cut via high “effective interest rates” and fees, but if you do the calculations carefully, the numbers can now work decisively in the employee's favour.
+Novated lease providers and financiers still take their cut via high “effective interest rates” and fees, but if you do the calculations carefully, the numbers can now work out much more in the employees' favour.
 
 In some cases, the difference can be **many tens of thousands of dollars** over the life of the car, compared to cash or a conventional loan. 
 
