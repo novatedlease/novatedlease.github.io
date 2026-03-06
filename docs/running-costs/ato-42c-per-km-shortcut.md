@@ -1,8 +1,8 @@
 # The ATO 4.2c/km EV charging shortcut — how it actually works
 
-EV charging sounds simple until you try to claim it.
+For most novated lease expenses, the process is straightforward — you spend $X on something, submit the claim, and that amount is paid from pre-tax dollars.
 
-Different electricity tariffs, solar vs grid, time-of-use pricing, free public chargers, workplace chargers, battery losses… it quickly becomes a record-keeping nightmare.
+Electricity is a different beast. Different tariffs, solar vs grid, time-of-use pricing, free public chargers, workplace chargers, battery losses… it quickly becomes a record-keeping nightmare with no clean answer for what was actually spent.
 
 Recognising this, the ATO essentially said: *this is getting ridiculous*.
 
@@ -33,56 +33,45 @@ This makes the method simple, cheap to comply with, and very predictable.
 
 ---
 
-## Important: this is not a cash reimbursement
+## How the electricity claim actually works
 
-A very common misunderstanding is this:
+A common misconception:
+> I charge for free / extremely cheap e.g. solar or workplace charging, so *why am I asked to 'spend $630' in the budget when I didn't spend anything?*
 
-> “If I claim 10,000 km, I get $420 back.”
+**Claiming** $630 in electricity does **not** mean you are *spending* an additional $630. In fact it does not even mean you are spending anything; **what instead happens is you receive extra money.**
 
-That is **not** how it works.
+Normally, every dollar of gross income gets taxed before it reaches you. For example, on the **37% + 2% Medicare levy** bracket, each *additional* $1.00 of gross income only becomes **$0.61** in your bank account.
 
-The 4.2c/km amount behaves like a **tax deduction**, not a cash reimbursement.
+When you claim the $630 in electricity, you are directing that $630 of gross income to be paid out untaxed — as if the ATO agreed to let the full amount pass through.
 
-### Example
+Compare the two scenarios:
 
-If you drive **10,000 km** in a year:
+| Scenario | What happens to that $630 of gross income |
+|---|---|
+| **Without** claiming electricity | Taxed at 39% → only **$384.30** reaches you |
+| **With** the $630 electricity claim | Paid out pre-tax → the full **$630** reaches you |
 
-- Claim amount:  
-  10,000 × $0.042 = **$420**
+The difference is **$245.70 extra** — money you would not have had otherwise.
 
-That $420 is **added to your deductions**.
+Critically, this $245.70 has nothing to do with your actual charging cost. Whether you charged for free, at 8c/kWh, or at 30c/kWh, the claim produces the same extra money.
 
-Your actual benefit depends on your marginal tax rate.
+This is why you should claim the electricity amount even if your real charging cost is zero, as demonstrated in the next section.
 
-For someone on **30% tax + 2% Medicare levy**:
+!!! info "The formula"
+    **Net extra money = claim amount × (marginal tax rate + 2% Medicare levy)**
 
-- Net benefit = $420 × 32% = **$134.40**
-
-So you are not being paid $420; you are reducing your tax bill by $134.40.
+    | Marginal tax bracket | Combined rate | Net extra money per $630 claimed |
+    |---|---|---|
+    | 30% | 32% | $201.60 |
+    | 37% | 39% | $245.70 |
+    | 45% | 47% | $296.10 |
 
 ---
 
 ## The counter-intuitive bit: you can make a net financial gain from charging and driving
 
-Because the claim is **distance-based**, not cost-based, something interesting can happen.
+Because the pre-tax benefit is fixed by distance — not by what you actually spent — if your real charging cost is low enough, you come out ahead. Here is what that looks like with real numbers.
 
-If you charge your EV very cheaply — for example:
-
-- heavy solar usage,
-- very cheap off-peak tariffs (e.g. 8c/kWh),
-- or a mix of free charging
-
-then the **actual electricity cost** of driving those kilometres can be **lower** than the *tax benefit* you receive from the 4.2c/km deduction.
-
-In that situation, the net effect is that:
-
-> **you can make a net financial gain from charging your EV.**
-
-This feels wrong intuitively, but it is simply a consequence of the shortcut being deliberately conservative and administratively simple.
-
-This does not eliminate other novated-lease risks, but nevertheless is an interesting "perk" of EV novated lease. 
-
----
 ### Example
 
 If you drive **15,000 km** in a year and are on **top marginal tax bracket (45+2%)**:
@@ -97,29 +86,12 @@ Your car has an average efficiency of 150Wh/km, and you charge your car on a che
 
 When you claim the $630, 
 
-- Tax refund = $630 × 47% = **$296.10**
+- Extra money made = $630 × 47% = **$296.10**
 
-Once you reconcile with your actual expense, post-claiming you have made **$116.10 profit** from charging the car. 
+Once you reconcile with your actual expense, post-claiming you have made **$116.10 profit** from charging and driving the car. 
 
-The calculations above are automatically performed in the **Detail - Basic Information - Annual Electricty Report**, under **Post-Reimbursement Effective Charging Expense** figure.
+The calculations above are automatically performed in the **Detail - Basic Information - Annual Electricity Report**, under **Post-Reimbursement Effective Charging Expense** figure.
 
-!!! info "Myth-busting: "If I charge mostly for free, I shouldn’t claim electricity""
-    A common mistake is to remove or minimise the electricity claim (e.g. "$50 per month for charging") on the assumption that
-    *"I charge mostly for free on solar / work, so why would I include this cost?"*
-
-    This is a **mathematical error caused by misunderstanding the mechanics**.
-
-    When you "budget $50 per month" for EV charging under a novated lease, you are **not spending $50**.
-    You are instead **setting aside $50 of gross (pre-tax) income** that is sheltered from income tax.
-
-    If your actual charging cost is low (or close to zero), you still keep the **tax benefit** of that claim — which results in a
-    **net financial gain**, as demonstrated in the examples above.
-
-    In practice, this means you should **almost never skip the electricity claim**, even if you charge very cheaply or for free.
-    Doing so simply leaves money on the table.
-
-    The only realistic exception would be if claiming electricity incurs additional administrative costs that outweighs the financial
-    benefit. This does **not** appear to apply for most major novated lease providers.
 
 ---
 
@@ -156,7 +128,7 @@ If you choose this approach, you can't claim any home charging.
 
 This is the least common, but sometimes **most beneficial**, and it’s the method I personally use some years. 
 
-It is also the most record-keeping-intensive approach, and only worthwhile if the additional deduction meaningfully exceeds the extra effort.
+It is also the most record-keeping-intensive approach, and only worthwhile if the additional benefit meaningfully exceeds the extra effort.
 
 You can do this **only if**:
 
@@ -179,7 +151,7 @@ Depending on:
 - commercial charging mix,
 - and any free charging you get,
 
-this mixed approach can result in a **higher total deduction** than using the shortcut alone.
+this mixed approach can result in a **higher total claim** than using the shortcut alone.
 
 **Example:**
 
@@ -215,8 +187,8 @@ If your real costs are lower, you benefit.  If your real costs are higher, you w
 
 If you remember nothing else:
 
-> **The 4.2c/km method is a tax deduction, not a reimbursement,
-> and it is deliberately blind to how you actually charge your car.**
+> **The 4.2c/km method puts extra money in your pocket based on distance driven,
+> and this benefit is yours even if you charge cheaply or for free.**
 
 For those with solar or cheap tariffs, it is **surprisingly generous**.
 
