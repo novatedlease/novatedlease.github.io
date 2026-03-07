@@ -7,6 +7,12 @@ copyright: |
   <strong>Disclaimer</strong> &middot; This site provides general information and educational commentary only.
   It does not constitute personal financial advice.
 
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/sticky-tables.js
+
 theme:
   name: material
   custom_dir: docs/overrides
@@ -46,7 +52,7 @@ nav:
       - Is a novated lease worth it?: start-here/is-it-worth-it.md
       - How to read a novated lease quote?: start-here/how-to-read-a-novated-lease-quote.md
       - How to use the novated lease calculator: start-here/use-nl-calculator.md
-      - Comparing novated lease calculators: start-here/calculator-comparison.md
+      - 20 novated lease calculators reviewed: start-here/calculator-comparison.md
 
   - Mechanisms explained:
       - Why "tax saved" is the wrong metric: costs-and-savings/why-tax-saved-is-wrong.md
