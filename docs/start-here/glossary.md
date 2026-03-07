@@ -15,7 +15,7 @@ See *Residual value*.
 ---
 
 **Budgeted running costs**
-The portion of pre-tax salary set aside each pay cycle to cover the ongoing costs of running the car — fuel or electricity, tyres, servicing, registration, and insurance. This money sits in a dedicated account and is claimed as expenses are incurred. Unspent amounts are returned at end of lease; shortfalls are billed as post-tax top-ups. See [Running costs as a piggy bank](../running-costs/running-costs-piggy-bank.md).
+The budgeted amount set aside each pay cycle to cover ongoing car costs — fuel or electricity, tyres, servicing, registration, and insurance. This money sits in a dedicated account and is later reconciled against eligible claims (e.g. reimbursement claims, including ATO shortcut-method claims where applicable). Unspent amounts are returned at lease end; if the budget is too low, contributions could be adjusted adjusted (for example via higher ongoing deductions or top-ups). See [Running costs as a piggy bank](../running-costs/running-costs-piggy-bank.md).
 
 ---
 
@@ -56,7 +56,7 @@ The FBT year runs from **1 April to 31 March** — different from the income tax
 ---
 
 **Financed amount**
-The total amount financed under the lease — typically the car's drive-away price plus documentation fee minus GST saved. Occasionally this can be altered by bundled accessories, repair services, first year comprehensive car insurance, lease protection insurnace etc. This amount determines the base from which lease repayments are calculated.
+The total amount financed under the lease — typically the car's drive-away price plus documentation fee minus GST saved. Occasionally this can be altered by bundled accessories, repair services, first year comprehensive car insurance, lease protection insurance etc. This amount determines the base from which lease repayments are calculated.
 
 ---
 
@@ -86,7 +86,7 @@ A tax applied to vehicles with a GST-inclusive value above a threshold set by th
 ---
 
 **Medicare Levy Surcharge (MLS)**
-An additional levy of 1–1.5% applied to higher-income earners without private hospital cover. The surcharge is assessed against ATI. Because an EV novated lease can increase ATI, some individuals near the MLS threshold can be pushed over it. Note that this is separate from and in addition to Medicare Levy, which is a standard 2% levy applied to most tax payers to support universal healthcare in Australia. 
+An additional levy of 1–1.5% applied to higher-income earners without private hospital cover. The surcharge is assessed against ATI. Because an EV novated lease can increase ATI, some individuals near the MLS threshold can be pushed over it. Note that this is separate from and in addition to Medicare Levy, which is a standard 2% levy applied to most taxpayers to support universal healthcare in Australia. 
 
 ---
 
@@ -96,7 +96,7 @@ The genuine financial benefit of a novated lease — calculated by comparing the
 ---
 
 **Novated lease**
-A three-way arrangement between an employee, their employer, and a finance company (lessor). The employer "novates" (takes on) the lease obligations on behalf of the employee, and the lease repayments and running costs are deducted from the employee's pre-tax salary. This allows the employee to pay for the car using pre-tax dollars, reducing income tax. See [What is a novated lease, really?](../start-here/what-is-novated-lease.md)
+A three-way arrangement between an employee, their employer, and a finance company (lessor). The employer "novates" (takes on) the lease obligations on behalf of the employee, and lease repayments/running costs are salary-packaged through payroll (with pre-tax and, where required, post-tax components). This allows part of the car cost to be paid using pre-tax dollars, reducing income tax. See [What is a novated lease, really?](../start-here/what-is-novated-lease.md)
 
 ---
 
