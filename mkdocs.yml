@@ -46,7 +46,7 @@ nav:
 
   - Calculator: calculator/index.md
 
-  - Start here:
+  - Fundamentals:
       - What is a novated lease, really?: start-here/what-is-novated-lease.md
       - EV vs ICE novated leases compared: start-here/ev-vs-ice-compared.md      
       - Is a novated lease worth it?: start-here/is-it-worth-it.md
@@ -56,6 +56,7 @@ nav:
       - Glossary of terms: start-here/glossary.md
 
   - Mechanisms explained:
+      - Overview: costs-and-savings/index.md
       - Why "tax saved" is the wrong metric: costs-and-savings/why-tax-saved-is-wrong.md
       - Real-life example - How a marketed "$21,320 savings" result in a $5,591 net loss: costs-and-savings/false-saving-example.md
       - Why novated lease interest rates look high: costs-and-savings/why-nl-interest-looks-high.md
@@ -64,6 +65,7 @@ nav:
       - You don't have to sell your car above residual value: costs-and-savings/residual-values-vs-sales-price.md
 
   - Running costs & claiming:
+      - Overview: running-costs/index.md
       - Running costs as a "piggy bank": running-costs/running-costs-piggy-bank.md
       - ATO 4.2c per km shortcut: running-costs/ato-42c-per-km-shortcut.md
       - Some employers do not pass on GST saving: running-costs/failure-to-pass-gst-saving.md
