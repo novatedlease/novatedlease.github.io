@@ -48,6 +48,7 @@ It grew out of repeatedly analysing quotes, clarifying misconceptions, and respo
     -   [How to read a novated lease quote?](start-here/how-to-read-a-novated-lease-quote.md)
     -   [How to use the novated lease calculator](start-here/use-nl-calculator.md)
     -   [We reviewed 20 novated lease calculators. Only one shows you the right number.](start-here/calculator-comparison.md)
+    -   [Glossary of terms](start-here/glossary.md)
 
 -   **:material-cogs: Mechanisms explained**
     
