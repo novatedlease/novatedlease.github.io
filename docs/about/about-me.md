@@ -66,7 +66,7 @@ Then another spreadsheet.
 
 Then a more refined one.
 
-Many versions later, this turned into [a calculator](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) that I shared with other finance‑minded people. It was scrutinised, corrected, and virtually peer-reviewed. Along the way, I learned far more about novated leasing than I ever expected to.
+Many versions later, this turned into [a calculator](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) that I shared with other finance‑minded people — first on Reddit's [r/AusFinance](https://www.reddit.com/r/AusFinance/) as [u/changyang1230](https://www.reddit.com/user/changyang1230). It was scrutinised, corrected, and virtually peer-reviewed. Along the way, I learned far more about novated leasing than I ever expected to.
 
 ---
 

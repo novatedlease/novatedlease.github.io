@@ -12,7 +12,7 @@ hide:
 
 Independent **Australian novated lease calculator** to compare novated lease vs cash purchase vs car loan vs keeping your current car, focused on your **real net financial outcome** — not just headline [“tax saved” figures that can be misleading](../costs-and-savings/false-saving-example.md).
 
-**Built and maintained** by [u/changyang1230](https://www.reddit.com/user/changyang1230) on Reddit — an Australian specialist doctor with formal training in statistics and a competitive mathematics background — and not affiliated with any financier or novated lease / salary packaging company.
+**Built and maintained** by an independent Australian specialist doctor with formal training in statistics and a competitive mathematics background — not affiliated with any financier or novated lease / salary packaging company.
 
 <style>
   /* Reduce the top whitespace above the embedded calculator on this page */
@@ -49,26 +49,9 @@ Independent **Australian novated lease calculator** to compare novated lease vs 
 <link rel="stylesheet" href="/assets/calculator/style.css" />
 <script type="module" src="/assets/calculator/main.js"></script>
 
-
-
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements. 
-
----
-
-
-## About this calculator
-
-This calculator compares **novated lease vs cash purchase vs car loan vs keeping your current car**, for both **FBT-exempt EVs** and **FBT-applicable petrol or diesel vehicles**, while accounting for income tax, Medicare levy and GST, effective interest and fees, residual (balloon) value, opportunity cost (for example money kept in a home loan offset), reportable fringe benefit amount (RFBA) / adjusted taxable income, and superannuation contribution impacts. 
-
 ## How to use this calculator
 
-Read the [full instruction](../start-here/use-nl-calculator.md) here. 
+Quick start below — or read the [full walkthrough](../start-here/use-nl-calculator.md) for detailed guidance.
 
 **If you have a quote:** Enter your vehicle price, lease details, annual kilometres, and financial details based on the quote. The calculator then models the cashflow, asset and liability over the lease period and compares your overall financial position across different funding options.
 
@@ -76,13 +59,24 @@ Read the [full instruction](../start-here/use-nl-calculator.md) here.
 
 Unlike most novated lease calculators, the outputs focus on **net outcomes** — how much better or worse off you are overall — rather than isolated tax figures.
 
+!!! info "Support this independent calculator & guide"
+    This calculator and guide are built and continuously maintained as an independent project.
+
+    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
+
+    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or
+    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+
+---
+
+
 ## Frequently asked questions
 
-### Are you sure of the maths?
+### How accurate is this calculator?
 
 This calculator is the direct evolution of [a spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) that has been in continuous public use for over two years. It has been widely shared, scrutinised, and informally peer-reviewed by financially literate users, with numerous edge cases tested and minor issues corrected over time.
 
-This web-based version was not a direct port of the spreadsheet; instead it was rebuilt from first principles. Core components e.g. income tax modelling, Medicare levy calculation, fortnight-by-fortnight opportunity cost modelling, and pre-tax to post-tax cashflow conversion were independently re-derived and implemented in a new calculation engine.
+This web-based version was not a direct port of the spreadsheet; instead it was rebuilt from first principles. Core components — e.g., income tax modelling, Medicare levy calculation, fortnight-by-fortnight opportunity cost modelling, and pre-tax to post-tax cashflow conversion were independently re-derived and implemented in a new calculation engine.
 
 The outputs of this engine were then systematically verified against the original spreadsheet across a broad range of test scenarios. The two implementations match to the cent for all test cases.
 
@@ -92,7 +86,7 @@ For those who value full transparency, the original spreadsheet remains availabl
 
 If you believe you have identified a genuine discrepancy, please feel free to [reach out](../about/contact.md). Serious scrutiny is welcome.
 
-!!! warning "Known limitation (22 February 2026)"
+??? warning "Known limitation (22 February 2026)"
 
     A helpful Reddit user pointed out that the **post‑four‑year FBT base value discount** is not currently applied in the Employee Contribution Method (ECM) and its downstream calculations for FBT‑applicable leases.
 
@@ -135,7 +129,7 @@ Yes. For EV novated leases, the calculator estimates [the effect of the reportab
 
 ### Is this calculator affiliated with any novated lease provider?
 
-No. This tool is independent and is not affiliated with any novated lease company, financier, or employer salary‑packaging provider. While I have gotten to know some industry insiders through my online participation, I do not funnel any referral nor receive any kickback.
+No. This tool is independent and is not affiliated with any novated lease company, financier, or employer salary‑packaging provider. While I have gotten to know some industry insiders through my online participation, I do not receive referral fees or kickbacks from any provider.
 
 ### What are the limitations of this calculator?
 
@@ -177,13 +171,3 @@ While this calculator is designed to cover the most common novated lease scenari
 
 In these situations, the calculator can still provide useful context, but the results should be interpreted with additional caution and, where appropriate, supplemented with tailored advice.
 
----
-
-
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.

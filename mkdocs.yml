@@ -13,6 +13,9 @@ extra_css:
 extra_javascript:
   - assets/javascripts/sticky-tables.js
 
+extra:
+  generator: false
+
 theme:
   name: material
   custom_dir: docs/overrides
