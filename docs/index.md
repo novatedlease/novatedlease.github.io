@@ -61,7 +61,8 @@ description: Free independent Australian novated lease guide and calculator. Com
 
     32 articles across 5 topic areas. Use the article browser below or the search bar.
 
-    -   Mechanisms explained — how the tax math actually works
+    -   Fundamentals – core concepts
+    -   Mechanisms explained — how the maths actually works
     -   Running costs & claiming — budgets, GST, EV charging, insurance
     -   Risks & exit strategies — what can go wrong and how to protect yourself
     -   Special cases & policy — childcare subsidy, NFP caps, super, EV exemption
