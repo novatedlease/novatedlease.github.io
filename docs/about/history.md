@@ -1,4 +1,4 @@
-# History of the Novated Lease Calculator
+# History of the novated lease calculator
 
 This calculator did not start as a web application. It began as a personal spreadsheet to answer a very specific and personal question: *Does novated lease work out for me?*
 

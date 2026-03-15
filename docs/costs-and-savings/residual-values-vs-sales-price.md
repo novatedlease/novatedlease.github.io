@@ -1,4 +1,4 @@
-# You don’t have to sell your car above the Residual value
+# You don’t have to sell your car above the residual value
 
 There is a common myth in novated lease discussions:
 

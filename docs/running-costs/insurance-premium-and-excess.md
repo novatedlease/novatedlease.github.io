@@ -1,4 +1,4 @@
-# Choosing Insurance Premium vs Excess in a Novated Lease
+# Choosing insurance premium vs excess in a novated lease
 
 When we choose car insurance in a normal (post-tax) environment, the thinking is usually simple:
 

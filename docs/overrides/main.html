@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block htmltitle %}
-  {% if page.url == "calculator/" %}
-    <title>Novated Lease Calculator — Compare Net Outcomes</title>
+  {% if page.meta and page.meta.title %}
+    <title>{{ page.meta.title }}</title>
+  {% elif page.title %}
+    <title>{{ page.title }} — Novated Lease Guide</title>
   {% else %}
-    {{ super() }}
+    <title>{{ config.site_name }}</title>
   {% endif %}
 {% endblock %}
 
