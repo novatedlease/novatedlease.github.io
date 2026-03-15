@@ -32,7 +32,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 **Many people sign up for novated leases for the wrong reasons**, based on misleading sales pitches rather than a clear understanding of costs, risks, and trade‑offs.
 
-**This site is written for both.** The calculator is [one of very few](start-here/calculator-comparison.md) that models true net savings — not the [misleading "tax saved" figure](costs-and-savings/false-saving-example.md) most providers advertise. The accompanying articles cover the pros and cons in depth, written by someone with no affiliation to any leasing company and no financial interest in your decision.
+**This site is written for both.** The calculator is [one of very few](start-here/calculator-comparison.md) that models true net savings — not the [misleading "tax saved" figure](costs-and-savings/false-saving-example.md) most providers advertise. The accompanying articles cover the pros and cons in depth, written by someone with no affiliation with any leasing company and no financial interest in your decision.
 
 
 <div style="height: 14px;"></div>

@@ -1,6 +1,6 @@
 # Super guarantee and payroll risks
 
-One of the least discussed — and most poorly understood — risks of novated leasing is **how your employer calculates super guarantee (SG)**.
+One of the least discussed — and most poorly understood — risks of novated leasing is **how your employer calculates super guarantee (SG)** i.e. the minimum employer superannuation contribution, currently 12% of your ordinary time earnings.
 
 Most people assume that:
 
@@ -12,7 +12,7 @@ This page explains why, with direct reference to the ATO’s own guidance.
 
 ---
 
-## The common belief: “They can’t reduce SG anymore”
+## The common belief: “A novated lease can’t reduce my SG”
 
 A commonly cited argument goes like this:
 
@@ -61,7 +61,7 @@ GN 2020/1 then gives an *explicit worked example* that removes any ambiguity.
 ### Before 1 January 2020
 
 - Employer calculated SG on $1,500 ($2,000 − $500)
-- SG = $1,500 × 9.5% = $142.50
+- SG = $1,500 × 9.5% = $142.50 [^sg_rate]
 
 ### From 1 January 2020
 
@@ -76,7 +76,7 @@ Sharon’s OTE base becomes:
 
 SG obligation:
 
-- $1,800 × 9.5% = **$171**
+- $1,800 × 9.5% = **$171** [^sg_rate]
 
 **Notice what did *not* get added back**:
 
@@ -172,3 +172,5 @@ That makes this a **real, if uncommon, risk** worth understanding before you sig
 
     - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
     - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+
+[^sg_rate]: The 9.5% SG rate used in this example is reproduced directly from GN 2020/1, which was written when that rate was current. The SG rate has since increased to 12% (from 1 July 2025). The principle illustrated by the example is unchanged.
