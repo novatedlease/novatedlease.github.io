@@ -12,7 +12,7 @@ hide:
 
 Independent **Australian novated lease calculator** to compare novated lease vs cash purchase vs car loan vs keeping your current car, focused on your **real net financial outcome** — not just headline [“tax saved” figures that can be misleading](../costs-and-savings/false-saving-example.md).
 
-**Built and maintained** by an independent Australian specialist doctor with formal training in statistics and a competitive mathematics background — not affiliated with any financier or novated lease / salary packaging company.
+**Built and maintained** by an [independent Australian specialist doctor](../about/about-me.md) with formal training in statistics and a competitive mathematics background — not affiliated with any financier or novated lease / salary packaging company.
 
 <style>
   /* Reduce the top whitespace above the embedded calculator on this page */

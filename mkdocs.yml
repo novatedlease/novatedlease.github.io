@@ -4,7 +4,9 @@ site_description: Independent, evidence-based guide and calculator for understan
 site_author: changyang1230
 copyright: |
   <a href="/about/privacy/">Privacy</a> &nbsp;&middot;&nbsp;
-  <strong>Disclaimer</strong> &middot; This site provides general information and educational commentary only.
+  <a href="/about/disclaimer/">Disclaimer</a> &nbsp;&middot;&nbsp;
+  <a href="/about/contact/">Contact</a> &nbsp;&middot;&nbsp;
+  &copy; 2026 &nbsp;&middot;&nbsp; This site provides general information and educational commentary only.
   It does not constitute personal financial advice.
 
 extra_css:
