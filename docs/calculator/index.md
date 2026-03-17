@@ -41,10 +41,83 @@ Independent **Australian novated lease calculator** to compare novated lease vs 
   /* Nudge the embedded app up */
   #nl-calculator-root {
     margin-top: 0 !important;
+    min-height: clamp(1200px, 140vh, 1800px);
+    position: relative;
+  }
+
+  #nl-calculator-root[data-loading="true"] {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.9)),
+      linear-gradient(90deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02));
+    overflow: hidden;
+  }
+
+  #nl-calculator-root[data-loading="true"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
+    transform: translateX(-100%);
+    animation: nl-calculator-placeholder-shimmer 1.8s infinite;
+    pointer-events: none;
+  }
+
+  .nl-calculator-placeholder {
+    display: grid;
+    grid-template-columns: minmax(320px, 420px) 1fr;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .nl-calculator-placeholder__panel,
+  .nl-calculator-placeholder__output {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  .nl-calculator-placeholder__panel {
+    min-height: 980px;
+  }
+
+  .nl-calculator-placeholder__output {
+    min-height: 1160px;
+  }
+
+  @keyframes nl-calculator-placeholder-shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @media (max-width: 900px) {
+    #nl-calculator-root {
+      min-height: 1700px;
+    }
+
+    .nl-calculator-placeholder {
+      grid-template-columns: 1fr;
+    }
+
+    .nl-calculator-placeholder__panel {
+      min-height: 760px;
+    }
+
+    .nl-calculator-placeholder__output {
+      min-height: 880px;
+    }
   }
 </style>
 
-<div id="nl-calculator-root"></div>
+<div id="nl-calculator-root" data-loading="true" aria-busy="true">
+  <div class="nl-calculator-placeholder" aria-hidden="true">
+    <div class="nl-calculator-placeholder__panel"></div>
+    <div class="nl-calculator-placeholder__output"></div>
+  </div>
+</div>
 
 <link rel="stylesheet" href="/assets/calculator/style.css" />
 <script type="module" src="/assets/calculator/main.js"></script>
@@ -170,4 +243,3 @@ While this calculator is designed to cover the most common novated lease scenari
 - **Company directors or business owners with access to alternative structures.** If you operate through your own company or trust and may be eligible for FBT‑exempt vehicle benefits or other business‑specific arrangements, this calculator may not fully capture the options available to you.
 
 In these situations, the calculator can still provide useful context, but the results should be interpreted with additional caution and, where appropriate, supplemented with tailored advice.
-

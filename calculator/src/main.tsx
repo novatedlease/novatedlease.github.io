@@ -13,6 +13,9 @@ if (!mountEl) {
   );
 }
 
+mountEl.removeAttribute("data-loading");
+mountEl.removeAttribute("aria-busy");
+
 ReactDOM.createRoot(mountEl).render(
   <React.StrictMode>
     <App />
