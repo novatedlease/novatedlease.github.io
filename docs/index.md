@@ -34,7 +34,6 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 **This site is written for both.** The calculator is [one of very few](start-here/calculator-comparison.md) that models true net savings — not the [misleading "tax saved" figure](costs-and-savings/false-saving-example.md) most providers advertise. The accompanying articles cover the pros and cons in depth, written by someone with no affiliation with any leasing company and no financial interest in your decision.
 
-
 <div style="height: 14px;"></div>
 <div class="grid cards" markdown>
 
@@ -136,6 +135,21 @@ description: Free independent Australian novated lease guide and calculator. Com
         <li><a href="/about/disclaimer/">Disclaimer</a></li>
       </ul>
     </div>
+  </div>
+</div>
+
+<div class="featured-logo-strip">
+  <div style="font-weight: 700; margin-bottom: 10px;">Featured in</div>
+  <div class="featured-logo-strip__items">
+    <a class="featured-logo-strip__link" href="https://passiveinvestingaustralia.com/why-most-novated-lease-advice-is-wrong/" target="_blank" rel="noopener">
+      <img class="featured-logo-strip__logo featured-logo-strip__logo--pia" src="/assets/images/featured/pia.jpg" alt="Passive Investing Australia">
+    </a>
+    <a class="featured-logo-strip__link" href="https://leasecheck.au" target="_blank" rel="noopener">
+      <img class="featured-logo-strip__logo featured-logo-strip__logo--leasecheck" src="/assets/images/featured/leasecheck.png" alt="LeaseCheck">
+    </a>
+    <a class="featured-logo-strip__link" href="https://millarx.com.au/cost-compare" target="_blank" rel="noopener">
+      <img class="featured-logo-strip__logo featured-logo-strip__logo--millarx" src="/assets/images/featured/millarx.jpg" alt="MillarX">
+    </a>
   </div>
 </div>
 
