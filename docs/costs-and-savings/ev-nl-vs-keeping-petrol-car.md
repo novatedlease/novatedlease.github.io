@@ -2,31 +2,32 @@
 
 ---
 
-## The Surprising Realisation
+## The surprising realisation
 
-In 2023, I traded in my four-year-old Mazda 6 (worth $25,000 at the time) for a Tesla Model 3 Long Range with an $81,400 driveaway price. Over five years, the total financial outcome would be roughly neutral, i.e. it was a free upgrade (while bearing the [usual risks and caveats of novated leasing](../start-here/is-it-worth-it.md)). 
+In 2023, I sold my four-year-old Mazda 6 (worth $25,000 at the time) for a Tesla Model 3 Long Range under FBT-exempt novated lease ($81,400 driveaway price). Over five years, the total financial outcome would be roughly neutral, i.e. it was effectively "a free upgrade" (while bearing the [usual risks and caveats of novated leasing](../start-here/is-it-worth-it.md)). 
 
-That's not a typo. 
+This is neither a typo or mental gymnastics. 
 
 ---
 
-## My Situation
+## My situation
 
-I was driving a four-year-old Mazda 6 and considering whether to lease a Tesla Model 3 Long Range through my employer's novated lease scheme. My income put me in the top marginal tax bracket, and I had a home loan with an offset account — two conditions that tend to favour EV novated leasing.
+I was driving a four-year-old Mazda 6 and considering whether to lease a Tesla Model 3 Long Range. My income put me in the top marginal tax bracket, I have minimal risk of redundancy, and had a home loan with an offset account — a few conditions that favour EV novated leasing.
 
 **Scenario:**
 
-- **New car:** Tesla Model 3 Long Range (FBT-exempt EV), driveaway $81,422.50, my estimated value $33,000 after 5 years *(~40% of original)*
-- **Current car:** Mazda 6, 4 years old — sold for $25,000, expected to fall to ~$14,000 in five years
-- **Lease:** 5 years at $597.47/fortnight (effective interest rate 9.13%)
+- **New car:** Tesla Model 3 Long Range (FBT-exempt EV), driveaway $81,422.50, estimated to be valued at ~$33,000 after 5 years *(~40% of original)*
+- **Current car:** Mazda 6, 4 years old — sold for $25,000, expected to fall to ~$14,000 after five years (if I kept it)
+- **Lease:** 5 years, lease effective interest rate 9.13%, total out of pocket $388.65 per fortnight + $23,234.63 in payable residual value. 
 - **Annual mileage:** 15,000 km
 - **Income:** $300,000 (top marginal bracket: 45% + 2% Medicare levy)
 - **Home loan offset rate:** 6.1%
 - **Employer super:** calculated on pre-NL income
+- **Impact on childcare subsidy, HECS, Div 293 tax etc:** nil as I have neither of these / have maxxed out on Div 293 tax.
 
 **Annual running costs compared:**
 
-| | Tesla NL (ex GST, before tax discount) | Mazda (inc GST) |
+| | Tesla NL (ex GST, before tax discount effect) | Mazda (inc GST) |
 |---|---|---|
 | Fuel / electricity | $371.25 | $2,362.50 [^1] |
 | Service / maintenance / tyres | $100 [^2] | $800 |
@@ -45,8 +46,8 @@ I was driving a four-year-old Mazda 6 and considering whether to lease a Tesla M
 
     Adjust the fuel price, income, interest rate, or current car values to model your own scenario.
 
-!!! tip "Don't need an $81k Tesla — used EVs can work too"
-    The example above uses a new Tesla Model 3 Long Range at $81,400. That's not everyone's budget and it doesn't need to be.
+!!! tip "Don't need an $81k EV — used EVs can work too"
+    The example above was for a new Tesla Model 3 Long Range at $81,400 which was the price back in 2023. That's not everyone's budget and it doesn't need to be.
 
     A used EV can be significantly cheaper, available immediately (no waiting period), and **still fully eligible for the FBT exemption**, provided it meets two criteria:
 
@@ -59,7 +60,7 @@ I was driving a four-year-old Mazda 6 and considering whether to lease a Tesla M
 
 ---
 
-## What the Numbers Actually Show
+## What the numbers actually show
 
 The calculator's "NL vs Keeping Current Car" comparison breaks down the five-year outcome into three components:
 
@@ -76,7 +77,7 @@ To put this in plain terms: yes, the Tesla costs more to lease month-to-month th
 
 ---
 
-## Why Does This Work Out So Favourably?
+## Why does this work out so favourably?
 
 Several factors align to make this scenario work:
 
@@ -106,7 +107,7 @@ Insurance is often cited as a hidden cost of EV ownership, and for some there is
 
 ---
 
-## This Is Not a Guarantee — Here's When It Might Not Work For You
+## This is not a bed of roses — here's when it might not work for you
 
 The scenario above involved several favourable conditions that don't apply to everyone. Before drawing conclusions for your own situation (you should definitely run some numbers for your own car!), consider the following:
 
@@ -142,7 +143,7 @@ Employees of NSW Health face a specific issue: the "employer share" arrangement 
 
 ---
 
-## The Broader Point
+## The broader point
 
 The purpose of sharing this example is not to suggest that everyone should go out and lease an expensive EV. It's to illustrate that **the "NL vs keeping your current car" comparison is worth running**, even when the EV's sticker price is more expensive than your current car. 
 
@@ -154,7 +155,7 @@ If the numbers come out substantially negative for NL, you have your answer too.
 
 ---
 
-## Key Takeaways
+## The key takeaways
 
 - Comparing NL vs keeping your current car — not just vs buying a new car with cash — is often the more relevant question.
 - In this scenario — $300k income, top tax bracket, depreciating current car, elevated fuel costs — leasing an $81k Tesla turned out to be roughly cost-neutral to keeping the $25k Mazda over five years.
