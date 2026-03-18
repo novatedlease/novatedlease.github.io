@@ -55,10 +55,11 @@ description: Free independent Australian novated lease guide and calculator. Com
     -   [How to read a novated lease quote](start-here/how-to-read-a-novated-lease-quote.md)
     -   [Why novated lease interest rates look high](costs-and-savings/why-nl-interest-looks-high.md)
     -   [Real example: $21,320 "savings" → $5,591 net loss](costs-and-savings/false-saving-example.md)
+    -   [Real example: $81k Tesla cost-neutral to keeping a $25k Mazda](costs-and-savings/ev-nl-vs-keeping-petrol-car.md)
 
 -   **:material-book-open-outline: Going deeper?**
 
-    32 articles across 5 topic areas. Use the article browser below or the search bar.
+    33 articles across 5 topic areas. Use the article browser below or the search bar.
 
     -   Fundamentals – core concepts
     -   Mechanisms explained — how the maths actually works
@@ -70,7 +71,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 <div style="margin-top: 10px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: rgba(255,255,255,0.7); overflow: hidden;">
   <div onclick="var b=document.getElementById('all-articles-body'); var a=document.getElementById('all-articles-arrow'); var open=b.style.display==='grid'; b.style.display=open?'none':'grid'; a.textContent=open?'▸':'▾';" style="padding: 12px 16px; font-weight: 700; cursor: pointer; user-select: none; display: flex; justify-content: space-between; align-items: center;">
-    <span>Browse all 32 articles</span>
+    <span>Browse all 33 articles</span>
     <span id="all-articles-arrow" style="font-size: 0.85em; color: rgba(0,0,0,0.45);">▸</span>
   </div>
   <div id="all-articles-body" style="display: none; padding: 0 16px 16px 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px 24px;">
@@ -91,6 +92,7 @@ description: Free independent Australian novated lease guide and calculator. Com
       <ul style="margin: 0; padding-left: 1.2em; font-size: 0.9em; line-height: 1.8;">
         <li><a href="/costs-and-savings/why-tax-saved-is-wrong/">Why "tax saved" is the wrong metric</a></li>
         <li><a href="/costs-and-savings/false-saving-example/">$21,320 "savings" → $5,591 net loss (worked example)</a></li>
+        <li><a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/">$81k Tesla turned out cost-neutral to keeping a $25k Mazda</a></li>
         <li><a href="/costs-and-savings/why-nl-interest-looks-high/">Why novated lease interest rates look high</a></li>
         <li><a href="/costs-and-savings/fbt-rfba-ati-explained/">FBT, RFBA, and adjusted taxable income explained</a></li>
         <li><a href="/costs-and-savings/why-residual-values-matter/">All about residual values</a></li>
