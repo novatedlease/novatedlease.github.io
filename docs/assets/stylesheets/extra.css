@@ -1,3 +1,10 @@
+/* Fix: calculator $ prefix icons have z-index:5, which causes them to bleed
+   over the sticky MkDocs header (default z-index:4) when scrolling.
+   Raise the header above them. */
+.md-header {
+  z-index: 6;
+}
+
 .compact-table table th,
 .compact-table table td {
   padding: 0.25em 0.3em;
