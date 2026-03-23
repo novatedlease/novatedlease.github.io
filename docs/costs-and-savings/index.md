@@ -28,6 +28,9 @@ This section explains the financial mechanics behind novated leases in enough de
 - **[You don't have to sell your car above residual value](residual-values-vs-sales-price.md)**
   A common misconception is that a novated lease only "works" if the car sells for more than the residual. This article explains why that reasoning is flawed and what actually determines whether a lease is financially worthwhile.
 
+- **[The "$70k is too low for novated lease savings" myth — corrected](low-income-novated-lease-savings.md)**
+  A common forum claim holds that lower-income earners cannot benefit meaningfully from a novated lease. This article shows why that is mathematically wrong for anyone in the same tax bracket — while acknowledging the legitimate non-tax reasons to be more cautious at lower incomes.
+
 ---
 
 !!! info "Support this independent calculator & guide"
