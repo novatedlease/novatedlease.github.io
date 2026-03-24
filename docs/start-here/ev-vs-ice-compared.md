@@ -85,7 +85,7 @@ This creates a genuine trade-off:
 - **ICE novated leases**:  
   costlier lease, but typically no RFBA (once structured with post-tax payment) and hence a smaller impact on adjusted taxable income (often better means-tested benefits)
 
-As a general observation, the take-home pay benefit of an EV novated lease often outweighs the reduction in means-tested subsidies. However, this is highly dependent on individual circumstances and should always be calculated rather than assumed. You can model the **net outcome** — including income tax savings, RFBA effects, and opportunity cost — using the [novated lease calculator](../calculator/index.md).
+As a general observation, the take-home pay benefit of an EV novated lease often outweighs the reduction in means-tested subsidies. However, this is highly dependent on individual circumstances and should [always be calculated](https://novatedlease.guide/calculator/) rather than assumed. You can model the **net outcome** — including income tax savings, RFBA effects, and opportunity cost — using the [novated lease calculator](../calculator/index.md).
 
 ---
 
@@ -125,6 +125,13 @@ If you remember nothing else:
 
 > **EV and ICE novated leases should be analysed as different products, not as variations of the same one.**
 
+---
+
+## Ready to run the numbers for your situation?
+
+The [Novated Lease Calculator](https://novatedlease.guide/calculator/) supports both EV and ICE novated leases and models the full net financial outcome — not just tax savings. You can compare your novated lease against a cash purchase, car loan, or keeping your current car.
+
+[Open the Novated Lease Calculator →](https://novatedlease.guide/calculator/)
 
 ---
 
