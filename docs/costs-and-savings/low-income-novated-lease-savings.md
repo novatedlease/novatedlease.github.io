@@ -73,12 +73,4 @@ While each of these factors is independent of tax savings, lower-income earners 
 >
 > **However, lower-income earners face legitimate non-tax reasons to be more cautious: fewer financial buffers, higher relative risk exposure, and less flexibility to absorb adverse events. These concerns are real — they just don't come from the savings amount per se.**
 
----
-
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you're ordering a Tesla, or
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+--8<-- "includes/support-box.md"

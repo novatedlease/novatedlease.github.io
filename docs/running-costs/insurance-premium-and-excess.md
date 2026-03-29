@@ -165,14 +165,6 @@ If you remember nothing else:
 
 > **Both the premium and the excess are effectively discounted inside novated lease environment, and this should be accounted for in determining the optimal combination based on your personal circumstances.**
 
----
-
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+--8<-- "includes/support-box.md"
 
 [^1]: The "discount effect" is even higher for insurance premium as a portion is made up of GST which is effectively waived [if your employer passes on GST saving of running costs](failure-to-pass-gst-saving.md). Excess does not typically attract GST therefore does not enjoy additional "GST discount". 

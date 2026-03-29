@@ -22,12 +22,4 @@ Managed poorly — or with an employer who doesn't pass on all the entitlements 
 - **[Insurance premium vs excess in a novated lease](insurance-premium-and-excess.md)**
   Insurance is typically included in the running cost budget and paid pre-tax, which changes the premium vs excess trade-off analysis. This article explains the mechanics and how the pre-tax discount affects the decision between a lower premium and a lower excess.
 
----
-
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you're ordering a Tesla, or
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+--8<-- "includes/support-box.md"

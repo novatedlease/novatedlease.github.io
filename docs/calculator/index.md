@@ -132,13 +132,7 @@ Quick start below — or read the [full walkthrough](../start-here/use-nl-calcul
 
 Unlike most novated lease calculators, the outputs focus on **net outcomes** — how much better or worse off you are overall — rather than isolated tax figures.
 
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+--8<-- "includes/support-box.md"
 
 ---
 

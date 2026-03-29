@@ -155,12 +155,4 @@ The patterns that appear across virtually every affiliated calculator:
 - **Residual value omitted** — the balloon payment at end of lease is a real future liability; most calculators do not include it in the cost calculation. Without the residual in view, a lease can appear cheaper than a car loan on a fortnightly basis — while leaving a large liability unpaid at the end.
 - **Caveats absent** — fewer than half mention any [caveats of novated leasing](is-it-worth-it.md) (e.g. RFBA impact on HECS/HELP, childcare subsidy, Medicare levy surcharge, reduced borrowing capacity, early-termination risk, reduced superannuation contributions). Even those that do typically mention only RFBA and nothing else.
 
----
-
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you're ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+--8<-- "includes/support-box.md"

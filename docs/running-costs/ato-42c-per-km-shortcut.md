@@ -202,12 +202,4 @@ For others, more precise methods may make sense, but only if you are willing and
 - [ATO Practical Compliance Guideline: **PCG 2024/2**](https://www.ato.gov.au/law/view/document?DocID=COG/PCG20242/NAT/ATO/00001)
 
 
----
-
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+--8<-- "includes/support-box.md"

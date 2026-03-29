@@ -163,15 +163,7 @@ If the numbers come out substantially negative for NL, you have your answer too.
 - Always run the full scenario for your own situation before drawing conclusions.
 - **With fuel prices rising and EV prices falling, this comparison is increasingly worth running. Used EV makes the case of NL even stronger.**
 
----
-
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you're ordering a Tesla, or
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+--8<-- "includes/support-box.md"
 
 [^1]: 9.0 L/100 km × 15,000 km × $1.75/L = $2,362.50. At the current ~$2.30/L pump price this rises to ~$3,105/year.
 

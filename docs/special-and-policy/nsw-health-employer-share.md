@@ -143,12 +143,4 @@ The [novated lease calculator](../calculator/index.md) has a built-in function t
 > **NSW Health doctors and nurses are significantly disadvantaged in their achievable benefit due to the employer share, and the deal may no longer be attractive after considering the impact on government subsidies and liability.**
 
 
----
-
-!!! info "Support this independent calculator & guide"
-    This calculator and guide are built and continuously maintained as an independent project.
-
-    If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you’re welcome to support its ongoing maintenance and improvements:
-
-    - [Using my Tesla referral link](https://ts.la/chang705436) for a $350 discount if you’re ordering a Tesla, or  
-    - [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements.
+--8<-- "includes/support-box.md"
