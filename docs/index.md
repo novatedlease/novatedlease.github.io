@@ -104,7 +104,7 @@ description: Free independent Australian novated lease guide and calculator. Com
       <div style="font-weight: 600; font-size: 0.8em; color: rgba(0,0,0,0.45); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Running costs & claiming</div>
       <ul style="margin: 0; padding-left: 1.2em; font-size: 0.9em; line-height: 1.8;">
         <li><a href="/running-costs/running-costs-piggy-bank/">Running cost budgets are a "piggy bank"</a></li>
-        <li><a href="/running-costs/ato-42c-per-km-shortcut/">The ATO 4.2c/km EV charging shortcut</a></li>
+        <li><a href="/running-costs/ato-42c-per-km-shortcut/">The ATO EV home charging shortcut (5.47c/km from 1 Apr 2026)</a></li>
         <li><a href="/running-costs/failure-to-pass-gst-saving/">Failure to pass on GST savings</a></li>
         <li><a href="/running-costs/insurance-premium-and-excess/">Insurance premium vs excess</a></li>
       </ul>
