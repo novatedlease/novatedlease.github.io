@@ -11,7 +11,7 @@ So instead of forcing everyone to track the cost of every kWh, they introduced a
 ---
 
 !!! tip "Rate updated from 1 April 2026"
-    From 1 April 2026 (the start of the 2025–26 FBT year), the home charging shortcut rate increases from **4.2c/km to 5.47c/km**. [ATO source](https://www.ato.gov.au/law/view/document?docid=COG/PCG20242/NAT/ATO/00001#H16)
+    From 1 April 2026 (the start of the 2026–27 FBT year), the home charging shortcut rate increases from **4.2c/km to 5.47c/km**. [ATO source](https://www.ato.gov.au/law/view/document?docid=COG/PCG20242/NAT/ATO/00001#H16)
 
     Examples on this page use the updated **5.47c/km** rate unless otherwise noted.
 
