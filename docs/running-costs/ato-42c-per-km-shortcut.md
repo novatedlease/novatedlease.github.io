@@ -36,7 +36,7 @@ This makes the method simple, cheap to comply with, and very predictable.
 ## How the electricity claim actually works
 
 A common misconception:
-> I charge for free / extremely cheap e.g. solar or workplace charging, so *why am I asked to 'spend $630' in the budget when I didn't spend anything?*
+> I charge for free [^1] / extremely cheap e.g. solar or workplace charging, so *why am I asked to 'spend $630' in the budget when I didn't spend anything?*
 
 **Claiming** $630 in electricity does **not** mean you are *spending* an additional $630. In fact it does not even mean you are spending anything; **what instead happens is you receive extra money.**
 
@@ -53,9 +53,9 @@ Compare the two scenarios:
 
 The difference is **$245.70 extra** — money you would not have had otherwise.
 
-Critically, this $245.70 has nothing to do with your actual charging cost. Whether you charged for free, at 8c/kWh, or at 30c/kWh, the claim produces the same extra money.
+Critically, this $245.70 has nothing to do with your actual charging cost. Whether you charged for free [^1], at 8c/kWh, or at 30c/kWh, the claim produces the same extra money.
 
-This is why you should claim the electricity amount even if your real charging cost is zero, as demonstrated in the next section.
+This is why you should claim the electricity amount even if your real charging cost is zero [^1], as demonstrated in the next section.
 
 !!! info "The formula"
     **Net extra money = claim amount × (marginal tax rate + 2% Medicare levy)**
@@ -188,7 +188,7 @@ If your real costs are lower, you benefit.  If your real costs are higher, you w
 If you remember nothing else:
 
 > **The 4.2c/km method puts extra money in your pocket based on distance driven,
-> and this benefit is yours even if you charge cheaply or for free.**
+> and this benefit is yours even if you charge cheaply or for free. [^1]**
 
 For those with solar or cheap tariffs, it is **surprisingly generous**.
 
@@ -201,5 +201,6 @@ For others, more precise methods may make sense, but only if you are willing and
 
 - [ATO Practical Compliance Guideline: **PCG 2024/2**](https://www.ato.gov.au/law/view/document?DocID=COG/PCG20242/NAT/ATO/00001)
 
+[^1]: The one edge case worth noting: PCG 2024/2 requires that you have actually incurred electricity costs during the year. For the vast majority of solar households this is a non-issue — unless you are fully "off the grid", some grid expenses still appear on every bill. However, if your solar system fully offsets your entire household electricity consumption and your bill is genuinely zero, you may not satisfy this requirement, and the shortcut method would technically be unavailable. This interpretation is not stated explicitly in the PCG itself, but follows from its eligibility criteria.
 
 --8<-- "includes/support-box.md"
