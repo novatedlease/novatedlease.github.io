@@ -31,17 +31,17 @@ That budget might be based on:
 - charging,
 - etc.
 
-For example, if you tell them you expect to drive **25,000 km per year**, and you’re using the [ATO 4.2c/km method](../running-costs/ato-42c-per-km-shortcut.md):
+For example, if you tell them you expect to drive **25,000 km per year**, and you’re using the [ATO 5.47c/km method](../running-costs/ato-42c-per-km-shortcut.md):
 
-- 25,000 × $0.042 = **$1,050 per year**
+- 25,000 × $0.0547 = **$1,367.50 per year**
 
 That translates to:
 
-- $1,050 ÷ 26 fortnights ≈ **$40.39 per fortnight**
+- $1,367.50 ÷ 26 fortnights ≈ **$52.60 per fortnight**
 
 Each fortnight, what actually happens is very simple:
 
-> The novated lease company takes $40.39 of your **pre-tax income** and sets it aside.
+> The novated lease company takes $52.60 of your **pre-tax income** and sets it aside.
 
 That’s it.
 
@@ -64,7 +64,7 @@ Say after one quarter, you submit two odometer photos showing:
 
 They then do the arithmetic:
 
-- 6,000 × $0.042 = **$252**
+- 6,000 × $0.0547 = **$328.20**
 
 They:
 
