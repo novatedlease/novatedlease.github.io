@@ -3,7 +3,7 @@ import type { Inputs } from "./types";
 /**
  * ATO EV home charging shortcut rate (A$ per km).
  */
-export const ATO_EV_HOME_CHARGING_RATE_PER_KM = 0.042;
+export const ATO_EV_HOME_CHARGING_RATE_PER_KM = 0.0547;
 
 export type ChargingMethod =
   | "override"
@@ -81,7 +81,7 @@ export function estimateAnnualChargingExpense(i: Inputs): ChargingEstimate {
 /**
  * Annual amount used for *packaged* EV charging in this calculator.
  *
- * This is intentionally the ATO shortcut claim (4.2c/km) and is used in:
+ * This is intentionally the ATO shortcut claim (5.47c/km) and is used in:
  *  - running costs that are salary packaged (pre-tax)
  *  - FY breakdown modelling
  *

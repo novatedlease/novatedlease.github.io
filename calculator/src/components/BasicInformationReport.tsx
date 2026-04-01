@@ -88,7 +88,7 @@ export default function BasicInformationReport(props: {
   })();
 
   // Charging: actual spend (best estimate) and packaged claim (from InputsPanel, user-adjustable).
-  // InputsPanel may default this to the ATO 4.2c/km shortcut, but users can override it.
+  // InputsPanel may default this to the ATO 5.47c/km shortcut, but users can override it.
   const chargingEstimate = estimateAnnualChargingExpense(i);
   const chargingExpensePerYear = chargingEstimate.annualChargingExpense;
   const kwhPerYear = chargingEstimate.kwhPerYear;
@@ -257,7 +257,7 @@ export default function BasicInformationReport(props: {
 
       <KeyValue
         label="Assumed Charging per year (NL claim method)"
-        tooltip={<InfoTooltip text="The packaged (claimable) electricity amount used in the novated lease. This value comes from the Electricity input in the Inputs Panel (it may default to the ATO 4.2c/km shortcut, but you can override it)." />}
+        tooltip={<InfoTooltip text="The packaged (claimable) electricity amount used in the novated lease. This value comes from the Electricity input in the Inputs Panel (it may default to the ATO 5.47c/km shortcut, but you can override it)." />}
         value={`$ ${aud(assumedChargingClaimPerYear)}`}
       />
 
@@ -279,9 +279,9 @@ export default function BasicInformationReport(props: {
                   method.
                 </p>
                 <p style={{ margin: 0 }}>
-                  <b>Example:</b> In the default example, we spent $371.25 in charging in reality; however ATO&apos;s 4.2c/km rule allowed us
-                  to claim $630 dollars. This $630 effectively translates to $630 * 47% (default example&apos;s tax bracket) = $296.10 in tax
-                  refund. Once all is accounted for, this is equivalent to $371.25 - $296.10 = $75.15 net charging expense.
+                  <b>Example:</b> In the default example, we spent $371.25 in charging in reality; however ATO&apos;s 5.47c/km rule allowed us
+                  to claim $820.50. This $820.50 effectively translates to $820.50 * 47% (default example&apos;s tax bracket) = $385.64 in tax
+                  refund. Once all is accounted for, this is equivalent to $371.25 - $385.64 = -$14.39 net charging expense (i.e. a net gain). Note 14.38 in default output is from rounding error. 
                 </p>
               </>
             }

@@ -31,7 +31,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
   const electricityTooltipText =
     "Why is electricity treated separately?\n\n" +
     "For most running costs under a novated lease (for example servicing, insurance, or car washes), the amount you spend and the amount you claim are the same — so the analysis can treat them as one effective cost.\n\n" +
-    "Electricity is different: under the ATO EV home‑charging claim rule, the claimable amount (based on 4.2c/km) can differ materially from your actual out‑of‑pocket electricity cost. You first pay the real bill, then claim a distance‑based amount using pre‑tax income. That gap can create a genuine net gain or loss, so it needs to be shown explicitly.";
+    "Electricity is different: under the ATO EV home‑charging claim rule, the claimable amount (based on 5.47c/km) can differ materially from your actual out‑of‑pocket electricity cost. You first pay the real bill, then claim a distance‑based amount using pre‑tax income. That gap can create a genuine net gain or loss, so it needs to be shown explicitly.";
   // Summary is always framed over {years} years of ownership
   const horizon: "five_year" | "lease_end" = summaryHorizon ?? "five_year";
   const isLeaseEnd = horizon === "lease_end";

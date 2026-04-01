@@ -133,7 +133,7 @@ useEffect(() => {
   };
 
   // Packaged (claimable) electricity figure should come from InputsPanel (user-adjustable).
-  // Default in InputsPanel is the ATO shortcut (4.2c/km), but users may override it.
+  // Default in InputsPanel is the ATO shortcut (5.47c/km), but users may override it.
   const packagedChargingClaimPerYear = i.vehicleType === "EV" ? i.electricityAnnual : 0;
   const chargingDeltaAnnual = i.vehicleType === "EV" ? packagedChargingClaimPerYear - chargingExpensePerYear : 0;
 
@@ -777,7 +777,7 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
   };
 
   // Packaged (claimable) electricity figure should come from InputsPanel (user-adjustable).
-  // Default in InputsPanel is the ATO shortcut (4.2c/km), but users may override it.
+  // Default in InputsPanel is the ATO shortcut (5.47c/km), but users may override it.
   const packagedChargingClaimPerYear = i.vehicleType === "EV" ? i.electricityAnnual : 0;
   const assumedChargingClaimPerYear = packagedChargingClaimPerYear;
   const chargingDeltaAnnual = i.vehicleType === "EV" ? packagedChargingClaimPerYear - chargingExpensePerYear : 0;

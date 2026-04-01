@@ -20,8 +20,8 @@ export type InputsPanelProps = {
 export default function InputsPanel(props: InputsPanelProps) {
   const { inputs, setInputs } = props;
   const touch = (field: string) => props.onUserInput?.(field);
-  // Auto-fill for packaged Electricity (ATO shortcut method: 4.2c/km) until user manually overrides
-  const ATO_EV_HOME_CHARGING_RATE_PER_KM = 0.042;
+  // Auto-fill for packaged Electricity (ATO shortcut method: 5.47c/km) until user manually overrides
+  const ATO_EV_HOME_CHARGING_RATE_PER_KM = 0.0547;
   const [electricityAnnualTouched, setElectricityAnnualTouched] = useState<boolean>(false);
   const lastAutoElectricityAnnualRef = useRef<number | null>(null);
   const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
@@ -981,7 +981,7 @@ export default function InputsPanel(props: InputsPanelProps) {
               tooltip={
                 <InfoTooltip text={
                   <>
-                    Annual figure. Auto-filled from Annual Mileage × 4.2c/km (ATO shortcut method). You can override if you choose other claim methods. <b>Note:</b> this is the allowed claim amount by ATO, not your true out-of-pocket electricity expense (which should be entered in the Electricity section below).
+                    Annual figure. Auto-filled from Annual Mileage × 5.47c/km (ATO shortcut method). You can override if you choose other claim methods. <b>Note:</b> this is the allowed claim amount by ATO, not your true out-of-pocket electricity expense (which should be entered in the Electricity section below).
                   </>
                 } />
               }

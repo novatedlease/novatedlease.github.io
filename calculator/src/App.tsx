@@ -414,7 +414,7 @@ export default function App() {
     serviceMaintTyresAnnual: 100,
     saveShareAnnual: 0,
     registrationAnnual: 984.88,
-    electricityAnnual: 630,
+    electricityAnnual: 820.50,
     fuelAnnual: 2362.50,
     insuranceAnnual: 1300,
     managementFeesAnnual: 516.88,

@@ -251,7 +251,7 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
 
   // Charging inputs (actual vs claim) — EV only.
   // Claimable (packaged) electricity comes from InputsPanel `electricityAnnual` (user-adjustable).
-  // InputsPanel may default this to the ATO 4.2c/km shortcut, but users can override it.
+  // InputsPanel may default this to the ATO 5.47c/km shortcut, but users can override it.
   const assumedChargingClaimPerYear = i.vehicleType === "EV" ? i.electricityAnnual : 0;
 
   // Packaged pre-tax components per fortnight (during lease)

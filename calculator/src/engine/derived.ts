@@ -19,7 +19,7 @@ export type Derived = {
   /**
    * Derived running costs using the same assumptions as the FY breakdown.
    * For EVs, the packaged (claimable) electricity amount comes from `inputs.electricityAnnual`
-   * (user-adjustable in InputsPanel; default may be the ATO 4.2c/km shortcut).
+   * (user-adjustable in InputsPanel; default may be the ATO 5.47c/km shortcut).
    */
   packagedChargingClaimPerYear: number;
   runningCostAnnual: number;
@@ -42,7 +42,7 @@ export function computeDerived(inputs: Inputs): Derived {
   const fortnights = Math.round(inputs.leaseDurationYears * 26);
 
   // Packaged running costs: for EVs use the user-adjustable claimable electricity figure from InputsPanel.
-  // (Default there may be the ATO shortcut 4.2c/km, but users can override it.)
+  // (Default there may be the ATO shortcut 5.47c/km, but users can override it.)
   const packagedChargingClaimPerYear = inputs.vehicleType === "EV" ? inputs.electricityAnnual : 0;
 
   // Packaged energy cost: EV uses claimable electricity; non-EV uses user-entered fuel.
