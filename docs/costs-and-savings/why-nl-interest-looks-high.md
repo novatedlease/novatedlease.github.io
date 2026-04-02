@@ -103,6 +103,14 @@ In other words, the numbers being compared are often not the same entity at all.
 
 ---
 
+### Effective interest rates vary with car value and lease duration
+
+Even when brokerage is transparently applied, the way it is structured can cause the effective interest rate to vary dramatically based on the car's value and the lease duration — entirely independently of any dishonesty or error.
+
+Many providers charge a fixed dollar amount as brokerage regardless of the car value or lease length. When that same fixed cost is spread across fewer fortnights (short lease) or applied to a smaller financing base (cheaper car), the resulting effective interest rate climbs sharply. The maths behind this — including worked examples — is covered in [Why effective interest rates are higher on short leases and cheaper cars](./effective-interest-rate-short-leases-cheaper-cars.md).
+
+---
+
 ### Some providers bundle insurance into the financed amount
 
 Some novated lease providers include the **first-year comprehensive insurance premium** inside the financed amount.

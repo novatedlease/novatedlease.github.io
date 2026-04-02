@@ -59,7 +59,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 -   **:material-book-open-outline: Going deeper?**
 
-    34 articles across 5 topic areas. Use the article browser below or the search bar.
+    35 articles across 5 topic areas. Use the article browser below or the search bar.
 
     -   Fundamentals – core concepts
     -   Mechanisms explained — how the maths actually works
@@ -71,7 +71,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 <div style="margin-top: 10px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: rgba(255,255,255,0.7); overflow: hidden;">
   <div onclick="var b=document.getElementById('all-articles-body'); var a=document.getElementById('all-articles-arrow'); var open=b.style.display==='grid'; b.style.display=open?'none':'grid'; a.textContent=open?'▸':'▾';" style="padding: 12px 16px; font-weight: 700; cursor: pointer; user-select: none; display: flex; justify-content: space-between; align-items: center;">
-    <span>Browse all 34 articles</span>
+    <span>Browse all 35 articles</span>
     <span id="all-articles-arrow" style="font-size: 0.85em; color: rgba(0,0,0,0.45);">▸</span>
   </div>
   <div id="all-articles-body" style="display: none; padding: 0 16px 16px 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px 24px;">
@@ -92,19 +92,20 @@ description: Free independent Australian novated lease guide and calculator. Com
       <ul style="margin: 0; padding-left: 1.2em; font-size: 0.9em; line-height: 1.8;">
         <li><a href="/costs-and-savings/why-tax-saved-is-wrong/">Why "tax saved" is the wrong metric</a></li>
         <li><a href="/costs-and-savings/false-saving-example/">$21,320 "savings" → $5,591 net loss (worked example)</a></li>
-        <li><a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/">$81k Tesla turned out cost-neutral to keeping a $25k Mazda</a></li>
+        <li><a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/">$81k Tesla turned out cost-neutral to keeping a $25k Mazda</a> <span style="display:inline-block;padding:1px 6px;background:#c0392b;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">New</span></li>
         <li><a href="/costs-and-savings/why-nl-interest-looks-high/">Why novated lease interest rates look high</a></li>
+        <li><a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/">Why effective interest rates are higher on short leases and cheaper cars</a> <span style="display:inline-block;padding:1px 6px;background:#c0392b;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">New</span></li>
         <li><a href="/costs-and-savings/fbt-rfba-ati-explained/">FBT, RFBA, and adjusted taxable income explained</a></li>
         <li><a href="/costs-and-savings/why-residual-values-matter/">All about residual values</a></li>
         <li><a href="/costs-and-savings/residual-values-vs-sales-price/">You don't have to sell above residual value</a></li>
-        <li><a href="/costs-and-savings/low-income-novated-lease-savings/">The "$70k is too low for savings" myth — corrected</a></li>
+        <li><a href="/costs-and-savings/low-income-novated-lease-savings/">The "$70k is too low for savings" myth — corrected</a> <span style="display:inline-block;padding:1px 6px;background:#c0392b;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">New</span></li>
       </ul>
     </div>
     <div>
       <div style="font-weight: 600; font-size: 0.8em; color: rgba(0,0,0,0.45); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Running costs & claiming</div>
       <ul style="margin: 0; padding-left: 1.2em; font-size: 0.9em; line-height: 1.8;">
         <li><a href="/running-costs/running-costs-piggy-bank/">Running cost budgets are a "piggy bank"</a></li>
-        <li><a href="/running-costs/ato-42c-per-km-shortcut/">The ATO EV home charging shortcut (5.47c/km from 1 Apr 2026)</a></li>
+        <li><a href="/running-costs/ato-42c-per-km-shortcut/">The ATO EV home charging shortcut (5.47c/km from 1 Apr 2026)</a> <span style="display:inline-block;padding:1px 6px;background:#b7770d;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">Updated</span></li>
         <li><a href="/running-costs/failure-to-pass-gst-saving/">Failure to pass on GST savings</a></li>
         <li><a href="/running-costs/insurance-premium-and-excess/">Insurance premium vs excess</a></li>
       </ul>
