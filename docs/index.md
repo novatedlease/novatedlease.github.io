@@ -145,6 +145,9 @@ description: Free independent Australian novated lease guide and calculator. Com
 <div class="featured-logo-strip">
   <div style="font-weight: 700; margin-bottom: 10px;">Featured in</div>
   <div class="featured-logo-strip__items">
+    <a class="featured-logo-strip__link" href="https://www.abc.net.au/news/2026-04-04/novated-leases-electric-vehicles-explainer/106527770" target="_blank" rel="noopener">
+      <img class="featured-logo-strip__logo featured-logo-strip__logo--abc-news" src="/assets/images/featured/ABC_News_(Australia)_logo.svg.png" alt="ABC News">
+    </a>
     <a class="featured-logo-strip__link" href="https://passiveinvestingaustralia.com/why-most-novated-lease-advice-is-wrong/" target="_blank" rel="noopener">
       <img class="featured-logo-strip__logo featured-logo-strip__logo--pia" src="/assets/images/featured/pia.jpg" alt="Passive Investing Australia">
     </a>

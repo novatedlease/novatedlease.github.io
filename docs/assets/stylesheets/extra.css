@@ -53,6 +53,11 @@
   object-fit: contain;
 }
 
+.md-typeset .featured-logo-strip__logo--abc-news {
+  height: 44px;
+  max-width: 220px;
+}
+
 .md-typeset .featured-logo-strip__logo--pia {
   height: 44px;
   max-width: 360px;
