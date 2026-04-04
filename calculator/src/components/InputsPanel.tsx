@@ -811,16 +811,7 @@ export default function InputsPanel(props: InputsPanelProps) {
 
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6, opacity: 0.7 }}>
                   <InfoTooltip
-                    text={
-                      <>
-                        <p style={{ margin: "0 0 8px 0" }}>
-                          You can adjust the effective interest rate manually using the △ / ▽ arrows. Each click changes the rate by <b>0.1%</b> intervals (press-and-hold to adjust continuously).
-                        </p>
-                        <p style={{ margin: 0 }}>
-                          <b>WARNING:</b> The calculated effective interest rate is invalid if the financed figure contains insurance, repair package or other vehicle add-ons that are not part of the FBT base value, as the financed amount used in this calculator does not consider these add-ons. The presence of these add-ons also make comparison with other financiers invalid if they do not contain equivalent add-ons.
-                        </p>
-                      </>
-                    }
+                    text="You can adjust the effective interest rate manually using the △ / ▽ arrows. Each click changes the rate by 0.1% intervals (press-and-hold to adjust continuously)."
                   />
                 </span>
               </div>
@@ -828,6 +819,8 @@ export default function InputsPanel(props: InputsPanelProps) {
               {props.guardMessage ? (
                 <div style={{ marginTop: 6, fontWeight: 800, opacity: 0.95 }}>{props.guardMessage}</div>
               ) : null}
+
+              <InterestRateCaveats />
             </div>
           </div>
 
@@ -1433,6 +1426,43 @@ function moneyInputStyle(opts?: { highlight?: boolean }): React.CSSProperties {
     background: opts?.highlight ? "rgba(255, 235, 235, 0.55)" : "#fff",
     transition: "box-shadow 220ms ease, border-color 220ms ease, background 220ms ease",
   };
+}
+
+function InterestRateCaveats() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ marginTop: 8, fontSize: 11, color: "rgba(0,0,0,0.6)", lineHeight: 1.45 }}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        style={{
+          padding: 0,
+          border: "none",
+          background: "transparent",
+          cursor: "pointer",
+          fontSize: 10,
+          color: "rgba(0,0,0,0.4)",
+          textDecoration: "none",
+          fontWeight: 500,
+        }}
+      >
+        {open ? "▾" : "▸"} Calculation caveats
+      </button>
+      {open && (
+        <ol style={{ margin: "6px 0 0 0", paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6 }}>
+          <li>
+            <b>Financed amount includes add-ons:</b> The effective interest rate is invalid if the financed figure contains insurance, repair package or other vehicle add-ons not part of the FBT base value. Their presence also makes comparison with other financiers invalid if they do not contain equivalent add-ons.
+          </li>
+          <li>
+            <b>GST not passed on:</b> When GST is not passed on by the employer, the fortnightly lease charged is inc GST; however the effective interest rate calculation assumes this is the ex GST figure, which results in an inconsistent rate. This will be addressed in a future update.
+          </li>
+          <li>
+            <b>Atypical lease structure (e.g. MillarX):</b> This calculator assumes averaged payroll deductions across the lease term. Some providers structure quotes differently — for example, on a 5-year term there may be 59 actual lease rentals but 60 payroll deductions, with the extra deduction held as a refundable budget reserve for running costs. In these cases, this calculator may give a misleading effective interest rate comparison. In these atypical structures, we recommend checking with your provider about how to enter their figures correctly.
+          </li>
+        </ol>
+      )}
+    </div>
+  );
 }
 
 function ExpandToggle(props: {
