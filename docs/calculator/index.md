@@ -133,6 +133,7 @@ Quick start below — or read the [full walkthrough](../start-here/use-nl-calcul
 Unlike most novated lease calculators, the outputs focus on **net outcomes** — how much better or worse off you are overall — rather than isolated tax figures.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"
 
 ---
 

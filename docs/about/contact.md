@@ -65,3 +65,4 @@ For discussion of **individual quotes or personal circumstances**, public commun
 These platforms allow multiple perspectives, public scrutiny, and community discussion which are generally healthier than private DMs.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

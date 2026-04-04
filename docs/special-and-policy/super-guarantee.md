@@ -164,5 +164,6 @@ But legally, they don’t have to — and some don’t.
 That makes this a **real, if uncommon, risk** worth understanding before you sign.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"
 
 [^sg_rate]: The 9.5% SG rate used in this example is reproduced directly from GN 2020/1, which was written when that rate was current. The SG rate has since increased to 12% (from 1 July 2025). The principle illustrated by the example is unchanged.

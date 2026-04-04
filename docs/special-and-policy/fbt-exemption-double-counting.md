@@ -104,3 +104,4 @@ Make sure that any quote generated uses the correct assumption if you are a hosp
 
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

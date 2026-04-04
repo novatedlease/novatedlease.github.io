@@ -131,3 +131,4 @@ The most reliable way to compare quotes is not to look at the headline rate, but
 [^4]: In practice, financiers often apply different base rates for different lease durations. A common base rate is used here to isolate the effect of brokerage on the effective interest rate.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

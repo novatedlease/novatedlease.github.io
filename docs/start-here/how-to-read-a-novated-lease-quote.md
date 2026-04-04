@@ -219,3 +219,4 @@ The [novated lease calculator](../calculator/index.md) is designed to:
 > A good novated lease quote is not defined by its headline numbers, but by whether its assumptions survive scrutiny.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

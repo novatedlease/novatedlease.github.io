@@ -32,3 +32,4 @@ This section explains the financial mechanics behind novated leases in enough de
   A common forum claim holds that lower-income earners cannot benefit meaningfully from a novated lease. This article shows why that is mathematically wrong for anyone in the same tax bracket — while acknowledging the legitimate non-tax reasons to be more cautious at lower incomes.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

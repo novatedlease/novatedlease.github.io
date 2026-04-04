@@ -134,3 +134,4 @@ The [Novated Lease Calculator](https://novatedlease.guide/calculator/) supports 
 [Open the Novated Lease Calculator →](https://novatedlease.guide/calculator/)
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

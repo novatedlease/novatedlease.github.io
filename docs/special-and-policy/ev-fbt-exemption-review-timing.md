@@ -149,3 +149,4 @@ Choosing a lease duration is therefore **both a financial decision and a policy-
 
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

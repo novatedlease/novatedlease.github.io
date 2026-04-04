@@ -247,6 +247,7 @@ If you remember nothing else:
 
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"
 
 ---
 [^1]: This "statutory formula" method is the most common. If you have adequate records, you may opt for the "operating cost method" which is not discussed in this guide. 

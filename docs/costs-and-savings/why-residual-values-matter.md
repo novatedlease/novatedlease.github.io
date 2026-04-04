@@ -230,3 +230,4 @@ They represent **deferred payment** for part of the car’s cost that was never 
 
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

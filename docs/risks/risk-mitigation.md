@@ -151,5 +151,6 @@ Understanding that upfront turns early termination from a nasty shock into a qua
 
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"
 
 

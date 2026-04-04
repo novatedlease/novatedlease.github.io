@@ -189,3 +189,4 @@ The **Details** tab contains the full underlying breakdown:
 - Consider other risks (job security, exit risk, subsidy impact, borrowing capacity) alongside the numbers.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

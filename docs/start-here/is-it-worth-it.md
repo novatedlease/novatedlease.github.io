@@ -256,6 +256,7 @@ Generally less so. The effective tax benefit is smaller at lower marginal tax ra
 Yes. Many lenders treat novated lease repayments as ongoing liabilities, which can significantly reduce borrowing capacity — sometimes by far more than the car’s purchase price.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"
 
 
 [^1]: Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the intiially "exempted" GST is still payable at this stage. 

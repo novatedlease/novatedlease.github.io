@@ -164,6 +164,7 @@ If the numbers come out substantially negative for NL, you have your answer too.
 - **With fuel prices rising and EV prices falling, this comparison is increasingly worth running. Used EV makes the case of NL even stronger.**
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"
 
 [^1]: 9.0 L/100 km × 15,000 km × $1.75/L = $2,362.50. At the current ~$2.30/L pump price this rises to ~$3,105/year.
 

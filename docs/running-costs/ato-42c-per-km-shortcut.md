@@ -213,3 +213,4 @@ For others, more precise methods may make sense, but only if you are willing and
 [^1]: The one edge case worth noting: PCG 2024/2 requires that you have actually incurred electricity costs during the year. For the vast majority of solar households this is a non-issue — unless you are fully "off the grid", some grid expenses still appear on every bill. However, if your solar system fully offsets your entire household electricity consumption and your bill is genuinely zero, you may not satisfy this requirement, and the shortcut method would technically be unavailable. This interpretation is not stated explicitly in the PCG itself, but follows from its eligibility criteria.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

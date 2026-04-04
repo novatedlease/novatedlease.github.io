@@ -156,3 +156,4 @@ The patterns that appear across virtually every affiliated calculator:
 - **Caveats absent** — fewer than half mention any [caveats of novated leasing](is-it-worth-it.md) (e.g. RFBA impact on HECS/HELP, childcare subsidy, Medicare levy surcharge, reduced borrowing capacity, early-termination risk, reduced superannuation contributions). Even those that do typically mention only RFBA and nothing else.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

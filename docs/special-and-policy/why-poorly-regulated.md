@@ -121,3 +121,4 @@ If you remember nothing else:
 
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

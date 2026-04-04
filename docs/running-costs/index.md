@@ -23,3 +23,4 @@ Managed poorly — or with an employer who doesn't pass on all the entitlements 
   Insurance is typically included in the running cost budget and paid pre-tax, which changes the premium vs excess trade-off analysis. This article explains the mechanics and how the pre-tax discount affects the decision between a lower premium and a lower excess.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"

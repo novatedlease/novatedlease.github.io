@@ -98,3 +98,4 @@ This is not a sales site.  I am not a leasing company.  I do not receive commiss
 The goal here is simple:  to explain how novated leases *actually* work, where the benefits really come from, where the risks are, and who should or should not consider them.
 
 --8<-- "includes/support-box.md"
+--8<-- "includes/keane-box.md"
