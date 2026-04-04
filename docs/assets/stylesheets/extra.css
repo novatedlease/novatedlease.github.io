@@ -54,8 +54,10 @@
 }
 
 .md-typeset .featured-logo-strip__logo--abc-news {
-  height: 44px;
+  height: 28px;
   max-width: 220px;
+  padding: 8px 0;
+  box-sizing: content-box;
 }
 
 .md-typeset .featured-logo-strip__logo--pia {
@@ -64,13 +66,17 @@
 }
 
 .md-typeset .featured-logo-strip__logo--leasecheck {
-  height: 44px;
+  height: 28px;
   max-width: 220px;
+  padding: 8px 0;
+  box-sizing: content-box;
 }
 
 .md-typeset .featured-logo-strip__logo--millarx {
-  height: 44px;
+  height: 28px;
   max-width: 300px;
+  padding: 8px 0;
+  box-sizing: content-box;
 }
 
 .md-typeset .featured-logo-strip__logo--ccschecker {
