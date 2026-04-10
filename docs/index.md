@@ -59,7 +59,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 -   **:material-book-open-outline: Going deeper?**
 
-    35 articles across 5 topic areas. Use the article browser below or the search bar.
+    36 articles across 5 topic areas. Use the article browser below or the search bar.
 
     -   Fundamentals – core concepts
     -   Mechanisms explained — how the maths actually works
@@ -71,7 +71,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 <div style="margin-top: 10px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: rgba(255,255,255,0.7); overflow: hidden;">
   <div onclick="var b=document.getElementById('all-articles-body'); var a=document.getElementById('all-articles-arrow'); var open=b.style.display==='grid'; b.style.display=open?'none':'grid'; a.textContent=open?'▸':'▾';" style="padding: 12px 16px; font-weight: 700; cursor: pointer; user-select: none; display: flex; justify-content: space-between; align-items: center;">
-    <span>Browse all 35 articles</span>
+    <span>Browse all 36 articles</span>
     <span id="all-articles-arrow" style="font-size: 0.85em; color: rgba(0,0,0,0.45);">▸</span>
   </div>
   <div id="all-articles-body" style="display: none; padding: 0 16px 16px 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px 24px;">
@@ -118,6 +118,7 @@ description: Free independent Australian novated lease guide and calculator. Com
         <li><a href="/risks/early-termination/">What happens if a novated lease ends early</a></li>
         <li><a href="/risks/how-bad-can-early-termination-get/">Early termination payouts: how bad can it get?</a></li>
         <li><a href="/risks/risk-mitigation/">Risk mitigation strategies</a></li>
+        <li><a href="/risks/novated-lease-risk-adjusted-decision/">Think like a gambler: why the same novated lease can be brilliant for one person and terrible for another</a> <span style="display:inline-block;padding:1px 6px;background:#c0392b;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">New</span></li>
       </ul>
     </div>
     <div>

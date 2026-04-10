@@ -21,8 +21,9 @@ In these situations, the same lease that looked attractive on a fortnightly cash
 This section focuses on:
 
 - [how lease length and residuals affect risk](lease-length-and-risk.md),
-- [why early termination is disproportionately expensive and some ways to mitigate it](early-termination.md), and
-- [how bad outcomes can get with worked examples](how-bad-can-early-termination-get.md)
+- [why early termination is disproportionately expensive and some ways to mitigate it](early-termination.md),
+- [how bad outcomes can get with worked examples](how-bad-can-early-termination-get.md), and
+- [why "positive expected value" doesn't mean everyone should take the bet](novated-lease-risk-adjusted-decision.md)
 
 This section is **not an exhaustive list** of all caveats of novated lease; other potential caveats are discussed in "[Is a novated lease right for me](../start-here/is-it-worth-it.md#start-with-a-holistic-view-rather-than-the-savings-figure)" article. 
 
