@@ -1109,7 +1109,7 @@ useEffect(() => {
     }}
     title="Copy a shareable link that includes all your inputs"
   >
-    {copiedLink ? "Copied!" : "🔗 Copy link"}
+    {copiedLink ? "Copied!" : "🔗 Share result"}
   </button>
 
   <button
@@ -1128,7 +1128,7 @@ useEffect(() => {
     aria-haspopup="dialog"
     title="Save, load, rename or delete saved quotes on this device"
     >
-    💾 Quotes
+    💾 Save / load quotes
   </button>
 
   {quotesOpen && (
