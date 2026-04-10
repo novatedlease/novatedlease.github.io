@@ -1693,7 +1693,7 @@ function fmtMoneyInput(n: number): string {
 }
 
 function parseMoneyInput(s: string): number {
-  const cleaned = String(s).trim().replace(/,/g, "");
+  const cleaned = String(s).trim().replace(/[$,]/g, "");
   const n = Number(cleaned);
   return Number.isFinite(n) ? n : 0;
 }

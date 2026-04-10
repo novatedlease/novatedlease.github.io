@@ -224,7 +224,7 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
             Many providers also charge an <strong>early termination fee</strong> (not modelled here, typically a few hundred dollars).
           </li>
           <li>
-            By default, this section models <strong>cashflow only</strong>. Turn on <strong>“Adjust for home loan interest saved”</strong> to also estimate the offset‑interest effect from keeping more cash in your mortgage offset (by not paying the purchase price upfront). This is shown as a lower “effective total spent” for the novated lease line.
+            By default, this section models <strong>cashflow only</strong>. Turn on <strong>”Adjust for home loan interest saved”</strong> to also estimate the offset‑interest effect from keeping more cash in your mortgage offset (by not paying the purchase price upfront). This is shown as a lower “effective total spent” for the novated lease line. Note: an equivalent framing is that paying cash upfront <em>costs</em> additional home loan interest (by depleting the offset balance); both perspectives are mathematically identical — it is simply a matter of which pathway you treat as the reference point.
           </li>
           <li>
             Other potential impacts (e.g. borrowing capacity, subsidies, superannuation) are not modelled.
