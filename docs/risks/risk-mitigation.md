@@ -2,6 +2,10 @@
 
 This article builds on the discussion of [early termination and the risk of high payouts](early-termination.md).
 
+As discussed there, a lump-sum payout is the **worst-case cashflow outcome** of early termination — not the only one. It is also possible to continue the lease directly with the financier as a non-salary-packaged arrangement, which spreads payments over time rather than crystallising the full obligation immediately. The pre-tax and GST advantages are still lost either way; the difference is timing and cashflow impact.
+
+This article focuses on strategies that reduce the *magnitude* of that financial penalty in the first place.
+
 There are three primary strategies to mitigate this risk:
 
 - **splitting the lease into 1 year + extension**

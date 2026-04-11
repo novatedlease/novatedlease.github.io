@@ -32,16 +32,19 @@ Many of these are normal life events that happen to a significant proportion of 
 
 Early termination usually requires one of the following:
 
-- paying out the remaining lease balance and residual in cash, or  
-- refinancing the remaining balance (and residual) into a personal loan or lease. 
+- paying out the remaining lease balance and residual in a **lump sum** (worst-case cashflow scenario), or
+- refinancing the remaining balance (and residual) into a personal loan or lease, or
+- continuing the lease directly with the financier as a **non-salary-packaged arrangement** — making ongoing payments to the financier without the benefit of pre-tax salary packaging.
 
 There is **no mechanism** by which early termination causes the residual or remaining lease to be waived.
 
-Note that the lease payout: 
+Note that under any of the above options, the ongoing or residual obligations:
 
-- is now payable with **post-tax dollars** rather than pre-tax dollars,
+- are now payable with **post-tax dollars** rather than pre-tax dollars,
 - will attract an **additional 10% GST**, which is normally effectively waived during an active novated lease, and
-- in some cases, may include an “**early termination rate**”, i.e. an additional penalty.
+- in some cases (for a lump-sum payout), may include an “**early termination rate**”, i.e. an additional penalty.
+
+Continuing the lease directly (rather than paying it out immediately) preserves the **time value of your cash** — you avoid crystallising the full obligation in one hit and don't immediately deprive your offset account of thousands of dollars. However, the total financial penalty over the remaining term is broadly similar either way, since all the pre-tax and GST advantages are lost regardless. The lump-sum payout is the worst-case *cashflow* outcome; it is not the only one.
 
 ---
 

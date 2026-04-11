@@ -43,10 +43,10 @@ Now consider the scenario where I am **made redundant 3 months (6 fortnights) in
 
 The damage arises because the remaining lease commitments lose their pre-tax treatment. 
 
-Note that 
+Note that
 
-- This assumes that I choose to pay out the termination fee with cash. There are other options e.g. turning it into a post-tax lease, refinancing it as a loan etc. 
-- There is also the option of de-novating it and paying it with post-tax cash, with the view to seek new employment and re-novate the lease as yet another FBT-exempt novated lease with the new employer. 
+- This assumes that I choose to pay out the termination in a **lump sum with cash** — the worst-case cashflow scenario. There are other options, such as continuing the lease directly with the financier as a non-salary-packaged arrangement, or refinancing it as a personal loan. These alternatives spread payments over time, preserving the time value of your cash and avoiding depleting your offset account in one hit. However, all pre-tax and GST advantages are still lost regardless of which path is taken, so the total financial penalty over the remaining term is broadly similar. The lump-sum payout numbers above represent the *worst-case cashflow outcome*, not the only one.
+- There is also the option of de-novating the lease and continuing payments post-tax, with the view to finding new employment that supports novated leasing and re-novating as a new FBT-exempt novated lease.
 
 
 ---
