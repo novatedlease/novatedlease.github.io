@@ -150,7 +150,7 @@ The outputs of this engine were then systematically verified against the origina
 
 No financial model of this complexity can claim absolute infallibility. However, given the independent re-derivation, cross-verification, and sustained public scrutiny, the mathematical integrity of this calculator is likely robust.
 
-For those who value full transparency, the original spreadsheet remains available and exposes the underlying formulae in full. You are welcome to audit the logic yourself.
+For those who value full transparency, [the original spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) remains available and exposes the underlying formulae in full. You are welcome to audit the logic yourself.
 
 If you believe you have identified a genuine discrepancy, please feel free to [reach out](../about/contact.md). Serious scrutiny is welcome.
 
