@@ -28,29 +28,43 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 ---
 
-<div style="margin: 4px 0 28px 0; border: 2px solid #b7770d; border-radius: 10px; background: linear-gradient(135deg, #fffbf0 0%, #fff8e6 100%); overflow: hidden; box-shadow: 0 2px 8px rgba(183,119,13,0.10);">
-  <div style="background: #b7770d; padding: 10px 18px; display: flex; align-items: center; gap: 10px;">
-    <span style="font-size: 1.3em;">🚗</span>
-    <span style="color: white; font-weight: 700; font-size: 1.05em; letter-spacing: 0.01em;">For Sale: 2024 Kia EV9 Air — Perth</span>
-    <span style="margin-left: auto; background: white; color: #b7770d; font-weight: 700; font-size: 0.8em; padding: 2px 10px; border-radius: 20px; white-space: nowrap;">$76,000</span>
+<style>
+.ev9-expanded { display: none; }
+.ev9-expanded.open { display: flex; }
+@media (max-width: 540px) {
+  .ev9-expanded.open { flex-direction: column; }
+  .ev9-expanded.open .ev9-img { width: 100%; height: 180px; }
+}
+</style>
+
+<div id="ev9-ad" style="margin: 4px 0 28px 0; border: 1px solid #d4a535; border-radius: 8px; background: #fdfaf3; overflow: hidden; max-width: 560px;">
+  <div style="padding: 9px 12px; display: flex; align-items: center; gap: 10px;">
+    <img src="/assets/images/EV9.jpg" alt="EV9" style="width: 48px; height: 36px; object-fit: cover; border-radius: 4px; flex-shrink: 0;">
+    <span style="font-size: 0.88em; color: rgba(0,0,0,0.65); flex: 1; min-width: 0;"><span style="font-weight: 600; color: #9a6a0a;">For Sale</span> · 2023 Kia EV9 Air, Perth · <strong style="color: #9a6a0a;">$76,000</strong> · FBT exempt ✦</span>
+    <button data-toggle="ev9-expanded" title="Expand" style="background: none; border: 1px solid rgba(0,0,0,0.15); color: rgba(0,0,0,0.45); font-size: 0.78em; padding: 2px 8px; border-radius: 4px; cursor: pointer; white-space: nowrap; flex-shrink: 0;">details ▾</button>
+    <button data-dismiss="ev9-ad" title="Dismiss" style="background: none; border: none; color: rgba(0,0,0,0.3); font-size: 1.1em; line-height: 1; padding: 0 2px; cursor: pointer; flex-shrink: 0;">×</button>
   </div>
-  <div style="padding: 16px 18px 18px 18px;">
+  <div id="ev9-expanded" class="ev9-expanded" style="gap: 16px; align-items: flex-start; padding: 0 14px 14px 14px; border-top: 1px solid #e8d9a8;">
 
-  <p style="margin: 0 0 10px 0; color: rgba(0,0,0,0.75); font-size: 0.97em;">Reluctantly letting this one go to make room for an upgrade. One of the better-specced and lower-mileage used EV9s on the market right now — comparable dealer listings are sitting at $84–88k, so this is priced to sell privately without the runaround.</p>
+  <img src="/assets/images/EV9.jpg" alt="2023 Kia EV9 Air" class="ev9-img" style="width: 160px; height: 120px; object-fit: cover; border-radius: 6px; flex-shrink: 0; display: block; margin-top: 14px;">
 
-  <div style="background: white; border: 1.5px solid #b7770d; border-radius: 7px; padding: 11px 15px; margin-bottom: 12px;">
-    <div style="font-weight: 700; color: #b7770d; font-size: 0.88em; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">⭐ Key selling point — FBT Exemption Eligible</div>
-    <p style="margin: 0; font-size: 0.95em; color: rgba(0,0,0,0.8);">Despite the EV9 Air sitting above the LCT threshold at new car pricing, this car was purchased under the LCT — which means it <strong>retains eligibility for the EV FBT exemption</strong>. If you can salary package through a novated lease, you can pay for it largely with pre-tax dollars. A genuine rarity for this model.</p>
+  <div style="flex: 1; min-width: 0; margin-top: 14px;">
+  <p style="margin: 0 0 10px 0; color: rgba(0,0,0,0.75); font-size: 0.93em;">Reluctantly letting this one go to make room for an upgrade. One of the lower-mileage used EV9s you’ll find in the market right now. Comparable dealer listings are sitting at $80–84k, so this is priced to sell privately without the runaround.</p>
+
+  <div style="background: white; border: 1px solid #d4a535; border-radius: 6px; padding: 10px 14px; margin-bottom: 12px;">
+    <div style="font-weight: 700; color: #9a6a0a; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px;">⭐ Key selling point — FBT Exemption Eligible</div>
+    <p style="margin: 0; font-size: 0.92em; color: rgba(0,0,0,0.8);">Despite the EV9 Air sitting above the LCT threshold at new car pricing, this car was purchased under the LCT — which means it <strong>retains eligibility for the EV FBT exemption</strong>. If you can salary package through a novated lease, you can pay for it largely with pre-tax dollars. A genuine rarity for this model.</p>
   </div>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px 16px; margin-bottom: 14px;">
-    <div style="font-size: 0.93em; color: rgba(0,0,0,0.75);"><span style="font-weight: 600; color: rgba(0,0,0,0.55);">Variant</span><br>EV9 Air (7-seat, full-size SUV)</div>
-    <div style="font-size: 0.93em; color: rgba(0,0,0,0.75);"><span style="font-weight: 600; color: rgba(0,0,0,0.55);">Odometer</span><br>17,400 km</div>
-    <div style="font-size: 0.93em; color: rgba(0,0,0,0.75);"><span style="font-weight: 600; color: rgba(0,0,0,0.55);">Location</span><br>Perth, WA</div>
-    <div style="font-size: 0.93em; color: rgba(0,0,0,0.75);"><span style="font-weight: 600; color: rgba(0,0,0,0.55);">Asking price</span><br><strong style="color: #b7770d;">$76,000</strong></div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 5px 14px; margin-bottom: 12px;">
+    <div style="font-size: 0.9em; color: rgba(0,0,0,0.7);"><span style="font-weight: 600; color: rgba(0,0,0,0.45);">Variant</span><br>EV9 Air (7-seat, full-size SUV)</div>
+    <div style="font-size: 0.9em; color: rgba(0,0,0,0.7);"><span style="font-weight: 600; color: rgba(0,0,0,0.45);">Odometer</span><br>17,400 km</div>
+    <div style="font-size: 0.9em; color: rgba(0,0,0,0.7);"><span style="font-weight: 600; color: rgba(0,0,0,0.45);">Location</span><br>Perth, WA</div>
+    <div style="font-size: 0.9em; color: rgba(0,0,0,0.7);"><span style="font-weight: 600; color: rgba(0,0,0,0.45);">Asking price</span><br><strong style="color: #9a6a0a;">$76,000</strong></div>
   </div>
 
-  <p style="margin: 0; font-size: 0.9em; color: rgba(0,0,0,0.6);">Perth buyers preferred. Interstate considered — but you'll need to arrange your own transport and be comfortable purchasing without a physical inspection. DM me if interested, or if you have questions about the novated lease angle — happy to help you work out the numbers.</p>
+  <p style="margin: 0; font-size: 0.88em; color: rgba(0,0,0,0.55);">Perth buyers preferred. Interstate considered — but you’ll need to arrange your own transport and be comfortable purchasing without a physical inspection. <a href="/about/contact/">Contact me</a> if interested, or if you have questions about the novated lease angle — happy to help you work out the numbers.</p>
+  </div>
 
   </div>
 </div>

@@ -1,4 +1,20 @@
 document$.subscribe(function () {
+  document.querySelectorAll("[data-dismiss]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var target = document.getElementById(btn.getAttribute("data-dismiss"));
+      if (target) target.style.display = "none";
+    });
+  });
+
+  document.querySelectorAll("[data-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var target = document.getElementById(btn.getAttribute("data-toggle"));
+      if (!target) return;
+      var open = target.classList.toggle("open");
+      btn.textContent = open ? "close ▴" : "details ▾";
+    });
+  });
+
   var tables = document.querySelectorAll(".compact-table table");
 
   tables.forEach(function (table) {
