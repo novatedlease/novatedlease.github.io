@@ -28,6 +28,33 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 ---
 
+<div style="margin: 4px 0 28px 0; border: 2px solid #b7770d; border-radius: 10px; background: linear-gradient(135deg, #fffbf0 0%, #fff8e6 100%); overflow: hidden; box-shadow: 0 2px 8px rgba(183,119,13,0.10);">
+  <div style="background: #b7770d; padding: 10px 18px; display: flex; align-items: center; gap: 10px;">
+    <span style="font-size: 1.3em;">🚗</span>
+    <span style="color: white; font-weight: 700; font-size: 1.05em; letter-spacing: 0.01em;">For Sale: 2024 Kia EV9 Air — Perth</span>
+    <span style="margin-left: auto; background: white; color: #b7770d; font-weight: 700; font-size: 0.8em; padding: 2px 10px; border-radius: 20px; white-space: nowrap;">$76,000</span>
+  </div>
+  <div style="padding: 16px 18px 18px 18px;">
+
+  <p style="margin: 0 0 10px 0; color: rgba(0,0,0,0.75); font-size: 0.97em;">Reluctantly letting this one go to make room for an upgrade. One of the better-specced and lower-mileage used EV9s on the market right now — comparable dealer listings are sitting at $84–88k, so this is priced to sell privately without the runaround.</p>
+
+  <div style="background: white; border: 1.5px solid #b7770d; border-radius: 7px; padding: 11px 15px; margin-bottom: 12px;">
+    <div style="font-weight: 700; color: #b7770d; font-size: 0.88em; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">⭐ Key selling point — FBT Exemption Eligible</div>
+    <p style="margin: 0; font-size: 0.95em; color: rgba(0,0,0,0.8);">Despite the EV9 Air sitting above the LCT threshold at new car pricing, this car was purchased under the LCT — which means it <strong>retains eligibility for the EV FBT exemption</strong>. If you can salary package through a novated lease, you can pay for it largely with pre-tax dollars. A genuine rarity for this model.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px 16px; margin-bottom: 14px;">
+    <div style="font-size: 0.93em; color: rgba(0,0,0,0.75);"><span style="font-weight: 600; color: rgba(0,0,0,0.55);">Variant</span><br>EV9 Air (7-seat, full-size SUV)</div>
+    <div style="font-size: 0.93em; color: rgba(0,0,0,0.75);"><span style="font-weight: 600; color: rgba(0,0,0,0.55);">Odometer</span><br>17,400 km</div>
+    <div style="font-size: 0.93em; color: rgba(0,0,0,0.75);"><span style="font-weight: 600; color: rgba(0,0,0,0.55);">Location</span><br>Perth, WA</div>
+    <div style="font-size: 0.93em; color: rgba(0,0,0,0.75);"><span style="font-weight: 600; color: rgba(0,0,0,0.55);">Asking price</span><br><strong style="color: #b7770d;">$76,000</strong></div>
+  </div>
+
+  <p style="margin: 0; font-size: 0.9em; color: rgba(0,0,0,0.6);">Perth buyers preferred. Interstate considered — but you'll need to arrange your own transport and be comfortable purchasing without a physical inspection. DM me if interested, or if you have questions about the novated lease angle — happy to help you work out the numbers.</p>
+
+  </div>
+</div>
+
 **Many people dismiss EV novated leases for the wrong reasons**, based on outdated rules of thumb rather than current rules. 
 
 **Many people sign up for novated leases for the wrong reasons**, based on misleading sales pitches rather than a clear understanding of costs, risks, and trade‑offs.
