@@ -399,6 +399,7 @@ export default function App() {
       .toISOString()
       .slice(0, 10),
     leaseDurationYears: 5,
+    residualValueExGst: 0,
     monthsDeferred: 2,
 
     totalTaxableIncome: 300000,
@@ -441,18 +442,23 @@ export default function App() {
     return {
       ...base,
       financedAmountForInterestCalcExGst: financedAmountExGstFromInputs(base),
+      // residualValueExGst stays 0 as sentinel so the auto-sync effect
+      // computes the correct value on mount (handles old URLs too)
     };
   })();
 
   const urlInitRef = useRef<{ encoded: string | null }>({ encoded: null });
   const lastAutoFinancedRef = useRef<number | null>(null);
   const lastAutoEstMarketValueRef = useRef<number | null>(null);
+  const lastAutoResidualRef = useRef<number | null>(null);
 
   const [inputs, setInputs] = useState<Inputs>(() => {
     const { inputs: initial, encoded } = readInputsFromUrl(defaultInputs);
     urlInitRef.current.encoded = encoded;
     return initial;
   });
+
+  const [vehicleLeasePeriodMode, setVehicleLeasePeriodMode] = useState<"perFn" | "perMonth">("perFn");
 
   function handleUserInput(field: string) {
     // Primary engagement conversion: first intentional interaction with any input
@@ -737,6 +743,35 @@ useEffect(() => {
     inputs.financedAmountForInterestCalcExGst,
   ]);
 
+  // Keep residualValueExGst in sync with the ATO-derived formula unless manually overridden.
+  useEffect(() => {
+    const financedExGst = financedAmountExGstFromInputs(inputs);
+    const leaseYears = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
+    const auto = Math.max(0, financedExGst - inputs.leaseDocFee) * residualFractionForYears(leaseYears);
+    const cur = inputs.residualValueExGst;
+    const lastAuto = lastAutoResidualRef.current;
+
+    const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;
+
+    const shouldSync =
+      cur === 0 ||
+      (lastAuto !== null && withinCent(cur, lastAuto)) ||
+      (lastAuto === null && withinCent(cur, auto));
+
+    if (shouldSync && !withinCent(cur, auto)) {
+      setInputs((p) => ({ ...p, residualValueExGst: auto }));
+    }
+
+    lastAutoResidualRef.current = auto;
+  }, [
+    inputs.leaseDurationYears,
+    inputs.vehicleCondition,
+    inputs.vehicleBaseValue,
+    inputs.driveawayCost,
+    inputs.leaseDocFee,
+    inputs.residualValueExGst,
+  ]);
+
   // ------------------------------
   // Lease quote safeguard + live hint (Definition 1)
   // ------------------------------
@@ -749,9 +784,7 @@ useEffect(() => {
   const guardDeferMonths = Math.max(0, Math.round(inputs.monthsDeferred));
 
   const guardFinancedStandardExGst = financedAmountExGstFromInputs(inputs);
-  const guardResidualFraction = residualFractionForYears(guardLeaseYears);
-  const guardResidualStandardExGst =
-    Math.max(0, guardFinancedStandardExGst - inputs.leaseDocFee) * guardResidualFraction;
+  const guardResidualStandardExGst = inputs.residualValueExGst;
 
 
   // Compute the live “equivalent effective rate” from the current input (Definition 1)
@@ -1331,6 +1364,8 @@ useEffect(() => {
               setSummaryHorizon("five_year");
             }}
             onUserInput={handleUserInput}
+            vehicleLeasePeriodMode={vehicleLeasePeriodMode}
+            setVehicleLeasePeriodMode={setVehicleLeasePeriodMode}
           />
         </div>
 
@@ -1521,7 +1556,7 @@ useEffect(() => {
                 description="Shows your pre-tax lease payments and their impact on take-home pay (fortnightly, annual, and total), with a year-by-year breakdown highlighting changes near marginal tax thresholds."
                 analyticsId="section_1_lease_payments"
               >
-                <LeaseReport inputs={inputs} taxRateInclMedicarePct={47} />
+                <LeaseReport inputs={inputs} taxRateInclMedicarePct={47} vehicleLeasePeriodMode={vehicleLeasePeriodMode} />
               </CollapsibleSection>
 
               <div style={{ marginTop: 16 }}>

@@ -1,10 +1,8 @@
 import type { Inputs } from "../engine/types";
-import { residualPercentForYears } from "../engine/ato";
 import { buildWorksheet130 } from "../engine/worksheet_130";
 import { useEffect } from "react";
 import { estimateAnnualChargingExpense } from "../engine/charging";
-import { calcResidualPayableIncGst, isFbtApplicable } from "../engine/types";
-import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
+import { isFbtApplicable } from "../engine/types";
 import { computeLeasePaymentsOverLease } from "../engine/lease_payments";
 
 // NOTE: GST saving helper comes from engine/ato (single source of truth)
@@ -140,14 +138,7 @@ useEffect(() => {
   // Worksheet uses NEGATIVE of LeaseReport delta, over lease years
   const chargingDeltaOverLease = -chargingDeltaAnnual * yearsLease;
 
-  // Amount financed (ex GST) + residual payable (inc GST) — use engine single source of truth
-  const amountFinancedExGst = financedAmountExGstFromInputs(i);
-  const residualPct = residualPercentForYears(yearsLease);
-  const residualPayableIncGst = calcResidualPayableIncGst({
-    amountFinancedExGst,
-    leaseDocFeeExGst: i.leaseDocFee,
-    residualPct,
-  });
+  const residualPayableIncGst = i.residualValueExGst * 1.1;
 
 
   const preTaxLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
@@ -785,14 +776,7 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
   // Worksheet uses NEGATIVE of LeaseReport delta, over lease years
   const chargingDeltaOverLease = -chargingDeltaAnnual * yearsLease;
 
-  // Amount financed (ex GST) + residual payable (inc GST) — engine single source of truth
-  const amountFinancedExGst = financedAmountExGstFromInputs(i);
-  const residualPct = residualPercentForYears(yearsLease);
-  const residualPayableIncGst = calcResidualPayableIncGst({
-    amountFinancedExGst,
-    leaseDocFeeExGst: i.leaseDocFee,
-    residualPct,
-  });
+  const residualPayableIncGst = i.residualValueExGst * 1.1;
 
   // Pre-tax totals (used for FY breakdown to compute take-home impact)
   const preTaxLeaseFn = i.vehicleLeasePerFn + i.luxuryVehicleAdjPerFn;
