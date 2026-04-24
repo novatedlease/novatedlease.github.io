@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import type { Inputs } from "../engine/types";
 import { InfoTooltip } from "./ui/InfoTooltip";
+import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
 
 export type InputsPanelProps = {
   inputs: Inputs;
@@ -15,6 +16,8 @@ export type InputsPanelProps = {
   formatPct: (pct: number) => string;
   onResetDefaults?: () => void;
   onUserInput?: (field: string) => void;
+  vehicleLeasePeriodMode: "perFn" | "perMonth";
+  setVehicleLeasePeriodMode: (m: "perFn" | "perMonth") => void;
 };
 
 export default function InputsPanel(props: InputsPanelProps) {
@@ -83,9 +86,24 @@ export default function InputsPanel(props: InputsPanelProps) {
     }
   }, [inputs.vehicleType, inputs.annualMileageKm]);
 
+  const { vehicleLeasePeriodMode, setVehicleLeasePeriodMode } = props;
   const [vehicleLeasePerFnText, setVehicleLeasePerFnText] = useState<string>(
     fmtMoneyInput(inputs.vehicleLeasePerFn)
   );
+
+  const GST_RATE = 0.1;
+  const [residualGstMode, setResidualGstMode] = useState<"exGst" | "incGst">("exGst");
+  const [residualText, setResidualText] = useState<string>(
+    fmtMoneyInput(inputs.residualValueExGst)
+  );
+
+  useEffect(() => {
+    const displayed =
+      residualGstMode === "incGst"
+        ? inputs.residualValueExGst * (1 + GST_RATE)
+        : inputs.residualValueExGst;
+    setResidualText(fmtMoneyInput(displayed));
+  }, [inputs.residualValueExGst, residualGstMode]);
 
   const [hoveredRateArrow, setHoveredRateArrow] = useState<"up" | "down" | null>(null);
 
@@ -137,8 +155,11 @@ export default function InputsPanel(props: InputsPanelProps) {
 
   useEffect(() => {
     // Keep text synced to committed value (e.g. guard accept/reject, share-link load, etc.)
-    setVehicleLeasePerFnText(fmtMoneyInput(inputs.vehicleLeasePerFn));
-  }, [inputs.vehicleLeasePerFn]);
+    const displayed = vehicleLeasePeriodMode === "perMonth"
+      ? inputs.vehicleLeasePerFn * 26 / 12
+      : inputs.vehicleLeasePerFn;
+    setVehicleLeasePerFnText(fmtMoneyInput(displayed));
+  }, [inputs.vehicleLeasePerFn, vehicleLeasePeriodMode]);
 
   // EV FBT exemption eligibility (expanded logic for used vehicle checks)
   // If the vehicle exceeds the EV Luxury Car Tax threshold, it is NOT eligible for FBT-exempt novated leasing.
@@ -623,10 +644,132 @@ export default function InputsPanel(props: InputsPanelProps) {
 ) : null}
 
           <FieldRow
-  label="Vehicle Lease (Per Fortnight)"
-  tooltip={<InfoTooltip text="Pre-tax, ex GST figure, include ONLY the vehicle lease portion, not the total packaged amount that includes running cost." />}
+            label={
+              <div>
+                <div>Residual Value</div>
+                <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11 }}>
+                  {(["exGst", "incGst"] as const).map((mode, idx) => (
+                    <React.Fragment key={mode}>
+                      {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
+                      <button
+                        type="button"
+                        onClick={() => setResidualGstMode(mode)}
+                        style={{
+                          padding: 0,
+                          border: "none",
+                          background: "transparent",
+                          cursor: "pointer",
+                          fontSize: 11,
+                          fontWeight: residualGstMode === mode ? 800 : 400,
+                          opacity: residualGstMode === mode ? 0.9 : 0.45,
+                          textDecoration: residualGstMode === mode ? "underline" : "none",
+                        }}
+                      >
+                        {mode === "exGst" ? "ex GST" : "inc GST"}
+                      </button>
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+            }
+            tooltip={
+              <InfoTooltip text={
+                <>
+                  <p style={{ margin: "0 0 8px 0" }}>Default calculated value based on lease duration and ATO rule, however can be manually modified.</p>
+                  <p style={{ margin: "0 0 4px 0" }}>ATO statutory residual values for novated leases:</p>
+                  <ul style={{ margin: "0 0 12px 0", paddingLeft: 18 }}>
+                    <li>1 year lease → 65.63% residual</li>
+                    <li>2 year lease → 56.25% residual</li>
+                    <li>3 year lease → 46.88% residual</li>
+                    <li>4 year lease → 37.50% residual</li>
+                    <li>5 year lease → 28.13% residual</li>
+                  </ul>
+                  <p style={{ margin: "0 0 4px 0" }}><b>Method 1</b> (most common): applies the residual % to <i>financed amount minus documentation fee</i> as the capital cost. This is the pre-filled value in this calculator.</p>
+                  <p style={{ margin: 0 }}><b>Method 2</b> (used by some financiers, e.g. CBA): applies the residual % to <i>the car's cost before on-road costs</i> (i.e. vehicle base value ÷ 1.1) as the capital cost.</p>
+                </>
+              } />
+            }
+          >
+            <MoneyInputWrapper>
+              <input
+                type="text"
+                inputMode="decimal"
+                style={moneyInputStyle()}
+                value={residualText}
+                onChange={(e) => setResidualText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") (e.currentTarget as HTMLInputElement).blur();
+                }}
+                onBlur={() => {
+                  const parsed = parseMoneyInput(residualText);
+                  if (!Number.isFinite(parsed)) {
+                    const displayed =
+                      residualGstMode === "incGst"
+                        ? inputs.residualValueExGst * (1 + GST_RATE)
+                        : inputs.residualValueExGst;
+                    setResidualText(fmtMoneyInput(displayed));
+                    return;
+                  }
+                  const exGst =
+                    residualGstMode === "incGst" ? parsed / (1 + GST_RATE) : parsed;
+                  const clamped = Math.max(0, exGst);
+                  touch("residualValueExGst");
+                  setInputs((p) => ({ ...p, residualValueExGst: clamped }));
+                }}
+              />
+            </MoneyInputWrapper>
+          </FieldRow>
+          {(() => {
+            const financed = financedAmountExGstFromInputs(inputs);
+            const base1 = financed - inputs.leaseDocFee;
+            const pct1 = base1 > 0 ? (inputs.residualValueExGst / base1) * 100 : null;
+            const base2 = inputs.vehicleBaseValue / 1.1;
+            const pct2 = base2 > 0 ? (inputs.residualValueExGst / base2) * 100 : null;
+            const parts = [
+              pct1 !== null ? `M1: ${pct1.toFixed(2)}%` : null,
+              pct2 !== null ? `M2: ${pct2.toFixed(2)}%` : null,
+            ].filter(Boolean).join("  ·  ");
+            return parts ? (
+              <div style={{ textAlign: "right", fontSize: 11, color: "rgba(0,0,0,0.35)", marginTop: -4 }}>
+                {parts}
+              </div>
+            ) : null;
+          })()}
+
+          <FieldRow
+  label={
+    <div>
+      <div>Vehicle Lease</div>
+      <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11 }}>
+        {(["perFn", "perMonth"] as const).map((mode, idx) => (
+          <React.Fragment key={mode}>
+            {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
+            <button
+              type="button"
+              onClick={() => setVehicleLeasePeriodMode(mode)}
+              style={{
+                padding: 0,
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                fontSize: 11,
+                fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
+                opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
+                textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
+              }}
+            >
+              {mode === "perFn" ? "per fortnight" : "per month"}
+            </button>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  }
+  tooltip={<InfoTooltip text={<>
+    <p style={{ margin: "0 0 8px 0" }}>Pre-tax, ex GST figure. Include ONLY the vehicle lease portion, not the total packaged amount that includes running costs.</p>
+    <p style={{ margin: 0 }}>You can enter the figure per fortnight or per month depending on how your quote is presented — the correct conversion of 12 months = 26 fortnights is applied automatically.</p>
+  </>} />}
   >
-    
   <MoneyInputWrapper>
     <input
       type="text"
@@ -641,12 +784,16 @@ export default function InputsPanel(props: InputsPanelProps) {
         const raw = vehicleLeasePerFnText.trim();
         const parsed = parseMoneyInput(raw);
         if (!Number.isFinite(parsed)) {
-          setVehicleLeasePerFnText(String(inputs.vehicleLeasePerFn));
+          const displayed = vehicleLeasePeriodMode === "perMonth"
+            ? inputs.vehicleLeasePerFn * 26 / 12
+            : inputs.vehicleLeasePerFn;
+          setVehicleLeasePerFnText(fmtMoneyInput(displayed));
           return;
         }
+        const perFn = vehicleLeasePeriodMode === "perMonth" ? parsed * 12 / 26 : parsed;
         touch("vehicleLeasePerFn");
-        props.onVehicleLeasePerFnChange(parsed);
-        setVehicleLeasePerFnText(fmtMoneyInput(parsed));
+        props.onVehicleLeasePerFnChange(perFn);
+        setVehicleLeasePerFnText(fmtMoneyInput(vehicleLeasePeriodMode === "perMonth" ? parsed : perFn));
         setNeedsLeaseRequote(false);
       }}
     />
@@ -1452,6 +1599,9 @@ function InterestRateCaveats() {
         <ol style={{ margin: "6px 0 0 0", paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6 }}>
           <li>
             <b>Financed amount includes add-ons:</b> The effective interest rate is invalid if the financed figure contains insurance, repair package or other vehicle add-ons not part of the FBT base value. Their presence also makes comparison with other financiers invalid if they do not contain equivalent add-ons.
+          </li>
+          <li>
+            <b>Residual value method mismatch:</b> The two common residual value methods (Method 1: financed amount minus doc fee; Method 2: vehicle base cost before on-road) produce different dollar residuals for the same percentage. This means two financiers quoting the same effective interest rate are <em>not</em> directly comparable if they use different residual methods — a 9% rate under Method 1 is economically different from a 9% rate under Method 2.
           </li>
           <li>
             <b>GST not passed on:</b> When GST is not passed on by the employer, the fortnightly lease charged is inc GST; however the effective interest rate calculation assumes this is the ex GST figure, which results in an inconsistent rate. This will be addressed in a future update.

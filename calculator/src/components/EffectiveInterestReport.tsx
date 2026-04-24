@@ -8,7 +8,7 @@ import {
   financedAmountExGstFromInputs,
 } from "../engine/effectiveinterest";
 import { InfoTooltip } from "./ui/InfoTooltip";
-import { residualPercentForYears } from "../engine/ato";
+
 
 export type EffectiveInterestReportProps = {
   inputs: Inputs;
@@ -26,11 +26,6 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
   try {
     const years = Math.round(inputs.leaseDurationYears);
 
-    const residualPctRaw = residualPercentForYears(years);
-    let residualPct = residualPctRaw > 1 ? residualPctRaw / 100 : residualPctRaw;
-    // Defensive normalisation: guard against double-scaling (e.g. 0.002813 instead of 0.2813)
-    if (residualPct > 0 && residualPct < 0.01) residualPct = residualPct * 100;
-
     // GST saved (cap $6,334; no GST if private used)
     const gstSavedLocal = (() => {
       const cap = 6334;
@@ -42,10 +37,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
     // Definition 1 uses "standard financed" based on driveaway + doc fee - gst saved
     const financedStandardExGst = financedAmountExGstFromInputs(inputs);
 
-    // IMPORTANT: For Section 4, we want the residual value payable **ex GST**.
-    // financedStandardExGst is treated as the financed amount INCLUDING doc fee (ex GST),
-    // so the residual is computed off (financed - doc fee), per the existing pattern.
-    const residualStandardExGst = Math.max(0, financedStandardExGst - inputs.leaseDocFee) * residualPct;
+    const residualStandardExGst = inputs.residualValueExGst;
 
     // Definition 2 uses a "brokerage-inflated financed amount reported by NL providers"
     const financedInflatedProxyExGst = Math.max(0, inputs.driveawayCost - gstSavedLocal) + inputs.leaseDocFee;
@@ -55,8 +47,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
         ? Math.max(0, inputs.financedAmountForInterestCalcExGst)
         : financedInflatedProxyExGst;
 
-    // Keep residual consistent with the standard base (matches the prior implementation)
-    const residualInflatedExGst = Math.max(0, financedStandardExGst - inputs.leaseDocFee) * residualPct;
+    const residualInflatedExGst = inputs.residualValueExGst;
 
     const leaseFn = Math.max(0, inputs.vehicleLeasePerFn);
     const mgmtFeeFn = Math.max(0, inputs.managementFeesAnnual / 26);

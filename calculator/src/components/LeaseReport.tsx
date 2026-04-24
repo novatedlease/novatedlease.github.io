@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
-import { calcResidualPayableIncGst, isFbtApplicable } from "../engine/types";
-import { residualPercentForYears } from "../engine/ato";
+import { isFbtApplicable } from "../engine/types";
 import { aud0 } from "../utils/format";
-import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
+
 import { computeDerived } from "../engine/derived";
 import { taxSummaryAUResident } from "../engine/tax_au";
 
@@ -12,10 +11,12 @@ import { taxSummaryAUResident } from "../engine/tax_au";
 
 export function LeaseReport(props: {
   inputs: Inputs;
-  // Optional override for marginal rate incl. Medicare (percentage). If omitted, derived from Australian brackets.
   taxRateInclMedicarePct?: number; // e.g. 47
+  vehicleLeasePeriodMode?: "perFn" | "perMonth";
 }) {
   const i = props.inputs;
+  const isMonthly = props.vehicleLeasePeriodMode === "perMonth";
+  const fnToCol = (v: number) => isMonthly ? v * 26 / 12 : v;
 
   const [fyExpanded, setFyExpanded] = useState(false);
 
@@ -29,18 +30,7 @@ export function LeaseReport(props: {
   const ecmPerFn = ecmAnnual / 26;
   const ecmGstPerFn = ecmPerFn / 11;
 
-  // Amount financed (simple approximation)
-  const amountFinanced = financedAmountExGstFromInputs(i);
-
-  // Residual
-  const residualPct = residualPercentForYears(i.leaseDurationYears);
-
-  // Residual payable (inc GST) — single source of truth (engine/types)
-  const residualPayableIncGst = calcResidualPayableIncGst({
-    amountFinancedExGst: amountFinanced,
-    leaseDocFeeExGst: i.leaseDocFee,
-    residualPct,
-  });
+  const residualPayableIncGst = i.residualValueExGst * 1.1;
 
   // Placeholder: “post-reimbursement effective charging expense”
   // Requested simple model: actual charging expense minus (assumed claim * marginal tax rate)
@@ -180,7 +170,7 @@ export function LeaseReport(props: {
           <thead>
             <tr>
               <th style={thLeft}></th>
-              <th style={th}>Fortnight</th>
+              <th style={th}>{isMonthly ? "Monthly" : "Fortnight"}</th>
               <th style={th}>Annual</th>
               <th style={th}>Lease Lifetime</th>
             </tr>
@@ -203,13 +193,13 @@ export function LeaseReport(props: {
             </tr>
             <tr>
               <td style={tdLeft(false)}>{lvAdjFn > 0 ? "Vehicle Lease + LV Adjustment" : "Vehicle Lease"}</td>
-              <td style={td(false)}>{preTaxFmt(vehicleLeaseFn)}</td>
+              <td style={td(false)}>{preTaxFmt(fnToCol(vehicleLeaseFn))}</td>
               <td style={td(false)}>{preTaxFmt(preTaxVehicleLeaseAnnual)}</td>
               <td style={td(false)}>{preTaxFmt(preTaxVehicleLeaseLifetime)}</td>
             </tr>
             <tr>
               <td style={tdLeft(false)}>Running Cost</td>
-              <td style={td(false)}>{preTaxFmt(runningCostFn)}</td>
+              <td style={td(false)}>{preTaxFmt(fnToCol(runningCostFn))}</td>
               <td style={td(false)}>{preTaxFmt(preTaxRunningAnnual)}</td>
               <td style={td(false)}>{preTaxFmt(preTaxRunningLifetime)}</td>
             </tr>
@@ -218,13 +208,13 @@ export function LeaseReport(props: {
               <>
                 <tr>
                   <td style={tdLeft(false)}>Less Employee Contribution</td>
-                  <td style={td(false)}>{preTaxFmt(-ecmPerFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(fnToCol(-ecmPerFn))}</td>
                   <td style={td(false)}>{preTaxFmt(-ecmAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(-ecmAnnual * i.leaseDurationYears)}</td>
                 </tr>
                 <tr>
                   <td style={tdLeft(false)}>Add Employee Contribution GST</td>
-                  <td style={td(false)}>{preTaxFmt(ecmGstPerFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(fnToCol(ecmGstPerFn))}</td>
                   <td style={td(false)}>{preTaxFmt(ecmGstPerFn * 26)}</td>
                   <td style={td(false)}>{preTaxFmt(ecmGstPerFn * 26 * i.leaseDurationYears)}</td>
                 </tr>
@@ -233,7 +223,7 @@ export function LeaseReport(props: {
 
             <tr>
               <td style={tdLeft(true)}>= Total Pre-Tax Deduction</td>
-              <td style={td(true)}>{preTaxFmt(actualPreTaxDeductionFn)}</td>
+              <td style={td(true)}>{preTaxFmt(fnToCol(actualPreTaxDeductionFn))}</td>
               <td style={td(true)}>{preTaxFmt(actualPreTaxDeductionAnnual)}</td>
               <td style={td(true)}>{preTaxFmt(actualPreTaxDeductionLifetime)}</td>
             </tr>
@@ -257,7 +247,7 @@ export function LeaseReport(props: {
                 </tr>
                 <tr>
                   <td style={tdLeft(false)}>Employee Contribution Method</td>
-                  <td style={td(false)}>{preTaxFmt(ecmPerFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(fnToCol(ecmPerFn))}</td>
                   <td style={td(false)}>{preTaxFmt(ecmAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(ecmAnnual * i.leaseDurationYears)}</td>
                 </tr>
@@ -289,19 +279,19 @@ export function LeaseReport(props: {
                       <InfoInline text="Fortnight/Annual use the most expensive FY take-home impact factor for pre-tax dollars (i.e., the largest (1 − taxRate) across FYs)." />
                     </span>
                   </td>
-                  <td style={td(false)}>{preTaxFmt(preTaxEquivalentPostTaxImpactFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(fnToCol(preTaxEquivalentPostTaxImpactFn))}</td>
                   <td style={td(false)}>{preTaxFmt(preTaxEquivalentPostTaxImpactAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(preTaxEquivalentPostTaxImpactLifetime)}</td>
                 </tr>
                 <tr>
                   <td style={tdLeft(false)}>Post-Tax Component</td>
-                  <td style={td(false)}>{preTaxFmt(postTaxComponentFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(fnToCol(postTaxComponentFn))}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxComponentAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxComponentLifetime)}</td>
                 </tr>
                 <tr>
                   <td style={{ ...tdLeft(true), background: "rgba(0,0,0,0.06)" }}>= Total Take Home Impact</td>
-                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(totalTakeHomeImpactFn)}</td>
+                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(fnToCol(totalTakeHomeImpactFn))}</td>
                   <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(totalTakeHomeImpactAnnual)}</td>
                   <td style={{ ...td(true, true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(totalTakeHomeImpactLifetime)}</td>
                 </tr>
@@ -315,19 +305,19 @@ export function LeaseReport(props: {
                       <InfoInline text={mostExpensiveImpactNote} />
                     </span>
                   </td>
-                  <td style={td(false)}>{preTaxFmt(postTaxVehicleLeaseFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(fnToCol(postTaxVehicleLeaseFn))}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxVehicleLeaseAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxVehicleLeaseLifetime)}</td>
                 </tr>
                 <tr>
                   <td style={tdLeft(false)}>Running Cost</td>
-                  <td style={td(false)}>{preTaxFmt(postTaxRunningFn)}</td>
+                  <td style={td(false)}>{preTaxFmt(fnToCol(postTaxRunningFn))}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxRunningAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxRunningLifetime)}</td>
                 </tr>
                 <tr>
                   <td style={{ ...tdLeft(true), background: "rgba(0,0,0,0.06)" }}>= Total Take Home Impact</td>
-                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(postTaxTotalFn)}</td>
+                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(fnToCol(postTaxTotalFn))}</td>
                   <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(postTaxTotalAnnual)}</td>
                   <td style={{ ...td(true, true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(postTaxTotalLifetime)}</td>
                 </tr>

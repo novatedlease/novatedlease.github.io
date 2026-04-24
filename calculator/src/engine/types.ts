@@ -18,6 +18,7 @@ export type Inputs = {
   leaseDocFee: number;
   leaseStartDate: string; // ISO yyyy-mm-dd
   leaseDurationYears: number;
+  residualValueExGst: number;
   monthsDeferred: number;
 
   // Income + benchmark

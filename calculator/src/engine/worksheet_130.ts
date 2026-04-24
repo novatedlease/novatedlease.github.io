@@ -1,7 +1,6 @@
 // engine/worksheet_130.ts
 import type { Inputs } from "./types";
-import { calcResidualPayableIncGst, isFbtApplicable } from "./types";
-import { gstSaved, residualPercentForYears } from "./ato";
+import { isFbtApplicable } from "./types";
 import { buildFortnightSchedule, fyForDate } from "./lease_schedule";
 import { buildFyBreakdown } from "./fy_breakdown";
 import { computeLeasePaymentsOverLease } from "./lease_payments";
@@ -302,20 +301,7 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
   // Post-lease running costs (real costs) for remaining fortnights up to 130
   const postLeaseGstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
 
-  // Residual payout (post-tax cash) — single source of truth.
-  // Mirror LeaseReport: residual = max(0, amountFinanced - docFee) * residualPct * (1 + GST).
-  // Here, amountFinanced is a simple approximation based on driveaway + doc fee - vehicle GST saved.
-  const vehicleGstSaved = gstSaved(i);
-  const amountFinancedExGst = Math.max(0, i.driveawayCost + i.leaseDocFee - vehicleGstSaved);
-  const leaseDocFeeExGst = i.leaseDocFee;
-
-  // Use the ATO residual % table (same as LeaseReport).
-  const residualPct = residualPercentForYears(yearsLease);
-
-  const residualIncGst =
-    amountFinancedExGst > 0 && residualPct > 0
-      ? calcResidualPayableIncGst({ amountFinancedExGst, leaseDocFeeExGst, residualPct })
-      : 0;
+  const residualIncGst = i.residualValueExGst * 1.1;
 
   const rows = dates.map((d, k) => {
     const idx = k + 1;

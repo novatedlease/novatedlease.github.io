@@ -1,11 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
-import { calcResidualPayableIncGst, isFbtApplicable } from "../engine/types";
+import { isFbtApplicable } from "../engine/types";
 import { computeDerived } from "../engine/derived";
 import { taxSummaryAUResident } from "../engine/tax_au";
-import { residualPercentForYears } from "../engine/ato";
-import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
+
 import { aud0 } from "../utils/format";
 import { estimateAnnualChargingExpense } from "../engine/charging";
 import { buildWorksheet130 } from "../engine/worksheet_130";
@@ -96,13 +95,7 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
   const remainingFortnights = (n: number) => Math.max(0, totalFortnights - n);
 
   // Residual payable (inc GST) — same single source of truth used in LeaseReport
-  const amountFinancedExGst = financedAmountExGstFromInputs(inputs);
-  const residualPct = residualPercentForYears(inputs.leaseDurationYears);
-  const residualPayableIncGst = calcResidualPayableIncGst({
-    amountFinancedExGst,
-    leaseDocFeeExGst: inputs.leaseDocFee,
-    residualPct,
-  });
+  const residualPayableIncGst = inputs.residualValueExGst * 1.1;
 
   // --- Offset cash: average running cost per fortnight (simplified) ---
   // Inputs in the running-cost section are entered as:

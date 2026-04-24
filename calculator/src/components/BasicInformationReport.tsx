@@ -1,8 +1,8 @@
 import type { Inputs } from "../engine/types";
 import { isFbtApplicable } from "../engine/types";
-import { calcResidualPayableIncGst } from "../engine/types";
+import { residualPercentForYears } from "../engine/ato";
 import { taxSummaryAUResident } from "../engine/tax_au";
-import { residualPercentForYears, residualFractionForYears, gstSaved } from "../engine/ato";
+import { gstSaved } from "../engine/ato";
 import {
   financedAmountExGstFromInputs,
   effectiveAnnualRateFromFortnightlyLease,
@@ -44,15 +44,8 @@ export default function BasicInformationReport(props: {
   // Amount financed (simple approximation)
   const amountFinanced = financedAmountExGstFromInputs(i);
 
-  // Residual
   const residualPct = residualPercentForYears(i.leaseDurationYears);
-
-  // Residual payable (inc GST) — single source of truth (engine/types)
-  const residualPayableIncGst = calcResidualPayableIncGst({
-    amountFinancedExGst: amountFinanced,
-    leaseDocFeeExGst: i.leaseDocFee,
-    residualPct,
-  });
+  const residualPayableIncGst = i.residualValueExGst * 1.1;
 
   // Effective interest rate (Definition 1)
   // Use the shared engine solver (same as the live hint in App.tsx).
@@ -61,11 +54,8 @@ export default function BasicInformationReport(props: {
       const leaseYears = Math.max(1, Math.min(5, Math.round(i.leaseDurationYears)));
       const deferMonths = Math.max(0, Math.round(i.monthsDeferred));
 
-      // Definition-1 basis: financed amount ex GST, and residual value ex GST.
-      // (Matches the approach used elsewhere in the app.)
       const financedAmountExGst = amountFinanced;
-      const residualFraction = residualFractionForYears(leaseYears);
-      const residualValueExGst = Math.max(0, financedAmountExGst - i.leaseDocFee) * residualFraction;
+      const residualValueExGst = i.residualValueExGst;
 
       // IMPORTANT: keep this aligned with the InputsPanel live hint.
       // We intentionally use vehicleLeasePerFn only (not LV adj) for the “effective rate” display.

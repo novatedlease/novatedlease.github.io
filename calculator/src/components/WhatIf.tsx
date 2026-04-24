@@ -5,7 +5,7 @@ import {
   financedAmountExGstFromInputs,
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "../engine/effectiveinterest";
-import { residualFractionForYears } from "../engine/ato";
+
 import { InfoTooltip } from "./ui/InfoTooltip";
 
 export type WhatIfProps = {
@@ -42,8 +42,7 @@ export default function WhatIf({ inputs }: WhatIfProps) {
 
   // Finance parameters (ex GST) consistent with EffectiveInterestReport
   const financedExGst = financedAmountExGstFromInputs(inputs);
-  const residualPct = residualFractionForYears(years);
-  const residualExGst = Math.max(0, financedExGst - Math.max(0, inputs.leaseDocFee)) * residualPct;
+  const residualExGst = inputs.residualValueExGst;
 
   // Implied effective annual rate for the QUOTED vehicle lease (using the engine's inverse solver)
   const quotedAnnualRate = useMemo(() => {
