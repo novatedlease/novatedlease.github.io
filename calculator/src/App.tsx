@@ -268,6 +268,7 @@ function coerceInputsFromUrl(partial: Partial<Inputs>, defaults: Inputs): Inputs
     leaseDocFee: safeNum(partial.leaseDocFee, defaults.leaseDocFee),
     leaseStartDate: isValidIsoDate(partial.leaseStartDate) ? partial.leaseStartDate : defaults.leaseStartDate,
     leaseDurationYears: safeNum(partial.leaseDurationYears, defaults.leaseDurationYears),
+    residualValueExGst: safeNum(partial.residualValueExGst, defaults.residualValueExGst),
     monthsDeferred: safeNum((partial as any).monthsDeferred, defaults.monthsDeferred),
 
     totalTaxableIncome: safeNum(partial.totalTaxableIncome, defaults.totalTaxableIncome),
