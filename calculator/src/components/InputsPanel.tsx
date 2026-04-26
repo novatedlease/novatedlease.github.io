@@ -404,7 +404,7 @@ export default function InputsPanel(props: InputsPanelProps) {
             }}
           />
 
-          {inputs.vehicleCondition !== "New" ? (
+          {inputs.vehicleType === "EV" && inputs.vehicleCondition !== "New" ? (
             <div style={{ display: "grid", gap: 8, marginTop: 2 }}>
               <label style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: 14, opacity: 0.92 }}>
                 <input

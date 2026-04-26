@@ -138,7 +138,7 @@ export default function BasicInformationReport(props: {
       />
       <KeyValue
         label={`Residual Value Payable after ${Math.round(i.leaseDurationYears)} Years (inc GST)`}
-        tooltip={<InfoTooltip text="The amount you must pay at the end of the lease to own the vehicle, including GST. Derived by (Amount financed - documentation fee) x residual value %."/>}
+        tooltip={<InfoTooltip text="The amount you must pay at the end of the lease to own the vehicle, including GST."/>}
         value={`$ ${aud(residualPayableIncGst)}`}
       />
 
