@@ -178,4 +178,4 @@ For most employees, a novated lease on a car above the LCT threshold offers sign
 
 ---
 
-*Last updated: April 2026. ABS CPI data source: Catalogue 6401.0, Table 18. Legislative references: [ANTS(LCT)A 1999](https://www.legislation.gov.au/C2004A00189) s 25-1; [ITAA 1997](https://www.legislation.gov.au/C2004A05138) Subdivision 960-M.*
+*Last updated: April 2026. ABS CPI data source: Catalogue 6401.0, Table 18. Legislative references: [ANTS(LCT)A 1999](https://www.legislation.gov.au/C2004A00463/latest/text) s 25-1; [ITAA 1997](https://www.legislation.gov.au/C2004A05138) Subdivision 960-M.*
