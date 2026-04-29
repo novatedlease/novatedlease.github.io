@@ -55,6 +55,9 @@ The articles in this section focus on the most important non-obvious interaction
 - **[EV FBT exemption review timing](ev-fbt-exemption-review-timing.md)**  
   The EV FBT exemption is under formal review. While existing leases are likely to be grandfathered, lease *structure* (e.g. 5-year vs 1+1+1+1) determines how exposed you are to policy change risk.
 
+- **[LCT threshold & FBT exemption](lct-threshold-fbt-exemption.md)**  
+  The Luxury Car Tax threshold is the hard price ceiling for FBT exemption eligibility — if a car's base value exceeds it, the exemption is lost entirely. This page explains what the threshold is, why it matters, how it is recalculated each year using a legislated CPI formula, and what is changing: a new $120,000 ZEV-only threshold is expected from 1 July 2027 under the Australia–EU Free Trade Agreement.
+
 The section concludes with a broader observation on the novated leasing industry as a whole:
 
 - **[Why novated leasing is poorly regulated](why-poorly-regulated.md)**  
