@@ -152,7 +152,7 @@ For most employees, a novated lease on a car above the LCT threshold offers sign
 !!! warning "New $120,000 ZEV threshold — committed but not yet law"
     As part of the [Australia–EU Free Trade Agreement](https://www.dfat.gov.au/trade/agreements/not-yet-in-force/aeufta/key-outcomes-and-benefits) finalised in March 2026, the government has committed to creating a **new, separate LCT category for zero-emission vehicles (ZEVs)** with a threshold of **$120,000** (indexed annually). This would apply to **all ZEVs**, not just EU-origin vehicles.
 
-    If enacted, the practical effect for novated leases is significant: the FBT exemption eligibility ceiling would rise from ~$91,661 to $120,000, bringing vehicles like the BMW iX, Mercedes EQS and Porsche Taycan into scope.
+    If enacted, the practical effect for novated leases is significant: the FBT exemption eligibility ceiling would rise from ~$91,661 to $120,000, bringing more expensive EVs e.g. some additional 7-seaters into scope.
 
     However, **this has not yet been legislated**. Two steps are required before it can take effect:
 
