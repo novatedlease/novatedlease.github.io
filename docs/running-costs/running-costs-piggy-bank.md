@@ -69,7 +69,7 @@ They then do the arithmetic:
 They:
 
 - open the piggy bank,
-- take $252 out,
+- take $328.20 out,
 - and send it to your bank account.
 
 That’s it. No interest is charged on the running costs. 
