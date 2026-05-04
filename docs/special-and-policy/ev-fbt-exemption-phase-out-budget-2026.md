@@ -24,7 +24,7 @@ The table below sets out every scenario depending on lease start date, vehicle F
 | 1 Jul 2022 – 1 Apr 2027 | > $91,387 [^1] | FBT-applicable (100%) | FBT-applicable (100%) |
 | 1 Apr 2027 – 31 Mar 2029 | ≤ $75,000 | **FBT-exempt** [^2] | **FBT-exempt** [^2] |
 | 1 Apr 2027 – 31 Mar 2029 | $75,001 – $91,661 [^3] | FBT-discounted (75%) | FBT-discounted (75%) |
-| 1 Apr 2027 – 31 Mar 2029 | > $91,387 / $91,661 [^3] | FBT-applicable (100%) | FBT-applicable (100%) |
+| 1 Apr 2027 – 31 Mar 2029 | > $91,661 [^3] | FBT-applicable (100%) | FBT-applicable (100%) |
 | 1 Apr 2029 or later | ≤ EV LCT threshold at time of purchase | n/a | FBT-discounted (75%) |
 | 1 Apr 2029 or later | > EV LCT threshold at time of purchase | n/a | FBT-applicable (100%) |
 
@@ -51,22 +51,22 @@ In all scenarios, two additional criteria applies to qualify for any FBT-exempti
 
 ## What does "FBT-applicable" actually mean for your out-of-pocket costs?
 
-As discussed in [the FBT, RFBA and ATI explainer](../costs-and-savings/fbt-rfba-ati-explained.md), FBT is technically a tax payable by the employer — but employers almost universally pass this obligation on to the employee via the **Employee Contribution Method (ECM)**, making it cost-neutral for the employer.
+As discussed in [What is a novated lease](../start-here/what-is-novated-lease.md), FBT is technically a tax payable by the employer — but employers almost universally pass this obligation on to the employee via the **Employee Contribution Method (ECM)**, making it cost-neutral for the employer.
 
 ### How ECM works in practice
 
-Under a **fully FBT-exempt** novated lease, the entire fortnightly or monthly lease payment is funded from **pre-tax income**. The effective discount you receive is therefore equal to your marginal tax rate plus the 2% Medicare levy — i.e. 47% for top-bracket earners, 39% for the next bracket, and so on.
+Under a **fully FBT-exempt** novated lease, the entire fortnightly or monthly lease payment is funded from **pre-tax income**. The effective discount you receive is for any spending in this structure therefore equal to your marginal tax rate plus the 2% Medicare levy — i.e. 47% for top-bracket earners, 39% for the next bracket, and so on.
 
 Under an **FBT-applicable** lease, the ECM rule requires that **20% of the car's pre-on-road purchase price** be converted from pre-tax to **post-tax payment** each year. This substantially reduces the proportion of the lease that can be funded pre-tax — and therefore materially reduces the tax benefit.
 
 **Example:** For a car with an FBT base value of $75,500:
 
-- Under the FBT-exempt structure, approximately $19,000 per year is paid pre-tax.
-- Under a fully FBT-applicable structure, approximately $15,100 per year must instead be paid **post-tax**, with only around $4,000 remaining as a pre-tax deduction.[^4]
+- Under the FBT-exempt structure, let's say $19,000 per year is paid pre-tax for a 5-year lease (which was my actual figure).
+- If this becomes a FBT-applicable structure, approximately $15,100 per year must instead be paid **post-tax**, with only around $4,000 remaining as a pre-tax deduction.[^4]
 
 The consequence is a dramatically lower saving, because much less of the lease payment is sheltered from income tax.
 
-[^4]: Within an FBT-applicable structure, there is an additional component where GST on the post-tax contribution must also be paid — though this GST component itself is funded pre-tax. This detail has been omitted here for clarity.
+[^4]: Within an FBT-applicable structure, there is an additional component where GST on the post-tax contribution must also be paid — though this GST component itself is funded pre-tax. This detail is explained in the second half of this article.
 
 ---
 
