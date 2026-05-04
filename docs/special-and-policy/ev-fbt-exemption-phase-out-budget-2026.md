@@ -22,7 +22,7 @@ The table below sets out every scenario depending on lease start date, vehicle F
 |---|---|---|---|
 | 1 Jul 2022 – 1 Apr 2027 | ≤ $91,387 [^1] | **FBT-exempt** [^2] | **FBT-exempt** [^2] |
 | 1 Jul 2022 – 1 Apr 2027 | > $91,387 [^1] | FBT-applicable (100%) | FBT-applicable (100%) |
-| 1 Apr 2027 – 31 Mar 2029 | ≤ $75,000 | **FBT-exempt** till end of lease if no change in circumstances | FBT-discounted (75%) |
+| 1 Apr 2027 – 31 Mar 2029 | ≤ $75,000 | **FBT-exempt** till end of lease if no change in circumstances | **FBT-exempt** till end of lease if no change in circumstances |
 | 1 Apr 2027 – 31 Mar 2029 | $75,001 – $91,387 [^3] | FBT-discounted (75%) | FBT-discounted (75%) |
 | 1 Apr 2027 – 31 Mar 2029 | > $91,387 / $91,611 [^3] | FBT-applicable (100%) | FBT-applicable (100%) |
 | 1 Apr 2029 or later | ≤ EV LCT threshold at time of purchase | n/a | FBT-applicable (75%) |
