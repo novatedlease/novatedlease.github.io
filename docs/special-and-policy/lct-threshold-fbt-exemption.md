@@ -161,8 +161,10 @@ For most employees, a novated lease on a car above the LCT threshold offers sign
 
     The measure is currently expected to take effect from **1 July 2027** at the earliest. Until then, the existing $91,661 threshold remains the operative ceiling for FBT exemption eligibility.
 
-!!! warning "Federal budget — 12 May 2026"
-    The government is widely expected to announce modifications to the EV FBT exemption on Budget night. This could include changes to eligibility criteria, the phase-out of the full exemption, or — conceivably — changes to how the LCT threshold interacts with FBT eligibility. **Check this page for updates following the Budget announcement.**
+!!! warning "EV FBT exemption phase-out announced — 4 May 2026"
+    On 4 May 2026, the treasurer announced a phased wind-back of the EV FBT exemption across the next three FBT years. The LCT threshold continues to function as the hard eligibility ceiling for the remaining FBT concessions — but from 1 April 2029 onward, no new lease will be fully FBT-exempt. Existing leases entered prior to 1 April 2027 on eligible vehicles remain grandfathered.
+
+    See the [full announcement breakdown](ev-fbt-exemption-phase-out-budget-2026.md) for a complete scenario table and quantified financial impact analysis.
 
 ---
 

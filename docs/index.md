@@ -100,7 +100,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 -   **:material-book-open-outline: Going deeper?**
 
-    37 articles across 5 topic areas. Use the article browser below or the search bar.
+    38 articles across 5 topic areas. Use the article browser below or the search bar.
 
     -   Fundamentals – core concepts
     -   Mechanisms explained — how the maths actually works
@@ -112,7 +112,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 <div style="margin-top: 10px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: rgba(255,255,255,0.7); overflow: hidden;">
   <div onclick="var b=document.getElementById('all-articles-body'); var a=document.getElementById('all-articles-arrow'); var open=b.style.display==='grid'; b.style.display=open?'none':'grid'; a.textContent=open?'▸':'▾';" style="padding: 12px 16px; font-weight: 700; cursor: pointer; user-select: none; display: flex; justify-content: space-between; align-items: center;">
-    <span>Browse all 37 articles</span>
+    <span>Browse all 38 articles</span>
     <span id="all-articles-arrow" style="font-size: 0.85em; color: rgba(0,0,0,0.45);">▸</span>
   </div>
   <div id="all-articles-body" style="display: none; padding: 0 16px 16px 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px 24px;">
@@ -169,8 +169,9 @@ description: Free independent Australian novated lease guide and calculator. Com
         <li><a href="/special-and-policy/fbt-exemption-double-counting/">Don't double-count the NFP FBT cap</a></li>
         <li><a href="/special-and-policy/super-guarantee/">Super guarantee and payroll risks</a></li>
         <li><a href="/special-and-policy/nsw-health-employer-share/">NSW Health's "Employer Share"</a></li>
+        <li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">EV FBT exemption phase-out — 2026 Budget announcement explained</a> <span style="display:inline-block;padding:1px 6px;background:#c0392b;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">New</span></li>
         <li><a href="/special-and-policy/ev-fbt-exemption-review-timing/">EV FBT exemption review timing</a></li>
-        <li><a href="/special-and-policy/lct-threshold-fbt-exemption/">LCT threshold & FBT exemption — how eligibility is determined</a> <span style="display:inline-block;padding:1px 6px;background:#c0392b;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">New</span></li>
+        <li><a href="/special-and-policy/lct-threshold-fbt-exemption/">LCT threshold & FBT exemption — how eligibility is determined</a></li>
         <li><a href="/special-and-policy/why-poorly-regulated/">Why novated leasing is poorly regulated</a></li>
       </ul>
     </div>

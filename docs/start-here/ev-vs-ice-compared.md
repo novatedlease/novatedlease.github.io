@@ -58,7 +58,10 @@ As a result:
 
 This is a deliberate policy choice introduced in 2022 to encourage EV uptake.
 
-This policy change applies to **EVs ([subject to future review](../special-and-policy/ev-fbt-exemption-review-timing.md)), and previously to PHEVs (up to 1 April 2025)** — not to novated leasing as a general concept.
+This policy change applies to **EVs and previously to PHEVs (up to 1 April 2025)** — not to novated leasing as a general concept.
+
+!!! warning "The EV FBT exemption is being phased out"
+    On 4 May 2026, the treasurer announced a staged wind-back of the EV FBT exemption. Existing leases entered before 1 April 2027 on eligible vehicles remain grandfathered. For new leases entered from April 2027, the exemption is progressively reduced. See the [2026 Budget announcement article](../special-and-policy/ev-fbt-exemption-phase-out-budget-2026.md) for the full breakdown.
 
 If these distinctions sound abstract, the [novated lease calculator](../calculator/index.md) allows you to model EV and ICE scenarios side by side under their respective rules. You could simulate the financial differences by choosing between EV and non-EV in the first toggle and reviewing the outputs. 
 

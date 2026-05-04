@@ -1,5 +1,10 @@
 # EV FBT exemption review timing — what is known, what is not, and why it matters
 
+!!! warning "The review has concluded — May 2026"
+    On 4 May 2026, the treasurer announced the phased wind-back of the EV FBT exemption. The review that this article anticipated has now produced a confirmed outcome. For full details on what the changes mean and their precise financial impact, see the [2026 Budget announcement article](ev-fbt-exemption-phase-out-budget-2026.md).
+
+    The content below remains relevant for understanding the legislative background and how different lease structures were (and remain) exposed to policy risk.
+
 The Fringe Benefits Tax (FBT) exemption for eligible electric vehicles is **not guaranteed indefinitely**.
 
 This is explicitly written into the legislation itself.

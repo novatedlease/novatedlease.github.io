@@ -52,8 +52,11 @@ The articles in this section focus on the most important non-obvious interaction
 - **[NSW Health's Employer Share policy](nsw-health-employer-share.md)**  
   For some NSW Health employees (especially doctors and nurses), there is a blanket policy requiring staff to “share” their tax savings from all salary packaging arrangements, including novated leases. This substantially reduces the net benefit they can achieve.
 
+- **[EV FBT exemption phase-out — 2026 Budget announcement explained](ev-fbt-exemption-phase-out-budget-2026.md)** *(New — 4 May 2026)*  
+  The treasurer has announced a phased wind-back of the EV FBT exemption across the next three FBT years. This article explains exactly who is affected, what the FBT-applicable and FBT-discounted structures mean in practice, and the precise dollar impact using algebraic derivations.
+
 - **[EV FBT exemption review timing](ev-fbt-exemption-review-timing.md)**  
-  The EV FBT exemption is under formal review. While existing leases are likely to be grandfathered, lease *structure* (e.g. 5-year vs 1+1+1+1) determines how exposed you are to policy change risk.
+  The EV FBT exemption was subject to a formal legislative review — which has now concluded with the May 2026 Budget announcement. This article covers the original review clause and the policy risk considerations for different lease structures. See also the [2026 Budget announcement article](ev-fbt-exemption-phase-out-budget-2026.md) for the confirmed outcome.
 
 - **[LCT threshold & FBT exemption](lct-threshold-fbt-exemption.md)**  
   The Luxury Car Tax threshold is the hard price ceiling for FBT exemption eligibility — if a car's base value exceeds it, the exemption is lost entirely. This page explains what the threshold is, why it matters, how it is recalculated each year using a legislated CPI formula, and what is changing: a new $120,000 ZEV-only threshold is expected from 1 July 2027 under the Australia–EU Free Trade Agreement.
