@@ -1,5 +1,5 @@
 import type { Inputs } from "./types";
-import { isFbtApplicable } from "./types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "./types";
 import { buildFyBreakdown } from "./fy_breakdown";
 
 export type AtiRow = {
@@ -71,7 +71,7 @@ export function computeDerived(inputs: Inputs): Derived {
   // This matches the mechanism used in LeaseReport section 1.2.
   const fbtApplies = isFbtApplicable(inputs);
   const vehicleDutiableValue = Math.max(0, inputs.vehicleBaseValue);
-  const fbtStatutoryRate = 0.2;
+  const fbtStatutoryRate = getEcmStatutoryRate(getLeaseFbtCategory(inputs));
   const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
   const ecmPerFn = ecmAnnual / 26;
   const ecmGstPerFn = ecmPerFn / 11;

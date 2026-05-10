@@ -1,6 +1,6 @@
 // engine/worksheet_130.ts
 import type { Inputs } from "./types";
-import { isFbtApplicable } from "./types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "./types";
 import { buildFortnightSchedule, fyForDate } from "./lease_schedule";
 import { buildFyBreakdown } from "./fy_breakdown";
 import { computeLeasePaymentsOverLease } from "./lease_payments";
@@ -282,7 +282,8 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
   // Exact (FBT-aware) per-pay take-home impact for the NL pathway.
   // For FBT-exempt: matches the FY breakdown engine.
   // For FBT-applicable: includes ECM + exact tax per FY.
-  const ecmAnnual = i.vehicleBaseValue * 0.2;
+  const ecmStatutoryRate = getEcmStatutoryRate(getLeaseFbtCategory(i));
+  const ecmAnnual = i.vehicleBaseValue * ecmStatutoryRate;
   const ecmPerFn = ecmAnnual / 26;
   const ecmGstPerFn = ecmPerFn / 11;
   const actualPreTaxDeductionFn = preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);

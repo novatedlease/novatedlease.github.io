@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import type { Inputs } from "../engine/types";
+import { getLeaseFbtCategory, getEvLctThresholdForLeaseStart, EV_TRANSITIONAL_FULL_EXEMPT_CAP } from "../engine/types";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import { financedAmountExGstFromInputs } from "../engine/effectiveinterest";
 
@@ -161,24 +162,30 @@ export default function InputsPanel(props: InputsPanelProps) {
     setVehicleLeasePerFnText(fmtMoneyInput(displayed));
   }, [inputs.vehicleLeasePerFn, vehicleLeasePeriodMode]);
 
-  // EV FBT exemption eligibility (expanded logic for used vehicle checks)
-  // If the vehicle exceeds the EV Luxury Car Tax threshold, it is NOT eligible for FBT-exempt novated leasing.
-  // TODO: centralise this threshold with a shared constant once the policy module is in place.
-  const EV_LCT_THRESHOLD = 91387;
+  // FBT category: derives the full tier (exempt / discounted / applicable) from vehicle + lease start date.
+  const leaseFbtCategory = getLeaseFbtCategory(inputs);
+  const effectiveLctThreshold = getEvLctThresholdForLeaseStart(inputs.leaseStartDate);
 
-  const isOverEvLctThreshold = inputs.vehicleBaseValue > EV_LCT_THRESHOLD;
-
+  const isEv = inputs.vehicleType === "EV";
   const needsUsedEligibilityChecks = inputs.vehicleCondition !== "New";
   const usedEligibilityChecksOk =
     !needsUsedEligibilityChecks ||
     (inputs.usedCarFirstHeldAfterJul2022 && inputs.usedCarLctNeverPayable);
 
-  const isEv = inputs.vehicleType === "EV";
-  const isFbtExemptEligible =
-    isEv && inputs.vehicleBaseValue > 0 && !isOverEvLctThreshold && usedEligibilityChecksOk;
-  const evEligibilityCriteriaSatisfied =
-    isEv && inputs.vehicleBaseValue > 0 && !isOverEvLctThreshold && usedEligibilityChecksOk;
-  const leaseFbtTypeLabel = evEligibilityCriteriaSatisfied ? "FBT-Exempt" : "FBT-Applicable";
+  const evEligibilityCriteriaSatisfied = leaseFbtCategory === "EV_FBT_EXEMPT";
+
+  const leaseFbtTypeLabel =
+    leaseFbtCategory === "EV_FBT_EXEMPT"
+      ? "FBT-Exempt"
+      : leaseFbtCategory === "EV_FBT_DISCOUNTED"
+      ? "75% FBT Applicable"
+      : "FBT-Applicable";
+
+  // Lease start date milestone checks (for phase-out banner)
+  const leaseStartMs = new Date(inputs.leaseStartDate + "T00:00:00Z").getTime();
+  const isTransitionalLease =
+    leaseStartMs >= Date.UTC(2027, 3, 1) && leaseStartMs < Date.UTC(2029, 3, 1);
+  const isPostPhaseoutLease = leaseStartMs >= Date.UTC(2029, 3, 1);
 
   return (
     <div
@@ -317,12 +324,12 @@ export default function InputsPanel(props: InputsPanelProps) {
               </div>
             </div>
           </FieldRow>
-          {/* Eligibility cue (only show when EV but not eligible) */}
+          {/* Eligibility cue (only show when EV but not fully exempt) */}
           {isEv && !evEligibilityCriteriaSatisfied ? (
             <ReadOnlyValue
               label="Eligible for FBT Exemption"
               tooltip={<InfoTooltip text="Automatically determined from the next section" />}
-              value="No"
+              value={leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "Partial (75% of FBT applies)" : "No"}
             />
           ) : null}
           <FieldRow label="Novated Lease Type">
@@ -334,28 +341,72 @@ export default function InputsPanel(props: InputsPanelProps) {
                 borderRadius: 999,
                 fontSize: 14,
                 fontWeight: 800,
-                background: evEligibilityCriteriaSatisfied
-                  ? "rgba(46, 125, 50, 0.12)"
-                  : "rgba(255, 143, 0, 0.18)",
-                color: evEligibilityCriteriaSatisfied
-                  ? "rgb(27, 94, 32)"
-                  : "rgb(230, 81, 0)",
-                border: evEligibilityCriteriaSatisfied
-                  ? "1px solid rgba(46, 125, 50, 0.35)"
-                  : "1px solid rgba(255, 143, 0, 0.45)",
+                background:
+                  leaseFbtCategory === "EV_FBT_EXEMPT"
+                    ? "rgba(46, 125, 50, 0.12)"
+                    : leaseFbtCategory === "EV_FBT_DISCOUNTED"
+                    ? "rgba(255, 193, 7, 0.18)"
+                    : "rgba(255, 143, 0, 0.18)",
+                color:
+                  leaseFbtCategory === "EV_FBT_EXEMPT"
+                    ? "rgb(27, 94, 32)"
+                    : leaseFbtCategory === "EV_FBT_DISCOUNTED"
+                    ? "rgb(130, 90, 0)"
+                    : "rgb(230, 81, 0)",
+                border:
+                  leaseFbtCategory === "EV_FBT_EXEMPT"
+                    ? "1px solid rgba(46, 125, 50, 0.35)"
+                    : leaseFbtCategory === "EV_FBT_DISCOUNTED"
+                    ? "1px solid rgba(255, 193, 7, 0.55)"
+                    : "1px solid rgba(255, 143, 0, 0.45)",
               }}
             >
               {leaseFbtTypeLabel}
             </div>
           </FieldRow>
+
+          {/* May 2026 phase-out info note — shown when lease start date is in the new regime */}
+          {isEv && (isTransitionalLease || isPostPhaseoutLease) && (
+            <div
+              style={{
+                padding: "8px 10px",
+                borderRadius: 10,
+                border: "1px solid rgba(11, 92, 171, 0.28)",
+                background: "rgba(11, 92, 171, 0.05)",
+                fontSize: 12,
+                lineHeight: 1.4,
+                marginTop: 4,
+              }}
+            >
+              <div style={{ fontWeight: 800, marginBottom: 3 }}>
+                May 2026 FBT phase-out rules apply to this lease start date
+              </div>
+              <div style={{ opacity: 0.9 }}>
+                {isTransitionalLease ? (
+                  <>
+                    Leases starting <b>1 Apr 2027 – 31 Mar 2029</b>: full FBT exemption only for cars ≤ $
+                    {EV_TRANSITIONAL_FULL_EXEMPT_CAP.toLocaleString("en-AU")}; cars $
+                    {(EV_TRANSITIONAL_FULL_EXEMPT_CAP + 1).toLocaleString("en-AU")}–$
+                    {effectiveLctThreshold.toLocaleString("en-AU")} have 75% of FBT apply; above the LCT threshold is fully applicable.
+                  </>
+                ) : (
+                  <>
+                    Leases starting <b>from 1 Apr 2029</b>: full FBT exemption is no longer available.
+                    Cars at or below the LCT threshold (${effectiveLctThreshold.toLocaleString("en-AU")}) receive
+                    75% of FBT applies; above the LCT threshold is fully applicable.
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </Section>
 
         <Section
           title="VEHICLE DETAILS"
           className="nl-input-subcard"
-          highlight={isEv && !isFbtExemptEligible}
+          highlight={isEv && leaseFbtCategory === "EV_FBT_APPLICABLE"}
           banner={
-            (isEv && !isFbtExemptEligible) ? (
+            isEv && leaseFbtCategory === "EV_FBT_APPLICABLE" ? (
               <div
                 style={{
                   padding: "10px 10px",
@@ -379,7 +430,7 @@ export default function InputsPanel(props: InputsPanelProps) {
                   ) : (
                     <>
                       Your vehicle dutiable value appears to exceed the EV Luxury Car Tax threshold ($
-                      {EV_LCT_THRESHOLD.toLocaleString("en-AU")}). This will be treated as an <b>FBT-applicable</b> lease.
+                      {effectiveLctThreshold.toLocaleString("en-AU")}). This will be treated as an <b>FBT-applicable</b> lease.
                     </>
                   )}
                 </div>
@@ -592,6 +643,23 @@ export default function InputsPanel(props: InputsPanelProps) {
               setInputs((p) => ({ ...p, leaseStartDate: v }));
             }}
           />
+
+          {/* Date-triggered FBT phase-out warning — only shown for EV when lease date puts it in the new regime */}
+          {isEv && leaseFbtCategory === "EV_FBT_DISCOUNTED" && (
+            <div
+              style={{
+                padding: "6px 10px",
+                borderRadius: 10,
+                border: "1px solid rgba(180, 130, 0, 0.35)",
+                background: "rgba(255, 193, 7, 0.08)",
+                fontSize: 12,
+                fontWeight: 800,
+                color: "rgb(120, 80, 0)",
+              }}
+            >
+              75% FBT Applicable — May 2026 phase-out rules apply to this lease start date
+            </div>
+          )}
 
           <LeaseDurationSelect
             label="Lease Duration (Years)"

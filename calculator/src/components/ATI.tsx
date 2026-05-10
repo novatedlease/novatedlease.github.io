@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
-import { isFbtApplicable } from "../engine/types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
 import { computeDerived } from "../engine/derived";
 
 /**
@@ -193,7 +193,7 @@ export default function ATI(props: AtiProps) {
 
     // ECM / Employee contribution method (assumed when FBT applies)
     const vehicleDutiableValue = Math.max(0, i.vehicleBaseValue);
-    const fbtStatutoryRate = 0.2;
+    const fbtStatutoryRate = getEcmStatutoryRate(getLeaseFbtCategory(i));
     const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
     const ecmPerFn = ecmAnnual / 26;
     const ecmGstPerFn = ecmPerFn / 11;

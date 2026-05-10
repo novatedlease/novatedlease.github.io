@@ -70,17 +70,51 @@ export type Inputs = {
 
 /**
  * Canonical categories used throughout the calculator.
- * - EV_FBT_EXEMPT: eligible for the EV FBT-exempt pathway
- * - EV_FBT_APPLICABLE: EV selected but NOT eligible for exemption (e.g. LCT threshold / used checks)
+ * - EV_FBT_EXEMPT: eligible for the full EV FBT-exempt pathway
+ * - EV_FBT_DISCOUNTED: EV where 75% of full FBT applies (ECM at 15% statutory rate) — May 2026 phase-out rules
+ * - EV_FBT_APPLICABLE: EV or non-EV with full FBT (ECM at 20% statutory rate)
  * - NON_EV_FBT_APPLICABLE: non-EV (always FBT-applicable)
  */
-export type LeaseFbtCategory = "EV_FBT_EXEMPT" | "EV_FBT_APPLICABLE" | "NON_EV_FBT_APPLICABLE";
+export type LeaseFbtCategory = "EV_FBT_EXEMPT" | "EV_FBT_DISCOUNTED" | "EV_FBT_APPLICABLE" | "NON_EV_FBT_APPLICABLE";
 
 /**
- * Current EV Luxury Car Tax threshold used for FBT-exempt EV eligibility.
- * Note: keep in one place so UI + engine stay consistent.
+ * EV LCT threshold for purchases before 1 July 2026.
  */
 export const EV_LCT_THRESHOLD = 91387;
+
+/**
+ * EV LCT threshold projected from 1 July 2026 onward.
+ * (From the May 2026 treasurer announcement and associated LCT indexation.)
+ */
+export const EV_LCT_THRESHOLD_FROM_JUL_2026 = 91661;
+
+/**
+ * Under the transitional phase-out rules (1 Apr 2027 – 31 Mar 2029), EVs at or below this
+ * value retain full FBT exemption. Above this cap, 75% of full FBT applies.
+ */
+export const EV_TRANSITIONAL_FULL_EXEMPT_CAP = 75000;
+
+/**
+ * Returns the applicable EV LCT threshold based on the lease start date.
+ * Pre 1 Jul 2026 → $91,387; from 1 Jul 2026 → $91,661.
+ */
+export function getEvLctThresholdForLeaseStart(leaseStartDate: string): number {
+  const leaseStart = new Date(leaseStartDate + "T00:00:00Z");
+  const jul2026 = new Date(Date.UTC(2026, 6, 1));
+  return leaseStart >= jul2026 ? EV_LCT_THRESHOLD_FROM_JUL_2026 : EV_LCT_THRESHOLD;
+}
+
+/**
+ * Returns the ECM statutory rate for a given FBT category.
+ * - EV_FBT_EXEMPT → 0 (no ECM)
+ * - EV_FBT_DISCOUNTED → 0.15 (75% of full FBT applies, i.e. 75% × 20% statutory rate)
+ * - EV_FBT_APPLICABLE / NON_EV_FBT_APPLICABLE → 0.20 (full ECM)
+ */
+export function getEcmStatutoryRate(category: LeaseFbtCategory): number {
+  if (category === "EV_FBT_EXEMPT") return 0;
+  if (category === "EV_FBT_DISCOUNTED") return 0.15;
+  return 0.2;
+}
 
 export type EvFbtEligibility = {
   isEv: boolean;
@@ -91,14 +125,14 @@ export type EvFbtEligibility = {
 };
 
 /**
- * Derives EV FBT-exemption eligibility from Inputs.
- * This mirrors the logic used in the InputsPanel "FBT-EXEMPT ELIGIBILITY" section.
+ * Derives basic EV FBT eligibility checks (used vehicle, LCT threshold).
+ * The lease-start-date-aware tier logic lives in getLeaseFbtCategory.
  */
 export function deriveEvFbtEligibility(i: Inputs): EvFbtEligibility {
   const isEv = i.vehicleType === "EV";
-  const isOverEvLctThreshold = i.vehicleBaseValue > EV_LCT_THRESHOLD;
+  const lctThreshold = getEvLctThresholdForLeaseStart(i.leaseStartDate);
+  const isOverEvLctThreshold = i.vehicleBaseValue > lctThreshold;
 
-  // Used vehicle checks apply to any non-new condition.
   const needsUsedEligibilityChecks = i.vehicleCondition !== "New";
   const usedEligibilityChecksOk =
     !needsUsedEligibilityChecks || (i.usedCarFirstHeldAfterJul2022 && i.usedCarLctNeverPayable);
@@ -115,17 +149,58 @@ export function deriveEvFbtEligibility(i: Inputs): EvFbtEligibility {
 }
 
 /**
- * Canonical category used by downstream calculations and UI.
+ * Canonical FBT category derived from inputs, incorporating the May 2026 phase-out rules.
+ *
+ * Legacy (lease start before 1 Apr 2027):
+ *   ≤ LCT threshold → EXEMPT; otherwise APPLICABLE.
+ *
+ * Transitional (1 Apr 2027 – 31 Mar 2029):
+ *   ≤ $75,000 → EXEMPT; $75,001–LCT threshold → DISCOUNTED (75% of FBT applies); > LCT → APPLICABLE.
+ *
+ * Post phase-out (1 Apr 2029+):
+ *   ≤ LCT threshold → DISCOUNTED (75% of FBT applies); > LCT → APPLICABLE.
+ *
+ * All EV categories also require: first held & used after 1/7/22, and LCT was never paid
+ * (for used vehicles, confirmed via the usedCar* checkboxes).
  */
 export function getLeaseFbtCategory(i: Inputs): LeaseFbtCategory {
   if (i.vehicleType !== "EV") return "NON_EV_FBT_APPLICABLE";
-  return deriveEvFbtEligibility(i).eligible ? "EV_FBT_EXEMPT" : "EV_FBT_APPLICABLE";
+
+  const needsUsedEligibilityChecks = i.vehicleCondition !== "New";
+  const usedEligibilityChecksOk =
+    !needsUsedEligibilityChecks || (i.usedCarFirstHeldAfterJul2022 && i.usedCarLctNeverPayable);
+  if (!usedEligibilityChecksOk) return "EV_FBT_APPLICABLE";
+
+  const baseValue = i.vehicleBaseValue;
+  if (baseValue <= 0) return "EV_FBT_APPLICABLE";
+
+  const leaseStart = new Date(i.leaseStartDate + "T00:00:00Z");
+  const TRANSITIONAL_START = new Date(Date.UTC(2027, 3, 1)); // 1 Apr 2027
+  const POST_PHASEOUT_START = new Date(Date.UTC(2029, 3, 1)); // 1 Apr 2029
+
+  const lctThreshold = getEvLctThresholdForLeaseStart(i.leaseStartDate);
+
+  if (leaseStart < TRANSITIONAL_START) {
+    // Legacy / grandfathered (covers all leases started before 1 Apr 2027)
+    return baseValue <= lctThreshold ? "EV_FBT_EXEMPT" : "EV_FBT_APPLICABLE";
+  }
+
+  if (leaseStart < POST_PHASEOUT_START) {
+    // Transitional: 1 Apr 2027 – 31 Mar 2029
+    if (baseValue <= EV_TRANSITIONAL_FULL_EXEMPT_CAP) return "EV_FBT_EXEMPT";
+    if (baseValue <= lctThreshold) return "EV_FBT_DISCOUNTED";
+    return "EV_FBT_APPLICABLE";
+  }
+
+  // Post phase-out: 1 Apr 2029+
+  return baseValue <= lctThreshold ? "EV_FBT_DISCOUNTED" : "EV_FBT_APPLICABLE";
 }
 
 export function isFbtExemptEv(i: Inputs): boolean {
   return getLeaseFbtCategory(i) === "EV_FBT_EXEMPT";
 }
 
+/** Returns true when ECM applies (i.e. the lease is NOT fully FBT-exempt). */
 export function isFbtApplicable(i: Inputs): boolean {
   return getLeaseFbtCategory(i) !== "EV_FBT_EXEMPT";
 }

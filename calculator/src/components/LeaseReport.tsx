@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
-import { isFbtApplicable } from "../engine/types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
 import { aud0 } from "../utils/format";
 
 import { computeDerived } from "../engine/derived";
@@ -25,7 +25,7 @@ export function LeaseReport(props: {
   // ECM / Employee contribution method (only relevant when FBT applies)
   // Using vehicle base value as the dutiable value proxy (matches BasicInformationReport).
   const vehicleDutiableValue = Math.max(0, i.vehicleBaseValue);
-  const fbtStatutoryRate = 0.2;
+  const fbtStatutoryRate = getEcmStatutoryRate(getLeaseFbtCategory(i));
   const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
   const ecmPerFn = ecmAnnual / 26;
   const ecmGstPerFn = ecmPerFn / 11;

@@ -1,5 +1,5 @@
 import type { Inputs } from "../engine/types";
-import { isFbtApplicable } from "../engine/types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
 import { residualPercentForYears } from "../engine/ato";
 import { taxSummaryAUResident } from "../engine/tax_au";
 import { gstSaved } from "../engine/ato";
@@ -28,7 +28,7 @@ export default function BasicInformationReport(props: {
 
   // ECM / FBT delta (only relevant when FBT applies)
   const vehicleDutiableValue = Math.max(0, i.vehicleBaseValue);
-  const fbtStatutoryRate = 0.2;
+  const fbtStatutoryRate = getEcmStatutoryRate(getLeaseFbtCategory(i));
   const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
   const ecmPerFn = ecmAnnual / 26;
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
-import { isFbtApplicable } from "../engine/types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
 import { computeDerived } from "../engine/derived";
 import { taxSummaryAUResident } from "../engine/tax_au";
 
@@ -30,7 +30,7 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
 
   // ECM / Employee contribution method (only relevant when FBT applies)
   const vehicleDutiableValue = Math.max(0, inputs.vehicleBaseValue);
-  const fbtStatutoryRate = 0.2;
+  const fbtStatutoryRate = getEcmStatutoryRate(getLeaseFbtCategory(inputs));
   const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
   const ecmPerFn = ecmAnnual / 26;
   const ecmGstPerFn = ecmPerFn / 11;

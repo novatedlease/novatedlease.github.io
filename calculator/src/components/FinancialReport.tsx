@@ -2,7 +2,7 @@ import type { Inputs } from "../engine/types";
 import { buildWorksheet130 } from "../engine/worksheet_130";
 import { useEffect } from "react";
 import { estimateAnnualChargingExpense } from "../engine/charging";
-import { isFbtApplicable } from "../engine/types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
 import { computeLeasePaymentsOverLease } from "../engine/lease_payments";
 
 // NOTE: GST saving helper comes from engine/ato (single source of truth)
@@ -160,7 +160,7 @@ useEffect(() => {
   // IMPORTANT: leasePaymentsOverLease is NOT simply (preTaxTotalFn * (1 - taxRate)) * fortnights.
   // It must be computed FY-by-FY using the effective “average lease tax bracket this FY”.
   // We reuse the engine FY breakdown (same logic as LeaseReport) and sum the take-home impact.
-  const ecmAnnual = i.vehicleBaseValue * 0.2;
+  const ecmAnnual = i.vehicleBaseValue * getEcmStatutoryRate(getLeaseFbtCategory(i));
   const ecmPerFn = ecmAnnual / 26;
   const ecmGstPerFn = ecmPerFn / 11;
 
@@ -798,7 +798,7 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
 // IMPORTANT: leasePaymentsOverLease is NOT simply (preTaxTotalFn * (1 - taxRate)) * fortnights.
 // It must be computed FY-by-FY using the effective “average lease tax bracket this FY”.
 // For FBT-applicable leases, the *actual* pre-tax deduction is reduced by ECM and increased by the GST credit on ECM.
-const ecmAnnual = i.vehicleBaseValue * 0.2;
+const ecmAnnual = i.vehicleBaseValue * getEcmStatutoryRate(getLeaseFbtCategory(i));
 const ecmPerFn = ecmAnnual / 26;
 const ecmGstPerFn = ecmPerFn / 11;
 
