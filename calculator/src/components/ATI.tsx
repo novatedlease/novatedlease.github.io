@@ -274,7 +274,7 @@ export default function ATI(props: AtiProps) {
             label="Taxable income post-NL"
             value={formatMoney(worstRow.taxableIncomePostNL)}
             color="#1b5e20"
-            note={`FY ${worstRow.financialYearEnding} – worst year`}
+            note={`FY ${worstRow.financialYearEnding} – lowest year`}
           />
           {lastRow && lastRow.financialYearEnding !== firstRow.financialYearEnding && (
             <Stat
