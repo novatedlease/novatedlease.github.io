@@ -3,6 +3,7 @@ import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
 import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
 import { aud0 } from "../utils/format";
+import { Stat, StatGrid, SubHead, NoteBox } from "./ui/shared";
 
 import { computeDerived } from "../engine/derived";
 import { taxSummaryAUResident } from "../engine/tax_au";
@@ -32,10 +33,6 @@ export function LeaseReport(props: {
 
   const residualPayableIncGst = i.residualValueExGst * 1.1;
 
-  // Placeholder: “post-reimbursement effective charging expense”
-  // Requested simple model: actual charging expense minus (assumed claim * marginal tax rate)
-  // Note: removed electricity model and related variables per instructions
-
   // Section 1: Lease payments (use your existing input fields)
   const baseVehicleLeaseFn = i.vehicleLeasePerFn;
   const lvAdjFn = i.luxuryVehicleAdjPerFn;
@@ -60,8 +57,6 @@ export function LeaseReport(props: {
 
   // Breakdown by Financial Years (engine)
   const fyRows = d.fyRows;
-
-  // (removed: old maxAvgLeaseTaxRate and any previous correctedAvgLeaseTaxRateForFy/maxAfterTaxFactorForPreTax helper)
 
   // Actual pre-tax deduction after ECM adjustments (FBT-applicable only)
   const preTaxTotalAnnual = preTaxVehicleLeaseAnnual + preTaxRunningAnnual;
@@ -160,12 +155,36 @@ export function LeaseReport(props: {
   const mostExpensiveImpactNote =
     "This is displaying the most expensive take home impact when the FY-to-FY effect varies";
 
+  const totalLifetimeImpact = fbtApplies ? totalTakeHomeImpactLifetime : postTaxTotalLifetime;
+
   return (
-    <div style={{ fontSize: 14, lineHeight: 1.35 }}>
+    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
 
-      <div style={{ fontWeight: 900, fontSize: 14, margin: "10px 0 6px" }}>1.1 Summary</div>
+      {/* ── Top stat cards ── */}
+      <StatGrid>
+        <Stat
+          label={`Pre-tax deduction / ${isMonthly ? "month" : "fortnight"}`}
+          value={`$${aud0(Math.abs(fnToCol(actualPreTaxDeductionFn)))}`}
+          color="#0b5cab"
+          note="Vehicle lease + running costs"
+        />
+        <Stat
+          label="Total take-home impact"
+          value={`$${aud0(totalLifetimeImpact)}`}
+          color="#b71c1c"
+          note="Over full lease term"
+        />
+        <Stat
+          label="Residual payable (inc GST)"
+          value={`$${aud0(residualPayableIncGst)}`}
+          color="#4527a0"
+          note="Due at lease end"
+        />
+      </StatGrid>
 
-      <div style={{ overflowX: "auto" }}>
+      <SubHead mt={4}>1.1 Summary</SubHead>
+
+      <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr>
@@ -178,16 +197,7 @@ export function LeaseReport(props: {
           <tbody>
             {/* PRE-TAX COMPONENT */}
             <tr>
-              <td
-                colSpan={4}
-                style={{
-                  padding: "10px 6px 6px",
-                  fontWeight: 800,
-                  borderBottom: "1px solid rgba(0,0,0,0.15)",
-                  textAlign: "left",
-                  background: "rgba(0,0,0,0.035)",
-                }}
-              >
+              <td colSpan={4} style={sectionDivider}>
                 Pre-Tax Component
               </td>
             </tr>
@@ -221,7 +231,7 @@ export function LeaseReport(props: {
               </>
             ) : null}
 
-            <tr>
+            <tr style={{ background: "rgba(11,92,171,0.04)" }}>
               <td style={tdLeft(true)}>= Total Pre-Tax Deduction</td>
               <td style={td(true)}>{preTaxFmt(fnToCol(actualPreTaxDeductionFn))}</td>
               <td style={td(true)}>{preTaxFmt(actualPreTaxDeductionAnnual)}</td>
@@ -232,16 +242,7 @@ export function LeaseReport(props: {
             {fbtApplies ? (
               <>
                 <tr>
-                  <td
-                    colSpan={4}
-                    style={{
-                      padding: "14px 6px 6px",
-                      fontWeight: 800,
-                      borderBottom: "1px solid rgba(0,0,0,0.15)",
-                      textAlign: "left",
-                      background: "rgba(0,0,0,0.035)",
-                    }}
-                  >
+                  <td colSpan={4} style={sectionDivider}>
                     Post-Tax Component
                   </td>
                 </tr>
@@ -256,16 +257,7 @@ export function LeaseReport(props: {
 
             {/* TAKE HOME IMPACT */}
             <tr>
-              <td
-                colSpan={4}
-                style={{
-                  padding: "14px 6px 6px",
-                  fontWeight: 800,
-                  borderBottom: "1px solid rgba(0,0,0,0.15)",
-                  textAlign: "left",
-                  background: "rgba(0,0,0,0.035)",
-                }}
-              >
+              <td colSpan={4} style={sectionDivider}>
                 Take Home Impact (Combining Above)
               </td>
             </tr>
@@ -289,11 +281,11 @@ export function LeaseReport(props: {
                   <td style={td(false)}>{preTaxFmt(postTaxComponentAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxComponentLifetime)}</td>
                 </tr>
-                <tr>
-                  <td style={{ ...tdLeft(true), background: "rgba(0,0,0,0.06)" }}>= Total Take Home Impact</td>
-                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(fnToCol(totalTakeHomeImpactFn))}</td>
-                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(totalTakeHomeImpactAnnual)}</td>
-                  <td style={{ ...td(true, true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(totalTakeHomeImpactLifetime)}</td>
+                <tr style={{ background: "rgba(183,28,28,0.04)" }}>
+                  <td style={{ ...tdLeft(true), color: "#b71c1c" }}>= Total Take Home Impact</td>
+                  <td style={{ ...td(true), color: "#b71c1c" }}>{preTaxFmt(fnToCol(totalTakeHomeImpactFn))}</td>
+                  <td style={{ ...td(true), color: "#b71c1c" }}>{preTaxFmt(totalTakeHomeImpactAnnual)}</td>
+                  <td style={{ ...td(true, true), color: "#b71c1c" }}>{preTaxFmt(totalTakeHomeImpactLifetime)}</td>
                 </tr>
               </>
             ) : (
@@ -315,25 +307,25 @@ export function LeaseReport(props: {
                   <td style={td(false)}>{preTaxFmt(postTaxRunningAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxRunningLifetime)}</td>
                 </tr>
-                <tr>
-                  <td style={{ ...tdLeft(true), background: "rgba(0,0,0,0.06)" }}>= Total Take Home Impact</td>
-                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(fnToCol(postTaxTotalFn))}</td>
-                  <td style={{ ...td(true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(postTaxTotalAnnual)}</td>
-                  <td style={{ ...td(true, true), background: "rgba(0,0,0,0.06)" }}>{preTaxFmt(postTaxTotalLifetime)}</td>
+                <tr style={{ background: "rgba(183,28,28,0.04)" }}>
+                  <td style={{ ...tdLeft(true), color: "#b71c1c" }}>= Total Take Home Impact</td>
+                  <td style={{ ...td(true), color: "#b71c1c" }}>{preTaxFmt(fnToCol(postTaxTotalFn))}</td>
+                  <td style={{ ...td(true), color: "#b71c1c" }}>{preTaxFmt(postTaxTotalAnnual)}</td>
+                  <td style={{ ...td(true, true), color: "#b71c1c" }}>{preTaxFmt(postTaxTotalLifetime)}</td>
                 </tr>
               </>
             )}
           </tbody>
         </table>
       </div>
-      <div style={{ marginTop: 6, fontSize: 12, opacity: 0.75 }}>
-        * REMINDER: After {preTaxFmt(fbtApplies ? totalTakeHomeImpactLifetime : postTaxTotalLifetime)}, <b>you still have to pay {preTaxFmt(residualPayableIncGst)} in 
-        residual value</b> to fully own the vehicle at the conclusion of the lease.
-      </div>
 
-      <Spacer />
+      <NoteBox color="#4527a0" mt={10}>
+        After paying {preTaxFmt(totalLifetimeImpact)} in lease costs, you still owe{" "}
+        <b>{preTaxFmt(residualPayableIncGst)}</b> in residual value to fully own the vehicle.
+      </NoteBox>
 
-      <div style={{ margin: "14px 0 6px" }}>
+      {/* ── 1.2 FY Breakdown ── */}
+      <SubHead mt={16}>
         <button
           type="button"
           onClick={() => setFyExpanded((v) => !v)}
@@ -345,19 +337,19 @@ export function LeaseReport(props: {
             padding: 0,
             cursor: "pointer",
             display: "inline-flex",
-            alignItems: "baseline",
+            alignItems: "center",
             gap: 8,
-            fontWeight: 900,
-            fontSize: 14,
-            lineHeight: 1.2,
+            font: "inherit",
+            color: "inherit",
+            letterSpacing: "inherit",
+            textTransform: "inherit",
           }}
         >
           <span>1.2 Breakdown by Financial Years</span>
-          <span style={{ fontSize: 14, lineHeight: 1, color: "rgba(0,0,0,0.55)", minWidth: 18, textAlign: "center" }}>
-            {fyExpanded ? "▾" : "▸"}
-          </span>
+          <span style={{ fontSize: 12 }}>{fyExpanded ? "▾" : "▸"}</span>
         </button>
-      </div>
+      </SubHead>
+
       {fyExpanded ? (
         <>
           <FYTable
@@ -367,21 +359,20 @@ export function LeaseReport(props: {
             ecmPerFn={ecmPerFn}
           />
 
-          <div style={{ marginTop: 12, fontSize: 12, opacity: 0.75 }}>
-            <div>
-              * The take home figure does not consider other subsidies and liabilities (e.g., HECS, childcare subsidy, Medicare Levy
-              Surcharge, other salary packaging, etc.).
-            </div>
-            <div style={{ marginTop: 6 }}>
-              * “Average Lease Tax Bracket” means the average discount effect for the pre-tax dollars used in that financial year.
-              Normally this is equivalent to your marginal tax rate + 2% Medicare levy; however it can change if the novated lease
-              drops you into a lower income tax bracket.
-            </div>
+          <div style={{ marginTop: 10, fontSize: 12, color: "rgba(0,0,0,0.6)", lineHeight: 1.55 }}>
+            <p style={{ margin: "0 0 6px 0" }}>
+              * Take home figures do not account for other subsidies and liabilities (HECS, childcare subsidy,
+              Medicare Levy Surcharge, other salary packaging, etc.).
+            </p>
+            <p style={{ margin: 0 }}>
+              * "Average Lease Tax Bracket" is the average discount effect for pre-tax dollars in that financial year —
+              normally equal to your marginal tax rate + 2% Medicare levy, but may differ if the lease drops you into a lower bracket.
+            </p>
           </div>
         </>
       ) : (
-        <div style={{ fontSize: 12, opacity: 0.65, marginTop: 4 }}>
-          (collapsed)
+        <div style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", marginTop: 2, fontStyle: "italic" }}>
+          Click to expand year-by-year tax breakdown
         </div>
       )}
 
@@ -394,10 +385,6 @@ function preTaxFmt(n: number): string {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
-}
-
-function Spacer() {
-  return <div style={{ height: 10 }} />;
 }
 
 function InfoInline(props: { text: React.ReactNode; width?: number }) {
@@ -487,27 +474,28 @@ function FYTable(props: {
 
   const takeHomeRowCellStyle = (isLabel: boolean) => ({
     ...(isLabel ? tdLeft(true) : td(true)),
-    background: "rgba(0,0,0,0.015)",
+    background: "rgba(11,92,171,0.05)",
+    color: "#0b5cab",
   });
 
   const GroupCell = (props: { text: string; rowSpan?: number }) => (
     <td
       rowSpan={props.rowSpan ?? 3}
       style={{
-        borderBottom: "1px solid rgba(0,0,0,0.25)",
+        borderBottom: "1px solid rgba(0,0,0,0.12)",
         textAlign: "center",
         verticalAlign: "middle",
         padding: 0,
         width: 18,
         minWidth: 18,
         maxWidth: 18,
-        color: "rgba(0,0,0,0.55)",
+        color: "rgba(0,0,0,0.4)",
         background: "rgba(0,0,0,0.02)",
-        writingMode: "vertical-rl" as any,
+        writingMode: "vertical-rl" as React.CSSProperties["writingMode"],
         transform: "rotate(180deg)",
         letterSpacing: 0.5,
         fontWeight: 700,
-        fontSize: 11,
+        fontSize: 10,
         overflow: "hidden",
       }}
     >
@@ -520,11 +508,14 @@ function FYTable(props: {
       <td
         colSpan={years.length + 2}
         style={{
-          padding: "8px 6px",
-          borderBottom: "1px solid rgba(0,0,0,0.15)",
-          background: "rgba(0,0,0,0.02)",
-          fontSize: 12,
-          color: "rgba(0,0,0,0.65)",
+          padding: "7px 10px",
+          background: "rgba(11,92,171,0.06)",
+          fontSize: 11,
+          fontWeight: 700,
+          color: "#0b5cab",
+          letterSpacing: "0.04em",
+          borderTop: "1px solid rgba(11,92,171,0.15)",
+          borderBottom: "1px solid rgba(11,92,171,0.15)",
         }}
       >
         {props.text}
@@ -533,7 +524,7 @@ function FYTable(props: {
   );
 
   return (
-    <div style={{ overflowX: "auto" }}>
+    <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
@@ -583,7 +574,7 @@ function FYTable(props: {
             })}
           </tr>
 
-          <SeparatorRow text={<>↓ After novated lease (estimated)</>} />
+          <SeparatorRow text="After novated lease (estimated)" />
 
           {/* AFTER LEASE (grouped) */}
           <tr>
@@ -634,21 +625,20 @@ function FYTable(props: {
             })}
           </tr>
           <tr>
-              {/* Blank cell for the skinny group column */}
-              <td style={{ ...td(true), width: 18, minWidth: 18, maxWidth: 18, paddingLeft: 0, paddingRight: 0 }}></td>
-            <td style={takeHomeRowCellStyle(true)}>Take Home Impact</td>
+            <td style={{ ...td(true), width: 18, minWidth: 18, maxWidth: 18, paddingLeft: 0, paddingRight: 0 }}></td>
+            <td style={{ ...takeHomeRowCellStyle(true), fontWeight: 800 }}>Take Home Impact</td>
             {years.map((y) => {
               const r = get(y);
               const delta = r.originalTakeHome - correctedPostNl(r).postNlTakeHome;
               return (
-                <td key={y} style={takeHomeRowCellStyle(false)}>
+                <td key={y} style={{ ...takeHomeRowCellStyle(false), fontWeight: 800 }}>
                   {money0(delta)}
                 </td>
               );
             })}
           </tr>
 
-          <SeparatorRow text={<>↓ Lease-specific metrics</>} />
+          <SeparatorRow text="Lease-specific metrics" />
 
           {/* METRICS */}
           <tr>
@@ -693,11 +683,33 @@ function FYTable(props: {
   );
 }
 
+// ── Section-divider row style ──────────────────────────────────────────────────
+
+const sectionDivider: React.CSSProperties = {
+  padding: "9px 10px 7px",
+  fontWeight: 800,
+  fontSize: 11,
+  letterSpacing: "0.05em",
+  textTransform: "uppercase",
+  textAlign: "left",
+  background: "rgba(11,92,171,0.07)",
+  color: "#0b5cab",
+  borderTop: "2px solid rgba(11,92,171,0.15)",
+  borderBottom: "1px solid rgba(11,92,171,0.12)",
+};
+
+// ── Table style constants ──────────────────────────────────────────────────────
+
 const th: React.CSSProperties = {
   textAlign: "right",
-  borderBottom: "1px solid rgba(0,0,0,0.25)",
-  padding: "6px 6px",
+  padding: "7px 10px",
+  fontSize: 11,
   fontWeight: 700,
+  letterSpacing: "0.03em",
+  textTransform: "uppercase",
+  background: "#0b5cab",
+  color: "#fff",
+  whiteSpace: "nowrap",
 };
 
 const thLeft: React.CSSProperties = {
@@ -707,13 +719,17 @@ const thLeft: React.CSSProperties = {
 
 const td = (bold?: boolean, emphasize?: boolean): React.CSSProperties => ({
   textAlign: "right",
-  padding: "6px 6px",
-  borderBottom: bold ? "1px solid rgba(0,0,0,0.25)" : "1px solid rgba(0,0,0,0.08)",
+  padding: "6px 10px",
+  fontSize: 13,
+  borderBottom: bold ? "1px solid rgba(0,0,0,0.12)" : "1px solid rgba(0,0,0,0.06)",
   fontWeight: emphasize ? 800 : bold ? 700 : 500,
   color: emphasize ? "#0b5cab" : "inherit",
+  fontVariantNumeric: "tabular-nums",
+  whiteSpace: "nowrap",
 });
 
 const tdLeft = (bold?: boolean): React.CSSProperties => ({
   ...td(bold),
   textAlign: "left",
+  whiteSpace: "normal",
 });

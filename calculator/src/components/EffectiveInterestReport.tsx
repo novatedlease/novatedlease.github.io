@@ -1,13 +1,12 @@
 import React from "react";
 import type { Inputs } from "../engine/types";
 
-// These helpers are already used elsewhere in the app (previously inline in App.tsx Section 4).
-// If TypeScript complains about missing exports, we can adjust the import path to the exact module later.
 import {
   effectiveAnnualRateFromFortnightlyLease,
   financedAmountExGstFromInputs,
 } from "../engine/effectiveinterest";
 import { InfoTooltip } from "./ui/InfoTooltip";
+import { Stat, StatGrid, SubHead, KV, NoteBox } from "./ui/shared";
 
 
 export type EffectiveInterestReportProps = {
@@ -88,90 +87,16 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
       fortnightlyLeasePayment: leaseFn,
     });
 
-    const SectionTitle = (p: { children: React.ReactNode; subtle?: boolean }) => (
-      <div
-        style={{
-          fontWeight: 900,
-          fontSize: 15,
-          marginTop: 14,
-          marginBottom: 6,
-          opacity: p.subtle ? 0.9 : 1,
-        }}
-      >
-        {p.children}
-      </div>
-    );
-
-    const SummaryBox = (p: { title: string; value: string; subtitle?: string }) => (
-      <div
-        style={{
-          padding: "10px 12px",
-          borderLeft: "4px solid rgba(11, 92, 171, 0.6)",
-          background: "rgba(11, 92, 171, 0.06)",
-          borderRadius: 10,
-          marginBottom: 10,
-          maxWidth: 560,
-          width: "60%",
-        }}
-      >
-        <div style={{ fontSize: 12, opacity: 0.9, fontWeight: 800 }}>{p.title}</div>
-        <div style={{ fontSize: 24, fontWeight: 900, marginTop: 2 }}>{p.value}</div>
-        {p.subtitle ? <div style={{ fontSize: 13, opacity: 0.75, marginTop: 4 }}>{p.subtitle}</div> : null}
-      </div>
-    );
-
-    const DetailsCard = (p: { title: React.ReactNode; children: React.ReactNode }) => (
-      <div
-        style={{
-          border: "1px solid rgba(0,0,0,0.12)",
-          borderRadius: 12,
-          padding: "10px 12px",
-          marginTop: 10,
-        }}
-      >
-        {p.title}
-        <div style={{ marginTop: 8 }}>{p.children}</div>
-      </div>
-    );
-
-    const Row = (p: { label: string; value: string; note?: string }) => (
-      <div
-        style={{
-          display: "grid",
-          // Cap label width so values stay readable on mobile
-          gridTemplateColumns: "minmax(0, 300px) minmax(110px, max-content)",
-          columnGap: 10,
-          rowGap: 2,
-          alignItems: "baseline",
-          padding: "2px 0",
-        }}
-      >
-        <div style={{ fontWeight: 600, minWidth: 0, overflowWrap: "anywhere" }}>
-          {p.label}
-          {p.note ? (
-            <span
-              style={{
-                marginLeft: 8,
-                fontWeight: 400,
-                opacity: 0.7,
-                fontStyle: "italic",
-              }}
-            >
-              {p.note}
-            </span>
-          ) : null}
+    const DetailsCard = (p: { title: React.ReactNode; children: React.ReactNode; accent?: string }) => {
+      const accent = p.accent ?? "#0b5cab";
+      const [r, g, b] = [parseInt(accent.slice(1,3),16), parseInt(accent.slice(3,5),16), parseInt(accent.slice(5,7),16)];
+      return (
+        <div style={{ border: `1px solid rgba(${r},${g},${b},0.18)`, borderLeft: `3px solid rgba(${r},${g},${b},0.5)`, borderRadius: 10, padding: "10px 12px", marginTop: 10, background: `rgba(${r},${g},${b},0.03)` }}>
+          {p.title}
+          <div style={{ marginTop: 8 }}>{p.children}</div>
         </div>
-        <div
-          style={{
-            fontVariantNumeric: "tabular-nums",
-            whiteSpace: "nowrap",
-            justifySelf: "start",
-          }}
-        >
-          {p.value}
-        </div>
-      </div>
-    );
+      );
+    };
 
     // --- Amortisation table helpers ---
     const moneyParens = (n: number) => {
@@ -219,30 +144,27 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
             type="button"
             onClick={() => setOpen((v) => !v)}
             style={{
-              width: "100%",
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
-              gap: 12,
-              padding: "10px 12px",
-              borderRadius: 10,
-              border: "1px solid rgba(0,0,0,0.18)",
-              background: "rgba(0,0,0,0.02)",
+              gap: 8,
+              padding: "7px 12px",
+              borderRadius: 8,
+              border: "1px solid rgba(11,92,171,0.25)",
+              background: "rgba(11,92,171,0.06)",
               cursor: "pointer",
-              fontWeight: 900,
-              fontSize: 14,
-              color: "rgba(0,0,0,0.9)",
+              fontWeight: 700,
+              fontSize: 12,
+              letterSpacing: "0.03em",
+              color: "#0b5cab",
             }}
           >
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-              {open ? "Hide amortisation table" : "Show amortisation table"}
-            </span>
-            <span style={{ fontSize: 16, opacity: 0.7 }}>{open ? "▾" : "▸"}</span>
+            <span>{open ? "Hide amortisation table" : "Show amortisation table"}</span>
+            <span style={{ fontSize: 11 }}>{open ? "▾" : "▸"}</span>
           </button>
 
           {open ? (
-            <div style={{ marginTop: 10, overflowX: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, tableLayout: "fixed" }}>
+            <div style={{ marginTop: 10, overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12.5, tableLayout: "fixed" }}>
                 <colgroup>
                   <col style={{ width: 34 }} />
                   <col />
@@ -252,20 +174,20 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
                   <col />
                 </colgroup>
                 <thead>
-                  <tr style={{ borderBottom: "2px solid rgba(0,0,0,0.25)" }}>
-                    <th style={{ textAlign: "center", padding: "8px 4px", fontSize: 12, letterSpacing: 0.2 }}>
+                  <tr>
+                    <th style={{ textAlign: "center", padding: "7px 4px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff" }}>
                       Month
                     </th>
-                    <th style={{ textAlign: "right", padding: "8px 6px", whiteSpace: "nowrap" }}>Starting Balance</th>
-                    <th style={{ textAlign: "right", padding: "8px 6px", whiteSpace: "nowrap" }}>Payment</th>
-                    <th style={{ textAlign: "right", padding: "8px 6px", whiteSpace: "nowrap" }}>Balance Post Payment</th>
-                    <th style={{ textAlign: "right", padding: "8px 6px", whiteSpace: "nowrap" }}>
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>Starting Bal.</th>
+                    <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>Payment</th>
+                    <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>Post-Payment Bal.</th>
+                    <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
                         Interest
-                        <InfoTooltip text="Interest is calculated using a higher‑precision rate than the rounded percentage shown above. This avoids compounding rounding errors in the amortisation schedule." />
+                        <InfoTooltip text="Interest is calculated using a higher‑precision rate than the rounded percentage shown above." />
                       </span>
                     </th>
-                    <th style={{ textAlign: "right", padding: "8px 6px", whiteSpace: "nowrap" }}>Closing Balance</th>
+                    <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>Closing Bal.</th>
                   </tr>
                 </thead>
                 <tbody style={{ fontVariantNumeric: "tabular-nums" }}>
@@ -295,26 +217,28 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
     };
 
     return (
-      <div style={{ fontSize: 14, lineHeight: 1.35 }}>
+      <div style={{ fontSize: 13, lineHeight: 1.4 }}>
 
-        <SummaryBox
-          title="Effective interest rate (recommended)"
-          value={pct(rateDef1)}
-        />
+        {/* ── Top stat cards ── */}
+        <StatGrid>
+          <Stat label="Effective rate (Def. 1)" value={pct(rateDef1)} color="#1b5e20" note="Recommended — standard financed amount" />
+          <Stat label="Effective rate (Def. 1a)" value={pct(rateDef1a)} color="#0b5cab" note="Includes management fees" />
+          <Stat label="Effective rate (Def. 2)" value={pct(rateDef2)} color="#4527a0" note="Provider-style inflated amount" />
+        </StatGrid>
 
-        <SectionTitle>Definition 1 (recommended)</SectionTitle>
-        <div style={{ fontSize: 13, opacity: 0.75, fontStyle: "italic", marginTop: 6 }}>
-          * Closest approximation of “if we pretend this as a loan; what interest rate would result in an amortisation schedule
-          that starts from financed amount and ends with residual value”.
+        <SubHead mt={4}>Definition 1 — Recommended</SubHead>
+        <NoteBox color="#1b5e20" mt={0}>
+          Closest to "what interest rate would amortise the financed amount down to residual value over the lease term."
+        </NoteBox>
+        <div style={{ marginTop: 10 }}>
+          <KV label="Financed amount (standard)" value={money(financedStandardExGst)} />
+          <KV label="Residual value payable (ex GST)" value={money(residualStandardExGst)} />
+          <KV label="Fortnightly lease" value={money(leaseFn)} />
+          <KV label={`Equivalent monthly lease over ${payableMonths} months`} value={money(monthlyEqDef1)} />
+          <KV label="Months deferred" value={`${deferMonths} months`} />
+          <KV label="Effective annual rate" value={pct(rateDef1)} bold highlight color="#1b5e20" />
         </div>
-        <div style={{ marginTop: 8 }}>
-          <Row label="Financed Amount from standard calculations" value={money(financedStandardExGst)} />
-          <Row label="Residual Value Payable (ex GST)" value={money(residualStandardExGst)} />
-          <Row label="Fortnightly lease" value={money(leaseFn)} />
-          <Row label={`↳ Equivalent to monthly lease over ${payableMonths} months`} value={money(monthlyEqDef1)} />
-          <Row label="Months deferred" value={`${deferMonths} months`} />
-        </div>
-        
+
         <AmortisationTable
           financedAmount={financedStandardExGst}
           monthlyPayment={monthlyEqDef1}
@@ -322,30 +246,26 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
         />
 
         <details style={{ marginTop: 14 }}>
-          <summary style={{ cursor: "pointer", fontWeight: 900 }}>
-            Definition 1a: Include management fees in the effective rate ({pct(rateDef1a)})
+          <summary style={{ cursor: "pointer", fontWeight: 700, fontSize: 12.5, color: "#0b5cab" }}>
+            Definition 1a — Include management fees ({pct(rateDef1a)})
             {!Number.isFinite(rateDef1a) ? (
               <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.75, fontStyle: "italic" }}>{noSolutionNote}</span>
             ) : null}
           </summary>
           <DetailsCard
+            accent="#0b5cab"
             title={
-              <div style={{ fontSize: 13, opacity: 0.75, fontStyle: "italic" }}>
-                * Useful for comparing quotes because it treats management fees as part of the lease payment. This can reveal the
-                true cost when fees are bundled into “running costs”, especially if management fees are high.
+              <div style={{ fontSize: 12.5, color: "rgba(0,0,0,0.65)", fontStyle: "italic", marginBottom: 8 }}>
+                Useful for comparing quotes — treats management fees as part of the lease payment, revealing true cost when fees are bundled into "running costs".
               </div>
             }
           >
-            <SummaryBox
-              title="Effective interest rate (inc. management fees)"
-              value={pct(rateDef1a)}
-            />
-            <Row label="Financed Amount from standard calculations" value={money(financedStandardExGst)} />
-            <Row label="Residual Value Payable (ex GST)" value={money(residualStandardExGst)} />
-            <Row label="Fortnightly lease + Management fee" value={money(leaseFn + mgmtFeeFn)} />
-            <Row label={`↳ Equivalent to monthly lease over ${payableMonths} months`} value={money(monthlyEqDef1a)} />
-            <Row label="Months deferred" value={`${deferMonths} months`} />
-            
+            <KV label="Financed amount (standard)" value={money(financedStandardExGst)} />
+            <KV label="Residual value payable (ex GST)" value={money(residualStandardExGst)} />
+            <KV label="Fortnightly lease + management fee" value={money(leaseFn + mgmtFeeFn)} />
+            <KV label={`Equivalent monthly over ${payableMonths} months`} value={money(monthlyEqDef1a)} />
+            <KV label="Effective annual rate (inc. fees)" value={pct(rateDef1a)} bold highlight color="#0b5cab" />
+
             <AmortisationTable
               financedAmount={financedStandardExGst}
               monthlyPayment={monthlyEqDef1a}
@@ -355,29 +275,26 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
         </details>
 
         <details style={{ marginTop: 10 }}>
-          <summary style={{ cursor: "pointer", fontWeight: 900 }}>
-            Definition 2: Provider-style inflated financed amount ({pct(rateDef2)})
+          <summary style={{ cursor: "pointer", fontWeight: 700, fontSize: 12.5, color: "#4527a0" }}>
+            Definition 2 — Provider-style inflated financed amount ({pct(rateDef2)})
             {!Number.isFinite(rateDef2) ? (
               <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.75, fontStyle: "italic" }}>{noSolutionNote}</span>
             ) : null}
           </summary>
           <DetailsCard
+            accent="#4527a0"
             title={
-              <div style={{ fontSize: 13, opacity: 0.75, fontStyle: "italic" }}>
-                * Can produce misleadingly low interest rate if the financed amount is inflated with brokerage amount.
+              <div style={{ fontSize: 12.5, color: "rgba(0,0,0,0.65)", fontStyle: "italic", marginBottom: 8 }}>
+                Can produce a misleadingly low rate when the financed amount is inflated with brokerage.
               </div>
             }
           >
-            <SummaryBox
-              title="Effective interest rate (using inflated financed amount)"
-              value={pct(rateDef2)}
-            />
-            <Row label="Financed Amount that includes brokerage inflation" value={money(financedInflatedExGst)} />
-            <Row label="Residual Value Payable (ex GST)" value={money(residualInflatedExGst)} />
-            <Row label="Fortnightly lease" value={money(leaseFn)} />
-            <Row label={`↳ Equivalent to monthly lease over ${payableMonths} months`} value={money(monthlyEqDef2)} />
-            <Row label="Months deferred" value={`${deferMonths} months`} />
-            
+            <KV label="Financed amount (incl. brokerage)" value={money(financedInflatedExGst)} />
+            <KV label="Residual value payable (ex GST)" value={money(residualInflatedExGst)} />
+            <KV label="Fortnightly lease" value={money(leaseFn)} />
+            <KV label={`Equivalent monthly over ${payableMonths} months`} value={money(monthlyEqDef2)} />
+            <KV label="Effective annual rate (inflated)" value={pct(rateDef2)} bold highlight color="#4527a0" />
+
             <AmortisationTable
               financedAmount={financedInflatedExGst}
               monthlyPayment={monthlyEqDef2}

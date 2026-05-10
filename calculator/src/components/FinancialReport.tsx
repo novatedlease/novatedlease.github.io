@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { estimateAnnualChargingExpense } from "../engine/charging";
 import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
 import { computeLeasePaymentsOverLease } from "../engine/lease_payments";
+import { Stat, StatGrid, SubHead } from "./ui/shared";
 
 // NOTE: GST saving helper comes from engine/ato (single source of truth)
 
@@ -158,7 +159,7 @@ useEffect(() => {
   const preTaxTotalFn = preTaxLeaseFn + preTaxRunningFn;
 
   // IMPORTANT: leasePaymentsOverLease is NOT simply (preTaxTotalFn * (1 - taxRate)) * fortnights.
-  // It must be computed FY-by-FY using the effective “average lease tax bracket this FY”.
+  // It must be computed FY-by-FY using the effective "average lease tax bracket this FY".
   // We reuse the engine FY breakdown (same logic as LeaseReport) and sum the take-home impact.
   const ecmAnnual = i.vehicleBaseValue * getEcmStatutoryRate(getLeaseFbtCategory(i));
   const ecmPerFn = ecmAnnual / 26;
@@ -209,7 +210,7 @@ useEffect(() => {
 
   const loanFortnights = Math.round(yearsLease * 26);
 
-  // Convert Excel-style negative PMT into a positive “cash paid” total
+  // Convert Excel-style negative PMT into a positive "cash paid" total
   const loanPaymentTotal = (-loanFnPmt) * loanFortnights;
 
   // Keep your monthly fee logic as-is (still monthly)
@@ -272,79 +273,73 @@ useEffect(() => {
     </div>
   );
 
+  const sectionBlockColors: Record<string, string> = {
+    "Novated Lease": "#0b5cab",
+    "Offset Cash": "#1b5e20",
+    "Car Loan": "#4527a0",
+    "Keeping Old Car": "#00695c",
+  };
+
   const SectionBlock = (p: {
     title: string;
     cashRows: Array<{ label: string; value: string; bold?: boolean }>;
     assetRows: Array<{ label: string; value: string; bold?: boolean; italic?: boolean }>;
     liabilityRows: Array<{ label: string; value: string; bold?: boolean; italic?: boolean }>;
-  }) => (
-    <div style={{ marginTop: 14 }}>
+  }) => {
+    const accent = sectionBlockColors[p.title] ?? "#0b5cab";
+    const [r, g, b] = [parseInt(accent.slice(1,3),16), parseInt(accent.slice(3,5),16), parseInt(accent.slice(5,7),16)];
+    return (
+    <div style={{ marginTop: 14, borderRadius: 10, overflow: "hidden", border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
       <div
         style={{
-          background: "#e6e6e6",
-          padding: "6px 10px",
-          fontWeight: 700,
-          fontStyle: "italic",
+          background: `rgba(${r},${g},${b},0.09)`,
+          borderBottom: `2px solid rgba(${r},${g},${b},0.2)`,
+          padding: "8px 12px",
+          fontWeight: 800,
+          fontSize: 11,
+          letterSpacing: "0.05em",
+          textTransform: "uppercase",
+          color: accent,
         }}
       >
         {p.title}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, paddingTop: 10 }}>
-        <div>
-          <div
-            style={{
-              fontWeight: 700,
-              marginBottom: 6,
-              paddingBottom: 4,
-              borderBottom: "1px solid rgba(0,0,0,0.25)",
-            }}
-          >
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, padding: "12px 14px" }}>
+        <div style={{ paddingRight: 12, borderRight: "1px solid rgba(0,0,0,0.07)" }}>
+          <div style={{ fontWeight: 700, fontSize: 11, letterSpacing: "0.04em", textTransform: "uppercase", color: `rgba(${r},${g},${b},0.8)`, marginBottom: 8, paddingBottom: 4, borderBottom: `1px solid rgba(${r},${g},${b},0.15)` }}>
             Cash Flow
           </div>
-          <div style={{ display: "grid", gap: 6 }}>
-            {p.cashRows.map((r, idx) => (
-              <Row key={idx} label={r.label} value={r.value} bold={r.bold} />
+          <div style={{ display: "grid", gap: 5 }}>
+            {p.cashRows.map((row, idx) => (
+              <Row key={idx} label={row.label} value={row.value} bold={row.bold} />
             ))}
           </div>
         </div>
-        <div>
-          <div
-            style={{
-              fontWeight: 700,
-              marginBottom: 6,
-              paddingBottom: 4,
-              borderBottom: "1px solid rgba(0,0,0,0.25)",
-            }}
-          >
+        <div style={{ paddingLeft: 12 }}>
+          <div style={{ fontWeight: 700, fontSize: 11, letterSpacing: "0.04em", textTransform: "uppercase", color: `rgba(${r},${g},${b},0.8)`, marginBottom: 8, paddingBottom: 4, borderBottom: `1px solid rgba(${r},${g},${b},0.15)` }}>
             Asset
           </div>
-          <div style={{ display: "grid", gap: 6 }}>
-            {p.assetRows.map((r, idx) => (
-              <Row key={idx} label={r.label} value={r.value} bold={r.bold} italic={r.italic} />
+          <div style={{ display: "grid", gap: 5 }}>
+            {p.assetRows.map((row, idx) => (
+              <Row key={idx} label={row.label} value={row.value} bold={row.bold} italic={row.italic} />
             ))}
           </div>
 
-          <div style={{ height: 10 }} />
+          <div style={{ height: 12 }} />
 
-          <div
-            style={{
-              fontWeight: 700,
-              marginBottom: 6,
-              paddingBottom: 4,
-              borderBottom: "1px solid rgba(0,0,0,0.25)",
-            }}
-          >
+          <div style={{ fontWeight: 700, fontSize: 11, letterSpacing: "0.04em", textTransform: "uppercase", color: `rgba(${r},${g},${b},0.8)`, marginBottom: 8, paddingBottom: 4, borderBottom: `1px solid rgba(${r},${g},${b},0.15)` }}>
             Liability
           </div>
-          <div style={{ display: "grid", gap: 6 }}>
-            {p.liabilityRows.map((r, idx) => (
-              <Row key={idx} label={r.label} value={r.value} bold={r.bold} italic={r.italic} />
+          <div style={{ display: "grid", gap: 5 }}>
+            {p.liabilityRows.map((row, idx) => (
+              <Row key={idx} label={row.label} value={row.value} bold={row.bold} italic={row.italic} />
             ))}
           </div>
         </div>
       </div>
     </div>
   );
+  };
 
   type ScenarioKey = "nl" | "cash" | "loan" | "keep" | "ref";
 
@@ -354,6 +349,14 @@ useEffect(() => {
     loan: "Car Loan",
     keep: "Keep Old Car",
     ref: "Reference (No Car)",
+  };
+
+  const scenarioColors: Record<ScenarioKey, string> = {
+    nl: "#0b5cab",
+    cash: "#1b5e20",
+    loan: "#4527a0",
+    keep: "#00695c",
+    ref: "rgba(0,0,0,0.55)",
   };
 
   const SummaryCombinedTable = (p: {
@@ -409,15 +412,21 @@ useEffect(() => {
 
     return (
       <div style={{ marginTop: 10 }}>
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
+        <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr>
                 <th
                   style={{
                     textAlign: "left",
-                    padding: "6px 6px",
-                    borderBottom: "1px solid rgba(0,0,0,0.25)",
+                    padding: "7px 10px",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: "0.03em",
+                    textTransform: "uppercase",
+                    background: "#4a4a4a",
+                    color: "#fff",
+                    whiteSpace: "nowrap",
                   }}
                 />
                 {order.map((k) => (
@@ -425,9 +434,13 @@ useEffect(() => {
                     key={k}
                     style={{
                       textAlign: "right",
-                      padding: "6px 6px",
-                      borderBottom: "1px solid rgba(0,0,0,0.25)",
-                      fontWeight: 800,
+                      padding: "7px 10px",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: "0.03em",
+                      textTransform: "uppercase",
+                      background: scenarioColors[k] ?? "#0b5cab",
+                      color: "#fff",
                       whiteSpace: "nowrap",
                     }}
                   >
@@ -441,10 +454,15 @@ useEffect(() => {
                 <td
                   colSpan={colSpan}
                   style={{
-                    padding: "8px 6px",
-                    fontWeight: 900,
-                    borderBottom: "1px solid rgba(0,0,0,0.12)",
-                    background: "rgba(0,0,0,0.03)",
+                    padding: "9px 10px 7px",
+                    fontWeight: 800,
+                    fontSize: 11,
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
+                    background: "rgba(11,92,171,0.07)",
+                    color: "#0b5cab",
+                    borderTop: "2px solid rgba(11,92,171,0.15)",
+                    borderBottom: "1px solid rgba(11,92,171,0.12)",
                   }}
                 >
                   Cash Flow
@@ -456,10 +474,15 @@ useEffect(() => {
                 <td
                   colSpan={colSpan}
                   style={{
-                    padding: "12px 6px 8px",
-                    fontWeight: 900,
-                    borderBottom: "1px solid rgba(0,0,0,0.12)",
-                    background: "rgba(0,0,0,0.03)",
+                    padding: "9px 10px 7px",
+                    fontWeight: 800,
+                    fontSize: 11,
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
+                    background: "rgba(11,92,171,0.07)",
+                    color: "#0b5cab",
+                    borderTop: "2px solid rgba(11,92,171,0.15)",
+                    borderBottom: "1px solid rgba(11,92,171,0.12)",
                   }}
                 >
                   Asset
@@ -471,10 +494,15 @@ useEffect(() => {
                 <td
                   colSpan={colSpan}
                   style={{
-                    padding: "12px 6px 8px",
-                    fontWeight: 900,
-                    borderBottom: "1px solid rgba(0,0,0,0.12)",
-                    background: "rgba(0,0,0,0.03)",
+                    padding: "9px 10px 7px",
+                    fontWeight: 800,
+                    fontSize: 11,
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
+                    background: "rgba(11,92,171,0.07)",
+                    color: "#0b5cab",
+                    borderTop: "2px solid rgba(11,92,171,0.15)",
+                    borderBottom: "1px solid rgba(11,92,171,0.12)",
                   }}
                 >
                   Liability
@@ -504,9 +532,9 @@ useEffect(() => {
   });
 
   const extraCashFromSaleOfOldCar = i.compareWithCurrentCar ? i.currentCarMarketValueNow : 0;
-  const noCarCashBaseline = i.currentCarMarketValueNow; // “Reference (No Car)” cash baseline
+  const noCarCashBaseline = i.currentCarMarketValueNow; // "Reference (No Car)" cash baseline
 
-  // Interest (“liability”) at end of lease vs at 5 years
+  // Interest ("liability") at end of lease vs at 5 years
   const irNl = interestRowsFor("nl");
   const irCash = interestRowsFor("cash");
   const irLoan = interestRowsFor("loan");
@@ -526,7 +554,7 @@ useEffect(() => {
   const runningNonNlAtLeaseEnd_keep = keepRunningAnnual * yearsLease;
   const runningNonNlAt5_keep = keepRunningAnnual * 5;
 
-  // For NL: “Non-NL environment” running cost only applies after the lease ends.
+  // For NL: "Non-NL environment" running cost only applies after the lease ends.
   const runningNonNlAtLeaseEnd_nl = 0;
   const runningNonNlAt5_nl = postLeaseRunningCost;
 
@@ -566,13 +594,37 @@ useEffect(() => {
   };
 
   return (
-    <div style={{ fontSize: 14, lineHeight: 1.35 }}>
+    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
 
-      <div style={{ fontWeight: 800, marginTop: 8 }}>2.1 Summary</div>
+      {/* ── Top stat cards ── */}
+      <StatGrid>
+        <Stat
+          label="NL total spend at 5 years"
+          value={`$${Math.round(nlTotalSpentAt5).toLocaleString("en-AU")}`}
+          color="#0b5cab"
+          note="Lease costs + residual + post-lease running"
+        />
+        <Stat
+          label="Offset cash total at 5 years"
+          value={`$${Math.round(offsetTotalSpentAt5).toLocaleString("en-AU")}`}
+          color="#1b5e20"
+          note="Upfront + running costs"
+        />
+        {loanEnabled && (
+          <Stat
+            label="Car loan total at 5 years"
+            value={`$${Math.round(loanTotalSpentAt5).toLocaleString("en-AU")}`}
+            color="#4527a0"
+            note="Deposit + repayments + running"
+          />
+        )}
+      </StatGrid>
+
+      <SubHead mt={4}>2.1 Summary</SubHead>
 
       {yearsPost > 0 && (
         <>
-          <div style={{ marginTop: 10, background: "#e6e6e6", padding: "6px 10px", fontWeight: 800 }}>
+          <div style={{ marginTop: 8, marginBottom: 6, fontWeight: 800, fontSize: 12, color: "#0b5cab", letterSpacing: "0.03em" }}>
             @ {Math.round(yearsLease)} Years (End of Lease / Loan)
           </div>
           <SummaryCombinedTable
@@ -596,7 +648,7 @@ useEffect(() => {
         </>
       )}
 
-      <div style={{ marginTop: 14, background: "#e6e6e6", padding: "6px 10px", fontWeight: 800 }}>
+      <div style={{ marginTop: 14, marginBottom: 6, fontWeight: 800, fontSize: 12, color: "#0b5cab", letterSpacing: "0.03em" }}>
         @ 5 Years
       </div>
 
@@ -619,12 +671,9 @@ useEffect(() => {
         ]}
       />
 
-      <div style={{ marginTop: 14 }} />
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-        <div style={{ fontWeight: 900, fontSize: 16 }}>2.2 Detailed Worksheet Per Scenario</div>
-        <div style={{ fontSize: 12, opacity: 0.75 }}>
-          * does not account for sale of current car in this section
-        </div>
+      <SubHead mt={16}>2.2 Detailed Worksheet Per Scenario</SubHead>
+      <div style={{ fontSize: 11.5, color: "rgba(0,0,0,0.55)", marginTop: -4, marginBottom: 10, fontStyle: "italic" }}>
+        * does not account for sale of current car in this section
       </div>
 
       <SectionBlock
@@ -796,7 +845,7 @@ export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedic
   const preTaxTotalFn = preTaxLeaseFn + preTaxRunningFn;
 
 // IMPORTANT: leasePaymentsOverLease is NOT simply (preTaxTotalFn * (1 - taxRate)) * fortnights.
-// It must be computed FY-by-FY using the effective “average lease tax bracket this FY”.
+// It must be computed FY-by-FY using the effective "average lease tax bracket this FY".
 // For FBT-applicable leases, the *actual* pre-tax deduction is reduced by ECM and increased by the GST credit on ECM.
 const ecmAnnual = i.vehicleBaseValue * getEcmStatutoryRate(getLeaseFbtCategory(i));
 const ecmPerFn = ecmAnnual / 26;
@@ -877,7 +926,7 @@ const { leasePaymentsOverLease } = computeLeasePaymentsOverLease({
   // Charging delta as a BENEFIT in the summary tables (positive if claim > actual)
   const chargingDeltaBenefitOverLease = chargingDeltaAnnual * yearsLease;
 
-  // Interest (“liability”) at end of lease vs at 5 years
+  // Interest ("liability") at end of lease vs at 5 years
   const irNl = interestRowsFor("nl");
   const irCash = interestRowsFor("cash");
   const irLoan = interestRowsFor("loan");

@@ -209,7 +209,7 @@ export default function InputsPanel(props: InputsPanelProps) {
           marginBottom: 12,
         }}
       >
-        <div style={{ fontWeight: 800, fontSize: 18, lineHeight: 1.1, paddingTop: 4 }}>Inputs</div>
+        <div style={{ fontWeight: 700, fontSize: 17, lineHeight: 1.1, paddingTop: 4, letterSpacing: "-0.02em" }}>Inputs</div>
         <button
           type="button"
           onClick={() => {
@@ -240,7 +240,7 @@ export default function InputsPanel(props: InputsPanelProps) {
 
 
       <div style={{ display: "grid", gap: 12 }}>
-        <Section title="FBT-EXEMPTION ELIGIBILITY" className="nl-input-subcard">
+        <Section title="FBT-EXEMPTION ELIGIBILITY" className="nl-input-subcard" accent="#0b5cab">
           {/* EV/NON-EV Toggle */}
           <FieldRow
             label="Vehicle Type"
@@ -561,7 +561,7 @@ export default function InputsPanel(props: InputsPanelProps) {
             
         </Section>
 
-        <Section title="FINANCIALS" className="nl-input-subcard">
+        <Section title="FINANCIALS" className="nl-input-subcard" accent="#1b5e20">
           <MoneyField
             label="Total Taxable Income"
             tooltip={
@@ -617,7 +617,7 @@ export default function InputsPanel(props: InputsPanelProps) {
           />
         </Section>
 
-        <Section title="VEHICLE LEASE DETAILS" className="nl-input-subcard">
+        <Section title="VEHICLE LEASE DETAILS" className="nl-input-subcard" accent="#4527a0">
           <MoneyField
             label="Lease Documentation Fee"
             tooltip={
@@ -1254,7 +1254,7 @@ export default function InputsPanel(props: InputsPanelProps) {
         </Section>
 
         {inputs.vehicleType === "EV" ? (
-          <Section title="ELECTRICITY" className="nl-input-subcard">
+          <Section title="ELECTRICITY" className="nl-input-subcard" accent="#e65100">
             <MoneyField
               label="Average AUD per kWh"
               tooltip={
@@ -1541,17 +1541,27 @@ function Section(props: {
   banner?: React.ReactNode;
   headerRight?: React.ReactNode;
   className?: string;
+  /** Hex colour for the left-accent strip and header tint, e.g. "#0b5cab" */
+  accent?: string;
 }) {
+  const accent = props.accent ?? "#0b5cab";
+  const r = parseInt(accent.slice(1, 3), 16);
+  const g = parseInt(accent.slice(3, 5), 16);
+  const b = parseInt(accent.slice(5, 7), 16);
+  const tint = (a: number) => `rgba(${r},${g},${b},${a})`;
+
   return (
     <div
       className={props.className}
       style={{
-        border: props.highlight ? "2px solid rgba(200,0,0,0.45)" : "1px solid rgba(0,0,0,0.12)",
         borderRadius: "var(--nl-subcard-radius, 12px)",
         padding: "var(--nl-subcard-padding, 12px)",
         width: "100%",
-        background: props.highlight ? "rgba(200,0,0,0.04)" : undefined,
-        boxShadow: props.highlight ? "0 0 0 4px rgba(200,0,0,0.08)" : "none",
+        background: props.highlight ? "rgba(200,0,0,0.04)" : `rgba(${r},${g},${b},0.04)`,
+        boxShadow: props.highlight
+          ? "0 0 0 2px rgba(200,0,0,0.45), 0 2px 10px rgba(200,0,0,0.08)"
+          : "0 1px 3px rgba(0,0,0,0.05), 0 3px 12px rgba(0,0,0,0.06)",
+        borderLeft: props.highlight ? "4px solid rgba(200,0,0,0.55)" : `4px solid ${tint(0.5)}`,
         transition: "box-shadow 220ms ease, border-color 220ms ease, background 220ms ease",
       }}
     >
@@ -1565,12 +1575,16 @@ function Section(props: {
         }}
       >
         <div
+          data-section-title
           style={{
-            fontWeight: 900,
-            fontSize: 14,
+            fontWeight: 800,
+            fontSize: 11,
             lineHeight: 1.2,
             flex: "1 1 auto",
             paddingTop: 1,
+            paddingLeft: 8,
+            letterSpacing: "0.06em",
+            color: props.highlight ? "rgba(200,0,0,0.8)" : tint(0.85),
           }}
         >
           {props.title}
@@ -1626,9 +1640,12 @@ function inputStyle(): React.CSSProperties {
     minWidth: 0,
     boxSizing: "border-box",
     padding: "8px 10px",
-    borderRadius: 10,
-    border: "1px solid rgba(0,0,0,0.18)",
+    borderRadius: 8,
+    border: "1px solid rgba(0,0,0,0.16)",
     fontSize: 14,
+    fontWeight: 500,
+    background: "rgba(0,0,0,0.015)",
+    transition: "border-color 150ms ease, box-shadow 150ms ease",
   };
 }
 

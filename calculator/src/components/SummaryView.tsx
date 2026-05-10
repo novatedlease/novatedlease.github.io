@@ -5,10 +5,6 @@ import { InfoTooltip } from "./ui/InfoTooltip";
 
 type Props = {
   inputs: Inputs;
-  /**
-   * Optional override for marginal tax rate incl. Medicare (percentage).
-   * If omitted, Summary defaults to 47% (common top bracket) until we wire this from the engine.
-   */
   taxRateInclMedicarePct?: number;
   summaryHorizon?: "five_year" | "lease_end";
 };
@@ -17,431 +13,452 @@ function fmtAud0(n: number): string {
   return `$${Math.round(n).toLocaleString("en-AU")}`;
 }
 
+function fmtSigned(n: number): string {
+  return `${n >= 0 ? "+" : "−"}$${Math.round(Math.abs(n)).toLocaleString("en-AU")}`;
+}
+
+const POS = "rgb(27, 94, 32)";
+const NEG = "rgb(180, 0, 0)";
+const BLUE = "rgba(11, 92, 171, 1)";
+
+// ── Shared sub-components ──────────────────────────────────────────────────────
+
+function CardHeader(props: { title: string; onDetails: () => void }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 10,
+        flexWrap: "wrap",
+        marginBottom: 14,
+      }}
+    >
+      <div style={{ fontWeight: 900, fontSize: 15 }}>{props.title}</div>
+      <button
+        type="button"
+        onClick={props.onDetails}
+        style={{
+          padding: "4px 10px",
+          borderRadius: 999,
+          border: "1px solid rgba(11, 92, 171, 0.35)",
+          background: "rgba(11, 92, 171, 0.06)",
+          color: BLUE,
+          fontWeight: 700,
+          fontSize: 12,
+          cursor: "pointer",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Go to Details →
+      </button>
+    </div>
+  );
+}
+
+function Hero(props: { amount: number; suffix: string }) {
+  const positive = props.amount >= 0;
+  return (
+    <div
+      style={{
+        padding: "14px 16px",
+        borderRadius: 12,
+        background: positive ? "rgba(46, 125, 50, 0.07)" : "rgba(180, 0, 0, 0.06)",
+        border: positive ? "1px solid rgba(46, 125, 50, 0.22)" : "1px solid rgba(180, 0, 0, 0.22)",
+        marginBottom: 14,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 32,
+          fontWeight: 900,
+          lineHeight: 1,
+          color: positive ? POS : NEG,
+          fontVariantNumeric: "tabular-nums",
+        }}
+      >
+        {fmtAud0(Math.abs(props.amount))}
+      </div>
+      <div style={{ fontSize: 13, opacity: 0.75, marginTop: 5, lineHeight: 1.3 }}>
+        {props.suffix}
+      </div>
+    </div>
+  );
+}
+
+function BreakdownRow(props: {
+  label: React.ReactNode;
+  value: string;
+  bold?: boolean;
+  dim?: boolean;
+  color?: string;
+  indent?: boolean;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "baseline",
+        gap: 8,
+        paddingLeft: props.indent ? 10 : 0,
+      }}
+    >
+      <div style={{ fontSize: 13, opacity: props.dim ? 0.55 : props.bold ? 1 : 0.75 }}>
+        {props.label}
+      </div>
+      <div
+        style={{
+          fontWeight: props.bold ? 900 : 600,
+          fontSize: props.bold ? 14 : 13,
+          color: props.color,
+          fontVariantNumeric: "tabular-nums",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {props.value}
+      </div>
+    </div>
+  );
+}
+
+function Sep() {
+  return <div style={{ borderTop: "1px solid rgba(0,0,0,0.10)", margin: "6px 0" }} />;
+}
+
+function DoubleSep() {
+  return (
+    <div style={{ margin: "6px 0" }}>
+      <div style={{ borderTop: "2px solid rgba(0,0,0,0.15)" }} />
+    </div>
+  );
+}
+
+function Disclaimer({ inputs }: { inputs: Inputs }) {
+  const navigate = (anchorId: string) =>
+    window.dispatchEvent(new CustomEvent("nlguide:navigate", { detail: { tab: "Details", anchorId } }));
+
+  return (
+    <div style={{ marginTop: 12, fontSize: 12, opacity: 0.7, lineHeight: 1.45 }}>
+      <div>
+        ⚠️{" "}
+        <a
+          href="#"
+          onClick={(e) => { e.preventDefault(); navigate("details-section-4-ati"); }}
+          style={{ color: BLUE, textDecoration: "underline", cursor: "pointer" }}
+        >
+          Some effects are not captured here
+        </a>{" "}
+        (e.g. changes in government subsidies, Medicare levy surcharge, childcare subsidy).
+      </div>
+
+      {inputs.superFromPreNlIncome === "No" && (
+        <div style={{ marginTop: 5 }}>
+          ⚠️ Super Guarantee may be materially reduced under this setup —{" "}
+          <a
+            href="#"
+            onClick={(e) => { e.preventDefault(); navigate("details-section-5-sg"); }}
+            style={{ color: BLUE, textDecoration: "underline", cursor: "pointer" }}
+          >
+            see Details Section 5
+          </a>
+          .
+        </div>
+      )}
+
+      <div style={{ marginTop: 5 }}>
+        ⚠️ Consider{" "}
+        <a
+          href="https://novatedlease.guide/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: BLUE, textDecoration: "underline" }}
+        >
+          the broader risks and trade-offs
+        </a>{" "}
+        before acting on this figure alone.
+      </div>
+    </div>
+  );
+}
+
+const electricityTooltip =
+  "Why is electricity treated separately?\n\n" +
+  "For most running costs under a novated lease (for example servicing, insurance, or car washes), the amount you spend and the amount you claim are the same — so the analysis can treat them as one effective cost.\n\n" +
+  "Electricity is different: under the ATO EV home‑charging claim rule, the claimable amount (based on 5.47c/km) can differ materially from your actual out‑of‑pocket electricity cost. You first pay the real bill, then claim a distance‑based amount using pre‑tax income. That gap can create a genuine net gain or loss, so it needs to be shown explicitly.";
+
+// ── Main component ─────────────────────────────────────────────────────────────
+
 export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHorizon }: Props) {
-  // Single source of truth for all summary numbers used in this view
   const s = useMemo(
-    () =>
-      computeFinancialSummary({
-        inputs,
-        taxRateInclMedicarePct: taxRateInclMedicarePct ?? 47,
-      }),
+    () => computeFinancialSummary({ inputs, taxRateInclMedicarePct: taxRateInclMedicarePct ?? 47 }),
     [inputs, taxRateInclMedicarePct]
   );
 
-  const electricityTooltipText =
-    "Why is electricity treated separately?\n\n" +
-    "For most running costs under a novated lease (for example servicing, insurance, or car washes), the amount you spend and the amount you claim are the same — so the analysis can treat them as one effective cost.\n\n" +
-    "Electricity is different: under the ATO EV home‑charging claim rule, the claimable amount (based on 5.47c/km) can differ materially from your actual out‑of‑pocket electricity cost. You first pay the real bill, then claim a distance‑based amount using pre‑tax income. That gap can create a genuine net gain or loss, so it needs to be shown explicitly.";
-  // Summary is always framed over {years} years of ownership
   const horizon: "five_year" | "lease_end" = summaryHorizon ?? "five_year";
   const isLeaseEnd = horizon === "lease_end";
   const years = isLeaseEnd ? s.yearsLease : 5;
 
-  const nlTotalSpent = isLeaseEnd ? s.nlTotalSpentAtLeaseEnd : s.nlTotalSpentAt5;
-  const offsetTotalSpent = isLeaseEnd ? s.offsetTotalSpentAtLeaseEnd : s.offsetTotalSpentAt5;
-  const loanTotalSpent = isLeaseEnd ? s.loanTotalSpentAtLeaseEnd : s.loanTotalSpentAt5;
-  const keepTotalSpent = isLeaseEnd ? s.keepTotalSpentAtLeaseEnd : s.keepTotalSpentAt5;
+  const nlTotalSpent       = isLeaseEnd ? s.nlTotalSpentAtLeaseEnd    : s.nlTotalSpentAt5;
+  const offsetTotalSpent   = isLeaseEnd ? s.offsetTotalSpentAtLeaseEnd : s.offsetTotalSpentAt5;
+  const loanTotalSpent     = isLeaseEnd ? s.loanTotalSpentAtLeaseEnd   : s.loanTotalSpentAt5;
+  const keepTotalSpent     = isLeaseEnd ? s.keepTotalSpentAtLeaseEnd   : s.keepTotalSpentAt5;
 
-  const nlInterestTotal = isLeaseEnd ? s.irNl.first : s.irNl.total;
-  const cashInterestTotal = isLeaseEnd ? s.irCash.first : s.irCash.total;
-  const loanInterestTotal = isLeaseEnd ? s.irLoan.first : s.irLoan.total;
-  const keepInterestTotal = isLeaseEnd ? s.irKeep.first : s.irKeep.total;
+  const nlInterestTotal    = isLeaseEnd ? s.irNl.first   : s.irNl.total;
+  const cashInterestTotal  = isLeaseEnd ? s.irCash.first  : s.irCash.total;
+  const loanInterestTotal  = isLeaseEnd ? s.irLoan.first  : s.irLoan.total;
+  const keepInterestTotal  = isLeaseEnd ? s.irKeep.first  : s.irKeep.total;
 
-  const evEndValue = isLeaseEnd ? s.newEvValueAtLeaseEnd : inputs.estimatedMarketValueAtEnd;
-  const currentEndValue = isLeaseEnd ? s.currentCarValueAtLeaseEnd : inputs.currentCarMarketValueAtEnd;
+  const evEndValue         = isLeaseEnd ? s.newEvValueAtLeaseEnd     : inputs.estimatedMarketValueAtEnd;
+  const currentEndValue    = isLeaseEnd ? s.currentCarValueAtLeaseEnd : inputs.currentCarMarketValueAtEnd;
 
-  const titleA = "Novated Lease";
-  const titleB = "Offset Cash";
-  const titleLoan = "Car Loan";
+  const nlPostLeaseRunning = isLeaseEnd ? 0 : Math.max(0, s.nlTotalSpentAt5 - s.nlTotalSpentAtLeaseEnd);
+  const chargingDelta      = s.chargingDeltaBenefitOverLease;
+  const saleProceedsNow    = s.extraCashFromSaleOfOldCar;
 
-  // NL vs Offset Cash (horizon-aware)
-  const cashflowSaving = offsetTotalSpent - nlTotalSpent;
+  const cashflowSaving         = offsetTotalSpent - nlTotalSpent;
+  const interestSaving         = nlInterestTotal - cashInterestTotal;
+  const totalSaving            = cashflowSaving + interestSaving;
 
+  const cashflowSavingVsLoan   = loanTotalSpent - nlTotalSpent;
+  const interestSavingVsLoan   = nlInterestTotal - loanInterestTotal;
+  const totalSavingVsLoan      = cashflowSavingVsLoan + interestSavingVsLoan;
 
-  // Home-loan interest: amounts are negative (costs). “Saving” is positive when NL incurs LESS interest.
-  const homeLoanInterestSaving = nlInterestTotal - cashInterestTotal;
+  const assetDelta             = evEndValue - currentEndValue;
+  const cashDelta              = keepTotalSpent - (nlTotalSpent - saleProceedsNow);
+  const interestDelta          = nlInterestTotal - keepInterestTotal;
+  const nlVsKeepSaving         = assetDelta + cashDelta + interestDelta;
 
-  const totalSaving = cashflowSaving + homeLoanInterestSaving;
+  const openDetails = (anchorId?: string) =>
+    window.dispatchEvent(new CustomEvent("nlguide:navigate", {
+      detail: { tab: "Details", anchorId: anchorId ?? "details-section-2-financial-summary" },
+    }));
 
-  // NL vs Car Loan (optional) — horizon-aware
-  const cashflowSavingVsLoan = loanTotalSpent - nlTotalSpent;
-  const homeLoanInterestSavingVsLoan = nlInterestTotal - loanInterestTotal;
-  const totalSavingVsLoan = cashflowSavingVsLoan + homeLoanInterestSavingVsLoan;
-
-  // Electricity delta over the lease (benefit if positive)
-  const chargingDeltaTotal = s.chargingDeltaBenefitOverLease;
-
-  // Post-lease running costs component (only applicable in 5-year horizon). This component should not be affected by charging delta.
-  const nlPostLeaseRunningCosts = isLeaseEnd ? 0 : Math.max(0, s.nlTotalSpentAt5 - s.nlTotalSpentAtLeaseEnd);
-
-  // Headline NL cashflow total (exclude charging delta): lease payments + residual + post-lease running costs only.
-  const nlCashflowTotalExclChargingDelta =
-    s.leasePaymentsOverLease + s.residualPayableIncGst + nlPostLeaseRunningCosts;
-
-  // Optional: compare with keeping current car / car loan
+  const showLoan       = inputs.compareWithCarLoan;
   const showCurrentCar = inputs.compareWithCurrentCar;
-  const showLoan = inputs.compareWithCarLoan;
+  const isEv           = inputs.vehicleType === "EV";
 
-  // Interest impacts shown as positive dollar magnitudes in prose (they are stored as negative costs)
-  const nlHomeLoanInterestImpact = nlInterestTotal;
-  const cashHomeLoanInterestImpact = cashInterestTotal;
-  const loanHomeLoanInterestImpact = loanInterestTotal;
-  const currentHomeLoanInterestImpact = keepInterestTotal;
+  // ── Card 1: NL vs Offset Cash ──────────────────────────────────────────────
+  const card1 = (
+    <div style={{ border: "1px solid rgba(0,0,0,0.13)", borderRadius: 14, padding: 16 }}>
+      <CardHeader title={`Novated Lease vs Offset Cash — over ${years} years`} onDetails={() => openDetails()} />
 
-
-  // Selling current car now provides cash-in
-  const saleProceedsNow = s.extraCashFromSaleOfOldCar;
-
-  const keepRunningCostTotal = keepTotalSpent;
-
-  // NL vs Keep decomposition (must sum to headline)
-  const assetDelta = evEndValue - currentEndValue;
-
-  // Cash delta: compare 5-year cash outlays (NL is reduced by sale proceeds now)
-  const cashDelta = keepRunningCostTotal - (nlTotalSpent - saleProceedsNow);
-
-  // Interest delta: positive when NL incurs LESS interest than keeping
-  const interestDelta = nlHomeLoanInterestImpact - currentHomeLoanInterestImpact;
-
-  const nlVsKeepSaving = assetDelta + cashDelta + interestDelta;
-
-  const DisclaimerLine = () => (
-    <div style={{ marginTop: 10, fontSize: 13, opacity: 0.75, fontStyle: "italic", textAlign: "left" }}>
-      <div>
-        ⚠️ Some effects are not accounted for (for example, changes in government subsidies), as these are too complex to fully
-        calculate. {
-          " "
+      <Hero
+        amount={totalSaving}
+        suffix={
+          totalSaving >= 0
+            ? `cheaper than buying outright with offset cash over ${years} years`
+            : `more expensive than buying outright with offset cash over ${years} years`
         }
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            window.dispatchEvent(
-              new CustomEvent("nlguide:navigate", {
-                detail: { tab: "Details", anchorId: "details-section-4-ati" },
-              })
-            );
-          }}
-          style={{
-            display: "inline",
-            color: "rgba(11, 92, 171, 0.95)",
-            cursor: "pointer",
-            font: "inherit",
-            textDecoration: "underline",
-            verticalAlign: "baseline",
-          }}
-        >
-          <b>Explore further in Details – Section 4: Adjusted Taxable Income</b>
-        </a>
-        .
+      />
+
+      <div style={{ display: "grid", gap: 4 }}>
+        {/* NL side */}
+        <BreakdownRow label="NL: lease payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
+        <BreakdownRow label="NL: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
+        {nlPostLeaseRunning > 0 && (
+          <BreakdownRow label="NL: post-lease running costs" value={fmtAud0(nlPostLeaseRunning)} indent />
+        )}
+        {isEv && (
+          <BreakdownRow
+            label={<span>NL: electricity gain / loss <InfoTooltip text={electricityTooltip} /></span>}
+            value={fmtSigned(chargingDelta)}
+            color={chargingDelta >= 0 ? POS : NEG}
+            indent
+          />
+        )}
+        <BreakdownRow label="NL total" value={fmtAud0(nlTotalSpent)} bold />
+
+        <Sep />
+
+        {/* Offset Cash side */}
+        <BreakdownRow label="Cash: driveaway" value={fmtAud0(inputs.driveawayCost)} indent />
+        <BreakdownRow
+          label="Cash: running costs"
+          value={fmtAud0(Math.max(0, offsetTotalSpent - inputs.driveawayCost))}
+          indent
+        />
+        <BreakdownRow label="Offset Cash total" value={fmtAud0(offsetTotalSpent)} bold />
+
+        <Sep />
+
+        {/* Saving decomposition */}
+        <BreakdownRow
+          label="Cashflow advantage (NL)"
+          value={fmtAud0(Math.abs(cashflowSaving))}
+          color={cashflowSaving >= 0 ? POS : NEG}
+        />
+        <BreakdownRow
+          label="Home loan interest advantage (NL)"
+          value={fmtAud0(Math.abs(interestSaving))}
+          color={interestSaving >= 0 ? POS : NEG}
+        />
+        <DoubleSep />
+        <BreakdownRow
+          label={totalSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"}
+          value={fmtAud0(Math.abs(totalSaving))}
+          bold
+          color={totalSaving >= 0 ? POS : NEG}
+        />
       </div>
 
-
-
-      {inputs.superFromPreNlIncome === "No" ? (
-        <div style={{ marginTop: 8 }}>
-          ⚠️ Because your employer calculates Super Guarantee based on your post-novated-lease income, your super contributions may be materially reduced and are not reflected in the figures above.{" "}
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.dispatchEvent(
-                new CustomEvent("nlguide:navigate", {
-                  detail: { tab: "Details", anchorId: "details-section-5-sg" },
-                })
-              );
-            }}
-            style={{
-              display: "inline",
-              color: "rgba(11, 92, 171, 0.95)",
-              cursor: "pointer",
-              font: "inherit",
-              textDecoration: "underline",
-              verticalAlign: "baseline",
-            }}
-          >
-            <b>See Details – Section 5: Super Guarantee</b>
-          </a>
-          {" "}
-          for the estimated impact.
-        </div>
-      ) : null}
-
-      <div style={{ marginTop: 8 }}>
-      ⚠️ Novated leasing is a complex financial instrument with many caveats. Beyond the numerical outcomes shown here, it is
-      important to consider the broader risks and trade-offs discussed here:{" "}
-      <a
-        href="https://novatedlease.guide/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <b>Start with a holistic view rather than the savings figure</b>
-      </a>
-      .
-    </div>
-
+      <Disclaimer inputs={inputs} />
     </div>
   );
 
+  // ── Card 2: NL vs Car Loan ─────────────────────────────────────────────────
+  const card2 = showLoan && (
+    <div style={{ border: "1px solid rgba(0,0,0,0.13)", borderRadius: 14, padding: 16 }}>
+      <CardHeader title={`Novated Lease vs Car Loan — over ${years} years`} onDetails={() => openDetails()} />
+
+      <Hero
+        amount={totalSavingVsLoan}
+        suffix={
+          totalSavingVsLoan >= 0
+            ? `cheaper than a traditional car loan over ${years} years`
+            : `more expensive than a traditional car loan over ${years} years`
+        }
+      />
+
+      <div style={{ display: "grid", gap: 4 }}>
+        <BreakdownRow label="NL: lease payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
+        <BreakdownRow label="NL: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
+        {nlPostLeaseRunning > 0 && (
+          <BreakdownRow label="NL: post-lease running costs" value={fmtAud0(nlPostLeaseRunning)} indent />
+        )}
+        {isEv && (
+          <BreakdownRow
+            label={<span>NL: electricity gain / loss <InfoTooltip text={electricityTooltip} /></span>}
+            value={fmtSigned(chargingDelta)}
+            color={chargingDelta >= 0 ? POS : NEG}
+            indent
+          />
+        )}
+        <BreakdownRow label="NL total" value={fmtAud0(nlTotalSpent)} bold />
+
+        <Sep />
+
+        <BreakdownRow label="Loan: initial deposit" value={fmtAud0(inputs.carLoanInitialDeposit)} indent />
+        <BreakdownRow label="Loan: repayments + fees" value={fmtAud0(s.loanPaymentTotalInclFees)} indent />
+        <BreakdownRow
+          label="Loan: running costs"
+          value={fmtAud0(Math.max(0, loanTotalSpent - (inputs.carLoanInitialDeposit + s.loanPaymentTotalInclFees)))}
+          indent
+        />
+        <BreakdownRow label="Car Loan total" value={fmtAud0(loanTotalSpent)} bold />
+
+        <Sep />
+
+        <BreakdownRow
+          label="Cashflow advantage (NL)"
+          value={fmtAud0(Math.abs(cashflowSavingVsLoan))}
+          color={cashflowSavingVsLoan >= 0 ? POS : NEG}
+        />
+        <BreakdownRow
+          label="Home loan interest advantage (NL)"
+          value={fmtAud0(Math.abs(interestSavingVsLoan))}
+          color={interestSavingVsLoan >= 0 ? POS : NEG}
+        />
+        <DoubleSep />
+        <BreakdownRow
+          label={totalSavingVsLoan >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"}
+          value={fmtAud0(Math.abs(totalSavingVsLoan))}
+          bold
+          color={totalSavingVsLoan >= 0 ? POS : NEG}
+        />
+      </div>
+
+      <Disclaimer inputs={inputs} />
+    </div>
+  );
+
+  // ── Card 3: NL vs Keeping Current Car ─────────────────────────────────────
+  const card3 = showCurrentCar && (
+    <div style={{ border: "1px solid rgba(0,0,0,0.13)", borderRadius: 14, padding: 16 }}>
+      <CardHeader title={`Novated Lease vs Keeping Current Car — over ${years} years`} onDetails={() => openDetails()} />
+
+      <Hero
+        amount={nlVsKeepSaving}
+        suffix={
+          nlVsKeepSaving >= 0
+            ? `cheaper than keeping your current car over ${years} years`
+            : `more expensive than keeping your current car over ${years} years`
+        }
+      />
+
+      <div style={{ display: "grid", gap: 4 }}>
+        <BreakdownRow label="NL: total spend" value={fmtAud0(nlTotalSpent)} indent />
+        <BreakdownRow label="NL: sale proceeds from current car" value={`−${fmtAud0(saleProceedsNow)}`} indent color={POS} />
+        <BreakdownRow label="NL: net cashflow" value={fmtAud0(nlTotalSpent - saleProceedsNow)} bold />
+
+        <Sep />
+
+        <BreakdownRow label="Keep: running costs" value={fmtAud0(keepTotalSpent)} indent />
+        <BreakdownRow label="Keep total" value={fmtAud0(keepTotalSpent)} bold />
+
+        <Sep />
+
+        <BreakdownRow
+          label="Asset advantage (NL car vs current car end-value)"
+          value={fmtSigned(assetDelta)}
+          color={assetDelta >= 0 ? POS : NEG}
+        />
+        <BreakdownRow
+          label="Cashflow advantage (NL)"
+          value={fmtSigned(cashDelta)}
+          color={cashDelta >= 0 ? POS : NEG}
+        />
+        <BreakdownRow
+          label="Home loan interest advantage (NL)"
+          value={fmtSigned(interestDelta)}
+          color={interestDelta >= 0 ? POS : NEG}
+        />
+        <DoubleSep />
+        <BreakdownRow
+          label={nlVsKeepSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"}
+          value={fmtAud0(Math.abs(nlVsKeepSaving))}
+          bold
+          color={nlVsKeepSaving >= 0 ? POS : NEG}
+        />
+      </div>
+
+      <Disclaimer inputs={inputs} />
+    </div>
+  );
+
+  // ── Footer notes ───────────────────────────────────────────────────────────
   const NoteBox = (p: { title: string; children: React.ReactNode }) => (
     <div
       style={{
-        marginTop: 10,
-        fontSize: 13,
-        opacity: 0.85,
+        fontSize: 12,
+        opacity: 0.75,
         fontStyle: "italic",
         padding: "10px 12px",
-        borderLeft: "4px solid rgba(11, 92, 171, 0.55)",
-        background: "rgba(11, 92, 171, 0.06)",
-        borderRadius: 8,
+        borderLeft: "3px solid rgba(11, 92, 171, 0.4)",
+        background: "rgba(11, 92, 171, 0.04)",
+        borderRadius: "0 8px 8px 0",
       }}
     >
       <strong>{p.title}</strong> {p.children}
     </div>
   );
 
-  const OpenDetailsButton = (p: { anchorId?: string; label?: string }) => (
-    <button
-      type="button"
-      onClick={() => {
-        window.dispatchEvent(
-          new CustomEvent("nlguide:navigate", {
-            detail: { tab: "Details", anchorId: p.anchorId ?? "details-section-2-financial-summary" },
-          })
-        );
-      }}
-      style={{
-        padding: "4px 8px",
-        borderRadius: 999,
-        border: "1px solid rgba(0,0,0,0.14)",
-        background: "rgba(0,0,0,0.03)",
-        fontWeight: 700,
-        fontSize: 12,
-        cursor: "pointer",
-        whiteSpace: "nowrap",
-        opacity: 0.85,
-      }}
-      title="Open the Details tab (full breakdown)"
-    >
-      {p.label ?? "Go to Details →"}
-    </button>
-  );
-
-
   return (
-    <div style={{ display: "grid", gap: 16 }}>
-      {/* Card 1: NL vs Offset Cash */}
-      <div style={{ border: "1px solid rgba(0,0,0,0.15)", borderRadius: 12, padding: 16 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
-          <div style={{ fontWeight: 900 }}>
-            Summary — {titleA} vs {titleB}
-          </div>
-          <OpenDetailsButton />
-        </div>
+    <div style={{ display: "grid", gap: 14 }}>
+      {card1}
+      {card2}
+      {card3}
 
-        <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55, fontVariantNumeric: "tabular-nums" }}>
-          <div style={{ marginBottom: 8 }}>
-            Over <b>{years}</b> years of ownership, the novated lease option costs{" "}
-            <b>
-              {fmtAud0(Math.abs(totalSaving))} {totalSaving >= 0 ? "less" : "more"}
-            </b>{" "}
-            compared to buying the car outright using offset cash.
-          </div>
-
-          <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>
-            <li>
-              {titleA} (cashflow over {years} years): {fmtAud0(s.leasePaymentsOverLease)} in lease payments,{" "}
-              {fmtAud0(s.residualPayableIncGst)} residual
-              {nlPostLeaseRunningCosts > 0 ? <> and {fmtAud0(nlPostLeaseRunningCosts)} post-lease running costs</> : null} ={" "}
-              <b>{fmtAud0(nlCashflowTotalExclChargingDelta)} total</b>.
-            </li>
-            <li>
-              {titleB} (cashflow over {years} years): {fmtAud0(inputs.driveawayCost)} driveaway, and{" "}
-              {fmtAud0(Math.max(0, offsetTotalSpent - inputs.driveawayCost))} running costs ={" "}
-              <b>{fmtAud0(offsetTotalSpent)} total</b>.
-            </li>
-            {inputs.vehicleType === "EV" ? (
-            <li>
-              Electricity: novated lease&apos;s calculation assumes {fmtAud0(s.assumedChargingClaimPerYear)} per year (ATO claiming
-              rule) but the actual expense is {fmtAud0(s.chargingExpensePerYear)} per year. That difference accounts for an
-              additional{" "}
-              <b>
-                {fmtAud0(Math.abs(chargingDeltaTotal))} {chargingDeltaTotal >= 0 ? "gain" : "loss"}
-              </b>{" "}
-              in the NL pathway over the lease term. <InfoTooltip text={electricityTooltipText} width={420} />
-            </li>
-            ) : null}
-            <li>
-              Besides, your car ownership and running costs result in about <b>{fmtAud0(-nlHomeLoanInterestImpact)}</b> of additional
-              home-loan interest under the novated lease, compared with about <b>{fmtAud0(-cashHomeLoanInterestImpact)}</b> if you buy
-              using offset cash.{" "}
-              <span style={{ opacity: 0.85, fontStyle: "italic" }}>
-                (This saving is less visible but is reflected as a difference in your loan balance, hence is a genuine effect on your
-                financial position.)
-              </span>
-            </li>
-            <li>
-              The{" "}
-              <b>
-                {fmtAud0(Math.abs(totalSaving))} dollar {totalSaving >= 0 ? "saving" : "loss"}
-              </b>{" "}
-              consists of{" "}
-              <b>
-                {fmtAud0(Math.abs(cashflowSaving))} dollars {cashflowSaving >= 0 ? "lower" : "higher"} cashflow
-              </b>{" "}
-              and{" "}
-              <b>
-                {fmtAud0(Math.abs(homeLoanInterestSaving))} dollars {homeLoanInterestSaving >= 0 ? "less" : "more"} home-loan interest
-              </b>{" "}
-              when you opt for the novated lease.
-            </li>
-          </ul>
-
-          <DisclaimerLine />
-        </div>
-      </div>
-
-      {/* Card 2: NL vs Car Loan (optional) */}
-      {showLoan && (
-        <div style={{ border: "1px solid rgba(0,0,0,0.15)", borderRadius: 12, padding: 16 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
-            <div style={{ fontWeight: 900 }}>
-              Summary — {titleA} vs {titleLoan}
-            </div>
-            <OpenDetailsButton />
-          </div>
-
-          <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55, fontVariantNumeric: "tabular-nums" }}>
-            <div style={{ marginBottom: 8 }}>
-              Over <b>{years}</b> years of ownership, the novated lease option costs{" "}
-              <b>
-                {fmtAud0(Math.abs(totalSavingVsLoan))} {totalSavingVsLoan >= 0 ? "less" : "more"}
-              </b>{" "}
-              compared to buying the same car using a traditional car loan.
-            </div>
-
-            <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>
-              <li>
-                {titleA} (cashflow over {years} years): {fmtAud0(s.leasePaymentsOverLease)} in lease payments,{" "}
-                {fmtAud0(s.residualPayableIncGst)} residual
-                {nlPostLeaseRunningCosts > 0 ? <> and {fmtAud0(nlPostLeaseRunningCosts)} post-lease running costs</> : null} ={" "}
-                <b>{fmtAud0(nlCashflowTotalExclChargingDelta)} total</b>.
-              </li>
-              {inputs.vehicleType === "EV" ? (
-              <li>
-                Electricity: novated lease&apos;s calculation assumes {fmtAud0(s.assumedChargingClaimPerYear)} per year (ATO claiming
-                rule) but the actual expense is {fmtAud0(s.chargingExpensePerYear)} per year. That difference accounts for an
-                additional{" "}
-                <b>
-                  {fmtAud0(Math.abs(chargingDeltaTotal))} {chargingDeltaTotal >= 0 ? "gain" : "loss"}
-                </b>{" "}
-                in the NL pathway over the lease term. <InfoTooltip text={electricityTooltipText} width={420} />
-              </li>
-              ) : null}
-              <li>
-                {titleLoan} (cashflow over {years} years): deposit {fmtAud0(inputs.carLoanInitialDeposit)}, loan repayments + fees{" "}
-                {fmtAud0(s.loanPaymentTotalInclFees)}, and running costs{" "}
-                {fmtAud0(Math.max(0, loanTotalSpent - (inputs.carLoanInitialDeposit + s.loanPaymentTotalInclFees)))} ={" "}
-                <b>{fmtAud0(loanTotalSpent)} total</b>.
-              </li>
-              <li>
-                Besides, your car ownership and running costs result in about <b>{fmtAud0(-nlHomeLoanInterestImpact)}</b> of additional
-                home-loan interest under the novated lease, compared with about <b>{fmtAud0(-loanHomeLoanInterestImpact)}</b> if you use
-                a traditional car loan.{" "}
-                <span style={{ opacity: 0.85, fontStyle: "italic" }}>
-                  (This saving is less visible but is reflected as a difference in your loan balance, hence is a genuine effect on your
-                  financial position.)
-                </span>
-              </li>
-              <li>
-                The{" "}
-                <b>
-                  {fmtAud0(Math.abs(totalSavingVsLoan))} dollar {totalSavingVsLoan >= 0 ? "saving" : "loss"}
-                </b>{" "}
-                consists of{" "}
-                <b>
-                  {fmtAud0(Math.abs(cashflowSavingVsLoan))} dollars {cashflowSavingVsLoan >= 0 ? "lower" : "higher"} cashflow
-                </b>{" "}
-                and{" "}
-                <b>
-                  {fmtAud0(Math.abs(homeLoanInterestSavingVsLoan))} dollars {homeLoanInterestSavingVsLoan >= 0 ? "less" : "more"}{" "}
-                  home-loan interest
-                </b>{" "}
-                when you opt for the novated lease.
-              </li>
-            </ul>
-
-            <DisclaimerLine />
-          </div>
-        </div>
-      )}
-
-      {/* Card 3: NL vs Keeping Current Car (optional) */}
-      {showCurrentCar && (
-        <div style={{ border: "1px solid rgba(0,0,0,0.15)", borderRadius: 12, padding: 16 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6, flexWrap: "wrap" }}>
-            <div style={{ fontWeight: 900 }}>
-              Summary — {titleA} vs Keeping Current Car
-            </div>
-            <OpenDetailsButton />
-          </div>
-
-          <div style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.55, fontVariantNumeric: "tabular-nums" }}>
-            <div style={{ marginBottom: 8 }}>
-              Over <b>{years}</b> years of ownership, leasing a car costs{" "}
-              <b>
-                {fmtAud0(Math.abs(nlVsKeepSaving))} {nlVsKeepSaving >= 0 ? "less" : "more"}
-              </b>{" "}
-              compared to keeping your current car.
-            </div>
-
-            <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6 }}>
-              <li>
-                End assets: leased car ends at <b>{fmtAud0(evEndValue)}</b> vs current car ends at <b>{fmtAud0(currentEndValue)}</b> (asset
-                difference <b>{fmtAud0(assetDelta)}</b>).
-              </li>
-              <li>
-                Cashflows (over {years} years): NL spends <b>{fmtAud0(nlTotalSpent)}</b> but recovers <b>{fmtAud0(saleProceedsNow)}</b>{" "}
-                from selling the current car now; keeping the current car spends <b>{fmtAud0(keepRunningCostTotal)}</b> in running
-                costs.
-              </li>
-              <li>
-                Besides, your car ownership and running costs result in about <b>{fmtAud0(-nlHomeLoanInterestImpact)}</b> of additional
-                home-loan interest under the novated lease, compared with about <b>{fmtAud0(-currentHomeLoanInterestImpact)}</b> if you
-                keep your current car.{" "}
-                <span style={{ opacity: 0.85, fontStyle: "italic" }}>
-                  (This saving is less visible but is reflected as a difference in your loan balance, hence is a genuine effect on your
-                  financial position.)
-                </span>
-              </li>
-              <li>
-                The{" "}
-                <b>
-                  {fmtAud0(Math.abs(nlVsKeepSaving))} dollar {nlVsKeepSaving >= 0 ? "saving" : "loss"}
-                </b>{" "}
-                consists of <b>{fmtAud0(Math.abs(assetDelta))}</b> dollars {assetDelta >= 0 ? "more" : "less"} in car asset value,{" "}
-                <b>{fmtAud0(Math.abs(cashDelta))}</b> dollars {cashDelta >= 0 ? "lower" : "higher"} cashflow, and{" "}
-                <b>{fmtAud0(Math.abs(interestDelta))}</b> dollars {interestDelta >= 0 ? "less" : "more"} home-loan interest when you
-                opt for the novated lease.
-              </li>
-            </ul>
-
-            <DisclaimerLine />
-          </div>
-        </div>
-      )}
-
-      <NoteBox title="Modelling assumption:">
-        this modelling for novated leasing explicitly includes the final residual payout, and therefore assumes you fully own the car at
-        the end of the lease. This addresses a common misconception that novated leasing is expensive simply because you “don’t own the
-        car” at the end.
+      <NoteBox title="Residual assumption:">
+        all scenarios include the final residual payout, so the model assumes you own the car outright at the end of the
+        lease. This addresses the common misconception that novated leasing is expensive because you "don't own the car."
       </NoteBox>
 
-      <NoteBox title="Interpretation:">
-        all “additional home-loan interest” figures shown above are computed relative to a reference scenario of having no car and no
-        running costs over the same duration. This reference is chosen as it allows a clean comparison of any two scenarios in this tool.
+      <NoteBox title="Interest baseline:">
+        home-loan interest figures are relative to a reference of having no car. This lets any two scenarios be cleanly
+        compared against the same baseline.
       </NoteBox>
-
     </div>
   );
 }

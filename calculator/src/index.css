@@ -3,7 +3,12 @@
    Scope everything to the calculator mount element instead.
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 #nl-calculator-root {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   /* keeps the calculator content from touching the edges */
   padding: 8px 16px 16px;
 }
@@ -38,6 +43,27 @@
 #nl-calculator-root button,
 #nl-calculator-root textarea {
   font: inherit;
+  letter-spacing: inherit;
+}
+
+/* Polished focus ring for form controls */
+#nl-calculator-root input:focus,
+#nl-calculator-root select:focus,
+#nl-calculator-root textarea:focus {
+  outline: none;
+  border-color: rgba(11, 92, 171, 0.55) !important;
+  box-shadow: 0 0 0 3px rgba(11, 92, 171, 0.12) !important;
+}
+
+/* Subtle hover state for all buttons */
+#nl-calculator-root button:hover:not(:disabled) {
+  filter: brightness(0.96);
+  transition: filter 120ms ease;
+}
+
+/* Uppercase section-title letter-spacing via data attribute */
+#nl-calculator-root [data-section-title] {
+  letter-spacing: 0.045em;
 }
 
 html, body, #root {

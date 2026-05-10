@@ -49,29 +49,6 @@ type YesNo = "Yes" | "No";
 type OutputTab = "Summary" | "Details";
 type SummaryHorizon = "five_year" | "lease_end";
 
-function TabButton(props: {
-  label: React.ReactNode;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={props.onClick}
-      style={{
-        padding: "8px 10px",
-        borderRadius: 10,
-        border: "1px solid rgba(0,0,0,0.18)",
-        background: props.active ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.02)",
-        fontWeight: props.active ? 800 : 600,
-        cursor: "pointer",
-      }}
-    >
-      {props.label}
-    </button>
-  );
-}
-
 // CollapsibleSection helper component
 type CollapsibleSectionProps = {
   title: string;
@@ -80,11 +57,21 @@ type CollapsibleSectionProps = {
   children: React.ReactNode;
   muted?: boolean;
   analyticsId?: string;
+  accent?: string; // CSS colour for the left-border strip and header tint
 };
 
 function CollapsibleSection(props: CollapsibleSectionProps) {
   const [isOpen, setIsOpen] = useState<boolean>(!!props.defaultOpen);
   const muted = !!props.muted;
+  const accent = props.accent ?? "#0b5cab";
+
+  // Hex → very faint RGBA tint for the header background
+  function accentTint(hex: string, alpha: number) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r},${g},${b},${alpha})`;
+  }
 
   return (
     <details
@@ -101,25 +88,23 @@ function CollapsibleSection(props: CollapsibleSectionProps) {
         }
       }}
       style={{
-        border: "1px solid rgba(0,0,0,0.15)",
-        borderRadius: 12,
+        borderRadius: 14,
         opacity: muted ? 0.55 : 1,
-        background: muted ? "rgba(0,0,0,0.02)" : "rgba(255,255,255,0.98)",
+        background: "#fff",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 4px 18px rgba(0,0,0,0.07)",
+        borderLeft: `4px solid ${muted ? "rgba(0,0,0,0.15)" : accent}`,
+        overflow: "hidden",
       }}
     >
       <style>{`
         .nl-collapsible-summary::-webkit-details-marker { display: none; }
         .nl-collapsible-summary::marker { content: ""; }
-
-        /* Defensive overrides in case global CSS adds icons via pseudo-elements */
         .nl-collapsible-summary::before,
         .nl-collapsible-summary::after {
           content: none !important;
           display: none !important;
           background: none !important;
         }
-
-        /* Defensive override in case global CSS uses background images */
         .nl-collapsible-summary {
           background-image: none !important;
         }
@@ -130,63 +115,55 @@ function CollapsibleSection(props: CollapsibleSectionProps) {
         style={{
           listStyle: "none",
           cursor: "pointer",
-          padding: 0,
-          paddingLeft: 16,
-          paddingRight: 16,
-          paddingTop: 16,
-          paddingBottom: 16,
+          padding: "14px 16px",
           display: "flex",
-          alignItems: "baseline",
+          alignItems: "center",
           justifyContent: "space-between",
           gap: 12,
           userSelect: "none",
           WebkitAppearance: "none" as any,
           appearance: "none" as any,
+          background: muted ? "rgba(0,0,0,0.02)" : accentTint(accent, 0.05),
         }}
       >
         <div>
-          <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 4 }}>
+          <div style={{
+            fontWeight: 700,
+            fontSize: 13.5,
+            marginBottom: 3,
+            letterSpacing: "-0.01em",
+            color: muted ? "rgba(0,0,0,0.55)" : accent,
+          }}>
             {props.title}
           </div>
-          <div
-            style={{
-              fontSize: 13,
-              opacity: muted ? 0.65 : 0.8,
-              lineHeight: 1.3,
-            }}
-          >
+          <div style={{ fontSize: 12.5, opacity: muted ? 0.55 : 0.68, lineHeight: 1.35, fontWeight: 400 }}>
             {props.description}
           </div>
         </div>
 
-        {/* Expand / collapse button */}
         <div
           aria-hidden
           style={{
-            width: 30,
-            height: 30,
-            borderRadius: 10,
-            border: "1px solid rgba(0,0,0,0.18)",
-            background: muted
-              ? "rgba(0,0,0,0.02)"
-              : isOpen
-              ? "rgba(0,0,0,0.06)"
-              : "rgba(0,0,0,0.02)",
+            width: 26,
+            height: 26,
+            borderRadius: 7,
+            background: accentTint(accent, 0.10),
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: 18,
-            fontWeight: 900,
-            lineHeight: 1,
-            opacity: 0.9,
+            fontSize: 12,
+            fontWeight: 700,
+            color: accent,
             flex: "0 0 auto",
+            transition: "transform 180ms ease",
+            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
           }}
         >
-          {isOpen ? "−" : "+"}
+          ▾
         </div>
       </summary>
 
-      <div style={{ borderTop: "1px solid rgba(0,0,0,0.10)", padding: 16 }}>
+      <div style={{ padding: 16 }}>
         {props.children}
       </div>
     </details>
@@ -985,9 +962,9 @@ useEffect(() => {
     style={{
       width: "100%",
       fontFamily:
-        '"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif',
+        '"Inter","Söhne",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif',
       fontSize: 14,
-      lineHeight: 1.35,
+      lineHeight: 1.4,
       color: "rgba(0,0,0,0.9)",
     }}
   >
@@ -1343,11 +1320,7 @@ useEffect(() => {
         <div
           className="nl-col nl-left"
           style={{
-            border: "1px solid rgba(0,0,0,0.15)",
-            borderRadius: 12,
-            padding: 16,
-            background: "rgba(0,0,0,0.03)",
-            overflow: "hidden"
+            padding: "0 4px",
           }}
         >
           <InputsPanel
@@ -1374,168 +1347,163 @@ useEffect(() => {
         <div
           className="nl-col nl-right"
           style={{
-            border: "1px solid rgba(0,0,0,0.15)",
-            borderRadius: 12,
-            padding: 16,
-            background: "rgba(255,255,255,0.9)",
+            padding: "0 4px",
           }}
         >
-          {/* Output tabs */}
+          {/* ── Tab bar ──────────────────────────────────────────────── */}
           <div
             style={{
-              display: "flex",
-              gap: 8,
-              alignItems: "flex-start",
-              justifyContent: "space-between",
-              marginBottom: 12,
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              background: "rgba(0,0,0,0.06)",
+              borderRadius: 14,
+              padding: 5,
+              marginBottom: 16,
+              gap: 4,
             }}
+            role="tablist"
+            aria-label="Output view"
           >
-            <div
+            {/* Summary tab */}
+            <button
+              type="button"
+              role="tab"
+              aria-selected={outputTab === "Summary"}
+              onClick={() => setOutputTab("Summary")}
               style={{
-                fontWeight: 800,
-                fontSize: 18,
-                paddingTop: 6,
+                border: "none",
+                cursor: "pointer",
+                borderRadius: 10,
+                padding: "11px 14px",
+                textAlign: "left",
+                transition: "background 180ms ease, box-shadow 180ms ease",
+                background: outputTab === "Summary" ? "#fff" : "transparent",
+                boxShadow: outputTab === "Summary"
+                  ? "0 1px 3px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.08)"
+                  : "none",
               }}
             >
-              Outputs
-            </div>
-            {/* Right-side controls: Copy link and tab buttons, with summary horizon selector nested below tabs */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-end" }}>
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <TabButton
-                  label="🧾 Summary"
-                  active={outputTab === "Summary"}
-                  onClick={() => setOutputTab("Summary")}
-                />
-                <TabButton
-                  label="🔎 Details"
-                  active={outputTab === "Details"}
-                  onClick={() => {
-                    setOutputTab("Details");
-                    trackOncePerSession("details_tab_opened", "details_tab_opened");
-                  }}
-                />
+              <div style={{
+                fontSize: 15,
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
+                color: outputTab === "Summary" ? "#0b5cab" : "rgba(0,0,0,0.4)",
+                marginBottom: 2,
+              }}>
+                🧾 Summary
               </div>
+              <div style={{
+                fontSize: 11.5,
+                fontWeight: 500,
+                color: outputTab === "Summary" ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0.35)",
+                lineHeight: 1.3,
+              }}>
+                At-a-glance totals & savings
+              </div>
+            </button>
 
-              {outputTab === "Summary" && (
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={{ fontSize: 12, opacity: 0.7, fontWeight: 700 }}>
-                    Summary horizon
+            {/* Details tab */}
+            <button
+              type="button"
+              role="tab"
+              aria-selected={outputTab === "Details"}
+              onClick={() => {
+                setOutputTab("Details");
+                trackOncePerSession("details_tab_opened", "details_tab_opened");
+              }}
+              style={{
+                border: "none",
+                cursor: "pointer",
+                borderRadius: 10,
+                padding: "11px 14px",
+                textAlign: "left",
+                transition: "background 180ms ease, box-shadow 180ms ease",
+                background: outputTab === "Details" ? "#fff" : "transparent",
+                boxShadow: outputTab === "Details"
+                  ? "0 1px 3px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.08)"
+                  : "none",
+              }}
+            >
+              <div style={{
+                fontSize: 15,
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
+                color: outputTab === "Details" ? "#0b5cab" : "rgba(0,0,0,0.4)",
+                marginBottom: 2,
+              }}>
+                🔎 Details
+              </div>
+              <div style={{
+                fontSize: 11.5,
+                fontWeight: 500,
+                color: outputTab === "Details" ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0.35)",
+                lineHeight: 1.3,
+              }}>
+                Full section-by-section breakdown
+              </div>
+            </button>
+          </div>
+
+          {/* Summary horizon selector (shown only on Summary tab) */}
+          {outputTab === "Summary" && (
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+              <div style={{ fontSize: 12, opacity: 0.6, fontWeight: 600 }}>Horizon</div>
+              {leaseYearsLabel === 5 ? (
+                <div
+                  style={{
+                    display: "inline-flex", alignItems: "center",
+                    height: 30, borderRadius: 999,
+                    border: "1px solid rgba(0,0,0,0.15)",
+                    background: "rgba(0,0,0,0.04)",
+                    padding: "0 12px",
+                    fontSize: 13, fontWeight: 700,
+                    userSelect: "none",
+                  }}
+                  title="Lease duration is 5 years, so lease-end equals 5-year horizon"
+                >
+                  @ 5y
+                </div>
+              ) : (
+                <div
+                  style={{
+                    position: "relative", height: 30, borderRadius: 999,
+                    border: "1px solid rgba(0,0,0,0.15)",
+                    background: "rgba(0,0,0,0.04)",
+                    overflow: "hidden", userSelect: "none", minWidth: 148,
+                  }}
+                  role="group"
+                  aria-label="Summary time horizon"
+                >
+                  <div style={{
+                    position: "absolute", top: 2, bottom: 2, left: 2,
+                    width: "calc(50% - 2px)", borderRadius: 999,
+                    background: "#fff",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.12)",
+                    transform: summaryHorizon === "five_year" ? "translateX(0)" : "translateX(100%)",
+                    transition: "transform 180ms ease",
+                  }} />
+                  <div style={{ position: "relative", display: "grid", gridTemplateColumns: "1fr 1fr", height: "100%" }}>
+                    <button type="button" onClick={() => setSummaryHorizon("five_year")}
+                      style={{ border: "none", background: "transparent", cursor: "pointer", fontSize: 13,
+                        fontWeight: summaryHorizon === "five_year" ? 800 : 600,
+                        opacity: summaryHorizon === "five_year" ? 1 : 0.75 }}
+                      aria-pressed={summaryHorizon === "five_year"}
+                      title="5-year standardised comparison">
+                      @ 5y
+                    </button>
+                    <button type="button" onClick={() => setSummaryHorizon("lease_end")}
+                      style={{ border: "none", background: "transparent", cursor: "pointer", fontSize: 13,
+                        fontWeight: summaryHorizon === "lease_end" ? 800 : 600,
+                        opacity: summaryHorizon === "lease_end" ? 1 : 0.75 }}
+                      aria-pressed={summaryHorizon === "lease_end"}
+                      title="Lease-end comparison">
+                      @ {leaseYearsLabel}y
+                    </button>
                   </div>
-                  {leaseYearsLabel === 5 ? (
-                    <div
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        height: 34,
-                        borderRadius: 999,
-                        border: "1px solid rgba(0,0,0,0.18)",
-                        background: "rgba(0,0,0,0.04)",
-                        padding: 2,
-                        userSelect: "none",
-                      }}
-                      aria-label="Summary time horizon"
-                      title="Lease duration is 5 years, so lease-end equals 5-year horizon"
-                    >
-                      <div
-                        style={{
-                          height: 30,
-                          display: "inline-flex",
-                          alignItems: "center",
-                          padding: "0 12px",
-                          borderRadius: 999,
-                          background: "#fff",
-                          boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
-                          fontWeight: 900,
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        @ 5y
-                      </div>
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        position: "relative",
-                        height: 34,
-                        borderRadius: 999,
-                        border: "1px solid rgba(0,0,0,0.18)",
-                        background: "rgba(0,0,0,0.04)",
-                        overflow: "hidden",
-                        userSelect: "none",
-                        minWidth: 160,
-                      }}
-                      role="group"
-                      aria-label="Summary time horizon"
-                    >
-                      {/* Sliding knob */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: 2,
-                          bottom: 2,
-                          left: 2,
-                          width: "calc(50% - 2px)",
-                          borderRadius: 999,
-                          background: "#fff",
-                          boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
-                          transform:
-                            summaryHorizon === "five_year" ? "translateX(0)" : "translateX(100%)",
-                          transition: "transform 180ms ease",
-                        }}
-                      />
-
-                      {/* Click targets + labels */}
-                      <div
-                        style={{
-                          position: "relative",
-                          display: "grid",
-                          gridTemplateColumns: "1fr 1fr",
-                          height: "100%",
-                        }}
-                      >
-                        <button
-                          type="button"
-                          onClick={() => setSummaryHorizon("five_year")}
-                          style={{
-                            border: "none",
-                            background: "transparent",
-                            cursor: "pointer",
-                            fontSize: 14,
-                            fontWeight: summaryHorizon === "five_year" ? 900 : 750,
-                            opacity: summaryHorizon === "five_year" ? 1 : 0.85,
-                            whiteSpace: "nowrap",
-                          }}
-                          aria-pressed={summaryHorizon === "five_year"}
-                          title="Show summary framed over 5 years (standardised comparison)"
-                        >
-                          @ 5y
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => setSummaryHorizon("lease_end")}
-                          style={{
-                            border: "none",
-                            background: "transparent",
-                            cursor: "pointer",
-                            fontSize: 14,
-                            fontWeight: summaryHorizon === "lease_end" ? 900 : 750,
-                            opacity: summaryHorizon === "lease_end" ? 1 : 0.85,
-                            whiteSpace: "nowrap",
-                          }}
-                          aria-pressed={summaryHorizon === "lease_end"}
-                          title="Show summary framed over the lease term (ends at residual)"
-                        >
-                          @ {leaseYearsLabel}y
-                        </button>
-                      </div>
-                    </div>
-                  )}
                 </div>
               )}
             </div>
-          </div>
+          )}
 
           {outputTab === "Summary" ? (
             <SummaryView inputs={inputs} summaryHorizon={summaryHorizon} />
@@ -1543,10 +1511,12 @@ useEffect(() => {
             <>
               <div
                 style={{
-                  border: "1px solid rgba(0,0,0,0.15)",
-                  borderRadius: 12,
+                  borderRadius: 14,
                   padding: 16,
                   marginBottom: 16,
+                  background: "#fff",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 4px 18px rgba(0,0,0,0.07)",
+                  borderLeft: "4px solid #0b5cab",
                 }}
               >
                 <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} />
@@ -1556,6 +1526,7 @@ useEffect(() => {
                 title="💳 SECTION 1: LEASE PAYMENTS"
                 description="Shows your pre-tax lease payments and their impact on take-home pay (fortnightly, annual, and total), with a year-by-year breakdown highlighting changes near marginal tax thresholds."
                 analyticsId="section_1_lease_payments"
+                accent="#0b5cab"
               >
                 <LeaseReport inputs={inputs} taxRateInclMedicarePct={47} vehicleLeasePeriodMode={vehicleLeasePeriodMode} />
               </CollapsibleSection>
@@ -1565,6 +1536,7 @@ useEffect(() => {
                   title="📊 SECTION 2: FINANCIAL SUMMARY"
                   description="A side-by-side worksheet comparing cashflow, assets, and liabilities under each pathway — novated lease, loan, cash purchase, or keeping your current car."
                   analyticsId="section_2_financial_summary"
+                  accent="#1b5e20"
                 >
                   <FinancialReport inputs={inputs} taxRateInclMedicarePct={47} />
                 </CollapsibleSection>
@@ -1577,6 +1549,7 @@ useEffect(() => {
                   title="📉 SECTION 3: EFFECTIVE INTEREST RATE"
                   description="Back-calculates the implied interest rate hidden in your lease payment and residual, with an optional amortisation schedule."
                   analyticsId="section_3_effective_interest_rate"
+                  accent="#4527a0"
                 >
                   <EffectiveInterestReport inputs={inputs} />
                 </CollapsibleSection>
@@ -1587,6 +1560,7 @@ useEffect(() => {
                   title="🧮 SECTION 4: ADJUSTED TAXABLE INCOME"
                   description="Estimates how novated leasing changes your Adjusted Taxable Income — relevant for HECS repayments, childcare subsidy, and Medicare levy surcharge."
                   analyticsId="section_4_ati"
+                  accent="#6a1b9a"
                 >
                   <ATI
                     inputs={inputs}
@@ -1609,6 +1583,7 @@ useEffect(() => {
                       : "Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
                   }
                   analyticsId="section_5_sg"
+                  accent="#00695c"
                 >
                   {inputs.superFromPreNlIncome === "Yes" ? (
                     <div style={{ fontSize: 13, lineHeight: 1.45, opacity: 0.9 }}>
@@ -1625,6 +1600,7 @@ useEffect(() => {
                   title="🧪 SECTION 6: RATE SENSITIVITY CHECK"
                   description="Stress-tests your quoted lease by comparing it with the same car financed at an assumed wholesale interest rate (e.g. 7.0%)."
                   analyticsId="section_6_what_if"
+                  accent="#e65100"
                 >
                   <WhatIf inputs={inputs} />
                 </CollapsibleSection>
@@ -1635,6 +1611,7 @@ useEffect(() => {
                   title="⚠️ SECTION 7: EARLY TERMINATION RISK"
                   description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash."
                   analyticsId="section_7_worst_case_scenario"
+                  accent="#b71c1c"
                 >
                   <WorstCase inputs={inputs} />
                 </CollapsibleSection>

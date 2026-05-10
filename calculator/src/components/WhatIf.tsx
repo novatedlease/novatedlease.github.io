@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Inputs } from "../engine/types";
 import {
   effectiveAnnualRateFromFortnightlyLease,
@@ -7,6 +7,7 @@ import {
 } from "../engine/effectiveinterest";
 
 import { InfoTooltip } from "./ui/InfoTooltip";
+import { Stat, StatGrid, SubHead, NoteBox } from "./ui/shared";
 
 export type WhatIfProps = {
   inputs: Inputs;
@@ -95,189 +96,123 @@ export default function WhatIf({ inputs }: WhatIfProps) {
 
   const moreOrLess = (x: number) => (x >= 0 ? "more" : "less");
 
-  const SummaryCard = (p: { title: string; value: string; subtitle?: React.ReactNode }) => (
-    <div
-      style={{
-        padding: "10px 12px",
-        borderLeft: "4px solid #0b5cab",
-        background: "rgba(11,92,171,0.08)",
-        borderRadius: 10,
-        marginBottom: 10,
-        maxWidth: 520,
-      }}
-    >
-      <div style={{ fontSize: 12, opacity: 0.9, fontWeight: 800 }}>{p.title}</div>
-      <div style={{ fontSize: 22, fontWeight: 900, marginTop: 2 }}>{p.value}</div>
-      {p.subtitle ? (
-        <div style={{ fontSize: 13, opacity: 0.8, marginTop: 6, lineHeight: 1.35 }}>
-          {p.subtitle}
-        </div>
-      ) : null}
-    </div>
-  );
 
 
   if (error) {
     return (
       <div style={{ fontSize: 13, lineHeight: 1.5 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 10 }}>
-          <div style={{ fontWeight: 850, fontSize: 12, opacity: 0.85 }}>Assumed rate</div>
-          <div style={{ display: "inline-flex", border: "1px solid rgba(0,0,0,0.18)", borderRadius: 999, overflow: "hidden" }}>
-            {[0.07, 0.08, 0.09].map((r) => {
-              const active = assumedAnnualRate === r;
-              return (
-                <button
-                  key={r}
-                  type="button"
-                  onClick={() => setAssumedAnnualRate(r)}
-                  style={{
-                    appearance: "none",
-                    border: "none",
-                    background: active ? "rgba(0,0,0,0.12)" : "transparent",
-                    padding: "6px 10px",
-                    cursor: "pointer",
-                    fontWeight: active ? 900 : 650,
-                    fontSize: 12,
-                    lineHeight: 1,
-                  }}
-                  aria-pressed={active}
-                >
-                  {(r * 100).toFixed(0)}%
-                </button>
-              );
-            })}
-          </div>
-        </div>
-        <div style={{ fontWeight: 900, marginBottom: 6 }}>
-          Assumption: effective interest rate = {fmtPct(assumedAnnualRate)}
-        </div>
-        <div style={{ opacity: 0.85 }}>
+        <NoteBox color="#b71c1c">
           Unable to compute the hypothetical lease payment for these inputs.
-        </div>
-        <div style={{ marginTop: 8, opacity: 0.75, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}>
-          {error}
-        </div>
+          <div style={{ marginTop: 6, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 11, opacity: 0.85 }}>{error}</div>
+        </NoteBox>
       </div>
     );
   }
 
   return (
     <div style={{ fontSize: 13, lineHeight: 1.5 }}>
-      <div style={{ marginBottom: 10 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-          <div style={{ fontWeight: 900, fontSize: 15 }}>
-            What if the underlying wholesale finance rate were {fmtPct(assumedAnnualRate)}?
-          </div>
-          <InfoTooltip
-            width={420}
-            text={
-              "This is a simple 'what-if' sensitivity check. 7% is a ballpark estimate of wholesale finance rate underlying typical novated leases based on an inside source. Actual wholesale rates vary over time and by financier, credit profile, term, broader interest rate conditions."
-            }
-          />
-        </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-          <div style={{ fontWeight: 850, fontSize: 12, opacity: 0.85 }}>Assumed rate</div>
-          <div style={{ display: "inline-flex", border: "1px solid rgba(0,0,0,0.18)", borderRadius: 999, overflow: "hidden" }}>
-            {[0.07, 0.08, 0.09].map((r) => {
-              const active = assumedAnnualRate === r;
-              return (
-                <button
-                  key={r}
-                  type="button"
-                  onClick={() => setAssumedAnnualRate(r)}
-                  style={{
-                    appearance: "none",
-                    border: "none",
-                    background: active ? "rgba(0,0,0,0.12)" : "transparent",
-                    padding: "6px 10px",
-                    cursor: "pointer",
-                    fontWeight: active ? 900 : 650,
-                    fontSize: 12,
-                    lineHeight: 1,
-                  }}
-                  aria-pressed={active}
-                >
-                  {(r * 100).toFixed(0)}%
-                </button>
-              );
-            })}
-          </div>
+      {/* ── Top stat cards ── */}
+      <StatGrid>
+        <Stat
+          label="Quoted vehicle lease / fn"
+          value={money(currentVehiclePerFn2dp)}
+          color="#0b5cab"
+          note={`Implied rate: ${quotedAnnualRate != null ? fmtPct(quotedAnnualRate) : "—"}`}
+        />
+        <Stat
+          label={`Wholesale rate (${fmtPct(assumedAnnualRate)}) vehicle / fn`}
+          value={money(hypotheticalPerFn2dp)}
+          color="#1b5e20"
+        />
+        <Stat
+          label="Difference over term"
+          value={`${moneyNoCents(Math.abs(diffTotal))} ${moreOrLess(diffTotal)}`}
+          color={diffTotal >= 0 ? "#b71c1c" : "#1b5e20"}
+          note="Pre-tax, lifetime total"
+        />
+      </StatGrid>
+
+      {/* ── Assumed rate selector ── */}
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(0,0,0,0.65)" }}>Assumed wholesale rate:</div>
+        <div style={{ display: "inline-flex", border: "1px solid rgba(11,92,171,0.3)", borderRadius: 999, overflow: "hidden", background: "rgba(11,92,171,0.04)" }}>
+          {[0.07, 0.08, 0.09].map((r) => {
+            const active = assumedAnnualRate === r;
+            return (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setAssumedAnnualRate(r)}
+                style={{
+                  appearance: "none",
+                  border: "none",
+                  background: active ? "#0b5cab" : "transparent",
+                  color: active ? "#fff" : "#0b5cab",
+                  padding: "5px 12px",
+                  cursor: "pointer",
+                  fontWeight: active ? 800 : 600,
+                  fontSize: 12,
+                  lineHeight: 1,
+                  transition: "all 120ms ease",
+                }}
+                aria-pressed={active}
+              >
+                {(r * 100).toFixed(0)}%
+              </button>
+            );
+          })}
         </div>
+        <InfoTooltip
+          width={420}
+          text="7% is a ballpark estimate of wholesale finance rate underlying typical novated leases. Actual wholesale rates vary over time and by financier, credit profile, term, and broader interest rate conditions."
+        />
       </div>
 
-      <SummaryCard
-        title="You paid"
-        value={`${moneyNoCents(Math.abs(diffTotal))} ${moreOrLess(diffTotal)} (pre-tax)`}
-        subtitle={
-          <>
-            Your quoted vehicle lease is <b>{moneyNoCents(Math.abs(diffTotal))}</b> (pre-tax)
-            {" "}{moreOrLess(diffTotal)} than the wholesale finance rate over <b>{totalFortnights}</b> fortnights.
-          </>
-        }
-      />
-
-      <div style={{ maxWidth: 820 }}>
-        <table
-          style={{
-            width: "100%",
-            borderCollapse: "collapse",
-            fontSize: 13,
-          }}
-        >
+      {/* ── Comparison table ── */}
+      <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
           <thead>
-            <tr style={{ borderBottom: "1px solid rgba(0,0,0,0.18)" }}>
-              <th style={{ textAlign: "left", padding: "6px 4px" }}></th>
-              <th style={{ textAlign: "left", padding: "6px 4px" }}>Rate</th>
-              <th style={{ textAlign: "left", padding: "6px 4px" }}>Per fortnight (pre-tax)</th>
-              <th style={{ textAlign: "left", padding: "6px 4px" }}>Lifetime total (pre-tax)</th>
+            <tr>
+              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#4a4a4a", color: "#fff" }}></th>
+              <th style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#4a4a4a", color: "#fff", whiteSpace: "nowrap" }}>Rate</th>
+              <th style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#4a4a4a", color: "#fff", whiteSpace: "nowrap" }}>Per fortnight</th>
+              <th style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#4a4a4a", color: "#fff", whiteSpace: "nowrap" }}>Lifetime total</th>
             </tr>
           </thead>
           <tbody>
-            <tr style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}>
-              <td style={{ padding: "6px 4px", fontWeight: 600 }}>
-                Wholesale (Assumed)
-              </td>
-              <td style={{ padding: "6px 4px" }}>{fmtPct(assumedAnnualRate)}</td>
-              <td style={{ padding: "6px 4px" }}>{money(hypotheticalPerFn2dp)}</td>
-              <td style={{ padding: "6px 4px" }}>{money(hypotheticalTotal)}</td>
+            <tr>
+              <td style={{ padding: "6px 10px", fontWeight: 600, borderBottom: "1px solid rgba(0,0,0,0.06)", color: "#1b5e20" }}>Wholesale (assumed)</td>
+              <td style={{ padding: "6px 10px", textAlign: "right", borderBottom: "1px solid rgba(0,0,0,0.06)", fontVariantNumeric: "tabular-nums", color: "#1b5e20" }}>{fmtPct(assumedAnnualRate)}</td>
+              <td style={{ padding: "6px 10px", textAlign: "right", borderBottom: "1px solid rgba(0,0,0,0.06)", fontVariantNumeric: "tabular-nums", color: "#1b5e20" }}>{money(hypotheticalPerFn2dp)}</td>
+              <td style={{ padding: "6px 10px", textAlign: "right", borderBottom: "1px solid rgba(0,0,0,0.06)", fontVariantNumeric: "tabular-nums", color: "#1b5e20" }}>{money(hypotheticalTotal)}</td>
             </tr>
             <tr>
-              <td style={{ padding: "6px 4px", fontWeight: 600 }}>Quoted</td>
-              <td style={{ padding: "6px 4px" }}>
-                {quotedAnnualRate != null ? fmtPct(quotedAnnualRate) : "–"}
-              </td>
-              <td style={{ padding: "6px 4px" }}>{money(currentVehiclePerFn2dp)}</td>
-              <td style={{ padding: "6px 4px" }}>{money(currentTotal)}</td>
+              <td style={{ padding: "6px 10px", fontWeight: 600, borderBottom: "1px solid rgba(0,0,0,0.06)", color: "#0b5cab" }}>Quoted</td>
+              <td style={{ padding: "6px 10px", textAlign: "right", borderBottom: "1px solid rgba(0,0,0,0.06)", fontVariantNumeric: "tabular-nums", color: "#0b5cab" }}>{quotedAnnualRate != null ? fmtPct(quotedAnnualRate) : "–"}</td>
+              <td style={{ padding: "6px 10px", textAlign: "right", borderBottom: "1px solid rgba(0,0,0,0.06)", fontVariantNumeric: "tabular-nums", color: "#0b5cab" }}>{money(currentVehiclePerFn2dp)}</td>
+              <td style={{ padding: "6px 10px", textAlign: "right", borderBottom: "1px solid rgba(0,0,0,0.06)", fontVariantNumeric: "tabular-nums", color: "#0b5cab" }}>{money(currentTotal)}</td>
             </tr>
-            <tr style={{ borderTop: "1px solid rgba(0,0,0,0.12)" }}>
-              <td style={{ padding: "6px 4px", fontWeight: 800 }}>Difference</td>
-              <td style={{ padding: "6px 4px" }}></td>
-              <td style={{ padding: "6px 4px", fontWeight: 800 }}>
-                {money(Math.abs(diffPerFn))} {moreOrLess(diffPerFn)}
-              </td>
-              <td style={{ padding: "6px 4px", fontWeight: 800 }}>
-                {moneyNoCents(Math.abs(diffTotal))} {moreOrLess(diffTotal)}
-              </td>
+            <tr style={{ background: "rgba(183,28,28,0.04)" }}>
+              <td style={{ padding: "6px 10px", fontWeight: 800, color: "#b71c1c" }}>Difference</td>
+              <td style={{ padding: "6px 10px", textAlign: "right", color: "#b71c1c" }}></td>
+              <td style={{ padding: "6px 10px", textAlign: "right", fontWeight: 800, fontVariantNumeric: "tabular-nums", color: "#b71c1c" }}>{money(Math.abs(diffPerFn))} {moreOrLess(diffPerFn)}</td>
+              <td style={{ padding: "6px 10px", textAlign: "right", fontWeight: 800, fontVariantNumeric: "tabular-nums", color: "#b71c1c" }}>{moneyNoCents(Math.abs(diffTotal))} {moreOrLess(diffTotal)}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div style={{ marginTop: 20, maxWidth: 820 }}>
-        <div style={{ fontWeight: 900, opacity: 0.9, marginBottom: 6 }}>
-          Interpretation
-        </div>
-
-        <div style={{ fontSize: 12, lineHeight: 1.4, opacity: 0.85 }}>
+      <SubHead mt={14}>Interpretation</SubHead>
+      <div style={{ fontSize: 12.5, lineHeight: 1.55, color: "rgba(0,0,0,0.75)" }}>
+        <p style={{ margin: "0 0 8px 0" }}>
           The difference above is a simple estimate of the gross financing margin between your quoted vehicle lease and an assumed
-          underlying wholesale finance rate. Novated lease quotes often bundle admin fees, insurances, and repair packages, and different
-          parties may be compensated in different ways; this tool cannot observe the underlying commercial arrangements. 
-        </div>
-
-        <div style={{ marginTop: 8, fontSize: 12, lineHeight: 1.4, opacity: 0.75 }}>
-          <b>Note:</b> This shows the <b>pre-tax</b> repayment difference only, not the net (after-tax) impact on your take-home pay. The actual net effect depends on your marginal tax rate (including any threshold effects), as well as the secondary benefit from reduced home loan interest. To approximate the net impact, enter the hypothetical vehicle lease amount in the Inputs panel (i.e. <b>{money(hypotheticalPerFn2dp)} per fortnight, pre-tax</b>) and compare the Summary outcomes.
-        </div>
+          wholesale finance rate. Novated lease quotes often bundle admin fees, insurances, and repair packages.
+        </p>
+        <p style={{ margin: 0 }}>
+          <b>Note:</b> This shows the <b>pre-tax</b> repayment difference only. To approximate the net after-tax impact, enter{" "}
+          <b>{money(hypotheticalPerFn2dp)} per fortnight</b> as the vehicle lease in the Inputs panel and compare Summary outcomes.
+        </p>
       </div>
 
     </div>

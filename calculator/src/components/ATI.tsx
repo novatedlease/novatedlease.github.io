@@ -3,6 +3,7 @@ import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
 import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
 import { computeDerived } from "../engine/derived";
+import { Stat, StatGrid, SubHead, KV, NoteBox, Table, th, thR, td, tdR, stripe } from "./ui/shared";
 
 /**
  * ATI = Adjusted Taxable Income (secondary to novated lease)
@@ -245,175 +246,130 @@ export default function ATI(props: AtiProps) {
       });
   }, [props.rows, taxableIncomePostNlByFinancialYearEnding, rfbaByFinancialYearEnding, purpose, rfbaTwoThirdsFromYear, fbtApplicable]);
 
-  return (
-    <div style={{ padding: "12px 0", fontSize: 14, lineHeight: 1.35 }}>
+  const firstRow = computedRows[0];
+  const lastRow = computedRows[computedRows.length - 1];
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 300px) minmax(160px, 1fr)",
-          rowGap: 8,
-          columnGap: 12,
-          alignItems: "center",
-          marginBottom: 10,
-        }}
-      >
-        <div style={{ fontSize: 14, opacity: 0.9, minWidth: 0, overflowWrap: "anywhere" }}>Calculation Purpose</div>
+  return (
+    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
+
+      {/* ── Top stat cards ── */}
+      {firstRow && (
+        <StatGrid>
+          <Stat
+            label="Original taxable income (pre-NL)"
+            value={formatMoney(props.originalTaxableIncomePreNL)}
+            color="#0b5cab"
+          />
+          <Stat
+            label="Taxable income post-NL (first year)"
+            value={formatMoney(firstRow.taxableIncomePostNL)}
+            color="#1b5e20"
+            note={`FY ${firstRow.financialYearEnding}`}
+          />
+          {lastRow && lastRow.financialYearEnding !== firstRow.financialYearEnding && (
+            <Stat
+              label="RFBA (first year)"
+              value={formatMoney(firstRow.rfba)}
+              color="#6a1b9a"
+              note="Added back to get ATI"
+            />
+          )}
+        </StatGrid>
+      )}
+
+      {/* ── Purpose selector ── */}
+      <SubHead mt={4}>Calculation Purpose</SubHead>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
         <select
           value={purpose}
           onChange={e => setPurpose(e.target.value as AtiCalculationPurpose)}
           style={{
-            width: "100%",
-            minWidth: 160,
-            borderRadius: 10,
+            flex: 1,
+            borderRadius: 8,
             border: "1px solid rgba(0,0,0,0.18)",
-            padding: "10px 12px",
-            fontSize: 14,
+            padding: "8px 10px",
+            fontSize: 13,
             background: "#fff",
           }}
         >
           <option value="standard">Standard</option>
           <option value="fbtExemptChildcare">FBT-exempt employer (childcare subsidy)</option>
         </select>
-        <div
-          style={{
-            gridColumn: "1 / -1",
-            fontStyle: "italic",
-            fontSize: 12,
-            opacity: 0.75,
-            display: "flex",
-            alignItems: "center",
-            gap: 6,
-            marginTop: 2,
-          }}
-        >
-          <span>
-            * Choose second option for childcare subsidy consideration if you work for FBT-exempt organisation (e.g. hospital)
-          </span>
-          <InfoTooltip text="When the FBT‑exempt employer option is selected, the Reportable Fringe Benefits Amount (RFBA) is reduced to 53% for childcare subsidy means‑testing." />
-        </div>
+        <InfoTooltip text="When the FBT‑exempt employer option is selected, the Reportable Fringe Benefits Amount (RFBA) is reduced to 53% for childcare subsidy means‑testing." />
+      </div>
+      <div style={{ fontSize: 12, color: "rgba(0,0,0,0.55)", fontStyle: "italic", marginBottom: 12 }}>
+        Choose the second option if you work for an FBT-exempt organisation (e.g. hospital) and are assessing childcare subsidy.
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 300px) minmax(160px, 1fr)",
-          rowGap: 8,
-          columnGap: 12,
-          marginBottom: 14,
-        }}
-      >
-        <div style={{ fontSize: 14, opacity: 0.9, minWidth: 0, overflowWrap: "anywhere" }}>Original Taxable Income Pre-NL</div>
-        <div style={{ whiteSpace: "nowrap" }}>{formatMoney(props.originalTaxableIncomePreNL)}</div>
+      {/* ── Summary KV ── */}
+      <KV label="Original taxable income (pre-NL)" value={formatMoney(props.originalTaxableIncomePreNL)} />
+      <KV label="Novated lease period" value={`${formatDateAU(props.leaseStartDate)} → ${formatDateAU(leaseEndDate)}`} />
 
-        <div style={{ fontSize: 14, opacity: 0.9, minWidth: 0, overflowWrap: "anywhere" }}>Novated Lease Period (Start : End)</div>
-        <div style={{ whiteSpace: "nowrap" }}>
-          {formatDateAU(props.leaseStartDate)} <span style={{ margin: "0 10px" }}>to</span> {formatDateAU(leaseEndDate)}
-        </div>
-      </div>
-
-      <div style={{ borderTop: "1px solid rgba(0,0,0,0.15)", paddingTop: 10 }}>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "right", padding: "8px 8px", fontSize: 14, fontWeight: 900 }}>Financial Year</th>
-              <th style={{ textAlign: "right", padding: "8px 8px", fontSize: 14, fontWeight: 900 }}>Taxable Income Post NL</th>
-              <th style={{ textAlign: "right", padding: "8px 8px", fontSize: 14, fontWeight: 900 }}>Reportable Fringe Benefit Amount</th>
-              <th style={{ textAlign: "right", padding: "8px 8px", fontSize: 14, fontWeight: 900 }}>Adjusted Taxable Income</th>
+      {/* ── Year-by-year table ── */}
+      <SubHead mt={14}>Year-by-Year ATI Breakdown</SubHead>
+      <Table>
+        <thead>
+          <tr>
+            <th style={th()}>Financial Year</th>
+            <th style={thR()}>Taxable Income Post-NL</th>
+            <th style={thR()}>RFBA</th>
+            <th style={thR()}>Adjusted Taxable Income</th>
+          </tr>
+        </thead>
+        <tbody>
+          {computedRows.map((r, i) => (
+            <tr key={r.financialYearEnding} style={stripe(i)}>
+              <td style={td()}>
+                {r.financialYearEnding === rfbaTwoThirdsFromYear && (
+                  <span style={{ marginRight: 6 }}>
+                    <InfoTooltip
+                      text={`From FY ${rfbaTwoThirdsFromYear} onwards, the RFBA is further reduced to two‑thirds (2/3) due to base-value adjustment rule after 4 years.`}
+                    />
+                  </span>
+                )}
+                {r.financialYearEnding}
+              </td>
+              <td style={tdR()}>{formatMoney(r.taxableIncomePostNL)}</td>
+              <td style={tdR()}>{formatMoney(r.rfba)}</td>
+              <td style={tdR({ fontWeight: 700, color: "#6a1b9a" })}>{formatMoney(r.adjustedTaxableIncome)}</td>
             </tr>
-          </thead>
-          <tbody>
-            {computedRows.map(r => (
-              <tr key={r.financialYearEnding}>
-                <td style={{ textAlign: "right", padding: "8px 8px", fontSize: 14 }}>
-                  {r.financialYearEnding === rfbaTwoThirdsFromYear && (
-                    <span style={{ marginRight: 6 }}>
-                      <InfoTooltip
-                        text={`From FY ${rfbaTwoThirdsFromYear} onwards, the RFBA is further reduced to two‑thirds (2/3) due to base-value adjustment rule after 4 years.`}
-                      />
-                    </span>
-                  )}
-                  {r.financialYearEnding}
-                </td>
-                <td style={{ textAlign: "right", padding: "8px 8px", fontSize: 14 }}>{formatMoney(r.taxableIncomePostNL)}</td>
-                <td style={{ textAlign: "right", padding: "8px 8px", fontSize: 14 }}>{formatMoney(r.rfba)}</td>
-                <td style={{ textAlign: "right", padding: "8px 8px", fontSize: 14 }}>{formatMoney(r.adjustedTaxableIncome)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </Table>
 
-            {fbtApplicable && (
-        <div style={{ marginTop: 10, fontStyle: "italic", fontSize: 12, opacity: 0.8 }}>
-          RFBA is shown as $0 because this is an FBT-applicable lease and we assume Employee Contribution Method (ECM)
+      {fbtApplicable && (
+        <NoteBox color="#e65100" mt={10}>
+          RFBA is shown as $0 because this is an FBT-applicable lease — we assume the Employee Contribution Method (ECM)
           is used to reduce FBT to zero.
-        </div>
+        </NoteBox>
       )}
 
-      <div
-        style={{
-          marginTop: 12,
-          padding: "10px 12px",
-          borderLeft: "4px solid rgba(0,0,0,0.25)",
-          background: "rgba(0,0,0,0.04)",
-          borderRadius: 8,
-          fontSize: 13,
-          lineHeight: 1.55,
-        }}
-      >
+      <NoteBox color="#1b5e20" mt={10}>
         <div style={{ fontWeight: 700, marginBottom: 6 }}>Next step: see what ATI changes might affect</div>
-        <div style={{ opacity: 0.9, marginBottom: 8 }}>
-          Take your <b>reportable fringe benefit amount (RFBA)</b> and <b>updated Adjusted Taxable Income (ATI)</b> figures above and run them through these calculators to simulate downstream impacts.
+        <div style={{ marginBottom: 8 }}>
+          Take your <b>RFBA</b> and updated <b>ATI</b> figures above and run them through these calculators:
         </div>
         <ul style={{ margin: 0, paddingLeft: 18 }}>
           <li>
-            <a href="https://paycalculator.com.au/" target="_blank" rel="noreferrer">
-              paycalculator.com.au
-            </a>{" "}
+            <a href="https://paycalculator.com.au/" target="_blank" rel="noreferrer">paycalculator.com.au</a>{" "}
             — tax, Medicare levy surcharge, HELP, CCS etc.
           </li>
           <li>
-            <a href="https://www.ccschecker.com.au/" target="_blank" rel="noreferrer">
-              ccschecker.com.au
-            </a>{" "}
+            <a href="https://www.ccschecker.com.au/" target="_blank" rel="noreferrer">ccschecker.com.au</a>{" "}
             — childcare subsidy (CCS) estimates
           </li>
         </ul>
-      </div>
+      </NoteBox>
 
-
-
-      <div
-        style={{
-          marginTop: 14,
-          padding: "10px 12px",
-          borderLeft: "4px solid rgba(11, 92, 171, 0.6)",
-          background: "rgba(11, 92, 171, 0.06)",
-          borderRadius: 8,
-          fontSize: 13,
-          lineHeight: 1.55,
-          color: "#0b5cab",
-        }}
-      >
-        <div style={{ fontWeight: 700, marginBottom: 6 }}>Note</div>
+      <NoteBox color="#0b5cab" mt={10}>
+        <div style={{ fontWeight: 700, marginBottom: 6 }}>Notes</div>
         <ul style={{ margin: 0, paddingLeft: 18 }}>
-          <li>Please refer to the <a href="https://novatedlease.guide/special-and-policy/childcare-subsidy/">Adjusted Taxable Income</a> article for elaboration on how this affects you.</li>
-          <li>
-            In short, the adjusted taxable income is the figure that childcare subsidy, Medicare levy surcharge, child support, etc
-            are tested on, rather than original taxable income.
-          </li>
-          <li>
-            The RFBA calculation here uses the statutory formula method; an alternative is the operating cost method, which is not
-            covered.
-          </li>
-          <li>The adjusted taxable income is indicative only; some components are not accounted for.</li>
-          <li>
-            Note the reduced RFBA value for childcare subsidy means-testing when working for an FBT-exempt organisation (e.g.
-            hospital).
-          </li>
+          <li>Please refer to the <a href="https://novatedlease.guide/special-and-policy/childcare-subsidy/">Adjusted Taxable Income</a> article for detail on downstream impacts.</li>
+          <li>ATI is the figure tested for childcare subsidy, Medicare levy surcharge, child support, etc.</li>
+          <li>RFBA calculation uses the statutory formula method; the operating cost method is not covered here.</li>
+          <li>Figures are indicative only — some components are not accounted for.</li>
         </ul>
-      </div>
+      </NoteBox>
     </div>
   );
 }

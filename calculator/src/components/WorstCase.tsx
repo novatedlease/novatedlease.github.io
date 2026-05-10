@@ -8,6 +8,7 @@ import { taxSummaryAUResident } from "../engine/tax_au";
 import { aud0 } from "../utils/format";
 import { estimateAnnualChargingExpense } from "../engine/charging";
 import { buildWorksheet130 } from "../engine/worksheet_130";
+import { NoteBox, SubHead } from "./ui/shared";
 
 type WorstCaseProps = {
   inputs: Inputs;
@@ -196,46 +197,26 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
 
   // --- Table ---
   return (
-    <div>
-      <div style={{ fontSize: 13, color: "#333", lineHeight: 1.45 }}>
-        <p style={{ margin: "0 0 8px 0" }}>
-          Early termination is an asymmetric risk in a novated lease: if your employment ends (e.g. redundancy), you may be forced to settle the remaining vehicle finance using post‑tax dollars (plus GST), plus the residual. In some scenarios, total out‑of‑pocket can exceed what you would have spent buying outright.
-        </p>
-        <p style={{ margin: "0 0 8px 0" }}>
-          Read the worked example and full context here:{" "}
-          <a
-            href="https://novatedlease.guide/risks/how-bad-can-early-termination-get/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            How bad can early termination get?
-          </a>
-        </p>
-        
-        <ul style={{ margin: "0 0 10px 18px", padding: 0, color: "#444", fontSize: 12 }}>
-          <li>
-            Many providers also charge an <strong>early termination fee</strong> (not modelled here, typically a few hundred dollars).
-          </li>
-          <li>
-            By default, this section models <strong>cashflow only</strong>. Turn on <strong>”Adjust for home loan interest saved”</strong> to also estimate the offset‑interest effect from keeping more cash in your mortgage offset (by not paying the purchase price upfront). This is shown as a lower “effective total spent” for the novated lease line. Note: an equivalent framing is that paying cash upfront <em>costs</em> additional home loan interest (by depleting the offset balance); both perspectives are mathematically identical — it is simply a matter of which pathway you treat as the reference point.
-          </li>
-          <li>
-            Other potential impacts (e.g. borrowing capacity, subsidies, superannuation) are not modelled.
-          </li>
-          <li>
-            Cash‑pathway running costs are <strong>averaged per fortnight</strong> in this section for simplicity. In other sections they were modelled as <strong>lumpy</strong> payments (e.g. annual insurance, two-monthly electricity). This results in slight discrepancy in the final figure in cash pathway.
-          </li>
+    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
+      <NoteBox color="#b71c1c" mt={0}>
+        <span>
+          Early termination is an asymmetric risk: if your employment ends, you may be forced to settle remaining vehicle finance
+          using post-tax dollars (plus GST), plus the residual. In some scenarios, total out-of-pocket can exceed what you would
+          have spent buying outright.
+        </span>
+        {" "}
+        <a href="https://novatedlease.guide/risks/how-bad-can-early-termination-get/" target="_blank" rel="noopener noreferrer">
+          How bad can early termination get?
+        </a>
+      </NoteBox>
+
+      <div style={{ marginTop: 10, fontSize: 12, color: "rgba(0,0,0,0.6)", lineHeight: 1.55 }}>
+        <ul style={{ margin: 0, paddingLeft: 18 }}>
+          <li>Many providers also charge an <b>early termination fee</b> (not modelled — typically a few hundred dollars).</li>
+          <li>By default, this section models <b>cashflow only</b>. Turn on "Adjust for home loan interest saved" to estimate the offset‑interest effect.</li>
+          <li>Cash‑pathway running costs are <b>averaged per fortnight</b> for simplicity (other sections model lumpy payments — slight discrepancy may result).</li>
         </ul>
       </div>
-
-      <div
-        style={{
-          height: 1,
-          background: "#e6e6e6",
-          marginTop: 14,
-          marginBottom: 12,
-        }}
-      />
 
       {/* Toggle: adjust for home-loan interest saved */}
       <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 10 }}>
@@ -304,56 +285,45 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
       <div style={{ marginTop: 6, fontSize: 12, color: "#555" }}>
         This chart assumes the lease is terminated at each timepoint, triggering payout of remaining finance with post‑tax dollars (plus GST) and the residual.
       </div>
-      <div style={{ marginTop: 14 }}>
+      <SubHead mt={14}>
         <button
           type="button"
           onClick={() => setShowTable((v) => !v)}
           aria-expanded={showTable}
           style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "baseline",
-            justifyContent: "space-between",
-            gap: 12,
-            padding: "6px 0",
             border: "none",
             background: "transparent",
+            padding: 0,
             cursor: "pointer",
-            fontSize: 13,
-            fontWeight: 800,
-            color: "#333",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            font: "inherit",
+            color: "inherit",
+            letterSpacing: "inherit",
+            textTransform: "inherit",
           }}
         >
           <span>{showTable ? "Hide calculation table" : "Show calculation table"}</span>
-          <span
-            aria-hidden="true"
-            style={{
-              fontSize: 14,
-              lineHeight: 1,
-              color: "rgba(0,0,0,0.55)",
-              minWidth: 18,
-              textAlign: "center",
-            }}
-          >
-            {showTable ? "▾" : "▸"}
-          </span>
+          <span style={{ fontSize: 12 }}>{showTable ? "▾" : "▸"}</span>
         </button>
+      </SubHead>
 
         {showTable && (
-          <div style={{ overflowX: "auto", marginTop: 10 }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+          <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", marginTop: 4 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
               <thead>
                 <tr>
-                  <th style={{ ...groupHeaderStyle, borderRight: "2px solid #ccc" }}></th>
-                  <th style={{ ...groupHeaderStyle, borderRight: "2px solid #ccc" }} colSpan={6}>
+                  <th style={{ ...groupHeaderStyle, background: "#4a4a4a", color: "#fff", borderRight: "2px solid rgba(255,255,255,0.2)" }}></th>
+                  <th style={{ ...groupHeaderStyle, background: "#0b5cab", color: "#fff", borderRight: "2px solid rgba(255,255,255,0.2)" }} colSpan={6}>
                     Novated Lease
                   </th>
-                  <th style={groupHeaderStyle} colSpan={3}>
+                  <th style={{ ...groupHeaderStyle, background: "#1b5e20", color: "#fff" }} colSpan={3}>
                     Cash pathway (baseline)
                   </th>
                 </tr>
                 <tr>
-                  <th style={{ ...thStyle, borderRight: "2px solid #ccc" }}>
+                  <th style={{ ...thStyle, background: "rgba(74,74,74,0.08)", borderRight: "2px solid rgba(0,0,0,0.1)" }}>
                     Termination timepoint (fortnight)
                   </th>
                   <th style={thStyle}>
@@ -421,7 +391,6 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
             </table>
           </div>
         )}
-      </div>
     </div>
   );
 };
@@ -979,26 +948,29 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({
 
 const groupHeaderStyle: React.CSSProperties = {
   textAlign: "center",
-  padding: "6px 8px",
-  borderBottom: "1px solid #ddd",
+  padding: "7px 8px",
   fontWeight: 700,
-  fontSize: 12,
-  background: "#fafafa",
+  fontSize: 11,
+  letterSpacing: "0.03em",
+  textTransform: "uppercase",
 };
 
 const thStyle: React.CSSProperties = {
   textAlign: "left",
   padding: "6px 8px",
-  borderBottom: "1px solid #ddd",
+  borderBottom: "1px solid rgba(0,0,0,0.08)",
   fontWeight: 600,
+  fontSize: 11,
   whiteSpace: "normal",
   lineHeight: 1.3,
+  background: "rgba(0,0,0,0.03)",
 };
 
 const tdStyle: React.CSSProperties = {
-  padding: "6px 8px",
-  borderBottom: "1px solid #eee",
+  padding: "5px 8px",
+  borderBottom: "1px solid rgba(0,0,0,0.06)",
   whiteSpace: "nowrap",
+  fontVariantNumeric: "tabular-nums",
 };
 
 export default WorstCase;
