@@ -75,6 +75,10 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 **This site is written for both.** The calculator is [one of very few](start-here/calculator-comparison.md) that models true net savings — not the [misleading "tax saved" figure](costs-and-savings/false-saving-example.md) most providers advertise. The accompanying articles cover the pros and cons in depth, written by someone with no affiliation with any leasing company and no financial interest in your decision.
 
+<div style="margin: 16px 0; padding: 12px 16px; border: 1px solid rgba(0, 120, 80, 0.3); border-left: 4px solid #00796b; border-radius: 8px; background: rgba(0, 121, 107, 0.05); font-size: 0.92em; line-height: 1.5;">
+  <strong>🆕 Updated May 2026:</strong> The calculator and articles fully reflect the new EV FBT phase-out rules announced in the May 2026 Budget — including the 25% FBT discount applying from April 2027 for eligible EVs above $75,000. <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">Read the full explainer →</a>
+</div>
+
 <div style="height: 14px;"></div>
 <div class="grid cards" markdown>
 
@@ -100,7 +104,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 -   **:material-book-open-outline: Going deeper?**
 
-    38 articles across 5 topic areas. Use the article browser below or the search bar.
+    34 articles across 5 topic areas. Use the article browser below or the search bar.
 
     -   Fundamentals – core concepts
     -   Mechanisms explained — how the maths actually works
@@ -112,7 +116,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 
 <div style="margin-top: 10px; border: 1px solid rgba(0,0,0,0.12); border-radius: 8px; background: rgba(255,255,255,0.7); overflow: hidden;">
   <div onclick="var b=document.getElementById('all-articles-body'); var a=document.getElementById('all-articles-arrow'); var open=b.style.display==='grid'; b.style.display=open?'none':'grid'; a.textContent=open?'▸':'▾';" style="padding: 12px 16px; font-weight: 700; cursor: pointer; user-select: none; display: flex; justify-content: space-between; align-items: center;">
-    <span>Browse all 38 articles</span>
+    <span>Browse all 34 articles</span>
     <span id="all-articles-arrow" style="font-size: 0.85em; color: rgba(0,0,0,0.45);">▸</span>
   </div>
   <div id="all-articles-body" style="display: none; padding: 0 16px 16px 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px 24px;">

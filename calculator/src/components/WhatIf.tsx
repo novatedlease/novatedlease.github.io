@@ -212,7 +212,7 @@ export default function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) 
       <div style={{ fontSize: 12.5, lineHeight: 1.55, color: "rgba(0,0,0,0.75)" }}>
         <p style={{ margin: "0 0 8px 0" }}>
           The difference above is a simple estimate of the gross financing margin between your quoted vehicle lease and an assumed
-          wholesale finance rate. Novated lease quotes often bundle admin fees, insurances, and repair packages.
+          wholesale finance rate. In practice, novated lease providers derive margin from multiple sources — the spread between wholesale and quoted interest rates, administration fees, and commissions from bundled products such as insurance and service packages — and it is generally impossible to determine their true total revenue or how it is split across these channels.
         </p>
         <p style={{ margin: 0 }}>
           <b>Note:</b> This shows the <b>pre-tax</b> repayment difference only. To approximate the net after-tax impact, enter{" "}
