@@ -310,8 +310,8 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
       </SubHead>
 
         {showTable && (
-          <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", marginTop: 4 }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+          <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", marginTop: 4 }}>
+            <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 12 }}>
               <thead>
                 <tr>
                   <th style={{ ...groupHeaderStyle, background: "#4a4a4a", color: "#fff", borderRight: "2px solid rgba(255,255,255,0.2)" }}></th>
@@ -323,10 +323,10 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
                   </th>
                 </tr>
                 <tr>
-                  <th style={{ ...thStyle, background: "rgba(74,74,74,0.08)", borderRight: "2px solid rgba(0,0,0,0.1)" }}>
+                  <th style={{ ...thStyle, borderRight: "2px solid rgba(0,0,0,0.15)" }}>
                     Termination timepoint (fortnight)
                   </th>
-                  <th style={thStyle}>
+                  <th style={thNlStyle}>
                     Hitherto Lease
                     <InfoTooltip
                       text={
@@ -334,35 +334,35 @@ const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
                       }
                     />
                   </th>
-                  <th style={thStyle}>
+                  <th style={thNlStyle}>
                     Remaining Lease Payout
                     <InfoTooltip text="If a lease is terminated early, remaining vehicle finance is typically payable using post‑tax dollars, plus GST. Future running costs are not payable. Modelled here as: (remaining fortnights) × (vehicle lease + luxury car adjustment per fortnight) × 1.1." />
                   </th>
-                  <th style={thStyle}>
+                  <th style={thNlStyle}>
                     Residual
                     <InfoTooltip text="Residual value payable upon early termination of the lease." />
                   </th>
-                  <th style={thStyle}>
+                  <th style={thNlStyle}>
                     Total Spent
                     <InfoTooltip text="Total out‑of‑pocket amount required to own the car outright at this termination point, including all running costs paid up to that time." />
                   </th>
-                  <th style={thStyle}>
+                  <th style={thNlStyle}>
                     Home Loan Interest Impact
                     <InfoTooltip text="Estimated additional home‑loan interest incurred (vs the cash baseline) up to this timepoint, based on the offset‑interest model. Negative figure (typical) means the novated lease is saving interest compared to the cash pathway." />
                   </th>
-                  <th style={{ ...thStyle, borderRight: "2px solid #ccc" }}>
+                  <th style={{ ...thNlStyle, borderRight: "2px solid rgba(11,92,171,0.3)" }}>
                     Adjusted Total Spent
                     <InfoTooltip text="Adjusted total cost at this timepoint, defined as: total spent + home loan interest impact." />
                   </th>
-                  <th style={thStyle}>
+                  <th style={thCashStyle}>
                     Upfront cost
                     <InfoTooltip text="Upfront out‑of‑pocket to acquire the car in the cash pathway (e.g. purchase price and any on‑road costs you choose to include)." />
                   </th>
-                  <th style={thStyle}>
+                  <th style={thCashStyle}>
                     Hitherto running cost
                     <InfoTooltip text="Running costs incurred so far in the cash pathway up to this termination timepoint (e.g. registration, insurance, fuel/electricity, servicing). While in reality running costs are lumpy, this model assumes a constant running cost per fortnight for simplicity." />
                   </th>
-                  <th style={thStyle}>
+                  <th style={thCashStyle}>
                     Total Spent
                     <InfoTooltip text="Total out‑of‑pocket spent in the cash pathway by this timepoint: upfront cost plus running costs incurred so far." />
                   </th>
@@ -955,15 +955,32 @@ const groupHeaderStyle: React.CSSProperties = {
   textTransform: "uppercase",
 };
 
-const thStyle: React.CSSProperties = {
+const thBase: React.CSSProperties = {
   textAlign: "left",
   padding: "6px 8px",
-  borderBottom: "1px solid rgba(0,0,0,0.08)",
-  fontWeight: 600,
+  borderBottom: "2px solid rgba(0,0,0,0.12)",
+  fontWeight: 700,
   fontSize: 11,
   whiteSpace: "normal",
   lineHeight: 1.3,
-  background: "rgba(0,0,0,0.03)",
+};
+
+const thStyle: React.CSSProperties = {
+  ...thBase,
+  background: "rgba(74,74,74,0.10)",
+  color: "#333",
+};
+
+const thNlStyle: React.CSSProperties = {
+  ...thBase,
+  background: "rgba(11,92,171,0.10)",
+  color: "#0b5cab",
+};
+
+const thCashStyle: React.CSSProperties = {
+  ...thBase,
+  background: "rgba(27,94,32,0.10)",
+  color: "#1b5e20",
 };
 
 const tdStyle: React.CSSProperties = {

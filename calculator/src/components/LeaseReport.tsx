@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
-import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate, getEcmMultiplierForFy } from "../engine/types";
 import { aud0 } from "../utils/format";
 import { Stat, StatGrid, SubHead, NoteBox } from "./ui/shared";
 
@@ -30,6 +30,21 @@ export function LeaseReport(props: {
   const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
   const ecmPerFn = ecmAnnual / 26;
   const ecmGstPerFn = ecmPerFn / 11;
+
+  // Post-4-year rule: ECM base value reduces to 2/3 from the threshold FY onwards.
+  const ecmTwoThirdsFromFy = (() => {
+    const d = new Date(i.leaseStartDate + "T00:00:00Z");
+    const m = d.getMonth() + 1;
+    const y = d.getFullYear();
+    return m < 4 ? y + 5 : y + 6;
+  })();
+  const ecmPerFnForFy = (fy: number) =>
+    ecmPerFn * (fbtApplies ? getEcmMultiplierForFy(fy, ecmTwoThirdsFromFy) : 1);
+  const ecmGstPerFnForFy = (fy: number) => ecmPerFnForFy(fy) / 11;
+  const actualPreTaxDeductionFnForFy = (fy: number) => {
+    const e = ecmPerFnForFy(fy);
+    return preTaxTotalFn + (fbtApplies ? -e + e / 11 : 0);
+  };
 
   const residualPayableIncGst = i.residualValueExGst * 1.1;
 
@@ -64,8 +79,10 @@ export function LeaseReport(props: {
 
   const actualPreTaxDeductionFn = preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
   const actualPreTaxDeductionAnnual = preTaxTotalAnnual + (fbtApplies ? -ecmAnnual + ecmGstPerFn * 26 : 0);
-  const actualPreTaxDeductionLifetime =
-    preTaxTotalLifetime + (fbtApplies ? (-ecmAnnual + ecmGstPerFn * 26) * i.leaseDurationYears : 0);
+  // Lifetime uses per-FY ECM (the 2/3 reduction applies from year 5).
+  const actualPreTaxDeductionLifetime = fbtApplies
+    ? fyRows.reduce((acc, r) => acc + actualPreTaxDeductionFnForFy(r.fy) * r.count, 0)
+    : preTaxTotalLifetime;
 
   // For Fortnight/Annual columns we want the MOST expensive FY take-home impact.
   // Pre-tax dollars reduce take-home by (1 - taxRate), so we want the MAX of (1 - taxRate).
@@ -76,11 +93,11 @@ export function LeaseReport(props: {
       return Number.isFinite(rate) ? Math.min(1, Math.max(0, rate)) : 0;
     }
 
-    // FBT-applicable path: replicate FYTable logic with exact tax
-    const preTaxDeductionThisFy = actualPreTaxDeductionFn * r.count;
+    // FBT-applicable path: replicate FYTable logic with exact tax (per-FY ECM).
+    const preTaxDeductionThisFy = actualPreTaxDeductionFnForFy(r.fy) * r.count;
     if (!(preTaxDeductionThisFy > 0) || !Number.isFinite(preTaxDeductionThisFy)) return 0;
 
-    const postTaxEcmThisFy = ecmPerFn * r.count;
+    const postTaxEcmThisFy = ecmPerFnForFy(r.fy) * r.count;
 
     const postNlTaxableIncome = r.originalTaxableIncome - preTaxDeductionThisFy;
     const postNlTax = taxSummaryAUResident(postNlTaxableIncome).totalTax;
@@ -108,15 +125,18 @@ export function LeaseReport(props: {
   const preTaxEquivalentPostTaxImpactFn = actualPreTaxDeductionFn * maxAfterTaxFactorForPreTax;
   const preTaxEquivalentPostTaxImpactAnnual = preTaxEquivalentPostTaxImpactFn * 26;
 
-  // Lifetime: apply the per-FY corrected average lease tax rate to each FY's pay count
+  // Lifetime: apply per-FY corrected tax rate and per-FY pre-tax deduction.
   const preTaxEquivalentPostTaxImpactLifetime = fyRows.reduce(
-    (acc, r) => acc + actualPreTaxDeductionFn * (1 - correctedAvgLeaseTaxRateForFy(r)) * r.count,
+    (acc, r) => acc + actualPreTaxDeductionFnForFy(r.fy) * (1 - correctedAvgLeaseTaxRateForFy(r)) * r.count,
     0
   );
 
   const postTaxComponentFn = fbtApplies ? ecmPerFn : 0;
   const postTaxComponentAnnual = postTaxComponentFn * 26;
-  const postTaxComponentLifetime = fbtApplies ? ecmPerFn * fyRows.reduce((a, r) => a + r.count, 0) : 0;
+  // Lifetime post-tax ECM is per-FY (2/3 applies from year 5).
+  const postTaxComponentLifetime = fbtApplies
+    ? fyRows.reduce((acc, r) => acc + ecmPerFnForFy(r.fy) * r.count, 0)
+    : 0;
 
   const totalTakeHomeImpactFn = preTaxEquivalentPostTaxImpactFn + postTaxComponentFn;
   const totalTakeHomeImpactAnnual = totalTakeHomeImpactFn * 26;
@@ -177,15 +197,15 @@ export function LeaseReport(props: {
         <Stat
           label="Residual payable (inc GST)"
           value={`$${aud0(residualPayableIncGst)}`}
-          color="#4527a0"
+          color="#37474f"
           note="Due at lease end"
         />
       </StatGrid>
 
       <SubHead mt={4}>1.1 Summary</SubHead>
 
-      <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+      <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+        <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse" }}>
           <thead>
             <tr>
               <th style={thLeft}></th>
@@ -220,13 +240,13 @@ export function LeaseReport(props: {
                   <td style={tdLeft(false)}>Less Employee Contribution</td>
                   <td style={td(false)}>{preTaxFmt(fnToCol(-ecmPerFn))}</td>
                   <td style={td(false)}>{preTaxFmt(-ecmAnnual)}</td>
-                  <td style={td(false)}>{preTaxFmt(-ecmAnnual * i.leaseDurationYears)}</td>
+                  <td style={td(false)}>{preTaxFmt(-fyRows.reduce((a, r) => a + ecmPerFnForFy(r.fy) * r.count, 0))}</td>
                 </tr>
                 <tr>
                   <td style={tdLeft(false)}>Add Employee Contribution GST</td>
                   <td style={td(false)}>{preTaxFmt(fnToCol(ecmGstPerFn))}</td>
                   <td style={td(false)}>{preTaxFmt(ecmGstPerFn * 26)}</td>
-                  <td style={td(false)}>{preTaxFmt(ecmGstPerFn * 26 * i.leaseDurationYears)}</td>
+                  <td style={td(false)}>{preTaxFmt(fyRows.reduce((a, r) => a + ecmGstPerFnForFy(r.fy) * r.count, 0))}</td>
                 </tr>
               </>
             ) : null}
@@ -250,7 +270,7 @@ export function LeaseReport(props: {
                   <td style={tdLeft(false)}>Employee Contribution Method</td>
                   <td style={td(false)}>{preTaxFmt(fnToCol(ecmPerFn))}</td>
                   <td style={td(false)}>{preTaxFmt(ecmAnnual)}</td>
-                  <td style={td(false)}>{preTaxFmt(ecmAnnual * i.leaseDurationYears)}</td>
+                  <td style={td(false)}>{preTaxFmt(fyRows.reduce((a, r) => a + ecmPerFnForFy(r.fy) * r.count, 0))}</td>
                 </tr>
               </>
             ) : null}
@@ -319,7 +339,7 @@ export function LeaseReport(props: {
         </table>
       </div>
 
-      <NoteBox color="#4527a0" mt={10}>
+      <NoteBox color="#37474f" mt={10}>
         After paying {preTaxFmt(totalLifetimeImpact)} in lease costs, you still owe{" "}
         <b>{preTaxFmt(residualPayableIncGst)}</b> in residual value to fully own the vehicle.
       </NoteBox>
@@ -355,8 +375,8 @@ export function LeaseReport(props: {
           <FYTable
             fyRows={fyRows}
             fbtApplies={fbtApplies}
-            actualPreTaxDeductionFn={actualPreTaxDeductionFn}
-            ecmPerFn={ecmPerFn}
+            actualPreTaxDeductionFnForFy={actualPreTaxDeductionFnForFy}
+            ecmPerFnForFy={ecmPerFnForFy}
           />
 
           <div style={{ marginTop: 10, fontSize: 12, color: "rgba(0,0,0,0.6)", lineHeight: 1.55 }}>
@@ -406,10 +426,10 @@ function FYTable(props: {
     avgLeaseTaxBracketPct: number;
   }>;
   fbtApplies: boolean;
-  // Actual pre-tax deduction PER PAY (fortnight) after ECM adjustments (from 1.1)
-  actualPreTaxDeductionFn: number;
-  // Post-tax ECM payment PER PAY (fortnight)
-  ecmPerFn: number;
+  /** Per-FY actual pre-tax deduction (accounts for 2/3 ECM reduction from year 5). */
+  actualPreTaxDeductionFnForFy: (fy: number) => number;
+  /** Per-FY post-tax ECM payment (accounts for 2/3 reduction from year 5). */
+  ecmPerFnForFy: (fy: number) => number;
 }) {
   const years = props.fyRows.map((r) => r.fy);
 
@@ -430,11 +450,11 @@ function FYTable(props: {
       };
     }
 
-    // Pre-tax deduction in this FY (uses correct pay count)
-    const preTaxDeductionThisFy = props.actualPreTaxDeductionFn * r.count;
+    // Pre-tax deduction in this FY (uses correct pay count and per-FY ECM).
+    const preTaxDeductionThisFy = props.actualPreTaxDeductionFnForFy(r.fy) * r.count;
 
-    // Post-tax ECM payments in this FY
-    const postTaxEcmThisFy = props.ecmPerFn * r.count;
+    // Post-tax ECM payments in this FY (per-FY — 2/3 from year 5 onwards).
+    const postTaxEcmThisFy = props.ecmPerFnForFy(r.fy) * r.count;
 
     // Taxable income after novated lease (pre-tax deduction applied for the correct pay-count)
     const postNlTaxableIncome = r.originalTaxableIncome - preTaxDeductionThisFy;
@@ -467,7 +487,6 @@ function FYTable(props: {
 
     // Per spec: ([take home before] - [take home after] - [post-tax ECM]) / ([orig taxable] - [post taxable])
     const numer = r.originalTakeHome - c.postNlTakeHome - c.postTaxEcm;
-
     const rate = numer / denom;
     return (1 - rate) * 100;
   };
@@ -524,8 +543,8 @@ function FYTable(props: {
   );
 
   return (
-    <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+    <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+      <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse" }}>
         <thead>
           <tr>
             <th style={{ ...thLeft, width: 18, minWidth: 18, maxWidth: 18, paddingLeft: 0, paddingRight: 0 }}></th>

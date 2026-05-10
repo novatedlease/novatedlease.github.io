@@ -263,7 +263,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
         {isEv && (
           <BreakdownRow
             label={<span>NL: electricity gain / loss <InfoTooltip text={electricityTooltip} /></span>}
-            value={fmtSigned(chargingDelta)}
+            value={fmtSigned(-chargingDelta)}
             color={chargingDelta >= 0 ? POS : NEG}
             indent
           />
@@ -285,13 +285,13 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
 
         {/* Saving decomposition */}
         <BreakdownRow
-          label="Cashflow advantage (NL)"
-          value={fmtAud0(Math.abs(cashflowSaving))}
+          label={cashflowSaving >= 0 ? "Cashflow advantage (NL)" : "Cashflow disadvantage (NL)"}
+          value={fmtSigned(cashflowSaving)}
           color={cashflowSaving >= 0 ? POS : NEG}
         />
         <BreakdownRow
-          label="Home loan interest advantage (NL)"
-          value={fmtAud0(Math.abs(interestSaving))}
+          label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
+          value={fmtSigned(interestSaving)}
           color={interestSaving >= 0 ? POS : NEG}
         />
         <DoubleSep />
@@ -330,7 +330,7 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
         {isEv && (
           <BreakdownRow
             label={<span>NL: electricity gain / loss <InfoTooltip text={electricityTooltip} /></span>}
-            value={fmtSigned(chargingDelta)}
+            value={fmtSigned(-chargingDelta)}
             color={chargingDelta >= 0 ? POS : NEG}
             indent
           />
@@ -351,13 +351,13 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
         <Sep />
 
         <BreakdownRow
-          label="Cashflow advantage (NL)"
-          value={fmtAud0(Math.abs(cashflowSavingVsLoan))}
+          label={cashflowSavingVsLoan >= 0 ? "Cashflow advantage (NL)" : "Cashflow disadvantage (NL)"}
+          value={fmtSigned(cashflowSavingVsLoan)}
           color={cashflowSavingVsLoan >= 0 ? POS : NEG}
         />
         <BreakdownRow
-          label="Home loan interest advantage (NL)"
-          value={fmtAud0(Math.abs(interestSavingVsLoan))}
+          label={interestSavingVsLoan >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
+          value={fmtSigned(interestSavingVsLoan)}
           color={interestSavingVsLoan >= 0 ? POS : NEG}
         />
         <DoubleSep />
@@ -400,17 +400,17 @@ export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHor
         <Sep />
 
         <BreakdownRow
-          label="Asset advantage (NL car vs current car end-value)"
+          label={assetDelta >= 0 ? "Asset advantage (NL car vs current car end-value)" : "Asset disadvantage (NL car vs current car end-value)"}
           value={fmtSigned(assetDelta)}
           color={assetDelta >= 0 ? POS : NEG}
         />
         <BreakdownRow
-          label="Cashflow advantage (NL)"
+          label={cashDelta >= 0 ? "Cashflow advantage (NL)" : "Cashflow disadvantage (NL)"}
           value={fmtSigned(cashDelta)}
           color={cashDelta >= 0 ? POS : NEG}
         />
         <BreakdownRow
-          label="Home loan interest advantage (NL)"
+          label={interestDelta >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
           value={fmtSigned(interestDelta)}
           color={interestDelta >= 0 ? POS : NEG}
         />

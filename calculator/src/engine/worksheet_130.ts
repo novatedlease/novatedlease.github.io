@@ -1,6 +1,6 @@
 // engine/worksheet_130.ts
 import type { Inputs } from "./types";
-import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "./types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate, getEcmTwoThirdsFromFy, getEcmMultiplierForFy } from "./types";
 import { buildFortnightSchedule, fyForDate } from "./lease_schedule";
 import { buildFyBreakdown } from "./fy_breakdown";
 import { computeLeasePaymentsOverLease } from "./lease_payments";
@@ -288,12 +288,26 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
   const ecmGstPerFn = ecmPerFn / 11;
   const actualPreTaxDeductionFn = preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
 
+  // Post-4-year base value reduction: ECM drops to 2/3 from the threshold FY onwards.
+  const leaseStartDate = new Date(i.leaseStartDate + "T00:00:00Z");
+  const ecmTwoThirdsFromFy = getEcmTwoThirdsFromFy(leaseStartDate);
+  // April 1 of the year before twoThirdsFromFy is when the 2/3 FBT year starts.
+  const twoThirdsApril = new Date(Date.UTC(ecmTwoThirdsFromFy - 1, 3, 1));
+  const ecmPerFnForFy = (fy: number) =>
+    ecmPerFn * (fbtApplies ? getEcmMultiplierForFy(fy, ecmTwoThirdsFromFy) : 1);
+  const actualPreTaxDeductionFnForFy = (fy: number) => {
+    const e = ecmPerFnForFy(fy);
+    return preTaxTotalFn + (fbtApplies ? -e + e / 11 : 0);
+  };
+
   const nlLeasePayments = computeLeasePaymentsOverLease({
     inputs: i,
     fortnights: leaseFortnights,
     preTaxTotalFn,
     actualPreTaxDeductionFn,
     ecmPerFn,
+    actualPreTaxDeductionFnForFy,
+    ecmPerFnForFy,
   });
 
   const fyToTakeHomeImpactPerPay = new Map<number, number>();
@@ -323,7 +337,16 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
 
       // FBT-applicable: use exact per-pay take-home impact (includes ECM + exact tax).
       if (fbtApplies) {
-        const takeHomeImpactPerPay = fyToTakeHomeImpactPerPay.get(fy) ?? 0;
+        // Decompose FY-level impact into pre-tax and ECM components, then apply
+        // the exact per-fortnight ECM based on whether this date is past the
+        // FBT year 5 threshold (April 1). This handles the Apr 1 boundary
+        // precisely rather than using the 11/12 FY-average for transition fortnights.
+        const takeHomeImpactWithFyEcm = fyToTakeHomeImpactPerPay.get(fy) ?? 0;
+        const ecmForFy = ecmPerFnForFy(fy);
+        const takeHomeImpactNoEcm = takeHomeImpactWithFyEcm - ecmForFy;
+        const perFnEcmMultiplier = d >= twoThirdsApril ? 2 / 3 : 1;
+        const ecmThisFortnight = ecmPerFn * perFnEcmMultiplier;
+        const takeHomeImpactPerPay = takeHomeImpactNoEcm + ecmThisFortnight;
 
         const rowCore = {
           cash: 0,

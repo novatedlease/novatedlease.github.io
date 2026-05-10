@@ -289,7 +289,7 @@ useEffect(() => {
     const accent = sectionBlockColors[p.title] ?? "#0b5cab";
     const [r, g, b] = [parseInt(accent.slice(1,3),16), parseInt(accent.slice(3,5),16), parseInt(accent.slice(5,7),16)];
     return (
-    <div style={{ marginTop: 14, borderRadius: 10, overflow: "hidden", border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+    <div style={{ marginTop: 14, borderRadius: 10, clipPath: "inset(0 round 9px)", border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
       <div
         style={{
           background: `rgba(${r},${g},${b},0.09)`,
@@ -412,8 +412,8 @@ useEffect(() => {
 
     return (
       <div style={{ marginTop: 10 }}>
-        <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+        <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+          <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 13 }}>
             <thead>
               <tr>
                 <th

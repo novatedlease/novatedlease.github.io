@@ -105,6 +105,38 @@ export function getEvLctThresholdForLeaseStart(leaseStartDate: string): number {
 }
 
 /**
+ * Returns the first financial year ending (30 June) from which the FBT base value
+ * reduces to two-thirds of the original cost (the "4-year rule" under FBTAA s 11(2)).
+ * ECM and RFBA both use this threshold.
+ *
+ * Logic: the reduction applies from the 5th FBT year of ownership.
+ * A lease starting Jan–Mar is already in the FBT year ending that March, so it
+ * "uses up" its first FBT year sooner, and the FY ending 5 years later is correct.
+ * A lease starting Apr–Dec starts its first FBT year in April, so FY ending 6 years later.
+ */
+export function getEcmTwoThirdsFromFy(leaseStartDate: Date): number {
+  const m = leaseStartDate.getMonth() + 1; // 1-12
+  const y = leaseStartDate.getFullYear();
+  return m < 4 ? y + 5 : y + 6;
+}
+
+/**
+ * Returns the ECM base-value multiplier for a given financial year.
+ *
+ * The 2/3 rule is an FBT-year rule (triggers 1 April), but per-FY calculations
+ * must approximate it. The threshold FY (twoThirdsFromFy) contains:
+ *   - July – March  (9 months, FBT year 4): full ECM
+ *   - April – June  (3 months, FBT year 5): 2/3 ECM
+ * Weighted average for that FY = (9×1 + 3×⅔) / 12 = 11/12.
+ * All subsequent FYs are entirely in FBT year 5+ → 2/3.
+ */
+export function getEcmMultiplierForFy(fy: number, twoThirdsFromFy: number): number {
+  if (fy >= twoThirdsFromFy) return 2 / 3;
+  if (fy === twoThirdsFromFy - 1) return 11 / 12; // transition year
+  return 1;
+}
+
+/**
  * Returns the ECM statutory rate for a given FBT category.
  * - EV_FBT_EXEMPT → 0 (no ECM)
  * - EV_FBT_DISCOUNTED → 0.15 (75% of full FBT applies, i.e. 75% × 20% statutory rate)

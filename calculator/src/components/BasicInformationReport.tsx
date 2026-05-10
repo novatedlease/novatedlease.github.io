@@ -72,8 +72,8 @@ export default function BasicInformationReport(props: {
       <StatGrid>
         <Stat label="Amount Financed" value={`$${aud(amountFinanced)}`} color="#0b5cab"
           note="Drive-away + doc fee − GST saved" />
-        <Stat label={`ATO Residual (${Math.round(i.leaseDurationYears)}y)`} value={pct(residualPct)} color="#4527a0" />
-        <Stat label="Residual Payable (inc GST)" value={`$${aud(residualPayableIncGst)}`} color="#4527a0" />
+        <Stat label={`ATO Residual (${Math.round(i.leaseDurationYears)}y)`} value={pct(residualPct)} color="#37474f" />
+        <Stat label="Residual Payable (inc GST)" value={`$${aud(residualPayableIncGst)}`} color="#37474f" />
         <Stat
           label="Effective Interest Rate"
           value={effectiveInterestRatePct == null ? "—" : `${(Math.round(effectiveInterestRatePct * 100) / 100).toFixed(2)}%`}

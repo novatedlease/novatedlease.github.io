@@ -1,5 +1,5 @@
 import type { Inputs } from "./types";
-import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "./types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate, getEcmTwoThirdsFromFy, getEcmMultiplierForFy } from "./types";
 import { buildFyBreakdown } from "./fy_breakdown";
 
 export type AtiRow = {
@@ -74,20 +74,26 @@ export function computeDerived(inputs: Inputs): Derived {
   const fbtStatutoryRate = getEcmStatutoryRate(getLeaseFbtCategory(inputs));
   const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
   const ecmPerFn = ecmAnnual / 26;
-  const ecmGstPerFn = ecmPerFn / 11;
-  const actualPreTaxDeductionFn = preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
 
   const atiRows: AtiRow[] = fyRows.map((r) => ({
     financialYearEnding: r.fy,
     taxableIncomePostNL: r.postNlTaxableIncome,
   }));
 
-  const sgRows: SgRow[] = fyRows.map((r) => ({
-    financialYearEnding: r.fy,
-    reducedPretaxIncome: fbtApplies
-      ? actualPreTaxDeductionFn * r.count
-      : r.originalTaxableIncome - r.postNlTaxableIncome,
-  }));
+  const leaseStartDate = new Date(inputs.leaseStartDate + "T00:00:00Z");
+  const ecmTwoThirdsFromFy = getEcmTwoThirdsFromFy(leaseStartDate);
+
+  const sgRows: SgRow[] = fyRows.map((r) => {
+    const ecmMultiplier = fbtApplies ? getEcmMultiplierForFy(r.fy, ecmTwoThirdsFromFy) : 1;
+    const ecmPerFnFy = ecmPerFn * ecmMultiplier;
+    const actualPreTaxDeductionFnFy = preTaxTotalFn + (fbtApplies ? -(ecmPerFnFy) + ecmPerFnFy / 11 : 0);
+    return {
+      financialYearEnding: r.fy,
+      reducedPretaxIncome: fbtApplies
+        ? actualPreTaxDeductionFnFy * r.count
+        : r.originalTaxableIncome - r.postNlTaxableIncome,
+    };
+  });
 
   return {
     fortnights,

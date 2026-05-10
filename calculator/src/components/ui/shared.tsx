@@ -79,7 +79,7 @@ export function StatGrid({ children }: { children: React.ReactNode }) {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
         gap: 8,
         marginBottom: 16,
       }}

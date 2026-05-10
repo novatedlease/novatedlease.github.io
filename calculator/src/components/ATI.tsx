@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import type { Inputs } from "../engine/types";
-import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "../engine/types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate, getEcmMultiplierForFy } from "../engine/types";
 import { computeDerived } from "../engine/derived";
 import { Stat, StatGrid, SubHead, KV, NoteBox, Table, th, thR, td, tdR, stripe } from "./ui/shared";
 
@@ -197,10 +197,6 @@ export default function ATI(props: AtiProps) {
     const fbtStatutoryRate = getEcmStatutoryRate(getLeaseFbtCategory(i));
     const ecmAnnual = vehicleDutiableValue * fbtStatutoryRate;
     const ecmPerFn = ecmAnnual / 26;
-    const ecmGstPerFn = ecmPerFn / 11;
-
-    // Actual pre-tax deduction after ECM adjustments (FBT-applicable only)
-    const actualPreTaxDeductionFn = d.preTaxTotalFn + (fbtApplies ? -ecmPerFn + ecmGstPerFn : 0);
 
     const out = new Map<number, number>();
     for (const r of d.fyRows as any[]) {
@@ -208,13 +204,18 @@ export default function ATI(props: AtiProps) {
       const originalTaxableIncome = (r as any).originalTaxableIncome;
       const count = (r as any).count;
 
-      const preTaxDeductionThisFy = actualPreTaxDeductionFn * count;
+      // Apply ECM base-value multiplier: 1 before, 11/12 in the transition FY, 2/3 after.
+      const ecmMultiplier = fbtApplies ? getEcmMultiplierForFy(fy, rfbaTwoThirdsFromYear) : 1;
+      const ecmPerFnFy = ecmPerFn * ecmMultiplier;
+      const actualPreTaxDeductionFnFy = d.preTaxTotalFn + (fbtApplies ? -(ecmPerFnFy) + ecmPerFnFy / 11 : 0);
+
+      const preTaxDeductionThisFy = actualPreTaxDeductionFnFy * count;
       const postNlTaxableIncome = originalTaxableIncome - preTaxDeductionThisFy;
       out.set(fy, postNlTaxableIncome);
     }
 
     return out;
-  }, [props.inputs]);
+  }, [props.inputs, rfbaTwoThirdsFromYear]);
 
   const computedRows = useMemo(() => {
     return props.rows
@@ -249,6 +250,15 @@ export default function ATI(props: AtiProps) {
   const firstRow = computedRows[0];
   const lastRow = computedRows[computedRows.length - 1];
 
+  const worstRow = computedRows.length > 0
+    ? computedRows.reduce((min, r) => r.taxableIncomePostNL < min.taxableIncomePostNL ? r : min, computedRows[0])
+    : firstRow;
+
+  // Full FBT year RFBA (proportion = 1), with purpose factor applied but not the 2/3 reduction
+  const fullYearRfba = fbtApplicable
+    ? 0
+    : grossUp * statutoryRate * props.fbtBaseValue * (purpose === "fbtExemptChildcare" ? 0.53 : 1);
+
   return (
     <div style={{ fontSize: 13, lineHeight: 1.4 }}>
 
@@ -261,17 +271,17 @@ export default function ATI(props: AtiProps) {
             color="#0b5cab"
           />
           <Stat
-            label="Taxable income post-NL (first year)"
-            value={formatMoney(firstRow.taxableIncomePostNL)}
+            label="Taxable income post-NL"
+            value={formatMoney(worstRow.taxableIncomePostNL)}
             color="#1b5e20"
-            note={`FY ${firstRow.financialYearEnding}`}
+            note={`FY ${worstRow.financialYearEnding} – worst year`}
           />
           {lastRow && lastRow.financialYearEnding !== firstRow.financialYearEnding && (
             <Stat
-              label="RFBA (first year)"
-              value={formatMoney(firstRow.rfba)}
+              label="RFBA (per FBT year)"
+              value={formatMoney(fullYearRfba)}
               color="#6a1b9a"
-              note="Added back to get ATI"
+              note="Full year; added back to get ATI"
             />
           )}
         </StatGrid>
@@ -280,21 +290,37 @@ export default function ATI(props: AtiProps) {
       {/* ── Purpose selector ── */}
       <SubHead mt={4}>Calculation Purpose</SubHead>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-        <select
-          value={purpose}
-          onChange={e => setPurpose(e.target.value as AtiCalculationPurpose)}
-          style={{
-            flex: 1,
-            borderRadius: 8,
-            border: "1px solid rgba(0,0,0,0.18)",
-            padding: "8px 10px",
-            fontSize: 13,
-            background: "#fff",
-          }}
-        >
-          <option value="standard">Standard</option>
-          <option value="fbtExemptChildcare">FBT-exempt employer (childcare subsidy)</option>
-        </select>
+        <div style={{ display: "inline-flex", border: "1px solid rgba(11,92,171,0.28)", borderRadius: 999, overflow: "hidden", background: "rgba(11,92,171,0.04)" }}>
+          {([
+            { value: "standard" as const, label: "Standard" },
+            { value: "fbtExemptChildcare" as const, label: "FBT-exempt (childcare)" },
+          ] as { value: AtiCalculationPurpose; label: string }[]).map(({ value, label }) => {
+            const active = purpose === value;
+            return (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setPurpose(value)}
+                style={{
+                  appearance: "none",
+                  border: "none",
+                  background: active ? "#0b5cab" : "transparent",
+                  color: active ? "#fff" : "#0b5cab",
+                  padding: "5px 14px",
+                  cursor: "pointer",
+                  fontWeight: active ? 800 : 600,
+                  fontSize: 12,
+                  lineHeight: 1,
+                  transition: "all 120ms ease",
+                  whiteSpace: "nowrap",
+                }}
+                aria-pressed={active}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
         <InfoTooltip text="When the FBT‑exempt employer option is selected, the Reportable Fringe Benefits Amount (RFBA) is reduced to 53% for childcare subsidy means‑testing." />
       </div>
       <div style={{ fontSize: 12, color: "rgba(0,0,0,0.55)", fontStyle: "italic", marginBottom: 12 }}>
@@ -341,6 +367,22 @@ export default function ATI(props: AtiProps) {
         <NoteBox color="#e65100" mt={10}>
           RFBA is shown as $0 because this is an FBT-applicable lease — we assume the Employee Contribution Method (ECM)
           is used to reduce FBT to zero.
+        </NoteBox>
+      )}
+
+      {getLeaseFbtCategory(props.inputs) === "EV_FBT_DISCOUNTED" && (
+        <NoteBox color="#f57c00" mt={10}>
+          <div style={{ fontWeight: 700, marginBottom: 4 }}>25% FBT discount — RFBA treatment</div>
+          Your vehicle is in the <b>25% FBT discount band</b> (base value above the full-exempt cap but below the LCT
+          threshold). The discount reduces the ECM statutory rate from 20% to 15% — your salary-packaged ECM
+          contribution covers only that 15% portion. Once ECM eliminates the 15% taxable value, the taxable fringe
+          benefit amount is $0, and therefore <b>RFBA = $0</b>.{" "}
+          The remaining 5% is a rate reduction, not a separately identifiable exempt benefit, so it does not generate
+          any additional RFBA.{" "}
+          <span style={{ opacity: 0.8, fontStyle: "italic" }}>
+            This reflects the author's best interpretation of the Treasurer's press release and existing FBT
+            legislation. The final treatment is subject to the enacting legislation, which is pending.
+          </span>
         </NoteBox>
       )}
 

@@ -93,7 +93,6 @@ function CollapsibleSection(props: CollapsibleSectionProps) {
         background: "#fff",
         boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 4px 18px rgba(0,0,0,0.07)",
         borderLeft: `4px solid ${muted ? "rgba(0,0,0,0.15)" : accent}`,
-        overflow: "hidden",
       }}
     >
       <style>{`
@@ -1549,7 +1548,7 @@ useEffect(() => {
                   title="📉 SECTION 3: EFFECTIVE INTEREST RATE"
                   description="Back-calculates the implied interest rate hidden in your lease payment and residual, with an optional amortisation schedule."
                   analyticsId="section_3_effective_interest_rate"
-                  accent="#4527a0"
+                  accent="#37474f"
                 >
                   <EffectiveInterestReport inputs={inputs} />
                 </CollapsibleSection>
@@ -1602,7 +1601,7 @@ useEffect(() => {
                   analyticsId="section_6_what_if"
                   accent="#e65100"
                 >
-                  <WhatIf inputs={inputs} />
+                  <WhatIf inputs={inputs} vehicleLeasePeriodMode={vehicleLeasePeriodMode} />
                 </CollapsibleSection>
               </div>
 
@@ -1636,7 +1635,7 @@ useEffect(() => {
             </div>
             <ul style={{ paddingLeft: 16, margin: 0 }}>
               <li>
-                This calculator provides factual information only, based on publicly available data as of April 2026.
+                This calculator provides factual information only, based on publicly available data as of May 2026.
               </li>
               <li>
                 Consult a qualified financial adviser before making any financial decisions.

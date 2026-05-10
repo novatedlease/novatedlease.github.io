@@ -140,6 +140,16 @@ Unlike most novated lease calculators, the outputs focus on **net outcomes** —
 
 ## Frequently asked questions
 
+### Does this calculator support the 75% EV FBT rule announced in May 2026?
+
+Yes. The calculator fully supports [the new rules](../special-and-policy/ev-fbt-exemption-phase-out-budget-2026.md). These rules affect the EV FBT exemption and it automatically applies the correct FBT treatment based on the lease start date and vehicle value:
+
+- **Leases starting before 1 April 2027** — existing rules apply (full FBT exemption up to the LCT threshold).
+- **Leases starting 1 April 2027 – 31 March 2029 (transitional period)** — vehicles at or below $75,000 remain fully exempt; vehicles above $75,000 but at or below the LCT threshold attract 75% of full FBT (a 25% discount); vehicles above the LCT threshold attract full FBT.
+- **Leases starting from 1 April 2029** — the 25% FBT discount applies to all eligible EVs at or below the LCT threshold.
+
+No manual adjustment is needed — simply enter your lease start date and vehicle base value and the calculator will apply the appropriate rules automatically.
+
 ### How accurate is this calculator?
 
 This calculator is the direct evolution of [a spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) that has been in continuous public use for over two years. It has been widely shared, scrutinised, and informally peer-reviewed by financially literate users, with numerous edge cases tested and minor issues corrected over time.
@@ -150,19 +160,9 @@ The outputs of this engine were then systematically verified against the origina
 
 No financial model of this complexity can claim absolute infallibility. However, given the independent re-derivation, cross-verification, and sustained public scrutiny, the mathematical integrity of this calculator is likely robust.
 
-For those who value full transparency, [the original spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) remains available and exposes the underlying formulae in full. You are welcome to audit the logic yourself.
+For those who value full transparency, [the original spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) remains available and exposes the underlying formulae in full. You are welcome to audit the logic yourself. Note however that features developed after January 2026 — such as the 75% EV FBT rule, the post-4-year ECM base value reduction, and other refinements — are not reflected in the spreadsheet and exist only in this web calculator.
 
 If you believe you have identified a genuine discrepancy, please feel free to [reach out](../about/contact.md). Serious scrutiny is welcome.
-
-??? warning "Known limitation (22 February 2026)"
-
-    A helpful Reddit user pointed out that the **post‑four‑year FBT base value discount** is not currently applied in the Employee Contribution Method (ECM) and its downstream calculations for FBT‑applicable leases.
-
-    In practical terms, for fortnights that fall within FBT years starting more than four years after lease commencement, the ECM post-tax payment should be reduced to **two‑thirds of its original amount**, with corresponding adjustments to the pre‑tax component. This would result in higher net savings during those periods.
-
-    At present, this discount is not reflected in the calculator outputs. Correcting it requires structural changes across multiple sections in this calculator.
-
-    This limitation only affects users with **FBT‑applicable leases longer than four years** which is uncommon as shorter leases are more popular among FBT-applicable leases. When applicable, the true financial saving is higher than what the current version of this calculator displays.
 
 ### Why doesn’t this calculator display a “tax saving” figure?
 
@@ -186,10 +186,6 @@ Some quotes also advertise a “GST saving.” This typically consists of two pa
 However, as emphasised throughout this website, individual tax or GST savings figures are not meaningful in isolation. The relevant question is not “How much tax did I save?” but rather “Am I financially better or worse off overall?”
 
 The net outcome remains the only meaningful decision metric.
-
-### Does this calculator work for electric vehicles?
-
-Yes. It supports **FBT‑exempt EV novated leases** as well as **FBT‑applicable non‑EV leases**, and highlights how the outcomes differ between the two. It also automatically detects if an EV does not qualify for FBT-exemption, e.g. if the FBT base value is above LCT threshold or if it was first held and used prior to 1/7/2022.
 
 ### Does it consider childcare subsidy, HECS, or Div 293 impacts?
 

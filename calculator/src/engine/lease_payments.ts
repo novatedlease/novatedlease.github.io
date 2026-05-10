@@ -20,6 +20,9 @@ export function computeLeasePaymentsOverLease(opts: {
   preTaxTotalFn: number; // from caller (so we keep single source of truth for packaged items)
   actualPreTaxDeductionFn?: number; // optional: only used when FBT applies
   ecmPerFn?: number;               // optional: only used when FBT applies
+  /** Per-FY overrides — take precedence over the flat values when provided. */
+  actualPreTaxDeductionFnForFy?: (fy: number) => number;
+  ecmPerFnForFy?: (fy: number) => number;
 }): LeasePaymentsResult {
   const { inputs, fortnights, preTaxTotalFn } = opts;
 
@@ -32,15 +35,17 @@ export function computeLeasePaymentsOverLease(opts: {
   }
 
   // FBT-applicable: exact-tax method (requires these inputs)
-  const actualPreTaxDeductionFn = opts.actualPreTaxDeductionFn ?? 0;
-  const ecmPerFn = opts.ecmPerFn ?? 0;
+  const flatPreTax = opts.actualPreTaxDeductionFn ?? 0;
+  const flatEcm = opts.ecmPerFn ?? 0;
+  const getPreTax = (fy: number) => opts.actualPreTaxDeductionFnForFy?.(fy) ?? flatPreTax;
+  const getEcm = (fy: number) => opts.ecmPerFnForFy?.(fy) ?? flatEcm;
 
   // Build FY buckets using existing helper, but we won't use its takeHomeImpactPerPay
   const fy = buildFyBreakdown({ inputs, fortnights, preTaxTotalFn });
 
   const rows: LeasePaymentsFyRow[] = fy.map((r) => {
-    const preTaxDeductionThisFy = actualPreTaxDeductionFn * r.count;
-    const postTaxEcmThisFy = ecmPerFn * r.count;
+    const preTaxDeductionThisFy = getPreTax(r.fy) * r.count;
+    const postTaxEcmThisFy = getEcm(r.fy) * r.count;
 
     const postNlTaxableIncome = r.originalTaxableIncome - preTaxDeductionThisFy;
     const postNlTax = taxSummaryAUResident(postNlTaxableIncome).totalTax;
