@@ -43,9 +43,9 @@ In all scenarios, two additional criteria applies to qualify for any FBT-exempti
 
 **Existing leases entered before 1 April 2027** are substantially protected. If your car's FBT base value was at or below the applicable LCT threshold when you signed, your lease continues FBT-exempt until it concludes — regardless of whether that end date falls after 2027 or 2029.
 
-**New leases entered between 1 April 2027 and 31 March 2029** face a sliding scale. Cars valued at $75,000 **remains FBT-exempt**. Cars between $75,001 and the LCT threshold are subject to the 75% discount from the outset. Cars above the LCT threshold remain fully FBT-applicable, as they always have been.
+**New leases entered between 1 April 2027 and 31 March 2029** face a sliding scale. Cars valued at $75,000 **remain FBT-exempt**. Cars between $75,001 and the LCT threshold are subject to the 75% discount from the outset. Cars above the LCT threshold remain fully FBT-applicable, as they always have been.
 
-**New leases entered from 1 April 2029 onward** the full FBT-exemption is no longer available. Cars valued under the LCT threshold at the time of purchase will attract a have FBT-discount (i.e. 75% of the standard FBT liability applies), while cars above the LCT threshold attract the full FBT rate.
+**New leases entered from 1 April 2029 onward** the full FBT-exemption is no longer available. Cars valued under the LCT threshold at the time of purchase will attract an FBT-discount (i.e. 75% of the standard FBT liability applies), while cars above the LCT threshold attract the full FBT rate.
 
 ---
 

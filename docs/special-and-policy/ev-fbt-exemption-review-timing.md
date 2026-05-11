@@ -1,9 +1,11 @@
 # EV FBT exemption review timing — what is known, what is not, and why it matters
 
-!!! warning "The review has concluded — May 2026"
-    On 4 May 2026, the treasurer announced the phased wind-back of the EV FBT exemption. The review that this article anticipated has now produced a confirmed outcome. For full details on what the changes mean and their precise financial impact, see the [2026 Budget announcement article](ev-fbt-exemption-phase-out-budget-2026.md).
+!!! success "This is a historical article — the review has concluded"
+    On 4 May 2026, the treasurer announced the outcome of the review: a phased wind-back of the EV FBT exemption across three FBT years.
 
-    The content below remains relevant for understanding the legislative background and how different lease structures were (and remain) exposed to policy risk.
+    **If you want to understand what the changes are and how they affect you, go to the [2026 Budget announcement article](ev-fbt-exemption-phase-out-budget-2026.md) instead.**
+
+    The content below is preserved for historical context — it explains the legislative review mechanism and why different lease structures carried different levels of policy risk. That analysis remains useful background, but the uncertainty it describes has now been resolved.
 
 The Fringe Benefits Tax (FBT) exemption for eligible electric vehicles is **not guaranteed indefinitely**.
 
@@ -146,11 +148,11 @@ These questions matter just as much as:
 
 If you remember nothing else:
 
-> **The EV FBT exemption is subject to a legislated review, not guaranteed permanence.**
+> **The EV FBT exemption was subject to a legislated review — that review has now concluded with a phased wind-back announced in May 2026.**
 
-Lease length determines how exposed you are to that uncertainty.
+The analysis above explains *why* lease structure mattered for policy risk — and the outcome has now confirmed that the risk was real.
 
-Choosing a lease duration is therefore **both a financial decision and a policy-risk decision**.
+For current rules, see the [2026 Budget announcement article](ev-fbt-exemption-phase-out-budget-2026.md).
 
 
 --8<-- "includes/support-box.md"

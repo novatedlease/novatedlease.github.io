@@ -194,29 +194,27 @@ That exposure is cheap **only while those conditions hold**. However the same ex
 
 ---
 
-### Policy risk: the FBT-exemption may not last
+### Policy risk: the FBT-exemption wind-back
+
+!!! warning "Review concluded — May 2026"
+    The legislated review of the EV FBT exemption has now concluded. On 4 May 2026, the treasurer announced a phased wind-back. See the [full wind-back announcement](../special-and-policy/ev-fbt-exemption-phase-out-budget-2026.md) for complete details.
 
 Lease length also determines how exposed you are to **policy change risk**.
 
-The EV FBT exemption is [currently under formal review](../special-and-policy/ev-fbt-exemption-review-timing.md) (to be completed within the 18-month period of 1/1/2026 to 1/7/2027). [^1] At the conclusion of the review, the government will decide whether to:
+The EV FBT exemption was [subject to a formal legislative review](../special-and-policy/ev-fbt-exemption-review-timing.md) (to be completed within the 18-month period of 1/1/2026 to 1/7/2027). [^1] That review has now concluded with the May 2026 Budget announcement. The exemption has been partially wound back rather than fully retained or fully discontinued:
 
-- extend,
-- modify, or
-- discontinue the exemption.
-
-If the exemption were to end:
-
-- **existing leases are very likely to be grandfathered** until the end of their contract, but  
-- **new leases or extensions would not enjoy the exemption**.
+- **existing leases entered before 1 April 2027** on eligible vehicles remain grandfathered until the end of their contract,
+- **new leases from 1 April 2027** face a reduced exemption (a 75% FBT discount rather than full exemption for cars above $75,000), and
+- **new leases from 1 April 2029** will no longer receive a full FBT exemption, with only a 75% discount remaining for eligible vehicles.
 
 This matters for lease structure:
 
 - a straight 5-year lease locks in today’s rules for the full term,
-- a 1 + 1 + 1 + 1 structure exposes each renewal to future policy change.
+- a 1 + 1 + 1 + 1 structure exposes each renewal to the new rules on renewal.
 
-If the exemption ends, repeated short renewals could dramatically reduce total savings.
+If you entered your lease before 1 April 2027 and remain employed, your exemption is locked in until the lease concludes. If you have not yet entered a lease, the calculus depends on your vehicle price and planned start date.
 
-[^1]: It is not unclear whether the review would last the entire duration. Therefore it is theoretically possible for the review process to be completed within 2026 itself and recommendation to terminate (for example) to be tabled to parliament prior to 2027.
+[^1]: It is not clear whether the review would last the entire duration. Therefore it is theoretically possible for the review process to be completed within 2026 itself and recommendation to terminate (for example) to be tabled to parliament prior to 2027.
 
 ---
 
