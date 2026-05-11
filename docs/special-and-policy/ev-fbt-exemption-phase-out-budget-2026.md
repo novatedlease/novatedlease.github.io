@@ -1,14 +1,14 @@
 ---
-title: EV FBT exemption phase-out — 2026 Budget announcement explained
+title: EV FBT exemption wind-back — 2026 Budget announcement explained
 description: The treasurer has announced a phased wind-back of the EV FBT exemption over the next three FBT years. This article explains who is affected, what changes apply, and the precise financial impact for each scenario.
 ---
 
-# EV FBT exemption phase-out — 2026 Budget announcement explained
+# EV FBT exemption wind-back — 2026 Budget announcement explained
 
 !!! warning "Policy change announced — 4 May 2026"
     The treasurer has announced a phased wind-back of the EV FBT exemption, effective across the next three FBT years. Existing leaseholders are largely protected, with meaningful lead time before changes take effect. Full details below.
 
-On 4 May 2026, the federal treasurer [announced](https://www.abc.net.au/news/2026-05-04/electric-vehicle-tax-discount-to-be-wound-back/106639618) the modification — and eventual phase-out — of the Fringe Benefits Tax (FBT) exemption for electric vehicles. The changes are structured across three stages, with different rules applying depending on **when your lease commenced** and **the value of the vehicle**.
+On 4 May 2026, the federal treasurer [announced](https://www.abc.net.au/news/2026-05-04/electric-vehicle-tax-discount-to-be-wound-back/106639618) the partial wind-back of the Fringe Benefits Tax (FBT) exemption for electric vehicles. The changes are structured across three stages, with different rules applying depending on **when your lease commenced** and **the value of the vehicle**.
 
 Notably, the announcement provides genuine lead time rather than an immediate rug-pull: most people currently committed to a lease are not affected until at least 1 April 2027, and many existing leases are grandfathered through to their conclusion.
 

@@ -37,7 +37,7 @@ description: Free independent Australian novated lease guide and calculator. Com
 **This site is written for both.** The calculator is [one of very few](start-here/calculator-comparison.md) that models true net savings — not the [misleading "tax saved" figure](costs-and-savings/false-saving-example.md) most providers advertise. The accompanying articles cover the pros and cons in depth, written by someone with no affiliation with any leasing company and no financial interest in your decision.
 
 <div style="margin: 16px 0; padding: 12px 16px; border: 1px solid rgba(0, 120, 80, 0.3); border-left: 4px solid #00796b; border-radius: 8px; background: rgba(0, 121, 107, 0.05); font-size: 0.92em; line-height: 1.5;">
-  <strong>🆕 Updated May 2026:</strong> The calculator and articles fully reflect the new EV FBT phase-out rules announced in the May 2026 Budget — including the 25% FBT discount applying from April 2027 for eligible EVs above $75,000. <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">Read the full explainer →</a>
+  <strong>🆕 Updated May 2026:</strong> The calculator and articles fully reflect the new EV FBT wind-back rules announced in the May 2026 Budget — including the 25% FBT discount applying from April 2027 for eligible EVs above $75,000. <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">Read the full explainer →</a>
 </div>
 
 <div style="height: 14px;"></div>
@@ -134,7 +134,7 @@ description: Free independent Australian novated lease guide and calculator. Com
         <li><a href="/special-and-policy/fbt-exemption-double-counting/">Don't double-count the NFP FBT cap</a></li>
         <li><a href="/special-and-policy/super-guarantee/">Super guarantee and payroll risks</a></li>
         <li><a href="/special-and-policy/nsw-health-employer-share/">NSW Health's "Employer Share"</a></li>
-        <li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">EV FBT exemption phase-out — 2026 Budget announcement explained</a> <span style="display:inline-block;padding:1px 6px;background:#c0392b;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">New</span></li>
+        <li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">EV FBT exemption wind-back — 2026 Budget announcement explained</a> <span style="display:inline-block;padding:1px 6px;background:#c0392b;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">New</span></li>
         <li><a href="/special-and-policy/ev-fbt-exemption-review-timing/">EV FBT exemption review timing</a></li>
         <li><a href="/special-and-policy/lct-threshold-fbt-exemption/">LCT threshold & FBT exemption — how eligibility is determined</a></li>
         <li><a href="/special-and-policy/why-poorly-regulated/">Why novated leasing is poorly regulated</a></li>
