@@ -6,7 +6,7 @@
 
 In 2023, I sold my four-year-old Mazda 6 (worth $25,000 at the time) for a Tesla Model 3 Long Range under FBT-exempt novated lease ($81,400 driveaway price). Over five years, the total financial outcome would be roughly neutral, i.e. it was effectively "a free upgrade" (while bearing the [usual risks and caveats of novated leasing](../start-here/is-it-worth-it.md)). 
 
-This is neither a typo or mental gymnastics. 
+This is neither a typo nor mental gymnastics. 
 
 ---
 

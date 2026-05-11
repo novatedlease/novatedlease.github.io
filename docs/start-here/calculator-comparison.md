@@ -30,7 +30,7 @@ While many calculators compete by slickness and user-friendliness, the main aim 
 
 ## Comparison table
 
-*The following twenty calculators were retrieved from the first page and subsequent pages of a Google search for "[novated lease calculator](https://www.google.com/search?q=novated+lease+calculator)", conducted in March 2026. Results are listed in the order they appeared (it may vary by individual as Google search result is not static). This site and another independent calculator are added to complete the comparison. Table best viewed on a wide screen.*
+*The following twenty calculators were retrieved from the first page and subsequent pages of a Google search for "[novated lease calculator](https://www.google.com/search?q=novated+lease+calculator)", conducted in March 2026. Results are listed in the order they appeared (it may vary by individual as Google search result is not static). This site and another independent calculator are added to complete the comparison. Individual providers may update their calculators over time — treat this as a snapshot rather than a live review. Table best viewed on a wide screen.*
 
 <div class="compact-table" markdown="1">
 

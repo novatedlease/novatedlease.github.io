@@ -183,4 +183,4 @@ Everything else in this guide builds on those foundations.
 
 [^1]: This relationship is slightly altered if the pre-tax dollar spending brings the gross salary amount past the marginal tax threshold. E.g. if the gross salary is $10,000 above 37+2% threshold, then spending $15,000 would mean the first $10,000 portion enjoys 39% effective discount and the subsequent $5,000 portion enjoys 32% effective discount.
 
-[^2]: Within FBT-applicable strucure, there is in fact an additional component where the GST of post-tax contribution has to be paid, though this is funded pre-tax. I have omitted this component in this discussion for simplicity sake. 
+[^2]: Within FBT-applicable strucure, there is in fact an additional component where the GST of post-tax contribution has to be paid, though this is funded pre-tax. I have omitted this component in this discussion for simplicity's sake. 

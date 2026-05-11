@@ -15,7 +15,7 @@ See *Residual value*.
 ---
 
 **Budgeted running costs**
-The budgeted amount set aside each pay cycle to cover ongoing car costs — fuel or electricity, tyres, servicing, registration, and insurance. This money sits in a dedicated account and is later reconciled against eligible claims (e.g. reimbursement claims, including ATO shortcut-method claims where applicable). Unspent amounts are returned at lease end; if the budget is too low, contributions could be adjusted adjusted (for example via higher ongoing deductions or top-ups). See [Running costs as a piggy bank](../running-costs/running-costs-piggy-bank.md).
+The budgeted amount set aside each pay cycle to cover ongoing car costs — fuel or electricity, tyres, servicing, registration, and insurance. This money sits in a dedicated account and is later reconciled against eligible claims (e.g. reimbursement claims, including ATO shortcut-method claims where applicable). Unspent amounts are returned at lease end; if the budget is too low, contributions could be adjusted (for example via higher ongoing deductions or top-ups). See [Running costs as a piggy bank](../running-costs/running-costs-piggy-bank.md).
 
 ---
 
@@ -31,7 +31,7 @@ The mechanism used in FBT-applicable (ICE) novated leases to eliminate the emplo
 ---
 
 **EV FBT exemption**
-A legislated exemption (introduced October 2022) under which eligible electric and plug-in hybrid vehicles provided under a novated lease are exempt from Fringe Benefits Tax. This significantly reduces the cost of an EV novated lease compared with an ICE vehicle lease. The exemption is subject to an ongoing government review. PHEVs that were not on order before 1 April 2025 are no longer eligible. See [EV vs ICE novated leases compared](../start-here/ev-vs-ice-compared.md) and [EV FBT exemption review timing](../special-and-policy/ev-fbt-exemption-review-timing.md).
+A legislated exemption (introduced October 2022) under which eligible electric vehicles provided under a novated lease are exempt from Fringe Benefits Tax. This significantly reduces the cost of an EV novated lease compared with an ICE vehicle lease. PHEVs that were not on order before 1 April 2025 are no longer eligible. The exemption is being wound back: a phased reduction was announced in May 2026, with new leases from 1 April 2027 subject to reduced concessions. See [EV vs ICE novated leases compared](../start-here/ev-vs-ice-compared.md) and [EV FBT exemption wind-back — 2026 Budget announcement](../special-and-policy/ev-fbt-exemption-phase-out-budget-2026.md).
 
 ---
 
@@ -51,7 +51,7 @@ Employees of certain not-for-profit organisations can have fringe benefits provi
 ---
 
 **FBT year**
-The FBT year runs from **1 April to 31 March** — different from the income tax year (1 July to 30 June). This matters when calculating RFBA for a lease that starts or ends partway through a year, and when claiming electricity costs under the ATO 4.2c/km shortcut method.
+The FBT year runs from **1 April to 31 March** — different from the income tax year (1 July to 30 June). This matters when calculating RFBA for a lease that starts or ends partway through a year, and when claiming electricity costs under the ATO home charging shortcut method (currently 5.47c/km from 1 April 2026).
 
 ---
 
@@ -81,7 +81,7 @@ Internal Combustion Engine vehicle — a conventional petrol or diesel car. ICE 
 ---
 
 **LCT — Luxury Car Tax**
-A tax applied to vehicles with a GST-inclusive value above a threshold set by the ATO each year (e.g. $91,387 for FY 2024–25 and 2025–26 for fuel-efficient vehicles; lower for other vehicles). EVs above the LCT threshold lose the FBT-exemption status.
+A tax applied to vehicles with a GST-inclusive value above a threshold set by the ATO each year ($91,387 for FY 2024–25 and 2025–26; $91,661 from 1 July 2026 for fuel-efficient vehicles; lower for other vehicles). EVs above the LCT threshold lose the FBT-exemption status.
 
 ---
 

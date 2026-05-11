@@ -45,7 +45,7 @@ Before weighing the risks and benchmarks, it helps to understand *where* the pot
 
 6. **Lease interest offset by other savings**  
 
-    - While the effective interest rates under the hood of a lease may be high (often 8–12 if not higher%), in many cases, this is outweighed by the overall saving in other aspects.
+    - While the effective interest rates under the hood of a lease may be high (often 8–12% if not higher), in many cases, this is outweighed by the overall saving in other aspects.
 
 ---
 
@@ -259,5 +259,5 @@ Yes. Many lenders treat novated lease repayments as ongoing liabilities, which c
 --8<-- "includes/keane-box.md"
 
 
-[^1]: Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the intiially "exempted" GST is still payable at this stage. 
+[^1]: Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the initially "exempted" GST is still payable at this stage. 
 [^2]: If one purchases a car via private sale, as there is no GST component on the car purchase price, one does not get any GST saving when this car is leased. 

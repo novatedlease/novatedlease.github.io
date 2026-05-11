@@ -28,7 +28,7 @@ The table below sets out every scenario depending on lease start date, vehicle F
 | 1 Apr 2029 or later | ≤ EV LCT threshold at time of purchase | n/a | FBT-discounted (75%) |
 | 1 Apr 2029 or later | > EV LCT threshold at time of purchase | n/a | FBT-applicable (100%) |
 
-In all scenarios, two additional criteria applies to qualify for any FBT-exemption or FBT-discount, i.e.
+In all scenarios, two additional criteria apply to qualify for any FBT-exemption or FBT-discount, i.e.
 
 - it must have been first held and used after 1/7/22
 - it has never paid LCT throughout its history.

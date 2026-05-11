@@ -103,7 +103,7 @@ The upside is:
 
 For people without iron‑clad job security, this could be a sensible trade.
 
-**Important:** This is only one aspect of the broader trade-off between a single long lease and multiple shorter leases, which is discussed in more depth [elsewhere in this guide](lease-length-and-risk.md). Pay particular attention to the **[timing of FBT-exemption review](../special-and-policy/ev-fbt-exemption-review-timing.md)** if you are considering FBT-exempt novated lease. 
+**Important:** This is only one aspect of the broader trade-off between a single long lease and multiple shorter leases, which is discussed in more depth [elsewhere in this guide](lease-length-and-risk.md). Note that the EV FBT exemption review has now concluded — the May 2026 Budget announced a phased wind-back of the exemption for new leases from April 2027. See the [wind-back announcement](../special-and-policy/ev-fbt-exemption-phase-out-budget-2026.md) for how this affects the lease structure decision.
 
 ---
 
