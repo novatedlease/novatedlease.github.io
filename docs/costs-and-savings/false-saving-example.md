@@ -1,3 +1,8 @@
+---
+title: "Real example: a marketed \"$21,320 savings\" was actually a $5,591 net loss"
+description: A step-by-step breakdown of a real novated lease quote showing how the advertised savings figure overstates the true outcome — and how net financial position compares against a cash purchase and car loan.
+---
+
 # Real-life example: How a marketed "$21,320 savings" result in a $5,591 net loss
 
 ---

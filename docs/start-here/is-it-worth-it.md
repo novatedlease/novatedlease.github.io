@@ -40,7 +40,7 @@ Before weighing the risks and benchmarks, it helps to understand *where* the pot
 
 5. **Fringe Benefits Tax (FBT) exemption for eligible EVs**  
 
-    - No FBT applies to eligible EVs below the luxury car tax threshold (currently $91,387 for FY 2024‑25 and 2025‑26).  
+    - No FBT applies to eligible EVs below the luxury car tax threshold ($91,387 for FY 2024‑25 and 2025‑26; rising to $91,661 from 1 July 2026).  
     - Note that PHEV FBT exemption ended on 1 April 2025.
 
 6. **Lease interest offset by other savings**  
