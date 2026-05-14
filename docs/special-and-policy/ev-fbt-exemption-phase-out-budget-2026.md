@@ -129,10 +129,10 @@ For **people already in a lease**, the key message is clear: if your car was at 
 For **people considering a new lease between April 2027 and March 2029**, the calculus changes materially depending on vehicle price:
 
 - Cars at $75,000 or below remain a strong proposition through to their lease conclusion.
-- Cars between $75,001 and the LCT threshold attract a 25% effective FBT cost from day one, meaningfully reducing (though not eliminating) the pre-tax benefit.
+- Cars between $75,001 and the LCT threshold attract a 75% effective FBT cost from day one, meaningfully reducing (though not eliminating) the pre-tax benefit.
 - Cars above the LCT threshold continue to be structured as fully FBT-applicable leases, as they were before.
 
-For **people planning a lease from April 2029 onward**, the full EV FBT exemption will no longer be available. A residual 25% discount (for cars within the LCT threshold) remains — but the headline benefit of EV novated leases will be substantially diminished compared to what has been available since 2022.
+For **people planning a lease from April 2029 onward**, the full EV FBT exemption will no longer be available. A residual 25% FBT discount (for cars within the LCT threshold) remains — but the headline benefit of EV novated leases will be substantially diminished compared to what has been available since 2022.
 
 ---
 
