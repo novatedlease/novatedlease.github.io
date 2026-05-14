@@ -65,10 +65,11 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
   const gstMult = i.gstSavingPassedOn === "Yes" ? 1.1 : 1.0;
 
 
-  // Helper: normalize interest input so both 0.06 and 6 mean 6%
+  // Both interest-rate fields (homeLoanOffsetInterestRate, carLoanInterestRatePct) are
+  // always stored as percentages (e.g. 6.1 for 6.1%). Always divide by 100.
   const normalizeRateDecimal = (x: number): number => {
     if (!Number.isFinite(x) || x <= 0) return 0;
-    return x > 1 ? x / 100 : x;
+    return x / 100;
   };
 
   // Helper: Excel-like PMT (returns POSITIVE payment amount for pv>0)
