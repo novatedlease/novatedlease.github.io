@@ -164,6 +164,20 @@ For those who value full transparency, [the original spreadsheet](https://docs.g
 
 If you believe you have identified a genuine discrepancy, please feel free to [reach out](../about/contact.md). Serious scrutiny is welcome.
 
+### Does this calculator support fractional lease terms like 13 months or 25 months?
+
+No. The calculator supports whole-year lease durations only (1–5 years), and this is a deliberate design choice rather than an oversight.
+
+Fractional or non-integer lease durations introduce a cluster of ambiguities that are handled inconsistently between providers — and modelling them with false precision would likely produce misleading results:
+
+- **Annual running costs:** Whether a 13-month lease should include one or two years’ worth of annual expenses (registration, insurance, servicing) is ambiguous. Providers differ.
+- **Residual value:** The ATO’s residual percentages apply to whole years. How a provider treats a 13-month lease — whether using the 2-year residual table (65.63% → 56.25%), or interpolating a precise figure for 1.083 years — is [a genuinely contested question](../costs-and-savings/why-residual-values-matter.md#how-is-the-residual-defined-for-13month-or-other-noninteger-lease-durations) with no uniformly applied answer.
+- **Fortnight counts:** A 13-month lease spans approximately 28.2 fortnights, introducing rounding and timing differences.
+
+If you need to model a non-integer term precisely, [the original spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) exposes all underlying formulae and can be adapted for your own purpose.
+
+As a practical guide to the incremental benefit: if the provider correctly interpolates the residual for the extra month (e.g. 1.083 years rather than 2 years), the real additional saving from one extra month beyond a 1-year lease is mainly the extra month of running costs paid with pre-tax dollars — plus an additional ~0.8% of the car’s value being funded pre-tax for that month. The residual controversy is the bigger modelling uncertainty by far.
+
 ### Why doesn’t this calculator display a “tax saving” figure?
 
 You may notice that this calculator does not prominently display a single “tax saved” number — and that is deliberate.
