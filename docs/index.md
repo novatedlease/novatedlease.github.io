@@ -163,8 +163,9 @@ description: Free independent Australian novated lease guide and calculator. Com
     <a class="featured-logo-strip__link" href="https://leasecheck.au" target="_blank" rel="noopener">
       <img class="featured-logo-strip__logo featured-logo-strip__logo--leasecheck" src="/assets/images/featured/leasecheck.png" alt="LeaseCheck">
     </a>
-    <a class="featured-logo-strip__link" href="https://millarx.com.au/cost-compare" target="_blank" rel="noopener">
-      <img class="featured-logo-strip__logo featured-logo-strip__logo--millarx" src="/assets/images/featured/millarx.png" alt="MillarX">
+    <a class="featured-logo-strip__link" href="https://leaseofmind.com.au" target="_blank" rel="noopener" style="flex-direction: column; align-items: center; gap: 4px;">
+      <img class="featured-logo-strip__logo featured-logo-strip__logo--leaseofmind" src="/assets/images/featured/leaseofmind_og.jpg" alt="Lease of Mind">
+      <span style="font-size: 0.75em; font-weight: 600; color: inherit;">Lease of Mind</span>
     </a>
     <a class="featured-logo-strip__link" href="https://ccschecker.com.au/guides/ev-novated-lease-ccs-help-mls" target="_blank" rel="noopener" style="flex-direction: column; align-items: center; gap: 4px;">
       <img class="featured-logo-strip__logo featured-logo-strip__logo--ccschecker" src="/assets/images/featured/ccschecker.png" alt="CCS Checker AU">

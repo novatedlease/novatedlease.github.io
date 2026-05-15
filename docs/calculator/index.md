@@ -170,8 +170,8 @@ No. The calculator supports whole-year lease durations only (1–5 years), and t
 
 Fractional or non-integer lease durations introduce a cluster of ambiguities that are handled inconsistently between providers — and modelling them with false precision would likely produce misleading results:
 
-- **Annual running costs:** Whether a 13-month lease should include one or two years’ worth of annual expenses (registration, insurance, servicing) is ambiguous. Providers differ.
 - **Residual value:** The ATO’s residual percentages apply to whole years. How a provider treats a 13-month lease — whether using the 2-year residual table (65.63% → 56.25%), or interpolating a precise figure for 1.083 years — is [a genuinely contested question](../costs-and-savings/why-residual-values-matter.md#how-is-the-residual-defined-for-13month-or-other-noninteger-lease-durations) with no uniformly applied answer.
+- **Annual running costs:** Whether a 13-month lease should include one or two years’ worth of annual expenses (registration, insurance, servicing) is ambiguous. Providers differ.
 - **Fortnight counts:** A 13-month lease spans approximately 28.2 fortnights, introducing rounding and timing differences.
 
 If you need to model a non-integer term precisely, [the original spreadsheet](https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/) exposes all underlying formulae and can be adapted for your own purpose.
