@@ -235,7 +235,7 @@ hide:
 
 Self-managed leases often offer significantly more competitive effective interest rates than bundled arrangements — this alone can make a meaningful difference to the net cost of the lease over its full term.
 
-This option is frequently obscured or actively discouraged by incumbent salary packaging companies, whose revenue includes a margin on bundled finance. In some cases, when asked directly, consultants have been known to deflect or misrepresent whether this option exists.
+**This option is frequently obscured or actively discouraged** by incumbent salary packaging companies, whose revenue includes a margin on bundled finance. In some cases, when asked directly, consultants have been known to deflect or misrepresent whether this option exists.
 
 This page is a community-maintained record of confirmed employer policies.
 
