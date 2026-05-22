@@ -223,6 +223,18 @@ hide:
   color: rgba(0,0,0,0.45);
   margin-bottom: 4px;
 }
+
+.byo-how-it-works {
+  margin: 24px 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.byo-how-it-works h3 {
+  margin-top: 0 !important;
+}
 </style>
 
 **Many employers technically permit BYO (self-managed) novated leases** — where you arrange your own financier rather than using the one bundled by your employer's salary packaging provider.
@@ -233,6 +245,35 @@ This page is a community-maintained record of confirmed employer policies.
 
 <div class="byo-explainer">
   <strong>What is BYO / self-managed finance?</strong> In a standard novated lease, the packaging company arranges the financing — typically at a rate that includes their margin. With a BYO or self-managed structure, you source your own finance (usually at a lower market rate), and the salary packaging company handles only the payroll deductions and FBT administration. This can meaningfully reduce the effective interest cost over the life of the lease.
+</div>
+
+<div class="byo-how-it-works">
+
+### How it works in practice
+
+The key thing to understand is that two parties are involved in a BYO lease, each handling a separate role:
+
+- **BYO finance specialist** — sources and arranges the actual finance through their lending panel (think: a mortgage broker, but for your novated lease)
+- **Your existing salary packaging company** (e.g. Paywise, Smartleasing) — continues handling the payroll deductions and FBT administration as normal
+
+These two sides operate independently. Your packaging company does not need to initiate or approve the finance; they simply process the salary deductions once the lease is in place.
+
+**The process typically looks like this:**
+
+1. **Contact a BYO specialist directly.** Provide your vehicle details, preferred lease term, annual kilometres, income, and postcode. The specialist generates a quote showing your fortnightly cost and effective interest rate.
+
+2. **Review the quote.** Compare the rate against what your packaging company would offer. Rates vary based on your credit profile — good income, assets (e.g. a mortgage), and low debt generally improve what the lender will offer.
+
+3. **Submit a credit application.** If the quote looks competitive, the specialist runs a formal pre-approval through their lender panel.
+
+4. **Receive approval.** Once approved, the financing is confirmed.
+
+5. **Provide your dealer contact.** The specialist contacts your car dealer directly to request a tax invoice for the vehicle.
+
+6. **Sign the lease documents.** The specialist prepares documents for both you and your employer to sign. Your employer's role is administrative — they're not arranging anything, just authorising the payroll deduction.
+
+7. **The lease settles.** Your salary packaging company begins processing the deductions as normal. The BYO specialist's job is done.
+
 </div>
 
 <div id="byo-checker-root">
