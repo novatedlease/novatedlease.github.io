@@ -266,7 +266,9 @@ These two sides operate independently. Your packaging company does not need to i
 
 6. **Sign the lease documents.** The specialist prepares documents for both you and your employer to sign. Your employer's role is administrative — they're not arranging anything, just authorising the payroll deduction.
 
-7. **The lease settles.** Your salary packaging company begins processing the deductions as normal. The BYO specialist's job is done.
+7. **Finalise the admin arrangement with your salary packaging company.** Using the documentation provided by the BYO specialist, you return to your existing salary packaging company (e.g. Paywise, Smartleasing) to set up the ongoing payroll deduction arrangement. They handle the FBT administration and fortnightly salary sacrifice from this point forward.
+
+8. **The lease settles.** Your salary packaging company begins processing the deductions as normal. The BYO specialist's job is done.
 
 </div>
 
