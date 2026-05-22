@@ -355,6 +355,13 @@ These two sides operate independently. Your packaging company does not need to i
       notes: ""
     },
     {
+      name: "Australian Taxation Office",
+      aliases: ["ATO", "Tax Office"],
+      group: "Australian Federal Government",
+      status: "possible",
+      notes: ""
+    },
+    {
       name: "Services Australia",
       aliases: ["Centrelink", "Medicare", "Child Support", "Services Aus"],
       group: "Australian Federal Government",
@@ -366,7 +373,7 @@ These two sides operate independently. Your packaging company does not need to i
       aliases: ["APS", "Commonwealth Government", "Federal Government", "Australian Government", "Commonwealth", "Australian Public Service", "Canberra"],
       group: "Australian Federal Government",
       status: "partial",
-      notes: "Available in some Commonwealth agencies — not universal across the APS. Confirmed for Department of Defence, NDIA, and Services Australia (listed separately above). Check with your specific agency's HR."
+      notes: "Available in some Commonwealth agencies — not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, and ATO (listed separately above). Check with your specific agency's HR."
     }
   ];
 
