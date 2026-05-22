@@ -196,6 +196,13 @@ hide:
   line-height: 1.4;
 }
 
+.byo-provider-card__community {
+  font-size: 0.82em;
+  color: rgba(0, 0, 0, 0.55);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
 .byo-provider-card__url {
   font-size: 0.82em;
   color: #2b6cb0;
@@ -419,12 +426,14 @@ This page is a community-maintained record of confirmed employer policies.
       {
         name: 'MillarX',
         url: 'https://millarx.com.au',
-        desc: 'Specialises in self-managed / BYO novated leases'
+        desc: 'Specialises in self-managed / BYO novated leases',
+        communityHtml: 'Moderator of <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noopener">r/NovatedLeasingAU</a>'
       },
       {
         name: 'Lease of Mind',
         url: 'https://leaseofmind.com.au',
-        desc: 'Specialises in self-managed / BYO novated leases'
+        desc: 'Specialises in self-managed / BYO novated leases',
+        communityHtml: 'Admin of the <a href="https://www.facebook.com/groups/602788952082399" target="_blank" rel="noopener">Novated Lease Q&amp;A Australia</a> Facebook group'
       }
     ];
     if (Math.random() < 0.5) providers.reverse();
@@ -443,6 +452,7 @@ This page is a community-maintained record of confirmed employer policies.
         return '<a class="byo-provider-card" href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener">' +
           '<div class="byo-provider-card__name">' + escapeHtml(p.name) + '</div>' +
           '<div class="byo-provider-card__desc">' + escapeHtml(p.desc) + '</div>' +
+          (p.communityHtml ? '<div class="byo-provider-card__community">' + p.communityHtml + '</div>' : '') +
           '<div class="byo-provider-card__url">' + escapeHtml(p.url.replace('https://', '')) + '</div>' +
           '</a>';
       }).join('') +
