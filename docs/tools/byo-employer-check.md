@@ -435,6 +435,7 @@ This page is a community-maintained record of confirmed employer policies.
       '<div class="byo-providers-wrap">' +
       '<div class="byo-providers-wrap__title">Providers that specialise in self-managed novated leases</div>' +
       '<div class="byo-providers-wrap__disclaimer">' +
+      'These are not the only companies that offer BYO / self-managed novated leases, but both are well represented in Australian personal finance communities, have been consistently helpful in their respective online forums, and have actively contributed to this employer database. ' +
       'I have no affiliation with either provider and receive no referral fees, commissions, or other compensation for including these links. They are listed in randomised order.' +
       '</div>' +
       '<div class="byo-providers-wrap__grid">' +
