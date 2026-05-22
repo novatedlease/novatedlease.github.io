@@ -427,7 +427,7 @@ This page is a community-maintained record of confirmed employer policies.
         name: 'MillarX',
         url: 'https://millarx.com.au',
         desc: 'Specialises in self-managed / BYO novated leases',
-        communityHtml: 'Moderator of <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noopener">r/NovatedLeasingAU</a>'
+        communityHtml: 'Admin of <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noopener">r/NovatedLeasingAU</a>'
       },
       {
         name: 'Lease of Mind',
