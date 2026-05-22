@@ -385,14 +385,14 @@ These two sides operate independently. Your packaging company does not need to i
     {
       name: "Victoria Police",
       aliases: ["Vic Pol", "VicPol", "Victoria Police Force"],
-      group: "Victoria Government",
+      group: "Victoria",
       status: "not_available",
       notes: ""
     },
     {
       name: "Royal Melbourne Hospital",
       aliases: ["RMH", "Melbourne Health"],
-      group: "Victoria Health",
+      group: "Victoria",
       status: "not_available",
       notes: ""
     },
@@ -406,21 +406,21 @@ These two sides operate independently. Your packaging company does not need to i
     {
       name: "Ambulance Victoria",
       aliases: ["Ambulance VIC", "AV", "Victorian Ambulance"],
-      group: "Victoria Government",
+      group: "Victoria",
       status: "not_available",
       notes: ""
     },
     {
       name: "Metro Trains Melbourne",
       aliases: ["Metro Trains", "Metro Melbourne", "Melbourne Metro"],
-      group: "Victoria Government",
+      group: "Victoria",
       status: "not_available",
       notes: ""
     },
     {
       name: "V/Line",
       aliases: ["VLine", "V Line", "V-Line", "V/Line Victoria"],
-      group: "Victoria Government",
+      group: "Victoria",
       status: "not_available",
       notes: ""
     }
