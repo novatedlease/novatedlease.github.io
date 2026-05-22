@@ -1,0 +1,67 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+// Only show h2 and h3
+const filtered = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+{filtered.length > 0 && (
+  <div class="toc" id="article-toc">
+    <div class="toc__title">On this page</div>
+    <ul class="toc__list" role="list">
+      {filtered.map(h => (
+        <li class={`toc__item${h.depth === 3 ? ' toc__item--depth-3' : ''}`}>
+          <a
+            href={`#${h.slug}`}
+            class={`toc__link${h.depth === 3 ? ' toc__list--depth-2 toc__link' : ''}`}
+          >
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+<script>
+  // Highlight active TOC entry on scroll
+  (function() {
+    var tocLinks = document.querySelectorAll('#article-toc .toc__link');
+    if (tocLinks.length === 0) return;
+
+    var headings = Array.from(tocLinks).map(function(link) {
+      var href = link.getAttribute('href') || '';
+      var id = href.replace('#', '');
+      return { el: document.getElementById(id), link: link };
+    }).filter(function(h) { return h.el; });
+
+    function onScroll() {
+      var navH = 72;
+      var scrollY = window.scrollY;
+      var current = null;
+
+      for (var i = headings.length - 1; i >= 0; i--) {
+        if (headings[i].el.getBoundingClientRect().top + scrollY <= scrollY + navH + 4) {
+          current = headings[i];
+          break;
+        }
+      }
+
+      tocLinks.forEach(function(link) { link.classList.remove('active'); });
+      if (current) current.link.classList.add('active');
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>

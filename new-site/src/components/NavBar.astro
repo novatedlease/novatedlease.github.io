@@ -1,0 +1,166 @@
+---
+import { navigation, isNavItem, isNavSection } from '../data/navigation';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href.replace(/\/$/, ''));
+}
+
+function isSectionActive(items: { href: string }[]) {
+  return items.some(item => isActive(item.href));
+}
+---
+
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="site-nav__inner">
+    <!-- Brand -->
+    <a class="site-nav__brand" href="/">
+      <img class="site-nav__logo" src="/assets/images/logo.png" alt="" aria-hidden="true" />
+      Novated Lease Guide
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="site-nav__links" role="list">
+      {navigation.map(entry => {
+        if (isNavItem(entry)) {
+          const active = isActive(entry.href);
+          return (
+            <li>
+              <a href={entry.href} class={`site-nav__link${active ? ' active' : ''}`}>
+                {entry.label}
+              </a>
+            </li>
+          );
+        }
+
+        if (isNavSection(entry) && entry.items) {
+          const active = isSectionActive(entry.items) || (entry.href ? isActive(entry.href) : false);
+          const isCta = entry.href === '/calculator/';
+          return (
+            <li>
+              {entry.href ? (
+                <a href={entry.href} class={`site-nav__link${isCta ? ' site-nav__link--cta' : ''}${active ? ' active' : ''}`}>
+                  {entry.label}
+                  <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              ) : (
+                <button class={`site-nav__link${active ? ' active' : ''}`} aria-haspopup="true" aria-expanded="false" type="button">
+                  {entry.label}
+                  <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              )}
+              <div class="nav-dropdown" role="menu">
+                {entry.items.map(item => (
+                  <a
+                    href={item.href}
+                    class={`nav-dropdown__item${isActive(item.href) ? ' active' : ''}`}
+                    role="menuitem"
+                    target={item.external ? '_blank' : undefined}
+                    rel={item.external ? 'noopener noreferrer' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </li>
+          );
+        }
+      })}
+    </ul>
+
+    <!-- Right actions -->
+    <div class="site-nav__actions">
+      <button class="nav-search-btn" onclick="window.openSearch && window.openSearch()" aria-label="Search site">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="6.5" cy="6.5" r="4.5"/>
+          <path d="M10 10l3 3" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-search-btn__text">Search</span>
+        <span class="nav-search-btn__kbd">⌘K</span>
+      </button>
+
+      <button class="nav-hamburger" aria-label="Open navigation menu" onclick="window.openDrawer && window.openDrawer()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="nav-mobile-overlay" id="nav-overlay" onclick="window.closeDrawer && window.closeDrawer()"></div>
+<div class="nav-mobile-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="nav-drawer__header">
+    <span>Novated Lease Guide</span>
+    <button class="nav-drawer__close" onclick="window.closeDrawer && window.closeDrawer()" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Drawer search -->
+  <div style="padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.08);">
+    <button class="nav-search-btn" style="width:100%; justify-content:flex-start; background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: var(--color-text-muted);" onclick="window.closeDrawer(); setTimeout(() => window.openSearch && window.openSearch(), 200);" aria-label="Search">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:14px;height:14px;">
+        <circle cx="6.5" cy="6.5" r="4.5"/>
+        <path d="M10 10l3 3" stroke-linecap="round"/>
+      </svg>
+      <span>Search</span>
+    </button>
+  </div>
+
+  {navigation.map(entry => {
+    if (isNavItem(entry)) {
+      const active = isActive(entry.href);
+      return (
+        <div class="nav-drawer__section">
+          <a href={entry.href} class={`nav-drawer__link nav-drawer__link--top${active ? ' active' : ''}`}>
+            {entry.label}
+          </a>
+        </div>
+      );
+    }
+    if (isNavSection(entry) && entry.items) {
+      return (
+        <div class="nav-drawer__section">
+          <div class="nav-drawer__section-title">{entry.label}</div>
+          {entry.items.map(item => (
+            <a
+              href={item.href}
+              class={`nav-drawer__link${isActive(item.href) ? ' active' : ''}`}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener noreferrer' : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      );
+    }
+  })}
+</div>
+
+<script is:inline>
+  window.openDrawer = function() {
+    document.getElementById('nav-drawer').classList.add('open');
+    document.getElementById('nav-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closeDrawer = function() {
+    document.getElementById('nav-drawer').classList.remove('open');
+    document.getElementById('nav-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+</script>

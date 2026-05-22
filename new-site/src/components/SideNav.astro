@@ -1,0 +1,54 @@
+---
+import { navigation, isNavItem, isNavSection } from '../data/navigation';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath === href || currentPath.startsWith(href.replace(/\/$/, '') + '/');
+}
+
+function isSectionActive(items: { href: string }[]) {
+  return items.some(item => isActive(item.href));
+}
+---
+
+<nav class="sidebar-nav" aria-label="Article navigation">
+  {navigation.map(entry => {
+    if (isNavItem(entry)) {
+      return (
+        <a href={entry.href} class={`sidebar-nav__top-link${isActive(entry.href) ? ' active' : ''}`}>
+          {entry.label}
+        </a>
+      );
+    }
+
+    if (isNavSection(entry) && entry.items) {
+      const active = isSectionActive(entry.items);
+      return (
+        <div class={`sidebar-nav__section${active ? ' open' : ''}`} data-section>
+          <div class="sidebar-nav__section-header" onclick="this.closest('[data-section]').classList.toggle('open')">
+            <span>{entry.label}</span>
+            <svg class="sidebar-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M4 2l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="sidebar-nav__items">
+            {entry.items.map(item => (
+              <a
+                href={item.href}
+                class={`sidebar-nav__item${isActive(item.href) ? ' active' : ''}`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+    }
+  })}
+</nav>

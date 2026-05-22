@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../layouts/Article.astro';
+
+export async function getStaticPaths() {
+  // These IDs are handled by dedicated pages
+  const skipIds = new Set([
+    'index',
+    'calculator/index',
+    'tools/byo-employer-check',
+  ]);
+
+  const entries = await getCollection('docs');
+
+  return entries
+    .filter(entry => !skipIds.has(entry.id))
+    .map(entry => {
+      // Map "section/index" to "section" for URL
+      let urlSlug = entry.id;
+      if (urlSlug.endsWith('/index')) {
+        urlSlug = urlSlug.slice(0, -6);
+      }
+
+      return {
+        params: { slug: urlSlug || undefined },
+        props: { entry },
+      };
+    });
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+const title = entry.data.title || undefined;
+const description = entry.data.description || undefined;
+
+// Build canonical current path
+const { slug } = Astro.params;
+const currentPath = '/' + (slug || '') + '/';
+---
+
+<ArticleLayout title={title} description={description} headings={headings} currentPath={currentPath}>
+  <Content />
+</ArticleLayout>

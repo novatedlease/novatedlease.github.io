@@ -1,0 +1,42 @@
+# Running costs & claiming
+
+The fortnightly novated lease deduction is made up of two components: **lease repayments** and **running costs**. Understanding how the running costs portion works — and the pitfalls around it — is essential to getting the full benefit of a novated lease.
+
+Running costs are not fees. They are *your own money*, set aside pre-tax each pay cycle and held in a dedicated account until you spend on eligible car expenses. Managed well, this is a straightforward way to pay for fuel, tyres, servicing, registration, and insurance with pre-tax dollars.
+
+Managed poorly — or with an employer who doesn't pass on all the entitlements — running costs can quietly erode the benefit you expected.
+
+---
+
+## What this section covers
+
+- **[Running cost budgets are a "piggy bank"](/running-costs/running-costs-piggy-bank/)**
+  Running costs are not a fee charged to you — they are pre-tax money set aside in a separate account, claimed back as you spend. This article explains the mechanics, what happens if you over- or under-budget, and why getting the budget right matters.
+
+- **[The ATO 4.2c/km EV charging shortcut — how it actually works](/running-costs/ato-42c-per-km-shortcut/)**
+  EV owners can claim 4.2c/km for home charging costs without keeping electricity records. This article explains the three permitted methods, how the shortcut works in the context of a novated lease, and the counter-intuitive finding that you can make extra money by claiming this — even if your charging is free.
+
+- **[Failure to pass on GST savings — an overlooked cost in some novated leases](/running-costs/failure-to-pass-gst-saving/)**
+  When running costs are paid through a novated lease, the employer can claim the GST back as an input tax credit and pass the saving on to you. Not all employers do this — effectively making your running costs 10% more expensive than they should be. This article explains how to tell whether your employer passes on the saving.
+
+- **[Insurance premium vs excess in a novated lease](/running-costs/insurance-premium-and-excess/)**
+  Insurance is typically included in the running cost budget and paid pre-tax, which changes the premium vs excess trade-off analysis. This article explains the mechanics and how the pre-tax discount affects the decision between a lower premium and a lower excess.
+
+---
+
+:::info[Support this independent calculator & guide]
+This calculator and guide are built and continuously maintained as an independent project.
+
+If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
+
+- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
+- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
+:::
+
+:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
+Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
+
+Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
+
+To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
+:::

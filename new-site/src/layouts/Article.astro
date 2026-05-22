@@ -1,0 +1,130 @@
+---
+import Base from './Base.astro';
+import ArticleTOC from '../components/ArticleTOC.astro';
+import { navigation, isNavSection } from '../data/navigation';
+
+interface Props {
+  title?: string;
+  description?: string;
+  headings?: { depth: number; slug: string; text: string }[];
+  currentPath?: string;
+}
+
+const { title, description, headings = [], currentPath = Astro.url.pathname } = Astro.props;
+
+// Find breadcrumb context: which section is this article in?
+let sectionLabel = '';
+let sectionHref = '';
+for (const entry of navigation) {
+  if (isNavSection(entry) && entry.items) {
+    for (const item of entry.items) {
+      if (currentPath === item.href || currentPath.startsWith(item.href.replace(/\/$/, ''))) {
+        sectionLabel = entry.label;
+        sectionHref = entry.items[0]?.href || '';
+      }
+    }
+  }
+}
+---
+
+<Base title={title} description={description}>
+  <div class="page-layout">
+    <main class="page-content" id="main-content">
+      {sectionLabel && (
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="breadcrumbs__sep">›</span>
+          <span>{sectionLabel}</span>
+          <span class="breadcrumbs__sep">›</span>
+          <span>{title}</span>
+        </nav>
+      )}
+
+      <article class="article-content">
+        <slot />
+      </article>
+    </main>
+
+    {headings.length > 0 && (
+      <aside class="page-toc" aria-label="Table of contents">
+        <ArticleTOC headings={headings} />
+      </aside>
+    )}
+  </div>
+</Base>
+
+<script>
+  // Sticky table logic (port from MkDocs)
+  (function() {
+    var tables = document.querySelectorAll('.compact-table table');
+    tables.forEach(function(table) {
+      var scrollWrap = table.closest('.compact-table');
+      if (!scrollWrap) return;
+      var thead = table.querySelector('thead');
+      var col1Cells = Array.from(table.querySelectorAll('tr th:first-child, tr td:first-child'));
+      var col2Cells = Array.from(table.querySelectorAll('tr th:nth-child(2), tr td:nth-child(2)'));
+
+      col1Cells.concat(col2Cells).forEach(function(cell) {
+        cell.style.position = 'relative';
+        cell.style.backgroundColor = 'var(--color-bg)';
+      });
+      col1Cells.forEach(function(cell) {
+        cell.style.whiteSpace = 'nowrap';
+        cell.style.zIndex = '2';
+      });
+      col2Cells.forEach(function(cell) { cell.style.zIndex = '2'; });
+      table.querySelectorAll('thead th:first-child, thead th:nth-child(2)').forEach(function(cell) {
+        cell.style.zIndex = '4';
+      });
+
+      function updateFrozenCols() {
+        var scrollLeft = scrollWrap.scrollLeft;
+        col1Cells.forEach(function(cell) { cell.style.transform = 'translateX(' + scrollLeft + 'px)'; });
+        col2Cells.forEach(function(cell) { cell.style.transform = 'translateX(' + scrollLeft + 'px)'; });
+      }
+      scrollWrap.addEventListener('scroll', updateFrozenCols, { passive: true });
+      updateFrozenCols();
+
+      if (!thead) return;
+      function getNavHeight() {
+        var nav = document.querySelector('.site-nav');
+        return nav ? nav.offsetHeight : 56;
+      }
+      function updateStickyHeader() {
+        var wrapRect = scrollWrap.getBoundingClientRect();
+        var navHeight = getNavHeight();
+        var theadH = thead.offsetHeight;
+        var offset = navHeight - wrapRect.top;
+        if (offset > 0 && wrapRect.bottom > navHeight + theadH) {
+          thead.style.transform = 'translateY(' + offset + 'px)';
+          thead.style.position = 'relative';
+          thead.style.zIndex = '3';
+        } else {
+          thead.style.transform = '';
+          thead.style.position = '';
+          thead.style.zIndex = '';
+        }
+      }
+      window.addEventListener('scroll', updateStickyHeader, { passive: true });
+      updateStickyHeader();
+    });
+
+    // data-dismiss buttons
+    document.querySelectorAll('[data-dismiss]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var target = document.getElementById(btn.getAttribute('data-dismiss'));
+        if (target) target.style.display = 'none';
+      });
+    });
+
+    // data-toggle buttons
+    document.querySelectorAll('[data-toggle]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var target = document.getElementById(btn.getAttribute('data-toggle'));
+        if (!target) return;
+        var open = target.classList.toggle('open');
+        btn.textContent = open ? 'close ▴' : 'details ▾';
+      });
+    });
+  })();
+</script>

@@ -1035,6 +1035,31 @@ export default function InputsPanel(props: InputsPanelProps) {
                 <div style={{ marginTop: 6, fontWeight: 800, opacity: 0.95 }}>{props.guardMessage}</div>
               ) : null}
 
+              {Number.isFinite(props.guardLiveRatePct) && props.guardLiveRatePct > 0.10 && (
+                <div style={{
+                  marginTop: 10,
+                  padding: "9px 12px",
+                  borderRadius: 10,
+                  border: "1px solid rgba(217,119,6,0.35)",
+                  borderLeft: "3px solid #d97706",
+                  background: "rgba(217,119,6,0.06)",
+                  fontSize: 12,
+                  lineHeight: 1.45,
+                  color: "rgba(0,0,0,0.75)",
+                }}>
+                  <div style={{ fontWeight: 800, marginBottom: 3, color: "#92400e" }}>
+                    💡 High rate — is a BYO lease available?
+                  </div>
+                  <div>
+                    At {props.formatPct(props.guardLiveRatePct)}, it may be worth checking whether your employer supports a{" "}
+                    <a href="/tools/byo-employer-check/" target="_blank" rel="noopener" style={{ color: "#b45309" }}>
+                      self-managed (BYO) novated lease
+                    </a>
+                    {" "}— these let you choose your own financier and typically carry a lower effective rate.
+                  </div>
+                </div>
+              )}
+
               <InterestRateCaveats />
             </div>
           </div>
