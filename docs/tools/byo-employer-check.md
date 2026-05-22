@@ -240,7 +240,7 @@ Self-managed leases often offer significantly more competitive effective interes
 This page is a community-maintained record of confirmed employer policies.
 
 <div class="byo-explainer">
-  <strong>What is BYO / self-managed finance?</strong> In a standard novated lease, the packaging company arranges the financing — typically at a rate that includes their margin. With a BYO or self-managed structure, you source your own finance (usually at a lower market rate), and the salary packaging company handles only the payroll deductions and FBT administration. This can meaningfully reduce the effective interest cost over the life of the lease.
+  <strong>What is BYO / self-managed finance?</strong> You source your own finance independently, while your existing salary packaging company continues to handle payroll deductions and FBT administration as normal. The financing and the administration are handled by two separate parties.
 </div>
 
 <div id="byo-checker-root">
