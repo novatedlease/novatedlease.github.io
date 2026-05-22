@@ -2,3 +2,6 @@
 # macOS junk
 .DS_Store
 **/.DS_Store
+
+# Node
+new-site/node_modules/
