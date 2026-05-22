@@ -243,6 +243,14 @@ This page is a community-maintained record of confirmed employer policies.
   <strong>What is BYO / self-managed finance?</strong> In a standard novated lease, the packaging company arranges the financing — typically at a rate that includes their margin. With a BYO or self-managed structure, you source your own finance (usually at a lower market rate), and the salary packaging company handles only the payroll deductions and FBT administration. This can meaningfully reduce the effective interest cost over the life of the lease.
 </div>
 
+<div id="byo-checker-root">
+  <div class="byo-search-wrap">
+    <input type="text" id="byo-search-input" placeholder="Type your employer name (e.g. South Metro Health, Monash Health, NDIA…)" autocomplete="off" spellcheck="false">
+  </div>
+  <div class="byo-db-count" id="byo-db-count"></div>
+  <div id="byo-results-area"></div>
+</div>
+
 <div class="byo-how-it-works" markdown="1">
 
 ### How it works in practice
@@ -272,14 +280,6 @@ These two sides operate independently. Your packaging company does not need to i
 
 8. **The lease settles.** Your salary packaging company begins processing the deductions as normal. The BYO specialist's job is done.
 
-</div>
-
-<div id="byo-checker-root">
-  <div class="byo-search-wrap">
-    <input type="text" id="byo-search-input" placeholder="Type your employer name (e.g. South Metro Health, Monash Health, NDIA…)" autocomplete="off" spellcheck="false">
-  </div>
-  <div class="byo-db-count" id="byo-db-count"></div>
-  <div id="byo-results-area"></div>
 </div>
 
 <div id="byo-providers-section"></div>
