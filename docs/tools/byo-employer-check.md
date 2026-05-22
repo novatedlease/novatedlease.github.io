@@ -251,6 +251,8 @@ This page is a community-maintained record of confirmed employer policies.
   <div id="byo-results-area"></div>
 </div>
 
+<div id="byo-providers-section"></div>
+
 <div class="byo-how-it-works" markdown="1">
 
 ### How it works in practice
@@ -281,8 +283,6 @@ These two sides operate independently. Your packaging company does not need to i
 8. **The lease settles.** Your salary packaging company begins processing the deductions as normal. The BYO specialist's job is done.
 
 </div>
-
-<div id="byo-providers-section"></div>
 
 <div class="byo-contribute-box">
   <strong>Know of another employer?</strong> If you have first-hand knowledge that your employer permits — or explicitly disallows — BYO finance for novated leases, <a href="/about/contact/">contact me</a> with details and I'll add it to the database.
