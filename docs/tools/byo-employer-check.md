@@ -233,6 +233,8 @@ hide:
 
 **Many employers technically permit BYO (self-managed) novated leases** — where you arrange your own financier rather than using the one bundled by your employer's salary packaging provider.
 
+Self-managed leases often offer significantly more competitive effective interest rates than bundled arrangements. This is because standard novated lease providers embed a finance margin into their rate — whereas a BYO specialist sources finance directly from a lending panel, passing through a market rate to you instead.
+
 This option is frequently obscured or actively discouraged by incumbent salary packaging companies, whose revenue includes a margin on bundled finance. In some cases, when asked directly, consultants have been known to deflect or misrepresent whether this option exists.
 
 This page is a community-maintained record of confirmed employer policies.
