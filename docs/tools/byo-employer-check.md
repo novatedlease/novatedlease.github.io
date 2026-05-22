@@ -167,20 +167,10 @@ hide:
 }
 
 .byo-provider-card {
-  display: block;
   padding: 14px 16px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 8px;
   background: white;
-  text-decoration: none !important;
-  border-bottom: none !important;
-  color: inherit !important;
-  transition: box-shadow 0.15s, border-color 0.15s;
-}
-
-.byo-provider-card:hover {
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.09);
-  border-color: rgba(43, 108, 176, 0.4);
 }
 
 .byo-provider-card__name {
@@ -199,13 +189,17 @@ hide:
 .byo-provider-card__community {
   font-size: 0.82em;
   color: rgba(0, 0, 0, 0.55);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   line-height: 1.4;
 }
 
-.byo-provider-card__url {
+.md-typeset .byo-provider-card__url {
   font-size: 0.82em;
   color: #2b6cb0;
+  text-decoration: none;
+  border-bottom: none !important;
+  display: inline-block;
+  margin-top: 2px;
 }
 
 .byo-contribute-box {
@@ -490,12 +484,12 @@ These two sides operate independently. Your packaging company does not need to i
       '</div>' +
       '<div class="byo-providers-wrap__grid">' +
       providers.map(function (p) {
-        return '<a class="byo-provider-card" href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener">' +
+        return '<div class="byo-provider-card">' +
           '<div class="byo-provider-card__name">' + escapeHtml(p.name) + '</div>' +
           '<div class="byo-provider-card__desc">' + escapeHtml(p.desc) + '</div>' +
           (p.communityHtml ? '<div class="byo-provider-card__community">' + p.communityHtml + '</div>' : '') +
-          '<div class="byo-provider-card__url">' + escapeHtml(p.url.replace('https://', '')) + '</div>' +
-          '</a>';
+          '<a class="byo-provider-card__url" href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener">' + escapeHtml(p.url.replace('https://', '')) + ' ↗</a>' +
+          '</div>';
       }).join('') +
       '</div></div>';
   }
