@@ -229,6 +229,10 @@ hide:
 .byo-how-it-works h3 {
   margin-top: 0 !important;
 }
+
+.md-content__inner {
+  max-width: 860px;
+}
 </style>
 
 **Many employers technically permit BYO (self-managed) novated leases** — where you arrange your own financier rather than using the one bundled by your employer's salary packaging provider.
