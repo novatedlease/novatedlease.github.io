@@ -374,6 +374,55 @@ These two sides operate independently. Your packaging company does not need to i
       group: "Australian Federal Government",
       status: "partial",
       notes: "Available in some Commonwealth agencies — not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, and ATO (listed separately above). Check with your specific agency's HR."
+    },
+    {
+      name: "Sydney Trains",
+      aliases: ["Sydney Trains NSW", "Transport for NSW trains"],
+      group: "NSW Government",
+      status: "possible",
+      notes: ""
+    },
+    {
+      name: "Victoria Police",
+      aliases: ["Vic Pol", "VicPol", "Victoria Police Force"],
+      group: "Victoria Government",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "Royal Melbourne Hospital",
+      aliases: ["RMH", "Melbourne Health"],
+      group: "Victoria Health",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "NSW Health",
+      aliases: ["New South Wales Health", "NSW Health Service", "Health NSW"],
+      group: "NSW Government",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "Ambulance Victoria",
+      aliases: ["Ambulance VIC", "AV", "Victorian Ambulance"],
+      group: "Victoria Government",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "Metro Trains Melbourne",
+      aliases: ["Metro Trains", "Metro Melbourne", "Melbourne Metro"],
+      group: "Victoria Government",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "V/Line",
+      aliases: ["VLine", "V Line", "V-Line", "V/Line Victoria"],
+      group: "Victoria Government",
+      status: "not_available",
+      notes: ""
     }
   ];
 
