@@ -752,7 +752,7 @@ button {
 .admonition > summary + * {
   padding-top: 12px;
 }
-.admonition > *:last-child { padding-bottom: 10px; }
+.admonition > *:last-child { padding-bottom: 14px; }
 .admonition p:last-child { margin-bottom: 0; }
 
 /* Note */
