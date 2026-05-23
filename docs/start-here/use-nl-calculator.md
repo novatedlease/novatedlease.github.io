@@ -80,8 +80,8 @@ Include fuel or electricity, servicing, insurance, registration, tyres, and othe
 
 - Use figures from your quote if you want the calculator’s outputs to match your lease exactly.
 - Confirm whether your employer passes on GST savings.
-- **Electricity** should be left at the default value, which is automatically calculated as **5.47 cents × annual kilometres** (updated from 4.2c/km from 1 April 2026), in line with the [ATO’s standard EV electricity claim method](../running-costs/ato-42c-per-km-shortcut.md).  
-    - If you will charge mostly at commercial charger and intend to claim actual commercial charging fees instead of the 4.2c/km method, you may enter the estimated commercial charging cost here (if it exceeds the amount derived using the 4.2c/km method).
+- **Electricity** should be left at the default value, which is automatically calculated as **5.47 cents × annual kilometres**, in line with the [ATO’s standard EV electricity claim method](../running-costs/ato-42c-per-km-shortcut.md).  
+    - If you will charge mostly at commercial charger and intend to claim actual commercial charging fees instead of the 5.47c/km method, you may enter the estimated commercial charging cost here (if it exceeds the amount derived using the 5.47c/km method).
     - In all other circumstances, do **not** enter your actual electricity expense here — that is handled separately in the subsequent Electricity section.
 
 --- 
