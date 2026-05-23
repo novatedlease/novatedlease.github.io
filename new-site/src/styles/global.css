@@ -1580,11 +1580,19 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   .page-content { padding: 36px 40px; }
 }
 
+/* iOS body-lock while drawer is open */
+body.drawer-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 /* Mobile */
 @media (max-width: 780px) {
   .site-nav__links { display: none; }
   .nav-hamburger { display: flex; }
   .nav-search-btn__text, .nav-search-btn__kbd { display: none; }
+  .nav-search-btn { width: 38px; height: 38px; padding: 0; justify-content: center; }
   .site-nav__actions { margin-left: auto; }
   .page-content { padding: 24px 20px; }
 
@@ -1594,14 +1602,14 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   .home-content { padding: 28px 20px 60px; }
   .home-hero h1 { font-size: 1.625rem; line-height: 1.2; }
 
-  .calc-page { padding: 20px 20px 40px; }
+  .calc-page { padding: 32px 20px 40px; }
   .calc-page h1 { font-size: 1.625rem; }
 
   .byo-page { padding: 24px 20px 40px; }
   .byo-page h1 { font-size: 1.625rem; }
 
   .home-cta-btn { font-size: 1rem; padding: 13px 24px; }
-  .home-cta-row { flex-direction: column; align-items: stretch; }
+  .home-cta-row { flex-direction: column; align-items: flex-start; }
 }
 
 /* Wide screens — cap and center */

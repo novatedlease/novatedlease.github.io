@@ -153,14 +153,19 @@ function isSectionActive(items: { href: string }[]) {
 </div>
 
 <script is:inline>
+  var _drawerScrollY = 0;
   window.openDrawer = function() {
+    _drawerScrollY = window.scrollY;
+    document.body.style.top = '-' + _drawerScrollY + 'px';
+    document.body.classList.add('drawer-open');
     document.getElementById('nav-drawer').classList.add('open');
     document.getElementById('nav-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
   };
   window.closeDrawer = function() {
+    document.body.classList.remove('drawer-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _drawerScrollY);
     document.getElementById('nav-drawer').classList.remove('open');
     document.getElementById('nav-overlay').classList.remove('open');
-    document.body.style.overflow = '';
   };
 </script>
