@@ -28,6 +28,7 @@ import FullPage from '../../layouts/FullPage.astro';
 
     <div id="byo-checker-root">
       <div class="byo-search-wrap">
+        <label for="byo-search-input" class="byo-search-label">Search your employer:</label>
         <input type="text" id="byo-search-input" placeholder="Type your employer name (e.g. South Metro Health, Monash Health, NDIA…)" autocomplete="off" spellcheck="false" />
       </div>
       <div class="byo-db-count" id="byo-db-count"></div>
@@ -103,18 +104,27 @@ import FullPage from '../../layouts/FullPage.astro';
   margin: 20px 0 16px 0;
 }
 
+.byo-search-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--nl-blue);
+  margin-bottom: 8px;
+}
+
 #byo-search-input {
   width: 100%;
   padding: 12px 16px;
   font-size: 1em;
   font-family: inherit;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--nl-blue);
   border-radius: 10px;
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
   background: white;
   color: inherit;
+  box-shadow: 0 0 0 4px rgba(11, 92, 171, 0.1);
 }
 
 #byo-search-input:focus {
