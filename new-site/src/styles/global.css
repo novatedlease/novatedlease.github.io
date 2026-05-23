@@ -1433,6 +1433,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   font-size: 1.625rem;
   font-weight: 800;
   letter-spacing: -0.02em;
+  line-height: 1.2;
   margin: 0 0 6px;
   color: var(--color-text);
 }
@@ -1542,6 +1543,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.025em;
+  line-height: 1.2;
   margin: 0 0 20px;
   color: var(--color-text);
 }
@@ -1583,16 +1585,20 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   .site-nav__links { display: none; }
   .nav-hamburger { display: flex; }
   .nav-search-btn__text, .nav-search-btn__kbd { display: none; }
+  .site-nav__actions { margin-left: auto; }
   .page-content { padding: 24px 20px; }
 
   .article-content h1 { font-size: 1.625rem; }
   .article-content h2 { font-size: 1.25rem; }
 
   .home-content { padding: 28px 20px 60px; }
-  .home-hero h1 { font-size: 1.625rem; }
+  .home-hero h1 { font-size: 1.625rem; line-height: 1.2; }
 
-  .calc-page { padding: 20px 18px 40px; }
-  .byo-page { padding: 24px 18px 40px; }
+  .calc-page { padding: 20px 20px 40px; }
+  .calc-page h1 { font-size: 1.625rem; }
+
+  .byo-page { padding: 24px 20px 40px; }
+  .byo-page h1 { font-size: 1.625rem; }
 }
 
 /* Wide screens — cap and center */
