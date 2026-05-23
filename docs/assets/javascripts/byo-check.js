@@ -153,6 +153,13 @@
       group: "Victoria",
       status: "not_available",
       notes: ""
+    },
+    {
+      name: "Rio Tinto",
+      aliases: ["Rio Tinto Group", "Rio Tinto Australia"],
+      group: "Mining & Resources",
+      status: "not_available",
+      notes: "Self-managed / BYO finance is not permitted."
     }
   ];
 
