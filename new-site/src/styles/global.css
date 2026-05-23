@@ -1599,6 +1599,9 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 
   .byo-page { padding: 24px 20px 40px; }
   .byo-page h1 { font-size: 1.625rem; }
+
+  .home-cta-btn { font-size: 1rem; padding: 13px 24px; }
+  .home-cta-row { flex-direction: column; align-items: stretch; }
 }
 
 /* Wide screens — cap and center */
