@@ -1434,14 +1434,14 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  margin: 0 0 6px;
+  margin: 0 0 0.6em;
   color: var(--color-text);
 }
 
 .calc-page > p {
   font-size: 1.0625rem;
   color: var(--color-text-soft);
-  margin: 0 0 6px;
+  margin: 0 0 1.1em;
   max-width: 820px;
   line-height: 1.8;
 }
