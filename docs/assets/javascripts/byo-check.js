@@ -127,6 +127,13 @@
       notes: "Self-managed / BYO finance is not permitted."
     },
     {
+      name: "Western Health",
+      aliases: ["Footscray Hospital", "Sunshine Hospital", "Williamstown Hospital", "Sunbury Day Hospital", "Western Health Victoria"],
+      group: "Victoria",
+      status: "possible",
+      notes: "BYO finance is permitted."
+    },
+    {
       name: "Barwon Health",
       aliases: ["University Hospital Geelong", "Geelong Hospital", "The Geelong Hospital", "UHG", "McKellar Centre", "Andrew Love Cancer Centre", "Barwon Health North"],
       group: "Victoria",
