@@ -131,7 +131,7 @@
       aliases: ["Bendigo Hospital", "Bendigo Base Hospital", "Anne Caudle Centre", "John Bomford Centre"],
       group: "Victoria",
       status: "possible",
-      notes: "BYO finance is permitted (salary packaging via Maxxia). Important lender restriction: Westpac will not allow Maxxia to make payments from a Westpac account — Westpac insists the employer make payments directly, which is incompatible with how Maxxia operates. Avoid Westpac as your BYO lender at this employer."
+      notes: "BYO finance is permitted (salary packaging via Maxxia). Important lender restriction: Westpac will not allow Maxxia to make payments from Maxxia's own account — Westpac insists the employer make payments directly, which is incompatible with how Maxxia operates. Avoid Westpac as your BYO lender at this employer."
     },
     {
       name: "Western Health",
