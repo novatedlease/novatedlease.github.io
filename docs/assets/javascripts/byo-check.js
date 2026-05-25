@@ -127,6 +127,13 @@
       notes: "Self-managed / BYO finance is not permitted."
     },
     {
+      name: "Bendigo Health",
+      aliases: ["Bendigo Hospital", "Bendigo Base Hospital", "Anne Caudle Centre", "John Bomford Centre"],
+      group: "Victoria",
+      status: "possible",
+      notes: "BYO finance is permitted (salary packaging via Maxxia). Important lender restriction: Westpac will not allow Maxxia to make payments from a Westpac account — Westpac insists the employer make payments directly, which is incompatible with how Maxxia operates. Avoid Westpac as your BYO lender at this employer."
+    },
+    {
       name: "Western Health",
       aliases: ["Footscray Hospital", "Sunshine Hospital", "Williamstown Hospital", "Sunbury Day Hospital", "Western Health Victoria"],
       group: "Victoria",
