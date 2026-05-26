@@ -28,6 +28,9 @@ The table below sets out every scenario depending on lease start date, vehicle F
 | 1 Apr 2029 or later | ≤ EV LCT threshold at time of purchase | n/a | FBT-discounted (75%) |
 | 1 Apr 2029 or later | > EV LCT threshold at time of purchase | n/a | FBT-applicable (100%) |
 
+!!! note "What is 'FBT value'?"
+    **FBT value** (also called FBT base value) is the pre-on-road purchase price — the drive-away price minus stamp duty, CTP insurance, registration, plate fees, and any Luxury Car Tax. Tesla labels this figure as "vehicle subtotal" on its order summary.
+
 In all scenarios, two additional criteria apply to qualify for any FBT-exemption or FBT-discount, i.e.
 
 - it must have been first held and used after 1/7/22
