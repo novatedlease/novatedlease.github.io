@@ -208,6 +208,13 @@
       group: "Mining & Resources",
       status: "not_available",
       notes: "Self-managed / BYO finance is not permitted."
+    },
+    {
+      name: "RACV",
+      aliases: ["Royal Automobile Club of Victoria"],
+      group: "Victoria",
+      status: "possible",
+      notes: "BYO finance is permitted."
     }
   ];
 
