@@ -321,7 +321,7 @@
         name: 'MillarX',
         url: 'https://millarx.com.au',
         desc: 'Specialises in self-managed / BYO novated leases',
-        communityHtml: 'Admin of <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noopener">r/NovatedLeasingAU</a>'
+        communityHtml: 'Ex-admin of <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noopener">r/NovatedLeasingAU</a>'
       },
       {
         name: 'Lease of Mind',

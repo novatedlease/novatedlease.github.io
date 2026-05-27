@@ -52,7 +52,7 @@ To keep this project sustainable and fair to everyone, I’m not able to respond
 For discussion of **individual quotes or personal circumstances**, public community forums are more appropriate:
 
 - **[Reddit – r/NovatedLeasingAU](https://www.reddit.com/r/NovatedLeasingAU/)**  
-*Note: the subreddit moderator runs a novated leasing company. I am not affiliated.*
+*Note: the subreddit ex-admin runs a novated leasing company. I am not affiliated.*
 
 - **[Facebook Group – Novated Lease Q&A Australia](https://www.facebook.com/groups/602788952082399)**  
   *Note: the group admin runs a novated lease consulting service. I am not affiliated.*
