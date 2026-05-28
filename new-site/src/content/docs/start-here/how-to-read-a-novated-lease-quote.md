@@ -64,7 +64,7 @@ For example, a quote may claim a “base rate” of 8.79%, while the effective i
 
 The base rate is largely meaningless in isolation when thousands of dollars of additional fees are embedded into the financed amount.
 
-Given how many novated lease providers provide inconsistent and artificially low "interest rate", I recommend not relying on these self-reported figure, but instead using a standardised method such as the one incorporated in [this site's calculator](/calculator/). 
+Given how many novated lease providers provide inconsistent and artificially low "interest rate", I recommend not relying on these self-reported figures, but instead using a standardised method such as the one incorporated in [this site's calculator](/calculator/). 
 
 See: [Why novated lease interest rates are inherently unreliable](/costs-and-savings/why-nl-interest-looks-high/#why-novated-lease-interest-rates-are-inherently-unreliable)
 
@@ -131,13 +131,13 @@ Running costs should:
 - pass through GST savings where applicable
 
 See:
-- [ATO 4.2c/km shortcut](/running-costs/ato-42c-per-km-shortcut/)
+- [ATO 5.47c/km shortcut](/running-costs/ato-42c-per-km-shortcut/)
 - [failure to pass GST savings](/running-costs/failure-to-pass-gst-saving/)
 
 :::warning[Skipping charging or running-cost claims leaves money on the table]
 Claiming running costs almost always results in a financial advantage compared to not claiming, all else being equal.
 
-Removing them because you "charge cheaply anyway" is a mathematical error – read more in the [4.2c/km shortcut article](/running-costs/ato-42c-per-km-shortcut/).
+Removing them because you "charge cheaply anyway" is a mathematical error – read more in the [5.47c/km shortcut article](/running-costs/ato-42c-per-km-shortcut/).
 :::
 
 

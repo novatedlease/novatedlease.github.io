@@ -60,7 +60,7 @@ For example, a quote may claim a “base rate” of 8.79%, while the effective i
 
 The base rate is largely meaningless in isolation when thousands of dollars of additional fees are embedded into the financed amount.
 
-Given how many novated lease providers provide inconsistent and artificially low "interest rate", I recommend not relying on these self-reported figure, but instead using a standardised method such as the one incorporated in [this site's calculator](../calculator/index.md). 
+Given how many novated lease providers provide inconsistent and artificially low "interest rate", I recommend not relying on these self-reported figures, but instead using a standardised method such as the one incorporated in [this site's calculator](../calculator/index.md). 
 
 See: [Why novated lease interest rates are inherently unreliable](../costs-and-savings/why-nl-interest-looks-high.md#why-novated-lease-interest-rates-are-inherently-unreliable)
 

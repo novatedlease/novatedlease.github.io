@@ -56,7 +56,7 @@ This applies to:
 - the $2,650 meals-entertainment cap, **and**
 - **every dollar of novated lease packaging.**
 
-*(Note: As explained in latter section, the lost benefit is not strictly 50%; however I am keeping the numbers simple here only for illustrative purpose.)*
+*(Note: As explained in latter section, the lost benefit is not strictly 50%; however I am keeping the numbers simple here only for illustrative purposes.)*
 
 ---
 

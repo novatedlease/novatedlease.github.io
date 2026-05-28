@@ -153,7 +153,7 @@ while quietly minimising your attention on:
 
 This is why careful, apples-to-apples comparison as well as understanding of caveats are essential.
 
-It is the fundamental motivation behind [the novated lease calculator](../calculator/index.md). I was curious to find out exactly what the advertised "saving" meant, and many hundreds of hours of nerdy labour later the calculator was the result. Many people have found the tool useful which I take pride in and am grateful for. 
+It is the fundamental motivation behind [the novated lease calculator](../calculator/index.md). I was curious to find out exactly what the advertised "saving" meant, and many hundreds of hours of nerdy labour later the calculator was the result. Many people have found the tool useful, which I take pride in and am grateful for. 
 
 ---
 

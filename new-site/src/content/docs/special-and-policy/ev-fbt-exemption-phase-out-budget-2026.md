@@ -42,7 +42,7 @@ In all scenarios, two additional criteria apply to qualify for any FBT-exemption
 
 [^1]: Or the applicable LCT threshold at the time of purchase if the lease commenced in an earlier financial year. It is [projected to be $91,661](/special-and-policy/lct-threshold-fbt-exemption/) from 1/7/26.
 [^2]: Protected until end of lease, provided there is no change in circumstances.
-[^3]: The upper limit is [projected to be $91,661](/special-and-policy/lct-threshold-fbt-exemption/) from 1 July 2026; thereafter it will be further indexed against the LCT threshold from 1 July 2027 and from 1 July 2028 respectively.
+[^3]: The upper limit is [projected to be $91,661](/special-and-policy/lct-threshold-fbt-exemption/) from 1 July 2026; thereafter it will be further indexed against the LCT threshold from 1 July 2027 and again from 1 July 2028.
 
 ---
 

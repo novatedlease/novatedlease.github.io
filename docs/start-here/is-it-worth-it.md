@@ -189,7 +189,7 @@ The traditional rule of thumb is that "keeping your current car is always the ch
 
 Despite the potential saving under Benchmark 1, if you change the benchmark to "not buying a new car at all", you may still end up worse off financially. 
 
-In the case of FBT-exempt EV novated leases, this **may or may not be true – especially if you belong to higher tax bracket**. 
+In the case of FBT-exempt EV novated leases, this **may or may not be true – especially if you belong to a higher tax bracket**. 
 
 In my personal circumstances, based on a few reasonable assumptions, over 5-years the net financial position for "keeping current $25k car" is roughly similar to "selling this car and getting a $81k EV via NL and paying the balloon to own outright in the end". 
 
