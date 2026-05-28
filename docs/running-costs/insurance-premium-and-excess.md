@@ -17,7 +17,7 @@ That may change how you approach the trade-off between premium and excess.
 
 Assume you are in the 37% marginal tax bracket + 2% Medicare levy.
 
-Every $1,000 paid pre-tax only “costs” you:
+Every $1,000 paid pre-tax only costs you:
 
 ```
 $1,000 × (1 – 0.39) = $610

@@ -121,13 +121,13 @@ Running costs should:
 - pass through GST savings where applicable
 
 See:
-- [ATO 5.47c/km shortcut](../running-costs/ato-42c-per-km-shortcut.md)
+- [ATO 5.47c/km shortcut](../running-costs/ev-home-charging-shortcut.md)
 - [failure to pass GST savings](../running-costs/failure-to-pass-gst-saving.md)
 
 !!! warning "Skipping charging or running-cost claims leaves money on the table"
     Claiming running costs almost always results in a financial advantage compared to not claiming, all else being equal.
     
-    Removing them because you "charge cheaply anyway" is a mathematical error – read more in the [5.47c/km shortcut article](../running-costs/ato-42c-per-km-shortcut.md).
+    Removing them because you "charge cheaply anyway" is a mathematical error – read more in the [5.47c/km shortcut article](../running-costs/ev-home-charging-shortcut.md).
 
 ---
 

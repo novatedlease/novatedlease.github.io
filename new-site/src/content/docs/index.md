@@ -23,7 +23,7 @@ description: Free independent Australian novated lease guide and calculator. Com
   <a href="/costs-and-savings/false-saving-example/" style="display: inline-block; padding: 4px 11px; border: 1px solid rgba(0,0,0,0.2); border-radius: 20px; font-size: 0.82em; color: rgba(0,0,0,0.65); text-decoration: none; background: rgba(0,0,0,0.04);">$21,320 "savings" → $5,591 net loss</a>
 </div>
 
- </div>
+</div>
 
 
 ---
@@ -111,7 +111,7 @@ description: Free independent Australian novated lease guide and calculator. Com
       <div style="font-weight: 600; font-size: 0.8em; color: rgba(0,0,0,0.45); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Running costs & claiming</div>
       <ul style="margin: 0; padding-left: 1.2em; font-size: 0.9em; line-height: 1.8;">
         <li><a href="/running-costs/running-costs-piggy-bank/">Running cost budgets are a "piggy bank"</a></li>
-        <li><a href="/running-costs/ato-42c-per-km-shortcut/">The ATO EV home charging shortcut (5.47c/km from 1 Apr 2026)</a> <span style="display:inline-block;padding:1px 6px;background:#b7770d;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">Updated</span></li>
+        <li><a href="/running-costs/ev-home-charging-shortcut/">The ATO EV home charging shortcut (5.47c/km from 1 Apr 2026)</a> <span style="display:inline-block;padding:1px 6px;background:#b7770d;color:white;border-radius:4px;font-size:0.72em;font-weight:700;vertical-align:middle;line-height:1.5;">Updated</span></li>
         <li><a href="/running-costs/failure-to-pass-gst-saving/">Failure to pass on GST savings</a></li>
         <li><a href="/running-costs/insurance-premium-and-excess/">Insurance premium vs excess</a></li>
       </ul>

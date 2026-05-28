@@ -1,4 +1,4 @@
-# The ATO EV home charging shortcut — how it actually works
+# The ATO EV home charging shortcut (5.47c/km) — how it actually works
 
 For most novated lease expenses, the process is straightforward — you spend $X on something, submit the claim, and that amount is paid from pre-tax dollars.
 
@@ -10,10 +10,12 @@ So instead of forcing everyone to track the cost of every kWh, they introduced a
 
 ---
 
-!!! tip "Rate updated from 1 April 2026"
-    From 1 April 2026 (the start of the 2026–27 FBT year), the home charging shortcut rate increases from **4.2c/km to 5.47c/km**. [ATO source](https://www.ato.gov.au/law/view/document?docid=COG/PCG20242/NAT/ATO/00001#H16)
+:::tip[Rate updated from 1 April 2026]
+From 1 April 2026 (the start of the 2026–27 FBT year), the home charging shortcut rate increases from **4.2c/km to 5.47c/km**. [ATO source](https://www.ato.gov.au/law/view/document?docid=COG/PCG20242/NAT/ATO/00001#H16)
 
-    Examples on this page use the updated **5.47c/km** rate unless otherwise noted.
+Examples on this page use the updated **5.47c/km** rate unless otherwise noted.
+:::
+
 
 ---
 
@@ -65,14 +67,16 @@ Critically, this $320.00 has nothing to do with your actual charging cost. Wheth
 
 This is why you should claim the electricity amount even if your real charging cost is zero [^1], as demonstrated in the next section.
 
-!!! info "The formula"
-    **Net extra money = claim amount × (marginal tax rate + 2% Medicare levy)**
+:::info[The formula]
+**Net extra money = claim amount × (marginal tax rate + 2% Medicare levy)**
 
-    | Marginal tax bracket | Combined rate | Net extra money per $820.50 claimed |
-    |---|---|---|
-    | 30% | 32% | $262.56 |
-    | 37% | 39% | $320.00 |
-    | 45% | 47% | $385.64 |
+| Marginal tax bracket | Combined rate | Net extra money per $820.50 claimed |
+|---|---|---|
+| 30% | 32% | $262.56 |
+| 37% | 39% | $320.00 |
+| 45% | 47% | $385.64 |
+:::
+
 
 ---
 
@@ -212,5 +216,21 @@ For others, more precise methods may make sense, but only if you are willing and
 
 [^1]: The one edge case worth noting: PCG 2024/2 requires that you have actually incurred electricity costs during the year. For the vast majority of solar households this is a non-issue — unless you are fully "off the grid", some grid expenses still appear on every bill. However, if your solar system fully offsets your entire household electricity consumption and your bill is genuinely zero, you may not satisfy this requirement, and the shortcut method would technically be unavailable. This interpretation is not stated explicitly in the PCG itself, but follows from its eligibility criteria.
 
---8<-- "includes/support-box.md"
---8<-- "includes/keane-box.md"
+---
+
+:::info[Support this independent calculator & guide]
+This calculator and guide are built and continuously maintained as an independent project.
+
+If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
+
+- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
+- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
+:::
+
+:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
+Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
+
+Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
+
+To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
+:::

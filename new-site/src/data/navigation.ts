@@ -54,7 +54,7 @@ export const navigation: NavEntry[] = [
     items: [
       { label: 'Overview', href: '/running-costs/' },
       { label: 'Running costs as a "piggy bank"', href: '/running-costs/running-costs-piggy-bank/' },
-      { label: 'ATO EV home charging shortcut', href: '/running-costs/ato-42c-per-km-shortcut/' },
+      { label: 'ATO EV home charging shortcut', href: '/running-costs/ev-home-charging-shortcut/' },
       { label: 'Employers not passing on GST saving', href: '/running-costs/failure-to-pass-gst-saving/' },
       { label: 'Insurance premium vs excess', href: '/running-costs/insurance-premium-and-excess/' },
     ],

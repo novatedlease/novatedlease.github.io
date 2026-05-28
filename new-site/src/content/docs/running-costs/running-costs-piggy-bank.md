@@ -31,7 +31,7 @@ That budget might be based on:
 - charging,
 - etc.
 
-For example, if you tell them you expect to drive **25,000 km per year**, and you’re using the [ATO 5.47c/km method](/running-costs/ato-42c-per-km-shortcut/):
+For example, if you tell them you expect to drive **25,000 km per year**, and you’re using the [ATO 5.47c/km method](/running-costs/ev-home-charging-shortcut/):
 
 - 25,000 × $0.0547 = **$1,367.50 per year**
 

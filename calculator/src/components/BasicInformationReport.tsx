@@ -137,7 +137,7 @@ export default function BasicInformationReport(props: {
         <div style={{ marginTop: 16, background: "rgba(245,124,0,0.04)", border: "1px solid rgba(245,124,0,0.18)", borderRadius: 10, padding: "10px 14px" }}>
           <SubHead color="#e65100" mt={0}>
             Annual Electricity Report{" "}
-            <a href="https://novatedlease.guide/running-costs/ato-42c-per-km-shortcut/" target="_blank" rel="noopener noreferrer"
+            <a href="https://novatedlease.guide/running-costs/ev-home-charging-shortcut/" target="_blank" rel="noopener noreferrer"
               style={{ fontWeight: 500, textTransform: "none", letterSpacing: 0, color: "#0b5cab", textDecoration: "underline" }}>
               (learn more)
             </a>

@@ -13,7 +13,7 @@ Managed poorly — or with an employer who doesn't pass on all the entitlements 
 - **[Running cost budgets are a "piggy bank"](running-costs-piggy-bank.md)**
   Running costs are not a fee charged to you — they are pre-tax money set aside in a separate account, claimed back as you spend. This article explains the mechanics, what happens if you over- or under-budget, and why getting the budget right matters.
 
-- **[The ATO 5.47c/km EV charging shortcut — how it actually works](ato-42c-per-km-shortcut.md)**
+- **[The ATO 5.47c/km EV charging shortcut — how it actually works](ev-home-charging-shortcut.md)**
   EV owners can claim 5.47c/km for home charging costs without keeping electricity records. This article explains the three permitted methods, how the shortcut works in the context of a novated lease, and the counter-intuitive finding that you can make extra money by claiming this — even if your charging is free.
 
 - **[Failure to pass on GST savings — an overlooked cost in some novated leases](failure-to-pass-gst-saving.md)**
