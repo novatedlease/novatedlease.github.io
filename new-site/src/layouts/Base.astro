@@ -21,7 +21,42 @@ const {
 const siteTitle = 'Novated Lease Guide & Calculator';
 const pageTitle = title ? `${title} — ${siteTitle}` : siteTitle;
 const currentPath = Astro.url.pathname;
-const fullCanonical = canonicalUrl || `https://novatedlease.guide${currentPath}`;
+const siteUrl = 'https://novatedlease.guide';
+const fullCanonical = canonicalUrl || `${siteUrl}${currentPath}`;
+
+// JSON-LD: WebSite schema
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteTitle,
+  url: siteUrl,
+  description: 'Independent, evidence-based guide and calculator for understanding novated leases in Australia.',
+};
+
+// JSON-LD: BreadcrumbList — built from URL path, page title used for final crumb
+const pathSegments = currentPath.replace(/^\/|\/$/g, '').split('/').filter(Boolean);
+const breadcrumbItems = [{ name: 'Home', url: `${siteUrl}/` }];
+if (pathSegments.length > 0) {
+  let cumulative = '';
+  pathSegments.forEach((seg, i) => {
+    cumulative += '/' + seg;
+    const isLast = i === pathSegments.length - 1;
+    const label = isLast && title
+      ? title
+      : seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    breadcrumbItems.push({ name: label, url: `${siteUrl}${cumulative}/` });
+  });
+}
+const breadcrumbSchema = breadcrumbItems.length > 1 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbItems.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    item: item.url,
+  })),
+} : null;
 ---
 
 <!doctype html>
@@ -57,6 +92,10 @@ const fullCanonical = canonicalUrl || `https://novatedlease.guide${currentPath}`
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-52RWVTCGLP"></script>
