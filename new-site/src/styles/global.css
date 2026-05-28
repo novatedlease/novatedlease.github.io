@@ -1620,21 +1620,6 @@ body.drawer-open {
 /* ------------------------------------------------------------
    Homepage — new elements
    ------------------------------------------------------------ */
-.home-trust-strip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  margin: 10px 0 20px;
-  font-size: 0.82rem;
-  color: rgba(0, 0, 0, 0.52);
-  line-height: 1.4;
-}
-
-.home-trust-strip__sep {
-  color: rgba(0, 0, 0, 0.28);
-}
-
 .home-cta-caption {
   margin: 10px 0 0;
   font-size: 0.9375rem;
