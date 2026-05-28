@@ -1,0 +1,72 @@
+---
+import FullPage from '../layouts/FullPage.astro';
+---
+
+<FullPage
+  title="Page not found"
+  description="The page you were looking for doesn't exist. Find what you need using the links below."
+>
+  <div class="not-found-page">
+    <div class="not-found-code">404</div>
+    <h1>Page not found</h1>
+    <p>The page you were looking for doesn't exist or may have moved.</p>
+
+    <div class="not-found-links">
+      <h3>You might be looking for:</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/calculator/">Novated Lease Calculator</a></li>
+        <li><a href="/tools/byo-employer-check/">Employer BYO Checker</a></li>
+        <li><a href="/start-here/what-is-novated-lease/">What is a novated lease?</a></li>
+        <li><a href="/start-here/is-it-worth-it/">Is a novated lease worth it?</a></li>
+        <li><a href="/about/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</FullPage>
+
+<style is:global>
+.not-found-page {
+  max-width: 560px;
+  margin: 60px auto 80px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.not-found-code {
+  font-size: 6rem;
+  font-weight: 800;
+  color: var(--nl-blue);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+.not-found-page h1 {
+  font-size: 1.75rem;
+  margin: 0 0 0.75em;
+}
+
+.not-found-page > p {
+  color: rgba(0,0,0,0.6);
+  margin-bottom: 2rem;
+}
+
+.not-found-links {
+  text-align: left;
+  display: inline-block;
+}
+
+.not-found-links h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(0,0,0,0.45);
+  margin-bottom: 0.75rem;
+}
+
+.not-found-links ul {
+  padding-left: 1.2em;
+  line-height: 2;
+}
+</style>
