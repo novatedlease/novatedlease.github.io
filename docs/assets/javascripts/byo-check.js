@@ -210,6 +210,13 @@
       notes: "Self-managed / BYO finance is not permitted."
     },
     {
+      name: "Epworth HealthCare",
+      aliases: ["Epworth", "Epworth Richmond", "Epworth Eastern", "Epworth Hawthorn", "Epworth Brighton", "Epworth Camberwell", "Epworth Geelong", "Epworth Cliveden", "Epworth Freemasons", "Epworth Freemasons Clarendon Street", "Epworth Freemasons Victoria Parade", "Epworth Specialist Centre Berwick", "Epworth Specialist Centre Lilydale"],
+      group: "Victoria",
+      status: "possible",
+      notes: "BYO finance is permitted."
+    },
+    {
       name: "RACV",
       aliases: ["Royal Automobile Club of Victoria"],
       group: "Victoria",
