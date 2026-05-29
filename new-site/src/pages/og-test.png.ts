@@ -28,78 +28,106 @@ export const GET: APIRoute = async () => {
         style: {
           width: '1200px',
           height: '630px',
-          backgroundColor: '#1c2538',
+          backgroundImage: 'linear-gradient(135deg, #1e3a5c 0%, #0d1b2e 60%, #111827 100%)',
           display: 'flex',
           flexDirection: 'column',
-          padding: '64px 72px',
           fontFamily: 'Inter',
           boxSizing: 'border-box',
+          position: 'relative',
         },
         children: [
-          // Top: logo + site name
+          // Accent bar at top
+          {
+            type: 'div',
+            props: {
+              style: {
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                right: '0',
+                height: '5px',
+                backgroundImage: 'linear-gradient(90deg, #3b82f6 0%, #06b6d4 50%, #10b981 100%)',
+              },
+            },
+          },
+          // Main content area
           {
             type: 'div',
             props: {
               style: {
                 display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
+                flexDirection: 'column',
+                padding: '64px 72px',
+                flex: 1,
               },
               children: [
+                // Top: logo + site name
                 {
-                  type: 'img',
-                  props: {
-                    src: logoBase64,
-                    width: 44,
-                    height: 44,
-                    style: { borderRadius: '8px' },
-                  },
-                },
-                {
-                  type: 'span',
+                  type: 'div',
                   props: {
                     style: {
-                      color: 'rgba(255,255,255,0.9)',
-                      fontSize: '22px',
-                      fontWeight: 700,
-                      letterSpacing: '-0.01em',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '18px',
                     },
-                    children: 'Novated Lease Guide',
+                    children: [
+                      {
+                        type: 'img',
+                        props: {
+                          src: logoBase64,
+                          width: 62,
+                          height: 62,
+                          style: { borderRadius: '12px' },
+                        },
+                      },
+                      {
+                        type: 'span',
+                        props: {
+                          style: {
+                            color: 'rgba(255,255,255,0.95)',
+                            fontSize: '32px',
+                            fontWeight: 700,
+                            letterSpacing: '-0.02em',
+                          },
+                          children: 'Novated Lease Guide',
+                        },
+                      },
+                    ],
+                  },
+                },
+                // Middle: article title (fills remaining space)
+                {
+                  type: 'div',
+                  props: {
+                    style: {
+                      color: '#ffffff',
+                      fontSize: '52px',
+                      fontWeight: 700,
+                      lineHeight: 1.2,
+                      letterSpacing: '-0.025em',
+                      flex: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      paddingTop: '28px',
+                      paddingBottom: '28px',
+                    },
+                    children: title,
+                  },
+                },
+                // Bottom: domain
+                {
+                  type: 'div',
+                  props: {
+                    style: {
+                      color: 'rgba(255,255,255,0.38)',
+                      fontSize: '20px',
+                      fontWeight: 400,
+                      letterSpacing: '0.01em',
+                    },
+                    children: 'novatedlease.guide',
                   },
                 },
               ],
-            },
-          },
-          // Middle: article title (fills remaining space)
-          {
-            type: 'div',
-            props: {
-              style: {
-                color: '#ffffff',
-                fontSize: '54px',
-                fontWeight: 700,
-                lineHeight: 1.2,
-                letterSpacing: '-0.025em',
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                paddingTop: '32px',
-                paddingBottom: '32px',
-              },
-              children: title,
-            },
-          },
-          // Bottom: domain
-          {
-            type: 'div',
-            props: {
-              style: {
-                color: 'rgba(255,255,255,0.38)',
-                fontSize: '20px',
-                fontWeight: 400,
-                letterSpacing: '0.01em',
-              },
-              children: 'novatedlease.guide',
             },
           },
         ],
