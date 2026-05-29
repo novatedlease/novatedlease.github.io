@@ -59,8 +59,8 @@ export const GET: APIRoute = async () => {
               height: 500,
               style: {
                 position: 'absolute',
-                right: '-40px',
-                bottom: '-80px',
+                left: '120px',
+                top: '50px',
                 opacity: 0.07,
                 borderRadius: '60px',
               },
