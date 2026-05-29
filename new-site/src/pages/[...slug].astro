@@ -37,8 +37,9 @@ const description = entry.data.description || undefined;
 // Build canonical current path
 const { slug } = Astro.params;
 const currentPath = '/' + (slug || '') + '/';
+const ogImage = `https://novatedlease.guide/og/${slug}.png`;
 ---
 
-<ArticleLayout title={title} description={description} headings={headings} currentPath={currentPath}>
+<ArticleLayout title={title} description={description} headings={headings} currentPath={currentPath} ogImage={ogImage}>
   <Content />
 </ArticleLayout>

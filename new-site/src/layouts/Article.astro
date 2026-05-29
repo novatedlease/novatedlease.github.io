@@ -6,11 +6,12 @@ import { navigation, isNavSection } from '../data/navigation';
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
   headings?: { depth: number; slug: string; text: string }[];
   currentPath?: string;
 }
 
-const { title, description, headings = [], currentPath = Astro.url.pathname } = Astro.props;
+const { title, description, ogImage, headings = [], currentPath = Astro.url.pathname } = Astro.props;
 
 // Find breadcrumb context: which section is this article in?
 let sectionLabel = '';
@@ -27,7 +28,7 @@ for (const entry of navigation) {
 }
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} ogImage={ogImage}>
   <div class="page-layout">
     <main class="page-content" id="main-content">
       {sectionLabel && (

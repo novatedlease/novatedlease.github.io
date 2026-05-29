@@ -1,4 +1,5 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute, GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
 import satori from 'satori';
 import sharp from 'sharp';
 import { readFileSync } from 'fs';
@@ -6,20 +7,57 @@ import { resolve } from 'path';
 
 export const prerender = true;
 
-export const GET: APIRoute = async () => {
-  // Load Inter font weights
-  const [interBold, interRegular] = await Promise.all([
-    fetch('https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.16/files/inter-latin-700-normal.woff')
-      .then(r => r.arrayBuffer()),
-    fetch('https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.16/files/inter-latin-400-normal.woff')
-      .then(r => r.arrayBuffer()),
-  ]);
+// Module-level caches so fonts and logo are loaded once across all pages
+let fontCache: { bold: ArrayBuffer; regular: ArrayBuffer } | null = null;
+let logoCache: string | null = null;
 
-  // Load logo as base64
-  const logoPath = resolve(process.cwd(), 'public/assets/images/logo.png');
-  const logoBase64 = `data:image/png;base64,${readFileSync(logoPath).toString('base64')}`;
+async function getFonts() {
+  if (!fontCache) {
+    const [bold, regular] = await Promise.all([
+      fetch('https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.16/files/inter-latin-700-normal.woff').then(r => r.arrayBuffer()),
+      fetch('https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.16/files/inter-latin-400-normal.woff').then(r => r.arrayBuffer()),
+    ]);
+    fontCache = { bold, regular };
+  }
+  return fontCache;
+}
 
-  const title = 'The ATO EV home charging shortcut (5.47c/km) — how it actually works';
+function getLogo() {
+  if (!logoCache) {
+    const logoPath = resolve(process.cwd(), 'public/assets/images/logo.png');
+    logoCache = `data:image/png;base64,${readFileSync(logoPath).toString('base64')}`;
+  }
+  return logoCache;
+}
+
+const skipIds = new Set(['index', 'calculator/index', 'tools/byo-employer-check']);
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const entries = await getCollection('docs');
+
+  return entries
+    .filter(entry => !skipIds.has(entry.id))
+    .map(entry => {
+      let urlSlug = entry.id;
+      if (urlSlug.endsWith('/index')) {
+        urlSlug = urlSlug.slice(0, -6);
+      }
+
+      const h1Match = entry.body?.match(/^#\s+(.+)$/m);
+      const title = entry.data.title
+        || (h1Match ? h1Match[1].replace(/[`*_[\]()]/g, '').trim() : 'Novated Lease Guide');
+
+      return {
+        params: { slug: urlSlug },
+        props: { title },
+      };
+    });
+};
+
+export const GET: APIRoute = async ({ props }) => {
+  const title = (props as { title: string }).title;
+  const fonts = await getFonts();
+  const logoBase64 = getLogo();
 
   const svg = await satori(
     {
@@ -111,7 +149,7 @@ export const GET: APIRoute = async () => {
                     ],
                   },
                 },
-                // Middle: article title (fills remaining space)
+                // Middle: article title
                 {
                   type: 'div',
                   props: {
@@ -153,8 +191,8 @@ export const GET: APIRoute = async () => {
       width: 1200,
       height: 630,
       fonts: [
-        { name: 'Inter', data: interBold, weight: 700, style: 'normal' },
-        { name: 'Inter', data: interRegular, weight: 400, style: 'normal' },
+        { name: 'Inter', data: fonts.bold, weight: 700, style: 'normal' },
+        { name: 'Inter', data: fonts.regular, weight: 400, style: 'normal' },
       ],
     }
   );
