@@ -50,6 +50,22 @@ export const GET: APIRoute = async () => {
               },
             },
           },
+          // Large faded background logo watermark
+          {
+            type: 'img',
+            props: {
+              src: logoBase64,
+              width: 500,
+              height: 500,
+              style: {
+                position: 'absolute',
+                right: '-40px',
+                bottom: '-80px',
+                opacity: 0.07,
+                borderRadius: '60px',
+              },
+            },
+          },
           // Main content area
           {
             type: 'div',
