@@ -110,42 +110,42 @@
       aliases: ["Alfred Hospital", "The Alfred", "Alfred Health"],
       group: "Victoria",
       status: "possible",
-      notes: "BYO finance is permitted. Previously known as Alfred Health / The Alfred Hospital."
+      notes: "Previously known as Alfred Health / The Alfred Hospital."
     },
     {
       name: "Royal Children's Hospital",
       aliases: ["RCH", "The Royal Children's Hospital Melbourne", "Melbourne Children's Hospital"],
       group: "Victoria",
       status: "possible",
-      notes: "BYO finance is permitted."
+      notes: ""
     },
     {
       name: "Royal Victorian Eye and Ear Hospital",
       aliases: ["RVEEH", "Eye and Ear Hospital", "Victorian Eye and Ear"],
       group: "Victoria",
       status: "not_available",
-      notes: "Self-managed / BYO finance is not permitted."
+      notes: ""
     },
     {
       name: "Bendigo Health",
       aliases: ["Bendigo Hospital", "Bendigo Base Hospital", "Anne Caudle Centre", "John Bomford Centre"],
       group: "Victoria",
       status: "possible",
-      notes: "BYO finance is permitted (salary packaging via Maxxia). Important lender restriction: Westpac will not allow Maxxia to make payments from Maxxia's own account — Westpac insists the employer make payments directly, which is incompatible with how Maxxia operates. Avoid Westpac as your BYO lender at this employer."
+      notes: "Salary packaging via Maxxia. Important lender restriction: Westpac will not allow Maxxia to make payments from Maxxia's own account — Westpac insists the employer make payments directly, which is incompatible with how Maxxia operates. Avoid Westpac as your BYO lender at this employer."
     },
     {
       name: "Western Health",
       aliases: ["Footscray Hospital", "Sunshine Hospital", "Williamstown Hospital", "Sunbury Day Hospital", "Western Health Victoria"],
       group: "Victoria",
       status: "possible",
-      notes: "BYO finance is permitted."
+      notes: ""
     },
     {
       name: "Barwon Health",
       aliases: ["University Hospital Geelong", "Geelong Hospital", "The Geelong Hospital", "UHG", "McKellar Centre", "Andrew Love Cancer Centre", "Barwon Health North"],
       group: "Victoria",
       status: "not_available",
-      notes: "Self-managed / BYO finance is not permitted."
+      notes: ""
     },
     {
       name: "NSW Health",
@@ -200,28 +200,28 @@
       ],
       group: "Queensland Government",
       status: "not_available",
-      notes: "Self-managed / BYO finance is not permitted across Queensland Health."
+      notes: ""
     },
     {
       name: "Rio Tinto",
       aliases: ["Rio Tinto Group", "Rio Tinto Australia"],
       group: "Mining & Resources",
       status: "not_available",
-      notes: "Self-managed / BYO finance is not permitted."
+      notes: ""
     },
     {
       name: "Epworth HealthCare",
       aliases: ["Epworth", "Epworth Richmond", "Epworth Eastern", "Epworth Hawthorn", "Epworth Brighton", "Epworth Camberwell", "Epworth Geelong", "Epworth Cliveden", "Epworth Freemasons", "Epworth Freemasons Clarendon Street", "Epworth Freemasons Victoria Parade", "Epworth Specialist Centre Berwick", "Epworth Specialist Centre Lilydale"],
       group: "Victoria",
       status: "possible",
-      notes: "BYO finance is permitted."
+      notes: ""
     },
     {
       name: "RACV",
       aliases: ["Royal Automobile Club of Victoria"],
       group: "Victoria",
       status: "possible",
-      notes: "BYO finance is permitted."
+      notes: ""
     }
   ];
 
