@@ -16,6 +16,8 @@
     "rehype-raw": "^7.0.0",
     "remark-directive": "^3.0.0",
     "remark-gfm": "^4.0.0",
+    "satori": "^0.26.0",
+    "sharp": "^0.34.5",
     "unist-util-visit": "^5.0.0"
   }
 }
