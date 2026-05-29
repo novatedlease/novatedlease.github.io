@@ -123,8 +123,8 @@ Using ABS CPI data [released in late April 2026](https://www.abs.gov.au/statisti
 
 | Period | Quarters included | Index sum |
 |---|---|---|
-| Current year (Jun 2024 – Mar 2025) | 99.89 + 100.55 + 100.43 + 101.44 | **402.31** |
-| Prior year (Jun 2023 – Mar 2024) | 100.86 + 100.06 + 99.93 + 100.09 | **400.94** |
+| Current year (Jun 2025 – Mar 2026) | 99.89 + 100.55 + 100.43 + 101.44 | **402.31** |
+| Prior year (Jun 2024 – Mar 2025) | 100.86 + 100.06 + 99.93 + 100.09 | **400.94** |
 
 > **Indexation factor** = 402.31 ÷ 400.94 = **1.003**
 >
