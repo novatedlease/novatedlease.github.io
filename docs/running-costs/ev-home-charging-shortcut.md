@@ -181,7 +181,7 @@ The mixed method requires your car (or charger) to reliably report kWh charged a
 
 | Brand | App | Limitation |
 |---|---|---|
-| Hyundai | Bluelink | Shows battery % only — no kWh recorded |
+| Hyundai | Bluelink | No charging history with kWh |
 | Kia | Kia Connect | No charging history with kWh |
 | Volkswagen | We Connect | No charging session history |
 | BYD | BYD Auto | No confirmed charging history log |
