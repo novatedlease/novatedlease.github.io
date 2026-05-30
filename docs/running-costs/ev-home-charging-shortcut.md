@@ -174,6 +174,56 @@ We then use the 4.2c/km rate (applicable for the 2023–24 FBT year in this exam
 
 ---
 
+## How to choose the method that gives you the highest claim
+
+The three methods can produce very different claim amounts for the same FBT year. Since a higher claim means more money in your pocket (as explained above), it pays to calculate each one before deciding.
+
+### Step 1 — Does your car support the mixed method?
+
+The mixed method requires your car to reliably report the split between home charging and commercial charging in kWh.
+
+**Tesla is the most well-known vehicle to provide this out of the box.** The Tesla app records charging sessions by location type and can report kWh charged at home vs elsewhere for any period — making the energy split calculation straightforward.
+
+Other manufacturers (e.g. BMW, Hyundai/Kia, Volvo) offer apps that log charging sessions, but whether they produce a clean home/away kWh breakdown covering a specific 1 April–31 March window varies by model and app. Check your manufacturer's app — if it cannot give you that split for the FBT year, the mixed method is not available to you.
+
+If your car cannot provide this breakdown, you are choosing between Method 1 and Method 2 only.
+
+### Step 2 — Calculate each applicable method's claim value
+
+Use the same FBT year (1 April – 31 March) for all calculations.
+
+**Method 1 — Odometer shortcut:**
+> Claim = total km driven × $0.0547
+
+**Method 2 — Commercial invoices only:**
+> Claim = sum of all commercial charging invoices for the period
+
+**Method 3 — Mixed (if available):**
+> Claim = (total km driven × home charging %) × $0.0547 + sum of commercial charging invoices
+
+The home charging % comes from the energy split: kWh charged at home ÷ total kWh charged.
+
+### Step 3 — Pick the highest
+
+Whichever method produces the largest dollar figure is the one you should use.
+
+**Worked example** — you drive **15,000 km** in the FBT year, your commercial charging invoices total **$400**, and your car shows **80% of energy came from home charging**:
+
+| Method | Calculation | Claim |
+|---|---|---|
+| 1 — Odometer shortcut | 15,000 × $0.0547 | **$820.50** |
+| 2 — Commercial invoices only | $400 | **$400.00** |
+| 3 — Mixed | (15,000 × 80%) × $0.0547 + $400 | **$1,056.40** |
+
+The mixed method wins here by **$235.90** over the next-best option — which translates to roughly **$92–$111 extra in your pocket** (depending on your tax bracket), purely from the additional record-keeping.
+
+!!! tip "When does the mixed method beat the odometer shortcut?"
+    Method 3 beats Method 1 whenever your actual commercial charging costs per kilometre exceed what the 5.47c/km rate would have given you for those same kilometres. Since most commercial chargers (Chargefox, Evie Networks, Tesla Supercharger, etc.) typically cost well above the implied rate of ~36c/kWh baked into the shortcut, **anyone with meaningful commercial charging is likely to benefit from Method 3** — if their car supports it.
+
+    Method 2 (commercial invoices only) rarely wins unless commercial charging absolutely dominates your usage.
+
+---
+
 ## Why the ATO did it this way
 
 The home charging shortcut is not meant to be perfectly accurate.
