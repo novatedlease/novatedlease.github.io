@@ -120,7 +120,7 @@ So no — NSW Health does **not** take a clean 50% of your benefit.
 
 But yes — you still lose **over a third** of what colleagues in other states keep.
 
-[Full algebraic derivation by me (PDF)](../assets/pdf/Algebraic-Exploration-of-NSW-Health.pdf){:download}
+[Full algebraic derivation by me (PDF)](../assets/pdf/Algebraic-Exploration-of-NSW-Health.pdf)
 
 ---
 
