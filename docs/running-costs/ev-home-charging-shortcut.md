@@ -78,7 +78,7 @@ This is why you should claim the electricity amount even if your real charging c
 
 ## The counter-intuitive bit: you can make a net financial gain from charging and driving
 
-Because the pre-tax benefit is fixed by distance — not by what you actually spent — if your real charging cost is low enough, you come out ahead. Here is what that looks like with real numbers.
+Because the pre-tax benefit is fixed by distance — not by what you actually spent — if your real charging cost is low enough, you could **be paid to** charge your car. Here is what that looks like with real numbers.
 
 ### Example
 
