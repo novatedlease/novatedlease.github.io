@@ -169,13 +169,29 @@ The three methods can produce very different claim amounts for the same FBT year
 
 ### Step 1 — Does your car support the mixed method?
 
-The mixed method requires your car to reliably report the split between home charging and commercial charging in kWh.
+The mixed method requires your car (or charger) to reliably report kWh charged at home vs. elsewhere, covering the full FBT year (1 April – 31 March).
 
-**Tesla is the most well-known vehicle to provide this out of the box.** The Tesla app records charging sessions by location type and can report kWh charged at home vs elsewhere for any period — making the energy split calculation straightforward.
+**Tesla — best in class.** The Tesla app's Charge Stats feature shows an explicit percentage and kWh breakdown between home, Supercharger, and other public charging, filterable by month or year. This is the gold standard — it directly produces the ratio the ATO requires with no manual work.
 
-Other manufacturers (e.g. BMW, Hyundai/Kia, Volvo) offer apps that log charging sessions, but whether they produce a clean home/away kWh breakdown covering a specific 1 April–31 March window varies by model and app. Check your manufacturer's app — if it cannot give you that split for the FBT year, the mixed method is not available to you.
+**BMW (MyBMW) — usable with some effort.** The app records kWh per session with the location address, and [supports an Excel export](https://faq.bmw.com.au/s/article/My-BMW-App-Charging-Charging-history-Export-horzE) (confirmed on BMW Australia's support site). There is no automatic "Home / Public" label, but home sessions are identifiable by address. Workable for FBT with minor manual classification.
 
-If your car cannot provide this breakdown, you are choosing between Method 1 and Method 2 only.
+**Mercedes-EQ (Mercedes me app) — workable, but requires setup.** The app can track home charging kWh if you register a compatible wallbox as "My charging station," and public sessions if you use the MB.CHARGE Public service. Both conditions must be met simultaneously. No CSV export has been confirmed, but session history is viewable in-app.
+
+**Most other brands — not useful on their own:**
+
+| Brand | App | Limitation |
+|---|---|---|
+| Hyundai | Bluelink | Shows battery % only — no kWh recorded |
+| Kia | Kia Connect | No charging history with kWh |
+| Volkswagen | We Connect | No charging session history |
+| BYD | BYD Auto | No confirmed charging history log |
+| Polestar | Polestar app | Public receipts via separate Polestar Charge app only; home charging not tracked |
+| Volvo | Volvo Cars | No charging history in app |
+| Audi | myAudi | Charging data missing or inconsistent; home charging not tracked |
+
+If your car falls into this group, you can still use the mixed method — but you'll need to source the data from two places: your **home charger's own app** (e.g. Wallbox, Zappi, Jet Charge, EVNEX) for home kWh, and your **public network receipts** (Chargefox, Evie Networks, NRMA Electric Vehicle Charging, etc.) for commercial kWh. Whether that record-keeping effort is worthwhile depends on how much commercial charging you do.
+
+If you cannot reliably reconstruct the home/away split, you are choosing between Method 1 and Method 2 only.
 
 ### Step 2 — Calculate each applicable method's claim value
 
