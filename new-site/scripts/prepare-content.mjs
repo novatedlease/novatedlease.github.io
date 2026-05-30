@@ -4,6 +4,7 @@
  *   2. Converts !!! / ??? admonitions to :::type[title] directive syntax
  *   3. Converts :material-icon: references to Unicode equivalents
  *   4. Fixes relative image paths
+ *   5. Strips MkDocs attribute list syntax on links: [text](url){: ... }
  */
 
 import fs from 'fs';
@@ -158,6 +159,11 @@ function convertAttrListImages(text) {
   );
 }
 
+function stripLinkAttrLists(text) {
+  // Remove MkDocs attr_list syntax appended to links: [text](url){: ... }
+  return text.replace(/\)\{:[^}]*\}/g, ')');
+}
+
 function fixImagePaths(text, fileRelPath) {
   // Convert ALL remaining relative image/asset paths to absolute paths based on file location
   const fileDir = path.posix.dirname(fileRelPath.replace(/\\/g, '/'));
@@ -198,6 +204,7 @@ function processFile(srcPath, docsDir, outPath, fileRelPath) {
   text = convertAdmonitions(text);
   text = convertMaterialIcons(text);
   text = convertAttrListImages(text);
+  text = stripLinkAttrLists(text);
   text = fixMarkdownLinks(text, fileRelPath);
   text = fixImagePaths(text, fileRelPath);
 
