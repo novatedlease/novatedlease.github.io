@@ -98,7 +98,7 @@ When you claim the $820.50,
 
 Once you reconcile with your actual expense, post-claiming you have made **$205.64 profit** from charging and driving the car. 
 
-The calculations above are automatically performed in the **Detail - Basic Information - Annual Electricity Report**, under **Post-Reimbursement Effective Charging Expense** figure.
+The calculations above are automatically performed in the **Detail - Annual Electricity Report**, under **Net charging expense (after tax reimbursement)**.
 
 
 ---
