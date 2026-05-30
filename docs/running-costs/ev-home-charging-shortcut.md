@@ -63,7 +63,7 @@ The difference is **$320.00 extra** — money you would not have had otherwise.
 
 Critically, this $320.00 has nothing to do with your actual charging cost. Whether you charged for free [^1], at 8c/kWh, or at 30c/kWh, the claim produces the same extra money.
 
-This is why you should claim the electricity amount even if your real charging cost is zero [^1], as demonstrated in the next section.
+This is why you should claim the electricity amount even if your real charging cost is zero [^1].
 
 !!! info "The formula"
     **Net extra money = claim amount × (marginal tax rate + 2% Medicare levy)**
@@ -143,23 +143,12 @@ You can do this **only if**:
 - your vehicle can reliably report **how much charging occurred at home vs elsewhere**, and
 - you keep proper records i.e. odometer reading for the period covering each FBT year i.e. **1 April to 31 March**
 
-Note that EV charging claims follow the **FBT year (1 April – 31 March)**, not the income tax year.
-
 The method works like this:
 
 - home charging distance → claimed at **5.47c/km** (pro-rated based on charging ratio; 4.2c/km for FBT years ending before 1 April 2026),
 - commercial charging → claimed using **actual invoices**.
 
 The home charging to commercial charging ratio is derived from the energy split (kWh charged at home as a proportion of total charging).
-
-Depending on:
-
-- your home electricity cost,
-- solar usage,
-- commercial charging mix,
-- and any free charging you get,
-
-this mixed approach can result in a **higher total claim** than using the shortcut alone.
 
 **Example:**
 
@@ -224,21 +213,6 @@ The mixed method wins here by **$235.90** over the next-best option — which tr
 
 ---
 
-## Why the ATO did it this way
-
-The home charging shortcut is not meant to be perfectly accurate.
-
-It is meant to be:
-
-- **simple**,
-- **cheap to comply with**,
-- and **good enough** for most people.
-
-The ATO explicitly chose administrative simplicity over precision.
-
-If your real costs are lower, you benefit.  If your real costs are higher, you wear the difference.
-
-
 ---
 
 ## The key takeaway
@@ -249,8 +223,6 @@ If you remember nothing else:
 > and this benefit is yours even if you charge cheaply or for free. [^1]**
 
 For those with solar or cheap tariffs, it is **surprisingly generous**.
-
-For others, more precise methods may make sense, but only if you are willing and able to do the record-keeping.
 
 
 ---
