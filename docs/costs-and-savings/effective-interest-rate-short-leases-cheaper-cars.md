@@ -15,9 +15,7 @@ Strictly speaking, a novated lease finance arrangement is not a loan. It does no
 
 The financing begins with a **financed amount**, which is normally calculated as:
 
-> **Vehicle drive-away price
-> + documentation fee[^1]
-> − vehicle GST saving[^2]**[^3]
+> **Vehicle drive-away price + documentation fee[^1] − vehicle GST saving[^2]**[^3]
 
 Using a 5-year (60-month) lease as an example:
 
