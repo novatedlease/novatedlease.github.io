@@ -225,14 +225,14 @@
     },
     {
       name: "Brisbane City Council",
-      aliases: ["BCC", "Brisbane Council", "Brisbane City"],
+      aliases: ["BCC", "Brisbane Council", "Brisbane City", "City of Brisbane"],
       group: "Queensland Local Government",
       status: "not_available",
       notes: "Panel of providers available."
     },
     {
       name: "Logan City Council",
-      aliases: ["Logan Council", "Logan City", "Logan"],
+      aliases: ["Logan Council", "Logan City", "Logan", "City of Logan"],
       group: "Queensland Local Government",
       status: "not_available",
       notes: "Panel of providers available."
@@ -260,14 +260,14 @@
     },
     {
       name: "Department of Agriculture, Fisheries and Forestry",
-      aliases: ["DAFF", "Dept of Agriculture", "Dept Agriculture", "Australian Department of Agriculture", "Agriculture Fisheries and Forestry"],
+      aliases: ["DAFF", "Dept of Agriculture", "Dept Agriculture", "Australian Department of Agriculture", "Agriculture Fisheries and Forestry", "Dept of Agriculture Fisheries and Forestry"],
       group: "Australian Federal Government",
       status: "not_available",
       notes: "Panel of providers available."
     },
     {
       name: "Sydney Catholic Schools",
-      aliases: ["Sydney Catholic Education", "Catholic Education Diocese of Sydney", "SCS", "Archdiocese of Sydney schools"],
+      aliases: ["Sydney Catholic Education", "Catholic Education Diocese of Sydney", "SCS", "Archdiocese of Sydney schools", "Catholic Education Office Sydney", "CEO Sydney"],
       group: "NSW Education",
       status: "not_available",
       notes: "Panel of providers available."
@@ -288,21 +288,21 @@
     },
     {
       name: "City of Adelaide",
-      aliases: ["Adelaide City Council", "Adelaide Council", "CoA"],
+      aliases: ["Adelaide City Council", "Adelaide Council", "CoA", "ACC"],
       group: "SA Local Government",
       status: "not_available",
       notes: ""
     },
     {
       name: "Macquarie University",
-      aliases: ["Macquarie Uni", "MQU", "MQ University", "Macquarie Uni Sydney"],
+      aliases: ["Macquarie Uni", "MQU", "MQ", "MQ University", "Macquarie Uni Sydney"],
       group: "NSW Universities",
       status: "not_available",
       notes: ""
     },
     {
       name: "SINCH",
-      aliases: ["Sinch Australia", "Sinch AB", "CLX Communications"],
+      aliases: ["Sinch Australia", "Sinch AB", "CLX Communications", "MessageMedia"],
       group: "Technology",
       status: "not_available",
       notes: ""
