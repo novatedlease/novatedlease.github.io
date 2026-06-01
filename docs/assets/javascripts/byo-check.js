@@ -222,6 +222,90 @@
       group: "Victoria",
       status: "possible",
       notes: ""
+    },
+    {
+      name: "Brisbane City Council",
+      aliases: ["BCC", "Brisbane Council", "Brisbane City"],
+      group: "Queensland Local Government",
+      status: "not_available",
+      notes: "Panel of providers available."
+    },
+    {
+      name: "Logan City Council",
+      aliases: ["Logan Council", "Logan City", "Logan"],
+      group: "Queensland Local Government",
+      status: "not_available",
+      notes: "Panel of providers available."
+    },
+    {
+      name: "Moreton Bay Regional Council",
+      aliases: ["MBRC", "Moreton Bay Council", "Moreton Bay"],
+      group: "Queensland Local Government",
+      status: "not_available",
+      notes: "Panel of providers available."
+    },
+    {
+      name: "Woolworths Group",
+      aliases: ["Woolworths", "Woolies", "WOW", "Woolworths Supermarkets", "BIG W", "Big W"],
+      group: "Retail",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "Crown Resorts",
+      aliases: ["Crown Casino", "Crown Melbourne", "Crown Perth", "Crown Sydney", "Crown Limited"],
+      group: "Hospitality",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "Department of Agriculture, Fisheries and Forestry",
+      aliases: ["DAFF", "Dept of Agriculture", "Dept Agriculture", "Australian Department of Agriculture", "Agriculture Fisheries and Forestry"],
+      group: "Australian Federal Government",
+      status: "not_available",
+      notes: "Panel of providers available."
+    },
+    {
+      name: "Sydney Catholic Schools",
+      aliases: ["Sydney Catholic Education", "Catholic Education Diocese of Sydney", "SCS", "Archdiocese of Sydney schools"],
+      group: "NSW Education",
+      status: "not_available",
+      notes: "Panel of providers available."
+    },
+    {
+      name: "Department of Energy, Environment and Climate Action",
+      aliases: ["DEECA", "Dept of Energy Vic", "Department of Energy Victoria", "Victorian Department of Energy", "Energy Environment Climate Action Victoria"],
+      group: "Victoria Government",
+      status: "not_available",
+      notes: "Panel of providers available."
+    },
+    {
+      name: "Queensland Rail",
+      aliases: ["QR", "QLD Rail", "Qld Rail", "Queensland Railways"],
+      group: "Queensland Government",
+      status: "not_available",
+      notes: "Panel of providers available."
+    },
+    {
+      name: "City of Adelaide",
+      aliases: ["Adelaide City Council", "Adelaide Council", "CoA"],
+      group: "SA Local Government",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "Macquarie University",
+      aliases: ["Macquarie Uni", "MQU", "MQ University", "Macquarie Uni Sydney"],
+      group: "NSW Universities",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "SINCH",
+      aliases: ["Sinch Australia", "Sinch AB", "CLX Communications"],
+      group: "Technology",
+      status: "not_available",
+      notes: ""
     }
   ];
 
