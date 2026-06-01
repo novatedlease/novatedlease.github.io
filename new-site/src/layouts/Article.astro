@@ -28,7 +28,7 @@ for (const entry of navigation) {
 }
 ---
 
-<Base title={title} description={description} ogImage={ogImage}>
+<Base title={title} description={description} ogImage={ogImage} ogType="article" articleMeta={title ? { title, description } : undefined}>
   <div class="page-layout">
     <main class="page-content" id="main-content">
       {sectionLabel && (

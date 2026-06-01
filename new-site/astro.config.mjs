@@ -7,7 +7,14 @@ import { remarkAdmonitions } from './src/plugins/remark-admonitions.mjs';
 
 export default defineConfig({
   site: 'https://novatedlease.guide',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      serialize(item) {
+        item.lastmod = new Date().toISOString().split('T')[0];
+        return item;
+      },
+    }),
+  ],
   markdown: {
     remarkPlugins: [
       remarkGfm,

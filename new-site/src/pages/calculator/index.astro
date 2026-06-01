@@ -1,10 +1,58 @@
 ---
 import FullPage from '../../layouts/FullPage.astro';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Does this calculator support the 75% EV FBT rule announced in May 2026?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. The calculator fully supports the new EV FBT wind-back rules. It automatically applies the correct FBT treatment based on the lease start date and vehicle value, covering the transitional period (1 April 2027 – 31 March 2029) and the post-2029 rules.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How accurate is this novated lease calculator?',
+      acceptedAnswer: { '@type': 'Answer', text: 'This calculator evolved from a spreadsheet in continuous public use for over two years, scrutinised and informally peer-reviewed by financially literate users. The web version was rebuilt from first principles and verified against the original spreadsheet across a broad range of test scenarios, matching to the cent for all test cases.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does this calculator support fractional lease terms like 13 months or 25 months?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. The calculator supports whole-year lease durations only (1–5 years). Fractional lease durations introduce ambiguities around residual values, annual running costs, and fortnight counts that are handled inconsistently between providers, making precise modelling unreliable.' },
+    },
+    {
+      '@type': 'Question',
+      name: "Why doesn't this calculator display a tax saving figure?",
+      acceptedAnswer: { '@type': 'Answer', text: 'Tax reduction is only one component of the overall financial equation. A novated lease may also involve higher effective interest rates, management fees, brokerage, and early-termination risks. Focusing solely on "tax saved" can be misleading, so this calculator focuses on the real net financial outcome instead.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does this novated lease calculator consider childcare subsidy, HECS, or Division 293 impacts?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. For EV novated leases, the calculator estimates the effect of the reportable fringe benefit amount (RFBA) on adjusted taxable income, which can affect HECS repayments, childcare subsidy, and Division 293 tax.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is this calculator affiliated with any novated lease provider?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. This tool is fully independent and is not affiliated with any novated lease company, financier, or employer salary-packaging provider. No referral fees or commissions are received from any provider.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What are the main limitations of this novated lease calculator?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Key limitations include: the primary endpoint is financial position at end of lease; home loan offset impact is calculated fortnightly rather than daily; running costs are assumed constant over the lease term; and residual value methodologies vary between leasing companies. The outputs are best interpreted as decision support rather than precise predictions.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Who is this novated lease calculator less suitable for?',
+      acceptedAnswer: { '@type': 'Answer', text: 'This calculator may be less suitable for very low-income earners, people who frequently roll over novated leases, those who could otherwise claim work-related vehicle deductions, people considering associate leases, and company directors or business owners with access to alternative vehicle structures.' },
+    },
+  ],
+};
 ---
 
 <FullPage
   title="Novated Lease Calculator (Australia) – Compare Net Outcomes"
   description="Free independent Australian novated lease calculator. Compare EV and ICE options against cash purchase, car loan or keeping your current car — based on real net outcomes, not marketing tax claims."
+  extraSchemas={[faqSchema]}
 >
   <div class="calc-page">
     <h1>Novated Lease Calculator (Australia)</h1>
