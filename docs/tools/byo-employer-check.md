@@ -272,7 +272,7 @@ These two sides operate independently. Your packaging company does not need to i
 
 1. **Contact a BYO specialist directly.** Provide your vehicle details, preferred lease term, annual kilometres, income, and postcode. The specialist generates a quote showing your fortnightly cost and effective interest rate.
 
-2. **Review the quote.** Compare the rate against what your packaging company would offer. Rates vary based on your credit profile — good income, assets (e.g. a mortgage), and low debt generally improve what the lender will offer.
+2. **Review the quote.** Compare the rate against what your packaging company would offer. Rates vary based on your credit profile — good income, assets (e.g. a home you own), and low debt generally improve what the lender will offer.
 
 3. **Submit a credit application.** If the quote looks competitive, the specialist runs a formal pre-approval through their lender panel.
 
