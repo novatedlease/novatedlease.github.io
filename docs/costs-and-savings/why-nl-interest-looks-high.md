@@ -68,7 +68,7 @@ The tax benefit does **not** apply neatly to the interest component alone. Inste
 
 As a result, attempting to “convert” a novated lease interest rate into a post-tax equivalent (e.g. “12% becomes 8.4%”) is conceptually wrong.
 
-!!! info "Myth-busting: "Just convert it to a post-tax interest rate""
+!!! info "Myth-busting: 'Just convert it to a post-tax interest rate'"
     Converting a novated lease interest rate into a post-tax “equivalent” assumes that tax applies cleanly to the interest component.
 
     It does not.
