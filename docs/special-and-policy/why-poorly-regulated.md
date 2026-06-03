@@ -2,8 +2,7 @@
 
 A question that comes up repeatedly is:
 
-> **Why does the government allow novated lease companies to get away with practices  
-> that would be unacceptable in other areas of consumer finance?**
+> **Why does the government allow novated lease companies to get away with practices that would be unacceptable in other areas of consumer finance?**
 
 The uncomfortable answer is that novated leasing sits in a **regulatory no man’s land**.
 

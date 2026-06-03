@@ -86,8 +86,7 @@ RFBA is calculated using a **[standardised formula set by the ATO](https://www.a
 
 It is broadly calculated as:
 
-> **RFBA  
-> = Taxable value of the car benefit × 20% × 1.8868 × proportion of FBT year car is available**
+> **RFBA = Taxable value of the car benefit × 20% × 1.8868 × proportion of FBT year car is available**
 
 The factor **1.8868** is the **gross-up rate** used to convert the taxable value of a fringe benefit into its reportable equivalent for means-testing purposes.
 

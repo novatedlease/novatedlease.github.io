@@ -306,6 +306,13 @@
       group: "Technology",
       status: "not_available",
       notes: ""
+    },
+    {
+      name: "NSW Department of Customer Service",
+      aliases: ["DCS NSW", "Service NSW", "NSW DCS", "Department of Customer Service NSW"],
+      group: "NSW Government",
+      status: "not_available",
+      notes: ""
     }
   ];
 

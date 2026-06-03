@@ -31,8 +31,7 @@ It did **not** close the loophole for novated leases or other non-super salary s
 
 The key sentence people usually quote is this one (GN 2020/1):
 
-> **“From 1 January 2020, you calculate the minimum amount of super guarantee on the employee’s OTE base.  
-> This is the sum of the employee’s OTE and any OTE amounts they sacrifice in return for super contributions.”**
+> **”From 1 January 2020, you calculate the minimum amount of super guarantee on the employee’s OTE base. This is the sum of the employee’s OTE and any OTE amounts they sacrifice in return for super contributions.”**
 
 That part is correct.
 

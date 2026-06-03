@@ -129,8 +129,7 @@ This explains the residual table directly:
 
 This derivation is explicitly described in TD 93/142 using the formula:
 
-> **Minimum residual value as a percentage of cost  
-> = 75% − [(75% ÷ 8) × duration in years]**
+> **Minimum residual value as a percentage of cost = 75% − [(75% ÷ 8) × duration in years]**
 
 Although the published table uses whole years, it is derived from a **linear equation**.
 

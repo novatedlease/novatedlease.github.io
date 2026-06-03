@@ -161,8 +161,7 @@ It is the fundamental motivation behind [the novated lease calculator](../calcul
 
 If you remember nothing else:
 
-> **A novated lease is a tax-driven salary packaging arrangement.  
-> The EV FBT exemption introduced in 2022 significantly increased the potential magnitude of savings.**
+> **A novated lease is a tax-driven salary packaging arrangement. The EV FBT exemption introduced in 2022 significantly increased the potential magnitude of savings.**
 
 
 ---

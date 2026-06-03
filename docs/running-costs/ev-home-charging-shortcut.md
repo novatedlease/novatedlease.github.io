@@ -235,8 +235,7 @@ The mixed method wins here by **$235.90** over the next-best option — which tr
 
 If you remember nothing else:
 
-> **The EV home charging shortcut puts extra money in your pocket based on distance driven,
-> and this benefit is yours even if you charge cheaply or for free. [^1]**
+> **The EV home charging shortcut puts extra money in your pocket based on distance driven, and this benefit is yours even if you charge cheaply or for free. [^1]**
 
 For those with solar or cheap tariffs, it is **surprisingly generous**.
 
