@@ -130,9 +130,7 @@ Ask explicitly whether insurance can instead be funded from the running cost all
 
 The financed amount in a novated lease *should be*:
 
-> **Vehicle drive-away price  
-> + documentation fee  
-> − GST saving**
+> **Vehicle drive-away price + documentation fee − GST saving**
 
 However, there have been cases where people have posted quotes showing a financed amount **significantly higher** than this — in one case by nearly **$8,000**.
 
