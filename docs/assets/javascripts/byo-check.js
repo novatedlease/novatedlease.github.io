@@ -313,6 +313,13 @@
       group: "NSW Government",
       status: "not_available",
       notes: ""
+    },
+    {
+      name: "Thales Group",
+      aliases: ["Thales Australia", "Thales Group Australia", "Thales"],
+      group: "Defence & Technology",
+      status: "not_available",
+      notes: ""
     }
   ];
 
