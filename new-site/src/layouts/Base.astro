@@ -30,13 +30,52 @@ const currentPath = Astro.url.pathname;
 const siteUrl = 'https://novatedlease.guide';
 const fullCanonical = canonicalUrl || `${siteUrl}${currentPath}`;
 
+// Canonical Person entity — referenced by Article author and ProfilePage mainEntity
+const authorPerson = {
+  '@type': 'Person',
+  '@id': `${siteUrl}/about/about-me/#person`,
+  name: 'Chang Yang',
+  url: `${siteUrl}/about/about-me/`,
+  jobTitle: 'Anaesthetist',
+  description: 'Australian anaesthetist, qualified biostatistician, and former mathematical olympiad national representative. Independent author of novatedlease.guide — a free evidence-based guide and calculator for understanding novated leases in Australia.',
+  knowsAbout: [
+    'Novated leasing',
+    'Salary packaging',
+    'Fringe Benefits Tax',
+    'Electric vehicle FBT exemption',
+    'Australian personal finance',
+    'Australian tax',
+    'Biostatistics',
+    'Probability and statistics',
+  ],
+  sameAs: [
+    'https://www.reddit.com/user/changyang1230',
+    'https://buymeacoffee.com/changyang1230',
+  ],
+};
+
+// Canonical Organization entity — referenced by Article publisher
+const publisherOrg = {
+  '@type': 'Organization',
+  '@id': `${siteUrl}/#org`,
+  name: 'Novated Lease Guide',
+  url: siteUrl,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${siteUrl}/assets/images/logo.png`,
+  },
+  founder: { '@id': `${siteUrl}/about/about-me/#person` },
+};
+
 // JSON-LD: WebSite schema
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
   name: siteTitle,
   url: siteUrl,
   description: 'Independent, evidence-based guide and calculator for understanding novated leases in Australia.',
+  publisher: { '@id': `${siteUrl}/#org` },
 };
 
 // JSON-LD: BreadcrumbList — built from URL path, page title used for final crumb
@@ -61,20 +100,19 @@ const articleSchema = articleMeta ? {
   description: articleMeta.description || description,
   url: fullCanonical,
   image: ogImage,
-  author: {
-    '@type': 'Person',
-    name: 'Novated Lease Guide',
-    url: `${siteUrl}/about/about-me/`,
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'Novated Lease Guide',
-    url: siteUrl,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${siteUrl}/assets/images/logo.png`,
-    },
-  },
+  author: authorPerson,
+  publisher: publisherOrg,
+  isPartOf: { '@id': `${siteUrl}/#website` },
+  mainEntityOfPage: fullCanonical,
+} : null;
+
+// JSON-LD: ProfilePage for /about/about-me/ — exposes full author entity to Google
+const isAuthorPage = currentPath === '/about/about-me/' || currentPath === '/about/about-me';
+const profilePageSchema = isAuthorPage ? {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  url: `${siteUrl}/about/about-me/`,
+  mainEntity: authorPerson,
 } : null;
 
 const breadcrumbSchema = breadcrumbItems.length > 1 ? {
@@ -127,6 +165,7 @@ const breadcrumbSchema = breadcrumbItems.length > 1 ? {
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
     {articleSchema && <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />}
+    {profilePageSchema && <script type="application/ld+json" set:html={JSON.stringify(profilePageSchema)} />}
     {extraSchemas.map(schema => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
 
     <!-- Google Analytics 4 -->
