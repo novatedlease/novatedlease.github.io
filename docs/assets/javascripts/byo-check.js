@@ -320,6 +320,20 @@
       group: "Defence & Technology",
       status: "not_available",
       notes: ""
+    },
+    {
+      name: "Queensland Government",
+      aliases: ["QLD Government", "Qld Government", "Queensland Public Service", "QLD Govt", "Queensland State Government", "Queensland Public Sector"],
+      group: "Queensland Government",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "Tasmanian Government",
+      aliases: ["TAS Government", "Tas Government", "Tasmanian State Service", "TAS Govt", "Tasmania Government", "Tasmanian Public Service", "Tasmanian Public Sector"],
+      group: "Tasmanian Government",
+      status: "not_available",
+      notes: ""
     }
   ];
 
