@@ -1,3 +1,7 @@
+---
+description: Super guarantee and payroll risks in a novated lease — how some employers calculate SG on your reduced salary instead of your original ordinary time earnings, and what to check.
+---
+
 # Super guarantee and payroll risks
 
 One of the least discussed — and most poorly understood — risks of novated leasing is **how your employer calculates super guarantee (SG)** i.e. the minimum employer superannuation contribution, currently 12% of your ordinary time earnings.
@@ -31,8 +35,7 @@ It did **not** close the loophole for novated leases or other non-super salary s
 
 The key sentence people usually quote is this one (GN 2020/1):
 
-> **“From 1 January 2020, you calculate the minimum amount of super guarantee on the employee’s OTE base.  
-> This is the sum of the employee’s OTE and any OTE amounts they sacrifice in return for super contributions.”**
+> **”From 1 January 2020, you calculate the minimum amount of super guarantee on the employee’s OTE base. This is the sum of the employee’s OTE and any OTE amounts they sacrifice in return for super contributions.”**
 
 That part is correct.
 

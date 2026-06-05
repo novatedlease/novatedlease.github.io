@@ -1,3 +1,7 @@
+---
+description: Historical article on the EV FBT exemption review timing — preserved for context. The review concluded on 4 May 2026 with a phased wind-back of the exemption.
+---
+
 # EV FBT exemption review timing — what is known, what is not, and why it matters
 
 :::success[This is a historical article — the review has concluded]

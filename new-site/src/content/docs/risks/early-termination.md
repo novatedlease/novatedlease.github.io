@@ -1,3 +1,7 @@
+---
+description: What happens if a novated lease ends early — redundancy, resignation, job transfer, or vehicle write-off. How the lease unwinds and the financial consequences without mitigation.
+---
+
 # What happens if a novated lease ends early (redundancy, job transfer, vehicle write-off, etc.)
 
 When a novated lease ends early — for example due to resignation, redundancy, or employer change — **the novation terminates**.

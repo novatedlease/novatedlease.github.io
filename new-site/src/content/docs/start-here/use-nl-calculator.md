@@ -1,3 +1,7 @@
+---
+description: Step-by-step guide on how to use the independent novated lease calculator — input fields, key assumptions, common pitfalls, and how to interpret the results.
+---
+
 # How to use the novated lease calculator: step-by-step guide
 
 The [novated lease calculator](/calculator/) helps you **compare the real-world costs and benefits of a novated lease** against practical alternatives such as paying cash, using a car loan, or keeping your current vehicle.

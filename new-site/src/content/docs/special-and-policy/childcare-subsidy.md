@@ -1,3 +1,7 @@
+---
+description: Deep dive on how novated leases (especially FBT-exempt EVs) affect adjusted taxable income and childcare subsidy — including the special rule for hospital and NFP workers.
+---
+
 # Novated leases, adjusted taxable income, and childcare subsidy — a deep dive
 
 One of the least understood consequences of a novated lease — particularly an **FBT-exempt EV novated lease** — is its impact on **means-tested government payments**.

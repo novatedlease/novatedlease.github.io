@@ -1,3 +1,7 @@
+---
+description: What is a novated lease — really? How they work mechanically, why the EV FBT exemption was a game-changer, and why apples-to-apples comparisons are still easy to get wrong.
+---
+
 # What is a novated lease — really?
 
 This section explains how novated leases work and how to think about them.
@@ -161,8 +165,7 @@ It is the fundamental motivation behind [the novated lease calculator](/calculat
 
 If you remember nothing else:
 
-> **A novated lease is a tax-driven salary packaging arrangement.  
-> The EV FBT exemption introduced in 2022 significantly increased the potential magnitude of savings.**
+> **A novated lease is a tax-driven salary packaging arrangement. The EV FBT exemption introduced in 2022 significantly increased the potential magnitude of savings.**
 
 
 ---

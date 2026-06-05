@@ -1,3 +1,7 @@
+---
+description: Why novated lease effective interest rates look high (10–12%) compared to car loans (6%) — and why the comparison is misleading once tax effects are accounted for.
+---
+
 # Why novated lease effective interest rates look high — yet may still work
 
 One of the most common objections to novated leasing goes something like this:
@@ -68,12 +72,14 @@ The tax benefit does **not** apply neatly to the interest component alone. Inste
 
 As a result, attempting to “convert” a novated lease interest rate into a post-tax equivalent (e.g. “12% becomes 8.4%”) is conceptually wrong.
 
-!!! info "Myth-busting: "Just convert it to a post-tax interest rate""
-    Converting a novated lease interest rate into a post-tax “equivalent” assumes that tax applies cleanly to the interest component.
+:::info[Myth-busting: 'Just convert it to a post-tax interest rate']
+Converting a novated lease interest rate into a post-tax “equivalent” assumes that tax applies cleanly to the interest component.
 
-    It does not.
+It does not.
 
-    Tax concessions apply unevenly across lease payments, running costs as well as their associated GST — which makes any single “equivalent rate” mathematically invalid.
+Tax concessions apply unevenly across lease payments, running costs as well as their associated GST — which makes any single “equivalent rate” mathematically invalid.
+:::
+
 
 ## Why novated lease interest rates are inherently unreliable
 
@@ -130,9 +136,7 @@ Ask explicitly whether insurance can instead be funded from the running cost all
 
 The financed amount in a novated lease *should be*:
 
-> **Vehicle drive-away price  
-> + documentation fee  
-> − GST saving**
+> **Vehicle drive-away price + documentation fee − GST saving**
 
 However, there have been cases where people have posted quotes showing a financed amount **significantly higher** than this — in one case by nearly **$8,000**.
 

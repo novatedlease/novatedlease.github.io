@@ -1,3 +1,7 @@
+---
+description: Risks of novated leasing that marketing rarely discusses — early termination, employer change, policy risk, and how to design exit strategies before signing.
+---
+
 # Risks and exit strategies
 
 Novated leases are usually discussed in terms of **tax savings**, **interest rates**, and **take-home pay**.

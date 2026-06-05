@@ -1,3 +1,7 @@
+---
+description: Why the same novated lease can be brilliant for one person and terrible for another — risk-adjusted decision-making explained using gambling and probability framing.
+---
+
 # Think like a gambler: why the same novated lease can be brilliant for one person and terrible for another
 
 > **The average novated lease outcome can be excellent. Whether it's excellent *for you* is a different question entirely — and it requires the kind of risk thinking most people only apply at a casino.**

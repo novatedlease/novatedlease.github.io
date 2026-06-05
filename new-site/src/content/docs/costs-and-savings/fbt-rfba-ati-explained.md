@@ -1,3 +1,7 @@
+---
+description: FBT, RFBA, and adjusted taxable income explained clearly — how the EV FBT exemption reduces income tax but can paradoxically increase HECS repayments, Division 293, and reduce childcare subsidy.
+---
+
 # FBT, RFBA, and adjusted taxable income — explained clearly
 
 Many people understand that a novated lease can reduce income tax — but are surprised later when their HECS repayment increases, [their childcare subsidy drops](/special-and-policy/childcare-subsidy/), or Division 293 tax applies (especially in the case of FBT-exempt novated leases).
@@ -88,8 +92,7 @@ RFBA is calculated using a **[standardised formula set by the ATO](https://www.a
 
 It is broadly calculated as:
 
-> **RFBA  
-> = Taxable value of the car benefit × 20% × 1.8868 × proportion of FBT year car is available**
+> **RFBA = Taxable value of the car benefit × 20% × 1.8868 × proportion of FBT year car is available**
 
 The factor **1.8868** is the **gross-up rate** used to convert the taxable value of a fringe benefit into its reportable equivalent for means-testing purposes.
 

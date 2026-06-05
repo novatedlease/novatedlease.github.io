@@ -1,3 +1,7 @@
+---
+description: Contact the author of the independent Australian novated lease guide. Feedback, corrections, and edge cases welcome — many of the site's features came from reader input.
+---
+
 # Contact
 
 If you have feedback, suggestions, or have spotted an error in the calculator or guides, I’d genuinely love to hear from you.

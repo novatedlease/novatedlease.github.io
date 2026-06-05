@@ -1,3 +1,7 @@
+---
+description: Everything about novated lease residual values — what they are, why the ATO requires them, the underlying mathematics (TD 93/142), and how they work when leases are extended.
+---
+
 # All about residual values
 
 Residual value is one of the **most important variables** in a novated lease, and misunderstanding it is a major reason people misjudge whether a lease is good value.
@@ -129,8 +133,7 @@ This explains the residual table directly:
 
 This derivation is explicitly described in TD 93/142 using the formula:
 
-> **Minimum residual value as a percentage of cost  
-> = 75% − [(75% ÷ 8) × duration in years]**
+> **Minimum residual value as a percentage of cost = 75% − [(75% ÷ 8) × duration in years]**
 
 Although the published table uses whole years, it is derived from a **linear equation**.
 

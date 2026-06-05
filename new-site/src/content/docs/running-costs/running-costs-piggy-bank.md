@@ -1,3 +1,7 @@
+---
+description: Why your novated lease running cost budget is a "piggy bank" — not a fixed fee. How over-budgeting and under-budgeting both lead to suboptimal outcomes.
+---
+
 # Running cost budgets are a “piggy bank”
 
 One of the most common misconceptions about novated leases is how **running costs budgeting and claiming** actually work.

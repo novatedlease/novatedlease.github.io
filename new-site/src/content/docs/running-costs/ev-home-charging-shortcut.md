@@ -1,3 +1,7 @@
+---
+description: The ATO EV home charging shortcut (5.47c/km from 1 April 2026) explained — how the rate works, when to use which method, and how to maximise the claim under PCG 2024/2.
+---
+
 # The ATO EV home charging shortcut (5.47c/km) — how it actually works
 
 For most novated lease expenses, the process is straightforward — you spend $X on something, submit the claim, and that amount is paid from pre-tax dollars.
@@ -65,7 +69,7 @@ The difference is **$320.00 extra** — money you would not have had otherwise.
 
 Critically, this $320.00 has nothing to do with your actual charging cost. Whether you charged for free [^1], at 8c/kWh, or at 30c/kWh, the claim produces the same extra money.
 
-This is why you should claim the electricity amount even if your real charging cost is zero [^1], as demonstrated in the next section.
+This is why you should claim the electricity amount even if your real charging cost is zero [^1].
 
 :::info[The formula]
 **Net extra money = claim amount × (marginal tax rate + 2% Medicare levy)**
@@ -82,7 +86,7 @@ This is why you should claim the electricity amount even if your real charging c
 
 ## The counter-intuitive bit: you can make a net financial gain from charging and driving
 
-Because the pre-tax benefit is fixed by distance — not by what you actually spent — if your real charging cost is low enough, you come out ahead. Here is what that looks like with real numbers.
+Because the pre-tax benefit is fixed by distance — not by what you actually spent — if your real charging cost is low enough, you could **be paid to** charge your car. Here is what that looks like with real numbers.
 
 ### Example
 
@@ -102,7 +106,7 @@ When you claim the $820.50,
 
 Once you reconcile with your actual expense, post-claiming you have made **$205.64 profit** from charging and driving the car. 
 
-The calculations above are automatically performed in the **Detail - Basic Information - Annual Electricity Report**, under **Post-Reimbursement Effective Charging Expense** figure.
+In the [Novated Lease Calculator](/calculator/), the calculations above are automatically performed in the **Detail - Annual Electricity Report**, under **Net charging expense (after tax reimbursement)**.
 
 
 ---
@@ -147,23 +151,12 @@ You can do this **only if**:
 - your vehicle can reliably report **how much charging occurred at home vs elsewhere**, and
 - you keep proper records i.e. odometer reading for the period covering each FBT year i.e. **1 April to 31 March**
 
-Note that EV charging claims follow the **FBT year (1 April – 31 March)**, not the income tax year.
-
 The method works like this:
 
 - home charging distance → claimed at **5.47c/km** (pro-rated based on charging ratio; 4.2c/km for FBT years ending before 1 April 2026),
 - commercial charging → claimed using **actual invoices**.
 
 The home charging to commercial charging ratio is derived from the energy split (kWh charged at home as a proportion of total charging).
-
-Depending on:
-
-- your home electricity cost,
-- solar usage,
-- commercial charging mix,
-- and any free charging you get,
-
-this mixed approach can result in a **higher total claim** than using the shortcut alone.
 
 **Example:**
 
@@ -178,20 +171,73 @@ We then use the 4.2c/km rate (applicable for the 2023–24 FBT year in this exam
 
 ---
 
-## Why the ATO did it this way
+## How to choose the method that gives you the highest claim
 
-The home charging shortcut is not meant to be perfectly accurate.
+The three methods can produce very different claim amounts for the same FBT year. Since a higher claim means more money in your pocket (as explained above), it pays to calculate each one before deciding.
 
-It is meant to be:
+### Step 1 — Does your car support the mixed method?
 
-- **simple**,
-- **cheap to comply with**,
-- and **good enough** for most people.
+The mixed method requires your car (or charger) to reliably report kWh charged at home vs. elsewhere, covering the full FBT year (1 April – 31 March).
 
-The ATO explicitly chose administrative simplicity over precision.
+**Tesla — best in class.** The Tesla app's Charge Stats feature shows an explicit percentage and kWh breakdown between home, Supercharger, and other public charging, filterable by month or year. This is the gold standard — it directly produces the ratio the ATO requires with no manual work.
 
-If your real costs are lower, you benefit.  If your real costs are higher, you wear the difference.
+**BMW (MyBMW) — usable with some effort.** The app records kWh per session with the location address, and [supports an Excel export](https://faq.bmw.com.au/s/article/My-BMW-App-Charging-Charging-history-Export-horzE) (confirmed on BMW Australia's support site). There is no automatic "Home / Public" label, but home sessions are identifiable by address. Workable for FBT with minor manual classification.
 
+**Mercedes-EQ (Mercedes me app) — workable, but requires setup.** The app can track home charging kWh if you register a compatible wallbox as "My charging station," and public sessions if you use the MB.CHARGE Public service. Both conditions must be met simultaneously. No CSV export has been confirmed, but session history is viewable in-app.
+
+**Most other brands — not useful on their own:**
+
+| Brand | App | Limitation |
+|---|---|---|
+| Hyundai | Bluelink | No charging history with kWh |
+| Kia | Kia Connect | No charging history with kWh |
+| Volkswagen | We Connect | No charging session history |
+| BYD | BYD Auto | No confirmed charging history log |
+| Polestar | Polestar app | Public receipts via separate Polestar Charge app only; home charging not tracked |
+| Volvo | Volvo Cars | No charging history in app |
+| Audi | myAudi | Charging data missing or inconsistent; home charging not tracked |
+
+If your car falls into this group, you can still use the mixed method — but you'll need to source the data from two places: your **home charger's own app** (e.g. Wallbox, Zappi, Jet Charge, EVNEX) for home kWh, and your **public network receipts** (Chargefox, Evie Networks, NRMA Electric Vehicle Charging, etc.) for commercial kWh. Whether that record-keeping effort is worthwhile depends on how much commercial charging you do.
+
+If you cannot reliably reconstruct the home/away split, you are choosing between Method 1 and Method 2 only.
+
+### Step 2 — Calculate each applicable method's claim value
+
+Use the same FBT year (1 April – 31 March) for all calculations.
+
+**Method 1 — Odometer shortcut:**
+> Claim = total km driven × $0.0547
+
+**Method 2 — Commercial invoices only:**
+> Claim = sum of all commercial charging invoices for the period
+
+**Method 3 — Mixed (if available):**
+> Claim = (total km driven × home charging %) × $0.0547 + sum of commercial charging invoices
+
+The home charging % comes from the energy split: kWh charged at home ÷ total kWh charged.
+
+### Step 3 — Pick the highest
+
+Whichever method produces the largest dollar figure is the one you should use.
+
+**Worked example** — you drive **15,000 km** in the FBT year, your commercial charging invoices total **$400**, and your car shows **80% of energy came from home charging**:
+
+| Method | Calculation | Claim |
+|---|---|---|
+| 1 — Odometer shortcut | 15,000 × $0.0547 | **$820.50** |
+| 2 — Commercial invoices only | $400 | **$400.00** |
+| 3 — Mixed | (15,000 × 80%) × $0.0547 + $400 | **$1,056.40** |
+
+The mixed method wins here by **$235.90** over the next-best option — which translates to roughly **$92–$111 extra in your pocket** (depending on your tax bracket), purely from the additional record-keeping.
+
+:::tip[When does the mixed method beat the odometer shortcut?]
+Method 3 beats Method 1 whenever your actual commercial charging costs per kilometre exceed what the 5.47c/km rate would have given you for those same kilometres. Since most commercial chargers (Chargefox, Evie Networks, Tesla Supercharger, etc.) typically cost well above the implied rate of ~36c/kWh baked into the shortcut, **anyone with meaningful commercial charging is likely to benefit from Method 3** — if their car supports it.
+
+Method 2 (commercial invoices only) rarely wins unless commercial charging absolutely dominates your usage.
+:::
+
+
+---
 
 ---
 
@@ -199,12 +245,9 @@ If your real costs are lower, you benefit.  If your real costs are higher, you w
 
 If you remember nothing else:
 
-> **The EV home charging shortcut puts extra money in your pocket based on distance driven,
-> and this benefit is yours even if you charge cheaply or for free. [^1]**
+> **The EV home charging shortcut puts extra money in your pocket based on distance driven, and this benefit is yours even if you charge cheaply or for free. [^1]**
 
 For those with solar or cheap tariffs, it is **surprisingly generous**.
-
-For others, more precise methods may make sense, but only if you are willing and able to do the record-keeping.
 
 
 ---

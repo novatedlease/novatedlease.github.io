@@ -1,3 +1,7 @@
+---
+description: Glossary of novated lease terms used throughout the independent Australian guide — FBT, RFBA, ATI, ECM, residual value, statutory formula method, and more.
+---
+
 # Glossary of novated lease terms
 
 A quick reference for the terminology used throughout this guide. Terms are listed alphabetically.

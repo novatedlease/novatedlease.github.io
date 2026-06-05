@@ -1,3 +1,7 @@
+---
+description: The story behind the independent Australian novated lease calculator — from personal spreadsheet in 2023 to public web app, and the misconceptions each version was built to address.
+---
+
 # History of the novated lease calculator
 
 This calculator did not start as a web application. It began as a personal spreadsheet to answer a very specific and personal question: *Does novated lease work out for me?*

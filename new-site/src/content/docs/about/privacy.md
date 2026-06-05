@@ -1,3 +1,7 @@
+---
+description: Privacy policy for novatedlease.guide. What anonymous usage data is collected via Google Analytics 4, why, and how to opt out.
+---
+
 # Privacy Policy
 
 This site uses **Google Analytics 4 (GA4)** to collect anonymous usage data. This page explains what is collected, why, and your options.

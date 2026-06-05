@@ -1,3 +1,7 @@
+---
+description: How novated leases actually work financially — the mechanics behind tax savings, residual values, interest rates, and why headline "tax saved" figures can mislead.
+---
+
 # Mechanisms explained
 
 Most novated lease discussions focus on a single number: **"you save $X"**.

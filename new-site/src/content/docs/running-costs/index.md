@@ -1,3 +1,7 @@
+---
+description: Running costs and claiming in a novated lease — how the pre-tax running cost budget works, common pitfalls, and how to avoid losing entitlements you're owed.
+---
+
 # Running costs & claiming
 
 The fortnightly novated lease deduction is made up of two components: **lease repayments** and **running costs**. Understanding how the running costs portion works — and the pitfalls around it — is essential to getting the full benefit of a novated lease.

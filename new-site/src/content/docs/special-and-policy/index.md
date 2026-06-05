@@ -1,3 +1,7 @@
+---
+description: Special cases and policy considerations for novated leasing — childcare subsidy, HECS, super guarantee, NSW Health employer share, FBT cap interactions, and more.
+---
+
 # Special cases and policy
 
 Most novated lease discussions assume a fairly “standard” situation:

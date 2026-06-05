@@ -1,3 +1,7 @@
+---
+description: NSW Health retains a share of the tax savings from salary packaging benefits — including novated leases. How the employer share works and what it actually costs you.
+---
+
 # NSW Health’s “Employer Share”: a special case in novated lease
 
 If you work in **NSW Health** and have ever looked closely at salary packaging or novated leasing, you may be aware of the following:
@@ -120,7 +124,7 @@ So no — NSW Health does **not** take a clean 50% of your benefit.
 
 But yes — you still lose **over a third** of what colleagues in other states keep.
 
-[Full algebraic derivation by me (PDF)](/assets/pdf/Algebraic-Exploration-of-NSW-Health.pdf){:download}
+[Full algebraic derivation by me (PDF)](/assets/pdf/Algebraic-Exploration-of-NSW-Health.pdf)
 
 ---
 

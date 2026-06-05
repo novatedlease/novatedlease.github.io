@@ -1,3 +1,7 @@
+---
+description: How bad can a novated lease early termination payout get? Worked examples showing the asymmetric financial risk that catches many lessees by surprise.
+---
+
 # Early termination payouts: how bad can it get?
 
 Early termination is the **single largest asymmetric risk** in a novated lease.
