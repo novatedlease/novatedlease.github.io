@@ -1,3 +1,7 @@
+---
+description: About the author — an Australian anaesthetist, biostatistician, and former mathematical olympiad national representative behind the independent novated lease guide and calculator.
+---
+
 # Who I am and how I became "that novated lease guy"
 
 ## About me

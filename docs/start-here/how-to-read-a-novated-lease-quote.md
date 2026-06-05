@@ -1,3 +1,7 @@
+---
+description: How to read a novated lease quote — what each line item means, common pitfalls in "headline savings" figures, and how to compare proposals from different providers meaningfully.
+---
+
 # How to read a novated lease quote
 
 This page explains how to interpret a novated lease quote, identify common pitfalls, and compare proposals meaningfully.

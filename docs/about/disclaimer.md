@@ -1,3 +1,7 @@
+---
+description: Disclaimer for the independent Australian novated lease guide. General information only — not financial, tax, or legal advice. Consult a qualified professional for personal recommendations.
+---
+
 # Disclaimer
 
 

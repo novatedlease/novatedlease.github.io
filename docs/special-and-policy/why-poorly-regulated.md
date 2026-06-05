@@ -1,3 +1,7 @@
+---
+description: Why novated leasing in Australia is poorly regulated — the regulatory no man's land between consumer credit, salary packaging, and tax-driven products.
+---
+
 # Why novated leasing is poorly regulated
 
 A question that comes up repeatedly is:

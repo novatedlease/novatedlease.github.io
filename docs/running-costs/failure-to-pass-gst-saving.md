@@ -1,3 +1,7 @@
+---
+description: Failure to pass on GST savings is an overlooked cost in some novated leases. How some providers retain the GST credit on running costs — and how to spot it on your statement.
+---
+
 # Failure to pass on GST savings — an overlooked cost in some novated leases
 
 In Australia, most goods and services attract a **10% Goods and Services Tax (GST)**.

@@ -1,3 +1,7 @@
+---
+description: Why "tax saved" is the wrong way to evaluate a novated lease, and what to look at instead — the most important conceptual shift for comparing leases meaningfully.
+---
+
 # Why “tax saved” is the wrong way to evaluate a novated lease
 
 One of the most common ways novated leases are marketed is via a single headline number:

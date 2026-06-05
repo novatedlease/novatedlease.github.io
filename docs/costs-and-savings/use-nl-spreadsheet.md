@@ -1,5 +1,6 @@
 ---
 title: Novated Lease Calculator
+description: Free independent Australian novated lease calculator — compare EV and ICE novated leases against cash purchase, car loan, or keeping your current car based on real net outcomes.
 hide:
   - navigation
   - toc

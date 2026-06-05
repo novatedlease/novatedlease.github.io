@@ -1,3 +1,7 @@
+---
+description: The ATO EV home charging shortcut (5.47c/km from 1 April 2026) explained — how the rate works, when to use which method, and how to maximise the claim under PCG 2024/2.
+---
+
 # The ATO EV home charging shortcut (5.47c/km) — how it actually works
 
 For most novated lease expenses, the process is straightforward — you spend $X on something, submit the claim, and that amount is paid from pre-tax dollars.

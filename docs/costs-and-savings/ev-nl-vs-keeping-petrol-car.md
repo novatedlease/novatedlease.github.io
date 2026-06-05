@@ -1,3 +1,7 @@
+---
+description: Real-life worked example — how leasing an $81k Tesla via FBT-exempt novated lease turned out roughly cost-neutral to keeping a $25k Mazda over five years.
+---
+
 # Real-life example: Leasing an $81k Tesla via novated lease turned out roughly cost-neutral to keeping my $25k Mazda
 
 ---

@@ -1,3 +1,7 @@
+---
+description: EV and ICE novated leases are functionally different products. How the FBT exemption changes everything — and why each requires its own evaluation framework.
+---
+
 # EV and ICE novated leases are functionally different products
 
 A common source of confusion in discussions about novated leasing is the assumption that:

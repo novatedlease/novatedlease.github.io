@@ -1,3 +1,7 @@
+---
+description: Choosing car insurance premium vs excess in a novated lease — why the optimal choice changes when premiums are pre-tax but excess is paid post-tax after a claim.
+---
+
 # Choosing insurance premium vs excess in a novated lease
 
 When we choose car insurance in a normal (post-tax) environment, the thinking is usually simple:

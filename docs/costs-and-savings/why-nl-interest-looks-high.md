@@ -1,3 +1,7 @@
+---
+description: Why novated lease effective interest rates look high (10–12%) compared to car loans (6%) — and why the comparison is misleading once tax effects are accounted for.
+---
+
 # Why novated lease effective interest rates look high — yet may still work
 
 One of the most common objections to novated leasing goes something like this:

@@ -1,3 +1,7 @@
+---
+description: Super guarantee and payroll risks in a novated lease — how some employers calculate SG on your reduced salary instead of your original ordinary time earnings, and what to check.
+---
+
 # Super guarantee and payroll risks
 
 One of the least discussed — and most poorly understood — risks of novated leasing is **how your employer calculates super guarantee (SG)** i.e. the minimum employer superannuation contribution, currently 12% of your ordinary time earnings.

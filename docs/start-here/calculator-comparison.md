@@ -1,3 +1,7 @@
+---
+description: We reviewed the top 20 novated lease calculators on Google. Only one shows true net savings — the rest produce headline "tax saved" figures that mislead consumers.
+---
+
 # We reviewed top 20 novated lease calculators. Only one shows you true savings.
 
 We Googled ["novated lease calculator"](https://www.google.com/search?q=novated+lease+calculator), took the first 20 results, and stress-tested each one: what does it actually show, how does it derive the savings figure, and can you trust the number it gives you?

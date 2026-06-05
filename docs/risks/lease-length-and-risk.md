@@ -1,3 +1,7 @@
+---
+description: Choosing the right novated lease length — how 1, 2, 3, 4, and 5 year terms differ in residual value, interest cost, and exposure to early termination risk.
+---
+
 # Lease length, residuals, and risk: choosing the right duration
 
 Lease length is one of the most consequential choices in a novated lease.

@@ -1,3 +1,7 @@
+---
+description: FBT, RFBA, and adjusted taxable income explained clearly — how the EV FBT exemption reduces income tax but can paradoxically increase HECS repayments, Division 293, and reduce childcare subsidy.
+---
+
 # FBT, RFBA, and adjusted taxable income — explained clearly
 
 Many people understand that a novated lease can reduce income tax — but are surprised later when their HECS repayment increases, [their childcare subsidy drops](../special-and-policy/childcare-subsidy.md), or Division 293 tax applies (especially in the case of FBT-exempt novated leases).

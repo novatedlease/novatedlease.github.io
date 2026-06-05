@@ -1,3 +1,7 @@
+---
+description: What is a novated lease — really? How they work mechanically, why the EV FBT exemption was a game-changer, and why apples-to-apples comparisons are still easy to get wrong.
+---
+
 # What is a novated lease — really?
 
 This section explains how novated leases work and how to think about them.

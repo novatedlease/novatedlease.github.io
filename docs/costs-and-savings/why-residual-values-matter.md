@@ -1,3 +1,7 @@
+---
+description: Everything about novated lease residual values — what they are, why the ATO requires them, the underlying mathematics (TD 93/142), and how they work when leases are extended.
+---
+
 # All about residual values
 
 Residual value is one of the **most important variables** in a novated lease, and misunderstanding it is a major reason people misjudge whether a lease is good value.

@@ -1,3 +1,7 @@
+---
+description: NSW Health retains a share of the tax savings from salary packaging benefits — including novated leases. How the employer share works and what it actually costs you.
+---
+
 # NSW Health’s “Employer Share”: a special case in novated lease
 
 If you work in **NSW Health** and have ever looked closely at salary packaging or novated leasing, you may be aware of the following:
