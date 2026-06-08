@@ -334,6 +334,34 @@
       group: "Tasmanian Government",
       status: "not_available",
       notes: ""
+    },
+    {
+      name: "NSW Department of Education",
+      aliases: ["NSW DoE", "DoE NSW", "Department of Education NSW", "NSW Education Department", "NSW Public Schools", "NSW Schools", "Education NSW"],
+      group: "NSW Education",
+      status: "not_available",
+      notes: "Self-managed novated leases permitted only through Smartleasing or National Australia Bank — other providers are not accepted."
+    },
+    {
+      name: "Zoetis Australia",
+      aliases: ["Zoetis", "Zoetis Inc Australia", "Zoetis Australia Research and Manufacturing"],
+      group: "Pharmaceutical",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "RACGP",
+      aliases: ["Royal Australian College of General Practitioners", "Royal Australian College of GPs", "Australian College of General Practitioners"],
+      group: "Healthcare",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "EGIS Group",
+      aliases: ["EGIS", "Egis", "Egis Group Australia", "Egis Australia", "Egis Pty Ltd"],
+      group: "Engineering & Consulting",
+      status: "not_available",
+      notes: ""
     }
   ];
 
