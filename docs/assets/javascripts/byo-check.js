@@ -362,6 +362,13 @@
       group: "Engineering & Consulting",
       status: "not_available",
       notes: ""
+    },
+    {
+      name: "Melbourne Archdiocese Catholic Schools",
+      aliases: ["MACS", "Melbourne Catholic Schools", "Catholic Education Melbourne", "Archdiocese of Melbourne schools", "Catholic Education Office Melbourne", "CEM", "Melbourne Archdiocesan Catholic Schools"],
+      group: "Victorian Education",
+      status: "possible",
+      notes: ""
     }
   ];
 
