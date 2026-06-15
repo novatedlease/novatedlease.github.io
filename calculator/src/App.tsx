@@ -8,6 +8,7 @@ import ATI from "./components/ATI";
 import SG from "./components/SG";
 import SummaryView from "./components/SummaryView";
 import InputsPanel from "./components/InputsPanel";
+import ComparatorView from "./components/ComparatorView";
 import {
   effectiveAnnualRateFromFortnightlyLease,
   financedAmountExGstFromInputs,
@@ -46,7 +47,7 @@ function buildSgRowsFromFyBreakdown(inputs: Inputs) {
 
 type YesNo = "Yes" | "No";
 
-type OutputTab = "Summary" | "Details";
+type OutputTab = "Summary" | "Details" | "Compare";
 type SummaryHorizon = "five_year" | "lease_end";
 
 // CollapsibleSection helper component
@@ -1353,7 +1354,7 @@ useEffect(() => {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
+              gridTemplateColumns: "1fr 1fr 1fr",
               background: "rgba(0,0,0,0.06)",
               borderRadius: 14,
               padding: 5,
@@ -1441,6 +1442,47 @@ useEffect(() => {
                 Full section-by-section breakdown
               </div>
             </button>
+
+            {/* Compare tab */}
+            <button
+              type="button"
+              role="tab"
+              aria-selected={outputTab === "Compare"}
+              onClick={() => {
+                setOutputTab("Compare");
+                trackOncePerSession("compare_tab_opened", "compare_tab_opened");
+              }}
+              style={{
+                border: "none",
+                cursor: "pointer",
+                borderRadius: 10,
+                padding: "11px 14px",
+                textAlign: "left",
+                transition: "background 180ms ease, box-shadow 180ms ease",
+                background: outputTab === "Compare" ? "#fff" : "transparent",
+                boxShadow: outputTab === "Compare"
+                  ? "0 1px 3px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.08)"
+                  : "none",
+              }}
+            >
+              <div style={{
+                fontSize: 15,
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
+                color: outputTab === "Compare" ? "#7b1fa2" : "rgba(0,0,0,0.4)",
+                marginBottom: 2,
+              }}>
+                🔀 Compare
+              </div>
+              <div style={{
+                fontSize: 11.5,
+                fontWeight: 500,
+                color: outputTab === "Compare" ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0.35)",
+                lineHeight: 1.3,
+              }}>
+                Side-by-side across saved quotes
+              </div>
+            </button>
           </div>
 
           {/* Summary horizon selector (shown only on Summary tab) */}
@@ -1504,7 +1546,9 @@ useEffect(() => {
             </div>
           )}
 
-          {outputTab === "Summary" ? (
+          {outputTab === "Compare" ? (
+            <ComparatorView savedQuotes={savedQuotes} defaultInputs={defaultInputs} />
+          ) : outputTab === "Summary" ? (
             <SummaryView inputs={inputs} summaryHorizon={summaryHorizon} />
           ) : (
             <>
