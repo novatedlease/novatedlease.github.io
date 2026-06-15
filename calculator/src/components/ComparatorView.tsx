@@ -221,9 +221,8 @@ function ComparatorHowTo() {
         <div style={{ fontWeight: 700, marginBottom: 6, color: PURPLE }}>Example questions you can answer here:</div>
         <ul style={{ margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 4 }}>
           <li>Is a <b>novated lease on a $50k EV</b> cheaper than a <b>cash purchase of a $30k petrol car</b>?</li>
-          <li>How does <b>financing with a car loan</b> compare to <b>paying cash</b> for the same vehicle?</li>
-          <li>What's the difference between <b>NL on a cheaper EV model</b> vs. <b>NL on the one you originally quoted</b>?</li>
-          <li>Is it worth <b>keeping your current car</b> vs. getting the novated lease?</li>
+          <li>Is a <b>car loan on a $20k petrol car</b> better than a <b>2-year novated lease on a $40k EV</b>?</li>
+          <li>Is <b>outright purchase of a $30k EV</b> better than a <b>1-year novated lease on a $50k EV</b>?</li>
         </ul>
       </div>
 
