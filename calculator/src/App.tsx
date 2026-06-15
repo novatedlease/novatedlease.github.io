@@ -360,9 +360,10 @@ function newQuoteId(): string {
   return `q_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
 }
 
-export default function App() {
-  const defaultInputs: Inputs = (() => {
-    const base: Inputs = {
+// Computed once at module level — stable reference across all re-renders.
+// leaseStartDate is set to 30 days from page load, which is fine for a default.
+const defaultInputs: Inputs = (() => {
+  const base: Inputs = {
     vehicleType: "EV",
     vehicleCondition: "New",
     usedCarFirstHeldAfterJul2022: false,
@@ -415,15 +416,17 @@ export default function App() {
     currentRegistrationAnnual: 900,
     currentFuelAnnual: 2362.5,
     currentInsuranceAnnual: 1000,
-    };
+  };
 
-    return {
-      ...base,
-      financedAmountForInterestCalcExGst: financedAmountExGstFromInputs(base),
-      // residualValueExGst stays 0 as sentinel so the auto-sync effect
-      // computes the correct value on mount (handles old URLs too)
-    };
-  })();
+  return {
+    ...base,
+    financedAmountForInterestCalcExGst: financedAmountExGstFromInputs(base),
+    // residualValueExGst stays 0 as sentinel so the auto-sync effect
+    // computes the correct value on mount (handles old URLs too)
+  };
+})();
+
+export default function App() {
 
   const urlInitRef = useRef<{ encoded: string | null }>({ encoded: null });
   const lastAutoFinancedRef = useRef<number | null>(null);
@@ -553,6 +556,7 @@ export default function App() {
   const [copiedLink, setCopiedLink] = useState(false);
 
   const [quotesOpen, setQuotesOpen] = useState<boolean>(false);
+  const importFileRef = useRef<HTMLInputElement>(null);
 const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => {
   if (typeof window === "undefined") return [];
   return safeLoadQuotes();
@@ -656,6 +660,49 @@ function renameQuote(id: string, name: string) {
   const trimmed = name.trim();
   if (!trimmed) return;
   persistQuotes(savedQuotes.map((q) => (q.id === id ? { ...q, name: trimmed } : q)));
+}
+
+function exportQuotes() {
+  const payload: SavedQuotesStoreV1 = { v: 1, quotes: savedQuotes };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const date = new Date().toISOString().slice(0, 10);
+  a.href = url;
+  a.download = `nl-quotes-${date}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importQuotes(file: File) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const parsed = JSON.parse(e.target?.result as string) as SavedQuotesStoreV1;
+      if (!parsed || parsed.v !== 1 || !Array.isArray(parsed.quotes)) {
+        alert("Invalid file — not a novated lease quotes export.");
+        return;
+      }
+      const incoming = parsed.quotes.filter(
+        (q) => q && q.v === 1 && typeof q.id === "string" && typeof q.name === "string"
+      );
+      // Merge: incoming quotes first, then existing ones not already present (deduplicate by id)
+      const existingIds = new Set(savedQuotes.map((q) => q.id));
+      const merged = [
+        ...incoming,
+        ...savedQuotes.filter((q) => !incoming.some((iq) => iq.id === q.id)),
+      ].slice(0, 50);
+      const added = incoming.filter((q) => !existingIds.has(q.id)).length;
+      const updated = incoming.filter((q) => existingIds.has(q.id)).length;
+      persistQuotes(merged);
+      alert(
+        `Imported ${incoming.length} quote${incoming.length !== 1 ? "s" : ""}: ${added} new, ${updated} updated.`
+      );
+    } catch {
+      alert("Could not read file. Make sure it's a valid quotes export.");
+    }
+  };
+  reader.readAsText(file);
 }
 
 useEffect(() => {
@@ -1201,6 +1248,51 @@ useEffect(() => {
 
         <button
           type="button"
+          onClick={exportQuotes}
+          disabled={savedQuotes.length === 0}
+          style={{
+            padding: "8px 10px",
+            borderRadius: 10,
+            border: "1px solid rgba(0,0,0,0.18)",
+            background: "rgba(0,0,0,0.02)",
+            fontWeight: 800,
+            cursor: savedQuotes.length === 0 ? "not-allowed" : "pointer",
+            opacity: savedQuotes.length === 0 ? 0.45 : 1,
+          }}
+          title="Download all saved quotes as a JSON file to share"
+        >
+          Export all
+        </button>
+
+        <button
+          type="button"
+          onClick={() => importFileRef.current?.click()}
+          style={{
+            padding: "8px 10px",
+            borderRadius: 10,
+            border: "1px solid rgba(0,0,0,0.18)",
+            background: "rgba(0,0,0,0.02)",
+            fontWeight: 800,
+            cursor: "pointer",
+          }}
+          title="Import quotes from a JSON file"
+        >
+          Import
+        </button>
+        <input
+          ref={importFileRef}
+          type="file"
+          accept=".json,application/json"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) importQuotes(file);
+            e.target.value = "";
+          }}
+        />
+
+        <button
+          type="button"
           onClick={() => {
             if (!window.confirm("Delete ALL saved quotes on this device?")) return;
             persistQuotes([]);
@@ -1472,7 +1564,7 @@ useEffect(() => {
                 color: outputTab === "Compare" ? "#7b1fa2" : "rgba(0,0,0,0.4)",
                 marginBottom: 2,
               }}>
-                🔀 Compare
+                🔀 Compare <span style={{ fontSize: 10, fontWeight: 600, opacity: 0.6, verticalAlign: "middle" }}>(beta)</span>
               </div>
               <div style={{
                 fontSize: 11.5,
