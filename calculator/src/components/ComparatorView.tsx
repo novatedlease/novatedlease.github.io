@@ -962,7 +962,7 @@ export default function ComparatorView({
                             ★ BEST
                           </div>
                         )}
-                        <div style={{ fontWeight: 900 }}>{col.quoteName}</div>
+                        {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
                         <div style={{ fontWeight: 600, opacity: 0.85, marginTop: 1 }}>
                           {PATHWAY_LABELS[col.pathwayType]}
                         </div>
@@ -1145,7 +1145,7 @@ export default function ComparatorView({
                           </th>
                           {ranked.map((col) => (
                             <th key={col.key} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, background: col.color, color: "#fff", whiteSpace: "nowrap" }}>
-                              <div style={{ fontWeight: 900 }}>{col.quoteName}</div>
+                              {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
                               <div style={{ fontWeight: 600, opacity: 0.85, marginTop: 2 }}>{PATHWAY_LABELS[col.pathwayType]}</div>
                             </th>
                           ))}
@@ -1228,7 +1228,7 @@ export default function ComparatorView({
                       </th>
                       {ranked.map((col) => (
                         <th key={col.key} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, background: col.color, color: "#fff", whiteSpace: "nowrap" }}>
-                          <div style={{ fontWeight: 900 }}>{col.quoteName}</div>
+                          {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
                           <div style={{ fontWeight: 600, opacity: 0.85, marginTop: 2 }}>{PATHWAY_LABELS[col.pathwayType]}</div>
                         </th>
                       ))}
