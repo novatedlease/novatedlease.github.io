@@ -508,7 +508,7 @@
           '<div class="byo-provider-card__name">' + escapeHtml(p.name) + '</div>' +
           '<div class="byo-provider-card__desc">' + escapeHtml(p.desc) + '</div>' +
           (p.communityHtml ? '<div class="byo-provider-card__community">' + p.communityHtml + '</div>' : '') +
-          '<a class="byo-provider-card__url" href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener">' + escapeHtml(p.url.replace('https://', '')) + ' ↗</a>' +
+          '<a class="byo-provider-card__url" href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener" onclick="if(typeof gtag===\'function\'){gtag(\'event\',\'click\',{event_category:\'byo_provider\',event_label:\'' + escapeHtml(p.name) + '\'})}">' + escapeHtml(p.url.replace('https://', '')) + ' ↗</a>' +
           '</div>';
       }).join('') +
       '</div></div>';
