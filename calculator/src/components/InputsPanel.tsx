@@ -2045,7 +2045,7 @@ function LeaseAdjustModal(props: {
           Adjust your quoted finance figure
         </div>
         <div style={{ fontSize: 13, color: "rgba(0,0,0,0.5)", marginBottom: 20, lineHeight: 1.45 }}>
-          {provider === "smart" ? "Smart Leasing" : "MillarX"} derives your regular payment as though you are paying for all {totalMonths} monthly lease payments — but only {totalMonths - bufferMonths} of those are actual lease rentals paid to the financier. The remainder is held as a budget reserve. The calculator needs the figure based on the {totalMonths - bufferMonths} true lease payments, which is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% lower than your quoted figure.
+          {provider === "smart" ? "Smart Leasing" : "MillarX"} derives your regular payment as though you are paying for all {totalMonths} monthly lease payments — but only {totalMonths - bufferMonths} of those are actual lease rentals paid to the financier. The remainder is held as a budget reserve (refundable if unused at lease end). The calculator needs the figure based on the {totalMonths - bufferMonths} true lease payments, which is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% lower than your quoted figure.
         </div>
 
         {/* Provider toggle — compact pill */}
