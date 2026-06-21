@@ -2160,13 +2160,6 @@ function LeaseAdjustModal(props: {
           {adjustedFn !== null ? `$${fmtResult(adjustedFn)}` : "—"}
         </div>
 
-        {/* MillarX caveat */}
-        {provider === "millarx" && (
-          <div style={{ fontSize: 11, color: "rgba(0,0,0,0.45)", lineHeight: 1.5, marginTop: -16, marginBottom: 20, fontStyle: "italic" }}>
-            MillarX's exact buffer may vary by quote — confirm the number of payroll deductions vs. lease rentals with MillarX directly.
-          </div>
-        )}
-
         {/* Actions */}
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
           <button
