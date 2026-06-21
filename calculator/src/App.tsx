@@ -1564,7 +1564,7 @@ useEffect(() => {
                 color: outputTab === "Compare" ? "#7b1fa2" : "rgba(0,0,0,0.4)",
                 marginBottom: 2,
               }}>
-                🔀 Compare <span style={{ fontSize: 10, fontWeight: 600, opacity: 0.6, verticalAlign: "middle" }}>(beta)</span>
+                🔀 Compare
               </div>
               <div style={{
                 fontSize: 11.5,
