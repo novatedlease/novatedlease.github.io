@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://novatedlease.guide/sitemap.xml
