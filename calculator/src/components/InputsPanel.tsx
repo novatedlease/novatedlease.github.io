@@ -2045,10 +2045,7 @@ function LeaseAdjustModal(props: {
           Adjust your quoted lease figure
         </div>
         <div style={{ fontSize: 13, color: "rgba(0,0,0,0.5)", marginBottom: 20, lineHeight: 1.45 }}>
-          {provider === "smart"
-            ? <>Smart Leasing budgets {totalMonths} monthly payments but only {totalMonths - 2} go to the financier — your quoted figure is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% higher than what this calculator needs.</>
-            : <>MillarX spreads deductions over {totalMonths} periods but only {totalMonths - 1} are lease rentals — your quoted figure may need scaling down before entering here.</>
-          }
+          {provider === "smart" ? "Smart Leasing" : "MillarX"} quotes {totalMonths} monthly payments but only {totalMonths - bufferMonths} go to the financier — your quoted figure is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% higher than what this calculator needs.
         </div>
 
         {/* Provider toggle — compact pill */}
