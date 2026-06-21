@@ -87,6 +87,29 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
     // ── Selector state ──
     const [activeDef, setActiveDef] = React.useState<"def1" | "def1a" | "def2">("def1");
 
+    // ── Provider adjustment state ──
+    const [providerAdjOpen, setProviderAdjOpen] = React.useState(false);
+    const [bufferMonthsRaw, setBufferMonthsRaw] = React.useState("2");
+    const bufferMonths = Math.max(0, Math.min(Math.round(Number(bufferMonthsRaw) || 0), years * 12 - 1));
+    const totalMonths = years * 12;
+    const adjustedLeaseFn = totalMonths > 0 ? leaseFn * (totalMonths - bufferMonths) / totalMonths : leaseFn;
+
+    const rateAdj1 = effectiveAnnualRateFromFortnightlyLease({
+      financedAmountExGst: financedStandardExGst,
+      residualValueExGst: residualStandardExGst,
+      leaseYears: years,
+      deferMonths,
+      fortnightlyLeasePayment: adjustedLeaseFn,
+    });
+
+    const rateAdj1a = effectiveAnnualRateFromFortnightlyLease({
+      financedAmountExGst: financedStandardExGst,
+      residualValueExGst: residualStandardExGst,
+      leaseYears: years,
+      deferMonths,
+      fortnightlyLeasePayment: adjustedLeaseFn + mgmtFeeFn,
+    });
+
     // ── Amortisation table ──
     const moneyParens = (n: number) => {
       const abs = Math.abs(n);
@@ -324,6 +347,96 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
 
         {/* ── Content panel ── */}
         {contentByDef[activeDef]}
+
+        {/* ── Provider adjustment submodule ── */}
+        <div style={{ marginTop: 18, borderRadius: 12, border: "1px solid rgba(0,0,0,0.13)", overflow: "hidden" }}>
+          <button
+            type="button"
+            onClick={() => setProviderAdjOpen((v) => !v)}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "11px 14px",
+              background: providerAdjOpen ? "rgba(180,0,0,0.05)" : "rgba(0,0,0,0.025)",
+              border: "none",
+              cursor: "pointer",
+              fontSize: 13,
+              fontWeight: 700,
+              color: providerAdjOpen ? "#7f0000" : "rgba(0,0,0,0.70)",
+              textAlign: "left",
+            }}
+          >
+            <span>🏢 Got a quote from Smart Salary or MillarX? Adjust for their payment structure</span>
+            <span style={{ fontSize: 11, fontWeight: 500, marginLeft: 8, opacity: 0.65 }}>{providerAdjOpen ? "▾" : "▸"}</span>
+          </button>
+
+          {providerAdjOpen && (
+            <div style={{ padding: "14px 16px", fontSize: 13, lineHeight: 1.55, borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+              <NoteBox color="#7f0000" mt={0}>
+                Smart Salary calculates the quoted fortnightly budget <em>as if</em> there are{" "}
+                {totalMonths} monthly payments, but only {totalMonths} − buffer months are actually
+                remitted to the financier — the rest is held as a float for running costs. Entering
+                the quoted fortnightly directly inflates the effective interest rate. Use this tool
+                to find the finance-only component and the corrected rate.
+              </NoteBox>
+
+              <div style={{ marginTop: 12, display: "flex", alignItems: "center", gap: 10 }}>
+                <label style={{ fontWeight: 700, whiteSpace: "nowrap" }}>Buffer months</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={totalMonths - 1}
+                  step={1}
+                  value={bufferMonthsRaw}
+                  onChange={(e) => setBufferMonthsRaw(e.target.value)}
+                  style={{
+                    width: 64,
+                    padding: "5px 8px",
+                    borderRadius: 8,
+                    border: "1px solid rgba(0,0,0,0.22)",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    textAlign: "center",
+                  }}
+                />
+                <span style={{ fontSize: 12, opacity: 0.6 }}>
+                  Smart Salary standard: 2 months — confirm with your provider
+                </span>
+              </div>
+
+              <div style={{ marginTop: 12 }}>
+                <KV label={`Quoted fortnightly (as given by provider)`} value={money(leaseFn)} />
+                <KV
+                  label={`Finance-only fortnightly (× ${totalMonths - bufferMonths}/${totalMonths})`}
+                  value={money(adjustedLeaseFn)}
+                />
+                <KV
+                  label="Corrected effective rate (Def 1 — standard financed amount)"
+                  value={pct(rateAdj1)}
+                  bold
+                  highlight
+                  color="#7f0000"
+                />
+                <KV
+                  label="Corrected effective rate (Def 1a — inc. management fees)"
+                  value={pct(rateAdj1a)}
+                  bold
+                  highlight
+                  color="#7f0000"
+                />
+              </div>
+
+              <div style={{ marginTop: 10, fontSize: 12, color: "rgba(0,0,0,0.50)", lineHeight: 1.45 }}>
+                The buffer is collected pre-tax alongside the lease payments and is typically applied
+                to running cost shortfalls or returned to payroll at lease end. It does not reduce
+                the financed amount or residual — only the payment used for interest rate comparison
+                needs adjusting.
+              </div>
+            </div>
+          )}
+        </div>
 
       </div>
     );
