@@ -1983,13 +1983,15 @@ function LeaseAdjustModal(props: {
 }) {
   const [provider, setProvider] = useState<"smart" | "millarx">("smart");
   const [quotedText, setQuotedText] = useState<string>("");
+  const [quotePeriodMode, setQuotePeriodMode] = useState<"perFn" | "perMonth">("perFn");
 
   const totalMonths = props.leaseDurationYears * 12;
   const bufferMonths = provider === "smart" ? 2 : 1;
   const quotedNum = parseFloat(String(quotedText).trim().replace(/[$,]/g, ""));
   const hasQuoted = Number.isFinite(quotedNum) && quotedNum > 0;
   const factor = totalMonths > 0 ? (totalMonths - bufferMonths) / totalMonths : null;
-  const adjustedFn = hasQuoted && factor !== null ? quotedNum * factor : null;
+  const quotedPerFn = hasQuoted ? (quotePeriodMode === "perMonth" ? quotedNum * 12 / 26 : quotedNum) : null;
+  const adjustedFn = quotedPerFn !== null && factor !== null ? quotedPerFn * factor : null;
 
   const fmtResult = (n: number) =>
     n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -2044,7 +2046,7 @@ function LeaseAdjustModal(props: {
           Adjust your quoted finance figure
         </div>
         <div style={{ fontSize: 13, color: "rgba(0,0,0,0.5)", marginBottom: 20, lineHeight: 1.45 }}>
-          {provider === "smart" ? "Smart Leasing" : "MillarX"} derives your regular payment as though you are paying for all {totalMonths} monthly lease payments — but only {totalMonths - bufferMonths} of those are actual lease rentals paid to the financier. The remainder is held as a budget reserve (refundable if unused at lease end). The calculator needs the figure based on the {totalMonths - bufferMonths} true lease payments, which is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% lower than your quoted figure.
+          {provider === "smart" ? "Smart Leasing" : "MillarX"} derives your regular payment as though you are paying for all {totalMonths} monthly finance payments — but only {totalMonths - bufferMonths} of those are actual payments to the financier. The remainder is held as a budget reserve (refundable if unused at term end). The calculator needs the figure based on the {totalMonths - bufferMonths} true financier payments, which is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% lower than your quoted figure.
         </div>
 
         {/* Provider toggle — compact pill */}
@@ -2084,8 +2086,33 @@ function LeaseAdjustModal(props: {
         </div>
 
         {/* Input */}
-        <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(0,0,0,0.45)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
-          Your quoted finance figure (per fortnight, ex GST)
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(0,0,0,0.45)", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            Your quoted finance figure (ex GST)
+          </div>
+          <div style={{ display: "flex", gap: 4, fontSize: 11 }}>
+            {(["perFn", "perMonth"] as const).map((mode, idx) => (
+              <React.Fragment key={mode}>
+                {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
+                <button
+                  type="button"
+                  onClick={() => setQuotePeriodMode(mode)}
+                  style={{
+                    padding: 0,
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                    fontSize: 11,
+                    fontWeight: quotePeriodMode === mode ? 800 : 400,
+                    opacity: quotePeriodMode === mode ? 0.9 : 0.45,
+                    textDecoration: quotePeriodMode === mode ? "underline" : "none",
+                  }}
+                >
+                  {mode === "perFn" ? "per fortnight" : "per month"}
+                </button>
+              </React.Fragment>
+            ))}
+          </div>
         </div>
         <div style={{ position: "relative", marginBottom: 8 }}>
           <div
@@ -2138,7 +2165,7 @@ function LeaseAdjustModal(props: {
 
         {/* Result */}
         <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(0,0,0,0.45)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
-          Enter this into the calculator
+          Enter this into the calculator (per fortnight)
         </div>
         <div
           style={{
@@ -2150,13 +2177,18 @@ function LeaseAdjustModal(props: {
             fontWeight: 800,
             color: adjustedFn !== null ? "rgb(27,94,32)" : "rgba(0,0,0,0.2)",
             letterSpacing: "-0.01em",
-            marginBottom: 24,
+            marginBottom: 12,
             minHeight: 46,
             display: "flex",
             alignItems: "center",
           }}
         >
           {adjustedFn !== null ? `$${fmtResult(adjustedFn)}` : "—"}
+        </div>
+
+        {/* Discrepancy note */}
+        <div style={{ fontSize: 11, color: "rgba(0,0,0,0.4)", lineHeight: 1.5, marginBottom: 20 }}>
+          Once applied, the calculator's total cost will appear slightly lower than your provider's quoted total. This is expected — the provider's quote treats the buffer payments as a true financial obligation, whereas this calculator correctly models only the {totalMonths - bufferMonths} actual financier payments as a cost. The buffer surplus is returned to you at term end if unused.
         </div>
 
         {/* Actions */}
