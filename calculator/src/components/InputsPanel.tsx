@@ -850,7 +850,7 @@ export default function InputsPanel(props: InputsPanelProps) {
           textAlign: "left",
         }}
       >
-        Smart Salary / MillarX customer?
+        Smart Leasing / MillarX customer?
       </button>
     </div>
   }
@@ -1751,7 +1751,7 @@ function InterestRateCaveats() {
             <b>GST not passed on:</b> When GST is not passed on by the employer, the fortnightly lease charged is inc GST; however the effective interest rate calculation assumes this is the ex GST figure, which results in an inconsistent rate. This will be addressed in a future update.
           </li>
           <li>
-            <b>Atypical lease structure (e.g. MillarX):</b> This calculator assumes averaged payroll deductions across the lease term. Some providers structure quotes differently — for example, on a 5-year term there may be 59 actual lease rentals but 60 payroll deductions, with the extra deduction held as a refundable budget reserve for running costs. In these cases, this calculator may give a misleading effective interest rate comparison. In these atypical structures, we recommend checking with your provider about how to enter their figures correctly.
+            <b>Atypical lease structure (Smart Leasing / MillarX):</b> This calculator assumes averaged payroll deductions across the lease term. Some providers structure quotes differently — for example, on a 5-year term there may be 59 actual lease rentals but 60 payroll deductions, with the extra deduction held as a refundable budget reserve for running costs. Entering the quoted figure directly will produce a misleading effective interest rate. <b>Smart Leasing and MillarX customers: use the "Smart Leasing / MillarX customer?" adjustment tool above the lease input — it scales your quoted figure to the finance-only amount this calculator expects.</b>
           </li>
         </ol>
       )}
@@ -2046,7 +2046,7 @@ function LeaseAdjustModal(props: {
         </div>
         <div style={{ fontSize: 13, color: "rgba(0,0,0,0.5)", marginBottom: 20, lineHeight: 1.45 }}>
           {provider === "smart"
-            ? <>Smart Salary budgets {totalMonths} monthly payments but only {totalMonths - 2} go to the financier — your quoted figure is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% higher than what this calculator needs.</>
+            ? <>Smart Leasing budgets {totalMonths} monthly payments but only {totalMonths - 2} go to the financier — your quoted figure is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% higher than what this calculator needs.</>
             : <>MillarX spreads deductions over {totalMonths} periods but only {totalMonths - 1} are lease rentals — your quoted figure may need scaling down before entering here.</>
           }
         </div>
@@ -2082,7 +2082,7 @@ function LeaseAdjustModal(props: {
                 whiteSpace: "nowrap",
               }}
             >
-              {p === "smart" ? "Smart Salary" : "MillarX"}
+              {p === "smart" ? "Smart Leasing" : "MillarX"}
             </button>
           ))}
         </div>
