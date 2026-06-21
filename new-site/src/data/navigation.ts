@@ -82,6 +82,7 @@ export const navigation: NavEntry[] = [
       { label: 'EV FBT wind-back — 2026 Budget', href: '/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/' },
       { label: 'EV FBT exemption review timing', href: '/special-and-policy/ev-fbt-exemption-review-timing/' },
       { label: 'LCT threshold & FBT exemption', href: '/special-and-policy/lct-threshold-fbt-exemption/' },
+      { label: 'Exclusive provider lock-in', href: '/special-and-policy/exclusive-provider-novated-lease/' },
       { label: 'Why novated leasing is poorly regulated', href: '/special-and-policy/why-poorly-regulated/' },
     ],
   },

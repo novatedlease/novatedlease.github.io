@@ -30,6 +30,7 @@ export default function InputsPanel(props: InputsPanelProps) {
   const lastAutoElectricityAnnualRef = useRef<number | null>(null);
   const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
   const prevLeaseDurationRef = useRef<number>(inputs.leaseDurationYears);
+  const [leaseAdjModalOpen, setLeaseAdjModalOpen] = useState(false);
 
 
   // When lease duration changes, users MUST update their per-fortnight lease quote.
@@ -831,6 +832,26 @@ export default function InputsPanel(props: InputsPanelProps) {
           </React.Fragment>
         ))}
       </div>
+      <button
+        type="button"
+        onClick={() => setLeaseAdjModalOpen(true)}
+        style={{
+          marginTop: 5,
+          padding: 0,
+          border: "none",
+          background: "transparent",
+          cursor: "pointer",
+          fontSize: 10,
+          color: "rgba(11,92,171,0.85)",
+          textDecoration: "underline",
+          textUnderlineOffset: 2,
+          fontWeight: 700,
+          display: "block",
+          textAlign: "left",
+        }}
+      >
+        Smart Salary / MillarX customer?
+      </button>
     </div>
   }
   tooltip={<InfoTooltip text={<>
@@ -1553,6 +1574,19 @@ export default function InputsPanel(props: InputsPanelProps) {
           )}
         </Section>
       </div>
+
+      {leaseAdjModalOpen && (
+        <LeaseAdjustModal
+          leaseDurationYears={inputs.leaseDurationYears}
+          onClose={() => setLeaseAdjModalOpen(false)}
+          onApply={(adjustedFn) => {
+            touch("vehicleLeasePerFn");
+            props.onVehicleLeasePerFnChange(adjustedFn);
+            setNeedsLeaseRequote(false);
+            setLeaseAdjModalOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -1940,6 +1974,242 @@ function SelectNewUsed(props: {
         <option value="Used – private sale (no GST)">Used – private sale (no GST)</option>
       </select>
     </FieldRow>
+  );
+}
+
+function LeaseAdjustModal(props: {
+  leaseDurationYears: number;
+  onClose: () => void;
+  onApply: (adjustedFnPerFn: number) => void;
+}) {
+  const [provider, setProvider] = useState<"smart" | "millarx">("smart");
+  const [quotedText, setQuotedText] = useState<string>("");
+
+  const totalMonths = props.leaseDurationYears * 12;
+  const bufferMonths = provider === "smart" ? 2 : 1;
+  const quotedNum = parseFloat(String(quotedText).trim().replace(/[$,]/g, ""));
+  const hasQuoted = Number.isFinite(quotedNum) && quotedNum > 0;
+  const factor = totalMonths > 0 ? (totalMonths - bufferMonths) / totalMonths : null;
+  const adjustedFn = hasQuoted && factor !== null ? quotedNum * factor : null;
+
+  const fmtResult = (n: number) =>
+    n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  return (
+    <>
+      <div
+        style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.35)", zIndex: 1000 }}
+        onClick={props.onClose}
+      />
+      <div
+        role="dialog"
+        aria-modal="true"
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: 1001,
+          background: "#fff",
+          borderRadius: 18,
+          padding: "28px 30px 24px",
+          maxWidth: 420,
+          width: "calc(100vw - 32px)",
+          boxShadow: "0 12px 56px rgba(0,0,0,0.18)",
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close */}
+        <button
+          type="button"
+          onClick={props.onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: 14,
+            right: 16,
+            padding: 0,
+            border: "none",
+            background: "transparent",
+            cursor: "pointer",
+            fontSize: 20,
+            lineHeight: 1,
+            color: "rgba(0,0,0,0.3)",
+          }}
+        >
+          ✕
+        </button>
+
+        {/* Header */}
+        <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 4, paddingRight: 24 }}>
+          Adjust your quoted lease figure
+        </div>
+        <div style={{ fontSize: 13, color: "rgba(0,0,0,0.5)", marginBottom: 20, lineHeight: 1.45 }}>
+          {provider === "smart"
+            ? <>Smart Salary budgets {totalMonths} monthly payments but only {totalMonths - 2} go to the financier — your quoted figure is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% higher than what this calculator needs.</>
+            : <>MillarX spreads deductions over {totalMonths} periods but only {totalMonths - 1} are lease rentals — your quoted figure may need scaling down before entering here.</>
+          }
+        </div>
+
+        {/* Provider toggle — compact pill */}
+        <div
+          style={{
+            display: "inline-flex",
+            borderRadius: 999,
+            border: "1px solid rgba(0,0,0,0.14)",
+            background: "rgba(0,0,0,0.04)",
+            padding: 3,
+            marginBottom: 24,
+            gap: 2,
+          }}
+        >
+          {(["smart", "millarx"] as const).map((p) => (
+            <button
+              key={p}
+              type="button"
+              onClick={() => setProvider(p)}
+              style={{
+                padding: "6px 14px",
+                borderRadius: 999,
+                border: "none",
+                background: provider === p ? "#fff" : "transparent",
+                boxShadow: provider === p ? "0 1px 4px rgba(0,0,0,0.12)" : "none",
+                cursor: "pointer",
+                fontWeight: provider === p ? 800 : 500,
+                fontSize: 13,
+                color: provider === p ? "rgba(11,92,171,0.95)" : "rgba(0,0,0,0.5)",
+                transition: "all 140ms ease",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {p === "smart" ? "Smart Salary" : "MillarX"}
+            </button>
+          ))}
+        </div>
+
+        {/* Input */}
+        <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(0,0,0,0.45)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
+          Your quoted figure (per fortnight)
+        </div>
+        <div style={{ position: "relative", marginBottom: 8 }}>
+          <div
+            style={{
+              position: "absolute",
+              left: 14,
+              top: "50%",
+              transform: "translateY(-50%)",
+              fontWeight: 700,
+              fontSize: 16,
+              color: "rgba(0,0,0,0.4)",
+              pointerEvents: "none",
+              zIndex: 5,
+            }}
+          >
+            $
+          </div>
+          <input
+            type="text"
+            inputMode="decimal"
+            value={quotedText}
+            placeholder="e.g. 650.00"
+            autoFocus
+            onChange={(e) => setQuotedText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") (e.currentTarget as HTMLInputElement).blur();
+            }}
+            onBlur={() => {
+              const n = parseFloat(String(quotedText).trim().replace(/[$,]/g, ""));
+              if (Number.isFinite(n) && n > 0) setQuotedText(fmtResult(n));
+            }}
+            style={{
+              width: "100%",
+              boxSizing: "border-box",
+              padding: "12px 14px 12px 32px",
+              borderRadius: 10,
+              border: "1.5px solid rgba(0,0,0,0.18)",
+              fontSize: 20,
+              fontWeight: 700,
+              background: "#fff",
+              outline: "none",
+            }}
+          />
+        </div>
+
+        {/* Formula hint */}
+        <div style={{ fontSize: 11, color: "rgba(0,0,0,0.35)", textAlign: "right", marginBottom: 16 }}>
+          × {totalMonths - bufferMonths} / {totalMonths}{factor !== null ? ` = ${(factor * 100).toFixed(3)}%` : ""}
+        </div>
+
+        {/* Result */}
+        <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(0,0,0,0.45)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
+          Enter this into the calculator
+        </div>
+        <div
+          style={{
+            padding: "12px 14px",
+            borderRadius: 10,
+            background: adjustedFn !== null ? "rgba(27,94,32,0.06)" : "rgba(0,0,0,0.025)",
+            border: adjustedFn !== null ? "1.5px solid rgba(46,125,50,0.3)" : "1.5px solid rgba(0,0,0,0.1)",
+            fontSize: 20,
+            fontWeight: 800,
+            color: adjustedFn !== null ? "rgb(27,94,32)" : "rgba(0,0,0,0.2)",
+            letterSpacing: "-0.01em",
+            marginBottom: 24,
+            minHeight: 46,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {adjustedFn !== null ? `$${fmtResult(adjustedFn)}` : "—"}
+        </div>
+
+        {/* MillarX caveat */}
+        {provider === "millarx" && (
+          <div style={{ fontSize: 11, color: "rgba(0,0,0,0.45)", lineHeight: 1.5, marginTop: -16, marginBottom: 20, fontStyle: "italic" }}>
+            MillarX's exact buffer may vary by quote — confirm the number of payroll deductions vs. lease rentals with MillarX directly.
+          </div>
+        )}
+
+        {/* Actions */}
+        <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
+          <button
+            type="button"
+            onClick={props.onClose}
+            style={{
+              padding: "10px 18px",
+              borderRadius: 10,
+              border: "1px solid rgba(0,0,0,0.16)",
+              background: "transparent",
+              cursor: "pointer",
+              fontSize: 13,
+              fontWeight: 600,
+              color: "rgba(0,0,0,0.6)",
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            disabled={adjustedFn === null}
+            onClick={() => {
+              if (adjustedFn !== null) props.onApply(Math.round(adjustedFn * 100) / 100);
+            }}
+            style={{
+              padding: "10px 20px",
+              borderRadius: 10,
+              border: "none",
+              background: adjustedFn !== null ? "rgba(11,92,171,0.88)" : "rgba(0,0,0,0.07)",
+              color: adjustedFn !== null ? "#fff" : "rgba(0,0,0,0.25)",
+              cursor: adjustedFn !== null ? "pointer" : "default",
+              fontSize: 13,
+              fontWeight: 800,
+            }}
+          >
+            Use this value →
+          </button>
+        </div>
+      </div>
+    </>
   );
 }
 
