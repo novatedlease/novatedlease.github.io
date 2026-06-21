@@ -2042,10 +2042,10 @@ function LeaseAdjustModal(props: {
 
         {/* Header */}
         <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 4, paddingRight: 24 }}>
-          Adjust your quoted lease figure
+          Adjust your quoted finance figure
         </div>
         <div style={{ fontSize: 13, color: "rgba(0,0,0,0.5)", marginBottom: 20, lineHeight: 1.45 }}>
-          {provider === "smart" ? "Smart Leasing" : "MillarX"} quotes {totalMonths} monthly payments but only {totalMonths - bufferMonths} go to the financier — your quoted figure is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% higher than what this calculator needs.
+          {provider === "smart" ? "Smart Leasing" : "MillarX"} derives your fortnightly commitment as though you are paying for all {totalMonths} monthly lease payments — but only {totalMonths - bufferMonths} of those are actual lease rentals paid to the financier. The remainder is held as a budget reserve. The calculator needs the figure based on the {totalMonths - bufferMonths} true lease payments, which is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% lower than your quoted figure.
         </div>
 
         {/* Provider toggle — compact pill */}
@@ -2086,7 +2086,7 @@ function LeaseAdjustModal(props: {
 
         {/* Input */}
         <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(0,0,0,0.45)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
-          Your quoted figure (per fortnight)
+          Your quoted finance figure (per fortnight, ex GST)
         </div>
         <div style={{ position: "relative", marginBottom: 8 }}>
           <div
