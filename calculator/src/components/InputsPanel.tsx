@@ -809,49 +809,48 @@ export default function InputsPanel(props: InputsPanelProps) {
   label={
     <div>
       <div>Vehicle Lease</div>
-      <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11 }}>
-        {(["perFn", "perMonth"] as const).map((mode, idx) => (
-          <React.Fragment key={mode}>
-            {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
-            <button
-              type="button"
-              onClick={() => setVehicleLeasePeriodMode(mode)}
-              style={{
-                padding: 0,
-                border: "none",
-                background: "transparent",
-                cursor: "pointer",
-                fontSize: 11,
-                fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
-                opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
-                textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
-              }}
-            >
-              {mode === "perFn" ? "per fortnight" : "per month"}
-            </button>
-          </React.Fragment>
-        ))}
+      <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11, alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", gap: 6 }}>
+          {(["perFn", "perMonth"] as const).map((mode, idx) => (
+            <React.Fragment key={mode}>
+              {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
+              <button
+                type="button"
+                onClick={() => setVehicleLeasePeriodMode(mode)}
+                style={{
+                  padding: 0,
+                  border: "none",
+                  background: "transparent",
+                  cursor: "pointer",
+                  fontSize: 11,
+                  fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
+                  opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
+                  textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
+                }}
+              >
+                {mode === "perFn" ? "per fortnight" : "per month"}
+              </button>
+            </React.Fragment>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() => setLeaseAdjModalOpen(true)}
+          style={{
+            padding: 0,
+            border: "none",
+            background: "transparent",
+            cursor: "pointer",
+            fontSize: 9,
+            color: "rgba(11,92,171,0.6)",
+            textDecoration: "underline",
+            textUnderlineOffset: 2,
+            fontWeight: 600,
+          }}
+        >
+          Smart / MillarX?
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={() => setLeaseAdjModalOpen(true)}
-        style={{
-          marginTop: 5,
-          padding: 0,
-          border: "none",
-          background: "transparent",
-          cursor: "pointer",
-          fontSize: 10,
-          color: "rgba(11,92,171,0.85)",
-          textDecoration: "underline",
-          textUnderlineOffset: 2,
-          fontWeight: 700,
-          display: "block",
-          textAlign: "left",
-        }}
-      >
-        Smart Leasing / MillarX customer?
-      </button>
     </div>
   }
   tooltip={<InfoTooltip text={<>
