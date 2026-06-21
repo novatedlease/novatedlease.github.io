@@ -1992,9 +1992,20 @@ function LeaseAdjustModal(props: {
   const factor = totalMonths > 0 ? (totalMonths - bufferMonths) / totalMonths : null;
   const quotedPerFn = hasQuoted ? (quotePeriodMode === "perMonth" ? quotedNum * 12 / 26 : quotedNum) : null;
   const adjustedFn = quotedPerFn !== null && factor !== null ? quotedPerFn * factor : null;
+  const adjustedDisplay = adjustedFn !== null ? (quotePeriodMode === "perMonth" ? adjustedFn * 26 / 12 : adjustedFn) : null;
 
   const fmtResult = (n: number) =>
     n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  const handleQuotePeriodModeChange = (mode: "perFn" | "perMonth") => {
+    if (mode === quotePeriodMode) return;
+    const n = parseFloat(String(quotedText).trim().replace(/[$,]/g, ""));
+    if (Number.isFinite(n) && n > 0) {
+      const converted = mode === "perMonth" ? n * 26 / 12 : n * 12 / 26;
+      setQuotedText(fmtResult(converted));
+    }
+    setQuotePeriodMode(mode);
+  };
 
   return (
     <>
@@ -2096,7 +2107,7 @@ function LeaseAdjustModal(props: {
                 {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
                 <button
                   type="button"
-                  onClick={() => setQuotePeriodMode(mode)}
+                  onClick={() => handleQuotePeriodModeChange(mode)}
                   style={{
                     padding: 0,
                     border: "none",
@@ -2165,17 +2176,17 @@ function LeaseAdjustModal(props: {
 
         {/* Result */}
         <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(0,0,0,0.45)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
-          Enter this into the calculator (per fortnight)
+          Enter this into the calculator ({quotePeriodMode === "perFn" ? "per fortnight" : "per month"})
         </div>
         <div
           style={{
             padding: "12px 14px",
             borderRadius: 10,
-            background: adjustedFn !== null ? "rgba(27,94,32,0.06)" : "rgba(0,0,0,0.025)",
-            border: adjustedFn !== null ? "1.5px solid rgba(46,125,50,0.3)" : "1.5px solid rgba(0,0,0,0.1)",
+            background: adjustedDisplay !== null ? "rgba(27,94,32,0.06)" : "rgba(0,0,0,0.025)",
+            border: adjustedDisplay !== null ? "1.5px solid rgba(46,125,50,0.3)" : "1.5px solid rgba(0,0,0,0.1)",
             fontSize: 20,
             fontWeight: 800,
-            color: adjustedFn !== null ? "rgb(27,94,32)" : "rgba(0,0,0,0.2)",
+            color: adjustedDisplay !== null ? "rgb(27,94,32)" : "rgba(0,0,0,0.2)",
             letterSpacing: "-0.01em",
             marginBottom: 12,
             minHeight: 46,
@@ -2183,7 +2194,7 @@ function LeaseAdjustModal(props: {
             alignItems: "center",
           }}
         >
-          {adjustedFn !== null ? `$${fmtResult(adjustedFn)}` : "—"}
+          {adjustedDisplay !== null ? `$${fmtResult(adjustedDisplay)}` : "—"}
         </div>
 
         {/* Discrepancy note */}
