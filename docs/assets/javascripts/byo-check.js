@@ -141,6 +141,13 @@
       notes: ""
     },
     {
+      name: "Cabrini Health",
+      aliases: ["Cabrini", "Cabrini Hospital", "Cabrini Malvern", "Cabrini Brighton"],
+      group: "Victoria",
+      status: "possible",
+      notes: ""
+    },
+    {
       name: "Barwon Health",
       aliases: ["University Hospital Geelong", "Geelong Hospital", "The Geelong Hospital", "UHG", "McKellar Centre", "Andrew Love Cancer Centre", "Barwon Health North"],
       group: "Victoria",
