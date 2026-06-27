@@ -22,6 +22,20 @@
       notes: ""
     },
     {
+      name: "Child and Adolescent Health Service",
+      aliases: ["CAHS", "Perth Children's Hospital", "PCH", "CAMHS", "Child and Adolescent Mental Health Services", "Child and Adolescent Mental Health", "Princess Margaret Hospital", "PMH", "Community Child Health", "Neonatology WA"],
+      group: "WA Health",
+      status: "possible",
+      notes: ""
+    },
+    {
+      name: "WA Country Health Service",
+      aliases: ["WACHS", "WA Country Health", "Country Health WA", "Broome Regional Hospital", "Kalgoorlie Health Campus", "Albany Health Campus", "Geraldton Hospital", "Bunbury Hospital", "Midwest Health", "Kimberley Health", "Goldfields Health", "Pilbara Health", "South West Health", "Wheatbelt Health", "Great Southern Health"],
+      group: "WA Health",
+      status: "possible",
+      notes: ""
+    },
+    {
       name: "Department of Education WA",
       aliases: ["DoE WA", "WA Education", "WA Dept of Education", "WA Department of Education", "WA schools", "Education WA", "WA public schools"],
       group: "WA Government",
