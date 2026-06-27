@@ -490,6 +490,119 @@
       transform: scaleX(1);
     }
 
+    /* ── Pull quote ── */
+    .pull-quote {
+      border-left: 4px solid var(--accent-color, var(--indigo));
+      padding: 18px 24px;
+      margin: 24px auto;
+      max-width: 680px;
+      background: rgba(79,70,229,0.04);
+      border-radius: 0 8px 8px 0;
+    }
+    .pull-quote p {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.18rem;
+      line-height: 1.65;
+      color: var(--text);
+      font-style: italic;
+      margin: 0;
+    }
+    .pull-quote cite {
+      display: block;
+      font-size: 0.75rem;
+      font-style: normal;
+      color: var(--muted);
+      margin-top: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── Fact cards ── */
+    .fact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin: 28px auto;
+      max-width: 960px;
+    }
+    .fact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 18px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .fact-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px -4px rgba(0,0,0,0.1);
+    }
+    .fact-card .fc-emoji { font-size: 1.8rem; line-height: 1; }
+    .fact-card .fc-value {
+      font-size: 1.55rem; font-weight: 800;
+      color: var(--text); letter-spacing: -0.5px; line-height: 1.15;
+    }
+    .fact-card .fc-label {
+      font-size: 0.72rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .fact-card .fc-detail {
+      font-size: 0.8rem; color: var(--prose);
+      font-style: italic; margin-top: 2px; line-height: 1.45;
+    }
+
+    /* ── Insight strip ── */
+    .insight-strip {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #0c4a6e 100%);
+      border-radius: 16px;
+      padding: 40px 40px 36px;
+      margin: 32px 0;
+      color: #fff;
+    }
+    .insight-strip .is-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(165,180,252,0.7); margin-bottom: 10px;
+    }
+    .insight-strip h3 {
+      font-size: 1.5rem; font-weight: 800; color: #fff;
+      letter-spacing: -0.4px; margin-bottom: 12px;
+    }
+    .insight-strip p {
+      font-family: Georgia, serif; font-size: 0.96rem;
+      color: rgba(255,255,255,0.65); line-height: 1.75; max-width: 680px;
+    }
+    .is-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px; margin-top: 24px;
+    }
+    .is-item {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 16px;
+    }
+    .is-item .ii-value {
+      font-size: 1.4rem; font-weight: 800; color: #fff; line-height: 1.1;
+    }
+    .is-item .ii-label {
+      font-size: 0.72rem; color: rgba(255,255,255,0.5);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px;
+    }
+    .is-item .ii-detail {
+      font-size: 0.78rem; color: rgba(255,255,255,0.4);
+      font-style: italic; margin-top: 4px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none; border-top: 1px solid var(--border);
+      margin: 48px 0 0;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       .hero-opening { padding: 56px 24px 48px; }
@@ -498,6 +611,9 @@
       .pull-stat-pill { min-width: 240px; }
       .stat-row { flex-direction: column; }
       .chapter-bg-numeral { font-size: 5rem; }
+      .fact-grid { grid-template-columns: 1fr 1fr; }
+      .insight-strip { padding: 28px 24px; border-radius: 12px; }
+      .is-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -519,9 +635,9 @@
 ═══════════════════════════════════════════════ -->
 <div id="scroll-progress"></div>
 <div class="hero-opening">
-  <div class="hero-eyebrow">Chang Yang &amp; Xuan Ni &middot; Age 40 &middot; FY2011 – FY2025</div>
-  <h1>A 15-Year Story</h1>
-  <p class="hero-subtitle">From two junior doctors to financial independence — told in numbers.</p>
+  <div class="hero-eyebrow">Chang Yang &amp; Xuan Ni &middot; Two Doctors &middot; One Story &middot; FY2011 – FY2025</div>
+  <h1>From $12k to $4.46 Million</h1>
+  <p class="hero-subtitle">Fifteen years of medicine, marriage, migration and compounding — told in numbers.</p>
   <div class="pull-stats">
     <div class="pull-stat-pill" style="--accent-color:#818cf8">
       <span class="stat-value">$4.5M</span>
@@ -529,11 +645,15 @@
     </div>
     <div class="pull-stat-pill" style="--accent-color:#34d399">
       <span class="stat-value">376.0×</span>
-      <span class="stat-label">Net worth growth</span>
+      <span class="stat-label">Net worth growth multiple</span>
     </div>
     <div class="pull-stat-pill" style="--accent-color:#fbbf24">
       <span class="stat-value">$159k</span>
       <span class="stat-label">Invested in adventures</span>
+    </div>
+    <div class="pull-stat-pill" style="--accent-color:#f472b6">
+      <span class="stat-value">3 cities</span>
+      <span class="stat-label">Melbourne · Hobart · Perth</span>
     </div>
   </div>
 </div>
@@ -551,20 +671,31 @@
       <h2 class="chapter-title">Two interns and a dream</h2>
     </div>
     <p class="prose prose-center">
-      It was FY2011, and between us we had $11,861. Both interns grinding through the
-      first year of medical training, the idea of financial independence felt abstract — more
-      aspiration than plan. Yet that modest stake, built from nothing after university,
-      was the seed of everything that followed. Over the next fourteen years it would
-      compound into a story neither of us could have fully written in advance.
+      FY2011. Chang Yang and Xuan Ni — both 26, both freshly minted junior doctors —
+      sharing a rented flat in Carlton while grinding through the first year of internship.
+      Early shifts, late finishes, the peculiar exhaustion of medicine in its most demanding
+      form. Between them: <strong>$11,861</strong> in net worth. The combined spoils of university
+      savings and first pay cheques. Financial independence was barely a concept, let alone
+      a plan.
+    </p>
+    <p class="prose prose-center">
+      Yet that modest stake was the seed of everything that followed — a fourteen-year
+      compounding journey that would take them across three cities, through fellowship exams
+      and career pivots, two children, two home purchases, a pandemic, and a share portfolio
+      built from scratch. The line on the chart below is not straight. It is the shape of a life.
     </p>
     <div class="stat-row">
       <div class="stat-card" style="--accent-color:#4f46e5">
         <div class="sc-value">Age 26</div>
-        <div class="sc-label">Starting year (FY2011)</div>
+        <div class="sc-label">Starting age (FY2011)</div>
       </div>
       <div class="stat-card" style="--accent-color:#4f46e5">
         <div class="sc-value">$11,861</div>
         <div class="sc-label">Starting net worth (inc. super)</div>
+      </div>
+      <div class="stat-card" style="--accent-color:#4f46e5">
+        <div class="sc-value">3 cities</div>
+        <div class="sc-label">Melbourne → Hobart → Perth</div>
       </div>
     </div>
     <div class="card chart-card">
@@ -615,15 +746,51 @@
       <h2 class="chapter-title">Building foundations</h2>
     </div>
     <p class="prose prose-center">
-      The first seven years were the years of becoming. We married in FY2012, and the following
-      year took the leap into property — buying our first home in Melbourne with a generous
-      $80,000 parental gift pushing us over the line. Those training years shuttled us between
-      hospitals in Melbourne and Tasmania: CY working toward ANZCA fellowship, XN carving a
-      path through haematology. Tara arrived in 2017, the same year CY passed ANZCA finals,
-      adding a new dimension to every decision we made. By the end of this era — FY2018 —
-      net worth had climbed to $636k, almost entirely driven by Melbourne property appreciation
-      rather than income, which was still constrained by registrar pay.
+      The first seven years were the years of <em>becoming</em>. CY and XN married in FY2012,
+      and the following year took the leap into property — buying in Templestowe Lower with a
+      generous <strong>$80,000 parental gift</strong> pushing them over the line. The training
+      years that followed were peripatetic: Melbourne registrar rotations, then in January 2014
+      an email arrived from <em>Kym Jensen at the Department of Anaesthesia, Royal Hobart Hospital</em>:
     </p>
+    <div class="pull-quote" style="--accent-color:#10b981">
+      <p>"I am preparing for your arrival to the Department on Monday 3 February."</p>
+      <cite>— Kym Jensen, RHH Anaesthesia, Jan 2014</cite>
+    </div>
+    <p class="prose prose-center">
+      Tasmania called, and they answered. Five years in Hobart followed — CY grinding
+      through the ANZCA fellowship pathway, sitting exams that cost <strong>$5,914</strong> in
+      fees alone. XN carved a parallel path through haematology. Tara arrived in 2017, the same
+      year CY finally cleared ANZCA finals. A daughter, a fellowship, a landmark year.
+      By FY2018 net worth had climbed to $636k — almost entirely driven by Melbourne property
+      appreciation rather than income, which was still constrained by registrar pay. The graph
+      below shows income still in the $80–120k range through these years: the quiet before the storm.
+    </p>
+    <div class="fact-grid">
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">🏥</div>
+        <div class="fc-value">3 Feb 2014</div>
+        <div class="fc-label">RHH start date</div>
+        <div class="fc-detail">Royal Hobart Hospital, Dept of Anaesthesia — confirmed by email from Kym Jensen</div>
+      </div>
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">📋</div>
+        <div class="fc-value">$5,914</div>
+        <div class="fc-label">ANZCA exam fees</div>
+        <div class="fc-detail">Paid in 2014 — the price of fellowship. Worth every cent.</div>
+      </div>
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">🍽️</div>
+        <div class="fc-value">$561</div>
+        <div class="fc-label">Vue De Monde</div>
+        <div class="fc-detail">Melbourne's finest, 2015. First proper fine-dining splurge — a preview of things to come.</div>
+      </div>
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">🏡</div>
+        <div class="fc-value">$80k gift</div>
+        <div class="fc-label">First PPOR deposit</div>
+        <div class="fc-detail">Templestowe Lower, FY2013 — the gift that anchored the first decade of net worth.</div>
+      </div>
+    </div>
     <div class="card chart-card">
       <div class="chart-wrap h-320">
         <canvas id="chartIncome"></canvas>
@@ -642,14 +809,46 @@
       <h2 class="chapter-title">The pivot west</h2>
     </div>
     <p class="prose prose-center">
-      In FY2019 we packed up Tasmania and headed to Perth, trading the familiar for
-      opportunity. CY qualified as FANZCA and stepped into a consultant role in FY2020 — income
-      accelerating sharply for the first time. That same year, with $150k borrowed for dollar-cost
-      averaging into ETFs, we began the investing strategy that would define the next phase.
-      The pandemic turned out to be a strange tailwind: minimal travel meant maximum saving.
-      Thomas arrived in FY2021, and despite the noise of a Covid year, net worth crossed
-      $1M for the first time, settling at $1.56M.
+      In January 2019, while still finishing up in Hobart, CY and XN were already scanning
+      Perth rental listings. They applied for <strong>59A Milton St, Mount Hawthorn</strong>
+      and 12 Austen Lane, Leederville simultaneously. Mount Hawthorn got them. Their rental
+      application noted: <em>"our new jobs in Perth start in February."</em> They packed up
+      Tasmania and drove the life west.
     </p>
+    <p class="prose prose-center">
+      CY stepped into a consultant role in FY2020 — income accelerating sharply for the first
+      time. That same year, they borrowed $150k for dollar-cost averaging into ETFs, planting
+      the seeds of the share portfolio that would grow into seven figures. The pandemic turned
+      out to be a strange tailwind: no international travel meant maximum saving, and EatClub
+      deliveries filled the dining-out void. Thomas arrived in FY2021, and despite the noise
+      of a Covid year, net worth crossed $1M for the first time, settling at $1.56M.
+    </p>
+    <div class="fact-grid">
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">🏠</div>
+        <div class="fc-value">59A Milton St</div>
+        <div class="fc-label">First Perth rental</div>
+        <div class="fc-detail">Mount Hawthorn, Jan 2019. Beat out Leederville in the rental application. </div>
+      </div>
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">🍱</div>
+        <div class="fc-value">$6,014</div>
+        <div class="fc-label">EatClub deliveries</div>
+        <div class="fc-detail">80 orders over 2024–2026. The pandemic-era habit that never quite died.</div>
+      </div>
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">📈</div>
+        <div class="fc-value">$150k</div>
+        <div class="fc-label">First ETF investment</div>
+        <div class="fc-detail">FY2020 DCA start — the seed of what is now the largest single asset class.</div>
+      </div>
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">💰</div>
+        <div class="fc-value">$1.56M</div>
+        <div class="fc-label">Net worth FY2021</div>
+        <div class="fc-detail">Million-dollar milestone crossed in a pandemic year. Unusual times.</div>
+      </div>
+    </div>
     <div class="stat-row">
       <div class="stat-card" style="--accent-color:#f59e0b">
         <div class="sc-value">$184k</div>
@@ -657,7 +856,7 @@
       </div>
       <div class="stat-card" style="--accent-color:#f59e0b">
         <div class="sc-value">$1M+</div>
-        <div class="sc-label">NW milestone crossed</div>
+        <div class="sc-label">NW milestone crossed FY2021</div>
       </div>
       <div class="stat-card" style="--accent-color:#f59e0b">
         <div class="sc-value">ETFs</div>
@@ -682,16 +881,48 @@
       <h2 class="chapter-title">Velocity</h2>
     </div>
     <p class="prose prose-center">
-      Once the flywheel was turning, it gained speed rapidly. FY2022 brought a second
-      home purchase in Perth — our new PPOR — anchored by another $239k parental gift that
-      compressed the mortgage timeline. Private practice grew steadily: CY's income from
-      private work exceeded $300k in FY2024 and surpassed $400k by FY2025. XN's own
-      consultant journey completed in FY2025, doubling the household's senior-doctor earning
-      potential. A deliberate debt-recycling strategy converted non-deductible mortgage debt
-      into deductible investment debt, compounding the after-tax efficiency of every extra
-      dollar. Net worth crossed $2M, then $3M, then closed FY2025 at $4.46M — a CAGR of
-      approximately 36.6% across the fourteen-year journey.
+      Once the flywheel was turning, it gained speed rapidly. FY2022 brought the Subiaco
+      PPOR — orchestrated by broker <strong>Leo at AA Finance Solutions</strong>, anchored
+      by another <strong>$239k parental gift</strong>. In the months after the move, they
+      brought on <em>Tayah Leahy</em> as a nanny, paying her weekly through May to November
+      2022 as the household settled into its new shape.
     </p>
+    <p class="prose prose-center">
+      In June 2023, CY switched medical indemnity from MDA National to <strong>Avant Mutual</strong>
+      — citing the Metropolitan Anaesthesia corporate discount and the claim that more than 50%
+      of WA anaesthetists already trusted Avant. A small detail, but a sign of the shift from
+      cost-blind registrar to optimisation-minded consultant. Private practice grew steadily:
+      CY's income exceeded $300k in FY2024 and surpassed $400k by FY2025. XN's own consultant
+      journey completed in FY2025, doubling the household's senior-doctor earning potential.
+      A deliberate debt-recycling strategy converted non-deductible mortgage debt into deductible
+      investment debt. Net worth crossed $2M, then $3M, then closed FY2025 at $4.46M.
+    </p>
+    <div class="fact-grid">
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">🍎</div>
+        <div class="fc-value">$13,961</div>
+        <div class="fc-label">Apple spending</div>
+        <div class="fc-detail">29 purchases across 15 years. iPhones, Macs, AirPods — a loyalty that rarely wavered.</div>
+      </div>
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">📷</div>
+        <div class="fc-value">$9k+</div>
+        <div class="fc-label">Camera gear</div>
+        <div class="fc-detail">Camera Pro $2,210 · B&amp;H Photo $1,143 · Camera Clinic $585 — a serious hobby.</div>
+      </div>
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">☕</div>
+        <div class="fc-value">81 visits</div>
+        <div class="fc-label">Coffee Anatomy, Subiaco</div>
+        <div class="fc-detail">$799 total. The local haunt. No questions asked.</div>
+      </div>
+      <div class="fact-card scroll-reveal">
+        <div class="fc-emoji">🛡️</div>
+        <div class="fc-value">$130k+</div>
+        <div class="fc-label">Insurance premiums (lifetime)</div>
+        <div class="fc-detail">PPS $23.9k · Avant $23k · BT Life $38.5k · ClearView $9.4k — the cost of protecting it all.</div>
+      </div>
+    </div>
     <div class="card chart-card">
       <div class="chart-wrap h-420">
         <canvas id="chartSpending"></canvas>
@@ -754,6 +985,85 @@
       </div>
     </div>
     <p class="chart-caption">Average monthly spend over the period: $16k</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       HIDDEN PATTERNS — the granular story
+  ═══════════════════════════════════════════ -->
+  <div class="chapter" style="--accent-color: #ec4899">
+    <div class="chapter-accent scroll-reveal" style="background: linear-gradient(90deg, #ec4899, #f9a8d4 60%, transparent);"></div>
+    <div class="chapter-label scroll-reveal">Deep dive &middot; Granular patterns</div>
+    <div class="chapter-title-wrap scroll-reveal">
+      <span class="chapter-bg-numeral">?</span>
+      <h2 class="chapter-title">Hidden patterns</h2>
+    </div>
+    <p class="prose prose-center scroll-reveal">
+      Behind the big numbers live the small ones — the habitual purchases, the digital
+      subscriptions humming quietly in the background, the restaurants visited so often they
+      feel like a second kitchen. These are the fingerprints of a life in the data.
+    </p>
+
+    <div class="insight-strip scroll-reveal">
+      <div class="is-label">Restaurants &amp; dining</div>
+      <h3>The regulars</h3>
+      <p>Across fifteen years of transaction data, a few names kept appearing. Sushi Wawa in Perth
+         became a reliable favourite (16 visits, $1,762). Wildflower atop COMO The Treasury made
+         its appearance in 2022 ($542 — the first Perth fine-dining splurge). And EatClub became
+         the pandemic-era delivery habit that outlasted the pandemic itself.</p>
+      <div class="is-grid">
+        <div class="is-item">
+          <div class="ii-value">$6,014</div>
+          <div class="ii-label">EatClub</div>
+          <div class="ii-detail">80 delivery orders, 2024–2026</div>
+        </div>
+        <div class="is-item">
+          <div class="ii-value">$1,762</div>
+          <div class="ii-label">Sushi Wawa</div>
+          <div class="ii-detail">16 visits — Perth sushi HQ</div>
+        </div>
+        <div class="is-item">
+          <div class="ii-value">$799</div>
+          <div class="ii-label">Coffee Anatomy</div>
+          <div class="ii-detail">81 visits in Subiaco</div>
+        </div>
+        <div class="is-item">
+          <div class="ii-value">$561</div>
+          <div class="ii-label">Vue De Monde</div>
+          <div class="ii-detail">Melbourne 2015 — the original splurge</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-strip scroll-reveal" style="background: linear-gradient(135deg, #064e3b 0%, #065f46 60%, #0c4a6e 100%); margin-top: 20px;">
+      <div class="is-label">Digital subscriptions</div>
+      <h3>The quiet drains</h3>
+      <p>Every month, a small army of subscriptions charged quietly in the background.
+         Backblaze dutifully backed up years of photos. Evernote held a decade of notes.
+         Sharesight tracked the portfolio. Nomad eSIM kept the internet running abroad.
+         The sum of these invisible costs adds up fast.</p>
+      <div class="is-grid">
+        <div class="is-item">
+          <div class="ii-value">$773</div>
+          <div class="ii-label">Backblaze</div>
+          <div class="ii-detail">Cloud backup — all-time</div>
+        </div>
+        <div class="is-item">
+          <div class="ii-value">$701</div>
+          <div class="ii-label">Evernote</div>
+          <div class="ii-detail">Notes that outlasted the notes app</div>
+        </div>
+        <div class="is-item">
+          <div class="ii-value">$485</div>
+          <div class="ii-label">Nomad eSIM</div>
+          <div class="ii-detail">International data for the travellers</div>
+        </div>
+        <div class="is-item">
+          <div class="ii-value">$348</div>
+          <div class="ii-label">Sharesight</div>
+          <div class="ii-detail">Portfolio tracker — worth every cent</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ═══════════════════════════════════════════
@@ -878,13 +1188,22 @@
       <h2 class="chapter-title">Where to from here</h2>
     </div>
     <p class="prose prose-center">
-      At forty, with both of us now fully fledged consultants and a $4.46M net worth
+      At forty, with both CY and XN now fully-fledged consultants and a $4.46M net worth
       generating its own momentum, the next chapter is less about grinding and more about
-      direction. The financial independence number is within sight. The next decade will be
-      about choosing intentionally — how we work, where we travel, and what we build beyond
-      balance sheets. The numbers below show who, dollar for dollar, has benefited most
-      from our spending through the years.
+      direction. The compounding is doing heavy lifting on its own. Two consultants' incomes
+      plus a maturing share portfolio is a formidable engine — and the mortgage recycling
+      strategy means every extra dollar is working harder than it looks.
     </p>
+    <p class="prose prose-center">
+      The financial independence number is not a distant horizon. The next decade will be about
+      choosing intentionally — whether to slow down or double down on private practice, where to
+      take the next family trip, what Tara and Thomas grow up understanding about money.
+      The numbers below show who, dollar for dollar, has benefited most from 15 years
+      of household spending.
+    </p>
+    <div class="pull-quote" style="--accent-color:#f59e0b; margin-bottom: 32px;">
+      <p>The first $12k was the hardest. Everything after was compounding.</p>
+    </div>
     <div class="card chart-card">
       <div class="chart-wrap h-480">
         <canvas id="chartPayees"></canvas>
