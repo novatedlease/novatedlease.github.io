@@ -121,7 +121,7 @@ The dealer must **genuinely take title** — actually buy the car and sell it on
 The dealer must also issue a **proper tax invoice** to the financier on the on-sale. That tax invoice is what the financier relies on to claim the GST credit.
 
 :::warning[Caveat on pricier cars]
-**The car limit (GST credit cap).** The GST credit a buyer can claim on a car is capped at 1/11 of the **car limit** — **$69,674 for FY2025–26**. The $66,000 example sits below this cap, so the financier recovers the full **$6,000**. For cars *above* the car limit, the recoverable GST plateaus at **$6,334** regardless of how much more the car costs — the saving stops scaling once the cap binds.
+**The car limit (GST credit cap).** The GST credit a buyer can claim on a car is capped at 1/11 of the **car limit** — **$69,674 for FY2025–26**. The $66,000 example sits below this cap, so the financier recovers the full **$6,000**. For cars *above* the car limit, the recoverable GST plateaus at **$6,353** regardless of how much more the car costs — the saving stops scaling once the cap binds.
 :::
 
 
@@ -132,7 +132,7 @@ The dealer must also issue a **proper tax invoice** to the financier on the on-s
 Net it off:
 
 - A dealer service fee of around **$500–$1,500** (anecdotally).
-- Against a GST saving of **1/11 of the agreed price** on a car below the car limit (e.g. **$6,000** on a $66,000 car)[^1], capped at **~$6,334** for cars above the car limit.
+- Against a GST saving of **1/11 of the agreed price** on a car below the car limit (e.g. **$6,000** on a $66,000 car)[^1], capped at **~$6,353** for cars above the car limit.
 - And on an eligible EV, that saving stacks on top of the [FBT exemption](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) — a separate, much larger saving on the same car.
 
 ---

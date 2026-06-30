@@ -111,7 +111,7 @@ The financed amount should broadly equal:
 
 - drive-away vehicle price
 - plus documentation fee
-- minus GST savings (up to the annual statutory cap — currently $6,334)
+- minus GST savings (up to the annual statutory cap — currently $6,353)
 
 If the financed amount cannot be reconciled, the quote is incomplete and may contain undisclosed brokerage. Ask your novated lease consultant to explain their derivation of the financed figure if it does not match the above. 
 

@@ -29,9 +29,9 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
   try {
     const years = Math.round(inputs.leaseDurationYears);
 
-    // GST saved (cap $6,334; no GST if private used)
+    // GST saved (cap $6,353; no GST if private used)
     const gstSavedLocal = (() => {
-      const cap = 6334;
+      const cap = 6353;
       if (inputs.vehicleCondition === "Used – private sale (no GST)") return 0;
       const gross = Math.max(0, inputs.vehicleBaseValue);
       return Math.min(cap, gross / 11);

@@ -30,7 +30,7 @@ Before weighing the risks and benchmarks, it helps to understand *where* the pot
 
 3. **GST savings**  
 
-    - Up to $6,334 of GST can be exempted on the vehicle value [^1] [^2]
+    - Up to $6,353 of GST can be exempted on the vehicle value [^1] [^2]
     - Claimable running costs are generally GST‑free within the packaging structure.  
     - *Important:* Some employers [do not fully pass on GST savings](/running-costs/failure-to-pass-gst-saving/) — always confirm this in your quote. 
 

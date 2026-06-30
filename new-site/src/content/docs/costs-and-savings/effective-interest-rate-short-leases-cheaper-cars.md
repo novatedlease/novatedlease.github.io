@@ -136,7 +136,7 @@ The most reliable way to compare quotes is not to look at the headline rate, but
 ---
 
 [^1]: The financier's fee to set up the finance, typically capitalised into the financed amount.
-[^2]: Equal to 1/11 of the vehicle's pre-on-road price, up to $6,334.
+[^2]: Equal to 1/11 of the vehicle's pre-on-road price, up to $6,353.
 [^3]: Some providers also include additional items in the financed amount — such as the first year's comprehensive insurance premium, a repair package, or the brokerage itself — which further complicates comparisons.
 [^4]: In practice, financiers often apply different base rates for different lease durations. A common base rate is used here to isolate the effect of brokerage on the effective interest rate.
 

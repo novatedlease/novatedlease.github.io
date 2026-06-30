@@ -87,7 +87,7 @@ export default function BasicInformationReport(props: {
       <KV label="Vehicle condition" value={i.vehicleCondition} />
       <KV
         label="Vehicle GST saved"
-        tooltip={<InfoTooltip text="GST saving on vehicle purchase = dutiable value ÷ 11, capped at $6,334. Part of this saving is reversed during the final residual GST payment." />}
+        tooltip={<InfoTooltip text="GST saving on vehicle purchase = dutiable value ÷ 11, capped at $6,353. Part of this saving is reversed during the final residual GST payment." />}
         value={i.vehicleCondition === "Used – private sale (no GST)"
           ? `$${aud(vehicleGstSaved)} (not eligible — private sale)`
           : `$${aud(vehicleGstSaved)}`}

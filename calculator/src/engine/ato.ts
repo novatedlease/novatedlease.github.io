@@ -1,6 +1,6 @@
 import type { Inputs } from "./types";
 
-export const GST_EXEMPT_CAP = 6334;
+export const GST_EXEMPT_CAP = 6353;
 
 export function gstSaved(
   i: Pick<Inputs, "vehicleCondition" | "vehicleBaseValue">
