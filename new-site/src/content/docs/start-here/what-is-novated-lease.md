@@ -117,7 +117,7 @@ This is why, for most of its history, novated leasing was **often not as good a 
 
 Everything changed when the government introduced the **FBT exemption for low-emission vehicles** in 2022.
 
-For eligible **EVs (and previously PHEVs)** below the luxury car tax threshold (FY 2025-26: $91,387):
+For eligible **EVs (and previously PHEVs)** below the luxury car tax threshold (FY 2026-27: $91,661):
 
 - the car benefit is **exempt from FBT**
 - there is **no need for ECM**

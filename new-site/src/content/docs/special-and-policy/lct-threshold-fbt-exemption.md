@@ -10,8 +10,8 @@ When people research EV novated leases, they quickly encounter the LCT threshold
 :::info[EV LCT thresholds at a glance]
 | Financial year | Threshold | Status |
 |---|---|---|
-| 2025–26 | $91,387 | In effect now |
-| 2026–27 | $91,661 | From 1 July 2026 |
+| 2025–26 | $91,387 | Previous year |
+| 2026–27 | $91,661 | In effect now |
 | 2027–28 | $120,000 *(ZEV-only category)* | Committed; not yet legislated |
 
 The $120,000 figure stems from the [Australia–EU Free Trade Agreement](https://www.dfat.gov.au/trade/agreements/not-yet-in-force/aeufta/key-outcomes-and-benefits) finalised in March 2026 and requires both FTA ratification and enabling legislation before it can take effect. Full details in the [policy changes section](#whats-coming-policy-changes-to-watch) below.
@@ -196,4 +196,4 @@ See the [full announcement breakdown](/special-and-policy/ev-fbt-exemption-phase
 
 ---
 
-*Last updated: April 2026. ABS CPI data source: Catalogue 6401.0, Table 18. Legislative references: [ANTS(LCT)A 1999](https://www.legislation.gov.au/C2004A00463/latest/text) s 25-1; [ITAA 1997](https://www.legislation.gov.au/C2004A05138) Subdivision 960-M.*
+*Last updated: July 2026. ABS CPI data source: Catalogue 6401.0, Table 18. Legislative references: [ANTS(LCT)A 1999](https://www.legislation.gov.au/C2004A00463/latest/text) s 25-1; [ITAA 1997](https://www.legislation.gov.au/C2004A05138) Subdivision 960-M.*
