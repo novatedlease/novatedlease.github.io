@@ -14,9 +14,8 @@ import { trackEvent, trackOncePerSession } from "../utils/analytics";
  * ported from calculator/src/components/InputsPanel.tsx (2,326 lines). Field
  * grouping matches v1's sections (FBT eligibility, vehicle details, financials,
  * lease details, running costs, electricity, car loan comparator, keep-current-car
- * comparator). Not ported: the residual value ex/inc-GST display toggle and the
- * effective-rate nudge (±0.1%) buttons — secondary conveniences around fields
- * that already work without them.
+ * comparator). Not ported: the effective-rate nudge (±0.1%) buttons — a
+ * secondary convenience around a field that already works without it.
  */
 export function InputsPanel(props: {
   inputs: Inputs;
@@ -45,6 +44,11 @@ export function InputsPanel(props: {
       setNeedsLeaseRequote(true);
     }
   }, [inputs.leaseDurationYears]);
+
+  // Residual ex/inc-GST display toggle — mirrors v1 InputsPanel.tsx (~lines 97-108, 715-743):
+  // the field displays/accepts either ex-GST or inc-GST, but storage stays canonically ex-GST.
+  const GST_RATE = 0.1;
+  const [residualGstMode, setResidualGstMode] = useState<"exGst" | "incGst">("exGst");
 
   function set<K extends keyof Inputs>(key: K, value: Inputs[K]) {
     touch(key);
@@ -258,7 +262,39 @@ export function InputsPanel(props: {
           vehicleLeasePeriodMode={vehicleLeasePeriodMode}
           onVehicleLeasePeriodModeChange={onVehicleLeasePeriodModeChange}
         />
-        <CurrencyField label="Residual value (ex GST)" value={inputs.residualValueExGst} onChange={(v) => set("residualValueExGst", v)} hint="Auto-filled from the ATO minimum for your lease term until you override it." />
+        <CurrencyField
+          label={
+            <div>
+              <div>Residual value</div>
+              <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11 }}>
+                {(["exGst", "incGst"] as const).map((mode, idx) => (
+                  <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                    {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
+                    <button
+                      type="button"
+                      onClick={() => setResidualGstMode(mode)}
+                      style={{
+                        padding: 0,
+                        border: "none",
+                        background: "transparent",
+                        cursor: "pointer",
+                        fontSize: 11,
+                        fontWeight: residualGstMode === mode ? 800 : 400,
+                        opacity: residualGstMode === mode ? 0.9 : 0.45,
+                        textDecoration: residualGstMode === mode ? "underline" : "none",
+                      }}
+                    >
+                      {mode === "exGst" ? "ex GST" : "inc GST"}
+                    </button>
+                  </span>
+                ))}
+              </div>
+            </div>
+          }
+          value={residualGstMode === "incGst" ? inputs.residualValueExGst * (1 + GST_RATE) : inputs.residualValueExGst}
+          onChange={(v) => set("residualValueExGst", residualGstMode === "incGst" ? v / (1 + GST_RATE) : v)}
+          hint="Auto-filled from the ATO minimum for your lease term until you override it. Real quotes usually state the residual inc GST."
+        />
         <CurrencyField label="Luxury vehicle adjustment (per fortnight)" value={inputs.luxuryVehicleAdjPerFn} onChange={(v) => set("luxuryVehicleAdjPerFn", v)} hint="Pre-tax. Only applies above the luxury car threshold, listed separately on some quotes. 0 if not applicable." />
         <CurrencyField label="Financed amount reported in your quote" value={inputs.financedAmountForInterestCalcExGst} onChange={(v) => set("financedAmountForInterestCalcExGst", v)} hint="Only used for the effective interest rate calculation — leave as the pre-calculated figure unless you have a specific quoted amount without add-ons." />
         <NumberField label="Months deferred" value={inputs.monthsDeferred} onChange={(v) => set("monthsDeferred", Math.max(0, Math.round(v)))} hint="Typically 2 months, occasionally 1." />
