@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Inputs } from "@engine/types";
 import {
   effectiveAnnualRateFromFortnightlyLease,
@@ -65,15 +65,18 @@ export function computeLeaseGuardBounds(inputs: Inputs): { minFn: number; maxFn:
  * fortnightly lease payment that implies an effective rate outside 0.1%-30% p.a.
  * (almost certainly a typo or unit mistake — e.g. entering the monthly amount
  * instead of fortnightly), and separately flags rates above 10% as "worth
- * checking whether a BYO lease is available" even when accepted. The nudge
- * (±0.1%) stepper buttons from v1 are not ported — a smaller feature than the
- * guard itself and lower priority for this pass.
+ * checking whether a BYO lease is available" even when accepted. Also ports the
+ * ±0.1% rate-nudge steppers (v1 InputsPanel.tsx ~110-156, 948-1051 + App.tsx's
+ * recompute handler ~949-1010) — implemented locally here rather than via v1's
+ * cross-component CustomEvent, since this component already owns both the rate
+ * display and setInputs.
  */
 export function LeaseRateGuard(props: {
   inputs: Inputs;
   setInputs: React.Dispatch<React.SetStateAction<Inputs>>;
   vehicleLeasePeriodMode: "perFn" | "perMonth";
   onVehicleLeasePeriodModeChange: (mode: "perFn" | "perMonth") => void;
+  onNavigateToDetails?: (anchorId?: string) => void;
 }) {
   const { inputs, setInputs, vehicleLeasePeriodMode, onVehicleLeasePeriodModeChange } = props;
   const [guardMsg, setGuardMsg] = useState("");
@@ -91,11 +94,10 @@ export function LeaseRateGuard(props: {
     });
   }, [minFn, maxFn]);
 
-  // `next` arrives in whichever period the field is currently displaying — convert to the
-  // canonical per-fortnight figure (12 months = 26 fortnights) before validating/storing.
-  function handleChange(next: number) {
-    const enteredPerFn = isMonthly ? (next * 12) / 26 : next;
-    const clamped = Math.max(0, enteredPerFn);
+  // Shared commit path for both direct field edits and rate-nudge steps — `perFn` is always
+  // in canonical per-fortnight units by this point.
+  function commitPerFn(perFn: number) {
+    const clamped = Math.max(0, perFn);
     trackOncePerSession("calculator_started", "calculator_started", { field: "vehicleLeasePerFn" });
     trackEvent("input_changed", { field: "vehicleLeasePerFn" });
 
@@ -113,6 +115,80 @@ export function LeaseRateGuard(props: {
     setInputs((p) => ({ ...p, vehicleLeasePerFn: clamped }));
     setGuardMsg("");
   }
+
+  // `next` arrives in whichever period the field is currently displaying — convert to the
+  // canonical per-fortnight figure (12 months = 26 fortnights) before validating/storing.
+  function handleChange(next: number) {
+    commitPerFn(isMonthly ? (next * 12) / 26 : next);
+  }
+
+  // ── Rate-nudge steppers (±0.1%) ──────────────────────────────────────────
+  const [hoveredArrow, setHoveredArrow] = useState<"up" | "down" | null>(null);
+  const nudgeTimeoutRef = useRef<number | null>(null);
+  const nudgeIntervalRef = useRef<number | null>(null);
+  const guardSnapRef = useRef({ liveRate, minFn, maxFn, inputs });
+  guardSnapRef.current = { liveRate, minFn, maxFn, inputs };
+
+  function clearNudgeTimers() {
+    if (nudgeTimeoutRef.current !== null) {
+      window.clearTimeout(nudgeTimeoutRef.current);
+      nudgeTimeoutRef.current = null;
+    }
+    if (nudgeIntervalRef.current !== null) {
+      window.clearInterval(nudgeIntervalRef.current);
+      nudgeIntervalRef.current = null;
+    }
+  }
+
+  // Steps the live rate to the next 0.1% grid point in `dir`'s direction (with float-drift
+  // epsilon handling — mirrors v1 App.tsx's nlguide:nudgeEffectiveRate handler exactly) and
+  // recomputes vehicleLeasePerFn from it.
+  function nudgeRate(dir: 1 | -1) {
+    const snap = guardSnapRef.current;
+    if (!Number.isFinite(snap.liveRate)) return;
+
+    const curTimes10 = snap.liveRate * 1000;
+    const EPS = 1e-3;
+    const nearest = Math.round(curTimes10);
+    const onGrid = Math.abs(curTimes10 - nearest) < EPS;
+    const baseTimes10 = onGrid ? nearest : dir > 0 ? Math.floor(curTimes10) : Math.ceil(curTimes10);
+    const nextPct = (baseTimes10 + dir) / 10;
+    const clampedPct = Math.max(0.1, Math.min(30, nextPct));
+    const nextRate = clampedPct / 100;
+
+    try {
+      const financedExGst = financedAmountExGstFromInputs(snap.inputs);
+      const leaseYears = Math.max(1, Math.min(5, Math.round(snap.inputs.leaseDurationYears)));
+      const deferMonths = Math.max(0, Math.round(snap.inputs.monthsDeferred));
+      const nextTotalLeaseFn = fortnightlyLeaseFromEffectiveAnnualRate({
+        financedAmountExGst: financedExGst,
+        residualValueExGst: snap.inputs.residualValueExGst,
+        leaseYears,
+        deferMonths,
+        effectiveAnnualRate: nextRate,
+      });
+      const nextVehicleOnly = Math.max(0, nextTotalLeaseFn - snap.inputs.luxuryVehicleAdjPerFn);
+      commitPerFn(nextVehicleOnly);
+    } catch {
+      // ignore engine errors
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }
+
+  function startNudgeRepeat(dir: 1 | -1) {
+    nudgeRate(dir);
+    clearNudgeTimers();
+    nudgeTimeoutRef.current = window.setTimeout(() => {
+      nudgeIntervalRef.current = window.setInterval(() => nudgeRate(dir), 110);
+    }, 320);
+  }
+
+  function stopNudgeRepeat() {
+    clearNudgeTimers();
+    setHoveredArrow(null);
+  }
+
+  useEffect(() => () => clearNudgeTimers(), []);
 
   const displayValue = isMonthly ? (inputs.vehicleLeasePerFn * 26) / 12 : inputs.vehicleLeasePerFn;
 
@@ -163,8 +239,99 @@ export function LeaseRateGuard(props: {
           lineHeight: 1.5,
         }}
       >
-        <span style={{ fontWeight: 700 }}>Effective interest rate: </span>
+        {props.onNavigateToDetails ? (
+          <button
+            type="button"
+            onClick={() => props.onNavigateToDetails!("details-section-3-effective-interest-rate")}
+            style={{ padding: 0, border: "none", background: "none", cursor: "pointer", font: "inherit", fontWeight: 700, color: "inherit", textDecoration: "underline" }}
+          >
+            Effective interest rate:{" "}
+          </button>
+        ) : (
+          <span style={{ fontWeight: 700 }}>Effective interest rate: </span>
+        )}
         <span style={{ fontWeight: 900 }}>{formatPct(liveRate)}</span>
+
+        <span style={{ display: "inline-flex", flexDirection: "column", marginLeft: 6, verticalAlign: "middle" }}>
+          <button
+            type="button"
+            onPointerDown={(e) => {
+              e.preventDefault();
+              try {
+                e.currentTarget.setPointerCapture(e.pointerId);
+              } catch {
+                // ignore
+              }
+              setHoveredArrow("up");
+              startNudgeRepeat(1);
+            }}
+            onPointerUp={stopNudgeRepeat}
+            onPointerCancel={stopNudgeRepeat}
+            onPointerLeave={stopNudgeRepeat}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                nudgeRate(1);
+              }
+            }}
+            onContextMenu={(e) => e.preventDefault()}
+            title="Increase effective interest rate by 0.1%"
+            aria-label="Increase effective interest rate"
+            style={{
+              padding: 0,
+              border: "none",
+              background: "none",
+              cursor: "pointer",
+              lineHeight: 0.8,
+              fontSize: 11,
+              color: hoveredArrow === "up" ? "var(--nlc-blue)" : "var(--nlc-text-faint)",
+              userSelect: "none",
+              WebkitUserSelect: "none",
+              touchAction: "none",
+            }}
+          >
+            ▲
+          </button>
+          <button
+            type="button"
+            onPointerDown={(e) => {
+              e.preventDefault();
+              try {
+                e.currentTarget.setPointerCapture(e.pointerId);
+              } catch {
+                // ignore
+              }
+              setHoveredArrow("down");
+              startNudgeRepeat(-1);
+            }}
+            onPointerUp={stopNudgeRepeat}
+            onPointerCancel={stopNudgeRepeat}
+            onPointerLeave={stopNudgeRepeat}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                nudgeRate(-1);
+              }
+            }}
+            onContextMenu={(e) => e.preventDefault()}
+            title="Decrease effective interest rate by 0.1%"
+            aria-label="Decrease effective interest rate"
+            style={{
+              padding: 0,
+              border: "none",
+              background: "none",
+              cursor: "pointer",
+              lineHeight: 0.8,
+              fontSize: 11,
+              color: hoveredArrow === "down" ? "var(--nlc-blue)" : "var(--nlc-text-faint)",
+              userSelect: "none",
+              WebkitUserSelect: "none",
+              touchAction: "none",
+            }}
+          >
+            ▼
+          </button>
+        </span>
 
         {Number.isFinite(liveRate) && liveRate > 0.1 && (
           <div style={{ marginTop: 6, color: "var(--nlc-warn)", fontWeight: 600 }}>

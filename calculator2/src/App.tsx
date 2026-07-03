@@ -200,6 +200,7 @@ function AdvancedMode(props: {
               setCopiedLink(false);
               setSummaryHorizon("five_year");
             }}
+            onNavigateToDetails={navigateToDetails}
           />
         </div>
 

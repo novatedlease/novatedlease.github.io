@@ -23,6 +23,7 @@ export function InputsPanel(props: {
   vehicleLeasePeriodMode: "perFn" | "perMonth";
   onVehicleLeasePeriodModeChange: (mode: "perFn" | "perMonth") => void;
   onResetDefaults?: () => void;
+  onNavigateToDetails?: (anchorId?: string) => void;
 }) {
   const { inputs, setInputs, vehicleLeasePeriodMode, onVehicleLeasePeriodModeChange } = props;
 
@@ -261,6 +262,7 @@ export function InputsPanel(props: {
           setInputs={setInputs}
           vehicleLeasePeriodMode={vehicleLeasePeriodMode}
           onVehicleLeasePeriodModeChange={onVehicleLeasePeriodModeChange}
+          onNavigateToDetails={props.onNavigateToDetails}
         />
         <CurrencyField
           label={
