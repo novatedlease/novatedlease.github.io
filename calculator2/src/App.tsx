@@ -10,7 +10,7 @@ import { advancedDefaultInputs } from "./state/defaultInputs";
 import { ModeToggle, type CalcMode } from "./components/ui/ModeToggle";
 import { VerdictBanner } from "./components/ui/VerdictBanner";
 import { Section } from "./components/ui/Section";
-import { KV, StatGrid, Stat } from "./components/ui/shared";
+import { Stat } from "./components/ui/shared";
 import { Button } from "./components/ui/Button";
 import { SimpleMode } from "./SimpleMode";
 import { PALETTE } from "./palette";
@@ -153,85 +153,75 @@ function AdvancedMode(props: {
         </div>
 
         <div className="nlc-output-col">
-          <Section title="Financial summary" description="Novated lease vs buying the same car with cash." defaultOpen>
-            <StatGrid>
-              <Stat label="NL total spend @ 5y" value={fmtMoney(summary.nlTotalSpentAt5)} color={PALETTE.blue} />
-              <Stat label="Cash total spend @ 5y" value={fmtMoney(summary.offsetTotalSpentAt5)} color="#37474f" />
-            </StatGrid>
-            <KV label="Lease payments over lease" value={fmtMoney(summary.leasePaymentsOverLease)} />
-            <KV label="Residual payable (inc GST)" value={fmtMoney(summary.residualPayableIncGst)} />
-            <KV label="Total spent at lease end" value={fmtMoney(summary.nlTotalSpentAtLeaseEnd)} bold />
+          <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, ECM, and EV charging." defaultOpen>
+            <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} />
+          </Section>
+
+          <Section
+            title="Section 1: Lease payments"
+            description="Pre-tax lease payments and their impact on take-home pay (fortnightly, annual, and total), with a year-by-year breakdown."
+          >
+            <LeaseReport inputs={inputs} />
+          </Section>
+
+          <Section
+            title="Section 2: Financial summary"
+            description="Total cost comparison across novated lease, cash, loan, and keep-current-car pathways, standardised to a 5-year horizon."
+            defaultOpen
+          >
+            <FinancialSummaryReport inputs={inputs} />
+          </Section>
+
+          <Section
+            title="Section 3: Effective interest rate"
+            description="Back-calculates the implied interest rate hidden in your lease payment and residual, with an optional amortisation schedule."
+          >
+            <EffectiveInterestReport inputs={inputs} />
+          </Section>
+
+          <Section
+            title="Section 4: Adjusted taxable income"
+            description="Estimates how novated leasing changes your Adjusted Taxable Income — relevant for HECS repayments, childcare subsidy, and Medicare levy surcharge."
+          >
+            <ATI
+              inputs={inputs}
+              originalTaxableIncomePreNL={inputs.totalTaxableIncome}
+              leaseStartDate={new Date(inputs.leaseStartDate)}
+              leaseTermYears={inputs.leaseDurationYears}
+              fbtBaseValue={inputs.vehicleBaseValue}
+              rows={buildAtiRows(inputs)}
+            />
+          </Section>
+
+          <Section
+            title="Section 5: Super guarantee"
+            description={
+              inputs.superFromPreNlIncome === "Yes"
+                ? "Not applicable — you indicated your employer pays Super Guarantee based on your pre-novated-lease income."
+                : "Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
+            }
+            muted={inputs.superFromPreNlIncome === "Yes"}
+          >
+            {inputs.superFromPreNlIncome === "Yes" ? (
+              <div style={{ fontSize: 13, lineHeight: 1.45, opacity: 0.9 }}>No Super Guarantee loss is expected under this assumption.</div>
+            ) : (
+              <SG rows={buildSgRows(inputs)} />
+            )}
+          </Section>
+
+          <Section title="Section 6: Rate sensitivity check" description="Stress-tests your quoted lease by comparing it with the same car financed at an assumed wholesale interest rate.">
+            <WhatIf inputs={inputs} />
+          </Section>
+
+          <Section title="Section 7: Early termination risk" description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash.">
+            <WorstCase inputs={inputs} />
+          </Section>
+
+          <Section title="Compare" description="Side-by-side comparison across your saved quotes — e.g. novated lease vs car loan, or two different lease terms." defaultOpen>
+            <ComparatorView savedQuotes={savedQuotes} defaultInputs={advancedDefaultInputs} />
           </Section>
         </div>
       </div>
-
-      <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, ECM, and EV charging." defaultOpen>
-        <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} />
-      </Section>
-
-      <Section
-        title="Section 1: Lease payments"
-        description="Pre-tax lease payments and their impact on take-home pay (fortnightly, annual, and total), with a year-by-year breakdown."
-      >
-        <LeaseReport inputs={inputs} />
-      </Section>
-
-      <Section
-        title="Section 2: Financial summary"
-        description="Total cost comparison across novated lease, cash, loan, and keep-current-car pathways, standardised to a 5-year horizon."
-        defaultOpen
-      >
-        <FinancialSummaryReport inputs={inputs} />
-      </Section>
-
-      <Section
-        title="Section 3: Effective interest rate"
-        description="Back-calculates the implied interest rate hidden in your lease payment and residual, with an optional amortisation schedule."
-      >
-        <EffectiveInterestReport inputs={inputs} />
-      </Section>
-
-      <Section
-        title="Section 4: Adjusted taxable income"
-        description="Estimates how novated leasing changes your Adjusted Taxable Income — relevant for HECS repayments, childcare subsidy, and Medicare levy surcharge."
-      >
-        <ATI
-          inputs={inputs}
-          originalTaxableIncomePreNL={inputs.totalTaxableIncome}
-          leaseStartDate={new Date(inputs.leaseStartDate)}
-          leaseTermYears={inputs.leaseDurationYears}
-          fbtBaseValue={inputs.vehicleBaseValue}
-          rows={buildAtiRows(inputs)}
-        />
-      </Section>
-
-      <Section
-        title="Section 5: Super guarantee"
-        description={
-          inputs.superFromPreNlIncome === "Yes"
-            ? "Not applicable — you indicated your employer pays Super Guarantee based on your pre-novated-lease income."
-            : "Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
-        }
-        muted={inputs.superFromPreNlIncome === "Yes"}
-      >
-        {inputs.superFromPreNlIncome === "Yes" ? (
-          <div style={{ fontSize: 13, lineHeight: 1.45, opacity: 0.9 }}>No Super Guarantee loss is expected under this assumption.</div>
-        ) : (
-          <SG rows={buildSgRows(inputs)} />
-        )}
-      </Section>
-
-      <Section title="Section 6: Rate sensitivity check" description="Stress-tests your quoted lease by comparing it with the same car financed at an assumed wholesale interest rate.">
-        <WhatIf inputs={inputs} />
-      </Section>
-
-      <Section title="Section 7: Early termination risk" description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash.">
-        <WorstCase inputs={inputs} />
-      </Section>
-
-      <Section title="Compare" description="Side-by-side comparison across your saved quotes — e.g. novated lease vs car loan, or two different lease terms." defaultOpen>
-        <ComparatorView savedQuotes={savedQuotes} defaultInputs={advancedDefaultInputs} />
-      </Section>
     </div>
   );
 }
