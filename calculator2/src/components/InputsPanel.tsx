@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Inputs } from "@engine/types";
-import { getLeaseFbtCategory, getEvLctThresholdForLeaseStart } from "@engine/types";
+import { getLeaseFbtCategory, getEvLctThresholdForLeaseStart, EV_TRANSITIONAL_FULL_EXEMPT_CAP } from "@engine/types";
 import { Section } from "./ui/Section";
 import { CurrencyField, PercentField, NumberField, PillGroup, YesNoToggle, SelectField, DateField } from "./ui/Field";
 import { InfoTooltip } from "./ui/InfoTooltip";
@@ -48,11 +48,18 @@ export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<R
   const isEv = inputs.vehicleType === "EV";
   const leaseFbtCategory = getLeaseFbtCategory(inputs);
   const needsUsedEligibilityChecks = inputs.vehicleCondition !== "New";
+  const usedEligibilityChecksOk = !needsUsedEligibilityChecks || (inputs.usedCarFirstHeldAfterJul2022 && inputs.usedCarLctNeverPayable);
   const effectiveLctThreshold = getEvLctThresholdForLeaseStart(inputs.leaseStartDate);
 
   const fbtCategoryLabel =
     leaseFbtCategory === "EV_FBT_EXEMPT" ? "FBT-exempt" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "75% FBT applicable" : "FBT-applicable";
   const fbtCategoryColor = leaseFbtCategory === "EV_FBT_EXEMPT" ? "#1b5e20" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "#92400e" : "#b71c1c";
+
+  // Lease start date milestone checks (for the May-2026 phase-out info banner) —
+  // mirrors v1 InputsPanel.tsx (~lines 369-402, 648-663).
+  const leaseStartMs = new Date(inputs.leaseStartDate + "T00:00:00Z").getTime();
+  const isTransitionalLease = leaseStartMs >= Date.UTC(2027, 3, 1) && leaseStartMs < Date.UTC(2029, 3, 1);
+  const isPostPhaseoutLease = leaseStartMs >= Date.UTC(2029, 3, 1);
 
   return (
     <>
@@ -73,6 +80,26 @@ export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<R
             {fbtCategoryLabel}
             {leaseFbtCategory !== "EV_FBT_EXEMPT" && ` — LCT threshold for this lease start date: $${effectiveLctThreshold.toLocaleString("en-AU")}`}
           </div>
+        )}
+
+        {isEv && (isTransitionalLease || isPostPhaseoutLease) && (
+          <NoteBox color="#0b5cab" mt={-8}>
+            <div style={{ fontWeight: 800, marginBottom: 3 }}>May 2026 FBT phase-out rules apply to this lease start date</div>
+            <div style={{ opacity: 0.9 }}>
+              {isTransitionalLease ? (
+                <>
+                  Leases starting <b>1 Apr 2027 – 31 Mar 2029</b>: full FBT exemption only for cars ≤ $
+                  {EV_TRANSITIONAL_FULL_EXEMPT_CAP.toLocaleString("en-AU")}; cars ${(EV_TRANSITIONAL_FULL_EXEMPT_CAP + 1).toLocaleString("en-AU")}–$
+                  {effectiveLctThreshold.toLocaleString("en-AU")} have 75% of FBT apply; above the LCT threshold is fully applicable.
+                </>
+              ) : (
+                <>
+                  Leases starting <b>from 1 Apr 2029</b>: full FBT exemption is no longer available. Cars at or below the LCT threshold
+                  (${effectiveLctThreshold.toLocaleString("en-AU")}) receive 75% of FBT applies; above the LCT threshold is fully applicable.
+                </>
+              )}
+            </div>
+          </NoteBox>
         )}
 
         <SelectField
@@ -110,6 +137,25 @@ export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<R
       </Section>
 
       <Section title="Vehicle details" defaultOpen>
+        {isEv && leaseFbtCategory === "EV_FBT_APPLICABLE" && (
+          <NoteBox color="#c81e1e">
+            <div style={{ fontWeight: 800, marginBottom: 4 }}>This vehicle may not be eligible for FBT-exempt (EV) novated leasing.</div>
+            <div style={{ opacity: 0.92 }}>
+              {!usedEligibilityChecksOk ? (
+                <>
+                  For used vehicles, you must confirm the vehicle was first held and used after <b>1 July 2022</b>, and that{" "}
+                  <b>Luxury Car Tax (LCT)</b> was never payable. Please tick both checkboxes in the Vehicle &amp; FBT eligibility
+                  section above, otherwise this will be treated as an <b>FBT-applicable</b> lease.
+                </>
+              ) : (
+                <>
+                  Your vehicle dutiable value appears to exceed the EV Luxury Car Tax threshold (${effectiveLctThreshold.toLocaleString("en-AU")}).
+                  This will be treated as an <b>FBT-applicable</b> lease.
+                </>
+              )}
+            </div>
+          </NoteBox>
+        )}
         <CurrencyField
           label="Vehicle dutiable value (FBT base value)"
           value={inputs.vehicleBaseValue}
@@ -156,6 +202,22 @@ export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<R
       <Section title="Lease details" defaultOpen>
         <CurrencyField label="Lease documentation fee" value={inputs.leaseDocFee} onChange={(v) => set("leaseDocFee", v)} hint="Initial financier setup fee, if any." />
         <DateField label="Lease start date" value={inputs.leaseStartDate} onChange={(v) => set("leaseStartDate", v)} hint="Matters for the EV FBT phase-out tiers." />
+        {isEv && leaseFbtCategory === "EV_FBT_DISCOUNTED" && (
+          <div
+            style={{
+              padding: "6px 10px",
+              borderRadius: 10,
+              border: "1px solid rgba(180, 130, 0, 0.35)",
+              background: "rgba(255, 193, 7, 0.08)",
+              fontSize: 12,
+              fontWeight: 800,
+              color: "rgb(120, 80, 0)",
+              marginBottom: 12,
+            }}
+          >
+            75% FBT Applicable — May 2026 phase-out rules apply to this lease start date
+          </div>
+        )}
         <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} suffix="years" min={1} max={5} />
         {needsLeaseRequote && (
           <NoteBox color="#c81e1e">
