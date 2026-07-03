@@ -110,17 +110,52 @@ Work through these in order; each item names the v1 source to port from.
     ComparatorView net positions, FinancialSummaryReport rows, LeaseReport FY table,
     EffectiveInterestReport all three definitions, WorstCase series, ATI/SG rows.
 
+12. **Layout width** — v2 renders noticeably narrower than v1 and the output column looks
+    cramped. v1's `.calc-page` is `max-width: 1300px` (new-site/src/styles/global.css); v2 is
+    constrained twice: the Astro page wrapper `.calc2-page` at 1100px
+    (`new-site/src/pages/calculator2/index.astro`) AND `--nlc-max-width: 1200px`
+    (`calculator2/src/styles/tokens.css`, applied via `.nlc-app`). Set both to 1300px to match
+    v1. Owner-requested. After widening, re-run the overflow checks at 375/768/1280/1440px and
+    sanity-check that the wider output column doesn't leave the fixed 400px input column
+    (`--nlc-input-col`) looking underweight — nudge it up proportionally if needed.
+
+13. **Effective-rate nudge arrows** (±0.1% steppers) — owner explicitly wants this kept: it's
+    how users answer "what if my interest rate were x%?" without doing annuity maths. Port
+    from v1 `InputsPanel.tsx` (~lines 110-156, 948-1051) + the recompute handler in v1
+    `App.tsx` (~lines 949-1010): stepping adjusts the effective rate to the next 0.1% grid
+    point (with the float-drift epsilon logic) and recomputes `vehicleLeasePerFn` from it via
+    `fortnightlyLeaseFromEffectiveAnnualRate`. Keep press-and-hold repeat (initial 320ms
+    delay, then 110ms interval) and the iOS pointer-capture handling. **Restyle freely** to
+    match the design system (e.g. proper stepper buttons in the LeaseRateGuard's rate strip
+    instead of v1's △/▽ glyphs) — the behaviour is what's cherished, not the look. In v2
+    there is no cross-component CustomEvent needed: LeaseRateGuard already owns both the rate
+    display and `setInputs`, so implement it locally there.
+
+14. **`LeaseAdjustModal` (Smart Leasing / MillarX payment-structure adjuster)** — owner wants
+    this kept: these providers quote a per-month figure that hides a 1-2 month buffer, a
+    common point of confusion (the site has a whole article on it). Port from v1
+    `InputsPanel.tsx` (~lines 1979 onward): provider picker (Smart = 2 buffer months,
+    MillarX = 1), quoted-amount input with per-fortnight/per-month mode, computes
+    `adjusted = quoted × (totalMonths − bufferMonths) / totalMonths` and applies it to
+    `vehicleLeasePerFn`. Surface it as a small "Using Smart Leasing or MillarX? Adjust your
+    quote" link/button near the fortnightly lease payment field, opening a modal or inline
+    expander (implementer's choice; match the design system). Link the explainer article:
+    `/special-and-policy/smart-leasing-millarx-payment-structure/`.
+
+15. **Comparator detailed cashflow/asset/liability breakdown table** — owner wants this kept:
+    the ranked summary alone doesn't show *where* the money goes per pathway. Port Section B
+    from v1 `ComparatorView.tsx` (~lines 1084 onward): per-pathway columns with the Cash Flow
+    row group (sale proceeds, upfront, lease/loan payments, running, charging delta, residual,
+    = total), Asset row (car value at end), and Liability row (home-loan interest vs no-car
+    baseline), honouring the same horizon toggle as the summary ranking table. The
+    `extractPathwayNumbers` helper in v2's ComparatorView already computes a subset of these —
+    extend it to expose the full row set rather than recomputing separately, and cross-check
+    each row against v1's rendered table for identical inputs (per working rule #1).
+
 ## 3. Deliberately NOT porting (agreed scope cuts — do not implement without asking)
 
-- **Effective-rate nudge arrows** (±0.1% steppers with press-and-hold) — v1's most complex
-  input machinery (~200 lines + a global CustomEvent). The guard already shows the live rate;
-  users can type payments directly. Revisit only if the owner asks.
-- **`LeaseAdjustModal`** (Smart Leasing / MillarX payment-structure adjuster) — provider-
-  specific quote conversion for two Victorian providers. Niche; the site has an article
-  covering it. Leave out unless requested.
-- **Comparator detailed cashflow/asset/liability table** — same numbers as the ranked summary
-  table, re-sliced; per-quote detail already lives in FinancialSummaryReport. Stays out.
 - **v1's per-section accent colour scheme + emoji headers** — replaced by the design system.
+  (Owner confirmed happy to drop.)
 - **`window.wsNl` debug globals** in v1 FinancialReport — dev leftovers, not ported.
 
 ## 4. Launch-readiness items (needed before v2 replaces `/calculator/`, not before preview sign-off)
