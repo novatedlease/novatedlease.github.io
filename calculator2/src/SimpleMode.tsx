@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { Inputs } from "@engine/types";
-import { computeFinancialSummary } from "./engineAdapter";
+import { computeFinancialSummary, computeTotalSaving } from "./engineAdapter";
 import {
   defaultSimpleModeAnswers,
   deriveInputsFromSimpleAnswers,
@@ -31,7 +31,7 @@ export function SimpleMode(props: { onGoAdvanced: (inputs: Inputs) => void }) {
   const horizon = inputs.leaseDurationYears >= 5 ? "at5" : "atLeaseEnd";
   const nlTotal = horizon === "at5" ? summary.nlTotalSpentAt5 : summary.nlTotalSpentAtLeaseEnd;
   const cashTotal = horizon === "at5" ? summary.offsetTotalSpentAt5 : summary.offsetTotalSpentAtLeaseEnd;
-  const betterOffBy = cashTotal - nlTotal;
+  const { interestSaving, totalSaving: betterOffBy } = computeTotalSaving({ summary, horizon });
 
   return (
     <div>
@@ -48,6 +48,13 @@ export function SimpleMode(props: { onGoAdvanced: (inputs: Inputs) => void }) {
         <Stat label="Estimated lease payments" value={fmtMoney(summary.leasePaymentsOverLease)} color={PALETTE.blue} />
         <Stat label="Residual at lease end" value={fmtMoney(summary.residualPayableIncGst)} color={PALETTE.purple} />
         <Stat label="Vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} color={PALETTE.teal} />
+        {answers.hasHomeLoanOffset && (
+          <Stat
+            label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
+            value={fmtMoney(interestSaving)}
+            color={interestSaving >= 0 ? "#059669" : "#dc2626"}
+          />
+        )}
       </VerdictBanner>
 
       <div className="nlc-layout">
@@ -119,6 +126,12 @@ export function SimpleMode(props: { onGoAdvanced: (inputs: Inputs) => void }) {
             <KV label="Estimated lease payments over the term" value={fmtMoney(summary.leasePaymentsOverLease)} />
             <KV label="Residual payable at lease end (inc GST)" value={fmtMoney(summary.residualPayableIncGst)} />
             <KV label="Estimated vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} />
+            {answers.hasHomeLoanOffset && (
+              <KV
+                label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
+                value={`${interestSaving >= 0 ? "+" : "-"}${fmtMoney(interestSaving)}`}
+              />
+            )}
             <KV label="Net outcome vs cash" value={`${betterOffBy >= 0 ? "+" : "-"}${fmtMoney(betterOffBy)}`} bold highlight />
           </Section>
 

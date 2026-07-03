@@ -4,7 +4,7 @@ import { financedAmountExGstFromInputs } from "@engine/effectiveinterest";
 import { residualFractionForYears } from "@engine/ato";
 import { computeDerived } from "@engine/derived";
 import { URL_STATE_PARAM, getInputsFromLocationSearch, setUrlParamForInputs } from "@engine/urlState";
-import { computeFinancialSummary } from "./engineAdapter";
+import { computeFinancialSummary, computeTotalSaving } from "./engineAdapter";
 
 import { advancedDefaultInputs } from "./state/defaultInputs";
 import { ModeToggle, type CalcMode } from "./components/ui/ModeToggle";
@@ -115,7 +115,7 @@ function AdvancedMode(props: {
   }, [inputs.driveawayCost, inputs.estimatedMarketValueAtEnd]);
 
   const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
-  const betterOffBy = summary.offsetTotalSpentAt5 - summary.nlTotalSpentAt5;
+  const { interestSaving, totalSaving: betterOffBy } = computeTotalSaving({ summary, horizon: "at5" });
 
   async function copyShareLink() {
     const url = `${window.location.origin}${window.location.pathname}${setUrlParamForInputs(window.location.search, inputs)}`;
@@ -138,6 +138,11 @@ function AdvancedMode(props: {
         <Stat label="Lease payments" value={fmtMoney(summary.leasePaymentsOverLease)} color={PALETTE.blue} />
         <Stat label="Residual at lease end" value={fmtMoney(summary.residualPayableIncGst)} color={PALETTE.purple} />
         <Stat label="Vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} color={PALETTE.teal} />
+        <Stat
+          label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
+          value={fmtMoney(interestSaving)}
+          color={interestSaving >= 0 ? "#059669" : "#dc2626"}
+        />
       </VerdictBanner>
 
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 16, gap: 8, flexWrap: "wrap" }}>
