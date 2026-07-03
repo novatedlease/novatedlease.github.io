@@ -10,7 +10,6 @@ import { advancedDefaultInputs } from "./state/defaultInputs";
 import { ModeToggle, type CalcMode } from "./components/ui/ModeToggle";
 import { VerdictBanner } from "./components/ui/VerdictBanner";
 import { Section } from "./components/ui/Section";
-import { CurrencyField, PillGroup } from "./components/ui/Field";
 import { KV, StatGrid, Stat } from "./components/ui/shared";
 import { Button } from "./components/ui/Button";
 import { SimpleMode } from "./SimpleMode";
@@ -25,7 +24,7 @@ import { WorstCase } from "./components/reports/WorstCase";
 import { FinancialSummaryReport } from "./components/reports/FinancialSummaryReport";
 import { QuotesPanel } from "./components/QuotesPanel";
 import { ComparatorView } from "./components/ComparatorView";
-import { LeaseRateGuard } from "./components/LeaseRateGuard";
+import { InputsPanel } from "./components/InputsPanel";
 import { type SavedQuoteV1, safeLoadQuotes } from "./state/savedQuotes";
 
 const MODE_STORAGE_KEY = "nlc2-mode";
@@ -150,33 +149,7 @@ function AdvancedMode(props: {
 
       <div className="nlc-layout">
         <div className="nlc-input-col">
-          <Section title="Vehicle & lease" description="Core numbers that drive the comparison." defaultOpen>
-            <PillGroup
-              label="Vehicle type"
-              value={inputs.vehicleType}
-              onChange={(v) => setInputs((p) => ({ ...p, vehicleType: v }))}
-              options={[
-                { value: "EV", label: "EV" },
-                { value: "Non-EV", label: "Petrol / diesel / hybrid" },
-              ]}
-            />
-            <CurrencyField
-              label="Vehicle dutiable value (FBT base value)"
-              value={inputs.vehicleBaseValue}
-              onChange={(v) => setInputs((p) => ({ ...p, vehicleBaseValue: v }))}
-            />
-            <CurrencyField
-              label="Driveaway cost"
-              value={inputs.driveawayCost}
-              onChange={(v) => setInputs((p) => ({ ...p, driveawayCost: v }))}
-            />
-            <LeaseRateGuard inputs={inputs} setInputs={setInputs} />
-            <CurrencyField
-              label="Total taxable income"
-              value={inputs.totalTaxableIncome}
-              onChange={(v) => setInputs((p) => ({ ...p, totalTaxableIncome: v }))}
-            />
-          </Section>
+          <InputsPanel inputs={inputs} setInputs={setInputs} />
         </div>
 
         <div className="nlc-output-col">

@@ -13,6 +13,7 @@ import { WorstCase } from "../src/components/reports/WorstCase";
 import { FinancialSummaryReport } from "../src/components/reports/FinancialSummaryReport";
 import { QuotesPanel } from "../src/components/QuotesPanel";
 import { LeaseRateGuard } from "../src/components/LeaseRateGuard";
+import { InputsPanel } from "../src/components/InputsPanel";
 import { baseEvInputs, withOverrides } from "./fixtures";
 
 // Server-side render smoke test: catches runtime crashes (undefined props, thrown
@@ -125,5 +126,44 @@ describe("render smoke test", () => {
     const highRateInputs = withOverrides(inputs, { vehicleLeasePerFn: inputs.vehicleLeasePerFn * 1.15 });
     const html = renderToStaticMarkup(<LeaseRateGuard inputs={highRateInputs} setInputs={() => {}} />);
     expect(html).toContain("BYO");
+  });
+
+  test("InputsPanel renders every field group for an EV, including EV-only Electricity section", () => {
+    const html = renderToStaticMarkup(<InputsPanel inputs={inputs} setInputs={() => {}} />);
+    for (const label of [
+      "Vehicle type",
+      "Vehicle dutiable value",
+      "Drive-away cost",
+      "Total taxable income",
+      "Home loan offset interest rate",
+      "Lease start date",
+      "Lease duration",
+      "Residual value",
+      "Luxury vehicle adjustment",
+      "Financed amount reported",
+      "Months deferred",
+      "GST saving passed on",
+      "Service / maintenance / tyres",
+      "Average AUD per kWh",
+      "Enable car loan comparison",
+      "Enable keep-current-car comparison",
+    ]) {
+      expect(html).toContain(label);
+    }
+    expect(html.match(/\bNaN\b|>undefined</g)).toBeNull();
+  });
+
+  test("InputsPanel shows Fuel instead of Electricity, and hides the Electricity section, for a non-EV", () => {
+    const nonEv = withOverrides(inputs, { vehicleType: "Non-EV", electricityAnnual: 0, fuelAnnual: 2200 });
+    const html = renderToStaticMarkup(<InputsPanel inputs={nonEv} setInputs={() => {}} />);
+    expect(html).toContain(">Fuel<");
+    expect(html).not.toContain("Average AUD per kWh");
+  });
+
+  test("InputsPanel reveals car-loan and keep-current-car sub-fields when those comparators are enabled", () => {
+    const withComparators = withOverrides(inputs, { compareWithCarLoan: true, compareWithCurrentCar: true });
+    const html = renderToStaticMarkup(<InputsPanel inputs={withComparators} setInputs={() => {}} />);
+    expect(html).toContain("Initial deposit amount");
+    expect(html).toContain("Current market value");
   });
 });
