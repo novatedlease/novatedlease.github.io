@@ -45,6 +45,8 @@ function estMarketValueFromDriveaway(driveawayCost: number): number {
   return Math.round((driveawayCost * 0.4) / 1000) * 1000;
 }
 
+const ATO_EV_HOME_CHARGING_RATE_PER_KM = 0.0547;
+
 function AdvancedMode(props: {
   inputs: Inputs;
   setInputs: React.Dispatch<React.SetStateAction<Inputs>>;
@@ -55,6 +57,7 @@ function AdvancedMode(props: {
   const lastAutoResidualRef = useRef<number | null>(null);
   const lastAutoFinancedRef = useRef<number | null>(null);
   const lastAutoEstMarketValueRef = useRef<number | null>(null);
+  const lastAutoElectricityRef = useRef<number | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
 
   // Auto-sync residualValueExGst from the ATO-derived formula until the user overrides it —
@@ -108,6 +111,30 @@ function AdvancedMode(props: {
     }
     lastAutoEstMarketValueRef.current = auto;
   }, [inputs.driveawayCost, inputs.estimatedMarketValueAtEnd]);
+
+  // Auto-fill electricityAnnual (the packaged EV claim) from annualMileageKm × the ATO home-
+  // charging shortcut rate until the user overrides it — mirrors calculator/src/components/
+  // InputsPanel.tsx's electricity auto-fill effect (lines ~44-89), using the same lastAuto/
+  // withinCent override-detection pattern as the three effects above (rather than v1's
+  // separate `touched` boolean state, for consistency with this file).
+  useEffect(() => {
+    if (inputs.vehicleType !== "EV") {
+      lastAutoElectricityRef.current = null;
+      return;
+    }
+    const auto = inputs.annualMileageKm * ATO_EV_HOME_CHARGING_RATE_PER_KM;
+    const cur = inputs.electricityAnnual;
+    const lastAuto = lastAutoElectricityRef.current;
+    const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;
+
+    const shouldSync = cur === 0 || (lastAuto !== null && withinCent(cur, lastAuto)) || (lastAuto === null && withinCent(cur, auto));
+
+    if (shouldSync && !withinCent(cur, auto)) {
+      setInputs((p) => ({ ...p, electricityAnnual: auto }));
+    }
+    lastAutoElectricityRef.current = auto;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputs.vehicleType, inputs.annualMileageKm]);
 
   const [outputTab, setOutputTab] = useState<"summary" | "details" | "compare">("summary");
   const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("five_year");
