@@ -12,9 +12,14 @@ export const URL_STATE_PARAM = "c";
  */
 export const URL_STATE_VERSION = 1;
 
+// Payload key is `inputs` (not `i`) to match calculator/src/App.tsx's own inline
+// encoder/decoder verbatim — v1 never imports this module, so this is the only
+// thing that makes a v2-generated share link actually load correctly in v1 and
+// vice versa (both were previously silently falling back to defaults on a
+// cross-version link, since the two payload shapes didn't match).
 type UrlPayloadV1 = {
   v: 1;
-  i: Partial<Inputs>;
+  inputs: Partial<Inputs>;
 };
 
 // --- base64 helpers ---------------------------------------------------------
@@ -74,7 +79,7 @@ function fromBase64Url(b64url: string): string {
  * We store only the raw inputs. Derived values must always be recomputed.
  */
 export function encodeInputsToUrlParam(inputs: Inputs): string {
-  const payload: UrlPayloadV1 = { v: URL_STATE_VERSION, i: inputs };
+  const payload: UrlPayloadV1 = { v: URL_STATE_VERSION, inputs };
   const json = JSON.stringify(payload);
   return toBase64Url(toBase64(json));
 }
@@ -96,7 +101,7 @@ export function decodeInputsFromUrlParam(
     const json = fromBase64(fromBase64Url(paramValue));
     const parsed = JSON.parse(json) as Partial<UrlPayloadV1>;
 
-    if (!parsed || parsed.v !== 1 || !parsed.i || typeof parsed.i !== "object") {
+    if (!parsed || parsed.v !== 1 || !parsed.inputs || typeof parsed.inputs !== "object") {
       return defaults;
     }
 
@@ -104,8 +109,8 @@ export function decodeInputsFromUrlParam(
     const merged: Inputs = { ...defaults };
 
     (Object.keys(defaults) as (keyof Inputs)[]).forEach((k) => {
-      if (!(k in parsed.i!)) return;
-      const incoming = (parsed.i as Partial<Inputs>)[k];
+      if (!(k in parsed.inputs!)) return;
+      const incoming = (parsed.inputs as Partial<Inputs>)[k];
       const def = defaults[k];
 
       // Preserve null/undefined by falling back to default.
