@@ -103,7 +103,7 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
         <Stat label="Difference over term" value={`${moneyNoCents(Math.abs(diffTotal))} ${moreOrLess(diffTotal)}`} color={diffTotal >= 0 ? "#b71c1c" : "#1b5e20"} note="Pre-tax, lifetime total" />
       </StatGrid>
 
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, flexWrap: "wrap" }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-soft)" }}>Assumed wholesale rate:</div>
         <div style={{ display: "inline-flex", border: "1px solid rgba(11,92,171,0.3)", borderRadius: 999, overflow: "hidden", background: "rgba(11,92,171,0.04)" }}>
           {[0.07, 0.08, 0.09].map((r) => {

@@ -528,10 +528,10 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
 
   return (
     <div ref={ref} style={{ width: "100%" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
         <div style={{ fontWeight: 700, fontSize: 13 }}>Total spent vs termination timepoint</div>
         <div style={{ display: "flex", gap: 12, fontSize: 12, opacity: 0.85, flexDirection: "column" }}>
-          <div style={{ display: "flex", gap: 12 }}>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <span style={{ width: 10, height: 10, background: nlColor, display: "inline-block", borderRadius: 2 }} />
               <span>Novated Lease</span>

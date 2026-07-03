@@ -25,6 +25,7 @@ import { WorstCase } from "./components/reports/WorstCase";
 import { FinancialSummaryReport } from "./components/reports/FinancialSummaryReport";
 import { QuotesPanel } from "./components/QuotesPanel";
 import { ComparatorView } from "./components/ComparatorView";
+import { LeaseRateGuard } from "./components/LeaseRateGuard";
 import { type SavedQuoteV1, safeLoadQuotes } from "./state/savedQuotes";
 
 const MODE_STORAGE_KEY = "nlc2-mode";
@@ -140,7 +141,7 @@ function AdvancedMode(props: {
         <Stat label="Vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} color={PALETTE.teal} />
       </VerdictBanner>
 
-      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 16, gap: 8 }}>
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 16, gap: 8, flexWrap: "wrap" }}>
         <Button variant="secondary" size="sm" onClick={copyShareLink}>
           {copiedLink ? "Link copied!" : "Copy share link"}
         </Button>
@@ -169,11 +170,7 @@ function AdvancedMode(props: {
               value={inputs.driveawayCost}
               onChange={(v) => setInputs((p) => ({ ...p, driveawayCost: v }))}
             />
-            <CurrencyField
-              label="Fortnightly lease payment"
-              value={inputs.vehicleLeasePerFn}
-              onChange={(v) => setInputs((p) => ({ ...p, vehicleLeasePerFn: v }))}
-            />
+            <LeaseRateGuard inputs={inputs} setInputs={setInputs} />
             <CurrencyField
               label="Total taxable income"
               value={inputs.totalTaxableIncome}

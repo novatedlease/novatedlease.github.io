@@ -4,6 +4,7 @@ import { effectiveAnnualRateFromFortnightlyLease, financedAmountExGstFromInputs 
 import { gstSaved } from "@engine/ato";
 import { InfoTooltip } from "../ui/InfoTooltip";
 import { SubHead, KV, NoteBox } from "../ui/shared";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 export type EffectiveInterestReportProps = { inputs: Inputs };
 
@@ -26,6 +27,7 @@ function hexToRgb(hex: string): [number, number, number] {
  * sales) is identical, so this is a dedup, not a behaviour change.
  */
 export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps) {
+  const isMobile = useIsMobile();
   try {
     const years = Math.round(inputs.leaseDurationYears);
 
@@ -212,7 +214,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
 
     return (
       <div style={{ fontSize: 13, lineHeight: 1.4 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
           {defs.map((d) => {
             const active = activeDef === d.id;
             const [r, g, b] = hexToRgb(d.color);

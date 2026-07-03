@@ -153,7 +153,7 @@ export function ATI(props: AtiProps) {
       )}
 
       <SubHead mt={4}>Calculation Purpose</SubHead>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, flexWrap: "wrap" }}>
         <div style={{ display: "inline-flex", border: "1px solid rgba(11,92,171,0.28)", borderRadius: 999, overflow: "hidden", background: "rgba(11,92,171,0.04)" }}>
           {(
             [

@@ -106,7 +106,7 @@ export function QuotesPanel(props: {
             position: "absolute",
             top: "calc(100% + 6px)",
             right: 0,
-            width: 340,
+            width: "min(340px, calc(100vw - 24px))",
             maxHeight: 420,
             overflowY: "auto",
             background: "var(--nlc-surface)",
@@ -170,7 +170,7 @@ export function QuotesPanel(props: {
                       setRenameDraft(q.name);
                     }}
                     aria-label={`Rename ${q.name}`}
-                    style={{ border: "none", background: "none", cursor: "pointer", color: "var(--nlc-text-muted)", padding: 4 }}
+                    style={{ border: "none", background: "none", cursor: "pointer", color: "var(--nlc-text-muted)", padding: 10, margin: -6, minWidth: 32, minHeight: 32 }}
                   >
                     ✎
                   </button>
@@ -178,7 +178,7 @@ export function QuotesPanel(props: {
                     type="button"
                     onClick={() => deleteQuote(q.id)}
                     aria-label={`Delete ${q.name}`}
-                    style={{ border: "none", background: "none", cursor: "pointer", color: "var(--nlc-bad)", padding: 4 }}
+                    style={{ border: "none", background: "none", cursor: "pointer", color: "var(--nlc-bad)", padding: 10, margin: -6, minWidth: 32, minHeight: 32 }}
                   >
                     ✕
                   </button>

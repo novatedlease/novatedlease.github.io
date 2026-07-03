@@ -12,6 +12,7 @@ import { WhatIf } from "../src/components/reports/WhatIf";
 import { WorstCase } from "../src/components/reports/WorstCase";
 import { FinancialSummaryReport } from "../src/components/reports/FinancialSummaryReport";
 import { QuotesPanel } from "../src/components/QuotesPanel";
+import { LeaseRateGuard } from "../src/components/LeaseRateGuard";
 import { baseEvInputs, withOverrides } from "./fixtures";
 
 // Server-side render smoke test: catches runtime crashes (undefined props, thrown
@@ -110,5 +111,19 @@ describe("render smoke test", () => {
       <QuotesPanel inputs={inputs} defaultInputs={inputs} onLoadQuote={() => {}} quotes={[]} onQuotesChange={() => {}} />
     );
     expect(html).toContain("Saved quotes");
+  });
+
+  test("LeaseRateGuard shows the live effective rate and no rejection message for a plausible payment", () => {
+    const html = renderToStaticMarkup(<LeaseRateGuard inputs={inputs} setInputs={() => {}} />);
+    expect(html).toContain("Effective interest rate");
+    expect(html).not.toContain("Rejected:");
+  });
+
+  test("LeaseRateGuard flags a high (but accepted, >10%) rate with the BYO-lease note", () => {
+    // 9.5% assumed rate baseline can be pushed above 10% with a higher payment that's
+    // still inside the 0.1%-30% plausible band.
+    const highRateInputs = withOverrides(inputs, { vehicleLeasePerFn: inputs.vehicleLeasePerFn * 1.15 });
+    const html = renderToStaticMarkup(<LeaseRateGuard inputs={highRateInputs} setInputs={() => {}} />);
+    expect(html).toContain("BYO");
   });
 });
