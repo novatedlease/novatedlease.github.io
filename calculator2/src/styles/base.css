@@ -1,0 +1,46 @@
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.nlc-root {
+  font-family: var(--nlc-font-sans);
+  color: var(--nlc-text);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.nlc-root button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.nlc-root :focus-visible {
+  outline: 2px solid var(--nlc-blue);
+  outline-offset: 2px;
+  border-radius: var(--nlc-radius-sm);
+}
+
+.nlc-root a {
+  color: var(--nlc-blue);
+}
+
+.nlc-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.nlc-num {
+  font-variant-numeric: tabular-nums;
+}

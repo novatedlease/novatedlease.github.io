@@ -12,6 +12,7 @@ interface Props {
   canonicalUrl?: string;
   articleMeta?: { title: string; description?: string };
   extraSchemas?: object[];
+  noindex?: boolean;
 }
 
 const {
@@ -22,6 +23,7 @@ const {
   canonicalUrl,
   articleMeta,
   extraSchemas = [],
+  noindex = false,
 } = Astro.props;
 
 const siteTitle = 'Novated Lease Guide & Calculator';
@@ -135,6 +137,7 @@ const breadcrumbSchema = breadcrumbItems.length > 1 ? {
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={fullCanonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png" />

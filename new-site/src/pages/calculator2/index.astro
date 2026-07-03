@@ -1,0 +1,29 @@
+---
+import FullPage from '../../layouts/FullPage.astro';
+---
+
+<FullPage
+  title="Novated Lease Calculator (Preview) — calculator2"
+  description="Internal preview of the redesigned novated lease calculator. Not linked from the site; do not share."
+  noindex={true}
+>
+  <div class="calc2-page">
+    <div id="nl-calculator2-root" data-loading="true" aria-busy="true">
+      <div class="nl-calculator2-placeholder" aria-hidden="true"></div>
+    </div>
+
+    <link rel="stylesheet" href="/assets/calculator2/style.css" />
+    <script type="module" src="/assets/calculator2/main.js"></script>
+  </div>
+</FullPage>
+
+<style>
+  .calc2-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+  .nl-calculator2-placeholder {
+    min-height: 400px;
+  }
+</style>

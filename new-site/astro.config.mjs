@@ -9,6 +9,7 @@ export default defineConfig({
   site: 'https://novatedlease.guide',
   integrations: [
     sitemap({
+      filter: (page) => !page.includes('/calculator2/'),
       serialize(item) {
         item.lastmod = new Date().toISOString().split('T')[0];
         return item;

@@ -1,0 +1,676 @@
+@import "./tokens.css";
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.nlc-app {
+  max-width: var(--nlc-max-width);
+  margin: 0 auto;
+}
+
+.nlc-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, var(--nlc-input-col)) 1fr;
+  gap: var(--nlc-space-6);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .nlc-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.nlc-input-col,
+.nlc-output-col {
+  min-width: 0;
+}
+
+/* ============================================================
+   Mode toggle (Simple / Advanced)
+   ============================================================ */
+.nlc-mode-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--nlc-radius-pill);
+  background: var(--nlc-bg-sunken);
+  border: 1px solid var(--nlc-border);
+  gap: 2px;
+}
+
+.nlc-mode-toggle__btn {
+  border: none;
+  background: transparent;
+  padding: 7px 16px;
+  border-radius: var(--nlc-radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--nlc-text-muted);
+  transition: background var(--nlc-duration-fast) var(--nlc-ease), color var(--nlc-duration-fast) var(--nlc-ease);
+}
+
+.nlc-mode-toggle__btn[aria-pressed="true"] {
+  background: var(--nlc-bg);
+  color: var(--nlc-blue);
+  box-shadow: var(--nlc-shadow-sm);
+}
+
+/* ============================================================
+   Verdict banner — the single most important number
+   ============================================================ */
+.nlc-verdict {
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+  border-radius: var(--nlc-radius-lg);
+  border: 1px solid var(--nlc-border);
+  background: var(--nlc-surface);
+  box-shadow: var(--nlc-shadow-md);
+  padding: var(--nlc-space-5);
+  margin-bottom: var(--nlc-space-5);
+}
+
+.nlc-verdict--positive {
+  border-color: rgba(5, 150, 105, 0.35);
+  background: linear-gradient(180deg, var(--nlc-good-light), var(--nlc-surface) 60%);
+}
+
+.nlc-verdict--negative {
+  border-color: rgba(220, 38, 38, 0.3);
+  background: linear-gradient(180deg, var(--nlc-bad-light), var(--nlc-surface) 60%);
+}
+
+.nlc-verdict__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nlc-text-faint);
+  margin-bottom: 6px;
+}
+
+.nlc-verdict__headline {
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.nlc-verdict__headline--positive {
+  color: var(--nlc-good-dark);
+}
+
+.nlc-verdict__headline--negative {
+  color: var(--nlc-bad-dark);
+}
+
+.nlc-verdict__sub {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--nlc-text-muted);
+}
+
+.nlc-verdict__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--nlc-space-3);
+  margin-top: var(--nlc-space-4);
+}
+
+/* ============================================================
+   Cards / Sections
+   ============================================================ */
+.nlc-card {
+  background: var(--nlc-surface);
+  border-radius: var(--nlc-radius-lg);
+  box-shadow: var(--nlc-shadow-md);
+  padding: var(--nlc-space-4);
+}
+
+.nlc-section {
+  border-radius: var(--nlc-radius-lg);
+  box-shadow: var(--nlc-shadow-sm);
+  border: 1px solid var(--nlc-border);
+  background: var(--nlc-surface);
+  overflow: hidden;
+}
+
+.nlc-section + .nlc-section {
+  margin-top: var(--nlc-space-4);
+}
+
+.nlc-section--muted {
+  opacity: 0.6;
+}
+
+.nlc-section__header {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--nlc-space-3);
+  padding: var(--nlc-space-4);
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.nlc-section__heading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--nlc-space-2);
+  font-weight: 700;
+  font-size: 14.5px;
+  letter-spacing: -0.005em;
+}
+
+.nlc-section__desc {
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--nlc-text-muted);
+  line-height: 1.45;
+  max-width: 64ch;
+}
+
+.nlc-section__chevron {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--nlc-text-faint);
+  transition: transform var(--nlc-duration-fast) var(--nlc-ease);
+}
+
+.nlc-section[data-open="true"] .nlc-section__chevron {
+  transform: rotate(90deg);
+}
+
+.nlc-section__body {
+  padding: 0 var(--nlc-space-4) var(--nlc-space-4);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.nlc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--nlc-radius-md);
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 13.5px;
+  padding: 9px 16px;
+  transition: background var(--nlc-duration-fast) var(--nlc-ease), border-color var(--nlc-duration-fast) var(--nlc-ease),
+    color var(--nlc-duration-fast) var(--nlc-ease);
+  white-space: nowrap;
+}
+
+.nlc-btn--sm {
+  padding: 6px 12px;
+  font-size: 12.5px;
+}
+
+.nlc-btn--primary {
+  background: var(--nlc-blue);
+  color: #fff;
+}
+.nlc-btn--primary:hover {
+  background: var(--nlc-blue-dark);
+}
+
+.nlc-btn--secondary {
+  background: var(--nlc-bg-sunken);
+  color: var(--nlc-text);
+  border-color: var(--nlc-border-mid);
+}
+.nlc-btn--secondary:hover {
+  background: var(--nlc-border);
+}
+
+.nlc-btn--ghost {
+  background: transparent;
+  color: var(--nlc-blue);
+}
+.nlc-btn--ghost:hover {
+  background: var(--nlc-blue-light);
+}
+
+.nlc-btn--danger {
+  background: transparent;
+  color: var(--nlc-bad);
+  border-color: rgba(220, 38, 38, 0.3);
+}
+.nlc-btn--danger:hover {
+  background: var(--nlc-bad-light);
+}
+
+.nlc-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   Form fields
+   ============================================================ */
+.nlc-field {
+  margin-bottom: var(--nlc-space-4);
+}
+
+.nlc-field__label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--nlc-text-soft);
+  margin-bottom: 6px;
+}
+
+.nlc-field__control {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.nlc-input,
+.nlc-select {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: var(--nlc-radius-md);
+  border: 1px solid var(--nlc-border-mid);
+  background: var(--nlc-bg);
+  color: var(--nlc-text);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color var(--nlc-duration-fast) var(--nlc-ease), box-shadow var(--nlc-duration-fast) var(--nlc-ease);
+}
+
+.nlc-input:focus,
+.nlc-select:focus {
+  outline: none;
+  border-color: var(--nlc-blue);
+  box-shadow: 0 0 0 3px var(--nlc-blue-light);
+}
+
+.nlc-input[aria-invalid="true"] {
+  border-color: var(--nlc-bad);
+}
+
+.nlc-field__prefix,
+.nlc-field__suffix {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border: 1px solid var(--nlc-border-mid);
+  background: var(--nlc-bg-sunken);
+  color: var(--nlc-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.nlc-field__prefix {
+  border-right: none;
+  border-radius: var(--nlc-radius-md) 0 0 var(--nlc-radius-md);
+}
+.nlc-field__control:has(.nlc-field__prefix) .nlc-input {
+  border-radius: 0 var(--nlc-radius-md) var(--nlc-radius-md) 0;
+}
+
+.nlc-field__suffix {
+  border-left: none;
+  border-radius: 0 var(--nlc-radius-md) var(--nlc-radius-md) 0;
+}
+.nlc-field__control:has(.nlc-field__suffix) .nlc-input {
+  border-radius: var(--nlc-radius-md) 0 0 var(--nlc-radius-md);
+}
+
+.nlc-field__hint {
+  margin-top: 5px;
+  font-size: 11.5px;
+  color: var(--nlc-text-muted);
+  line-height: 1.4;
+}
+
+.nlc-field__error {
+  margin-top: 5px;
+  font-size: 11.5px;
+  color: var(--nlc-bad-dark);
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+/* Radio pill group (e.g. EV / Non-EV, Yes / No) */
+.nlc-pill-group {
+  display: inline-flex;
+  border-radius: var(--nlc-radius-md);
+  border: 1px solid var(--nlc-border-mid);
+  overflow: hidden;
+}
+
+.nlc-pill-group__btn {
+  border: none;
+  background: var(--nlc-bg);
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--nlc-text-muted);
+  border-right: 1px solid var(--nlc-border-mid);
+}
+.nlc-pill-group__btn:last-child {
+  border-right: none;
+}
+.nlc-pill-group__btn[aria-pressed="true"] {
+  background: var(--nlc-blue);
+  color: #fff;
+}
+
+/* ============================================================
+   Tabs
+   ============================================================ */
+.nlc-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--nlc-radius-md);
+  background: var(--nlc-bg-sunken);
+  border: 1px solid var(--nlc-border);
+  margin-bottom: var(--nlc-space-4);
+}
+
+.nlc-tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  border-radius: var(--nlc-radius-sm);
+  padding: 10px 12px;
+  text-align: left;
+  transition: background var(--nlc-duration-fast) var(--nlc-ease);
+}
+
+.nlc-tab[aria-selected="true"] {
+  background: var(--nlc-bg);
+  box-shadow: var(--nlc-shadow-sm);
+}
+
+.nlc-tab__title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--nlc-text-faint);
+}
+.nlc-tab[aria-selected="true"] .nlc-tab__title {
+  color: var(--nlc-blue);
+}
+
+.nlc-tab__desc {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--nlc-text-faint);
+  margin-top: 2px;
+}
+
+/* ============================================================
+   Stat / KV / Table primitives (mirrors v1's ui/shared.tsx API)
+   ============================================================ */
+.nlc-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--nlc-space-2);
+  margin-bottom: var(--nlc-space-4);
+}
+
+.nlc-stat {
+  border-radius: var(--nlc-radius-md);
+  padding: 10px 14px;
+  border: 1px solid;
+}
+
+.nlc-stat__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  opacity: 0.75;
+}
+
+.nlc-stat__value {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.nlc-stat__note {
+  font-size: 11px;
+  color: var(--nlc-text-muted);
+  margin-top: 5px;
+  line-height: 1.35;
+}
+
+.nlc-subhead {
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--nlc-text-faint);
+  margin-top: var(--nlc-space-4);
+  margin-bottom: var(--nlc-space-2);
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--nlc-border);
+}
+
+.nlc-kv {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--nlc-space-2);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--nlc-border);
+}
+
+.nlc-kv__label {
+  font-size: 13px;
+  opacity: 0.75;
+  line-height: 1.3;
+}
+
+.nlc-kv__value {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nlc-kv--bold .nlc-kv__label {
+  opacity: 1;
+  font-weight: 700;
+}
+.nlc-kv--bold .nlc-kv__value,
+.nlc-kv--highlight .nlc-kv__value {
+  font-weight: 700;
+}
+.nlc-kv--highlight .nlc-kv__value {
+  color: var(--nlc-blue);
+}
+
+.nlc-notebox {
+  border-radius: var(--nlc-radius-md);
+  padding: 10px 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--nlc-text-soft);
+  margin-top: var(--nlc-space-3);
+  border: 1px solid;
+  border-left-width: 3px;
+}
+
+.nlc-table-wrap {
+  overflow-x: auto;
+}
+
+.nlc-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--nlc-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--nlc-border);
+  font-size: 13px;
+}
+
+.nlc-table th {
+  text-align: left;
+  padding: 7px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: var(--nlc-blue);
+  color: #fff;
+  white-space: nowrap;
+}
+
+.nlc-table th.nlc-num,
+.nlc-table td.nlc-num {
+  text-align: right;
+}
+
+.nlc-table td {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-top: 1px solid var(--nlc-border);
+  vertical-align: top;
+}
+
+.nlc-table tr:nth-child(even) td {
+  background: var(--nlc-bg-subtle);
+}
+
+/* ============================================================
+   Badges
+   ============================================================ */
+.nlc-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--nlc-radius-pill);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nlc-badge--info {
+  background: var(--nlc-blue-light);
+  color: var(--nlc-blue-dark);
+}
+.nlc-badge--good {
+  background: var(--nlc-good-light);
+  color: var(--nlc-good-dark);
+}
+.nlc-badge--warn {
+  background: var(--nlc-warn-light);
+  color: var(--nlc-warn-dark);
+}
+
+/* ============================================================
+   Info tooltip trigger
+   ============================================================ */
+.nlc-info-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(11, 92, 171, 0.55);
+  color: var(--nlc-blue);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  background: var(--nlc-bg);
+}
+
+.nlc-info-popup {
+  position: fixed;
+  z-index: 2147483647;
+  padding: 14px;
+  border-radius: var(--nlc-radius-lg);
+  border: 1px solid rgba(11, 92, 171, 0.35);
+  background: #eef5ff;
+  box-shadow: var(--nlc-shadow-lg);
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--nlc-text-soft);
+}
+
+.nlc-info-popup a {
+  color: var(--nlc-blue);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   Assumptions panel (Simple mode)
+   ============================================================ */
+.nlc-assumptions {
+  border-radius: var(--nlc-radius-lg);
+  border: 1px solid var(--nlc-border);
+  background: var(--nlc-bg-subtle);
+  padding: var(--nlc-space-4);
+}
+
+.nlc-assumptions__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--nlc-space-3);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--nlc-border);
+  font-size: 13px;
+}
+
+.nlc-assumptions__row:last-child {
+  border-bottom: none;
+}
+
+.nlc-assumptions__label {
+  color: var(--nlc-text-soft);
+}
+
+.nlc-assumptions__value {
+  display: flex;
+  align-items: center;
+  gap: var(--nlc-space-2);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nlc-assumptions__edit {
+  border: none;
+  background: none;
+  color: var(--nlc-blue);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--nlc-radius-sm);
+}
+.nlc-assumptions__edit:hover {
+  background: var(--nlc-blue-light);
+}
+
+/* ============================================================
+   Responsive helpers
+   ============================================================ */
+@media (max-width: 640px) {
+  .nlc-verdict {
+    position: static;
+  }
+  .nlc-section__header {
+    padding: var(--nlc-space-3);
+  }
+  .nlc-section__body {
+    padding: 0 var(--nlc-space-3) var(--nlc-space-3);
+  }
+}

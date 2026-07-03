@@ -5,11 +5,12 @@ interface Props {
   title?: string;
   description?: string;
   extraSchemas?: object[];
+  noindex?: boolean;
 }
 
-const { title, description, extraSchemas } = Astro.props;
+const { title, description, extraSchemas, noindex } = Astro.props;
 ---
 
-<Base title={title} description={description} extraSchemas={extraSchemas}>
+<Base title={title} description={description} extraSchemas={extraSchemas} noindex={noindex}>
   <slot />
 </Base>
