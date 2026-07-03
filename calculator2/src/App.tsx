@@ -9,6 +9,7 @@ import { ModeToggle, type CalcMode } from "./components/ui/ModeToggle";
 import { Section } from "./components/ui/Section";
 import { Tabs } from "./components/ui/Tabs";
 import { Button } from "./components/ui/Button";
+import { Footer } from "./components/ui/Footer";
 import { SimpleMode } from "./SimpleMode";
 import { SummaryView } from "./components/SummaryView";
 import { LeaseReport } from "./components/reports/LeaseReport";
@@ -280,6 +281,7 @@ export default function App() {
       ) : (
         <AdvancedMode inputs={inputs} setInputs={setInputs} savedQuotes={savedQuotes} setSavedQuotes={setSavedQuotes} />
       )}
+      <Footer />
     </div>
   );
 }
