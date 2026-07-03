@@ -4,6 +4,7 @@ import { Section } from "./ui/Section";
 import { CurrencyField, PercentField, NumberField, PillGroup, YesNoToggle, SelectField, DateField } from "./ui/Field";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import { LeaseRateGuard } from "./LeaseRateGuard";
+import { trackEvent, trackOncePerSession } from "../utils/analytics";
 
 /**
  * Full Advanced-mode input form — every field in the engine's `Inputs` type,
@@ -18,7 +19,15 @@ import { LeaseRateGuard } from "./LeaseRateGuard";
 export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<React.SetStateAction<Inputs>> }) {
   const { inputs, setInputs } = props;
 
+  // Mirrors v1 App.tsx's handleUserInput: first field touch is the primary
+  // engagement conversion; every change also fires a lightweight debug event.
+  function touch(field: string) {
+    trackOncePerSession("calculator_started", "calculator_started", { field });
+    trackEvent("input_changed", { field });
+  }
+
   function set<K extends keyof Inputs>(key: K, value: Inputs[K]) {
+    touch(key);
     setInputs((p) => ({ ...p, [key]: value }));
   }
 
@@ -55,14 +64,15 @@ export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<R
         <SelectField
           label="Vehicle condition"
           value={inputs.vehicleCondition}
-          onChange={(v: Inputs["vehicleCondition"]) =>
+          onChange={(v: Inputs["vehicleCondition"]) => {
+            touch("vehicleCondition");
             setInputs((p) => ({
               ...p,
               vehicleCondition: v,
               usedCarFirstHeldAfterJul2022: v === "New" ? false : p.usedCarFirstHeldAfterJul2022,
               usedCarLctNeverPayable: v === "New" ? false : p.usedCarLctNeverPayable,
-            }))
-          }
+            }));
+          }}
           options={[
             { value: "New", label: "New" },
             { value: "Used – dealer sale (GST inc)", label: "Used – dealer sale (GST inc)" },

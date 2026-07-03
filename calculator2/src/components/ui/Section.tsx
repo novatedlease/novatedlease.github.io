@@ -1,4 +1,5 @@
 import React, { useId, useState } from "react";
+import { trackOncePerSession } from "../../utils/analytics";
 
 export function Section({
   title,
@@ -6,12 +7,14 @@ export function Section({
   defaultOpen,
   muted,
   children,
+  analyticsId,
 }: {
   title: React.ReactNode;
   description?: React.ReactNode;
   defaultOpen?: boolean;
   muted?: boolean;
   children: React.ReactNode;
+  analyticsId?: string;
 }) {
   const [open, setOpen] = useState(!!defaultOpen);
   const bodyId = useId();
@@ -23,7 +26,15 @@ export function Section({
         className="nlc-section__header"
         aria-expanded={open}
         aria-controls={bodyId}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() =>
+          setOpen((v) => {
+            const next = !v;
+            if (next && analyticsId) {
+              trackOncePerSession(`expand_${analyticsId}`, "breakdown_expanded", { section: analyticsId });
+            }
+            return next;
+          })
+        }
       >
         <div>
           <div className="nlc-section__heading">{title}</div>

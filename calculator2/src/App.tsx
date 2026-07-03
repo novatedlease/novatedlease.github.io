@@ -24,6 +24,7 @@ import { QuotesPanel } from "./components/QuotesPanel";
 import { ComparatorView } from "./components/ComparatorView";
 import { InputsPanel } from "./components/InputsPanel";
 import { type SavedQuoteV1, safeLoadQuotes } from "./state/savedQuotes";
+import { trackEvent, trackOncePerSession } from "./utils/analytics";
 
 const MODE_STORAGE_KEY = "nlc2-mode";
 
@@ -115,6 +116,8 @@ function AdvancedMode(props: {
   const effectiveHorizon = offerLeaseEndOption ? summaryHorizon : "five_year";
 
   async function copyShareLink() {
+    trackEvent("copy_link_clicked");
+    trackOncePerSession("copy_link_clicked", "copy_link_clicked");
     const url = `${window.location.origin}${window.location.pathname}${setUrlParamForInputs(window.location.search, inputs)}`;
     try {
       await navigator.clipboard.writeText(url);
@@ -147,7 +150,11 @@ function AdvancedMode(props: {
               { id: "compare", title: "Compare", desc: "Side-by-side across saved quotes" },
             ]}
             active={outputTab}
-            onChange={setOutputTab}
+            onChange={(tab) => {
+              setOutputTab(tab);
+              if (tab === "details") trackOncePerSession("details_tab_opened", "details_tab_opened");
+              if (tab === "compare") trackOncePerSession("compare_tab_opened", "compare_tab_opened");
+            }}
           />
 
           {outputTab === "summary" && offerLeaseEndOption && (
@@ -176,6 +183,7 @@ function AdvancedMode(props: {
                 <Section
                   title="Section 1: Lease payments"
                   description="Pre-tax lease payments and their impact on take-home pay (fortnightly, annual, and total), with a year-by-year breakdown."
+                  analyticsId="section_1_lease_payments"
                 >
                   <LeaseReport inputs={inputs} />
                 </Section>
@@ -184,6 +192,7 @@ function AdvancedMode(props: {
                   title="Section 2: Financial summary"
                   description="Total cost comparison across novated lease, cash, loan, and keep-current-car pathways, standardised to a 5-year horizon."
                   defaultOpen
+                  analyticsId="section_2_financial_summary"
                 >
                   <FinancialSummaryReport inputs={inputs} />
                 </Section>
@@ -191,6 +200,7 @@ function AdvancedMode(props: {
                 <Section
                   title="Section 3: Effective interest rate"
                   description="Back-calculates the implied interest rate hidden in your lease payment and residual, with an optional amortisation schedule."
+                  analyticsId="section_3_effective_interest_rate"
                 >
                   <EffectiveInterestReport inputs={inputs} />
                 </Section>
@@ -198,6 +208,7 @@ function AdvancedMode(props: {
                 <Section
                   title="Section 4: Adjusted taxable income"
                   description="Estimates how novated leasing changes your Adjusted Taxable Income — relevant for HECS repayments, childcare subsidy, and Medicare levy surcharge."
+                  analyticsId="section_4_ati"
                 >
                   <ATI
                     inputs={inputs}
@@ -217,6 +228,7 @@ function AdvancedMode(props: {
                       : "Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
                   }
                   muted={inputs.superFromPreNlIncome === "Yes"}
+                  analyticsId="section_5_sg"
                 >
                   {inputs.superFromPreNlIncome === "Yes" ? (
                     <div style={{ fontSize: 13, lineHeight: 1.45, opacity: 0.9 }}>No Super Guarantee loss is expected under this assumption.</div>
@@ -225,11 +237,19 @@ function AdvancedMode(props: {
                   )}
                 </Section>
 
-                <Section title="Section 6: Rate sensitivity check" description="Stress-tests your quoted lease by comparing it with the same car financed at an assumed wholesale interest rate.">
+                <Section
+                  title="Section 6: Rate sensitivity check"
+                  description="Stress-tests your quoted lease by comparing it with the same car financed at an assumed wholesale interest rate."
+                  analyticsId="section_6_what_if"
+                >
                   <WhatIf inputs={inputs} />
                 </Section>
 
-                <Section title="Section 7: Early termination risk" description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash.">
+                <Section
+                  title="Section 7: Early termination risk"
+                  description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash."
+                  analyticsId="section_7_worst_case_scenario"
+                >
                   <WorstCase inputs={inputs} />
                 </Section>
               </>
@@ -262,6 +282,7 @@ export default function App() {
   function changeMode(next: CalcMode) {
     setMode(next);
     window.localStorage.setItem(MODE_STORAGE_KEY, next);
+    trackEvent("mode_switched", { mode: next });
   }
 
   return (
@@ -274,6 +295,7 @@ export default function App() {
       {mode === "simple" ? (
         <SimpleMode
           onGoAdvanced={(derivedInputs) => {
+            trackEvent("simple_mode_go_advanced_clicked");
             setInputs(derivedInputs);
             changeMode("advanced");
           }}

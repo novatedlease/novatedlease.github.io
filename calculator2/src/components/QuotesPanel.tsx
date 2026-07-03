@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Inputs } from "@engine/types";
 import { Button } from "./ui/Button";
+import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import {
   type SavedQuoteV1,
   safeSaveQuotes,
@@ -49,6 +50,8 @@ export function QuotesPanel(props: {
   }
 
   function saveCurrent() {
+    trackEvent("save_quote_clicked");
+    trackOncePerSession("save_quote_clicked", "save_quote_clicked");
     const trimmed = nameDraft.trim();
     const q: SavedQuoteV1 = {
       v: 1,

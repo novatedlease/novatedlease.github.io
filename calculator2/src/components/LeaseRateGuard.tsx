@@ -6,6 +6,7 @@ import {
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
 import { CurrencyField } from "./ui/Field";
+import { trackEvent, trackOncePerSession } from "../utils/analytics";
 
 function formatMoney(x: number): string {
   return `$ ${x.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -86,6 +87,8 @@ export function LeaseRateGuard(props: { inputs: Inputs; setInputs: React.Dispatc
 
   function handleChange(next: number) {
     const clamped = Math.max(0, next);
+    trackOncePerSession("calculator_started", "calculator_started", { field: "vehicleLeasePerFn" });
+    trackEvent("input_changed", { field: "vehicleLeasePerFn" });
 
     if (!Number.isFinite(minFn) || !Number.isFinite(maxFn)) {
       setInputs((p) => ({ ...p, vehicleLeasePerFn: clamped }));
