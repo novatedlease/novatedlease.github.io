@@ -1,9 +1,12 @@
+import { useEffect, useRef, useState } from "react";
 import type { Inputs } from "@engine/types";
 import { getLeaseFbtCategory, getEvLctThresholdForLeaseStart } from "@engine/types";
 import { Section } from "./ui/Section";
 import { CurrencyField, PercentField, NumberField, PillGroup, YesNoToggle, SelectField, DateField } from "./ui/Field";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import { LeaseRateGuard } from "./LeaseRateGuard";
+import { NoteBox } from "./ui/shared";
+import { Button } from "./ui/Button";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 
 /**
@@ -12,9 +15,8 @@ import { trackEvent, trackOncePerSession } from "../utils/analytics";
  * grouping matches v1's sections (FBT eligibility, vehicle details, financials,
  * lease details, running costs, electricity, car loan comparator, keep-current-car
  * comparator). Not ported: the residual value ex/inc-GST display toggle, the
- * fortnightly/monthly lease period toggle, the effective-rate nudge (±0.1%)
- * buttons, and the "lease duration changed, please re-quote" reminder modal —
- * all secondary conveniences around fields that already work without them.
+ * fortnightly/monthly lease period toggle and the effective-rate nudge (±0.1%)
+ * buttons — secondary conveniences around fields that already work without them.
  */
 export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<React.SetStateAction<Inputs>> }) {
   const { inputs, setInputs } = props;
@@ -25,6 +27,18 @@ export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<R
     trackOncePerSession("calculator_started", "calculator_started", { field });
     trackEvent("input_changed", { field });
   }
+
+  // Lease-duration re-quote warning — mirrors v1 InputsPanel.tsx (~lines 36-42, 676-713):
+  // changing lease duration (by any means — field edit, saved-quote load, share link) usually
+  // invalidates the per-fortnight quote, so nudge the user to re-check it.
+  const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
+  const prevLeaseDurationRef = useRef<number>(inputs.leaseDurationYears);
+  useEffect(() => {
+    if (prevLeaseDurationRef.current !== inputs.leaseDurationYears) {
+      prevLeaseDurationRef.current = inputs.leaseDurationYears;
+      setNeedsLeaseRequote(true);
+    }
+  }, [inputs.leaseDurationYears]);
 
   function set<K extends keyof Inputs>(key: K, value: Inputs[K]) {
     touch(key);
@@ -143,6 +157,19 @@ export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<R
         <CurrencyField label="Lease documentation fee" value={inputs.leaseDocFee} onChange={(v) => set("leaseDocFee", v)} hint="Initial financier setup fee, if any." />
         <DateField label="Lease start date" value={inputs.leaseStartDate} onChange={(v) => set("leaseStartDate", v)} hint="Matters for the EV FBT phase-out tiers." />
         <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} suffix="years" min={1} max={5} />
+        {needsLeaseRequote && (
+          <NoteBox color="#c81e1e">
+            <div style={{ fontWeight: 800, marginBottom: 4 }}>Heads up: changing lease duration usually changes your per-fortnight lease quote.</div>
+            <div style={{ opacity: 0.92 }}>
+              Please update <b>Vehicle Lease (Per Fortnight)</b> (and <b>all other quote-dependent fields</b>) to match the new duration, otherwise the outputs may be misleading.
+            </div>
+            <div style={{ marginTop: 8, display: "flex", justifyContent: "flex-end" }}>
+              <Button size="sm" onClick={() => setNeedsLeaseRequote(false)}>
+                I've updated the quote
+              </Button>
+            </div>
+          </NoteBox>
+        )}
         <LeaseRateGuard inputs={inputs} setInputs={setInputs} />
         <CurrencyField label="Residual value (ex GST)" value={inputs.residualValueExGst} onChange={(v) => set("residualValueExGst", v)} hint="Auto-filled from the ATO minimum for your lease term until you override it." />
         <CurrencyField label="Luxury vehicle adjustment (per fortnight)" value={inputs.luxuryVehicleAdjPerFn} onChange={(v) => set("luxuryVehicleAdjPerFn", v)} hint="Pre-tax. Only applies above the luxury car threshold, listed separately on some quotes. 0 if not applicable." />
