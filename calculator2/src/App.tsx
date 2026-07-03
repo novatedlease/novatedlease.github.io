@@ -24,6 +24,8 @@ import { WhatIf } from "./components/reports/WhatIf";
 import { WorstCase } from "./components/reports/WorstCase";
 import { FinancialSummaryReport } from "./components/reports/FinancialSummaryReport";
 import { QuotesPanel } from "./components/QuotesPanel";
+import { ComparatorView } from "./components/ComparatorView";
+import { type SavedQuoteV1, safeLoadQuotes } from "./state/savedQuotes";
 
 const MODE_STORAGE_KEY = "nlc2-mode";
 
@@ -48,8 +50,13 @@ function estMarketValueFromDriveaway(driveawayCost: number): number {
   return Math.round((driveawayCost * 0.4) / 1000) * 1000;
 }
 
-function AdvancedMode(props: { inputs: Inputs; setInputs: React.Dispatch<React.SetStateAction<Inputs>> }) {
-  const { inputs, setInputs } = props;
+function AdvancedMode(props: {
+  inputs: Inputs;
+  setInputs: React.Dispatch<React.SetStateAction<Inputs>>;
+  savedQuotes: SavedQuoteV1[];
+  setSavedQuotes: React.Dispatch<React.SetStateAction<SavedQuoteV1[]>>;
+}) {
+  const { inputs, setInputs, savedQuotes, setSavedQuotes } = props;
   const lastAutoResidualRef = useRef<number | null>(null);
   const lastAutoFinancedRef = useRef<number | null>(null);
   const lastAutoEstMarketValueRef = useRef<number | null>(null);
@@ -133,14 +140,11 @@ function AdvancedMode(props: { inputs: Inputs; setInputs: React.Dispatch<React.S
         <Stat label="Vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} color={PALETTE.teal} />
       </VerdictBanner>
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, fontSize: 13, color: "var(--nlc-text-muted)", gap: 12, flexWrap: "wrap" }}>
-        <span>Advanced mode is still being ported from the full v1 calculator (remaining: side-by-side comparator).</span>
-        <div style={{ display: "flex", gap: 8 }}>
-          <Button variant="secondary" size="sm" onClick={copyShareLink}>
-            {copiedLink ? "Link copied!" : "Copy share link"}
-          </Button>
-          <QuotesPanel inputs={inputs} defaultInputs={advancedDefaultInputs} onLoadQuote={setInputs} />
-        </div>
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 16, gap: 8 }}>
+        <Button variant="secondary" size="sm" onClick={copyShareLink}>
+          {copiedLink ? "Link copied!" : "Copy share link"}
+        </Button>
+        <QuotesPanel inputs={inputs} defaultInputs={advancedDefaultInputs} onLoadQuote={setInputs} quotes={savedQuotes} onQuotesChange={setSavedQuotes} />
       </div>
 
       <div className="nlc-layout">
@@ -254,6 +258,10 @@ function AdvancedMode(props: { inputs: Inputs; setInputs: React.Dispatch<React.S
       <Section title="Section 7: Early termination risk" description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash.">
         <WorstCase inputs={inputs} />
       </Section>
+
+      <Section title="Compare" description="Side-by-side comparison across your saved quotes — e.g. novated lease vs car loan, or two different lease terms." defaultOpen>
+        <ComparatorView savedQuotes={savedQuotes} defaultInputs={advancedDefaultInputs} />
+      </Section>
     </div>
   );
 }
@@ -272,6 +280,7 @@ export default function App() {
     if (typeof window === "undefined") return advancedDefaultInputs;
     return getInputsFromLocationSearch(window.location.search, advancedDefaultInputs);
   });
+  const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => (typeof window === "undefined" ? [] : safeLoadQuotes()));
 
   function changeMode(next: CalcMode) {
     setMode(next);
@@ -293,7 +302,7 @@ export default function App() {
           }}
         />
       ) : (
-        <AdvancedMode inputs={inputs} setInputs={setInputs} />
+        <AdvancedMode inputs={inputs} setInputs={setInputs} savedQuotes={savedQuotes} setSavedQuotes={setSavedQuotes} />
       )}
     </div>
   );

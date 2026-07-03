@@ -106,7 +106,9 @@ describe("render smoke test", () => {
   });
 
   test("QuotesPanel renders without throwing (no window/localStorage in SSR)", () => {
-    const html = renderToStaticMarkup(<QuotesPanel inputs={inputs} defaultInputs={inputs} onLoadQuote={() => {}} />);
+    const html = renderToStaticMarkup(
+      <QuotesPanel inputs={inputs} defaultInputs={inputs} onLoadQuote={() => {}} quotes={[]} onQuotesChange={() => {}} />
+    );
     expect(html).toContain("Saved quotes");
   });
 });

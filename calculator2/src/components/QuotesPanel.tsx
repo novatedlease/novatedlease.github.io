@@ -3,7 +3,6 @@ import type { Inputs } from "@engine/types";
 import { Button } from "./ui/Button";
 import {
   type SavedQuoteV1,
-  safeLoadQuotes,
   safeSaveQuotes,
   newQuoteId,
   coerceInputs,
@@ -14,11 +13,19 @@ import {
 /**
  * Saved-quotes manager, ported from calculator/src/App.tsx's inline quotes UI
  * (lines ~558-706) into a standalone component. Same localStorage key/shape —
- * quotes saved in v1 or v2 are interchangeable.
+ * quotes saved in v1 or v2 are interchangeable. `quotes` is controlled by the
+ * parent (App.tsx) so ComparatorView sees the same live list without a second
+ * copy of localStorage state.
  */
-export function QuotesPanel(props: { inputs: Inputs; defaultInputs: Inputs; onLoadQuote: (inputs: Inputs) => void }) {
+export function QuotesPanel(props: {
+  inputs: Inputs;
+  defaultInputs: Inputs;
+  onLoadQuote: (inputs: Inputs) => void;
+  quotes: SavedQuoteV1[];
+  onQuotesChange: (quotes: SavedQuoteV1[]) => void;
+}) {
   const [open, setOpen] = useState(false);
-  const [quotes, setQuotes] = useState<SavedQuoteV1[]>(() => (typeof window === "undefined" ? [] : safeLoadQuotes()));
+  const quotes = props.quotes;
   const [nameDraft, setNameDraft] = useState("");
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameDraft, setRenameDraft] = useState("");
@@ -37,7 +44,7 @@ export function QuotesPanel(props: { inputs: Inputs; defaultInputs: Inputs; onLo
   }, [open]);
 
   function persist(next: SavedQuoteV1[]) {
-    setQuotes(next);
+    props.onQuotesChange(next);
     safeSaveQuotes(next);
   }
 
