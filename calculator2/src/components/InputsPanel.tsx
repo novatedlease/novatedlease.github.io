@@ -14,12 +14,17 @@ import { trackEvent, trackOncePerSession } from "../utils/analytics";
  * ported from calculator/src/components/InputsPanel.tsx (2,326 lines). Field
  * grouping matches v1's sections (FBT eligibility, vehicle details, financials,
  * lease details, running costs, electricity, car loan comparator, keep-current-car
- * comparator). Not ported: the residual value ex/inc-GST display toggle, the
- * fortnightly/monthly lease period toggle and the effective-rate nudge (±0.1%)
- * buttons — secondary conveniences around fields that already work without them.
+ * comparator). Not ported: the residual value ex/inc-GST display toggle and the
+ * effective-rate nudge (±0.1%) buttons — secondary conveniences around fields
+ * that already work without them.
  */
-export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<React.SetStateAction<Inputs>> }) {
-  const { inputs, setInputs } = props;
+export function InputsPanel(props: {
+  inputs: Inputs;
+  setInputs: React.Dispatch<React.SetStateAction<Inputs>>;
+  vehicleLeasePeriodMode: "perFn" | "perMonth";
+  onVehicleLeasePeriodModeChange: (mode: "perFn" | "perMonth") => void;
+}) {
+  const { inputs, setInputs, vehicleLeasePeriodMode, onVehicleLeasePeriodModeChange } = props;
 
   // Mirrors v1 App.tsx's handleUserInput: first field touch is the primary
   // engagement conversion; every change also fires a lightweight debug event.
@@ -232,7 +237,12 @@ export function InputsPanel(props: { inputs: Inputs; setInputs: React.Dispatch<R
             </div>
           </NoteBox>
         )}
-        <LeaseRateGuard inputs={inputs} setInputs={setInputs} />
+        <LeaseRateGuard
+          inputs={inputs}
+          setInputs={setInputs}
+          vehicleLeasePeriodMode={vehicleLeasePeriodMode}
+          onVehicleLeasePeriodModeChange={onVehicleLeasePeriodModeChange}
+        />
         <CurrencyField label="Residual value (ex GST)" value={inputs.residualValueExGst} onChange={(v) => set("residualValueExGst", v)} hint="Auto-filled from the ATO minimum for your lease term until you override it." />
         <CurrencyField label="Luxury vehicle adjustment (per fortnight)" value={inputs.luxuryVehicleAdjPerFn} onChange={(v) => set("luxuryVehicleAdjPerFn", v)} hint="Pre-tax. Only applies above the luxury car threshold, listed separately on some quotes. 0 if not applicable." />
         <CurrencyField label="Financed amount reported in your quote" value={inputs.financedAmountForInterestCalcExGst} onChange={(v) => set("financedAmountForInterestCalcExGst", v)} hint="Only used for the effective interest rate calculation — leave as the pre-calculated figure unless you have a specific quoted amount without add-ons." />

@@ -163,6 +163,8 @@ function AdvancedMode(props: {
     });
   }, [navTarget]);
 
+  const [vehicleLeasePeriodMode, setVehicleLeasePeriodMode] = useState<"perFn" | "perMonth">("perFn");
+
   async function copyShareLink() {
     trackEvent("copy_link_clicked");
     trackOncePerSession("copy_link_clicked", "copy_link_clicked");
@@ -187,7 +189,12 @@ function AdvancedMode(props: {
 
       <div className="nlc-layout">
         <div className="nlc-input-col">
-          <InputsPanel inputs={inputs} setInputs={setInputs} />
+          <InputsPanel
+            inputs={inputs}
+            setInputs={setInputs}
+            vehicleLeasePeriodMode={vehicleLeasePeriodMode}
+            onVehicleLeasePeriodModeChange={setVehicleLeasePeriodMode}
+          />
         </div>
 
         <div className="nlc-output-col">
@@ -235,7 +242,7 @@ function AdvancedMode(props: {
                   anchorId="details-section-1-lease-payments"
                   forceOpenNonce={navTarget?.anchorId === "details-section-1-lease-payments" ? navTarget.nonce : undefined}
                 >
-                  <LeaseReport inputs={inputs} />
+                  <LeaseReport inputs={inputs} vehicleLeasePeriodMode={vehicleLeasePeriodMode} />
                 </Section>
 
                 <Section
@@ -302,7 +309,7 @@ function AdvancedMode(props: {
                   anchorId="details-section-6-what-if"
                   forceOpenNonce={navTarget?.anchorId === "details-section-6-what-if" ? navTarget.nonce : undefined}
                 >
-                  <WhatIf inputs={inputs} />
+                  <WhatIf inputs={inputs} vehicleLeasePeriodMode={vehicleLeasePeriodMode} />
                 </Section>
 
                 <Section

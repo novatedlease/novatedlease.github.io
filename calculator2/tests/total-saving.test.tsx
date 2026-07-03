@@ -57,7 +57,7 @@ describe("computeTotalSaving matches v1 SummaryView.tsx's totalSaving formula", 
     const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
     const { totalSaving } = computeTotalSaving({ summary, horizon: "at5" });
 
-    const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" />);
+    const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" onNavigateToDetails={() => {}} />);
     const expectedDisplay = `$${Math.round(totalSaving).toLocaleString("en-AU")}`;
     expect(html).toContain(expectedDisplay);
   });

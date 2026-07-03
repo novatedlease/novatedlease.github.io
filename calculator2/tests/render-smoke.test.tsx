@@ -116,7 +116,7 @@ describe("render smoke test", () => {
   });
 
   test("LeaseRateGuard shows the live effective rate and no rejection message for a plausible payment", () => {
-    const html = renderToStaticMarkup(<LeaseRateGuard inputs={inputs} setInputs={() => {}} />);
+    const html = renderToStaticMarkup(<LeaseRateGuard inputs={inputs} setInputs={() => {}} vehicleLeasePeriodMode="perFn" onVehicleLeasePeriodModeChange={() => {}} />);
     expect(html).toContain("Effective interest rate");
     expect(html).not.toContain("Rejected:");
   });
@@ -125,12 +125,12 @@ describe("render smoke test", () => {
     // 9.5% assumed rate baseline can be pushed above 10% with a higher payment that's
     // still inside the 0.1%-30% plausible band.
     const highRateInputs = withOverrides(inputs, { vehicleLeasePerFn: inputs.vehicleLeasePerFn * 1.15 });
-    const html = renderToStaticMarkup(<LeaseRateGuard inputs={highRateInputs} setInputs={() => {}} />);
+    const html = renderToStaticMarkup(<LeaseRateGuard inputs={highRateInputs} setInputs={() => {}} vehicleLeasePeriodMode="perFn" onVehicleLeasePeriodModeChange={() => {}} />);
     expect(html).toContain("BYO");
   });
 
   test("InputsPanel renders every field group for an EV, including EV-only Electricity section", () => {
-    const html = renderToStaticMarkup(<InputsPanel inputs={inputs} setInputs={() => {}} />);
+    const html = renderToStaticMarkup(<InputsPanel inputs={inputs} setInputs={() => {}} vehicleLeasePeriodMode="perFn" onVehicleLeasePeriodModeChange={() => {}} />);
     for (const label of [
       "Vehicle type",
       "Vehicle dutiable value",
@@ -156,20 +156,20 @@ describe("render smoke test", () => {
 
   test("InputsPanel shows Fuel instead of Electricity, and hides the Electricity section, for a non-EV", () => {
     const nonEv = withOverrides(inputs, { vehicleType: "Non-EV", electricityAnnual: 0, fuelAnnual: 2200 });
-    const html = renderToStaticMarkup(<InputsPanel inputs={nonEv} setInputs={() => {}} />);
+    const html = renderToStaticMarkup(<InputsPanel inputs={nonEv} setInputs={() => {}} vehicleLeasePeriodMode="perFn" onVehicleLeasePeriodModeChange={() => {}} />);
     expect(html).toContain(">Fuel<");
     expect(html).not.toContain("Average AUD per kWh");
   });
 
   test("InputsPanel reveals car-loan and keep-current-car sub-fields when those comparators are enabled", () => {
     const withComparators = withOverrides(inputs, { compareWithCarLoan: true, compareWithCurrentCar: true });
-    const html = renderToStaticMarkup(<InputsPanel inputs={withComparators} setInputs={() => {}} />);
+    const html = renderToStaticMarkup(<InputsPanel inputs={withComparators} setInputs={() => {}} vehicleLeasePeriodMode="perFn" onVehicleLeasePeriodModeChange={() => {}} />);
     expect(html).toContain("Initial deposit amount");
     expect(html).toContain("Current market value");
   });
 
   test("SummaryView shows only the NL-vs-Cash card by default (no loan/keep comparators enabled)", () => {
-    const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" />);
+    const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" onNavigateToDetails={() => {}} />);
     expect(html).toContain("Novated Lease vs Offset Cash");
     expect(html).not.toContain("Novated Lease vs Car Loan");
     expect(html).not.toContain("Novated Lease vs Keeping Current Car");
@@ -178,7 +178,7 @@ describe("render smoke test", () => {
 
   test("SummaryView shows all three cards when both comparators are enabled", () => {
     const withComparators = withOverrides(inputs, { compareWithCarLoan: true, compareWithCurrentCar: true });
-    const html = renderToStaticMarkup(<SummaryView inputs={withComparators} horizon="five_year" />);
+    const html = renderToStaticMarkup(<SummaryView inputs={withComparators} horizon="five_year" onNavigateToDetails={() => {}} />);
     expect(html).toContain("Novated Lease vs Offset Cash");
     expect(html).toContain("Novated Lease vs Car Loan");
     expect(html).toContain("Novated Lease vs Keeping Current Car");
@@ -186,7 +186,7 @@ describe("render smoke test", () => {
   });
 
   test("SummaryView's total saving equals cashflow advantage + interest advantage, matching computeTotalSaving", () => {
-    const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" />);
+    const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" onNavigateToDetails={() => {}} />);
     expect(html).toContain("Cashflow advantage");
     expect(html).toContain("Home loan interest advantage");
     expect(html).toMatch(/Total saving \(NL\)|Total extra cost \(NL\)/);

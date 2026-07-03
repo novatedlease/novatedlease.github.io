@@ -69,9 +69,15 @@ export function computeLeaseGuardBounds(inputs: Inputs): { minFn: number; maxFn:
  * (±0.1%) stepper buttons from v1 are not ported — a smaller feature than the
  * guard itself and lower priority for this pass.
  */
-export function LeaseRateGuard(props: { inputs: Inputs; setInputs: React.Dispatch<React.SetStateAction<Inputs>> }) {
-  const { inputs, setInputs } = props;
+export function LeaseRateGuard(props: {
+  inputs: Inputs;
+  setInputs: React.Dispatch<React.SetStateAction<Inputs>>;
+  vehicleLeasePeriodMode: "perFn" | "perMonth";
+  onVehicleLeasePeriodModeChange: (mode: "perFn" | "perMonth") => void;
+}) {
+  const { inputs, setInputs, vehicleLeasePeriodMode, onVehicleLeasePeriodModeChange } = props;
   const [guardMsg, setGuardMsg] = useState("");
+  const isMonthly = vehicleLeasePeriodMode === "perMonth";
 
   const { minFn, maxFn, liveRate } = computeLeaseGuardBounds(inputs);
 
@@ -85,8 +91,11 @@ export function LeaseRateGuard(props: { inputs: Inputs; setInputs: React.Dispatc
     });
   }, [minFn, maxFn]);
 
+  // `next` arrives in whichever period the field is currently displaying — convert to the
+  // canonical per-fortnight figure (12 months = 26 fortnights) before validating/storing.
   function handleChange(next: number) {
-    const clamped = Math.max(0, next);
+    const enteredPerFn = isMonthly ? (next * 12) / 26 : next;
+    const clamped = Math.max(0, enteredPerFn);
     trackOncePerSession("calculator_started", "calculator_started", { field: "vehicleLeasePerFn" });
     trackEvent("input_changed", { field: "vehicleLeasePerFn" });
 
@@ -105,9 +114,43 @@ export function LeaseRateGuard(props: { inputs: Inputs; setInputs: React.Dispatc
     setGuardMsg("");
   }
 
+  const displayValue = isMonthly ? (inputs.vehicleLeasePerFn * 26) / 12 : inputs.vehicleLeasePerFn;
+
   return (
     <div>
-      <CurrencyField label="Fortnightly lease payment" value={inputs.vehicleLeasePerFn} onChange={handleChange} error={guardMsg || undefined} />
+      <CurrencyField
+        label={
+          <div>
+            <div>Vehicle lease</div>
+            <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11 }}>
+              {(["perFn", "perMonth"] as const).map((mode, idx) => (
+                <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                  {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
+                  <button
+                    type="button"
+                    onClick={() => onVehicleLeasePeriodModeChange(mode)}
+                    style={{
+                      padding: 0,
+                      border: "none",
+                      background: "transparent",
+                      cursor: "pointer",
+                      fontSize: 11,
+                      fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
+                      opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
+                      textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
+                    }}
+                  >
+                    {mode === "perFn" ? "per fortnight" : "per month"}
+                  </button>
+                </span>
+              ))}
+            </div>
+          </div>
+        }
+        value={displayValue}
+        onChange={handleChange}
+        error={guardMsg || undefined}
+      />
       <div
         style={{
           marginTop: -8,
