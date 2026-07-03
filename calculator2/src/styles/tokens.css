@@ -75,8 +75,8 @@
   --nlc-duration-med: 200ms;
 
   /* Layout */
-  --nlc-max-width: 1200px;
-  --nlc-input-col: 400px;
+  --nlc-max-width: 1300px;
+  --nlc-input-col: 430px;
 }
 
 @media (prefers-reduced-motion: reduce) {
