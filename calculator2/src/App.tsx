@@ -4,16 +4,13 @@ import { financedAmountExGstFromInputs } from "@engine/effectiveinterest";
 import { residualFractionForYears } from "@engine/ato";
 import { computeDerived } from "@engine/derived";
 import { URL_STATE_PARAM, getInputsFromLocationSearch, setUrlParamForInputs } from "@engine/urlState";
-import { computeFinancialSummary, computeTotalSaving } from "./engineAdapter";
-
 import { advancedDefaultInputs } from "./state/defaultInputs";
 import { ModeToggle, type CalcMode } from "./components/ui/ModeToggle";
-import { VerdictBanner } from "./components/ui/VerdictBanner";
 import { Section } from "./components/ui/Section";
-import { Stat } from "./components/ui/shared";
+import { Tabs } from "./components/ui/Tabs";
 import { Button } from "./components/ui/Button";
 import { SimpleMode } from "./SimpleMode";
-import { PALETTE } from "./palette";
+import { SummaryView } from "./components/SummaryView";
 import { LeaseReport } from "./components/reports/LeaseReport";
 import { BasicInformationReport } from "./components/reports/BasicInformationReport";
 import { EffectiveInterestReport } from "./components/reports/EffectiveInterestReport";
@@ -28,10 +25,6 @@ import { InputsPanel } from "./components/InputsPanel";
 import { type SavedQuoteV1, safeLoadQuotes } from "./state/savedQuotes";
 
 const MODE_STORAGE_KEY = "nlc2-mode";
-
-function fmtMoney(n: number): string {
-  return `$${Math.round(n).toLocaleString("en-AU")}`;
-}
 
 // Matches v1 App.tsx's buildAtiRowsFromFyBreakdown/buildSgRowsFromFyBreakdown —
 // folds the luxury vehicle adjustment into the lease payment before computing
@@ -114,8 +107,11 @@ function AdvancedMode(props: {
     lastAutoEstMarketValueRef.current = auto;
   }, [inputs.driveawayCost, inputs.estimatedMarketValueAtEnd]);
 
-  const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
-  const { interestSaving, totalSaving: betterOffBy } = computeTotalSaving({ summary, horizon: "at5" });
+  const [outputTab, setOutputTab] = useState<"summary" | "details" | "compare">("summary");
+  const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("five_year");
+  const leaseYearsRounded = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
+  const offerLeaseEndOption = leaseYearsRounded < 5;
+  const effectiveHorizon = offerLeaseEndOption ? summaryHorizon : "five_year";
 
   async function copyShareLink() {
     const url = `${window.location.origin}${window.location.pathname}${setUrlParamForInputs(window.location.search, inputs)}`;
@@ -130,21 +126,6 @@ function AdvancedMode(props: {
 
   return (
     <div>
-      <VerdictBanner
-        betterOffBy={betterOffBy}
-        comparedTo="buying with cash"
-        sub={`Over a ${inputs.leaseDurationYears}-year lease, standardised to a 5-year horizon.`}
-      >
-        <Stat label="Lease payments" value={fmtMoney(summary.leasePaymentsOverLease)} color={PALETTE.blue} />
-        <Stat label="Residual at lease end" value={fmtMoney(summary.residualPayableIncGst)} color={PALETTE.purple} />
-        <Stat label="Vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} color={PALETTE.teal} />
-        <Stat
-          label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
-          value={fmtMoney(interestSaving)}
-          color={interestSaving >= 0 ? "#059669" : "#dc2626"}
-        />
-      </VerdictBanner>
-
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 16, gap: 8, flexWrap: "wrap" }}>
         <Button variant="secondary" size="sm" onClick={copyShareLink}>
           {copiedLink ? "Link copied!" : "Copy share link"}
@@ -158,73 +139,103 @@ function AdvancedMode(props: {
         </div>
 
         <div className="nlc-output-col">
-          <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, ECM, and EV charging." defaultOpen>
-            <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} />
-          </Section>
+          <Tabs
+            tabs={[
+              { id: "summary", title: "Summary", desc: "The bottom line, explained" },
+              { id: "details", title: "Details", desc: "Section-by-section breakdown" },
+              { id: "compare", title: "Compare", desc: "Side-by-side across saved quotes" },
+            ]}
+            active={outputTab}
+            onChange={setOutputTab}
+          />
 
-          <Section
-            title="Section 1: Lease payments"
-            description="Pre-tax lease payments and their impact on take-home pay (fortnightly, annual, and total), with a year-by-year breakdown."
-          >
-            <LeaseReport inputs={inputs} />
-          </Section>
+          {outputTab === "summary" && offerLeaseEndOption && (
+            <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "14px 0" }}>
+              <span style={{ fontSize: 12, color: "var(--nlc-text-muted)", fontWeight: 600 }}>Horizon</span>
+              <div className="nlc-pill-group">
+                <button type="button" className="nlc-pill-group__btn" aria-pressed={effectiveHorizon === "five_year"} onClick={() => setSummaryHorizon("five_year")}>
+                  @ 5y
+                </button>
+                <button type="button" className="nlc-pill-group__btn" aria-pressed={effectiveHorizon === "lease_end"} onClick={() => setSummaryHorizon("lease_end")}>
+                  @ {leaseYearsRounded}y
+                </button>
+              </div>
+            </div>
+          )}
 
-          <Section
-            title="Section 2: Financial summary"
-            description="Total cost comparison across novated lease, cash, loan, and keep-current-car pathways, standardised to a 5-year horizon."
-            defaultOpen
-          >
-            <FinancialSummaryReport inputs={inputs} />
-          </Section>
+          <div style={{ marginTop: 16 }}>
+            {outputTab === "summary" && <SummaryView inputs={inputs} horizon={effectiveHorizon} />}
 
-          <Section
-            title="Section 3: Effective interest rate"
-            description="Back-calculates the implied interest rate hidden in your lease payment and residual, with an optional amortisation schedule."
-          >
-            <EffectiveInterestReport inputs={inputs} />
-          </Section>
+            {outputTab === "details" && (
+              <>
+                <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, ECM, and EV charging." defaultOpen>
+                  <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} />
+                </Section>
 
-          <Section
-            title="Section 4: Adjusted taxable income"
-            description="Estimates how novated leasing changes your Adjusted Taxable Income — relevant for HECS repayments, childcare subsidy, and Medicare levy surcharge."
-          >
-            <ATI
-              inputs={inputs}
-              originalTaxableIncomePreNL={inputs.totalTaxableIncome}
-              leaseStartDate={new Date(inputs.leaseStartDate)}
-              leaseTermYears={inputs.leaseDurationYears}
-              fbtBaseValue={inputs.vehicleBaseValue}
-              rows={buildAtiRows(inputs)}
-            />
-          </Section>
+                <Section
+                  title="Section 1: Lease payments"
+                  description="Pre-tax lease payments and their impact on take-home pay (fortnightly, annual, and total), with a year-by-year breakdown."
+                >
+                  <LeaseReport inputs={inputs} />
+                </Section>
 
-          <Section
-            title="Section 5: Super guarantee"
-            description={
-              inputs.superFromPreNlIncome === "Yes"
-                ? "Not applicable — you indicated your employer pays Super Guarantee based on your pre-novated-lease income."
-                : "Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
-            }
-            muted={inputs.superFromPreNlIncome === "Yes"}
-          >
-            {inputs.superFromPreNlIncome === "Yes" ? (
-              <div style={{ fontSize: 13, lineHeight: 1.45, opacity: 0.9 }}>No Super Guarantee loss is expected under this assumption.</div>
-            ) : (
-              <SG rows={buildSgRows(inputs)} />
+                <Section
+                  title="Section 2: Financial summary"
+                  description="Total cost comparison across novated lease, cash, loan, and keep-current-car pathways, standardised to a 5-year horizon."
+                  defaultOpen
+                >
+                  <FinancialSummaryReport inputs={inputs} />
+                </Section>
+
+                <Section
+                  title="Section 3: Effective interest rate"
+                  description="Back-calculates the implied interest rate hidden in your lease payment and residual, with an optional amortisation schedule."
+                >
+                  <EffectiveInterestReport inputs={inputs} />
+                </Section>
+
+                <Section
+                  title="Section 4: Adjusted taxable income"
+                  description="Estimates how novated leasing changes your Adjusted Taxable Income — relevant for HECS repayments, childcare subsidy, and Medicare levy surcharge."
+                >
+                  <ATI
+                    inputs={inputs}
+                    originalTaxableIncomePreNL={inputs.totalTaxableIncome}
+                    leaseStartDate={new Date(inputs.leaseStartDate)}
+                    leaseTermYears={inputs.leaseDurationYears}
+                    fbtBaseValue={inputs.vehicleBaseValue}
+                    rows={buildAtiRows(inputs)}
+                  />
+                </Section>
+
+                <Section
+                  title="Section 5: Super guarantee"
+                  description={
+                    inputs.superFromPreNlIncome === "Yes"
+                      ? "Not applicable — you indicated your employer pays Super Guarantee based on your pre-novated-lease income."
+                      : "Estimates the reduction in Super Guarantee contributions when employer calculates SG on post-NL income."
+                  }
+                  muted={inputs.superFromPreNlIncome === "Yes"}
+                >
+                  {inputs.superFromPreNlIncome === "Yes" ? (
+                    <div style={{ fontSize: 13, lineHeight: 1.45, opacity: 0.9 }}>No Super Guarantee loss is expected under this assumption.</div>
+                  ) : (
+                    <SG rows={buildSgRows(inputs)} />
+                  )}
+                </Section>
+
+                <Section title="Section 6: Rate sensitivity check" description="Stress-tests your quoted lease by comparing it with the same car financed at an assumed wholesale interest rate.">
+                  <WhatIf inputs={inputs} />
+                </Section>
+
+                <Section title="Section 7: Early termination risk" description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash.">
+                  <WorstCase inputs={inputs} />
+                </Section>
+              </>
             )}
-          </Section>
 
-          <Section title="Section 6: Rate sensitivity check" description="Stress-tests your quoted lease by comparing it with the same car financed at an assumed wholesale interest rate.">
-            <WhatIf inputs={inputs} />
-          </Section>
-
-          <Section title="Section 7: Early termination risk" description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash.">
-            <WorstCase inputs={inputs} />
-          </Section>
-
-          <Section title="Compare" description="Side-by-side comparison across your saved quotes — e.g. novated lease vs car loan, or two different lease terms." defaultOpen>
-            <ComparatorView savedQuotes={savedQuotes} defaultInputs={advancedDefaultInputs} />
-          </Section>
+            {outputTab === "compare" && <ComparatorView savedQuotes={savedQuotes} defaultInputs={advancedDefaultInputs} />}
+          </div>
         </div>
       </div>
     </div>

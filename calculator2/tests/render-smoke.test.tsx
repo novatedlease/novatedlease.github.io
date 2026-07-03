@@ -14,6 +14,7 @@ import { FinancialSummaryReport } from "../src/components/reports/FinancialSumma
 import { QuotesPanel } from "../src/components/QuotesPanel";
 import { LeaseRateGuard } from "../src/components/LeaseRateGuard";
 import { InputsPanel } from "../src/components/InputsPanel";
+import { SummaryView } from "../src/components/SummaryView";
 import { baseEvInputs, withOverrides } from "./fixtures";
 
 // Server-side render smoke test: catches runtime crashes (undefined props, thrown
@@ -165,5 +166,29 @@ describe("render smoke test", () => {
     const html = renderToStaticMarkup(<InputsPanel inputs={withComparators} setInputs={() => {}} />);
     expect(html).toContain("Initial deposit amount");
     expect(html).toContain("Current market value");
+  });
+
+  test("SummaryView shows only the NL-vs-Cash card by default (no loan/keep comparators enabled)", () => {
+    const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" />);
+    expect(html).toContain("Novated Lease vs Offset Cash");
+    expect(html).not.toContain("Novated Lease vs Car Loan");
+    expect(html).not.toContain("Novated Lease vs Keeping Current Car");
+    expect(html.match(/\bNaN\b|>undefined</g)).toBeNull();
+  });
+
+  test("SummaryView shows all three cards when both comparators are enabled", () => {
+    const withComparators = withOverrides(inputs, { compareWithCarLoan: true, compareWithCurrentCar: true });
+    const html = renderToStaticMarkup(<SummaryView inputs={withComparators} horizon="five_year" />);
+    expect(html).toContain("Novated Lease vs Offset Cash");
+    expect(html).toContain("Novated Lease vs Car Loan");
+    expect(html).toContain("Novated Lease vs Keeping Current Car");
+    expect(html.match(/\bNaN\b|>undefined</g)).toBeNull();
+  });
+
+  test("SummaryView's total saving equals cashflow advantage + interest advantage, matching computeTotalSaving", () => {
+    const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" />);
+    expect(html).toContain("Cashflow advantage");
+    expect(html).toContain("Home loan interest advantage");
+    expect(html).toMatch(/Total saving \(NL\)|Total extra cost \(NL\)/);
   });
 });

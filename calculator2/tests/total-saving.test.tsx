@@ -1,8 +1,10 @@
 import { describe, expect, test } from "vitest";
+import { renderToStaticMarkup } from "react-dom/server";
 import { computeFinancialSummary, computeTotalSaving } from "../src/engineAdapter";
 import { advancedDefaultInputs } from "../src/state/defaultInputs";
 import { financedAmountExGstFromInputs } from "@engine/effectiveinterest";
 import { residualFractionForYears } from "@engine/ato";
+import { SummaryView } from "../src/components/SummaryView";
 import { baseEvInputs, withOverrides } from "./fixtures";
 
 /**
@@ -45,5 +47,18 @@ describe("computeTotalSaving matches v1 SummaryView.tsx's totalSaving formula", 
     const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
     const atLeaseEnd = computeTotalSaving({ summary, horizon: "atLeaseEnd" });
     expect(atLeaseEnd.interestSaving).toBeCloseTo(summary.irNl.first - summary.irCash.first, 6);
+  });
+
+  test("SummaryView (the actual v1 Summary tab port) displays the same $47,138 figure computeTotalSaving computes", () => {
+    const financed = financedAmountExGstFromInputs(advancedDefaultInputs);
+    const residual = Math.max(0, financed - advancedDefaultInputs.leaseDocFee) * residualFractionForYears(advancedDefaultInputs.leaseDurationYears);
+    const inputs = { ...advancedDefaultInputs, residualValueExGst: residual };
+
+    const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
+    const { totalSaving } = computeTotalSaving({ summary, horizon: "at5" });
+
+    const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" />);
+    const expectedDisplay = `$${Math.round(totalSaving).toLocaleString("en-AU")}`;
+    expect(html).toContain(expectedDisplay);
   });
 });
