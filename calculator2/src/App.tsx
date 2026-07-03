@@ -194,6 +194,12 @@ function AdvancedMode(props: {
             setInputs={setInputs}
             vehicleLeasePeriodMode={vehicleLeasePeriodMode}
             onVehicleLeasePeriodModeChange={setVehicleLeasePeriodMode}
+            onResetDefaults={() => {
+              setInputs(advancedDefaultInputs);
+              setOutputTab("summary");
+              setCopiedLink(false);
+              setSummaryHorizon("five_year");
+            }}
           />
         </div>
 

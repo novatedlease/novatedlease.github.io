@@ -23,6 +23,7 @@ export function InputsPanel(props: {
   setInputs: React.Dispatch<React.SetStateAction<Inputs>>;
   vehicleLeasePeriodMode: "perFn" | "perMonth";
   onVehicleLeasePeriodModeChange: (mode: "perFn" | "perMonth") => void;
+  onResetDefaults?: () => void;
 }) {
   const { inputs, setInputs, vehicleLeasePeriodMode, onVehicleLeasePeriodModeChange } = props;
 
@@ -68,6 +69,20 @@ export function InputsPanel(props: {
 
   return (
     <>
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", rowGap: 8, columnGap: 12, marginBottom: 12 }}>
+        <div style={{ fontWeight: 700, fontSize: 17, lineHeight: 1.1, paddingTop: 4, letterSpacing: "-0.02em" }}>Inputs</div>
+        <Button
+          size="sm"
+          onClick={() => {
+            touch("reset");
+            setNeedsLeaseRequote(false);
+            props.onResetDefaults?.();
+          }}
+        >
+          🔄 Reset
+        </Button>
+      </div>
+
       <Section title="Vehicle & FBT eligibility" description="Determines whether the EV FBT exemption (or the 2027-29 phase-out discount) applies." defaultOpen>
         <PillGroup
           label="Vehicle type"
