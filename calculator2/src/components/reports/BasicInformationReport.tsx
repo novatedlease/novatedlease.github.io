@@ -12,7 +12,7 @@ import { Stat, StatGrid, SubHead, KV, NoteBox } from "../ui/shared";
  * Ported from calculator/src/components/BasicInformationReport.tsx — same
  * maths/structure, import paths and colour tokens adjusted for calculator2.
  */
-export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedicarePct?: number }) {
+export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedicarePct?: number; onNavigateToDetails?: (anchorId?: string) => void }) {
   const i = props.inputs;
 
   const t = taxSummaryAUResident(i.totalTaxableIncome);
@@ -114,7 +114,19 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
         value={`$${aud(residualPayableIncGst)}`}
       />
       <KV
-        label="Effective Interest Rate (Definition 1)"
+        label={
+          props.onNavigateToDetails ? (
+            <button
+              type="button"
+              onClick={() => props.onNavigateToDetails!("details-section-3-effective-interest-rate")}
+              style={{ padding: 0, border: "none", background: "none", color: "#0b5cab", cursor: "pointer", font: "inherit", textDecoration: "underline", textAlign: "left" }}
+            >
+              Effective Interest Rate (Definition 1)
+            </button>
+          ) : (
+            "Effective Interest Rate (Definition 1)"
+          )
+        }
         value={effectiveInterestRatePct == null ? "—" : `${(Math.round(effectiveInterestRatePct * 100) / 100).toFixed(2)}%`}
         highlight
       />

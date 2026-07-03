@@ -98,7 +98,15 @@ export function extractPathwayNumbers(s: ReturnType<typeof computeFinancialSumma
 
 const MAX_PATHWAYS = 8;
 
-export function ComparatorView({ savedQuotes, defaultInputs }: { savedQuotes: SavedQuoteV1[]; defaultInputs: Inputs }) {
+export function ComparatorView({
+  savedQuotes,
+  defaultInputs,
+  onNavigateToDetails,
+}: {
+  savedQuotes: SavedQuoteV1[];
+  defaultInputs: Inputs;
+  onNavigateToDetails?: (anchorId?: string) => void;
+}) {
   const [selectedKeys, setSelectedKeys] = useState<Set<SelectedKey>>(new Set());
   const [horizon, setHorizon] = useState<"five_year" | "lease_end">("five_year");
 
@@ -298,6 +306,52 @@ export function ComparatorView({ savedQuotes, defaultInputs }: { savedQuotes: Sa
               ))}
             </tbody>
           </Table>
+
+          {onNavigateToDetails &&
+            (() => {
+              const anyNl = selectedPathways.some((p) => p.pathwayType === "nl");
+              const anySgRisk = selectedPathways.some((p) => p.pathwayType === "nl" && p.inputs.superFromPreNlIncome === "No");
+              if (!anyNl && !anySgRisk) return null;
+              const linkStyle: React.CSSProperties = { color: "#0b5cab", textDecoration: "underline", cursor: "pointer" };
+              return (
+                <div
+                  style={{
+                    padding: "12px 14px",
+                    borderRadius: 12,
+                    background: "rgba(0,0,0,0.025)",
+                    border: "1px solid rgba(0,0,0,0.10)",
+                    fontSize: 12,
+                    lineHeight: 1.5,
+                    color: "rgba(0,0,0,0.70)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 6,
+                  }}
+                >
+                  {anyNl && (
+                    <div>
+                      ⚠️{" "}
+                      <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToDetails("details-section-4-ati"); }} style={linkStyle}>
+                        Adjusted Taxable Income effects are not captured here
+                      </a>{" "}
+                      — novated leasing affects ATI, which can impact HECS/HELP repayments, childcare subsidy, Medicare levy
+                      surcharge, child support assessments, and Division 293 tax. Load each NL quote individually and check{" "}
+                      <b>Section 4 in the Details tab</b> for a full evaluation.
+                    </div>
+                  )}
+                  {anySgRisk && (
+                    <div>
+                      ⚠️{" "}
+                      <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToDetails("details-section-5-sg"); }} style={linkStyle}>
+                        Super Guarantee may be materially reduced
+                      </a>{" "}
+                      — one or more NL pathways in this comparison have SG calculated on post-NL income, which can mean a
+                      significant shortfall in super contributions. Load the relevant quote and check <b>Section 5 in the Details tab</b>.
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
         </>
       )}
     </div>

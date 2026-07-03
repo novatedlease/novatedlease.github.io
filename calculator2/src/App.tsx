@@ -142,6 +142,27 @@ function AdvancedMode(props: {
   const offerLeaseEndOption = leaseYearsRounded < 5;
   const effectiveHorizon = offerLeaseEndOption ? summaryHorizon : "five_year";
 
+  // Cross-navigation from Summary/Compare/Basic-info to a specific Details section — replaces
+  // v1's window-level "nlguide:navigate" CustomEvent with a plain callback + local state, since
+  // everything lives in one component tree here. `nonce` forces a specific Section open even if
+  // the user had collapsed it (Sections default to collapsed except Basic info & Section 2).
+  const [navTarget, setNavTarget] = useState<{ anchorId: string; nonce: number } | null>(null);
+  function navigateToDetails(anchorId?: string) {
+    setOutputTab("details");
+    setNavTarget((prev) => ({ anchorId: anchorId ?? "details-section-2-financial-summary", nonce: (prev?.nonce ?? 0) + 1 }));
+  }
+  useEffect(() => {
+    if (!navTarget) return;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(navTarget.anchorId);
+        if (!el) return;
+        const top = el.getBoundingClientRect().top + window.scrollY - 12;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      });
+    });
+  }, [navTarget]);
+
   async function copyShareLink() {
     trackEvent("copy_link_clicked");
     trackOncePerSession("copy_link_clicked", "copy_link_clicked");
@@ -199,18 +220,20 @@ function AdvancedMode(props: {
           )}
 
           <div style={{ marginTop: 16 }}>
-            {outputTab === "summary" && <SummaryView inputs={inputs} horizon={effectiveHorizon} />}
+            {outputTab === "summary" && <SummaryView inputs={inputs} horizon={effectiveHorizon} onNavigateToDetails={navigateToDetails} />}
 
             {outputTab === "details" && (
               <>
                 <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, ECM, and EV charging." defaultOpen>
-                  <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} />
+                  <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} onNavigateToDetails={navigateToDetails} />
                 </Section>
 
                 <Section
                   title="Section 1: Lease payments"
                   description="Pre-tax lease payments and their impact on take-home pay (fortnightly, annual, and total), with a year-by-year breakdown."
                   analyticsId="section_1_lease_payments"
+                  anchorId="details-section-1-lease-payments"
+                  forceOpenNonce={navTarget?.anchorId === "details-section-1-lease-payments" ? navTarget.nonce : undefined}
                 >
                   <LeaseReport inputs={inputs} />
                 </Section>
@@ -220,6 +243,8 @@ function AdvancedMode(props: {
                   description="Total cost comparison across novated lease, cash, loan, and keep-current-car pathways, standardised to a 5-year horizon."
                   defaultOpen
                   analyticsId="section_2_financial_summary"
+                  anchorId="details-section-2-financial-summary"
+                  forceOpenNonce={navTarget?.anchorId === "details-section-2-financial-summary" ? navTarget.nonce : undefined}
                 >
                   <FinancialSummaryReport inputs={inputs} />
                 </Section>
@@ -228,6 +253,8 @@ function AdvancedMode(props: {
                   title="Section 3: Effective interest rate"
                   description="Back-calculates the implied interest rate hidden in your lease payment and residual, with an optional amortisation schedule."
                   analyticsId="section_3_effective_interest_rate"
+                  anchorId="details-section-3-effective-interest-rate"
+                  forceOpenNonce={navTarget?.anchorId === "details-section-3-effective-interest-rate" ? navTarget.nonce : undefined}
                 >
                   <EffectiveInterestReport inputs={inputs} />
                 </Section>
@@ -236,6 +263,8 @@ function AdvancedMode(props: {
                   title="Section 4: Adjusted taxable income"
                   description="Estimates how novated leasing changes your Adjusted Taxable Income — relevant for HECS repayments, childcare subsidy, and Medicare levy surcharge."
                   analyticsId="section_4_ati"
+                  anchorId="details-section-4-ati"
+                  forceOpenNonce={navTarget?.anchorId === "details-section-4-ati" ? navTarget.nonce : undefined}
                 >
                   <ATI
                     inputs={inputs}
@@ -256,6 +285,8 @@ function AdvancedMode(props: {
                   }
                   muted={inputs.superFromPreNlIncome === "Yes"}
                   analyticsId="section_5_sg"
+                  anchorId="details-section-5-sg"
+                  forceOpenNonce={navTarget?.anchorId === "details-section-5-sg" ? navTarget.nonce : undefined}
                 >
                   {inputs.superFromPreNlIncome === "Yes" ? (
                     <div style={{ fontSize: 13, lineHeight: 1.45, opacity: 0.9 }}>No Super Guarantee loss is expected under this assumption.</div>
@@ -268,6 +299,8 @@ function AdvancedMode(props: {
                   title="Section 6: Rate sensitivity check"
                   description="Stress-tests your quoted lease by comparing it with the same car financed at an assumed wholesale interest rate."
                   analyticsId="section_6_what_if"
+                  anchorId="details-section-6-what-if"
+                  forceOpenNonce={navTarget?.anchorId === "details-section-6-what-if" ? navTarget.nonce : undefined}
                 >
                   <WhatIf inputs={inputs} />
                 </Section>
@@ -276,13 +309,15 @@ function AdvancedMode(props: {
                   title="Section 7: Early termination risk"
                   description="Illustrates the worst-case extra cost if a novated lease ends early (e.g. redundancy), compared with buying the car outright with cash."
                   analyticsId="section_7_worst_case_scenario"
+                  anchorId="details-section-7-worst-case"
+                  forceOpenNonce={navTarget?.anchorId === "details-section-7-worst-case" ? navTarget.nonce : undefined}
                 >
                   <WorstCase inputs={inputs} />
                 </Section>
               </>
             )}
 
-            {outputTab === "compare" && <ComparatorView savedQuotes={savedQuotes} defaultInputs={advancedDefaultInputs} />}
+            {outputTab === "compare" && <ComparatorView savedQuotes={savedQuotes} defaultInputs={advancedDefaultInputs} onNavigateToDetails={navigateToDetails} />}
           </div>
         </div>
       </div>

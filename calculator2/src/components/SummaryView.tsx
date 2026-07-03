@@ -12,7 +12,7 @@ import { InfoTooltip } from "./ui/InfoTooltip";
  * intentionally unchanged, since that's what makes it legible at a glance.
  */
 
-type Props = { inputs: Inputs; horizon: "five_year" | "lease_end" };
+type Props = { inputs: Inputs; horizon: "five_year" | "lease_end"; onNavigateToDetails: (anchorId?: string) => void };
 
 function fmtAud0(n: number): string {
   return `$${Math.round(n).toLocaleString("en-AU")}`;
@@ -62,16 +62,51 @@ function DoubleSep() {
   return <div style={{ borderTop: "2px solid var(--nlc-border-mid)", margin: "6px 0" }} />;
 }
 
-function CardHeader(props: { title: string }) {
-  return <div style={{ fontWeight: 900, fontSize: 15, marginBottom: 14 }}>{props.title}</div>;
+const BLUE = "#0b5cab";
+
+function CardHeader(props: { title: string; onDetails: () => void }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap", marginBottom: 14 }}>
+      <div style={{ fontWeight: 900, fontSize: 15 }}>{props.title}</div>
+      <button
+        type="button"
+        onClick={props.onDetails}
+        style={{
+          padding: "4px 10px",
+          borderRadius: 999,
+          border: "1px solid rgba(11, 92, 171, 0.35)",
+          background: "rgba(11, 92, 171, 0.06)",
+          color: BLUE,
+          fontWeight: 700,
+          fontSize: 12,
+          cursor: "pointer",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Go to Details →
+      </button>
+    </div>
+  );
 }
 
-function Disclaimer({ inputs }: { inputs: Inputs }) {
+function Disclaimer({ inputs, onNavigateToDetails }: { inputs: Inputs; onNavigateToDetails: (anchorId?: string) => void }) {
   return (
     <div style={{ marginTop: 12, fontSize: 12, opacity: 0.7, lineHeight: 1.45 }}>
-      <div>Some effects are not captured here (e.g. changes in government subsidies, Medicare levy surcharge, childcare subsidy) — see Section 4 in Details.</div>
+      <div>
+        Some effects are not captured here (e.g. changes in government subsidies, Medicare levy surcharge, childcare subsidy) —{" "}
+        <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToDetails("details-section-4-ati"); }} style={{ color: BLUE, textDecoration: "underline", cursor: "pointer" }}>
+          see Section 4 in Details
+        </a>
+        .
+      </div>
       {inputs.superFromPreNlIncome === "No" && (
-        <div style={{ marginTop: 5 }}>Super Guarantee may be materially reduced under this setup — see Section 5 in Details.</div>
+        <div style={{ marginTop: 5 }}>
+          Super Guarantee may be materially reduced under this setup —{" "}
+          <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToDetails("details-section-5-sg"); }} style={{ color: BLUE, textDecoration: "underline", cursor: "pointer" }}>
+            see Section 5 in Details
+          </a>
+          .
+        </div>
       )}
       <div style={{ marginTop: 5 }}>
         Consider{" "}
@@ -96,7 +131,7 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
   );
 }
 
-export function SummaryView({ inputs, horizon }: Props) {
+export function SummaryView({ inputs, horizon, onNavigateToDetails }: Props) {
   const s = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
 
   const isLeaseEnd = horizon === "lease_end";
@@ -141,7 +176,7 @@ export function SummaryView({ inputs, horizon }: Props) {
   return (
     <div style={{ display: "grid", gap: 14 }}>
       <div style={cardStyle}>
-        <CardHeader title={`Novated Lease vs Offset Cash — over ${years} years`} />
+        <CardHeader title={`Novated Lease vs Offset Cash — over ${years} years`} onDetails={() => onNavigateToDetails()} />
         <Hero amount={totalSaving} suffix={totalSaving >= 0 ? `cheaper than buying outright with offset cash over ${years} years` : `more expensive than buying outright with offset cash over ${years} years`} />
         <div style={{ display: "grid", gap: 4 }}>
           <BreakdownRow label="NL: lease payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
@@ -170,12 +205,12 @@ export function SummaryView({ inputs, horizon }: Props) {
           <DoubleSep />
           <BreakdownRow label={totalSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(totalSaving))} bold color={totalSaving >= 0 ? POS : NEG} />
         </div>
-        <Disclaimer inputs={inputs} />
+        <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />
       </div>
 
       {showLoan && (
         <div style={cardStyle}>
-          <CardHeader title={`Novated Lease vs Car Loan — over ${years} years`} />
+          <CardHeader title={`Novated Lease vs Car Loan — over ${years} years`} onDetails={() => onNavigateToDetails()} />
           <Hero amount={totalSavingVsLoan} suffix={totalSavingVsLoan >= 0 ? `cheaper than a traditional car loan over ${years} years` : `more expensive than a traditional car loan over ${years} years`} />
           <div style={{ display: "grid", gap: 4 }}>
             <BreakdownRow label="NL: lease payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
@@ -205,13 +240,13 @@ export function SummaryView({ inputs, horizon }: Props) {
             <DoubleSep />
             <BreakdownRow label={totalSavingVsLoan >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(totalSavingVsLoan))} bold color={totalSavingVsLoan >= 0 ? POS : NEG} />
           </div>
-          <Disclaimer inputs={inputs} />
+          <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />
         </div>
       )}
 
       {showCurrentCar && (
         <div style={cardStyle}>
-          <CardHeader title={`Novated Lease vs Keeping Current Car — over ${years} years`} />
+          <CardHeader title={`Novated Lease vs Keeping Current Car — over ${years} years`} onDetails={() => onNavigateToDetails()} />
           <Hero amount={nlVsKeepSaving} suffix={nlVsKeepSaving >= 0 ? `cheaper than keeping your current car over ${years} years` : `more expensive than keeping your current car over ${years} years`} />
           <div style={{ display: "grid", gap: 4 }}>
             <BreakdownRow label="NL: total spend" value={fmtAud0(nlTotalSpent)} indent />
@@ -227,7 +262,7 @@ export function SummaryView({ inputs, horizon }: Props) {
             <DoubleSep />
             <BreakdownRow label={nlVsKeepSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(nlVsKeepSaving))} bold color={nlVsKeepSaving >= 0 ? POS : NEG} />
           </div>
-          <Disclaimer inputs={inputs} />
+          <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />
         </div>
       )}
 

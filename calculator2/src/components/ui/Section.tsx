@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import { trackOncePerSession } from "../../utils/analytics";
 
 export function Section({
@@ -8,6 +8,8 @@ export function Section({
   muted,
   children,
   analyticsId,
+  anchorId,
+  forceOpenNonce,
 }: {
   title: React.ReactNode;
   description?: React.ReactNode;
@@ -15,12 +17,21 @@ export function Section({
   muted?: boolean;
   children: React.ReactNode;
   analyticsId?: string;
+  /** DOM id used as a cross-navigation scroll target (see App.tsx's navigateToDetails). */
+  anchorId?: string;
+  /** Bump this (any changing value) to force the section open, e.g. when navigated to while collapsed. */
+  forceOpenNonce?: number;
 }) {
   const [open, setOpen] = useState(!!defaultOpen);
   const bodyId = useId();
 
+  useEffect(() => {
+    if (forceOpenNonce !== undefined) setOpen(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [forceOpenNonce]);
+
   return (
-    <section className={["nlc-section", muted && "nlc-section--muted"].filter(Boolean).join(" ")} data-open={open}>
+    <section id={anchorId} className={["nlc-section", muted && "nlc-section--muted"].filter(Boolean).join(" ")} data-open={open}>
       <button
         type="button"
         className="nlc-section__header"
