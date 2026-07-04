@@ -25,7 +25,7 @@ import { baseEvInputs, withOverrides } from "./fixtures";
 describe("render smoke test", () => {
   test("App renders without throwing (defaults to Simple mode)", () => {
     const html = renderToStaticMarkup(<App />);
-    expect(html).toContain("Novated Lease Calculator");
+    expect(html).toContain("Tell us about the car");
     expect(html.length).toBeGreaterThan(500);
   });
 

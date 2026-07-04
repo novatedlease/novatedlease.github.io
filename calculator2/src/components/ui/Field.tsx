@@ -64,7 +64,7 @@ export function NumberField({
   min,
   max,
   step,
-  decimals = 0,
+  decimals = 2,
   tooltip,
   hint,
   error,
@@ -126,11 +126,11 @@ function round(n: number, decimals: number): number {
 }
 
 export function CurrencyField(props: Omit<NumberFieldProps, "prefix" | "decimals"> & { decimals?: number }) {
-  return <NumberField {...props} prefix="$" decimals={props.decimals ?? 0} />;
+  return <NumberField {...props} prefix="$" decimals={props.decimals ?? 2} />;
 }
 
 export function PercentField(props: Omit<NumberFieldProps, "suffix" | "decimals"> & { decimals?: number }) {
-  return <NumberField {...props} suffix="%" decimals={props.decimals ?? 1} step={props.step ?? 0.1} />;
+  return <NumberField {...props} suffix="%" decimals={props.decimals ?? 2} step={props.step ?? 0.1} />;
 }
 
 type PillOption<T extends string> = { value: T; label: string };

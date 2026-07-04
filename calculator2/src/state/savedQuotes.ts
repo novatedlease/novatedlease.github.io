@@ -3,7 +3,7 @@ import type { Inputs } from "@engine/types";
 /**
  * Saved-quotes local storage. Uses the EXACT same key and shape as
  * calculator/src/App.tsx ("nl_saved_quotes_v1", { v: 1, quotes: [...] }) so quotes
- * saved in v1 show up in v2 and vice versa — see CALCULATOR2_REDESIGN_PROMPT.md §2.5.
+ * saved in v1 show up in v2 and vice versa — see CALCULATOR2_NOTES.md §1.
  */
 export type SavedQuoteV1 = {
   v: 1;

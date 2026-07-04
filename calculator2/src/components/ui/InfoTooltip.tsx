@@ -13,6 +13,32 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
   const wrapRef = useRef<HTMLSpanElement | null>(null);
   const popupRef = useRef<HTMLDivElement | null>(null);
 
+  // Delayed-close (hover-intent) pattern: closing on mouseleave is deferred by a short
+  // grace period, cancelled if the cursor re-enters either the trigger or the popup within
+  // that window. This is needed because the popup is portalled to document.body and
+  // positioned independently of the trigger icon — a straight-line cursor path from the
+  // icon to a link inside the popup usually passes over unrelated page elements first, so
+  // relatedTarget-based containment checks (checking whether the cursor moved directly onto
+  // the other element) fail and the popup was closing before a link inside it could be clicked.
+  const closeTimerRef = useRef<number | null>(null);
+
+  function cancelClose() {
+    if (closeTimerRef.current !== null) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }
+
+  function scheduleClose() {
+    cancelClose();
+    closeTimerRef.current = window.setTimeout(() => {
+      setOpen(false);
+      closeTimerRef.current = null;
+    }, 250);
+  }
+
+  useEffect(() => () => cancelClose(), []);
+
   useLayoutEffect(() => {
     if (!open) return;
 
@@ -173,10 +199,13 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
       role="button"
       tabIndex={0}
       onMouseEnter={() => {
-        if (hoverCapable) setOpen(true);
+        if (hoverCapable) {
+          cancelClose();
+          setOpen(true);
+        }
       }}
       onMouseLeave={() => {
-        if (hoverCapable) setOpen(false);
+        if (hoverCapable) scheduleClose();
       }}
       onClick={(e) => {
         if (hoverCapable) return;
@@ -201,14 +230,13 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
       ref={wrapRef}
       style={{ position: "relative", display: "inline-flex", alignItems: "center" }}
       onMouseEnter={() => {
-        if (hoverCapable) setOpen(true);
+        if (hoverCapable) {
+          cancelClose();
+          setOpen(true);
+        }
       }}
-      onMouseLeave={(e) => {
-        if (!hoverCapable) return;
-        const next = e.relatedTarget as Node | null;
-        const popup = popupRef.current;
-        if (next && popup && popup.contains(next)) return;
-        setOpen(false);
+      onMouseLeave={() => {
+        if (hoverCapable) scheduleClose();
       }}
     >
       {icon}
@@ -222,14 +250,10 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
             role="tooltip"
             className="nlc-info-popup"
             onMouseEnter={() => {
-              if (hoverCapable) setOpen(true);
+              if (hoverCapable) cancelClose();
             }}
-            onMouseLeave={(e) => {
-              if (!hoverCapable) return;
-              const next = e.relatedTarget as Node | null;
-              const wrap = wrapRef.current;
-              if (next && wrap && wrap.contains(next)) return;
-              setOpen(false);
+            onMouseLeave={() => {
+              if (hoverCapable) scheduleClose();
             }}
             style={{
               top: pos.top,

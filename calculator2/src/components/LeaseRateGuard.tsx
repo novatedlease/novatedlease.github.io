@@ -6,6 +6,7 @@ import {
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
 import { CurrencyField } from "./ui/Field";
+import { InfoTooltip } from "./ui/InfoTooltip";
 import { LeaseAdjustModal } from "./LeaseAdjustModal";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 
@@ -199,45 +200,53 @@ export function LeaseRateGuard(props: {
       <CurrencyField
         label={
           <div>
-            <div>Vehicle lease</div>
-            <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11, alignItems: "center", justifyContent: "space-between" }}>
-              <div style={{ display: "flex", gap: 6 }}>
-                {(["perFn", "perMonth"] as const).map((mode, idx) => (
-                  <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                    {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
-                    <button
-                      type="button"
-                      onClick={() => onVehicleLeasePeriodModeChange(mode)}
-                      style={{
-                        padding: 0,
-                        border: "none",
-                        background: "transparent",
-                        cursor: "pointer",
-                        fontSize: 11,
-                        fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
-                        opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
-                        textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
-                      }}
-                    >
-                      {mode === "perFn" ? "per fortnight" : "per month"}
-                    </button>
-                  </span>
-                ))}
-              </div>
-              <button
-                type="button"
-                onClick={() => setLeaseAdjModalOpen(true)}
-                style={{ padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: 9, color: "var(--nlc-blue)", opacity: 0.6, textDecoration: "underline", textUnderlineOffset: 2, fontWeight: 600 }}
-              >
-                Smart / MillarX?
-              </button>
+            <div>Vehicle finance (ex GST)</div>
+            <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11, alignItems: "center" }}>
+              {(["perFn", "perMonth"] as const).map((mode, idx) => (
+                <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                  {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
+                  <button
+                    type="button"
+                    onClick={() => onVehicleLeasePeriodModeChange(mode)}
+                    style={{
+                      padding: 0,
+                      border: "none",
+                      background: "transparent",
+                      cursor: "pointer",
+                      fontSize: 11,
+                      fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
+                      opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
+                      textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
+                    }}
+                  >
+                    {mode === "perFn" ? "per fortnight" : "per month"}
+                  </button>
+                </span>
+              ))}
             </div>
           </div>
+        }
+        tooltip={
+          <InfoTooltip
+            text={
+              "Pre-tax, ex-GST amount. Include ONLY the vehicle finance/lease portion of your quote — not the total packaged amount, which also includes running costs (fuel/electricity, insurance, rego, servicing, management fees, etc).\n\n" +
+              "Enter the figure per fortnight or per month, whichever matches your quote — the conversion (12 months = 26 fortnights) is applied automatically."
+            }
+          />
         }
         value={displayValue}
         onChange={handleChange}
         error={guardMsg || undefined}
       />
+      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: -10, marginBottom: 10 }}>
+        <button
+          type="button"
+          onClick={() => setLeaseAdjModalOpen(true)}
+          style={{ padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: 10, color: "var(--nlc-text-muted)", opacity: 0.7, textDecoration: "underline", textUnderlineOffset: 2, fontWeight: 500 }}
+        >
+          Smart Leasing / MillarX customer?
+        </button>
+      </div>
       {leaseAdjModalOpen && (
         <LeaseAdjustModal
           leaseDurationYears={inputs.leaseDurationYears}
@@ -272,6 +281,16 @@ export function LeaseRateGuard(props: {
           <span style={{ fontWeight: 700 }}>Effective interest rate: </span>
         )}
         <span style={{ fontWeight: 900 }}>{formatPct(liveRate)}</span>
+        <InfoTooltip
+          width={440}
+          text={
+            "Calculation caveats:\n\n" +
+            "1. Financed amount includes add-ons: the effective interest rate is invalid if the financed figure contains insurance, repair package or other vehicle add-ons not part of the FBT base value. Their presence also makes comparison with other financiers invalid if they do not contain equivalent add-ons.\n\n" +
+            "2. Residual value method mismatch: the two common residual value methods (Method 1: financed amount minus doc fee; Method 2: vehicle base cost before on-road) produce different dollar residuals for the same percentage. This means two financiers quoting the same effective interest rate are not directly comparable if they use different residual methods — a 9% rate under Method 1 is economically different from a 9% rate under Method 2.\n\n" +
+            "3. GST not passed on: when GST is not passed on by the employer, the fortnightly lease charged is inc GST; however the effective interest rate calculation assumes this is the ex GST figure, which results in an inconsistent rate. This will be addressed in a future update.\n\n" +
+            "4. Atypical lease structure (Smart Leasing / MillarX): this calculator assumes averaged payroll deductions across the lease term. Some providers structure quotes differently — for example, on a 5-year term there may be 59 actual lease rentals but 60 payroll deductions, with the extra deduction held as a refundable budget reserve for running costs. Entering the quoted figure directly will produce a misleading effective interest rate. Smart Leasing and MillarX customers: use the \"Smart Leasing / MillarX customer?\" adjustment tool above the lease input — it scales your quoted figure to the finance-only amount this calculator expects."
+          }
+        />
 
         <span style={{ display: "inline-flex", flexDirection: "column", marginLeft: 6, verticalAlign: "middle" }}>
           <button

@@ -363,8 +363,7 @@ export default function App() {
 
   return (
     <div className="nlc-root nlc-app">
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 12 }}>
-        <h1 style={{ fontSize: 20, fontWeight: 800, margin: 0 }}>Novated Lease Calculator — preview</h1>
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 12 }}>
         <ModeToggle mode={mode} onChange={changeMode} />
       </div>
 

@@ -21,14 +21,37 @@ for what needs a decision.
 - **File:** `calculator/src/engine/types.ts:95,210-228` — `EV_TRANSITIONAL_FULL_EXEMPT_CAP = 75000`;
   tiers at 1 Apr 2027 and 1 Apr 2029, both boundaries inclusive-forward (`leaseStart < TRANSITIONAL_START`
   / `< POST_PHASEOUT_START`, i.e. a lease starting exactly on the boundary date falls into the *new* tier).
-- **Found:** Matches the May 2026 budget announcement structure described in the repo's own
-  `special-and-policy/ev-fbt-exemption-phase-out-budget-2026` article (not independently
-  re-derived from a government primary source within this audit's time budget, since this is a
-  *proposed/announced* policy rather than a value published on a stable ATO reference page).
-- **Verdict: COULD NOT FULLY VERIFY** against a government primary source — recommend the owner
-  cross-check the exact boundary dates and the $75,000 figure against the actual bill/explanatory
-  memorandum text when it's introduced to Parliament, since announced budget measures sometimes
-  shift before legislation.
+- **Re-verified 2026-07-04** (follow-up research pass, Prompt C): searched specifically for whether
+  this measure has progressed from announcement to actual Bill/Act text since the original audit.
+  Result: it has **not** — no Treasury Laws Amendment Bill, Explanatory Memorandum, or
+  legislation.gov.au entry for this specific 2026 EV FBT phase-out could be found (the only
+  "Treasury Laws Amendment (Electric Car Discount) Bill" on record is the *original 2022* Bill that
+  created the exemption, not this phase-out). It remains an **announced Budget measure** (5 May 2026,
+  following Treasury's Statutory Review of the Electric Car Discount, ahead of the 2026-27 Budget),
+  not yet enacted law.
+- **However, confidence in the parameters themselves is now materially higher**: the original audit
+  checked only the repo's own explainer article; this pass independently checked five external,
+  dated (2026) professional tax-advisory sources (PwC, BDO, AusTax.tools, Hudson Financial Planning,
+  Zecar) plus the original ministerial announcement. All independently agree on the same structure:
+  **Phase 1** (unchanged, full exemption) until 31 March 2027 → **Phase 2** (1 Apr 2027 – 1 Apr 2029):
+  full exemption retained only for EVs ≤ $75,000, with a 25% FBT discount (not full exemption) for
+  EVs above $75,000 but below the fuel-efficient LCT threshold → **Phase 3** (from 1 Apr 2029):
+  25% discount only, full exemption gone entirely. This matches `EV_TRANSITIONAL_FULL_EXEMPT_CAP =
+  75000` and the `getEcmStatutoryRate()` 15% (=75%×20%) discounted rate exactly.
+- **Boundary-inclusivity confirmed too**: BDO's phrasing — full exemption continues "until 31 March
+  2027" and Phase 2 runs "from 1 April 2027" — puts 1 April 2027 itself inside the *new* (transitional)
+  tier, consistent with the engine's inclusive-forward treatment. Same shape for the 1 Apr 2029
+  boundary. No source suggested a different (exclusive/day-after) reading.
+- **Verdict: PARAMETERS CORROBORATED, LEGISLATION STILL PENDING.** The $75,000 cap, both boundary
+  dates, the 25%-discount mechanism, and the inclusive-forward boundary treatment are now
+  well-corroborated across multiple independent 2026 sources (upgraded from "repo's own article
+  only"). But this is still an announced policy, not settled law — recommend the owner re-check
+  once an actual Bill/Explanatory Memorandum is introduced (search for "Treasury Laws Amendment"
+  + "electric car" + the relevant year once it exists), since announced measures can still shift
+  before passage, and grandfathering-for-existing-leases (also confirmed by BDO/PwC — the rate in
+  place at lease commencement applies for that lease's full term) should be spot-checked against
+  the engine's `leaseStartDate`-driven category logic if not already covered elsewhere in this
+  audit.
 
 ## 3. ECM statutory rates & s11(2) two-thirds rule
 
@@ -95,40 +118,59 @@ for what needs a decision.
 - **File:** `calculator/src/components/ATI.tsx:229-230,260` — RFBA × 0.53 when the user selects
   the "FBT-exempt (childcare)" purpose, applying only to FBT-exempt-employer scenarios (e.g.
   public hospitals) for childcare-subsidy income-test purposes.
-- **Found:** Reportable fringe benefits from FBT-exempt/rebatable employers do receive concessional
-  treatment in some Centrelink/Services Australia income tests, but I could not independently
-  confirm the specific 53% figure against a current Services Australia or Social Security Act
-  primary source within this audit's time budget — this factor is more Centrelink-adjacent than
-  ATO-adjacent, and the primary legislative source (A New Tax System (Family Assistance) Act,
-  adjusted fringe benefits total provisions) wasn't checked directly.
-- **Verdict: COULD NOT VERIFY** — recommend the owner (or a follow-up audit) confirm 53% directly
-  against Services Australia's CCS guidance or the Family Assistance Act, since this is a
-  narrower, less-documented figure than the mainstream ATO constants above.
+- **Re-verified 2026-07-04** (follow-up research pass, Prompt C), traced to the actual primary
+  legislative source this time: the DSS **Family Assistance Guide §3.2.3 "Adjusted fringe benefits
+  total"** (`guides.dss.gov.au/family-assistance-guide/3/2/3`), which administers the *A New Tax
+  System (Family Assistance) Act 1999* definition used to compute adjusted taxable income (ATI) —
+  the figure that gates Child Care Subsidy eligibility (Family Assistance Guide §1.1.A.20).
+- **Exact formula found:** *adjusted fringe benefits total = (exempt employer fringe benefits total
+  × (1 − applicable fringe benefits tax rate)) + non-exempt employer fringe benefits total.* The
+  "exempt employer fringe benefits total" applies specifically to reportable fringe benefits from
+  employers identified under **Fringe Benefits Tax Assessment Act 1986 s57A** — registered public
+  benevolent institutions, registered health promotion charities, some hospitals, and public
+  ambulance services — the same category the code's "FBT-exempt (childcare)" option targets (e.g.
+  public hospitals). Non-exempt-employer fringe benefits are counted at 100%, confirming the 0.53
+  factor is deliberately scoped to *only* the exempt-employer case, matching the code's condition.
+- **Rate confirmed:** the "applicable fringe benefits tax rate" is the standard FBT rate, currently
+  **47%** (unchanged for the 31 March 2023 – 31 March 2027 FBT years, per ATO's rates-and-thresholds
+  page). 1 − 0.47 = **0.53**, exactly the code's derivation.
+- **Verdict: MATCHES.** Both the factor (0.53 = 1 − 47% FBT rate) and its scope (only
+  s57A-exempt-employer reportable fringe benefits, used specifically in the ATI calculation that
+  underlies Child Care Subsidy / family assistance eligibility) are confirmed against the primary
+  administrative source. No discrepancy found; this item can be considered closed.
 
-## 9. Flat 20% statutory rate for RFBA — judgement call
+## 9. Flat 20% statutory rate for RFBA — CORRECTED 2026-07-04, not a bug
 
-- **File:** `calculator/src/components/ATI.tsx:104,154-155` (v1's inline `computeRfbaSchedule`)
-  and `calculator/src/engine/rfba.ts` (a **separate, v2-only** implementation — see architecture
-  note below) — both hardcode/default `statutoryRate` to a flat `0.2`, regardless of
-  `getLeaseFbtCategory()`.
-- **Found:** For a **fully FBT-exempt EV**, ATO guidance (PCG-style treatment of exempt electric
-  cars) requires reporting a "notional taxable value" computed via the standard statutory
-  formula method — i.e. the same 20% rate that would apply if the vehicle weren't exempt. Flat
-  20% is **correct** for this category.
-  For the **EV_FBT_DISCOUNTED category** (75%-of-full-FBT transitional/post-2029 leases), actual
-  FBT *is* payable, just at a reduced rate — the engine's own `getEcmStatutoryRate()` already
-  returns 15% (75% × 20%) for this exact category, used for the ECM calculation. RFBA is
-  logically the same base-value × rate × gross-up structure, so the reportable amount for a
-  DISCOUNTED-category lease should very plausibly use 15%, not the flat 20% currently applied.
-- **Verdict: JUDGEMENT CALL FOR OWNER — moderate-to-high confidence of a real discrepancy** for
-  the DISCOUNTED category specifically (not the EXEMPT category, where flat 20% is correct).
-  **Worked example:** a $80,000 EV, transitional lease (2027-06-01 start, `EV_FBT_DISCOUNTED`),
-  full FY exposure: current RFBA = 0.20 × 80,000 × 1.8868 = **$30,188.80**. If corrected to the
-  category rate (15%): 0.15 × 80,000 × 1.8868 = **$22,641.60** — a **$7,547.20** difference in
-  reportable fringe benefits amount per FY, which flows into ATI and can matter for
-  HECS/childcare/Div 293 thresholds. This needs the owner's sign-off before fixing (it affects
-  live v1 via `calculator/src/components/ATI.tsx`, not just v2) and a regression test pinned to
-  this example.
+- **Original finding (retracted):** this item previously claimed the flat `statutoryRate = 0.2`
+  in `calculator/src/components/ATI.tsx` and `calculator/src/engine/rfba.ts` was applied to
+  `EV_FBT_DISCOUNTED`-category leases too, and should instead use 15% (matching
+  `getEcmStatutoryRate()`'s 15% for that category), with a worked-example $7,547.20/FY impact.
+  **This was wrong** — flagged by the owner questioning it, then verified against the actual code
+  path rather than the standalone formula.
+- **What the code actually does:** in both v1 (`ATI.tsx:225`, `:258-260`) and v2
+  (`reports/ATI.tsx:127`, `:141`), the RFBA figure is gated by `fbtApplicable`:
+  `const rfba = fbtApplicable ? 0 : (rfbaByFinancialYearEnding.get(...) ?? 0)`, and
+  `isFbtApplicable(i)` (`engine/types.ts:236-237`) returns `true` for every category **except**
+  `EV_FBT_EXEMPT`. So RFBA is unconditionally **zero** for `EV_FBT_DISCOUNTED`,
+  `EV_FBT_APPLICABLE`, and `NON_EV_FBT_APPLICABLE` leases — the `statutoryRate` constant is never
+  reached for the DISCOUNTED category in the first place, in either app. There is no live
+  code path where "20% instead of 15%" actually changes a number for that category, because no
+  RFBA is reported for it at all.
+- **Why this is deliberate, not an oversight:** v2's `reports/ATI.tsx:9-22` has a code comment
+  (absent similar detail in v1, but the same behaviour) explaining that RFBA is intentionally
+  zeroed whenever `isFbtApplicable()` is true — the Employee Contribution Method (ECM, using the
+  *correct* 15%-for-DISCOUNTED rate via `getEcmStatutoryRate()`) reduces the FBT taxable value,
+  and therefore the reportable fringe benefit, to nil for any category where actual FBT applies.
+  Full RFBA is only computed for `EV_FBT_EXEMPT`, reflecting the ATO's "notional taxable value
+  despite $0 FBT payable" treatment for genuinely exempt cars — which is exactly the case flat
+  20% is correct for (confirmed in the original finding below). The DISCOUNTED category doesn't
+  need — and doesn't get — its own RFBA rate at all, correct or otherwise, because ECM already
+  handles it through a different mechanism (post-tax employee contributions, computed separately
+  in `taxableIncomePostNlByFinancialYearEnding` using the correct 15% via `getEcmStatutoryRate()`).
+- **Verdict: NOT A BUG.** The flat 20% is applied only to the one category (`EV_FBT_EXEMPT`)
+  where it is confirmed correct. No fix needed; Prompt B (§5 of `CALCULATOR2_NOTES.md`) is closed
+  as a false positive from the earlier audit pass, not implemented. `calculator/src/` was not
+  touched.
 
 ## Architecture note: duplicated-but-verified-equivalent engine files
 
@@ -149,16 +191,21 @@ and `engine/rfba.ts` instead of keeping its own copy (out of scope for this audi
 
 Ranked by confidence × impact:
 
-1. **RFBA flat-20% rate for `EV_FBT_DISCOUNTED` leases (item 9)** — moderate-to-high confidence
-   this is wrong for the new 2027+ transitional/post-2029 category specifically (not the
-   fully-exempt category, which is correct as-is). ~$7,500/FY impact in the worked example above.
-   Needs your decision before fixing, since it touches `calculator/src/components/ATI.tsx` (live v1).
-2. **Childcare 53% factor (item 8)** — not independently verified against Services
-   Australia/Family Assistance Act sources; low urgency but worth a targeted follow-up if anyone
-   relies on the childcare-subsidy purpose option.
-3. **Transitional cap/date tiers (item 2)** — based on the repo's own article, not a government
-   primary source directly (the measure may still be pre-legislation as of the audit date) — worth
-   re-checking once the actual bill text is available.
+1. ~~RFBA flat-20% rate for `EV_FBT_DISCOUNTED` leases (item 9)~~ — **RETRACTED 2026-07-04, NOT
+   A BUG.** The original finding was wrong: RFBA is unconditionally zero for any non-EXEMPT
+   category in both apps (`fbtApplicable` gate), so the flat 20% is only ever applied where it's
+   correct (the EXEMPT category). No fix needed, no code touched. Caught because the owner asked
+   "are you sure?" — worth remembering that a formula-level audit can miss a gating condition
+   that only shows up by reading the actual call site.
+2. ~~Childcare 53% factor (item 8)~~ — **RESOLVED 2026-07-04, MATCHES.** Traced to DSS Family
+   Assistance Guide §3.2.3: 0.53 = 1 − 47% FBT rate, applied only to reportable fringe benefits from
+   FBTAA s57A-exempt employers. No action needed.
+3. **Transitional cap/date tiers (item 2)** — **re-checked 2026-07-04**: the $75,000 cap, both
+   boundary dates, and the inclusive-forward boundary treatment are now corroborated by five
+   independent 2026 professional-advisory sources (up from the repo's own article alone), but the
+   measure is still an *announced* Budget policy — no Bill/Act text exists yet as of this recheck.
+   Still worth a final pass once actual legislation is introduced, but parameter confidence is now
+   high.
 4. **SG rate / Div 293 / HECS thresholds (item 6)** and **car depreciation limit (item 5)** — not
    modelled as engine constants at all. Likely intentional (out of calculator scope), but flagging
    so it's a confirmed decision rather than an assumption.
@@ -166,5 +213,7 @@ Ranked by confidence × impact:
    "v2-only engine file v1 never sees" shape that caused the share-link bug. Recommend a
    deliberate decision on whether to converge v1 onto these engine files at some point.
 
-Everything else (LCT thresholds, ECM rates, ATO residual %, GST cap, tax brackets, gross-up rate)
-matches primary sources exactly.
+Everything else (LCT thresholds, ECM rates, ATO residual %, GST cap, tax brackets, gross-up rate,
+the childcare 53% factor, and now the RFBA statutory rate) matches primary sources exactly or is
+confirmed not-a-bug. Only the pending-legislation caveat on item 2 remains open, and it's a
+"recheck once enacted" note rather than a numeric discrepancy.

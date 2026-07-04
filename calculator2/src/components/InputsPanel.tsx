@@ -100,33 +100,6 @@ export function InputsPanel(props: {
           tooltip={<InfoTooltip text="FBT exemption applies only to eligible EVs: first held and used after 1 July 2022, and Luxury Car Tax (LCT) was not payable at any point." />}
         />
 
-        {isEv && (
-          <div style={{ fontSize: 12, fontWeight: 800, color: fbtCategoryColor, marginBottom: 12 }}>
-            {fbtCategoryLabel}
-            {leaseFbtCategory !== "EV_FBT_EXEMPT" && ` — LCT threshold for this lease start date: $${effectiveLctThreshold.toLocaleString("en-AU")}`}
-          </div>
-        )}
-
-        {isEv && (isTransitionalLease || isPostPhaseoutLease) && (
-          <NoteBox color="#0b5cab" mt={-8}>
-            <div style={{ fontWeight: 800, marginBottom: 3 }}>May 2026 FBT phase-out rules apply to this lease start date</div>
-            <div style={{ opacity: 0.9 }}>
-              {isTransitionalLease ? (
-                <>
-                  Leases starting <b>1 Apr 2027 – 31 Mar 2029</b>: full FBT exemption only for cars ≤ $
-                  {EV_TRANSITIONAL_FULL_EXEMPT_CAP.toLocaleString("en-AU")}; cars ${(EV_TRANSITIONAL_FULL_EXEMPT_CAP + 1).toLocaleString("en-AU")}–$
-                  {effectiveLctThreshold.toLocaleString("en-AU")} have 75% of FBT apply; above the LCT threshold is fully applicable.
-                </>
-              ) : (
-                <>
-                  Leases starting <b>from 1 Apr 2029</b>: full FBT exemption is no longer available. Cars at or below the LCT threshold
-                  (${effectiveLctThreshold.toLocaleString("en-AU")}) receive 75% of FBT applies; above the LCT threshold is fully applicable.
-                </>
-              )}
-            </div>
-          </NoteBox>
-        )}
-
         <SelectField
           label="Vehicle condition"
           value={inputs.vehicleCondition}
@@ -159,6 +132,34 @@ export function InputsPanel(props: {
             </label>
           </div>
         )}
+
+        <div style={{ fontSize: 12, fontWeight: 800, color: fbtCategoryColor, marginBottom: 12 }}>
+          {fbtCategoryLabel}
+        </div>
+
+        {isEv && (isTransitionalLease || isPostPhaseoutLease) && (
+          <NoteBox color="#0b5cab" mt={-8}>
+            <div style={{ fontWeight: 800, marginBottom: 3 }}>May 2026 FBT phase-out rules apply to this lease start date</div>
+            <div style={{ opacity: 0.9 }}>
+              {isTransitionalLease ? (
+                <>
+                  Leases starting <b>1 Apr 2027 – 31 Mar 2029</b>: full FBT exemption only for cars ≤ $
+                  {EV_TRANSITIONAL_FULL_EXEMPT_CAP.toLocaleString("en-AU")}; cars ${(EV_TRANSITIONAL_FULL_EXEMPT_CAP + 1).toLocaleString("en-AU")}–$
+                  {effectiveLctThreshold.toLocaleString("en-AU")} have 75% of FBT apply; above the LCT threshold is fully applicable.
+                </>
+              ) : (
+                <>
+                  Leases starting <b>from 1 Apr 2029</b>: full FBT exemption is no longer available. Cars at or below the LCT threshold
+                  (${effectiveLctThreshold.toLocaleString("en-AU")}) receive 75% of FBT applies; above the LCT threshold is fully applicable.
+                </>
+              )}{" "}
+              <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
+                Read more about the phase-out rules
+              </a>
+              .
+            </div>
+          </NoteBox>
+        )}
       </Section>
 
       <Section title="Vehicle details" defaultOpen>
@@ -185,19 +186,27 @@ export function InputsPanel(props: {
           label="Vehicle dutiable value (FBT base value)"
           value={inputs.vehicleBaseValue}
           onChange={(v) => set("vehicleBaseValue", v)}
-          tooltip={<InfoTooltip text="Listed on car invoice prior to stamp duty, rego, CTP insurance etc. Tesla calls it Vehicle Subtotal." />}
+          tooltip={
+            <InfoTooltip
+              text={
+                "Listed on the car invoice prior to stamp duty, rego, and CTP insurance. Many invoices label this vehicle subtotal.\n\n" +
+                "✅ Included: the car's RRP, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar).\n\n" +
+                "❌ Not included: compulsory third party (CTP) insurance, registration, stamp duty, Luxury Car Tax (LCT)."
+              }
+            />
+          }
         />
         <CurrencyField
           label="Drive-away cost"
           value={inputs.driveawayCost}
           onChange={(v) => set("driveawayCost", v)}
-          tooltip={<InfoTooltip text="Total price you'd pay to drive away if paying cash. Do NOT include any EV rebate." />}
+          tooltip={<InfoTooltip text="Total price you'd pay to drive away if paying cash." />}
         />
         <CurrencyField
           label="Estimated market value after 5 years"
           value={inputs.estimatedMarketValueAtEnd}
           onChange={(v) => set("estimatedMarketValueAtEnd", v)}
-          hint="Rule of thumb: ~40% of drive-away cost (auto-filled). Enter the 5-year value even for shorter leases — the calculator interpolates."
+          hint="Suggestion: ~40% of drive-away cost (auto-filled). Enter the 5-year value even for shorter leases — the calculator interpolates."
         />
         <NumberField label="Annual mileage" value={inputs.annualMileageKm} onChange={(v) => set("annualMileageKm", v)} suffix="km/yr" step={500} />
       </Section>
@@ -214,19 +223,50 @@ export function InputsPanel(props: {
           value={inputs.homeLoanOffsetInterestRate}
           onChange={(v) => set("homeLoanOffsetInterestRate", v)}
           decimals={2}
-          tooltip={<InfoTooltip text="If your cash source isn't a home-loan offset, use its post-tax equivalent rate instead. Set to 0 if the cash sits in a non-income-producing account." />}
+          tooltip={
+            <InfoTooltip
+              width={440}
+              text={
+                "The spirit of this question: what is the opportunity cost of your cash — i.e. what would it otherwise be earning if it wasn't spent on buying the car outright?\n\n" +
+                "If your cash sits in your home loan offset account, use that loan's interest rate directly — the benefit (interest avoided) isn't taxable, so no adjustment is needed.\n\n" +
+                "If you don't have a home loan, use the next-best alternative you'd otherwise use, e.g. a High-Interest Savings Account (HISA) rate.\n\n" +
+                "If your cash would instead sit in an investment property's loan offset, or a HISA, the interest earned there IS taxable — so use the post-tax equivalent: rate × (1 − your marginal tax rate incl. Medicare levy). Example: a 6% HISA/investment-offset rate at a 45% + 2% Medicare marginal rate → 6% × (1 − 0.47) = 6% × 0.53 = 3.18%.\n\n" +
+                "Set to 0 if the cash would otherwise sit in a non-income-producing account."
+              }
+            />
+          }
         />
         <YesNoToggle
           label="Super Guarantee calculated from pre-NL income"
           value={inputs.superFromPreNlIncome}
           onChange={(v) => set("superFromPreNlIncome", v)}
-          tooltip={<InfoTooltip text="Usually Yes, but in ~10% of cases the employer calculates SG on the post-NL amount — check with payroll, it has a significant impact." />}
+          tooltip={
+            <InfoTooltip
+              text={
+                "Usually Yes, but in ~10% of cases the employer calculates SG on the post-NL amount — check with payroll, it has a significant impact.\n\n" +
+                "[Read more about how novated leases affect your Super Guarantee](https://novatedlease.guide/special-and-policy/super-guarantee/)"
+              }
+            />
+          }
         />
       </Section>
 
       <Section title="Lease details" defaultOpen>
-        <CurrencyField label="Lease documentation fee" value={inputs.leaseDocFee} onChange={(v) => set("leaseDocFee", v)} hint="Initial financier setup fee, if any." />
-        <DateField label="Lease start date" value={inputs.leaseStartDate} onChange={(v) => set("leaseStartDate", v)} hint="Matters for the EV FBT phase-out tiers." />
+        <CurrencyField label="Lease documentation fee" value={inputs.leaseDocFee} onChange={(v) => set("leaseDocFee", v)} hint="Initial financier setup fee, if any. Set as 0 if not applicable." />
+        <DateField
+          label="Lease start date"
+          value={inputs.leaseStartDate}
+          onChange={(v) => set("leaseStartDate", v)}
+          hint={
+            <>
+              Matters for the{" "}
+              <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
+                EV FBT phase-out tiers
+              </a>
+              .
+            </>
+          }
+        />
         {isEv && leaseFbtCategory === "EV_FBT_DISCOUNTED" && (
           <div
             style={{
@@ -240,15 +280,19 @@ export function InputsPanel(props: {
               marginBottom: 12,
             }}
           >
-            75% FBT Applicable — May 2026 phase-out rules apply to this lease start date
+            75% FBT Applicable —{" "}
+            <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener" style={{ color: "inherit" }}>
+              May 2026 phase-out rules
+            </a>{" "}
+            apply to this lease start date
           </div>
         )}
-        <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} suffix="years" min={1} max={5} />
+        <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} suffix="years" min={1} max={5} decimals={0} />
         {needsLeaseRequote && (
           <NoteBox color="#c81e1e">
             <div style={{ fontWeight: 800, marginBottom: 4 }}>Heads up: changing lease duration usually changes your per-fortnight lease quote.</div>
             <div style={{ opacity: 0.92 }}>
-              Please update <b>Vehicle Lease (Per Fortnight)</b> (and <b>all other quote-dependent fields</b>) to match the new duration, otherwise the outputs may be misleading.
+              Please update <b>Vehicle finance</b> (and <b>all other quote-dependent fields</b>) to match the new duration, otherwise the outputs may be misleading.
             </div>
             <div style={{ marginTop: 8, display: "flex", justifyContent: "flex-end" }}>
               <Button size="sm" onClick={() => setNeedsLeaseRequote(false)}>
@@ -297,9 +341,22 @@ export function InputsPanel(props: {
           onChange={(v) => set("residualValueExGst", residualGstMode === "incGst" ? v / (1 + GST_RATE) : v)}
           hint="Auto-filled from the ATO minimum for your lease term until you override it. Real quotes usually state the residual inc GST."
         />
-        <CurrencyField label="Luxury vehicle adjustment (per fortnight)" value={inputs.luxuryVehicleAdjPerFn} onChange={(v) => set("luxuryVehicleAdjPerFn", v)} hint="Pre-tax. Only applies above the luxury car threshold, listed separately on some quotes. 0 if not applicable." />
+        <CurrencyField
+          label="Luxury vehicle adjustment (per fortnight)"
+          value={inputs.luxuryVehicleAdjPerFn}
+          onChange={(v) => set("luxuryVehicleAdjPerFn", v)}
+          hint="Pre-tax. 0 if not applicable."
+          tooltip={
+            <InfoTooltip
+              text={
+                "Only applies above $69,883, due to complex employer accounting reasons (a separate concept from the Luxury Car Tax (LCT) threshold). Listed separately on some quotes.\n\n" +
+                "[Read sgfleet's explainer on the luxury vehicle adjustment](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf)"
+              }
+            />
+          }
+        />
         <CurrencyField label="Financed amount reported in your quote" value={inputs.financedAmountForInterestCalcExGst} onChange={(v) => set("financedAmountForInterestCalcExGst", v)} hint="Only used for the effective interest rate calculation — leave as the pre-calculated figure unless you have a specific quoted amount without add-ons." />
-        <NumberField label="Months deferred" value={inputs.monthsDeferred} onChange={(v) => set("monthsDeferred", Math.max(0, Math.round(v)))} hint="Typically 2 months, occasionally 1." />
+        <NumberField label="Months deferred" value={inputs.monthsDeferred} onChange={(v) => set("monthsDeferred", Math.max(0, Math.round(v)))} hint="Typically 2 months, occasionally 1." decimals={0} />
       </Section>
 
       <Section title={`Annual packaged running cost (${inputs.gstSavingPassedOn === "Yes" ? "ex GST" : "inc GST"})`} defaultOpen>
@@ -308,10 +365,30 @@ export function InputsPanel(props: {
           value={inputs.gstSavingPassedOn}
           onChange={(v) => set("gstSavingPassedOn", v)}
           hint={inputs.gstSavingPassedOn === "Yes" ? "Use ex-GST figures in the fields below." : "Use inc-GST figures in the fields below."}
-          tooltip={<InfoTooltip text="Usually Yes, but some employers (Victorian hospitals in particular) do not pass on the GST saving — check." />}
+          tooltip={
+            <InfoTooltip
+              text={
+                "Usually Yes, but some employers (Victorian hospitals in particular) do not pass on the GST saving — check.\n\n" +
+                "[Read more about what happens if the GST saving isn't passed on](https://novatedlease.guide/running-costs/failure-to-pass-gst-saving/)"
+              }
+            />
+          }
         />
         <CurrencyField label="Service / maintenance / tyres" value={inputs.serviceMaintTyresAnnual} onChange={(v) => set("serviceMaintTyresAnnual", v)} hint="Annual figure." />
-        <CurrencyField label="NSW Health save share" value={inputs.saveShareAnnual} onChange={(v) => set("saveShareAnnual", v)} hint="Leave as 0 unless you're an NSW Health employee." />
+        <CurrencyField
+          label="NSW Health save share"
+          value={inputs.saveShareAnnual}
+          onChange={(v) => set("saveShareAnnual", v)}
+          hint="Leave as 0 unless you're an NSW Health employee."
+          tooltip={
+            <InfoTooltip
+              text={
+                "NSW Health employees receive an employer-shared saving through their salary packaging arrangement, credited as an offset to running costs.\n\n" +
+                "[Read more about the NSW Health employer share](https://novatedlease.guide/special-and-policy/nsw-health-employer-share/)"
+              }
+            />
+          }
+        />
         <CurrencyField label="Registration" value={inputs.registrationAnnual} onChange={(v) => set("registrationAnnual", v)} />
         {isEv ? (
           <CurrencyField
@@ -345,7 +422,11 @@ export function InputsPanel(props: {
         {inputs.compareWithCarLoan && (
           <>
             <CurrencyField label="Initial deposit amount" value={inputs.carLoanInitialDeposit} onChange={(v) => set("carLoanInitialDeposit", v)} />
-            <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginBottom: 12 }}>Loan term is forced to match lease duration ({inputs.leaseDurationYears} years) above.</div>
+            <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginBottom: 12 }}>
+              <b>Loan term</b> is forced to match lease duration ({inputs.leaseDurationYears} years) above. If you want to compare a
+              different loan term to the lease term, set up two separate quotes with the lengths you want, save them, and use the{" "}
+              <b>Compare</b> tab to juxtapose the outcomes.
+            </div>
             <PercentField label="Interest rate" value={inputs.carLoanInterestRatePct} onChange={(v) => set("carLoanInterestRatePct", v)} decimals={2} hint="Use the actual interest rate, not the comparison rate." />
             <CurrencyField label="Monthly fee" value={inputs.carLoanMonthlyFee} onChange={(v) => set("carLoanMonthlyFee", v)} />
           </>

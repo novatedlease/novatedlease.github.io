@@ -95,6 +95,7 @@ export function SimpleMode(props: { onGoAdvanced: (inputs: Inputs) => void }) {
               onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, v)))}
               suffix="years"
               hint="Whole years only, 1–5."
+              decimals={0}
             />
             <PillGroup
               label="Do you have a home loan offset account?"

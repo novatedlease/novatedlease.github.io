@@ -87,8 +87,18 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
   const serviceMaintTyresAnnual = Math.round(
     (isEv ? 500 + answers.annualMileageKm * 0.015 : 700 + answers.annualMileageKm * 0.025) / 10
   ) * 10;
+  // Registration doesn't scale meaningfully with vehicle price in the major
+  // states (NSW/QLD price it by weight/cylinder count, VIC by risk zone, not
+  // value) — a flat estimate is appropriate here, unlike insurance below.
   const registrationAnnual = 900;
-  const insuranceAnnual = 1300;
+  // Comprehensive insurance scales with vehicle price, and EVs carry a
+  // documented premium over equivalent-priced ICE/hybrid cars (battery/panel
+  // repair costs). Coefficients are a rough fit to 2026 market benchmarks
+  // (e.g. ~$1,770/yr for a ~$45k RAV4 Hybrid; ~$3,000-3,500/yr for a
+  // $65-75k EV), not a precise regression.
+  const insuranceAnnual = Math.round(
+    (900 + answers.driveawayCost * (isEv ? 0.022 : 0.013)) / 10
+  ) * 10;
   const managementFeesAnnual = 500;
 
   const avgAudPerKwh = 0.3;
@@ -96,8 +106,10 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
   const electricityAnnual = isEv
     ? Math.round(((answers.annualMileageKm * avgWhPerKm) / 1000) * avgAudPerKwh)
     : 0;
-  // ~9 L/100km at ~$1.85/L — a common mid-size-car assumption.
-  const fuelAnnual = isEv ? 0 : Math.round(answers.annualMileageKm * 0.09 * 1.85);
+  // ~6 L/100km at ~$1.80/L — reflects hybrids' large and growing share of
+  // novated-lease vehicles (e.g. RAV4 Hybrid ~4.5 L/100km) blended with
+  // non-hybrid mid-size cars (~6-7 L/100km), rather than a pure-ICE figure.
+  const fuelAnnual = isEv ? 0 : Math.round(answers.annualMileageKm * 0.06 * 1.8);
 
   const partialInputs: Omit<Inputs, "financedAmountForInterestCalcExGst" | "residualValueExGst" | "vehicleLeasePerFn"> = {
     vehicleType: answers.vehicleType,
@@ -210,7 +222,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     {
       field: "insuranceAnnual",
       label: "Insurance",
-      value: `${fmtMoney(insuranceAnnual)}/year (flat assumption — varies a lot by vehicle/driver)`,
+      value: `${fmtMoney(insuranceAnnual)}/year (estimated from vehicle price${isEv ? "; EVs typically cost more to insure" : ""} — get a real quote to check this)`,
     },
     {
       field: "managementFeesAnnual",
@@ -226,7 +238,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
       : {
           field: "fuelAnnual",
           label: "Fuel",
-          value: `${fmtMoney(fuelAnnual)}/year (~9 L/100km @ ~$1.85/L)`,
+          value: `${fmtMoney(fuelAnnual)}/year (~6 L/100km @ ~$1.80/L — assumes a common hybrid/efficient petrol vehicle)`,
         },
     {
       field: "superFromPreNlIncome",
