@@ -64,57 +64,53 @@ function DoubleSep() {
 
 const BLUE = "#0b5cab";
 
-function CardHeader(props: { title: string; onDetails: () => void }) {
+function CardHeader(props: { title: string }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap", marginBottom: 14 }}>
+    <div style={{ marginBottom: 14 }}>
       <div style={{ fontWeight: 900, fontSize: 15 }}>{props.title}</div>
-      <button
-        type="button"
-        onClick={props.onDetails}
-        style={{
-          padding: "4px 10px",
-          borderRadius: 999,
-          border: "1px solid rgba(11, 92, 171, 0.35)",
-          background: "rgba(11, 92, 171, 0.06)",
-          color: BLUE,
-          fontWeight: 700,
-          fontSize: 12,
-          cursor: "pointer",
-          whiteSpace: "nowrap",
-        }}
-      >
-        Go to Details →
-      </button>
     </div>
   );
 }
 
 function Disclaimer({ inputs, onNavigateToDetails }: { inputs: Inputs; onNavigateToDetails: (anchorId?: string) => void }) {
-  return (
-    <div style={{ marginTop: 12, fontSize: 12, opacity: 0.7, lineHeight: 1.45 }}>
-      <div>
-        Some effects are not captured here (e.g. changes in government subsidies, Medicare levy surcharge, childcare subsidy) —{" "}
-        <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToDetails("details-section-4-ati"); }} style={{ color: BLUE, textDecoration: "underline", cursor: "pointer" }}>
-          see Section 4 in Details
+  const lines: React.ReactNode[] = [
+    <>
+      Some effects are not captured here (e.g. changes in government subsidies, Medicare levy surcharge, childcare subsidy) —{" "}
+      <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToDetails("details-section-4-ati"); }} style={{ color: BLUE, textDecoration: "underline", cursor: "pointer" }}>
+        see Section 4 in Details
+      </a>
+      .
+    </>,
+  ];
+  if (inputs.superFromPreNlIncome === "No") {
+    lines.push(
+      <>
+        Super Guarantee may be materially reduced under this setup —{" "}
+        <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToDetails("details-section-5-sg"); }} style={{ color: BLUE, textDecoration: "underline", cursor: "pointer" }}>
+          see Section 5 in Details
         </a>
         .
-      </div>
-      {inputs.superFromPreNlIncome === "No" && (
-        <div style={{ marginTop: 5 }}>
-          Super Guarantee may be materially reduced under this setup —{" "}
-          <a href="#" onClick={(e) => { e.preventDefault(); onNavigateToDetails("details-section-5-sg"); }} style={{ color: BLUE, textDecoration: "underline", cursor: "pointer" }}>
-            see Section 5 in Details
-          </a>
-          .
+      </>
+    );
+  }
+  lines.push(
+    <>
+      Consider{" "}
+      <a href="https://novatedlease.guide/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure" target="_blank" rel="noopener noreferrer">
+        the broader risks and trade-offs
+      </a>{" "}
+      before acting on this figure alone.
+    </>
+  );
+
+  return (
+    <div style={{ marginTop: 12, fontSize: 12, opacity: 0.7, lineHeight: 1.45 }}>
+      {lines.map((line, i) => (
+        <div key={i} style={{ marginTop: i === 0 ? 0 : 5 }}>
+          {i >= lines.length - 2 && "⚠️ "}
+          {line}
         </div>
-      )}
-      <div style={{ marginTop: 5 }}>
-        Consider{" "}
-        <a href="https://novatedlease.guide/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure" target="_blank" rel="noopener noreferrer">
-          the broader risks and trade-offs
-        </a>{" "}
-        before acting on this figure alone.
-      </div>
+      ))}
     </div>
   );
 }
@@ -176,7 +172,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails }: Props) {
   return (
     <div style={{ display: "grid", gap: 14 }}>
       <div style={cardStyle}>
-        <CardHeader title={`Novated Lease vs Offset Cash — over ${years} years`} onDetails={() => onNavigateToDetails()} />
+        <CardHeader title={`Novated Lease vs Offset Cash — over ${years} years`} />
         <Hero amount={totalSaving} suffix={totalSaving >= 0 ? `cheaper than buying outright with offset cash over ${years} years` : `more expensive than buying outright with offset cash over ${years} years`} />
         <div style={{ display: "grid", gap: 4 }}>
           <BreakdownRow label="NL: lease payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
@@ -210,7 +206,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails }: Props) {
 
       {showLoan && (
         <div style={cardStyle}>
-          <CardHeader title={`Novated Lease vs Car Loan — over ${years} years`} onDetails={() => onNavigateToDetails()} />
+          <CardHeader title={`Novated Lease vs Car Loan — over ${years} years`} />
           <Hero amount={totalSavingVsLoan} suffix={totalSavingVsLoan >= 0 ? `cheaper than a traditional car loan over ${years} years` : `more expensive than a traditional car loan over ${years} years`} />
           <div style={{ display: "grid", gap: 4 }}>
             <BreakdownRow label="NL: lease payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
@@ -246,7 +242,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails }: Props) {
 
       {showCurrentCar && (
         <div style={cardStyle}>
-          <CardHeader title={`Novated Lease vs Keeping Current Car — over ${years} years`} onDetails={() => onNavigateToDetails()} />
+          <CardHeader title={`Novated Lease vs Keeping Current Car — over ${years} years`} />
           <Hero amount={nlVsKeepSaving} suffix={nlVsKeepSaving >= 0 ? `cheaper than keeping your current car over ${years} years` : `more expensive than keeping your current car over ${years} years`} />
           <div style={{ display: "grid", gap: 4 }}>
             <BreakdownRow label="NL: total spend" value={fmtAud0(nlTotalSpent)} indent />

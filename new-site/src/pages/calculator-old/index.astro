@@ -1,8 +1,6 @@
 ---
 import FullPage from '../../layouts/FullPage.astro';
 
-// Ported verbatim from ../calculator/index.astro's FAQPage schema — kept in sync so
-// cut-over doesn't lose the structured-data SEO work already done for v1.
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -40,7 +38,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'What are the main limitations of this novated lease calculator?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Key limitations include: the primary endpoint is financial position at end of lease; home loan offset impact is calculated fortnightly rather than daily; running costs are assumed constant over the lease term; and residual value methodologies vary between leasing companies. The outputs are best interpreted as decision support rather than precise predictions.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Key limitations include: the primary endpoint is financial position at 5 years; home loan offset impact is calculated fortnightly rather than daily; running costs are assumed constant over the lease term; and residual value methodologies vary between leasing companies. The outputs are best interpreted as decision support rather than precise predictions.' },
     },
     {
       '@type': 'Question',
@@ -52,12 +50,19 @@ const faqSchema = {
 ---
 
 <FullPage
-  title="Novated Lease Calculator — calculator2"
-  description="Internal build of the redesigned novated lease calculator. Not linked from the site; do not share."
+  title="Novated Lease Calculator (Legacy Version)"
+  description="Legacy build of the novated lease calculator, kept online for reference/troubleshooting only. Use the current calculator instead."
   extraSchemas={[faqSchema]}
   noindex={true}
 >
-  <div class="calc2-page">
+  <div class="calc-page">
+    <div class="admonition admonition--warning" style="margin:0 0 1.5rem;">
+      <div class="admonition__title">Legacy version — kept for reference only</div>
+      <div style="padding:0 16px 10px;">
+        <p>This is the previous version of the calculator, kept online for troubleshooting and comparison purposes. Please use the <a href="/calculator/">current calculator</a> instead — it has a Simple/Advanced mode toggle, a guided quick tour, and other improvements.</p>
+      </div>
+    </div>
+
     <h1>Novated Lease Calculator (Australia)</h1>
     <p>
       Independent <strong>Australian novated lease calculator</strong> to compare novated lease vs cash purchase vs car loan vs keeping your current car, focused on your <strong>real net financial outcome</strong> —
@@ -67,13 +72,18 @@ const faqSchema = {
       <strong>Built and maintained</strong> by an <a href="/about/about-me/">independent Australian specialist doctor</a> with formal training in statistics and a competitive mathematics background — not affiliated with any financier or novated lease / salary packaging company.
     </p>
 
-    <div id="nl-calculator2-root" data-loading="true" aria-busy="true">
-      <div class="nl-calculator2-placeholder" aria-hidden="true"></div>
+    <!-- Calculator embed -->
+    <div id="nl-calculator-old-root" data-loading="true" aria-busy="true">
+      <div class="nl-calculator-placeholder" aria-hidden="true">
+        <div class="nl-calculator-placeholder__panel"></div>
+        <div class="nl-calculator-placeholder__output"></div>
+      </div>
     </div>
 
-    <link rel="stylesheet" href="/assets/calculator2/style.css" />
-    <script type="module" src="/assets/calculator2/main.js"></script>
+    <link rel="stylesheet" href="/assets/calculator-old/style.css" />
+    <script type="module" src="/assets/calculator-old/main.js"></script>
 
+    <!-- Support boxes -->
     <div class="admonition admonition--info" style="margin:2rem 0 1rem;">
       <div class="admonition__title">Support this independent calculator &amp; guide</div>
       <div style="padding:0 16px 10px;">
@@ -138,7 +148,7 @@ const faqSchema = {
     <ul>
       <li><strong>Primary endpoint is financial position at 5 years.</strong> The model assumes that, under a novated lease, the residual value is paid out at the end of the lease.</li>
       <li><strong>Home loan interest rate is assumed to be constant</strong> throughout the lease duration.</li>
-      <li><strong>Offset account impact is calculated on a fortnightly basis.</strong> In reality, home loan interest is typically calculated daily and charged monthly.</li>
+      <li><strong>Offset account impact is calculated on a fortnightly basis.</strong> In reality, home loan interest is typically calculated daily and charged monthly — in simulation testing, this divergence introduces a discrepancy of well under 0.1%.</li>
       <li><strong>Insurance premiums, registration, and maintenance costs are assumed to remain constant</strong> over the lease term.</li>
       <li><strong>Residual value methodologies vary between leasing companies.</strong></li>
       <li><strong>Market value depreciation is interpolated for 1–4 year lease terms.</strong></li>
@@ -158,20 +168,3 @@ const faqSchema = {
     </div><!-- /.calc-prose -->
   </div>
 </FullPage>
-
-<style>
-  .calc2-page {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem 3rem;
-    overflow-x: hidden;
-  }
-  .nl-calculator2-placeholder {
-    min-height: 400px;
-  }
-  @media (max-width: 640px) {
-    .calc2-page {
-      padding: 1rem 0.75rem 2rem;
-    }
-  }
-</style>

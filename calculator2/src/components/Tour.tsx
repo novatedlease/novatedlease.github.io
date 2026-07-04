@@ -62,7 +62,7 @@ const TOUR_STEPS: TourStep[] = [
     body: (
       <>
         Since you haven't entered a real quote, everything else — running costs, finance rate, fees — uses these
-        standard assumptions. Hover the tooltips to see each one, and switch to Advanced mode any time to override
+        standard assumptions. Hover or tap the tooltips to see each one, and switch to Advanced mode any time to override
         them.
       </>
     ),
@@ -180,7 +180,7 @@ const TOUR_STEPS: TourStep[] = [
   },
   {
     key: "details-4",
-    title: "How this affects your taxable income.",
+    title: "How this affects your means-tested subsidy and liability.",
     body: (
       <>
         Section 4 works out your <strong>adjusted taxable income</strong>, which drives flow-on effects like the

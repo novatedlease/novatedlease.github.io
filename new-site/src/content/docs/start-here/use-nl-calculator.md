@@ -8,6 +8,14 @@ The [novated lease calculator](/calculator/) helps you **compare the real-world 
 
 It is a fully web-based, interactive calculator. Results update automatically as you change inputs. Most fields include an information tooltip ⓘ — hover or tap for explanations, definitions, and common pitfalls.
 
+### Simple mode vs Advanced mode
+
+The calculator opens in **Simple mode** by default. You're asked just a handful of questions — vehicle type, approximate drive‑away price, your taxable income, lease term, and annual kilometres — and the calculator fills in the rest (running costs, lease rate, residual value, and more) using reasonable market assumptions. Every one of these assumptions is listed transparently under **"Assumptions we made for you,"** each with a tooltip explaining exactly how it was derived, so nothing is hidden.
+
+Once you have a real quote, or want full control over every input and access to the deeper analysis (effective interest rate, take‑home pay impact, super guarantee effects, worst‑case early‑termination scenarios), switch to **Advanced mode** using the toggle at the top of the calculator. You can jump into Advanced mode at any point from Simple mode to refine or override any assumption with your own figures — the steps below describe Advanced mode's full set of inputs.
+
+First time here? Click **"✨ New here? Take the quick tour"** for a short guided walkthrough of both modes. You can dismiss it permanently once you're comfortable with the calculator — it stays reachable afterwards from a link in the footer.
+
 ---
 
 ## Step 1: Enter Basic Information (Left-Hand Input Panel)
@@ -17,7 +25,7 @@ Before starting, gather the following information about the vehicle and your per
 ### Vehicle details
 
 - **Vehicle type**  
-  Select **EV** or **non-EV**. Plug‑in hybrids should be entered as *non‑EV*, as they no longer qualify for FBT exemption from 1 April 2025 onward.
+  Select **EV** or **Petrol / diesel / hybrid**. Plug‑in hybrids should be entered as *Petrol / diesel / hybrid*, as they no longer qualify for FBT exemption from 1 April 2025 onward.
 
 - **Vehicle condition**  
   Choose between *new*, *used (dealer sale)*, or *used (private sale)*.  
@@ -32,7 +40,8 @@ Before starting, gather the following information about the vehicle and your per
   The total amount you would pay if purchasing the vehicle outright with cash.
 
 - **Estimated market value at 5 years**  
-  Even if your lease or loan term is shorter, the calculator requires a 5‑year estimate and will interpolate the value to your chosen end date.
+  Even if your lease or loan term is shorter, the calculator requires a 5‑year estimate and will interpolate the value to your chosen end date.  
+  This auto‑fills as ~40% of your drive‑away price while you type, until you manually override it with a more accurate figure (e.g. from a resale value guide).
 
 ---
 
@@ -67,12 +76,14 @@ Before starting, gather the following information about the vehicle and your per
 - **Lease duration**  
   Select between 1 and 5 years. Fractional terms (e.g. 13‑month leases) are not supported.
 
-- **Vehicle lease (per fortnight)**  
-  Enter the figure from your quote.  
-  If you do not yet have a quote, a placeholder corresponding to an effective interest rate of **~8–12%** is a reasonable approximation for most mainstream providers.
+- **Vehicle finance**  
+  Enter the figure from your quote (toggle between per‑fortnight and per‑month display).  
+  If you do not yet have a quote, a placeholder corresponding to an effective interest rate of **~8–12%** is a reasonable approximation for most mainstream providers.  
+  Small ▲▼ arrows next to this field let you nudge the implied effective interest rate up or down by 0.1% at a time, recalculating the fortnightly figure live — handy for exploring "what if my rate were X%" without doing the maths yourself.  
+  **Smart Leasing / MillarX customer?** These two providers quote a figure derived from the full lease term, but only a subset of those periods are actual finance payments — entering it directly inflates the effective interest rate the calculator computes. Use the **"Smart Leasing / MillarX customer?"** adjustment tool above this field to convert your quoted figure to the finance-only amount the calculator expects. See [why this adjustment is needed and how it works](/special-and-policy/smart-leasing-millarx-payment-structure/) for the full explanation.
 
 - **Luxury Vehicle Adjustment (per fortnight)**  
-  Only relevant for vehicles above the vehicle cost limit ($69,674 for FY2025–26).  
+  Only relevant for vehicles above the vehicle cost limit ($69,883 for FY2026–27).  
   This is an employer‑imposed accounting adjustment.  
   Further explanation is available [here](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf).
 
@@ -84,7 +95,7 @@ Include fuel or electricity, servicing, insurance, registration, tyres, and othe
 
 - Use figures from your quote if you want the calculator’s outputs to match your lease exactly.
 - Confirm whether your employer passes on GST savings.
-- **Electricity** should be left at the default value, which is automatically calculated as **5.47 cents × annual kilometres**, in line with the [ATO’s standard EV electricity claim method](/running-costs/ev-home-charging-shortcut/).  
+- **Electricity** should be left at the default value, which is automatically calculated as **5.47 cents × annual kilometres**, in line with the [ATO’s standard EV electricity claim method](/running-costs/ev-home-charging-shortcut/). This figure re‑calculates live whenever you change annual kilometres, until you manually override it.  
     - If you will charge mostly at commercial charger and intend to claim actual commercial charging fees instead of the 5.47c/km method, you may enter the estimated commercial charging cost here (if it exceeds the amount derived using the 5.47c/km method).
     - In all other circumstances, do **not** enter your actual electricity expense here — that is handled separately in the subsequent Electricity section.
 
@@ -163,10 +174,21 @@ The **Details** tab contains the full underlying breakdown:
 
 ---
 
+## Step 5: Review the Compare Tab
+
+While the Summary and Details tabs analyse **one scenario at a time**, the **Compare** tab lets you line up pathways from **multiple saved quotes** side by side — e.g. a novated lease arrangement on a $60k EV vs a cash purchase of a $30k petrol car.
+
+- Requires at least **two saved quotes** first (see **Quotes** under Other Features below) — save each scenario you want to compare before switching to this tab.
+- Each saved quote can contribute up to four pathway rows — **Novated Lease**, **Offset Cash**, and (if enabled on that quote) **Car Loan** and **Keep Old Car** — tick the checkboxes next to the ones you want in the comparison, up to 8 pathways at once.
+- A **ranking table** shows the net cash-flow, asset, and liability position for each selected pathway at both the 5‑year mark and lease/loan end, so you can see at a glance which comes out ahead.
+- A **detailed breakdown table** below it itemises exactly where the numbers come from for each pathway — lease/loan payments, running costs, charging delta (EV only), residual value payable, car asset value, and additional home loan interest accrued — useful when two pathways land close together and you want to see which line items are driving the difference.
+
+---
+
 ## Other Features
 
 - **Reset button**  
-  Resets all inputs to default values (based on my own 2023 lease).
+  Resets all Advanced‑mode inputs back to the same starting point Simple mode uses by default (a representative ~$65,000 EV, 15,000km/year, 5‑year lease).
 
 - **Copy link**  
   Generates a URL containing your current inputs, useful for sharing with a partner or online forum.

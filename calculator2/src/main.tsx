@@ -4,12 +4,12 @@ import App from "./App";
 import "./styles/index.css";
 
 const mountEl =
-  document.getElementById("nl-calculator2-root") ??
+  document.getElementById("nl-calculator-root") ??
   document.getElementById("root");
 
 if (!mountEl) {
   throw new Error(
-    "Calculator mount element not found. Expected #nl-calculator2-root (Astro embed) or #root (standalone Vite)."
+    "Calculator mount element not found. Expected #nl-calculator-root (Astro embed) or #root (standalone Vite)."
   );
 }
 

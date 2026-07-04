@@ -1,6 +1,8 @@
 ---
 import FullPage from '../../layouts/FullPage.astro';
 
+// Ported verbatim from ../calculator-old/index.astro's FAQPage schema — kept in sync so
+// cut-over doesn't lose the structured-data SEO work already done for v1.
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -38,7 +40,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'What are the main limitations of this novated lease calculator?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Key limitations include: the primary endpoint is financial position at end of lease; home loan offset impact is calculated fortnightly rather than daily; running costs are assumed constant over the lease term; and residual value methodologies vary between leasing companies. The outputs are best interpreted as decision support rather than precise predictions.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'Key limitations include: the primary endpoint is financial position at 5 years; home loan offset impact is calculated fortnightly rather than daily; running costs are assumed constant over the lease term; and residual value methodologies vary between leasing companies. The outputs are best interpreted as decision support rather than precise predictions.' },
     },
     {
       '@type': 'Question',
@@ -54,7 +56,7 @@ const faqSchema = {
   description="Free independent Australian novated lease calculator. Compare EV and ICE options against cash purchase, car loan or keeping your current car — based on real net outcomes, not marketing tax claims."
   extraSchemas={[faqSchema]}
 >
-  <div class="calc-page">
+  <div class="calc2-page">
     <h1>Novated Lease Calculator (Australia)</h1>
     <p>
       Independent <strong>Australian novated lease calculator</strong> to compare novated lease vs cash purchase vs car loan vs keeping your current car, focused on your <strong>real net financial outcome</strong> —
@@ -64,18 +66,13 @@ const faqSchema = {
       <strong>Built and maintained</strong> by an <a href="/about/about-me/">independent Australian specialist doctor</a> with formal training in statistics and a competitive mathematics background — not affiliated with any financier or novated lease / salary packaging company.
     </p>
 
-    <!-- Calculator embed -->
     <div id="nl-calculator-root" data-loading="true" aria-busy="true">
-      <div class="nl-calculator-placeholder" aria-hidden="true">
-        <div class="nl-calculator-placeholder__panel"></div>
-        <div class="nl-calculator-placeholder__output"></div>
-      </div>
+      <div class="nl-calculator2-placeholder" aria-hidden="true"></div>
     </div>
 
     <link rel="stylesheet" href="/assets/calculator/style.css" />
     <script type="module" src="/assets/calculator/main.js"></script>
 
-    <!-- Support boxes -->
     <div class="admonition admonition--info" style="margin:2rem 0 1rem;">
       <div class="admonition__title">Support this independent calculator &amp; guide</div>
       <div style="padding:0 16px 10px;">
@@ -102,8 +99,8 @@ const faqSchema = {
     <div class="calc-prose">
     <h2>How to use this calculator</h2>
     <p>Quick start below — or read the <a href="/start-here/use-nl-calculator/">full walkthrough</a> for detailed guidance.</p>
-    <p><strong>If you have a quote:</strong> Enter your vehicle price, lease details, annual kilometres, and financial details based on the quote. The calculator then models the cashflow, asset and liability over the lease period and compares your overall financial position across different funding options.</p>
-    <p><strong>If you do not have a quote:</strong> Look up the vehicle's base and drive‑away price online, estimate typical running costs, choose a lease term (1–5 years), and enter a fortnightly lease amount consistent with an effective interest rate of roughly <strong>8–12%</strong> (a common market range). This will give you a reasonable <strong>ballpark estimate</strong> of the overall financial outcome.</p>
+    <p><strong>Simple mode (default):</strong> For when you don't have a real quote yet. Answer a handful of questions — vehicle type, approximate drive‑away price, your income, lease term, and annual kilometres — and the calculator fills in reasonable running-cost and lease-rate assumptions for you (shown transparently under "Assumptions we made for you"), giving you a <strong>ballpark estimate</strong> of the overall financial outcome.</p>
+    <p><strong>Advanced mode:</strong> For when you have a real quote. Switch across using the mode toggle to enter your vehicle price, lease details, annual kilometres, running costs, and financial details exactly as quoted. The calculator then models the cashflow, asset and liability over the lease period and compares your overall financial position across different funding options — plus effective interest rate, take-home pay impact, super guarantee effects, and worst-case scenarios. You can jump into Advanced mode at any point from Simple mode to refine or override any of its assumptions with your own figures.</p>
     <p>Unlike most novated lease calculators, the outputs focus on <strong>net outcomes</strong> — how much better or worse off you are overall — rather than isolated tax figures.</p>
 
     <hr style="border:none;border-top:1px solid var(--color-border);margin:2rem 0;" />
@@ -140,7 +137,7 @@ const faqSchema = {
     <ul>
       <li><strong>Primary endpoint is financial position at 5 years.</strong> The model assumes that, under a novated lease, the residual value is paid out at the end of the lease.</li>
       <li><strong>Home loan interest rate is assumed to be constant</strong> throughout the lease duration.</li>
-      <li><strong>Offset account impact is calculated on a fortnightly basis.</strong> In reality, home loan interest is typically calculated daily and charged monthly.</li>
+      <li><strong>Offset account impact is calculated on a fortnightly basis.</strong> In reality, home loan interest is typically calculated daily and charged monthly — in simulation testing, this divergence introduces a discrepancy of well under 0.1%.</li>
       <li><strong>Insurance premiums, registration, and maintenance costs are assumed to remain constant</strong> over the lease term.</li>
       <li><strong>Residual value methodologies vary between leasing companies.</strong></li>
       <li><strong>Market value depreciation is interpolated for 1–4 year lease terms.</strong></li>
@@ -160,3 +157,37 @@ const faqSchema = {
     </div><!-- /.calc-prose -->
   </div>
 </FullPage>
+
+<style>
+  .calc2-page {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+    overflow-x: hidden;
+  }
+  /* Matches .calc-page h1 / > p in global.css so this page doesn't look
+     oversized on mobile relative to legacy pages using that class. */
+  .calc2-page h1 {
+    font-size: 1.625rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0 0 0.6em;
+    color: var(--color-text);
+  }
+  .calc2-page > p {
+    font-size: 1.0625rem;
+    color: var(--color-text-soft);
+    margin: 0 0 1.1em;
+    max-width: 820px;
+    line-height: 1.8;
+  }
+  .nl-calculator2-placeholder {
+    min-height: 400px;
+  }
+  @media (max-width: 640px) {
+    .calc2-page {
+      padding: 1rem 0.75rem 2rem;
+    }
+  }
+</style>

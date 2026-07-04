@@ -3,9 +3,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/assets/calculator/",
+  base: "/assets/calculator-old/",
   build: {
-    outDir: "../docs/assets/calculator",
+    outDir: "../docs/assets/calculator-old",
     emptyOutDir: true,
     rollupOptions: {
       output: {

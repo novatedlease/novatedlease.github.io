@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { computeDerived } from "@engine/derived";
 import App from "../src/App";
 import { SimpleMode } from "../src/SimpleMode";
+import { defaultSimpleModeAnswers } from "../src/assumptions";
 import { LeaseReport } from "../src/components/reports/LeaseReport";
 import { BasicInformationReport } from "../src/components/reports/BasicInformationReport";
 import { EffectiveInterestReport } from "../src/components/reports/EffectiveInterestReport";
@@ -30,8 +31,15 @@ describe("render smoke test", () => {
   });
 
   test("SimpleMode renders without throwing and shows a verdict", () => {
-    const html = renderToStaticMarkup(<SimpleMode onGoAdvanced={() => {}} />);
-    expect(html).toMatch(/Better off by|Worse off by/);
+    const html = renderToStaticMarkup(
+      <SimpleMode
+        answers={defaultSimpleModeAnswers()}
+        setAnswers={() => {}}
+        onGoAdvanced={() => {}}
+        onNavigateToDetails={() => {}}
+      />,
+    );
+    expect(html).toMatch(/cheaper than buying outright|more expensive than buying outright/);
   });
 
   const inputs = baseEvInputs();

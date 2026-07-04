@@ -239,6 +239,9 @@ export function ComparatorView({
   const rates = [...new Set(selectedPathways.map((p) => p.inputs.homeLoanOffsetInterestRate))];
   const ratesMismatch = rates.length > 1;
 
+  const incomes = [...new Set(selectedPathways.map((p) => p.inputs.totalTaxableIncome))];
+  const incomeMismatch = incomes.length > 1;
+
   const saleProceedsValues = [...new Set(selectedPathways.map((p) => (p.inputs.compareWithCurrentCar ? p.inputs.currentCarMarketValueNow ?? 0 : 0)))];
   const salesMismatch = saleProceedsValues.length > 1;
 
@@ -249,7 +252,7 @@ export function ComparatorView({
   const effectiveHorizon = offerLeaseEndOption ? horizon : "five_year";
   const isLeaseEnd = effectiveHorizon === "lease_end";
 
-  const canCompare = selectedPathways.length >= 2 && !ratesMismatch && !salesMismatch;
+  const canCompare = selectedPathways.length >= 2 && !ratesMismatch && !salesMismatch && !incomeMismatch;
 
   const columns = useMemo(() => {
     if (!canCompare) return [];
@@ -366,6 +369,13 @@ export function ComparatorView({
         <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-bad-light)", border: "1.5px solid rgba(220,38,38,0.3)", color: "var(--nlc-bad-dark)" }}>
           <b>Home loan offset rates differ — comparison blocked.</b> Selected pathways use rates: {rates.join("%, ")}%. Ensure all
           selected quotes were saved with the same offset rate.
+        </div>
+      )}
+
+      {incomeMismatch && selectedPathways.length >= 2 && (
+        <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-bad-light)", border: "1.5px solid rgba(220,38,38,0.3)", color: "var(--nlc-bad-dark)" }}>
+          <b>Taxable income differs — comparison blocked.</b> Selected pathways use incomes: {incomes.map((v) => fmtAud0(v)).join(", ")}. Ensure all
+          selected quotes were saved with the same taxable income, since it drives the marginal tax rate used throughout.
         </div>
       )}
 

@@ -4,14 +4,14 @@ import path from "node:path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/assets/calculator2/",
+  base: "/assets/calculator/",
   resolve: {
     alias: {
       "@engine": path.resolve(__dirname, "../calculator/src/engine"),
     },
   },
   build: {
-    outDir: "../docs/assets/calculator2",
+    outDir: "../docs/assets/calculator",
     emptyOutDir: true,
     rollupOptions: {
       output: {

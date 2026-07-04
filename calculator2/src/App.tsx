@@ -67,6 +67,7 @@ function AdvancedMode(props: {
   const lastAutoFinancedRef = useRef<number | null>(null);
   const lastAutoEstMarketValueRef = useRef<number | null>(null);
   const lastAutoElectricityRef = useRef<number | null>(null);
+  const lastAutoFuelRef = useRef<number | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
 
   // Auto-sync residualValueExGst from the ATO-derived formula until the user overrides it —
@@ -144,6 +145,29 @@ function AdvancedMode(props: {
     lastAutoElectricityRef.current = auto;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputs.vehicleType, inputs.annualMileageKm, inputs.electricityAnnual]);
+
+  // Auto-fill fuelAnnual from annualMileageKm using the same ~6L/100km @ $1.80/L estimate
+  // Simple mode uses (assumptions.ts) until the user overrides it — mirrors the electricity
+  // effect above, but for the Non-EV side. Rounding matches assumptions.ts exactly so the two
+  // don't silently drift apart (a mismatch there previously disabled the electricity auto-fill).
+  useEffect(() => {
+    if (inputs.vehicleType === "EV") {
+      lastAutoFuelRef.current = null;
+      return;
+    }
+    const auto = Math.round(inputs.annualMileageKm * 0.06 * 1.8);
+    const cur = inputs.fuelAnnual;
+    const lastAuto = lastAutoFuelRef.current;
+    const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;
+
+    const shouldSync = cur === 0 || (lastAuto !== null && withinCent(cur, lastAuto)) || (lastAuto === null && withinCent(cur, auto));
+
+    if (shouldSync && !withinCent(cur, auto)) {
+      setInputs((p) => ({ ...p, fuelAnnual: auto }));
+    }
+    lastAutoFuelRef.current = auto;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputs.vehicleType, inputs.annualMileageKm, inputs.fuelAnnual]);
 
   const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("five_year");
   const leaseYearsRounded = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
@@ -229,7 +253,7 @@ function AdvancedMode(props: {
 
             {outputTab === "details" && (
               <>
-                <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, ECM, and EV charging." defaultOpen>
+                <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, Employee Contribution Method (ECM), and EV charging." defaultOpen>
                   <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} onNavigateToDetails={navigateToDetails} />
                 </Section>
 

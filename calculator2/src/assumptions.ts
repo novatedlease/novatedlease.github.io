@@ -4,6 +4,7 @@ import {
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
 import { residualFractionForYears } from "@engine/ato";
+import { ATO_EV_HOME_CHARGING_RATE_PER_KM } from "@engine/charging";
 
 /**
  * Market-typical effective interest rate used to derive a plausible fortnightly
@@ -29,7 +30,7 @@ export function defaultSimpleModeAnswers(): SimpleModeAnswers {
     driveawayCost: 65000,
     totalTaxableIncome: 110000,
     leaseDurationYears: 5,
-    annualMileageKm: 12000,
+    annualMileageKm: 15000,
     hasHomeLoanOffset: true,
     homeLoanOffsetInterestRate: 6.1,
   };
@@ -105,8 +106,17 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
 
   const avgAudPerKwh = 0.3;
   const avgWhPerKm = 170;
+  // The packaged/claimed figure defaults to the ATO EV home-charging shortcut
+  // (5.47c/km) — NOT the avgWhPerKm/avgAudPerKwh actual-cost model above, which
+  // only estimates the user's real out-of-pocket spend. Mixing the two up here
+  // made the claim equal the actual estimate by construction, so "NL:
+  // electricity gain/loss" always came out ~$0 regardless of inputs.
+  // Deliberately unrounded, matching Advanced mode's live auto-fill formula
+  // (App.tsx) exactly — rounding here would make this default permanently
+  // mismatch that formula by a few cents, which reads as "already overridden"
+  // and disables the auto-fill from the very first render.
   const electricityAnnual = isEv
-    ? Math.round(((answers.annualMileageKm * avgWhPerKm) / 1000) * avgAudPerKwh)
+    ? answers.annualMileageKm * ATO_EV_HOME_CHARGING_RATE_PER_KM
     : 0;
   // ~6 L/100km at ~$1.80/L — reflects hybrids' large and growing share of
   // novated-lease vehicles (e.g. RAV4 Hybrid ~4.5 L/100km) blended with
@@ -126,7 +136,9 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     leaseDocFee,
     leaseStartDate,
     leaseDurationYears: leaseYears,
-    monthsDeferred: 0,
+    // Assumes a 2-month deferred first payment — common in practice (e.g. EV
+    // delivery wait times) — consistent with Advanced mode's default.
+    monthsDeferred: 2,
 
     totalTaxableIncome: answers.totalTaxableIncome,
     homeLoanOffsetInterestRate: answers.hasHomeLoanOffset ? answers.homeLoanOffsetInterestRate : 0,
@@ -147,18 +159,22 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     avgAudPerKwh,
     avgWhPerKm,
 
+    // Starter figures for the optional "compare with X" pathways, matching v1's
+    // defaults (calculator/src/App.tsx) — these only apply once the user turns
+    // the toggle on, at which point some non-zero starting point is more useful
+    // than an all-zero form.
     compareWithCurrentCar: false,
-    currentCarMarketValueNow: 0,
-    currentCarMarketValueAtEnd: 0,
-    currentServiceMaintTyresAnnual: 0,
-    currentRegistrationAnnual: 0,
-    currentFuelAnnual: 0,
-    currentInsuranceAnnual: 0,
+    currentCarMarketValueNow: 25000,
+    currentCarMarketValueAtEnd: 14000,
+    currentServiceMaintTyresAnnual: 800,
+    currentRegistrationAnnual: 900,
+    currentFuelAnnual: 2362.5,
+    currentInsuranceAnnual: 1000,
 
     compareWithCarLoan: false,
-    carLoanInitialDeposit: 0,
+    carLoanInitialDeposit: 10000,
     carLoanInterestRatePct: 8,
-    carLoanMonthlyFee: 0,
+    carLoanMonthlyFee: 25,
   };
 
   const financedAmountForInterestCalcExGst = financedAmountExGstFromInputs(partialInputs as Inputs);
@@ -169,7 +185,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     financedAmountExGst: financedAmountForInterestCalcExGst,
     residualValueExGst,
     leaseYears,
-    deferMonths: 0,
+    deferMonths: 2,
     effectiveAnnualRate: ASSUMED_EFFECTIVE_RATE,
   });
 
@@ -254,7 +270,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
           field: "electricityAnnual",
           label: "Electricity (packaged)",
           value: `${fmtMoney(electricityAnnual)}/year`,
-          tooltip: `Uses the ATO's EV home-charging shortcut rate (5.47c/km) — the amount you're allowed to claim as a packaged running cost regardless of your actual electricity price, based on an assumed efficiency of ${avgWhPerKm} Wh/km at $${avgAudPerKwh.toFixed(2)}/kWh. Your actual electricity cost may differ from this claimable amount — Advanced mode lets you compare the two.`,
+          tooltip: `Uses the ATO's EV home-charging shortcut rate (5.47c/km) — the amount you're allowed to claim as a packaged running cost regardless of your actual electricity price. Your actual electricity cost (estimated separately at an assumed ${avgWhPerKm} Wh/km and $${avgAudPerKwh.toFixed(2)}/kWh) may differ from this claimable amount — Advanced mode lets you compare the two.`,
         }
       : {
           field: "fuelAnnual",

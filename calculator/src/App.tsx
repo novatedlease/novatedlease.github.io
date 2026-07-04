@@ -1771,7 +1771,7 @@ useEffect(() => {
             </div>
             <ul style={{ paddingLeft: 16, margin: 0 }}>
               <li>
-                This calculator provides factual information only, based on publicly available data as of May 2026.
+                This calculator provides factual information only, based on publicly available data as of July 2026.
               </li>
               <li>
                 Consult a qualified financial adviser before making any financial decisions.

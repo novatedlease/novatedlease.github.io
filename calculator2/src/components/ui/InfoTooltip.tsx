@@ -197,7 +197,7 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
       className="nlc-info-trigger"
       aria-label="More information"
       role="button"
-      tabIndex={0}
+      tabIndex={-1}
       onMouseEnter={() => {
         if (hoverCapable) {
           cancelClose();

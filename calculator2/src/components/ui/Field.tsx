@@ -103,7 +103,10 @@ export function NumberField({
             setFocused(true);
             setDraft(Number.isFinite(value) ? String(round(value, decimals)) : "");
           }}
-          onChange={(e) => setDraft(e.target.value)}
+          onChange={(e) => {
+            setDraft(e.target.value);
+            commit(e.target.value);
+          }}
           onBlur={() => {
             setFocused(false);
             commit(draft);

@@ -398,7 +398,7 @@ export function InputsPanel(props: {
             hint="The packaged claim amount (ATO shortcut: 5.47c/km) — not your actual charging cost, which goes in the Electricity section below."
           />
         ) : (
-          <CurrencyField label="Fuel" value={inputs.fuelAnnual} onChange={(v) => set("fuelAnnual", v)} hint="Expected annual petrol/diesel cost." />
+          <CurrencyField label="Fuel" value={inputs.fuelAnnual} onChange={(v) => set("fuelAnnual", v)} hint="Expected annual petrol/diesel cost. Auto-estimated from annual kilometres until you override it." />
         )}
         <CurrencyField label="Insurance" value={inputs.insuranceAnnual} onChange={(v) => set("insuranceAnnual", v)} hint="Comprehensive insurance — shop around and compare with your provider's quote." />
         <CurrencyField label="Management fees" value={inputs.managementFeesAnnual} onChange={(v) => set("managementFeesAnnual", v)} hint="Sum of all novated lease membership/management fees." />

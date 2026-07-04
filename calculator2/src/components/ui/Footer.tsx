@@ -14,7 +14,7 @@ export function Footer(props: { showTourLink?: boolean; onStartTour?: () => void
     >
       <div style={{ marginBottom: 6, fontWeight: 700 }}>CC BY-NC-SA 4.0 — © CY YEW 2026</div>
       <ul style={{ paddingLeft: 16, margin: 0 }}>
-        <li>This calculator provides factual information only, based on publicly available data as of May 2026.</li>
+        <li>This calculator provides factual information only, based on publicly available data as of July 2026.</li>
         <li>Consult a qualified financial adviser before making any financial decisions.</li>
         <li>Novated leasing may affect your borrowing capacity, debt obligations, government subsidies, and superannuation contributions.</li>
       </ul>

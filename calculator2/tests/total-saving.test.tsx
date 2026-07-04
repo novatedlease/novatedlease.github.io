@@ -12,9 +12,9 @@ import { baseEvInputs, withOverrides } from "./fixtures";
  * App.tsx (Advanced mode) and SimpleMode.tsx originally only computed the raw
  * cashflow difference between pathways, omitting the home-loan-offset
  * opportunity-cost term that v1's SummaryView.tsx includes in its "totalSaving"
- * figure. For the default scenario this understated the real benefit by
- * ~$22,783 (showing $24,355 instead of the correct ~$47,138) — caught when the
- * user compared against v1's live output for the same inputs.
+ * figure. Golden figures below are for the current advancedDefaultInputs
+ * (derived from Simple mode's default answers) — re-derive them with the debug
+ * snippet in this test's history if that default scenario changes again.
  */
 describe("computeTotalSaving matches v1 SummaryView.tsx's totalSaving formula", () => {
   test("includes the interest/opportunity-cost term, not just cashflow", () => {
@@ -28,10 +28,9 @@ describe("computeTotalSaving matches v1 SummaryView.tsx's totalSaving formula", 
     const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
     const { cashflowSaving, interestSaving, totalSaving } = computeTotalSaving({ summary, horizon: "at5" });
 
-    expect(cashflowSaving).toBeCloseTo(24355, -2);
-    expect(interestSaving).toBeCloseTo(22783, -2);
-    // The actual number a user cross-checking against v1 would see (~$47k).
-    expect(totalSaving).toBeCloseTo(47138, -2);
+    expect(cashflowSaving).toBeCloseTo(11972, -2);
+    expect(interestSaving).toBeCloseTo(16506, -2);
+    expect(totalSaving).toBeCloseTo(28478, -2);
     expect(totalSaving).toBeCloseTo(cashflowSaving + interestSaving, 6);
   });
 
@@ -49,7 +48,7 @@ describe("computeTotalSaving matches v1 SummaryView.tsx's totalSaving formula", 
     expect(atLeaseEnd.interestSaving).toBeCloseTo(summary.irNl.first - summary.irCash.first, 6);
   });
 
-  test("SummaryView (the actual v1 Summary tab port) displays the same $47,138 figure computeTotalSaving computes", () => {
+  test("SummaryView (the actual v1 Summary tab port) displays the same figure computeTotalSaving computes", () => {
     const financed = financedAmountExGstFromInputs(advancedDefaultInputs);
     const residual = Math.max(0, financed - advancedDefaultInputs.leaseDocFee) * residualFractionForYears(advancedDefaultInputs.leaseDurationYears);
     const inputs = { ...advancedDefaultInputs, residualValueExGst: residual };
