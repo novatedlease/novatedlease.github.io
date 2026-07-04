@@ -6,12 +6,10 @@ import { Table, th, thR, td, tdR } from "./ui/shared";
 
 /**
  * Ported from calculator/src/components/ComparatorView.tsx. Reuses the exact
- * same pathway-extraction and validation logic (same field names/formulas), with
- * one deliberate scope trim: v1's duplicate "detailed cashflow/asset/liability
- * breakdown" table (same numbers as the summary ranking table, just re-sliced
- * into more rows) is left out — the per-quote FinancialSummaryReport section
- * already covers that level of detail. The 4-row summary ranking table below is
- * the actual comparison decision surface.
+ * same pathway-extraction and validation logic (same field names/formulas).
+ * Includes v1's detailed cashflow/asset/liability breakdown table (Section B) —
+ * the 4-row summary ranking table shows the net numbers, but not where the
+ * money actually goes per pathway.
  */
 
 type PathwayType = "nl" | "cash" | "loan" | "keep";
@@ -24,6 +22,13 @@ type SelectedKey = string;
 type AvailablePathway = { key: SelectedKey; quoteId: string; quoteName: string; pathwayType: PathwayType; inputs: Inputs };
 
 type PathwayNumbers = {
+  extraCashFromSale: number;
+  upfront: number;
+  leaseOrLoanPayments: number;
+  runningAtLeaseEnd: number;
+  runningAt5: number;
+  chargingDelta: number;
+  residual: number;
   cashTotalAtLeaseEnd: number;
   cashTotalAt5: number;
   carValueAtLeaseEnd: number;
@@ -34,6 +39,98 @@ type PathwayNumbers = {
 
 function fmtAud0(n: number): string {
   return `$${Math.round(Math.abs(n)).toLocaleString("en-AU")}`;
+}
+
+/** Matches v1's ComparatorView money2 helper — used only by the detailed breakdown table below. */
+function money2(n: number | null | undefined): string {
+  if (n === null || n === undefined || Math.abs(n) < 0.005) return "$ -";
+  const fmt = Math.abs(n).toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return n < 0 ? `$ (${fmt})` : `$ ${fmt}`;
+}
+
+type BreakdownColumn = { key: SelectedKey; color: string; nums: PathwayNumbers; pathwayType: PathwayType; quoteName: string };
+type BreakdownRowDef = { label: string; getValue: (col: BreakdownColumn, leaseEnd: boolean) => number | null; bold?: boolean };
+
+/**
+ * One "Section B" table (Cash Flow / Asset / Liability row groups) for a single horizon.
+ * Ported from calculator/src/components/ComparatorView.tsx ~lines 1084 onward.
+ */
+function DetailedBreakdownTable({
+  headerLabel,
+  leaseEnd,
+  ranked,
+  cashFlowRows,
+  assetRows,
+  liabilityRows,
+}: {
+  headerLabel: string;
+  leaseEnd: boolean;
+  ranked: BreakdownColumn[];
+  cashFlowRows: BreakdownRowDef[];
+  assetRows: BreakdownRowDef[];
+  liabilityRows: BreakdownRowDef[];
+}) {
+  const groupHeaderStyle: React.CSSProperties = {
+    padding: "9px 10px 7px",
+    fontWeight: 800,
+    fontSize: 11,
+    letterSpacing: "0.05em",
+    textTransform: "uppercase",
+    background: "rgba(11,92,171,0.07)",
+    color: "#0b5cab",
+    borderTop: "2px solid rgba(11,92,171,0.15)",
+    borderBottom: "1px solid rgba(11,92,171,0.12)",
+  };
+  const rowGroups: Array<{ title: string; rows: BreakdownRowDef[] }> = [
+    { title: "Cash Flow", rows: cashFlowRows },
+    { title: "Asset", rows: assetRows },
+    { title: "Liability", rows: liabilityRows },
+  ];
+
+  return (
+    <div style={{ marginBottom: 20 }}>
+      <div style={{ fontWeight: 800, fontSize: 12, color: "var(--nlc-blue)", letterSpacing: "0.03em", marginBottom: 6 }}>{headerLabel}</div>
+      <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--nlc-border)", boxShadow: "var(--nlc-shadow-sm)" }}>
+        <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 13 }}>
+          <thead>
+            <tr>
+              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#4a4a4a", color: "#fff", whiteSpace: "nowrap" }}>{headerLabel}</th>
+              {ranked.map((col) => (
+                <th key={col.key} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, background: col.color, color: "#fff", whiteSpace: "nowrap" }}>
+                  {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
+                  <div style={{ fontWeight: 600, opacity: 0.85, marginTop: 2 }}>{PATHWAY_LABELS[col.pathwayType]}</div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rowGroups.map((group) => (
+              <>
+                <tr key={`${group.title}-header`}>
+                  <td colSpan={1 + ranked.length} style={groupHeaderStyle}>
+                    {group.title}
+                  </td>
+                </tr>
+                {group.rows.map((row, idx) => (
+                  <tr key={`${group.title}-${idx}`}>
+                    <td style={{ textAlign: "left", padding: "6px 10px", borderBottom: "1px solid var(--nlc-border)", fontWeight: row.bold ? 800 : 500, maxWidth: 300 }}>{row.label}</td>
+                    {ranked.map((col) => {
+                      const v = row.getValue(col, leaseEnd);
+                      return (
+                        <td key={col.key} style={{ textAlign: "right", padding: "6px 10px", borderBottom: "1px solid var(--nlc-border)", fontWeight: row.bold ? 800 : 500, fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>
+                          {money2(v)}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }
 
 /** Exported for direct unit testing — see tests/comparator.test.tsx. */
@@ -93,7 +190,21 @@ export function extractPathwayNumbers(s: ReturnType<typeof computeFinancialSumma
   const getIr = (pt: PathwayType) => (pt === "nl" ? s.irNl : pt === "cash" ? s.irCash : pt === "loan" ? s.irLoan : s.irKeep);
   const ir = getIr(pathwayType);
 
-  return { cashTotalAtLeaseEnd, cashTotalAt5, carValueAtLeaseEnd, carValueAt5, interestAtLeaseEnd: ir.first, interestAt5: ir.total };
+  return {
+    extraCashFromSale,
+    upfront,
+    leaseOrLoanPayments,
+    runningAtLeaseEnd,
+    runningAt5,
+    chargingDelta,
+    residual,
+    cashTotalAtLeaseEnd,
+    cashTotalAt5,
+    carValueAtLeaseEnd,
+    carValueAt5,
+    interestAtLeaseEnd: ir.first,
+    interestAt5: ir.total,
+  };
 }
 
 const MAX_PATHWAYS = 8;
@@ -175,6 +286,22 @@ export function ComparatorView({
       rankedByKey[col.key] = { ...col, rank: idx + 1 };
     });
   const ranked = columnsWithNet.map((c) => rankedByKey[c.key]!);
+
+  // Section B row definitions (detailed cashflow/asset/liability breakdown) — matches v1's
+  // cashFlowRows/assetRows/liabilityRows exactly (calculator/src/components/ComparatorView.tsx ~lines 405-454).
+  const cashFlowRows: BreakdownRowDef[] = [
+    { label: "Extra Cash From Sale of Old Car", getValue: (col) => col.nums.extraCashFromSale || null },
+    { label: "Upfront Cost", getValue: (col) => col.nums.upfront || null },
+    { label: "Lease / Loan Payments", getValue: (col) => col.nums.leaseOrLoanPayments || null },
+    { label: "Running Cost", getValue: (col, leaseEnd) => (leaseEnd ? col.nums.runningAtLeaseEnd || null : col.nums.runningAt5 || null) },
+    { label: "Charging Delta (EV only)", getValue: (col) => col.nums.chargingDelta || null },
+    { label: "Residual Value Payable", getValue: (col) => col.nums.residual || null },
+    { label: "= Total Cash Flow", getValue: (col, leaseEnd) => (leaseEnd ? col.nums.cashTotalAtLeaseEnd : col.nums.cashTotalAt5), bold: true },
+  ];
+  const assetRows: BreakdownRowDef[] = [{ label: "Car Asset Value", getValue: (col, leaseEnd) => (leaseEnd ? col.nums.carValueAtLeaseEnd : col.nums.carValueAt5) }];
+  const liabilityRows: BreakdownRowDef[] = [
+    { label: "Additional Home Loan Interest Accrued (cf. no car)", getValue: (col, leaseEnd) => (leaseEnd ? col.nums.interestAtLeaseEnd : col.nums.interestAt5), bold: true },
+  ];
 
   if (savedQuotes.length === 0) {
     return (
@@ -306,6 +433,30 @@ export function ComparatorView({
               ))}
             </tbody>
           </Table>
+
+          {/* Section B: detailed cashflow/asset/liability breakdown — shows where the money
+              actually goes per pathway, honouring the same horizon toggle as the ranking table
+              above. Matches v1's rendering: when the lease-end horizon is selected, BOTH the
+              lease-end table and the always-shown @5y table render (the 5y table is the
+              eventual full-term view, shown regardless of the toggle). */}
+          {offerLeaseEndOption && isLeaseEnd && (
+            <DetailedBreakdownTable
+              headerLabel={`@ ${leaseDurations[0]}y`}
+              leaseEnd
+              ranked={ranked}
+              cashFlowRows={cashFlowRows}
+              assetRows={assetRows}
+              liabilityRows={liabilityRows}
+            />
+          )}
+          <DetailedBreakdownTable
+            headerLabel="@ 5y"
+            leaseEnd={false}
+            ranked={ranked}
+            cashFlowRows={cashFlowRows}
+            assetRows={assetRows}
+            liabilityRows={liabilityRows}
+          />
 
           {onNavigateToDetails &&
             (() => {
