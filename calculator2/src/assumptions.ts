@@ -40,6 +40,8 @@ export type Assumption = {
   field: keyof Inputs;
   label: string;
   value: string;
+  /** Underlying logic/reasoning for the assumption, rendered as an info tooltip next to the label. */
+  tooltip?: string;
 };
 
 export type SimpleModeResult = {
@@ -183,72 +185,97 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
       field: "leaseStartDate",
       label: "Lease start date",
       value: `${leaseStartDate} (30 days from today)`,
+      tooltip:
+        "A placeholder date, used only to determine which FBT tier/EV phase-out rules apply and how the lease term splits across financial years. Switch to Advanced mode to set your real expected start date.",
     },
     {
       field: "vehicleBaseValue",
       label: "Vehicle dutiable / FBT base value",
-      value: `${fmtMoney(vehicleBaseValue)} (estimated from drive-away price)`,
+      value: fmtMoney(vehicleBaseValue),
+      tooltip:
+        "Estimated as drive-away price ÷ 1.08. Drive-away pricing typically includes about 8% on top of the dutiable/FBT base value for stamp duty, registration, and dealer/CTP fees. This is a rough heuristic — enter the real figure from your quote/invoice in Advanced mode for an exact result.",
     },
     {
       field: "estimatedMarketValueAtEnd",
       label: "Estimated market value after 5 years",
-      value: `${fmtMoney(estimatedMarketValueAtEnd)} (~40% of drive-away price)`,
+      value: fmtMoney(estimatedMarketValueAtEnd),
+      tooltip:
+        "A simple rule of thumb: cars are assumed to retain roughly 40% of their drive-away price after 5 years (interpolated for shorter terms). Real depreciation varies a lot by make/model and market conditions — check a resale value guide for a more accurate figure.",
     },
     {
       field: "vehicleLeasePerFn",
       label: "Fortnightly lease payment",
-      value: `${vehicleLeasePerFn.toFixed(2)}/fortnight (assumes a ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}% p.a. effective interest rate — get a real quote to check this)`,
+      value: `$${vehicleLeasePerFn.toFixed(2)}/fortnight`,
+      tooltip:
+        `Since you don't have a real quote yet, this is back-solved to produce a ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}% p.a. effective interest rate — the midpoint of the roughly 8-12% p.a. range that's typical in the current novated lease market. Real quotes can differ meaningfully from this; get an actual quote and enter it in Advanced mode to see your true effective rate.`,
     },
     {
       field: "residualValueExGst",
       label: "Residual value",
-      value: `${fmtMoney(residualValueExGst)} (ATO minimum residual for a ${leaseYears}-year term)`,
+      value: fmtMoney(residualValueExGst),
+      tooltip: `The ATO sets a minimum allowable residual (balloon) value based on your lease term, as a percentage of the financed amount — this uses that ATO minimum for a ${leaseYears}-year term. Most providers quote at or near this minimum, since a higher residual lowers your ongoing payments.`,
     },
     {
       field: "leaseDocFee",
       label: "Lease documentation fee",
       value: fmtMoney(leaseDocFee),
+      tooltip: "A typical flat administration/establishment fee charged by financiers when setting up a novated lease. Actual fees vary by provider, roughly $0-$600 — check your real quote.",
     },
     {
       field: "serviceMaintTyresAnnual",
       label: "Service / maintenance / tyres",
-      value: `${fmtMoney(serviceMaintTyresAnnual)}/year (estimated from annual km)`,
+      value: `${fmtMoney(serviceMaintTyresAnnual)}/year`,
+      tooltip:
+        "Estimated from your annual kilometres — more driving means more wear and more frequent servicing. EVs are assumed cheaper to service (no oil changes, fewer moving parts) than petrol/diesel/hybrid vehicles. Real costs vary a lot by make and model, especially for luxury or performance vehicles.",
     },
     {
       field: "registrationAnnual",
       label: "Registration",
-      value: `${fmtMoney(registrationAnnual)}/year (flat assumption — varies by state)`,
+      value: `${fmtMoney(registrationAnnual)}/year`,
+      tooltip:
+        "A flat, Australia-wide rough estimate. Unlike insurance, registration cost is set by your state and is typically based on vehicle weight or engine size/cylinders rather than the car's price, so it doesn't scale with vehicle value. Check your state's transport authority for an exact figure.",
     },
     {
       field: "insuranceAnnual",
       label: "Insurance",
-      value: `${fmtMoney(insuranceAnnual)}/year (estimated from vehicle price${isEv ? "; EVs typically cost more to insure" : ""} — get a real quote to check this)`,
+      value: `${fmtMoney(insuranceAnnual)}/year`,
+      tooltip: isEv
+        ? "Estimated as $900 plus roughly 2.2% of your drive-away price. EVs carry a well-documented insurance premium over similarly-priced petrol/hybrid vehicles, due to higher battery and panel repair costs. This is a rough fit to 2026 market benchmarks, not a quote — get a real comprehensive insurance quote to check this."
+        : "Estimated as $900 plus roughly 1.3% of your drive-away price — comprehensive insurance scales with vehicle value. This is a rough fit to 2026 market benchmarks, not a quote — get a real comprehensive insurance quote to check this.",
     },
     {
       field: "managementFeesAnnual",
       label: "Management fees",
       value: `${fmtMoney(managementFeesAnnual)}/year`,
+      tooltip: "A typical flat membership/administration fee charged by novated lease providers for managing your lease and running-cost budget. Varies by provider — check your real quote.",
     },
     isEv
       ? {
           field: "electricityAnnual",
           label: "Electricity (packaged)",
-          value: `${fmtMoney(electricityAnnual)}/year (${avgWhPerKm} Wh/km @ $${avgAudPerKwh.toFixed(2)}/kWh)`,
+          value: `${fmtMoney(electricityAnnual)}/year`,
+          tooltip: `Uses the ATO's EV home-charging shortcut rate (5.47c/km) — the amount you're allowed to claim as a packaged running cost regardless of your actual electricity price, based on an assumed efficiency of ${avgWhPerKm} Wh/km at $${avgAudPerKwh.toFixed(2)}/kWh. Your actual electricity cost may differ from this claimable amount — Advanced mode lets you compare the two.`,
         }
       : {
           field: "fuelAnnual",
           label: "Fuel",
-          value: `${fmtMoney(fuelAnnual)}/year (~6 L/100km @ ~$1.80/L — assumes a common hybrid/efficient petrol vehicle)`,
+          value: `${fmtMoney(fuelAnnual)}/year`,
+          tooltip:
+            "Assumes roughly 6 L/100km at $1.80/L, reflecting that hybrids (increasingly common in novated leases — e.g. a RAV4 Hybrid manages ~4.5 L/100km) now make up a large share of the market, blended with less efficient non-hybrid mid-size vehicles (~6-7 L/100km). Your actual fuel cost depends heavily on your specific vehicle and driving style.",
         },
     {
       field: "superFromPreNlIncome",
       label: "Super Guarantee basis",
       value: "Assumed calculated on pre-NL income (most common)",
+      tooltip:
+        "In the large majority of workplaces, Super Guarantee (SG) is calculated on your salary BEFORE the novated lease deduction, so your super isn't reduced by packaging a car. In roughly 1 in 10 workplaces, SG is calculated on the post-deduction amount instead, which does reduce it — check with payroll to confirm which applies to you.\n\n[Read more about how novated leases affect your Super Guarantee](https://novatedlease.guide/special-and-policy/super-guarantee/)",
     },
     {
       field: "gstSavingPassedOn",
       label: "GST saving",
       value: "Assumed passed on by your provider",
+      tooltip:
+        "Most novated lease providers pass the GST saving on vehicle running costs through to you. A minority of employers (Victorian public hospitals in particular) do not pass this saving on — check your employer/provider's policy.\n\n[Read more about what happens if the GST saving isn't passed on](https://novatedlease.guide/running-costs/failure-to-pass-gst-saving/)",
     },
   ];
 

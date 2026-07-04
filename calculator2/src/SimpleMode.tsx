@@ -11,6 +11,7 @@ import { Section } from "./components/ui/Section";
 import { CurrencyField, NumberField, PercentField, PillGroup } from "./components/ui/Field";
 import { Button } from "./components/ui/Button";
 import { KV, Stat, StatGrid, SubHead } from "./components/ui/shared";
+import { InfoTooltip } from "./components/ui/InfoTooltip";
 import { PALETTE } from "./palette";
 
 function fmtMoney(n: number): string {
@@ -149,7 +150,14 @@ export function SimpleMode(props: { onGoAdvanced: (inputs: Inputs) => void }) {
               {showAssumptions ? "Hide details" : `Show ${assumptions.length} assumptions`}
             </button>
             {showAssumptions &&
-              assumptions.map((a) => <KV key={a.field} label={a.label} value={a.value} />)}
+              assumptions.map((a) => (
+                <KV
+                  key={a.field}
+                  label={a.label}
+                  value={a.value}
+                  tooltip={a.tooltip ? <InfoTooltip text={a.tooltip} /> : undefined}
+                />
+              ))}
           </Section>
 
           <div style={{ marginTop: 16, display: "flex", justifyContent: "flex-end" }}>
