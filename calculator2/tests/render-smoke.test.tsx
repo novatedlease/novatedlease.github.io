@@ -104,7 +104,7 @@ describe("render smoke test", () => {
     const html = renderToStaticMarkup(<FinancialSummaryReport inputs={withComparators} />);
     expect(html).toContain("Novated Lease");
     expect(html).toContain("Car loan");
-    expect(html).toContain("Keep current car");
+    expect(html).toContain("Keep Old Car");
     expect(html.match(/\bNaN\b|>undefined</g)).toBeNull();
   });
 
