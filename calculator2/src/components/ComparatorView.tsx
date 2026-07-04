@@ -325,7 +325,7 @@ export function ComparatorView({
             <div key={q.id} style={{ marginBottom: 10 }}>
               <div style={{ fontWeight: 700, fontSize: 12.5, marginBottom: 6 }}>
                 {q.name}
-                <span style={{ fontWeight: 500, fontSize: 11, color: "var(--nlc-text-faint)", marginLeft: 8 }}>
+                <span style={{ fontWeight: 500, fontSize: 11, color: "var(--nlc-text-muted)", marginLeft: 8 }}>
                   {paths[0]!.inputs.leaseDurationYears}yr lease · {paths[0]!.inputs.homeLoanOffsetInterestRate}% offset rate
                 </span>
               </div>

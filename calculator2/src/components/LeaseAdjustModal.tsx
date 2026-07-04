@@ -59,7 +59,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
           type="button"
           onClick={props.onClose}
           aria-label="Close"
-          style={{ position: "absolute", top: 14, right: 16, padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: 20, lineHeight: 1, color: "var(--nlc-text-faint)" }}
+          style={{ position: "absolute", top: 14, right: 16, padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: 20, lineHeight: 1, color: "var(--nlc-text-muted)" }}
         >
           ✕
         </button>
@@ -148,7 +148,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
           />
         </div>
 
-        <div style={{ fontSize: 11, color: "var(--nlc-text-faint)", textAlign: "right", marginBottom: 16 }}>
+        <div style={{ fontSize: 11, color: "var(--nlc-text-muted)", textAlign: "right", marginBottom: 16 }}>
           × {totalMonths - bufferMonths} / {totalMonths}
           {factor !== null ? ` = ${(factor * 100).toFixed(3)}%` : ""}
         </div>

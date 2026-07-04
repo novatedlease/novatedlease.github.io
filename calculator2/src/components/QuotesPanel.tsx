@@ -40,8 +40,18 @@ export function QuotesPanel(props: {
       if (!target) return;
       if (anchorRef.current && !anchorRef.current.contains(target)) setOpen(false);
     };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        anchorRef.current?.querySelector<HTMLButtonElement>(":scope > button")?.focus();
+      }
+    };
     window.addEventListener("mousedown", onDown);
-    return () => window.removeEventListener("mousedown", onDown);
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [open]);
 
   function persist(next: SavedQuoteV1[]) {
