@@ -77,7 +77,7 @@ function AdvancedMode(props: {
     }
     lastAutoResidualRef.current = auto;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs.leaseDurationYears, inputs.vehicleCondition, inputs.vehicleBaseValue, inputs.driveawayCost, inputs.leaseDocFee]);
+  }, [inputs.leaseDurationYears, inputs.vehicleCondition, inputs.vehicleBaseValue, inputs.driveawayCost, inputs.leaseDocFee, inputs.residualValueExGst]);
 
   // Auto-sync financedAmountForInterestCalcExGst until the user overrides it —
   // mirrors calculator/src/App.tsx lines ~744-769.
@@ -134,7 +134,7 @@ function AdvancedMode(props: {
     }
     lastAutoElectricityRef.current = auto;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs.vehicleType, inputs.annualMileageKm]);
+  }, [inputs.vehicleType, inputs.annualMileageKm, inputs.electricityAnnual]);
 
   const [outputTab, setOutputTab] = useState<"summary" | "details" | "compare">("summary");
   const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("five_year");
