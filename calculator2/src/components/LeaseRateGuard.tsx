@@ -6,6 +6,7 @@ import {
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
 import { CurrencyField } from "./ui/Field";
+import { LeaseAdjustModal } from "./LeaseAdjustModal";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 
 function formatMoney(x: number): string {
@@ -191,6 +192,7 @@ export function LeaseRateGuard(props: {
   useEffect(() => () => clearNudgeTimers(), []);
 
   const displayValue = isMonthly ? (inputs.vehicleLeasePerFn * 26) / 12 : inputs.vehicleLeasePerFn;
+  const [leaseAdjModalOpen, setLeaseAdjModalOpen] = useState(false);
 
   return (
     <div>
@@ -198,28 +200,37 @@ export function LeaseRateGuard(props: {
         label={
           <div>
             <div>Vehicle lease</div>
-            <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11 }}>
-              {(["perFn", "perMonth"] as const).map((mode, idx) => (
-                <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                  {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
-                  <button
-                    type="button"
-                    onClick={() => onVehicleLeasePeriodModeChange(mode)}
-                    style={{
-                      padding: 0,
-                      border: "none",
-                      background: "transparent",
-                      cursor: "pointer",
-                      fontSize: 11,
-                      fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
-                      opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
-                      textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
-                    }}
-                  >
-                    {mode === "perFn" ? "per fortnight" : "per month"}
-                  </button>
-                </span>
-              ))}
+            <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11, alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", gap: 6 }}>
+                {(["perFn", "perMonth"] as const).map((mode, idx) => (
+                  <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                    {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
+                    <button
+                      type="button"
+                      onClick={() => onVehicleLeasePeriodModeChange(mode)}
+                      style={{
+                        padding: 0,
+                        border: "none",
+                        background: "transparent",
+                        cursor: "pointer",
+                        fontSize: 11,
+                        fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
+                        opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
+                        textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
+                      }}
+                    >
+                      {mode === "perFn" ? "per fortnight" : "per month"}
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => setLeaseAdjModalOpen(true)}
+                style={{ padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: 9, color: "var(--nlc-blue)", opacity: 0.6, textDecoration: "underline", textUnderlineOffset: 2, fontWeight: 600 }}
+              >
+                Smart / MillarX?
+              </button>
             </div>
           </div>
         }
@@ -227,6 +238,16 @@ export function LeaseRateGuard(props: {
         onChange={handleChange}
         error={guardMsg || undefined}
       />
+      {leaseAdjModalOpen && (
+        <LeaseAdjustModal
+          leaseDurationYears={inputs.leaseDurationYears}
+          onClose={() => setLeaseAdjModalOpen(false)}
+          onApply={(adjustedFn) => {
+            commitPerFn(adjustedFn);
+            setLeaseAdjModalOpen(false);
+          }}
+        />
+      )}
       <div
         style={{
           marginTop: -8,
