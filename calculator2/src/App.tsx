@@ -5,6 +5,7 @@ import { residualFractionForYears } from "@engine/ato";
 import { computeDerived } from "@engine/derived";
 import { URL_STATE_PARAM, getInputsFromLocationSearch, setUrlParamForInputs } from "@engine/urlState";
 import { advancedDefaultInputs } from "./state/defaultInputs";
+import { defaultSimpleModeAnswers, deriveInputsFromSimpleAnswers, type SimpleModeAnswers } from "./assumptions";
 import { ModeToggle, type CalcMode } from "./components/ui/ModeToggle";
 import { Section } from "./components/ui/Section";
 import { Tabs } from "./components/ui/Tabs";
@@ -52,6 +53,7 @@ function AdvancedMode(props: {
   setInputs: React.Dispatch<React.SetStateAction<Inputs>>;
   savedQuotes: SavedQuoteV1[];
   setSavedQuotes: React.Dispatch<React.SetStateAction<SavedQuoteV1[]>>;
+  pendingDetailsNav: { anchorId?: string; nonce: number } | null;
 }) {
   const { inputs, setInputs, savedQuotes, setSavedQuotes } = props;
   const lastAutoResidualRef = useRef<number | null>(null);
@@ -162,6 +164,14 @@ function AdvancedMode(props: {
       });
     });
   }, [navTarget]);
+
+  // Arriving from Simple mode's "Go to Details" links (see App's pendingDetailsNav) —
+  // jump straight to the requested Details section once Advanced mode has mounted.
+  useEffect(() => {
+    if (!props.pendingDetailsNav) return;
+    navigateToDetails(props.pendingDetailsNav.anchorId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.pendingDetailsNav?.nonce]);
 
   const [vehicleLeasePeriodMode, setVehicleLeasePeriodMode] = useState<"perFn" | "perMonth">("perFn");
 
@@ -354,8 +364,16 @@ export default function App() {
     return getInputsFromLocationSearch(window.location.search, advancedDefaultInputs);
   });
   const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => (typeof window === "undefined" ? [] : safeLoadQuotes()));
+  const [simpleAnswers, setSimpleAnswers] = useState<SimpleModeAnswers>(() => defaultSimpleModeAnswers());
+  const [pendingDetailsNav, setPendingDetailsNav] = useState<{ anchorId?: string; nonce: number } | null>(null);
 
   function changeMode(next: CalcMode) {
+    // Keep Advanced in sync with whatever Simple currently shows, so switching
+    // via the top-nav toggle (not just the "Go advanced" button) never lands
+    // on a different car than the one just configured in Simple mode.
+    if (next === "advanced" && mode === "simple") {
+      setInputs(deriveInputsFromSimpleAnswers(simpleAnswers).inputs);
+    }
     setMode(next);
     window.localStorage.setItem(MODE_STORAGE_KEY, next);
     trackEvent("mode_switched", { mode: next });
@@ -369,14 +387,26 @@ export default function App() {
 
       {mode === "simple" ? (
         <SimpleMode
-          onGoAdvanced={(derivedInputs) => {
+          answers={simpleAnswers}
+          setAnswers={setSimpleAnswers}
+          onGoAdvanced={() => {
             trackEvent("simple_mode_go_advanced_clicked");
-            setInputs(derivedInputs);
             changeMode("advanced");
+          }}
+          onNavigateToDetails={(anchorId) => {
+            trackEvent("simple_mode_go_advanced_clicked");
+            changeMode("advanced");
+            setPendingDetailsNav((prev) => ({ anchorId, nonce: (prev?.nonce ?? 0) + 1 }));
           }}
         />
       ) : (
-        <AdvancedMode inputs={inputs} setInputs={setInputs} savedQuotes={savedQuotes} setSavedQuotes={setSavedQuotes} />
+        <AdvancedMode
+          inputs={inputs}
+          setInputs={setInputs}
+          savedQuotes={savedQuotes}
+          setSavedQuotes={setSavedQuotes}
+          pendingDetailsNav={pendingDetailsNav}
+        />
       )}
       <Footer />
     </div>

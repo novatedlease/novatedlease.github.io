@@ -208,7 +208,7 @@ export function InputsPanel(props: {
           onChange={(v) => set("estimatedMarketValueAtEnd", v)}
           hint="Suggestion: ~40% of drive-away cost (auto-filled). Enter the 5-year value even for shorter leases — the calculator interpolates."
         />
-        <NumberField label="Annual mileage" value={inputs.annualMileageKm} onChange={(v) => set("annualMileageKm", v)} suffix="km/yr" step={500} />
+        <NumberField label="Annual mileage" value={inputs.annualMileageKm} onChange={(v) => set("annualMileageKm", v)} suffix="km/yr" step={500} decimals={0} />
       </Section>
 
       <Section title="Financials" defaultOpen>

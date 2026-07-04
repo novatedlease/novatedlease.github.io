@@ -30,8 +30,8 @@ export function defaultSimpleModeAnswers(): SimpleModeAnswers {
     totalTaxableIncome: 110000,
     leaseDurationYears: 5,
     annualMileageKm: 12000,
-    hasHomeLoanOffset: false,
-    homeLoanOffsetInterestRate: 6.0,
+    hasHomeLoanOffset: true,
+    homeLoanOffsetInterestRate: 6.1,
   };
 }
 
@@ -204,7 +204,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     },
     {
       field: "vehicleLeasePerFn",
-      label: "Fortnightly lease payment",
+      label: `Fortnightly lease payment @ ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}%`,
       value: `$${vehicleLeasePerFn.toFixed(2)}/fortnight`,
       tooltip:
         `Since you don't have a real quote yet, this is back-solved to produce a ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}% p.a. effective interest rate — the midpoint of the roughly 8-12% p.a. range that's typical in the current novated lease market. Real quotes can differ meaningfully from this; get an actual quote and enter it in Advanced mode to see your true effective rate.`,
