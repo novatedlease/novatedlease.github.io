@@ -101,7 +101,7 @@ export function NumberField({
           aria-invalid={!!error}
           onFocus={() => {
             setFocused(true);
-            setDraft(Number.isFinite(value) ? String(value) : "");
+            setDraft(Number.isFinite(value) ? String(round(value, decimals)) : "");
           }}
           onChange={(e) => setDraft(e.target.value)}
           onBlur={() => {

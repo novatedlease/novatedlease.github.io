@@ -407,7 +407,7 @@ export function InputsPanel(props: {
       {isEv && (
         <Section title="Electricity" defaultOpen>
           <CurrencyField label="Average AUD per kWh" value={inputs.avgAudPerKwh} onChange={(v) => set("avgAudPerKwh", v)} decimals={2} hint="~0.08 off-peak, ~0.30 regular tariff, ~0.40–0.60 public chargers." />
-          <NumberField label="Average Wh per km" value={inputs.avgWhPerKm} onChange={(v) => set("avgWhPerKm", v)} hint="Typically 120–200 Wh/km." />
+          <NumberField label="Average Wh per km" value={inputs.avgWhPerKm} onChange={(v) => set("avgWhPerKm", Math.round(v))} hint="Typically 120–200 Wh/km." decimals={0} />
           <CurrencyField
             label="Annual charging expense override"
             value={inputs.overrideAnnualChargingExpense ?? 0}
