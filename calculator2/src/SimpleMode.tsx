@@ -25,7 +25,7 @@ export function SimpleMode(props: {
   return (
     <div>
       <div className="nlc-layout">
-        <div className="nlc-input-col">
+        <div className="nlc-input-col" data-tour-id="simple-inputs">
           <Section title="Tell us about the car" defaultOpen>
             <PillGroup
               label="Vehicle type"
@@ -86,21 +86,25 @@ export function SimpleMode(props: {
         </div>
 
         <div className="nlc-output-col">
-          <Section
-            title="Assumptions we made for you"
-            description="Since you didn't provide a real quote, these standard assumptions were used. Switch to Advanced mode to override any of them."
-          >
-            {assumptions.map((a) => (
-              <KV
-                key={a.field}
-                label={a.label}
-                value={a.value}
-                tooltip={a.tooltip ? <InfoTooltip text={a.tooltip} /> : undefined}
-              />
-            ))}
-          </Section>
+          <div data-tour-id="simple-assumptions">
+            <Section
+              title="Assumptions we made for you"
+              description="Since you didn't provide a real quote, these standard assumptions were used. Switch to Advanced mode to override any of them."
+            >
+              {assumptions.map((a) => (
+                <KV
+                  key={a.field}
+                  label={a.label}
+                  value={a.value}
+                  tooltip={a.tooltip ? <InfoTooltip text={a.tooltip} /> : undefined}
+                />
+              ))}
+            </Section>
+          </div>
 
-          <SummaryView inputs={inputs} horizon={horizon} onNavigateToDetails={props.onNavigateToDetails} />
+          <div data-tour-id="simple-outcome">
+            <SummaryView inputs={inputs} horizon={horizon} onNavigateToDetails={props.onNavigateToDetails} />
+          </div>
         </div>
       </div>
 

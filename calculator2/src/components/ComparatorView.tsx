@@ -307,7 +307,7 @@ export function ComparatorView({
     return (
       <div style={{ fontSize: 13, lineHeight: 1.6, color: "var(--nlc-text-muted)" }}>
         Save at least two quotes (see "Saved quotes" above) to compare them side by side — e.g. a
-        novated lease quote vs the same car on a car loan, or two different lease terms.
+        novated lease arrangement on a $60k EV vs a cash purchase of a $30k petrol car.
       </div>
     );
   }

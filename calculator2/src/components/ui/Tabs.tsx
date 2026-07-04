@@ -10,7 +10,7 @@ export function Tabs<T extends string>({
   onChange: (id: T) => void;
 }) {
   return (
-    <div className="nlc-tabs" role="tablist">
+    <div className="nlc-tabs" role="tablist" data-tour-id="output-tabs">
       {tabs.map((t) => (
         <button
           key={t.id}

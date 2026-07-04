@@ -1,5 +1,5 @@
 /** Mirrors calculator/src/App.tsx's footer disclaimer block (~lines 1757-1785) verbatim. */
-export function Footer() {
+export function Footer(props: { showTourLink?: boolean; onStartTour?: () => void }) {
   return (
     <div
       style={{
@@ -18,6 +18,11 @@ export function Footer() {
         <li>Consult a qualified financial adviser before making any financial decisions.</li>
         <li>Novated leasing may affect your borrowing capacity, debt obligations, government subsidies, and superannuation contributions.</li>
       </ul>
+      {props.showTourLink && (
+        <button type="button" className="nlc-tour-footer-link--muted" style={{ marginTop: 10 }} onClick={props.onStartTour}>
+          ✨ Quick tour
+        </button>
+      )}
     </div>
   );
 }

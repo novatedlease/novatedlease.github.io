@@ -417,36 +417,38 @@ export function InputsPanel(props: {
         </Section>
       )}
 
-      <Section title="Compare with car loan" description="Turn on to add a car-loan pathway to the comparison." defaultOpen>
-        <YesNoToggle label="Enable car loan comparison" value={inputs.compareWithCarLoan ? "Yes" : "No"} onChange={(v) => set("compareWithCarLoan", v === "Yes")} />
-        {inputs.compareWithCarLoan && (
-          <>
-            <CurrencyField label="Initial deposit amount" value={inputs.carLoanInitialDeposit} onChange={(v) => set("carLoanInitialDeposit", v)} />
-            <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginBottom: 12 }}>
-              <b>Loan term</b> is forced to match lease duration ({inputs.leaseDurationYears} years) above. If you want to compare a
-              different loan term to the lease term, set up two separate quotes with the lengths you want, save them, and use the{" "}
-              <b>Compare</b> tab to juxtapose the outcomes.
-            </div>
-            <PercentField label="Interest rate" value={inputs.carLoanInterestRatePct} onChange={(v) => set("carLoanInterestRatePct", v)} decimals={2} hint="Use the actual interest rate, not the comparison rate." />
-            <CurrencyField label="Monthly fee" value={inputs.carLoanMonthlyFee} onChange={(v) => set("carLoanMonthlyFee", v)} />
-          </>
-        )}
-      </Section>
+      <div data-tour-id="extra-comparisons" style={{ marginTop: "var(--nlc-space-4)" }}>
+        <Section title="Compare with car loan" description="Turn on to add a car-loan pathway to the comparison." defaultOpen>
+          <YesNoToggle label="Enable car loan comparison" value={inputs.compareWithCarLoan ? "Yes" : "No"} onChange={(v) => set("compareWithCarLoan", v === "Yes")} />
+          {inputs.compareWithCarLoan && (
+            <>
+              <CurrencyField label="Initial deposit amount" value={inputs.carLoanInitialDeposit} onChange={(v) => set("carLoanInitialDeposit", v)} />
+              <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginBottom: 12 }}>
+                <b>Loan term</b> is forced to match lease duration ({inputs.leaseDurationYears} years) above. If you want to compare a
+                different loan term to the lease term, set up two separate quotes with the lengths you want, save them, and use the{" "}
+                <b>Compare</b> tab to juxtapose the outcomes.
+              </div>
+              <PercentField label="Interest rate" value={inputs.carLoanInterestRatePct} onChange={(v) => set("carLoanInterestRatePct", v)} decimals={2} hint="Use the actual interest rate, not the comparison rate." />
+              <CurrencyField label="Monthly fee" value={inputs.carLoanMonthlyFee} onChange={(v) => set("carLoanMonthlyFee", v)} />
+            </>
+          )}
+        </Section>
 
-      <Section title="Compare with keeping current car" description="Turn on to add a keep-current-car pathway to the comparison." defaultOpen>
-        <YesNoToggle label="Enable keep-current-car comparison" value={inputs.compareWithCurrentCar ? "Yes" : "No"} onChange={(v) => set("compareWithCurrentCar", v === "Yes")} />
-        {inputs.compareWithCurrentCar && (
-          <>
-            <CurrencyField label="Current market value" value={inputs.currentCarMarketValueNow} onChange={(v) => set("currentCarMarketValueNow", v)} hint="Look up carsales.com.au or similar." />
-            <CurrencyField label="Estimated market value after 5 years" value={inputs.currentCarMarketValueAtEnd} onChange={(v) => set("currentCarMarketValueAtEnd", v)} />
-            <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-muted)", marginBottom: 10 }}>Annual running cost (inc GST)</div>
-            <CurrencyField label="Service / maintenance / tyres" value={inputs.currentServiceMaintTyresAnnual} onChange={(v) => set("currentServiceMaintTyresAnnual", v)} />
-            <CurrencyField label="Registration" value={inputs.currentRegistrationAnnual} onChange={(v) => set("currentRegistrationAnnual", v)} />
-            <CurrencyField label="Fuel" value={inputs.currentFuelAnnual} onChange={(v) => set("currentFuelAnnual", v)} />
-            <CurrencyField label="Insurance" value={inputs.currentInsuranceAnnual} onChange={(v) => set("currentInsuranceAnnual", v)} />
-          </>
-        )}
-      </Section>
+        <Section title="Compare with keeping current car" description="Turn on to add a keep-current-car pathway to the comparison." defaultOpen>
+          <YesNoToggle label="Enable keep-current-car comparison" value={inputs.compareWithCurrentCar ? "Yes" : "No"} onChange={(v) => set("compareWithCurrentCar", v === "Yes")} />
+          {inputs.compareWithCurrentCar && (
+            <>
+              <CurrencyField label="Current market value" value={inputs.currentCarMarketValueNow} onChange={(v) => set("currentCarMarketValueNow", v)} hint="Look up carsales.com.au or similar." />
+              <CurrencyField label="Estimated market value after 5 years" value={inputs.currentCarMarketValueAtEnd} onChange={(v) => set("currentCarMarketValueAtEnd", v)} />
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-muted)", marginBottom: 10 }}>Annual running cost (inc GST)</div>
+              <CurrencyField label="Service / maintenance / tyres" value={inputs.currentServiceMaintTyresAnnual} onChange={(v) => set("currentServiceMaintTyresAnnual", v)} />
+              <CurrencyField label="Registration" value={inputs.currentRegistrationAnnual} onChange={(v) => set("currentRegistrationAnnual", v)} />
+              <CurrencyField label="Fuel" value={inputs.currentFuelAnnual} onChange={(v) => set("currentFuelAnnual", v)} />
+              <CurrencyField label="Insurance" value={inputs.currentInsuranceAnnual} onChange={(v) => set("currentInsuranceAnnual", v)} />
+            </>
+          )}
+        </Section>
+      </div>
     </>
   );
 }
