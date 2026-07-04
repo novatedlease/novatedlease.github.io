@@ -282,7 +282,6 @@ export function Tour(props: {
   const { onChangeMode, onChangeTab, onForceOpenSections, onExit, currentMode, currentTab } = props;
   const [stepIndex, setStepIndex] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
-  const [measureTick, setMeasureTick] = useState(0);
   const [cardPos, setCardPos] = useState<{ top: number; left: number } | null>(null);
   const isMobile = useIsMobile();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -315,37 +314,56 @@ export function Tour(props: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stepIndex]);
 
-  // Locate the target, scroll it into view, then measure for the spotlight —
-  // two RAFs let the mode/tab/section-open state above commit and render first.
+  // Locate the target, scroll it into view, and keep re-measuring every frame until
+  // the target actually stops moving. Both a fixed settle delay and "stop once stable"
+  // heuristics (frame-to-frame position delta, quiet-period since last scroll event) turned
+  // out unreliable here: a mode/tab switch can remount a whole subtree, and a mobile
+  // single-column layout means scrollIntoView often travels much further than on desktop —
+  // and the browser's own scroll easing curve can plateau or under-fire scroll events
+  // part-way through a long scroll, which fools early-exit checks into freezing the
+  // spotlight at a mid-scroll position. So instead of guessing when it's "done", just keep
+  // re-measuring on every frame for a fixed, generous window that comfortably covers both a
+  // remount and a full-page mobile scroll — cheap to do, and immune to animation-curve
+  // quirks since we simply take whatever the truth is on the last frame.
   useEffect(() => {
+    const target = step.target;
+    if (target.kind === "none") {
+      setRect(null);
+      return;
+    }
     let cancelled = false;
-    let settleTimer: ReturnType<typeof setTimeout> | undefined;
-    const raf = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        if (cancelled) return;
-        setRect(resolveTargetRect(step.target));
-        const el = elementForTarget(step.target);
-        el?.scrollIntoView({ block: "center", behavior: "smooth" });
-        settleTimer = setTimeout(() => {
-          if (!cancelled) setRect(resolveTargetRect(step.target));
-        }, 380);
-      });
-    });
+    let rafId = 0;
+    let scrolled = false;
+    const start = performance.now();
+    const MEASURE_WINDOW_MS = 1100;
+
+    function tick() {
+      if (cancelled) return;
+      setRect(resolveTargetRect(target));
+      if (!scrolled) {
+        elementForTarget(target)?.scrollIntoView({ block: "center", behavior: "smooth" });
+        scrolled = true;
+      }
+      if (performance.now() - start > MEASURE_WINDOW_MS) return;
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
     return () => {
       cancelled = true;
-      cancelAnimationFrame(raf);
-      if (settleTimer) clearTimeout(settleTimer);
+      cancelAnimationFrame(rafId);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stepIndex, measureTick]);
+  }, [stepIndex]);
 
+  // Window resize (e.g. orientation change) — re-measure without re-triggering scroll.
   useEffect(() => {
     function onResize() {
-      setMeasureTick((x) => x + 1);
+      setRect(resolveTargetRect(step.target));
     }
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stepIndex]);
 
   // Position the floating card beside the target, flipping side/edge as space allows.
   useLayoutEffect(() => {
