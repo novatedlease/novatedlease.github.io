@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Ported from calculator/src/components/InputsPanel.tsx's LeaseAdjustModal
@@ -12,6 +12,14 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
   const [provider, setProvider] = useState<"smart" | "millarx">("smart");
   const [quotedText, setQuotedText] = useState<string>("");
   const [quotePeriodMode, setQuotePeriodMode] = useState<"perFn" | "perMonth">("perFn");
+  const quotedInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Backup for the `autoFocus` prop: focuses the field on mount via a rAF so
+  // it also works reliably right after the modal's open/close transition.
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => quotedInputRef.current?.focus());
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   const totalMonths = props.leaseDurationYears * 12;
   const bufferMonths = provider === "smart" ? 2 : 1;
@@ -131,6 +139,8 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
         <div style={{ position: "relative", marginBottom: 8 }}>
           <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", fontWeight: 700, fontSize: 16, color: "var(--nlc-text-faint)", pointerEvents: "none" }}>$</div>
           <input
+            ref={quotedInputRef}
+            className="nlc-input"
             type="text"
             inputMode="decimal"
             value={quotedText}
@@ -144,7 +154,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
               const n = parseFloat(String(quotedText).trim().replace(/[$,]/g, ""));
               if (Number.isFinite(n) && n > 0) setQuotedText(fmtResult(n));
             }}
-            style={{ width: "100%", boxSizing: "border-box", padding: "12px 14px 12px 32px", borderRadius: "var(--nlc-radius-md)", border: "1.5px solid var(--nlc-border-mid)", fontSize: 20, fontWeight: 700, background: "var(--nlc-bg)", outline: "none" }}
+            style={{ boxSizing: "border-box", padding: "12px 14px 12px 32px", fontSize: 20, fontWeight: 700 }}
           />
         </div>
 
