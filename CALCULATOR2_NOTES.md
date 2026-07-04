@@ -3,8 +3,10 @@
 Single reference for the `/calculator2/` redesign. Supersedes `CALCULATOR2_REDESIGN_PROMPT.md`
 (Phase 1 brief) and `CALCULATOR2_PHASE2_PROMPT.md` (parity gap list), both now deleted —
 everything still relevant from them is folded in here. Last audited 2026-07-04: **all Phase 1
-and Phase 2 build items are implemented and verified in code; 73 vitest tests green.** What
-remains is one verification task, a few owner decisions, and housekeeping (see "Outstanding").
+and Phase 2 build items, the multi-scenario parity sweep, and the maths-audit follow-ups are
+implemented and verified in code; 73 vitest tests green.** What remains is the cut-over
+decision, two minor owner-review items, and optional post-cut-over housekeeping (see
+"Outstanding").
 
 Live hidden preview: <https://novatedlease.guide/calculator2/> (noindex, sitemap-excluded, unlinked).
 
@@ -96,34 +98,39 @@ Live hidden preview: <https://novatedlease.guide/calculator2/> (noindex, sitemap
 
 ## 3. Outstanding — the only open items
 
-(Ready-to-run implementation prompts for each of these are in §5.)
+Status as of 2026-07-04 (updated after this round of work — see §5 prompts A/B/C/E, all now
+closed, plus two follow-up UI/copy rounds tracked in `calculator2/UI_COPY_FIXES.md`, also closed).
 
-1. **Multi-scenario parity sweep (highest priority).** The parity audit
-   (`calculator2/PARITY_AUDIT_NOTES.md`) verified v1↔v2 number-identity only on the
-   *default* scenario (perfect match). Custom scenarios were blocked by the share-link
-   codec bug, which is now fixed (`f92be20b`) — but the sweep was never re-run. Re-check
-   ComparatorView net positions, the three EffectiveInterestReport definitions, the
-   LeaseReport FY table, WorstCase series, and ATI/SG rows across FBT-category /
-   lease-term / comparator variations, using share links to drive both apps (fast now the
-   codec is compatible). One loose end from that audit: v2's "$449.25 net charging expense"
-   stat in BasicInformationReport had no exact v1 counterpart — likely a labelling
-   difference, never confirmed.
-2. **Maths-audit owner decisions** (`calculator2/MATHS_AUDIT.md`):
-   - **RFBA flat 20% for `EV_FBT_DISCOUNTED` leases** — moderate-to-high confidence it
-     should be 15% for that category (~$7,547/FY RFBA difference in the worked example).
-     Fixing touches live v1 (`calculator/src/components/ATI.tsx`) — owner sign-off required.
-   - 53% childcare-subsidy factor: not verified against Services Australia / Family
-     Assistance Act primary sources.
-   - $75k transitional cap + 2027/2029 tier dates: verified only against the repo's own
-     article, not bill text (measure may still be pre-legislation).
-   - Architecture flag: `engine/rfba.ts` / `engine/fbt.ts` are v2-only; v1 keeps its own
-     (verified-identical) inline copies — same divergence shape that caused the share-link
-     bug. Consider converging v1 onto the engine files at cut-over.
-3. **Cut-over plan** (owner decision): swap `/calculator/` to v2, redirect or retire
-   `/calculator2/`, remove noindex, keep v1 source in-repo until confident.
-4. **Simple-mode assumption review** (owner): drive-away ÷ 1.08 base-value heuristic,
-   9.5% p.a. assumed effective rate, flat rego/insurance — documented in
-   `src/assumptions.ts` but set unilaterally.
+1. ~~Multi-scenario parity sweep~~ — **DONE.** Re-run across all 30 golden-master scenarios
+   (FBT tiers, lease terms, comparators, income brackets) using share links to drive both
+   apps; zero real numeric divergences found. Findings in `calculator2/PARITY_AUDIT_NOTES.md`.
+   The "$449.25 net charging expense" loose end is resolved too — both apps now render
+   identical charging figures.
+2. **Maths-audit items** (`calculator2/MATHS_AUDIT.md`):
+   - ~~RFBA flat 20% for `EV_FBT_DISCOUNTED` leases~~ — **RETRACTED, not a bug.** RFBA is
+     unconditionally zero for any non-EXEMPT category in both apps (the `fbtApplicable` gate),
+     so the flat 20% only ever applies where it's already correct. No fix needed/applied.
+   - ~~53% childcare-subsidy factor~~ — **VERIFIED, matches.** Traced to DSS Family Assistance
+     Guide §3.2.3: 0.53 = 1 − 47% FBT rate, scoped correctly to FBTAA s57A-exempt employers.
+   - **$75k transitional cap + 2027/2029 tier dates** — still open in one narrow sense: the
+     parameters are now corroborated against five independent 2026 professional-advisory
+     sources (up from just the repo's own article), but no actual Bill/Act text exists yet, so
+     it remains an *announced* policy. Recommend a final check once legislation is introduced.
+   - Architecture flag (`engine/rfba.ts` / `engine/fbt.ts` are v2-only, v1 keeps its own
+     verified-identical inline copies) — still open, deferred to optional post-cut-over
+     housekeeping (Prompt F).
+3. **Cut-over plan** (owner decision, not yet made): swap `/calculator/` to v2, redirect or
+   retire `/calculator2/`, remove noindex, keep v1 source in-repo until confident. Prerequisite
+   (the parity sweep) has passed — this is purely waiting on a go-ahead.
+4. **Simple-mode assumption review** — **partially done.** Insurance (now scales with vehicle
+   price, EV premium), fuel economy (9→6 L/100km), and registration (confirmed correctly flat)
+   were reviewed against real 2026 Australian benchmarks and updated in `src/assumptions.ts`.
+   Each assumption in the Simple-mode UI now also shows its reasoning as a tooltip rather than
+   inline text. **Still not reviewed:** the drive-away ÷ 1.08 base-value heuristic and the 9.5%
+   p.a. assumed effective interest rate — both still set unilaterally, no owner sign-off yet.
+5. **Post-cut-over housekeeping** (Prompt F, optional, low priority, deferred until after
+   cut-over): converge v1 onto `engine/rfba.ts`/`engine/fbt.ts` (or document that v1 doesn't
+   trust them) and derive `GST_EXEMPT_CAP` from a `CAR_LIMIT` constant instead of hardcoding it.
 
 ## 4. Working rules (learned the hard way — keep following)
 

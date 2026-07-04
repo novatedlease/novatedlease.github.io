@@ -36,28 +36,6 @@ export function SimpleMode(props: { onGoAdvanced: (inputs: Inputs) => void }) {
 
   return (
     <div>
-      <VerdictBanner
-        betterOffBy={betterOffBy}
-        comparedTo="buying with cash"
-        sub={
-          <>
-            Ballpark estimate over your {inputs.leaseDurationYears}-year lease — get a real quote and switch to
-            Advanced mode to check this properly.
-          </>
-        }
-      >
-        <Stat label="Estimated lease payments" value={fmtMoney(summary.leasePaymentsOverLease)} color={PALETTE.blue} />
-        <Stat label="Residual at lease end" value={fmtMoney(summary.residualPayableIncGst)} color={PALETTE.purple} />
-        <Stat label="Vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} color={PALETTE.teal} />
-        {answers.hasHomeLoanOffset && (
-          <Stat
-            label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
-            value={fmtMoney(interestSaving)}
-            color={interestSaving >= 0 ? "#059669" : "#dc2626"}
-          />
-        )}
-      </VerdictBanner>
-
       <div className="nlc-layout">
         <div className="nlc-input-col">
           <Section title="Tell us about the car" defaultOpen>
@@ -119,24 +97,6 @@ export function SimpleMode(props: { onGoAdvanced: (inputs: Inputs) => void }) {
         </div>
 
         <div className="nlc-output-col">
-          <Section title="What this means" defaultOpen>
-            <StatGrid>
-              <Stat label={`Novated lease, total @ ${inputs.leaseDurationYears}y`} value={fmtMoney(nlTotal)} color={PALETTE.blue} />
-              <Stat label={`Cash purchase, total @ ${inputs.leaseDurationYears}y`} value={fmtMoney(cashTotal)} color="#37474f" />
-            </StatGrid>
-            <SubHead mt={16}>Breakdown</SubHead>
-            <KV label="Estimated lease payments over the term" value={fmtMoney(summary.leasePaymentsOverLease)} />
-            <KV label="Residual payable at lease end (inc GST)" value={fmtMoney(summary.residualPayableIncGst)} />
-            <KV label="Estimated vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} />
-            {answers.hasHomeLoanOffset && (
-              <KV
-                label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
-                value={`${interestSaving >= 0 ? "+" : "-"}${fmtMoney(interestSaving)}`}
-              />
-            )}
-            <KV label="Net outcome vs cash" value={`${betterOffBy >= 0 ? "+" : "-"}${fmtMoney(betterOffBy)}`} bold highlight />
-          </Section>
-
           <Section
             title="Assumptions we made for you"
             description="Since you didn't provide a real quote, these standard assumptions were used. Switch to Advanced mode to override any of them."
@@ -159,13 +119,53 @@ export function SimpleMode(props: { onGoAdvanced: (inputs: Inputs) => void }) {
                 />
               ))}
           </Section>
-
-          <div style={{ marginTop: 16, display: "flex", justifyContent: "flex-end" }}>
-            <Button variant="primary" onClick={() => props.onGoAdvanced(inputs)}>
-              Switch to Advanced mode to refine this →
-            </Button>
-          </div>
         </div>
+      </div>
+
+      <VerdictBanner
+        betterOffBy={betterOffBy}
+        comparedTo="buying with cash"
+        sub={
+          <>
+            Ballpark estimate over your {inputs.leaseDurationYears}-year lease — get a real quote and switch to
+            Advanced mode to check this properly.
+          </>
+        }
+      >
+        <Stat label="Estimated lease payments" value={fmtMoney(summary.leasePaymentsOverLease)} color={PALETTE.blue} />
+        <Stat label="Residual at lease end" value={fmtMoney(summary.residualPayableIncGst)} color={PALETTE.purple} />
+        <Stat label="Vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} color={PALETTE.teal} />
+        {answers.hasHomeLoanOffset && (
+          <Stat
+            label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
+            value={fmtMoney(interestSaving)}
+            color={interestSaving >= 0 ? "#059669" : "#dc2626"}
+          />
+        )}
+      </VerdictBanner>
+
+      <Section title="What this means" defaultOpen>
+        <StatGrid>
+          <Stat label={`Novated lease, total @ ${inputs.leaseDurationYears}y`} value={fmtMoney(nlTotal)} color={PALETTE.blue} />
+          <Stat label={`Cash purchase, total @ ${inputs.leaseDurationYears}y`} value={fmtMoney(cashTotal)} color="#37474f" />
+        </StatGrid>
+        <SubHead mt={16}>Breakdown</SubHead>
+        <KV label="Estimated lease payments over the term" value={fmtMoney(summary.leasePaymentsOverLease)} />
+        <KV label="Residual payable at lease end (inc GST)" value={fmtMoney(summary.residualPayableIncGst)} />
+        <KV label="Estimated vehicle value at lease end" value={fmtMoney(summary.newEvValueAtLeaseEnd)} />
+        {answers.hasHomeLoanOffset && (
+          <KV
+            label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"}
+            value={`${interestSaving >= 0 ? "+" : "-"}${fmtMoney(interestSaving)}`}
+          />
+        )}
+        <KV label="Net outcome vs cash" value={`${betterOffBy >= 0 ? "+" : "-"}${fmtMoney(betterOffBy)}`} bold highlight />
+      </Section>
+
+      <div style={{ marginTop: 16, display: "flex", justifyContent: "flex-end" }}>
+        <Button variant="primary" onClick={() => props.onGoAdvanced(inputs)}>
+          Switch to Advanced mode to refine this →
+        </Button>
       </div>
     </div>
   );
