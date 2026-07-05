@@ -5,7 +5,7 @@ import { residualFractionForYears } from "@engine/ato";
 import { computeDerived } from "@engine/derived";
 import { URL_STATE_PARAM, getInputsFromLocationSearch, setUrlParamForInputs } from "@engine/urlState";
 import { advancedDefaultInputs } from "./state/defaultInputs";
-import { defaultSimpleModeAnswers, deriveInputsFromSimpleAnswers, type SimpleModeAnswers } from "./assumptions";
+import { defaultSimpleModeAnswers, deriveInputsFromSimpleAnswers, evElectricityClaimAnnual, nonEvFuelAnnual, type SimpleModeAnswers } from "./assumptions";
 import { ModeToggle, type CalcMode } from "./components/ui/ModeToggle";
 import { Section } from "./components/ui/Section";
 import { Tabs } from "./components/ui/Tabs";
@@ -49,8 +49,6 @@ function buildSgRows(inputs: Inputs) {
 function estMarketValueFromDriveaway(driveawayCost: number): number {
   return Math.round((driveawayCost * 0.4) / 1000) * 1000;
 }
-
-const ATO_EV_HOME_CHARGING_RATE_PER_KM = 0.0547;
 
 function AdvancedMode(props: {
   inputs: Inputs;
@@ -126,13 +124,18 @@ function AdvancedMode(props: {
   // charging shortcut rate until the user overrides it — mirrors calculator/src/components/
   // InputsPanel.tsx's electricity auto-fill effect (lines ~44-89), using the same lastAuto/
   // withinCent override-detection pattern as the three effects above (rather than v1's
-  // separate `touched` boolean state, for consistency with this file).
+  // separate `touched` boolean state, for consistency with this file). Formula imported from
+  // assumptions.ts (not duplicated here) so this can never drift from the Simple-mode default.
+  //
+  // While vehicleType isn't EV, this field is hidden/irrelevant — deliberately leave
+  // lastAutoElectricityRef untouched (frozen) rather than resetting it to null. If it were
+  // reset, switching away, changing mileage, then switching back to EV would compare the
+  // (unchanged, still-in-sync) stored value against a freshly-recomputed auto for the new
+  // mileage, see a mismatch, and wrongly conclude the user had manually overridden it —
+  // permanently disabling the auto-fill for a field the user never actually touched.
   useEffect(() => {
-    if (inputs.vehicleType !== "EV") {
-      lastAutoElectricityRef.current = null;
-      return;
-    }
-    const auto = inputs.annualMileageKm * ATO_EV_HOME_CHARGING_RATE_PER_KM;
+    if (inputs.vehicleType !== "EV") return;
+    const auto = evElectricityClaimAnnual(inputs.annualMileageKm);
     const cur = inputs.electricityAnnual;
     const lastAuto = lastAutoElectricityRef.current;
     const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;
@@ -146,16 +149,14 @@ function AdvancedMode(props: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputs.vehicleType, inputs.annualMileageKm, inputs.electricityAnnual]);
 
-  // Auto-fill fuelAnnual from annualMileageKm using the same ~6L/100km @ $1.80/L estimate
-  // Simple mode uses (assumptions.ts) until the user overrides it — mirrors the electricity
-  // effect above, but for the Non-EV side. Rounding matches assumptions.ts exactly so the two
-  // don't silently drift apart (a mismatch there previously disabled the electricity auto-fill).
+  // Auto-fill fuelAnnual from annualMileageKm using the same estimate Simple mode uses until
+  // the user overrides it — mirrors the electricity effect above, but for the Non-EV side.
+  // Formula imported from assumptions.ts (not duplicated here) for the same reason. Also
+  // leaves lastAutoFuelRef frozen (not reset to null) while inactive, for the same reason
+  // documented on the electricity effect above.
   useEffect(() => {
-    if (inputs.vehicleType === "EV") {
-      lastAutoFuelRef.current = null;
-      return;
-    }
-    const auto = Math.round(inputs.annualMileageKm * 0.06 * 1.8);
+    if (inputs.vehicleType === "EV") return;
+    const auto = nonEvFuelAnnual(inputs.annualMileageKm);
     const cur = inputs.fuelAnnual;
     const lastAuto = lastAutoFuelRef.current;
     const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;

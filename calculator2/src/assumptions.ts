@@ -14,6 +14,27 @@ import { ATO_EV_HOME_CHARGING_RATE_PER_KM } from "@engine/charging";
  */
 export const ASSUMED_EFFECTIVE_RATE = 0.095;
 
+/**
+ * Single source of truth for the EV electricity claim and Non-EV fuel default
+ * formulas — used both to build the Simple-mode default scenario here AND by
+ * Advanced mode's live auto-fill effects (App.tsx). Deliberately NOT
+ * duplicated inline in both places: an earlier bug had the electricity claim
+ * default computed via one formula while the live auto-fill used a
+ * differently-rounded version of the same formula, which made the claim
+ * permanently look "already overridden" and silently disabled the auto-fill.
+ * Importing these from one place makes that class of drift impossible.
+ */
+export function evElectricityClaimAnnual(annualMileageKm: number): number {
+  return annualMileageKm * ATO_EV_HOME_CHARGING_RATE_PER_KM;
+}
+
+// ~6 L/100km at ~$1.80/L — reflects hybrids' large and growing share of
+// novated-lease vehicles (e.g. RAV4 Hybrid ~4.5 L/100km) blended with
+// non-hybrid mid-size cars (~6-7 L/100km), rather than a pure-ICE figure.
+export function nonEvFuelAnnual(annualMileageKm: number): number {
+  return Math.round(annualMileageKm * 0.06 * 1.8);
+}
+
 export type SimpleModeAnswers = {
   vehicleType: "EV" | "Non-EV";
   driveawayCost: number;
@@ -111,17 +132,8 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
   // only estimates the user's real out-of-pocket spend. Mixing the two up here
   // made the claim equal the actual estimate by construction, so "NL:
   // electricity gain/loss" always came out ~$0 regardless of inputs.
-  // Deliberately unrounded, matching Advanced mode's live auto-fill formula
-  // (App.tsx) exactly — rounding here would make this default permanently
-  // mismatch that formula by a few cents, which reads as "already overridden"
-  // and disables the auto-fill from the very first render.
-  const electricityAnnual = isEv
-    ? answers.annualMileageKm * ATO_EV_HOME_CHARGING_RATE_PER_KM
-    : 0;
-  // ~6 L/100km at ~$1.80/L — reflects hybrids' large and growing share of
-  // novated-lease vehicles (e.g. RAV4 Hybrid ~4.5 L/100km) blended with
-  // non-hybrid mid-size cars (~6-7 L/100km), rather than a pure-ICE figure.
-  const fuelAnnual = isEv ? 0 : Math.round(answers.annualMileageKm * 0.06 * 1.8);
+  const electricityAnnual = isEv ? evElectricityClaimAnnual(answers.annualMileageKm) : 0;
+  const fuelAnnual = isEv ? 0 : nonEvFuelAnnual(answers.annualMileageKm);
 
   const partialInputs: Omit<Inputs, "financedAmountForInterestCalcExGst" | "residualValueExGst" | "vehicleLeasePerFn"> = {
     vehicleType: answers.vehicleType,
