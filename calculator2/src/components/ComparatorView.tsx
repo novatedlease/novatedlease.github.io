@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { Inputs } from "@engine/types";
 import { computeFinancialSummary } from "../engineAdapter";
+import { resolveAutoFields } from "../assumptions";
 import type { SavedQuoteV1 } from "../state/savedQuotes";
 import { Table, th, thR, td, tdR } from "./ui/shared";
 
@@ -223,7 +224,11 @@ export function ComparatorView({
 
   const availablePathways = useMemo<AvailablePathway[]>(() => {
     return savedQuotes.flatMap((q) => {
-      const inputs: Inputs = { ...defaultInputs, ...(q.inputs as Partial<Inputs>) };
+      // resolveAutoFields recomputes residual/financed-amount/market-value/electricity/fuel
+      // for THIS quote's own scenario if any were omitted from the saved quote (defaultInputs
+      // here is sentinelDefaultInputs, so an omitted field reads as 0/"unset" first) — there's
+      // no live auto-fill effect to do this for us here, unlike Advanced mode's own inputs.
+      const inputs: Inputs = resolveAutoFields({ ...defaultInputs, ...(q.inputs as Partial<Inputs>) });
       const paths: AvailablePathway[] = [
         { key: `${q.id}__nl`, quoteId: q.id, quoteName: q.name, pathwayType: "nl", inputs },
         { key: `${q.id}__cash`, quoteId: q.id, quoteName: q.name, pathwayType: "cash", inputs },

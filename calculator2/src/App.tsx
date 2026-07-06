@@ -4,8 +4,8 @@ import { financedAmountExGstFromInputs } from "@engine/effectiveinterest";
 import { residualFractionForYears } from "@engine/ato";
 import { computeDerived } from "@engine/derived";
 import { URL_STATE_PARAM, getInputsFromLocationSearch, setUrlParamForInputs } from "@engine/urlState";
-import { advancedDefaultInputs } from "./state/defaultInputs";
-import { defaultSimpleModeAnswers, deriveInputsFromSimpleAnswers, evElectricityClaimAnnual, nonEvFuelAnnual, type SimpleModeAnswers } from "./assumptions";
+import { advancedDefaultInputs, sentinelDefaultInputs } from "./state/defaultInputs";
+import { defaultSimpleModeAnswers, deriveInputsFromSimpleAnswers, estMarketValueFromDriveaway, evElectricityClaimAnnual, nonEvFuelAnnual, type SimpleModeAnswers } from "./assumptions";
 import { ModeToggle, type CalcMode } from "./components/ui/ModeToggle";
 import { Section } from "./components/ui/Section";
 import { Tabs } from "./components/ui/Tabs";
@@ -44,10 +44,6 @@ function buildAtiRows(inputs: Inputs) {
 }
 function buildSgRows(inputs: Inputs) {
   return computeDerived(withLvFolded(inputs)).sgRows;
-}
-
-function estMarketValueFromDriveaway(driveawayCost: number): number {
-  return Math.round((driveawayCost * 0.4) / 1000) * 1000;
 }
 
 function AdvancedMode(props: {
@@ -196,7 +192,7 @@ function AdvancedMode(props: {
         <Button variant="secondary" size="sm" onClick={copyShareLink}>
           {copiedLink ? "Link copied!" : "Copy share link"}
         </Button>
-        <QuotesPanel inputs={inputs} defaultInputs={advancedDefaultInputs} onLoadQuote={setInputs} quotes={savedQuotes} onQuotesChange={setSavedQuotes} />
+        <QuotesPanel inputs={inputs} defaultInputs={sentinelDefaultInputs} onLoadQuote={setInputs} quotes={savedQuotes} onQuotesChange={setSavedQuotes} />
       </div>
 
       <div className="nlc-layout">
@@ -349,7 +345,7 @@ function AdvancedMode(props: {
 
             {outputTab === "compare" && (
               <div data-tour-id="compare-view">
-                <ComparatorView savedQuotes={savedQuotes} defaultInputs={advancedDefaultInputs} onNavigateToDetails={navigateToDetails} />
+                <ComparatorView savedQuotes={savedQuotes} defaultInputs={sentinelDefaultInputs} onNavigateToDetails={navigateToDetails} />
               </div>
             )}
           </div>
@@ -371,7 +367,14 @@ export default function App() {
   // load correctly in the other.
   const [inputs, setInputs] = useState<Inputs>(() => {
     if (typeof window === "undefined") return advancedDefaultInputs;
-    return getInputsFromLocationSearch(window.location.search, advancedDefaultInputs);
+    const fromUrl = new URLSearchParams(window.location.search).get(URL_STATE_PARAM);
+    if (!fromUrl) return advancedDefaultInputs;
+    // Merge over sentinelDefaultInputs (not advancedDefaultInputs) so a field OMITTED
+    // from the share link — e.g. an older link that never encoded residualValueExGst —
+    // reads as the "not yet computed" 0 sentinel and gets properly recomputed by
+    // AdvancedMode's auto-fill effects below, rather than silently inheriting today's
+    // unrelated default scenario's own value for that field.
+    return getInputsFromLocationSearch(window.location.search, sentinelDefaultInputs);
   });
   const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => (typeof window === "undefined" ? [] : safeLoadQuotes()));
   const [simpleAnswers, setSimpleAnswers] = useState<SimpleModeAnswers>(() => defaultSimpleModeAnswers());

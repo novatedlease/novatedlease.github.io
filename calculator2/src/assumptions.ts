@@ -35,6 +35,61 @@ export function nonEvFuelAnnual(annualMileageKm: number): number {
   return Math.round(annualMileageKm * 0.06 * 1.8);
 }
 
+// 5-year market value estimate, same rule-of-thumb the engine interpolates down
+// for shorter terms: ~40% of drive-away price. Shared with App.tsx's Advanced-mode
+// auto-fill effect for the same reason as the two functions above.
+export function estMarketValueFromDriveaway(driveawayCost: number): number {
+  return Math.round((driveawayCost * 0.4) / 1000) * 1000;
+}
+
+/**
+ * Fills in any of Advanced mode's "auto-derivable" fields (residual value,
+ * financed amount, estimated market value, EV electricity claim / Non-EV fuel
+ * estimate) that are still at their 0 "not yet computed" sentinel, recomputing
+ * them from the rest of the given scenario.
+ *
+ * Used wherever a full Inputs object is built from PARTIAL external data (a
+ * share link, a saved quote) merged over some defaults object. Merging over
+ * `advancedDefaultInputs` directly would silently carry over that unrelated
+ * scenario's own non-zero values for these 5 fields when they're omitted from
+ * the external data — merge over `sentinelDefaultInputs` (which zeroes them)
+ * first so omitted fields read as "unset", then call this to recompute them
+ * for the ACTUAL loaded scenario. App.tsx's own Advanced-mode auto-fill
+ * effects do the equivalent job continuously during live editing; this is the
+ * one-shot version for import paths that don't go through those effects
+ * (e.g. ComparatorView, which computes results directly from merged inputs).
+ */
+export function resolveAutoFields(inputs: Inputs): Inputs {
+  const leaseYears = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
+  const isEv = inputs.vehicleType === "EV";
+
+  // Matches App.tsx's own residual auto-sync effect: residual is always derived from a
+  // freshly-recomputed financed amount (vehicleBaseValue/driveawayCost/condition), not
+  // from whatever happens to be stored in financedAmountForInterestCalcExGst — that field
+  // is tracked/overridable separately (e.g. for effective-interest back-solving) and isn't
+  // guaranteed to match a fresh recompute if the user has customised it independently.
+  const freshFinancedAmountExGst = financedAmountExGstFromInputs(inputs);
+  const financedAmountForInterestCalcExGst = inputs.financedAmountForInterestCalcExGst || freshFinancedAmountExGst;
+
+  const residualValueExGst =
+    inputs.residualValueExGst ||
+    Math.max(0, freshFinancedAmountExGst - inputs.leaseDocFee) * residualFractionForYears(leaseYears);
+
+  const estimatedMarketValueAtEnd = inputs.estimatedMarketValueAtEnd || estMarketValueFromDriveaway(inputs.driveawayCost);
+
+  const electricityAnnual = isEv ? inputs.electricityAnnual || evElectricityClaimAnnual(inputs.annualMileageKm) : inputs.electricityAnnual;
+  const fuelAnnual = !isEv ? inputs.fuelAnnual || nonEvFuelAnnual(inputs.annualMileageKm) : inputs.fuelAnnual;
+
+  return {
+    ...inputs,
+    financedAmountForInterestCalcExGst,
+    residualValueExGst,
+    estimatedMarketValueAtEnd,
+    electricityAnnual,
+    fuelAnnual,
+  };
+}
+
 export type SimpleModeAnswers = {
   vehicleType: "EV" | "Non-EV";
   driveawayCost: number;
@@ -99,10 +154,8 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
   // real figure from a quote.
   const vehicleBaseValue = Math.round((answers.driveawayCost / 1.08) / 100) * 100;
 
-  // 5-year market value estimate, same rule-of-thumb as v1 (App.tsx
-  // estMarketValueFromDriveaway): ~40% of drive-away price. The engine
-  // interpolates this down for shorter terms.
-  const estimatedMarketValueAtEnd = Math.round((answers.driveawayCost * 0.4) / 1000) * 1000;
+  // 5-year market value estimate — the engine interpolates this down for shorter terms.
+  const estimatedMarketValueAtEnd = estMarketValueFromDriveaway(answers.driveawayCost);
 
   const leaseDocFee = 450;
 
