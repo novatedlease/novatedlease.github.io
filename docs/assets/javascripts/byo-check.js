@@ -397,6 +397,13 @@
       group: "Victoria",
       status: "possible",
       notes: ""
+    },
+    {
+      name: "Allianz",
+      aliases: ["Allianz Australia", "Allianz Insurance"],
+      group: "Insurance",
+      status: "not_available",
+      notes: ""
     }
   ];
 
