@@ -94,7 +94,7 @@ export function InputsPanel(props: {
           value={inputs.vehicleType}
           onChange={(v: Inputs["vehicleType"]) => set("vehicleType", v)}
           options={[
-            { value: "EV", label: "EV" },
+            { value: "EV", label: "Electric" },
             { value: "Non-EV", label: "Petrol / diesel / hybrid" },
           ]}
           tooltip={<InfoTooltip text="FBT exemption applies only to eligible EVs: first held and used after 1 July 2022, and Luxury Car Tax (LCT) was not payable at any point." />}
@@ -376,14 +376,14 @@ export function InputsPanel(props: {
         />
         <CurrencyField label="Service / maintenance / tyres" value={inputs.serviceMaintTyresAnnual} onChange={(v) => set("serviceMaintTyresAnnual", v)} hint="Annual figure." />
         <CurrencyField
-          label="NSW Health save share"
+          label="NSW Health employer share"
           value={inputs.saveShareAnnual}
           onChange={(v) => set("saveShareAnnual", v)}
-          hint="Leave as 0 unless you're an NSW Health employee."
+          hint="Leave as 0 unless you're an NSW Health employee subject to the employer share."
           tooltip={
             <InfoTooltip
               text={
-                "NSW Health employees receive an employer-shared saving through their salary packaging arrangement, credited as an offset to running costs.\n\n" +
+                "Some NSW Health staff (notably doctors and nurses) must surrender roughly half of the tax saving from their salary packaging — including novated leases — back to their employer under a policy dating to 2002. Enter the annual dollar amount NSW Health retains here; it's added as an extra pre-tax cost, reducing your net benefit.\n\n" +
                 "[Read more about the NSW Health employer share](https://novatedlease.guide/special-and-policy/nsw-health-employer-share/)"
               }
             />

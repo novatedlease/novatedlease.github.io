@@ -63,7 +63,7 @@ describe("Advanced mode auto-fill effects (real interaction, not just the underl
     fireEvent.click(screen.getByRole("button", { name: "Petrol / diesel / hybrid" }));
     fireEvent.change(screen.getByLabelText("Annual mileage"), { target: { value: "25000" } });
 
-    fireEvent.click(screen.getByRole("button", { name: "EV" }));
+    fireEvent.click(screen.getByRole("button", { name: "Electric" }));
 
     expect(screen.queryByLabelText("Fuel")).toBeNull();
     expect(numberFromField("Electricity")).toBeCloseTo(evElectricityClaimAnnual(25000), 0);
