@@ -392,6 +392,13 @@
       notes: ""
     },
     {
+      name: "Department of Education Victoria",
+      aliases: ["DET Victoria", "DoE Victoria", "Victorian Department of Education", "VIC Department of Education", "Victoria Education", "Victorian Schools", "VIC Schools", "Victorian public schools"],
+      group: "Victorian Education",
+      status: "possible",
+      notes: ""
+    },
+    {
       name: "Eastern Health",
       aliases: ["EH", "Box Hill Hospital", "BHH", "Maroondah Hospital", "MH", "Angliss Hospital", "AH", "The Angliss", "Upper Ferntree Gully Hospital", "Healesville & District Hospital", "Healesville and District Hospital", "HDH", "Wantirna Health", "WH", "Yarra Ranges Health", "YRH", "Peter James Centre", "PJC", "Turning Point"],
       group: "Victoria",
