@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-08"
+dateModified: "2026-06-05"
 description: NSW Health retains a share of the tax savings from salary packaging benefits — including novated leases. How the employer share works and what it actually costs you.
 ---
 
@@ -13,7 +15,6 @@ This applies not only to novated leases but to *all* salary packaging benefits.
 As someone who has spent an extensive amount of time modelling novated leases and salary packaging maths, this is one of my long-standing topics of interest.
 
 This matters because it **significantly reduces the net benefit** of salary packaging and novated leases for NSW Health employees compared with their interstate counterparts.
-
 
 ---
 
@@ -44,7 +45,6 @@ So far, so good.
 ---
 
 ## Application of the Employer Share
-
 
 NSW Health has implemented a policy that applies an **“Employer Share”**, requiring staff to surrender **roughly half of the tax benefit** they receive from salary packaging.
 
@@ -145,23 +145,3 @@ The [novated lease calculator](/calculator/) has a built-in function to evaluate
 ## Key takeaway
 
 > **NSW Health doctors and nurses are significantly disadvantaged in their achievable benefit due to the employer share, and the deal may no longer be attractive after considering the impact on government subsidies and liability.**
-
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

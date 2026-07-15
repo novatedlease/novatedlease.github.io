@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-06-05"
 description: Deep dive on how novated leases (especially FBT-exempt EVs) affect adjusted taxable income and childcare subsidy — including the special rule for hospital and NFP workers.
 ---
 
@@ -75,7 +77,6 @@ Where:
 - **20%** is the statutory fraction for car fringe benefits  
 - **1.8868** is the current type-2 gross-up rate  
 - **Proportion of FBT year** is usually close to 1 unless the lease starts mid-year  
-
 
 ---
 
@@ -165,7 +166,6 @@ For childcare subsidy (as well as other family assistance and youth income suppo
 
 ---
 
-
 ### Childcare subsidy for hospital and PBI employers: the special rule
 
 There is a **special concession** for family assistance (including childcare subsidy) when the employee works for an **FBT-exempt employer**, including:
@@ -230,23 +230,3 @@ If you remember nothing else:
 > **Government subsidy and liability are assessed on adjusted taxable income, not taxable income. Childcare subsidy has convoluted calculations.**
 
 This does not make an EV novated lease “bad”, but it does mean the **true cost must be evaluated across tax, subsidies, and liabilities together**, not in isolation.
-
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

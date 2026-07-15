@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-06-05"
 description: FBT, RFBA, and adjusted taxable income explained clearly — how the EV FBT exemption reduces income tax but can paradoxically increase HECS repayments, Division 293, and reduce childcare subsidy.
 ---
 
@@ -60,7 +62,6 @@ For eligible electric vehicles:
 The treasurer has announced a staged wind-back of the EV FBT exemption. Existing leases entered prior to 1 April 2027 on eligible vehicles remain grandfathered. For new leases entered from April 2027 onward, the exemption is progressively reduced. See the [2026 Budget announcement article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for full details.
 :::
 
-
 This exemption dramatically [reduces the cost](/start-here/ev-vs-ice-compared/) of a novated lease because:
 
 - there is no need for ECM to neutralise FBT
@@ -102,7 +103,6 @@ Three important points follow from this:
 2. **The lease interest rate / repayment does not affect RFBA.** i.e. for the same car, a lease with 6% effective interest rate would have the same RFBA as a lease with 12% effective interest rate. 
 3. **It is not influenced by the running cost in this statutory formula method.**
 
-
 ---
 
 ### What determines the taxable value?
@@ -110,7 +110,6 @@ Three important points follow from this:
 For most novated leases, the taxable value of the car benefit is the **car’s FBT base value** (which is typically the vehicle purchase price prior to stamp duty, compulsory third party insurance and registration). 
 
 If listed on your car quote, it is also sometimes called **vehicle price**, **vehicle RRP** or **vehicle subtotal**. 
-
 
 ---
 
@@ -217,7 +216,6 @@ If one or more apply, RFBA can materially change the outcome. You can use [the n
 
 ---
 
-
 ## Quick comparison: EV vs non-EV novated leases
 
 The table below summarises the typical structural differences between **FBT-exempt (EV)** and **FBT-applicable (non-EV)** novated leases:
@@ -239,8 +237,6 @@ There is an additional [in-depth article on adjusted taxable income](/special-an
 
 ---
 
-
-
 ## Key takeaway
 
 If you remember nothing else:
@@ -249,31 +245,7 @@ If you remember nothing else:
 
 > **FBT-applicable (non-EV) novated leases are usually more expensive in repayments, but often improve means-tested subsidies and liabilities through ECM.**
 
-
-
 ---
 
-
 ---
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::
-
----
-[^1]: This "statutory formula" method is the most common. If you have adequate records, you may opt for the "operating cost method" which is not discussed in this guide. 
-
-
+[^1]: This "statutory formula" method is the most common. If you have adequate records, you may opt for the "operating cost method" which is not discussed in this guide.

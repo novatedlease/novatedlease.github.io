@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-31"
+dateModified: "2026-06-30"
 description: How to read a novated lease quote — what each line item means, common pitfalls in "headline savings" figures, and how to compare proposals from different providers meaningfully.
 ---
 
@@ -24,7 +26,6 @@ A novated lease quote assumes that employment, tax settings, and vehicle use rem
 If these assumptions fail, outcomes can change significantly.
 :::
 
-
 ---
 
 ## The numbers people focus on (and why they mislead)
@@ -48,7 +49,6 @@ The correct question is whether the *net outcome* beats realistic alternatives.
 
 It is entirely possible for a quote touting huge "savings" figure to in fact be a net loss when compared to a realistic alternative as I explore in [this article](/costs-and-savings/false-saving-example/). 
 :::
-
 
 ---
 
@@ -78,7 +78,6 @@ A lower interest rate can still produce a worse overall outcome. A quoted “8%�
 Company A's 8% could sometimes be more expensive than Company B's 10%. 
 :::
 
-
 ---
 
 ### Fortnightly deductions
@@ -99,7 +98,6 @@ See: [running costs as a piggy bank](/running-costs/running-costs-piggy-bank/)
 :::warning[Do not compare deductions between quotes directly without reconciling running-cost budget discrepancies]
 Different quotes may assume different running-cost budgets, making overall deductions non-comparable.
 :::
-
 
 ---
 
@@ -123,8 +121,6 @@ When the insurance premium is included in the financed amount, it attracts inter
 Insurance, servicing, or accessories bundled into the financed amount increase interest and early-termination risk.
 :::
 
-
-
 ---
 
 ### Running costs: budgets vs real costs
@@ -143,7 +139,6 @@ Claiming running costs almost always results in a financial advantage compared t
 
 Removing them because you "charge cheaply anyway" is a mathematical error – read more in the [5.47c/km shortcut article](/running-costs/ev-home-charging-shortcut/).
 :::
-
 
 ---
 
@@ -180,7 +175,6 @@ If this applies in your case, the lost super should be incorporated into your ov
 You could lose many thousands in your super if the contribution is based on your post-NL income.
 :::
 
-
 ### Impact on HECS / childcare subsidy / child support / Div 293
 
 This impact is often buried in fine print — or omitted entirely — despite being one of the most financially significant side effects of a novated lease.
@@ -197,7 +191,6 @@ The direction of the impact depends on the **FBT treatment** of the lease:
 - **FBT‑applicable (typically ICE vehicles):** adjusted taxable income is reduced, which often improves outcomes (lower HECS repayments, higher subsidies).
 - **FBT‑exempt (EVs):** reportable fringe benefits increase ATI, which can worsen outcomes (higher repayments, reduced subsidies).
 
-
 Use [the calculator](/calculator/) to estimate changes in your **adjusted taxable income**, and assess downstream effects on repayments and subsidies before accepting a quote.
 
 See: [adjusted taxable income explained](/special-and-policy/childcare-subsidy/)
@@ -205,8 +198,6 @@ See: [adjusted taxable income explained](/special-and-policy/childcare-subsidy/)
 :::warning[Always check how novated lease affects your government liability and subsidy]
 You could lose thousands in subsidies, particularly under an EV (FBT‑exempt) novated lease.
 :::
-
-
 
 ---
 
@@ -231,28 +222,8 @@ The [novated lease calculator](/calculator/) is designed to:
 - compare net outcomes across pathways
 - help estimate potential unstated downsides (e.g. loss of super guarantee and government subsidies)
 
-
 ---
 
 ## Key takeaway
 
 > A good novated lease quote is not defined by its headline numbers, but by whether its assumptions survive scrutiny.
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

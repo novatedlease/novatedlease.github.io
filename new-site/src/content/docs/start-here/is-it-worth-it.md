@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-07-05"
 title: Is a novated lease worth it in Australia? (2026 guide)
 description: Is a novated lease worth it in Australia? Independent 2026 guide covering EV FBT exemption, GST savings, HECS impact, borrowing capacity and real net outcomes.
 ---
@@ -12,7 +14,6 @@ Instead of asking “are novated leases worth it?”, the better question is:
 > **Given my income, job stability, alternatives and risk tolerance, am I genuinely better off overall?**
 
 Novated leases are highly **context‑dependent**. They can be very favourable in some situations — particularly for higher tax brackets and FBT‑exempt EVs — but mediocre or even harmful in others.
-
 
 ---
 
@@ -87,9 +88,7 @@ Many people are drawn to novated leases because of the headline savings figures.
 
 However, beyond simply crunching the savings figures, I encourage people to **take a more holistic view** of whether they are an appropriate candidate for a novated lease.
 
-
 ---
-
 
 ### When a novated lease is more likely to be worth it
 
@@ -113,14 +112,12 @@ A novated lease tends to be more favourable if you:
 - **have checked [how your employer calculates super guarantee](/special-and-policy/super-guarantee/)**  
   a small but non-trivial number of payroll departments calculate super on *post-novated-lease salary*, which can cost you $1,000+ per year in lost employer contributions.
 
-
 - **have considered and mitigated the [possible risk of vehicle write-off](/risks/how-bad-can-early-termination-get/#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month)**.  
   if the leased car is written-off and does not have new-for-old or adequate payout to repay all remaining obligation, the default insurance payout amount may leave you significantly out of pocket.
 
 - **have a clear exit strategy at the end of the lease**  
   you should be prepared (and able) to pay out the residual if you want to own the car outright at the end of the lease. 
   Otherwise, you risk being stuck perpetually leasing, which may no longer be attractive if FBT exemptions change. 
-
 
 ---
 
@@ -224,7 +221,6 @@ Lease length therefore involves a trade-off between:
 
 This is explored in detail in the **[Risks & exit strategies](/risks/)** section and should not be treated as an afterthought.
 
-
 ---
 
 ## Key takeaway
@@ -232,8 +228,6 @@ This is explored in detail in the **[Risks & exit strategies](/risks/)** section
 If you remember nothing else:
 
 > **Novated leases are not universally good or bad — individual circumstances determine their appropriateness.**
-
-
 
 ---
 
@@ -255,24 +249,5 @@ Generally less so. The effective tax benefit is smaller at lower marginal tax ra
 
 Yes. Many lenders treat novated lease repayments as ongoing liabilities, which can significantly reduce borrowing capacity — sometimes by far more than the car’s purchase price.
 
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::
-
 [^1]: Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the initially "exempted" GST is still payable at this stage. 
-[^2]: If one purchases a car via private sale, as there is no GST component on the car purchase price, one does not get any GST saving when this car is leased. 
+[^2]: If one purchases a car via private sale, as there is no GST component on the car purchase price, one does not get any GST saving when this car is leased.

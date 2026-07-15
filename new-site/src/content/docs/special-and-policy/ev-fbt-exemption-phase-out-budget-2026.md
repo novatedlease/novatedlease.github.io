@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-05-04"
+dateModified: "2026-07-01"
 title: EV FBT exemption wind-back — 2026 Budget announcement explained
 description: The treasurer has announced a phased wind-back of the EV FBT exemption over the next three FBT years. This article explains who is affected, what changes apply, and the precise financial impact for each scenario.
 ---
@@ -8,7 +10,6 @@ description: The treasurer has announced a phased wind-back of the EV FBT exempt
 :::warning[Policy change announced — 4 May 2026]
 The treasurer has announced a phased wind-back of the EV FBT exemption, effective across the next three FBT years. Existing leaseholders are largely protected, with meaningful lead time before changes take effect. Full details below.
 :::
-
 
 On 4 May 2026, the federal treasurer [announced](https://www.abc.net.au/news/2026-05-04/electric-vehicle-tax-discount-to-be-wound-back/106639618) the partial wind-back of the Fringe Benefits Tax (FBT) exemption for electric vehicles. The changes are structured across three stages, with different rules applying depending on **when your lease commenced** and **the value of the vehicle**.
 
@@ -33,7 +34,6 @@ The table below sets out every scenario depending on lease start date, vehicle F
 :::note[What is 'FBT value'?]
 **FBT value** (also called FBT base value) is the pre-on-road purchase price — the drive-away price minus stamp duty, CTP insurance, registration, plate fees, and any Luxury Car Tax. Tesla labels this figure as "vehicle subtotal" on its order summary.
 :::
-
 
 In all scenarios, two additional criteria apply to qualify for any FBT-exemption or FBT-discount, i.e.
 
@@ -154,22 +154,3 @@ For **people planning a lease from April 2029 onward**, the full EV FBT exemptio
 ---
 
 *Published: 4 May 2026. Based on the treasurer's announcement. This article will be updated as further legislative detail becomes available.*
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

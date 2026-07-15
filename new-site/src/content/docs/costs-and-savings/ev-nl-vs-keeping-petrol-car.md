@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-03-19"
+dateModified: "2026-06-05"
 description: Real-life worked example — how leasing an $81k Tesla via FBT-exempt novated lease turned out roughly cost-neutral to keeping a $25k Mazda over five years.
 ---
 
@@ -51,7 +53,6 @@ The calculation below is based on the following pre-filled scenario in the Novat
 Adjust the fuel price, income, interest rate, or current car values to model your own scenario.
 :::
 
-
 :::tip[Don't need an $81k EV — used EVs can work too]
 The example above was for a new Tesla Model 3 Long Range at $81,400 which was the price back in 2023. That's not everyone's budget and it doesn't need to be.
 
@@ -64,7 +65,6 @@ A used BYD Atto 3 extended range from 2023, for example, might come in under $33
 
 [The calculator](/calculator/) supports used EVs. Set "Vehicle condition" to "Used" and fill in the relevant eligibility fields to model your scenario.
 :::
-
 
 ---
 
@@ -131,7 +131,6 @@ The scenario above is helped significantly by the Mazda continuing to depreciate
 
 For EV novated leases, a longer term generally achieves a higher saving. However, it also comes with greater exposure to risks — including [early termination risk](/risks/early-termination/) and reduced borrowing capacity for those planning to take out a property loan. If your job security is uncertain, or if you plan to buy property in the near future, a shorter lease may be more appropriate, which limits the achievable benefit.
 
-
 **A high-interest-rate lease provider changes the equation**
 
 The effective interest rate on this lease is 9.13%, which is not the lowest possible but within a normal range. Some workplaces — especially those with exclusive provider arrangements — have quoted effective rates in the mid-teens. At those rates, the lease cost rises substantially and the comparison deteriorates. Always check the effective interest rate before proceeding; 8–12% represents the more typical competitive market range at the time of writing.
@@ -147,7 +146,6 @@ This scenario assumes super is calculated on your pre-NL income. However, some e
 **NSW Health and similar employer-specific traps**
 
 Employees of NSW Health face a specific issue: the "employer share" arrangement means "half" of the tax saving is to be shared with the employer, and this erodes your savings significantly. See [NSW Health's "Employer Share" — a special novated lease trap](/special-and-policy/nsw-health-employer-share/) for a full explanation. The [novated lease calculator](/calculator/) accounts for this effect. 
-
 
 ---
 
@@ -170,25 +168,6 @@ If the numbers come out substantially negative for NL, you have your answer too.
 - This will not apply equally to everyone — tax bracket, lease interest rate, current car depreciation profile, employer super calculation method, and childcare subsidy impact all significantly affect the outcome.
 - Always run the full scenario for your own situation before drawing conclusions.
 - **With fuel prices rising and EV prices falling, this comparison is increasingly worth running. Used EV makes the case of NL even stronger.**
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::
 
 [^1]: 9.0 L/100 km × 15,000 km × $1.75/L = $2,362.50. At the current ~$2.30/L pump price this rises to ~$3,105/year.
 

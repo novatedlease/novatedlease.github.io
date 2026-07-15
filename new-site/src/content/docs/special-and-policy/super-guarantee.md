@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-07-15"
 description: Super guarantee and payroll risks in a novated lease — how some employers calculate SG on your reduced salary instead of your original ordinary time earnings, what changed (and didn't) with Payday Super from July 2026, and what to check.
 ---
 
@@ -186,25 +188,6 @@ That makes this a **real, if uncommon, risk** worth understanding before you sig
 3. **If yes to #2**: they owe you the difference — raise it in writing.
 
 Share this with anyone you know on a novated lease — this is an easy one to miss until a full financial year of contributions has already gone through.
-:::
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
 :::
 
 [^sg_rate]: The 9.5% SG rate used in this example is reproduced directly from GN 2020/1, which was written when that rate was current. The SG rate has since increased to 12% (from 1 July 2025). The principle illustrated by the example is unchanged.

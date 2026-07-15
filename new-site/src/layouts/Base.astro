@@ -10,7 +10,7 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   canonicalUrl?: string;
-  articleMeta?: { title: string; description?: string };
+  articleMeta?: { title: string; description?: string; datePublished?: string; dateModified?: string };
   extraSchemas?: object[];
   noindex?: boolean;
 }
@@ -36,7 +36,7 @@ const fullCanonical = canonicalUrl || `${siteUrl}${currentPath}`;
 const authorPerson = {
   '@type': 'Person',
   '@id': `${siteUrl}/about/about-me/#person`,
-  name: 'Chang Yang',
+  name: 'changyang1230',
   url: `${siteUrl}/about/about-me/`,
   jobTitle: 'Anaesthetist, biostatistician, and novated lease consumer advocate',
   description: 'Australian anaesthetist, qualified biostatistician, and former mathematical olympiad national representative. Independent author of novatedlease.guide — a free evidence-based guide and calculator for understanding novated leases in Australia.',
@@ -106,6 +106,8 @@ const articleSchema = articleMeta ? {
   publisher: publisherOrg,
   isPartOf: { '@id': `${siteUrl}/#website` },
   mainEntityOfPage: fullCanonical,
+  ...(articleMeta.datePublished ? { datePublished: articleMeta.datePublished } : {}),
+  ...(articleMeta.dateModified ? { dateModified: articleMeta.dateModified } : {}),
 } : null;
 
 // JSON-LD: ProfilePage for /about/about-me/ — exposes full author entity to Google

@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-06-21"
+dateModified: "2026-06-21"
 title: Smart Leasing and MillarX — why their quoted figure needs adjusting in the calculator
 description: Smart Leasing and MillarX quote a regular payment derived from the full lease term, but only a subset of those periods are actual finance payments to the financier. Entering the quoted figure directly inflates the effective interest rate. Here is why, and how to correct it.
 ---
@@ -116,14 +118,3 @@ For a Smart Leasing quote of $600/fortnight on a 5-year lease, this is roughly 2
 - [Effective rates on short leases and cheaper cars](/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/)
 
 [^1]: All figures in this article are expressed ex-GST. In practice, GST is embedded in the amounts that change hands — the financier charges GST on the lease rental, and the employee's salary deductions include it. We use ex-GST figures throughout because, for most employees, the GST component is largely irrelevant to calculations:  employers and novated lease providers claim the input tax credit and pass it on, therefore the employee is usually not responsible for the GST component.
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::

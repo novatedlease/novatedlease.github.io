@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-06-05"
 description: The ATO EV home charging shortcut (5.47c/km from 1 April 2026) explained — how the rate works, when to use which method, and how to maximise the claim under PCG 2024/2.
 ---
 
@@ -19,7 +21,6 @@ From 1 April 2026 (the start of the 2026–27 FBT year), the home charging short
 
 Examples on this page use the updated **5.47c/km** rate unless otherwise noted.
 :::
-
 
 ---
 
@@ -81,7 +82,6 @@ This is why you should claim the electricity amount even if your real charging c
 | 45% | 47% | $385.64 |
 :::
 
-
 ---
 
 ## The counter-intuitive bit: you can make a net financial gain from charging and driving
@@ -107,7 +107,6 @@ When you claim the $820.50,
 Once you reconcile with your actual expense, post-claiming you have made **$205.64 profit** from charging and driving the car. 
 
 In the [Novated Lease Calculator](/calculator/), the calculations above are automatically performed in the **Detail - Annual Electricity Report**, under **Net charging expense (after tax reimbursement)**.
-
 
 ---
 
@@ -236,7 +235,6 @@ Method 3 beats Method 1 whenever your actual commercial charging costs per kilom
 Method 2 (commercial invoices only) rarely wins unless commercial charging absolutely dominates your usage.
 :::
 
-
 ---
 
 ---
@@ -249,7 +247,6 @@ If you remember nothing else:
 
 For those with solar or cheap tariffs, it is **surprisingly generous**.
 
-
 ---
 
 ### Reference
@@ -258,22 +255,3 @@ For those with solar or cheap tariffs, it is **surprisingly generous**.
 - [ATO guidance on the 5.47c/km rate (from 1 April 2026)](https://www.ato.gov.au/law/view/document?docid=COG/PCG20242/NAT/ATO/00001#H16)
 
 [^1]: The one edge case worth noting: PCG 2024/2 requires that you have actually incurred electricity costs during the year. For the vast majority of solar households this is a non-issue — unless you are fully "off the grid", some grid expenses still appear on every bill. However, if your solar system fully offsets your entire household electricity consumption and your bill is genuinely zero, you may not satisfy this requirement, and the shortcut method would technically be unavailable. This interpretation is not stated explicitly in the PCG itself, but follows from its eligibility criteria.
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

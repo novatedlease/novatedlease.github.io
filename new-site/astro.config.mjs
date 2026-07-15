@@ -4,9 +4,13 @@ import remarkGfm from 'remark-gfm';
 import remarkDirective from 'remark-directive';
 import rehypeRaw from 'rehype-raw';
 import { remarkAdmonitions } from './src/plugins/remark-admonitions.mjs';
+import { rehypeByline } from './src/plugins/rehype-byline.mjs';
 
 export default defineConfig({
   site: 'https://novatedlease.guide',
+  redirects: {
+    '/costs-and-savings/use-nl-spreadsheet': '/calculator/',
+  },
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/calculator-old/'),
@@ -24,6 +28,7 @@ export default defineConfig({
     ],
     rehypePlugins: [
       rehypeRaw,
+      rehypeByline,
     ],
     syntaxHighlight: 'prism',
   },

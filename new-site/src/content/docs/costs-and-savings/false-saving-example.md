@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-02-06"
+dateModified: "2026-06-05"
 title: "Real example: a marketed \"$21,320 savings\" was actually a $5,591 net loss"
 description: A step-by-step breakdown of a real novated lease quote showing how the advertised savings figure overstates the true outcome — and how net financial position compares against a cash purchase and car loan.
 ---
@@ -46,7 +48,6 @@ This allows you to independently verify every number discussed in this analysis 
 
 All inputs are editable — readers are encouraged to adjust assumptions (interest rate, mileage, offset rate, etc.) to test the sensitivity of the net outcome.
 :::
-
 
 ## Step 1: Novated Lease Cashflow Analysis
 
@@ -181,26 +182,4 @@ While novated leasing may be financially preferable to some loan options, the tr
 - Always evaluate the **net financial outcome** rather than relying on partial or tax-focused savings figures.
 - The conclusions in this article primarily apply to FBT‑applicable novated leases and should not be misread as a blanket criticism of FBT‑exempt EV novated leasing.
 
-
-
 ---
-
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

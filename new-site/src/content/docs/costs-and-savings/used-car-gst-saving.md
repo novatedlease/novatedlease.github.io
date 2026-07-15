@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-06-06"
+dateModified: "2026-06-30"
 title: The used-car GST secret on a novated lease
 description: The novated lease GST saving most people think applies only to new cars also works for private used-car sales — through a dealer middleman and Division 66 of the GST Act. How it works, why it's legal, and what it's worth.
 ---
@@ -16,7 +18,6 @@ That's not quite true. **With one extra step**, the saving is still on the table
 - **If you're selling**, the same mechanism widens your buyer pool to include novated-lease buyers (who would otherwise be priced out by losing the GST saving on a private buy) at only a small cost.
 :::
 
-
 ---
 
 ## The trade-off everyone assumes (and why it's wrong)
@@ -31,7 +32,6 @@ So you choose: cheap price *or* GST saving. Not both.
 The secret is that you don't actually have to choose.
 
 By putting a car dealer in the middle of the transaction for a small fee, a private used-car sale can be turned into a normal taxable supply — which means the buyer's financier can claim the GST after all, on a car bought at the private-sale price.
-
 
 ---
 
@@ -107,7 +107,6 @@ From the seller's side, the win is structural rather than monetary: the same tri
 To model this scenario in the [novated lease calculator](/calculator/), choose **"Used car – dealer sale"** under **"Vehicle condition"** — that switches the lease base to the GST-exclusive figure to reflect the recovered credit.
 :::
 
-
 ---
 
 ## Is this even legal?
@@ -123,7 +122,6 @@ The dealer must also issue a **proper tax invoice** to the financier on the on-s
 :::warning[Caveat on pricier cars]
 **The car limit (GST credit cap).** The GST credit a buyer can claim on a car is capped at 1/11 of the **car limit** — **$69,883 for FY2026–27**. The $66,000 example sits below this cap, so the financier recovers the full **$6,000**. For cars *above* the car limit, the recoverable GST plateaus at **$6,353** regardless of how much more the car costs — the saving stops scaling once the cap binds.
 :::
-
 
 ---
 
@@ -161,24 +159,5 @@ See the full [disclaimer](/about/disclaimer/).
 - [EV FBT exemption wind-back — 2026 Budget announcement](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/)
 - [Failure to pass on GST savings — an overlooked cost in some novated leases](/running-costs/failure-to-pass-gst-saving/)
 - [Novated Lease Calculator](/calculator/)
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::
 
 [^1]: Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the initially "exempted" GST is still payable at this stage.

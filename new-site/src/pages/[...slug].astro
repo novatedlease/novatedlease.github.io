@@ -5,8 +5,6 @@ import ArticleLayout from '../layouts/Article.astro';
 export async function getStaticPaths() {
   // These IDs are handled by dedicated pages
   const skipIds = new Set([
-    'index',
-    'calculator/index',
     'tools/byo-employer-check',
   ]);
 
@@ -40,6 +38,15 @@ const currentPath = '/' + (slug || '') + '/';
 const ogImage = `https://novatedlease.guide/og/${slug}.png`;
 ---
 
-<ArticleLayout title={title} description={description} headings={headings} currentPath={currentPath} ogImage={ogImage}>
+<ArticleLayout
+  title={title}
+  description={description}
+  headings={headings}
+  currentPath={currentPath}
+  ogImage={ogImage}
+  datePublished={entry.data.datePublished}
+  dateModified={entry.data.dateModified}
+  hide={entry.data.hide}
+>
   <Content />
 </ArticleLayout>

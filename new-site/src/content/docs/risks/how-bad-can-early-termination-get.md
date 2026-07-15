@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-06-05"
 description: How bad can a novated lease early termination payout get? Worked examples showing the asymmetric financial risk that catches many lessees by surprise.
 ---
 
@@ -52,7 +54,6 @@ Note that
 - This assumes that I choose to pay out the termination in a **lump sum with cash** — the worst-case cashflow scenario. There are other options, such as continuing the lease directly with the financier as a non-salary-packaged arrangement, or refinancing it as a personal loan. These alternatives spread payments over time, preserving the time value of your cash and avoiding depleting your offset account in one hit. However, all pre-tax and GST advantages are still lost regardless of which path is taken, so the total financial penalty over the remaining term is broadly similar. The lump-sum payout numbers above represent the *worst-case cashflow outcome*, not the only one.
 - There is also the option of de-novating the lease and continuing payments post-tax, with the view to finding new employment that supports novated leasing and re-novating as a new FBT-exempt novated lease.
 
-
 ---
 ## Example 2: Insufficiently insured vehicle write-off at 2-year 1-month. 
 
@@ -85,7 +86,6 @@ Note two things:
 - This is the ultimate irony of novated leasing: in a write-off with insufficient insurance coverage, you can receive a large insurance payout yet still face a **five-figure out-of-pocket bill — and have no car at the end of it**.
     - Contrast this with typical arrangement of an outright car ownership: The agreed value is typically the **estimated market value** of your vehicle, so when you receive the payout, you could theoretically use it to **buy an equivalent vehicle as replacement** without significant out of pocket expense.
     - Theoretically in the case of novated lease, once the bill is settled, you could also "continue ownership" by starting a new lease; however the total amount spent would remain higher, and frankly after such experience most users may no longer wish to take up another lease. 
-
 
 ---
 
@@ -123,23 +123,3 @@ Novated leasing should therefore be evaluated not only on expected savings, but 
 - worst-case exposure,  
 - employment stability, and  
 - whether the upside adequately compensates you for the rare but impactful downside risk.
-
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

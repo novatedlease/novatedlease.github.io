@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-04-02"
+dateModified: "2026-06-30"
 description: Why novated lease effective interest rates are higher on short lease terms and cheaper cars — explained through the fixed-dollar brokerage pricing practice used by financiers.
 ---
 
@@ -7,7 +9,6 @@ description: Why novated lease effective interest rates are higher on short leas
 :::note[Disclaimer]
 I do not have access to the actual financier's official mechanism and books. The below is knowledge I gained through conversations with industry insiders over time. I do not vouch for 100% accuracy and welcome any correction from those with industry knowledge.
 :::
-
 
 One of the more puzzling findings when people compare novated lease quotes is that **two customers at the same company, leasing similar cars, can end up with very different effective interest rates**.
 
@@ -53,7 +54,6 @@ Some providers instead apply a **percentage-based brokerage** — for example, a
 If your provider uses percentage-based brokerage, the effective interest rate should be roughly consistent across different car values and lease lengths — all else being equal.
 :::
 
-
 ---
 
 ## Example 1 — Cheaper vs more expensive car
@@ -63,7 +63,6 @@ If your provider uses percentage-based brokerage, the effective interest rate sh
 :::info[Try it yourself]
 You can use the [novated lease calculator](/calculator/) to simulate these scenarios. Enter the respective car prices and adjust the interest rate to observe the effect on lease payments.
 :::
-
 
 At 8% base rate:
 
@@ -90,7 +89,6 @@ To recover $5,000 brokerage across 130 fortnights (5 years), the provider adds *
 :::info[Try it yourself]
 You can use the [novated lease calculator](/calculator/) to simulate these scenarios. Adjust the lease duration and interest rate to observe the effect on lease payments.
 :::
-
 
 At 8% base rate:
 
@@ -139,22 +137,3 @@ The most reliable way to compare quotes is not to look at the headline rate, but
 [^2]: Equal to 1/11 of the vehicle's pre-on-road price, up to $6,353.
 [^3]: Some providers also include additional items in the financed amount — such as the first year's comprehensive insurance premium, a repair package, or the brokerage itself — which further complicates comparisons.
 [^4]: In practice, financiers often apply different base rates for different lease durations. A common base rate is used here to isolate the effect of brokerage on the effective interest rate.
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

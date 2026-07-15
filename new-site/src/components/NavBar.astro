@@ -15,6 +15,14 @@ function isActive(href: string) {
 function isSectionActive(items: { href: string }[]) {
   return items.some(item => isActive(item.href));
 }
+
+// The last couple of dropdowns sit close to the right edge of the bar. Since
+// .nav-dropdown is left:0 by default, their boxes extend past the viewport's
+// right edge at narrower widths — and being position:absolute (not
+// display:none), that still inflates the page's scrollWidth even while
+// hidden. Right-align those so they open leftward and always stay on-screen.
+const sectionsWithDropdown = navigation.filter(entry => isNavSection(entry) && entry.items);
+const rightAlignLabels = new Set(sectionsWithDropdown.slice(-2).map(entry => entry.label));
 ---
 
 <nav class="site-nav" role="navigation" aria-label="Main navigation">
@@ -59,7 +67,7 @@ function isSectionActive(items: { href: string }[]) {
                   </svg>
                 </button>
               )}
-              <div class="nav-dropdown" role="menu">
+              <div class={`nav-dropdown${rightAlignLabels.has(entry.label) ? ' nav-dropdown--right' : ''}`} role="menu">
                 {entry.items.map(item => (
                   <a
                     href={item.href}

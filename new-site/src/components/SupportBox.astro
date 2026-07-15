@@ -1,0 +1,29 @@
+---
+interface Props {
+  showSupport?: boolean;
+  showKeaneNote?: boolean;
+}
+
+const { showSupport = true, showKeaneNote = true } = Astro.props;
+---
+
+{showSupport && (
+  <div class="admonition admonition--info">
+    <div class="admonition__title">Support this independent calculator & guide</div>
+    <p>This calculator and guide are built and continuously maintained as an independent project.</p>
+    <p>If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:</p>
+    <ul>
+      <li><a href="https://buymeacoffee.com/changyang1230">Buying me a cuppa</a> ☕ to help cover hosting, development time, and future improvements, or</li>
+      <li><a href="https://ts.la/pradeep738043">Using a friend's Tesla referral link</a> for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.</li>
+    </ul>
+  </div>
+)}
+
+{showSupport && showKeaneNote && (
+  <details class="admonition admonition--note admonition--collapsible">
+    <summary class="admonition__title">I'm backing Dr Michael Keane's fight for salary packaging transparency</summary>
+    <p>Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.</p>
+    <p>Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on <a href="https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0">alleged sign-on fees</a> associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.</p>
+    <p>To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his <a href="https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging"><img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;" /> GoFundMe</a>.</p>
+  </details>
+)}

@@ -207,6 +207,11 @@ button {
   z-index: 200;
 }
 
+.nav-dropdown--right {
+  left: auto;
+  right: 0;
+}
+
 .site-nav__links > li:hover .nav-dropdown,
 .site-nav__links > li:focus-within .nav-dropdown {
   opacity: 1;
@@ -601,6 +606,21 @@ button {
 }
 
 .article-content p { margin: 0 0 1.1em; }
+
+.article-byline {
+  margin: -0.4em 0 1.6em !important;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.article-byline a {
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 2px;
+}
+
+.article-byline a:hover { color: var(--nl-blue); }
 
 .article-content a {
   color: var(--nl-blue);

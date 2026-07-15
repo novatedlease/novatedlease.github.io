@@ -1,6 +1,10 @@
 ---
+datePublished: "2026-04-29"
+dateModified: "2026-07-01"
 title: LCT Threshold & FBT Exemption
 description: How the Luxury Car Tax threshold determines FBT exemption eligibility for EV novated leases — including how the threshold is calculated each year.
+hide:
+  - support
 ---
 
 # LCT threshold & the FBT exemption

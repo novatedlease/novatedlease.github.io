@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-03-24"
+dateModified: "2026-05-23"
 title: "The '$70k income is too low for novated lease savings' myth — corrected"
 description: A common forum claim says $70k income is too low to benefit meaningfully from a novated lease. Mathematically this is wrong — but there are legitimate non-tax reasons to be cautious at lower incomes.
 ---
@@ -72,22 +74,3 @@ While each of these factors is independent of tax savings, lower-income earners 
 > **A $70k earner and a $130k earner in the same marginal tax bracket achieve identical dollar savings from novated lease payments. The common claim that "$70k is too low to benefit" is mathematically wrong when it comes to the tax saving mechanism.**
 >
 > **However, lower-income earners face legitimate non-tax reasons to be more cautious: fewer financial buffers, higher relative risk exposure, and less flexibility to absorb adverse events. These concerns are real — they just don't come from the savings amount per se.**
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

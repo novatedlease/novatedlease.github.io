@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-06-05"
 description: EV and ICE novated leases are functionally different products. How the FBT exemption changes everything — and why each requires its own evaluation framework.
 ---
 
@@ -68,13 +70,11 @@ This policy change applies to **EVs and previously to PHEVs (up to 1 April 2025)
 On 4 May 2026, the treasurer announced a staged wind-back of the EV FBT exemption. Existing leases entered before 1 April 2027 on eligible vehicles remain grandfathered. For new leases entered from April 2027, the exemption is progressively reduced. See the [2026 Budget announcement article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for the full breakdown.
 :::
 
-
 If these distinctions sound abstract, the [novated lease calculator](/calculator/) allows you to model EV and ICE scenarios side by side under their respective rules. You could simulate the financial differences by choosing between EV and non-EV in the first toggle and reviewing the outputs. 
 
 :::note[Why discussions often go nowhere]
 Many arguments about novated leases fail because one person is implicitly discussing EV novated leases, while the other is thinking about ICE novated leases — without realising they are analysing functionally different products.
 :::
-
 
 ---
 
@@ -99,7 +99,6 @@ This creates a genuine trade-off:
 As a general observation, the take-home pay benefit of an EV novated lease often outweighs the reduction in means-tested subsidies. However, this is highly dependent on individual circumstances and should [always be calculated](https://novatedlease.guide/calculator/) rather than assumed. You can model the **net outcome** — including income tax savings, RFBA effects, and opportunity cost — using the [novated lease calculator](/calculator/).
 
 ---
-
 
 ## When ICE novated leases might still make sense
 
@@ -143,22 +142,3 @@ If you remember nothing else:
 The [Novated Lease Calculator](https://novatedlease.guide/calculator/) supports both EV and ICE novated leases and models the full net financial outcome — not just tax savings. You can compare your novated lease against a cash purchase, car loan, or keeping your current car.
 
 [Open the Novated Lease Calculator →](https://novatedlease.guide/calculator/)
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

@@ -1,6 +1,7 @@
 ---
 import Base from './Base.astro';
 import ArticleTOC from '../components/ArticleTOC.astro';
+import SupportBox from '../components/SupportBox.astro';
 import { navigation, isNavSection } from '../data/navigation';
 
 interface Props {
@@ -9,9 +10,24 @@ interface Props {
   ogImage?: string;
   headings?: { depth: number; slug: string; text: string }[];
   currentPath?: string;
+  datePublished?: string;
+  dateModified?: string;
+  hide?: string[];
 }
 
-const { title, description, ogImage, headings = [], currentPath = Astro.url.pathname } = Astro.props;
+const {
+  title,
+  description,
+  ogImage,
+  headings = [],
+  currentPath = Astro.url.pathname,
+  datePublished,
+  dateModified,
+  hide = [],
+} = Astro.props;
+
+const showSupport = !hide.includes('support');
+const showKeaneNote = !hide.includes('keane-note');
 
 // Find breadcrumb context: which section is this article in?
 let sectionLabel = '';
@@ -28,7 +44,7 @@ for (const entry of navigation) {
 }
 ---
 
-<Base title={title} description={description} ogImage={ogImage} ogType="article" articleMeta={title ? { title, description } : undefined}>
+<Base title={title} description={description} ogImage={ogImage} ogType="article" articleMeta={title ? { title, description, datePublished, dateModified } : undefined}>
   <div class="page-layout">
     <main class="page-content" id="main-content">
       {sectionLabel && (
@@ -44,6 +60,8 @@ for (const entry of navigation) {
       <article class="article-content">
         <slot />
       </article>
+
+      <SupportBox showSupport={showSupport} showKeaneNote={showKeaneNote} />
     </main>
 
     {headings.length > 0 && (

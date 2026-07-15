@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-06-05"
 description: Choosing the right novated lease length — how 1, 2, 3, 4, and 5 year terms differ in residual value, interest cost, and exposure to early termination risk.
 ---
 
@@ -204,7 +206,6 @@ That exposure is cheap **only while those conditions hold**. However the same ex
 The legislated review of the EV FBT exemption has now concluded. On 4 May 2026, the treasurer announced a phased wind-back. See the [full wind-back announcement](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for complete details.
 :::
 
-
 Lease length also determines how exposed you are to **policy change risk**.
 
 The EV FBT exemption was [subject to a formal legislative review](/special-and-policy/ev-fbt-exemption-review-timing/) (to be completed within the 18-month period of 1/1/2026 to 1/7/2027). [^1] That review has now concluded with the May 2026 Budget announcement. The exemption has been partially wound back rather than fully retained or fully discontinued:
@@ -283,7 +284,6 @@ However:
 - this approach is **legally questionable**,  and
 - it introduces compliance risk that sits entirely with the employee.
 
-
 ---
 
 ### Career-path risk: the junior doctor example
@@ -334,23 +334,3 @@ If you remember nothing else:
 > **There is no one "best duration". The optimal duration depends on the lease's FBT-exemption status, employment, and termination risk.**
 
 The right lease length is individual, and must be arrived at after considering all the dimensions of upsides and downsides.
-
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-06-05"
 description: Why "tax saved" is the wrong way to evaluate a novated lease, and what to look at instead — the most important conceptual shift for comparing leases meaningfully.
 ---
 
@@ -8,23 +10,19 @@ One of the most common ways novated leases are marketed is via a single headline
 
 > **“Tax saved”**
 
-
 Or sometimes, more insidiously:
 
 > **“Savings”**
 
 This figure is often presented as if it directly answers the question people actually care about — *“Will I be better off?”*
 
-
 At face value, this sounds sensible. Tax is a cost, so the amount saved feels like the amount you are better off. The problem is that **“tax saved” is not a complete measure of one's net outcome**. Considering tax savings in isolation is incomplete and hugely misleading.
-
 
 :::info[Worked example]
 A concrete numerical example of this problem is worked through in detail using a real novated lease quote that advertised a large “saving” figure but resulted in a worse net outcome (compared to cash purchase) once all cashflows and opportunity costs were considered:
 
 - [How the marketed “$21,320 savings” is in fact a $5,591 net loss](/costs-and-savings/false-saving-example/)
 :::
-
 
 ---
 
@@ -168,22 +166,3 @@ This is what the [novated lease calculator](/calculator/) aims to achieve — co
 If you remember nothing else:
 
 > **Tax saved is only one small part of the overall financial outcome. Compare total net financial outcomes instead of relying solely on a tax-saved figure.**
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::

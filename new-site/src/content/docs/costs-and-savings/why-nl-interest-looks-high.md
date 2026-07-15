@@ -1,4 +1,6 @@
 ---
+datePublished: "2026-01-06"
+dateModified: "2026-06-05"
 description: Why novated lease effective interest rates look high (10–12%) compared to car loans (6%) — and why the comparison is misleading once tax effects are accounted for.
 ---
 
@@ -79,7 +81,6 @@ It does not.
 
 Tax concessions apply unevenly across lease payments, running costs as well as their associated GST — which makes any single “equivalent rate” mathematically invalid.
 :::
-
 
 ## Why novated lease interest rates are inherently unreliable
 
@@ -176,11 +177,9 @@ In short, a meaningful comparison requires modelling:
 - compared against realistic alternatives (car loan or offset cash; not a strawman lease),
 - incorporating tax, fees, residuals, and opportunity cost.
 
-
 If you want to see how all of these components interact in practice — interest, fees, residuals, tax treatment, and opportunity cost — you can **model the full net outcome** using the [novated lease calculator](/calculator/), rather than relying on the headline interest rate alone.
 
 ---
-
 
 ## The opposite mistake: pretending the rate doesn’t matter
 
@@ -200,7 +199,6 @@ A novated lease can be bad **despite** favourable tax treatment.
 
 Obviously, all else being equal, a quote with a lower effective interest rate will cost less. Any novated lease consultant who insists that “the rate doesn’t matter because it’s all pre-tax” is simply ignoring this.
 
-
 ---
 
 ## Key takeaway
@@ -212,24 +210,3 @@ If you remember nothing else:
 A novated lease provider’s self-reported “effective interest rate” often means very little because of large discrepancies in methodology, and should not be used for direct comparison across providers.
 
 What matters is your **overall net financial position**, not the headline rate. Only careful calculation and a proper benchmark can answer the question; not intuition that “x% interest is too high”.
-
-
-
----
-
-:::info[Support this independent calculator & guide]
-This calculator and guide are built and continuously maintained as an independent project.
-
-If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:
-
-- [Buying me a cuppa](https://buymeacoffee.com/changyang1230) ☕ to help cover hosting, development time, and future improvements, or
-- [Using a friend's Tesla referral link](https://ts.la/pradeep738043) for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.
-:::
-
-:::note[I'm backing Dr Michael Keane's fight for salary packaging transparency]{.collapsible}
-Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.
-
-Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on [alleged sign-on fees](https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0) associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.
-
-To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his [<img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe](https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging).
-:::
