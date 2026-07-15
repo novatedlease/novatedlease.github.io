@@ -1,6 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ArticleLayout from '../layouts/Article.astro';
+import { getLastModified } from '../plugins/git-dates.mjs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+const SITE_ROOT = fileURLToPath(new URL('../../', import.meta.url));
 
 export async function getStaticPaths() {
   // These IDs are handled by dedicated pages
@@ -36,6 +41,10 @@ const description = entry.data.description || undefined;
 const { slug } = Astro.params;
 const currentPath = '/' + (slug || '') + '/';
 const ogImage = `https://novatedlease.guide/og/${slug}.png`;
+
+// dateModified is computed from git history (not stored in frontmatter) so it
+// never goes stale as articles are edited going forward.
+const dateModified = entry.filePath ? getLastModified(path.join(SITE_ROOT, entry.filePath)) : undefined;
 ---
 
 <ArticleLayout
@@ -45,7 +54,7 @@ const ogImage = `https://novatedlease.guide/og/${slug}.png`;
   currentPath={currentPath}
   ogImage={ogImage}
   datePublished={entry.data.datePublished}
-  dateModified={entry.data.dateModified}
+  dateModified={dateModified}
   hide={entry.data.hide}
 >
   <Content />

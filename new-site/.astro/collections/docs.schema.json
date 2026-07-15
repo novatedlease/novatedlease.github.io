@@ -19,9 +19,6 @@
         "datePublished": {
           "type": "string"
         },
-        "dateModified": {
-          "type": "string"
-        },
         "$schema": {
           "type": "string"
         }

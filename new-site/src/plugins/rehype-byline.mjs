@@ -1,5 +1,9 @@
 // Inserts a "By changyang1230 · Updated <date>" byline directly after the first
-// h1 in each article, using datePublished/dateModified from frontmatter.
+// h1 in each article. datePublished comes from frontmatter (a fixed historical
+// fact); dateModified is computed from git history at build time so it never
+// goes stale as articles are edited.
+import { getLastModified } from './git-dates.mjs';
+
 function formatDate(iso) {
   const d = new Date(`${iso}T00:00:00Z`);
   return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -10,7 +14,8 @@ export function rehypeByline() {
     const frontmatter = file.data?.astro?.frontmatter;
     if (!frontmatter) return;
 
-    const { datePublished, dateModified } = frontmatter;
+    const { datePublished } = frontmatter;
+    const dateModified = file.path ? getLastModified(file.path) : undefined;
     if (!datePublished && !dateModified) return;
 
     const h1Index = tree.children.findIndex(
