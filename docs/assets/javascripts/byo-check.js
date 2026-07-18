@@ -368,21 +368,21 @@
       aliases: ["Zoetis", "Zoetis Inc Australia", "Zoetis Australia Research and Manufacturing"],
       group: "Pharmaceutical",
       status: "not_available",
-      notes: ""
+      notes: "Salary packaging is contracted to an undisclosed exclusive provider — BYO finance is not available."
     },
     {
       name: "RACGP",
       aliases: ["Royal Australian College of General Practitioners", "Royal Australian College of GPs", "Australian College of General Practitioners"],
       group: "Healthcare",
       status: "not_available",
-      notes: ""
+      notes: "Exclusive salary packaging provider (undisclosed) — BYO finance is not available."
     },
     {
       name: "EGIS Group",
       aliases: ["EGIS", "Egis", "Egis Group Australia", "Egis Australia", "Egis Pty Ltd"],
       group: "Engineering & Consulting",
       status: "not_available",
-      notes: ""
+      notes: "Exclusive salary packaging provider (undisclosed) — BYO finance is not available."
     },
     {
       name: "Melbourne Archdiocese Catholic Schools",
