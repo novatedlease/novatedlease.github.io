@@ -3,7 +3,7 @@ import {
   financedAmountExGstFromInputs,
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
-import { residualFractionForYears } from "@engine/ato";
+import { residualFractionForYears, residualPercentForYears } from "@engine/ato";
 import { ATO_EV_HOME_CHARGING_RATE_PER_KM } from "@engine/charging";
 
 /**
@@ -187,6 +187,11 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
   // electricity gain/loss" always came out ~$0 regardless of inputs.
   const electricityAnnual = isEv ? evElectricityClaimAnnual(answers.annualMileageKm) : 0;
   const fuelAnnual = isEv ? 0 : nonEvFuelAnnual(answers.annualMileageKm);
+  // Actual estimated out-of-pocket electricity spend (kWh model), as opposed
+  // to the ATO shortcut-rate figure claimed above — see comment above.
+  const actualElectricityAnnual = isEv
+    ? Math.round((answers.annualMileageKm * avgWhPerKm) / 1000 * avgAudPerKwh)
+    : 0;
 
   const partialInputs: Omit<Inputs, "financedAmountForInterestCalcExGst" | "residualValueExGst" | "vehicleLeasePerFn"> = {
     vehicleType: answers.vehicleType,
@@ -270,31 +275,50 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
         "A placeholder date, used only to determine which FBT tier/EV phase-out rules apply and how the lease term splits across financial years. Switch to Advanced mode to set your real expected start date.",
     },
     {
+      field: "vehicleCondition",
+      label: "Vehicle condition",
+      value: "Assumed New",
+      tooltip:
+        "Simple mode assumes you're buying a brand new car. This matters: a used car bought in a private sale isn't GST-registered, so there's no GST credit on the purchase, changing the financed amount; and a used EV only qualifies for the FBT exemption if it was first held and used after 1 July 2022 AND Luxury Car Tax was never payable on it. If you're buying used, switch to Advanced mode and set the real vehicle condition to get an accurate result.",
+    },
+    {
       field: "vehicleBaseValue",
       label: "Vehicle dutiable / FBT base value",
       value: fmtMoney(vehicleBaseValue),
-      tooltip:
-        "Estimated as drive-away price ÷ 1.08. Drive-away pricing typically includes about 8% on top of the dutiable/FBT base value for stamp duty, registration, and dealer/CTP fees. This is a rough heuristic — enter the real figure from your quote/invoice in Advanced mode for an exact result.",
+      tooltip: `Estimated as drive-away price ÷ 1.08: ${fmtMoney(answers.driveawayCost)} ÷ 1.08 ≈ ${fmtMoney(vehicleBaseValue)}, rounded to the nearest $100. Drive-away pricing typically includes about 8% on top of the dutiable/FBT base value for stamp duty, registration, and dealer/CTP fees. This is a rough heuristic — enter the real figure from your quote/invoice in Advanced mode for an exact result.`,
     },
     {
       field: "estimatedMarketValueAtEnd",
       label: "Estimated market value after 5 years",
       value: fmtMoney(estimatedMarketValueAtEnd),
-      tooltip:
-        "A simple rule of thumb: cars are assumed to retain roughly 40% of their drive-away price after 5 years (interpolated for shorter terms). Real depreciation varies a lot by make/model and market conditions — check a resale value guide for a more accurate figure.",
+      tooltip: `A simple rule of thumb: cars are assumed to retain roughly 40% of their drive-away price after 5 years: ${fmtMoney(answers.driveawayCost)} × 40% ≈ ${fmtMoney(estimatedMarketValueAtEnd)}, rounded to the nearest $1,000. This 5-year figure is interpolated down for your ${leaseYears}-year term when estimating end-of-lease value elsewhere in the results. Real depreciation varies a lot by make/model and market conditions — check a resale value guide for a more accurate figure.`,
     },
     {
       field: "vehicleLeasePerFn",
       label: `Fortnightly lease payment @ ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}%`,
       value: `$${vehicleLeasePerFn.toFixed(2)}/fortnight`,
       tooltip:
-        `Since you don't have a real quote yet, this is back-solved to produce a ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}% p.a. effective interest rate — the midpoint of the roughly 8-12% p.a. range that's typical in the current novated lease market. Real quotes can differ meaningfully from this; get an actual quote and enter it in Advanced mode to see your true effective rate.`,
+        `Since you don't have a real quote yet, we have assumed a mid-market effective interest rate of ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}% p.a. for this simulation — the midpoint of the roughly 8-12% p.a. range that's typical in the current novated lease market. Real quotes can differ meaningfully from this; get an actual quote and enter it in Advanced mode to see your true effective rate.`,
+    },
+    {
+      field: "monthsDeferred",
+      label: "Finance payment months deferred",
+      value: "2 months",
+      tooltip:
+        "Novated lease financing is typically structured so your fortnightly salary deductions accumulate for about 2 months before the first monthly remittance is made to the financier, ensuring enough funds have built up to cover it. Interest accrues on the full financed amount during this deferral period before any repayments begin, which increases the fortnightly lease payment above compared to no deferral. Advanced mode lets you change this (e.g. to 0 or 1 month) to match your quote's structure.",
     },
     {
       field: "residualValueExGst",
       label: "Residual value",
       value: fmtMoney(residualValueExGst),
-      tooltip: `The ATO sets a minimum allowable residual (balloon) value based on your lease term, as a percentage of the financed amount — this uses that ATO minimum for a ${leaseYears}-year term. Most providers quote at or near this minimum, since a higher residual lowers your ongoing payments.`,
+      tooltip: `The ATO sets a minimum allowable residual (balloon) value based on your lease term, as a percentage of the financed amount: ${residualPercentForYears(leaseYears)}% for a ${leaseYears}-year term. ${fmtMoney(Math.max(0, financedAmountForInterestCalcExGst - leaseDocFee))} × ${residualPercentForYears(leaseYears)}% ≈ ${fmtMoney(residualValueExGst)}. Most providers quote at or near this minimum, since a higher residual lowers your ongoing payments.`,
+    },
+    {
+      field: "luxuryVehicleAdjPerFn",
+      label: "Luxury vehicle adjustment",
+      value: "$0/fortnight (assumed not applicable)",
+      tooltip:
+        `Assumed $0. This is a separate pre-tax charge some providers add to quotes for vehicles above roughly $69,883, for complex employer-accounting reasons — it's a different concept from Luxury Car Tax (LCT) and is listed separately on some quotes when it applies. ${answers.driveawayCost > 69883 ? "Your drive-away price is above this threshold, so check your real quote for whether this applies to you. " : ""}Advanced mode lets you enter the real per-fortnight figure from your quote.\n\n[Read sgfleet's explainer on the luxury vehicle adjustment](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf)`,
     },
     {
       field: "leaseDocFee",
@@ -306,8 +330,9 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
       field: "serviceMaintTyresAnnual",
       label: "Service / maintenance / tyres",
       value: `${fmtMoney(serviceMaintTyresAnnual)}/year`,
-      tooltip:
-        "Estimated from your annual kilometres — more driving means more wear and more frequent servicing. EVs are assumed cheaper to service (no oil changes, fewer moving parts) than petrol/diesel/hybrid vehicles. Real costs vary a lot by make and model, especially for luxury or performance vehicles.",
+      tooltip: isEv
+        ? `Estimated as $500 plus 1.5c per annual km: $500 + (${answers.annualMileageKm.toLocaleString()} km × $0.015/km) ≈ ${fmtMoney(serviceMaintTyresAnnual)}/year, rounded to the nearest $10. EVs are assumed cheaper to service (no oil changes, fewer moving parts) than petrol/diesel/hybrid vehicles. Real costs vary a lot by make and model, especially for luxury or performance vehicles.`
+        : `Estimated as $700 plus 2.5c per annual km: $700 + (${answers.annualMileageKm.toLocaleString()} km × $0.025/km) ≈ ${fmtMoney(serviceMaintTyresAnnual)}/year, rounded to the nearest $10. Real costs vary a lot by make and model, especially for luxury or performance vehicles.`,
     },
     {
       field: "registrationAnnual",
@@ -321,8 +346,8 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
       label: "Insurance",
       value: `${fmtMoney(insuranceAnnual)}/year`,
       tooltip: isEv
-        ? "Estimated as $900 plus roughly 2.2% of your drive-away price. EVs carry a well-documented insurance premium over similarly-priced petrol/hybrid vehicles, due to higher battery and panel repair costs. This is a rough fit to 2026 market benchmarks, not a quote — get a real comprehensive insurance quote to check this."
-        : "Estimated as $900 plus roughly 1.3% of your drive-away price — comprehensive insurance scales with vehicle value. This is a rough fit to 2026 market benchmarks, not a quote — get a real comprehensive insurance quote to check this.",
+        ? `Estimated as $900 plus roughly 2.2% of your drive-away price: $900 + (${fmtMoney(answers.driveawayCost)} × 2.2%) ≈ ${fmtMoney(insuranceAnnual)}/year, rounded to the nearest $10. EVs carry a well-documented insurance premium over similarly-priced petrol/hybrid vehicles, due to higher battery and panel repair costs. This is a rough fit to 2026 market benchmarks, not a quote — get a real comprehensive insurance quote to check this.`
+        : `Estimated as $900 plus roughly 1.3% of your drive-away price: $900 + (${fmtMoney(answers.driveawayCost)} × 1.3%) ≈ ${fmtMoney(insuranceAnnual)}/year, rounded to the nearest $10 — comprehensive insurance scales with vehicle value. This is a rough fit to 2026 market benchmarks, not a quote — get a real comprehensive insurance quote to check this.`,
     },
     {
       field: "managementFeesAnnual",
@@ -330,20 +355,29 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
       value: `${fmtMoney(managementFeesAnnual)}/year`,
       tooltip: "A typical flat membership/administration fee charged by novated lease providers for managing your lease and running-cost budget. Varies by provider — check your real quote.",
     },
-    isEv
-      ? {
-          field: "electricityAnnual",
-          label: "Electricity (packaged)",
-          value: `${fmtMoney(electricityAnnual)}/year`,
-          tooltip: `Uses the ATO's EV home-charging shortcut rate (5.47c/km) — the amount you're allowed to claim as a packaged running cost regardless of your actual electricity price. Your actual electricity cost (estimated separately at an assumed ${avgWhPerKm} Wh/km and $${avgAudPerKwh.toFixed(2)}/kWh) may differ from this claimable amount — Advanced mode lets you compare the two.`,
-        }
-      : {
-          field: "fuelAnnual",
-          label: "Fuel",
-          value: `${fmtMoney(fuelAnnual)}/year`,
-          tooltip:
-            "Assumes roughly 6 L/100km at $1.80/L, reflecting that hybrids (increasingly common in novated leases — e.g. a RAV4 Hybrid manages ~4.5 L/100km) now make up a large share of the market, blended with less efficient non-hybrid mid-size vehicles (~6-7 L/100km). Your actual fuel cost depends heavily on your specific vehicle and driving style.",
-        },
+    ...(isEv
+      ? [
+          {
+            field: "electricityAnnual" as const,
+            label: "Electricity (packaged)",
+            value: `${fmtMoney(electricityAnnual)}/year`,
+            tooltip: `Uses the ATO's EV home-charging shortcut rate (5.47c/km): ${answers.annualMileageKm.toLocaleString()} km × $0.0547/km = ${fmtMoney(electricityAnnual)}/year — the amount you're allowed to claim as a packaged running cost regardless of your actual electricity price. Your actual electricity cost (estimated separately at an assumed ${avgWhPerKm} Wh/km and $${avgAudPerKwh.toFixed(2)}/kWh) may differ from this claimable amount — Advanced mode lets you compare the two.\n\n[Read more about the ATO EV home-charging shortcut](https://novatedlease.guide/running-costs/ev-home-charging-shortcut/)`,
+          },
+          {
+            field: "avgWhPerKm" as const,
+            label: "Electricity (actual)",
+            value: `${fmtMoney(actualElectricityAnnual)}/year`,
+            tooltip: `Estimated real out-of-pocket cost using a kWh model, at an assumed ${avgWhPerKm} Wh/km efficiency and $${avgAudPerKwh.toFixed(2)}/kWh electricity price: ${answers.annualMileageKm.toLocaleString()} km × ${avgWhPerKm} Wh/km ÷ 1,000 = ${((answers.annualMileageKm * avgWhPerKm) / 1000).toFixed(0)} kWh/year; ${((answers.annualMileageKm * avgWhPerKm) / 1000).toFixed(0)} kWh × $${avgAudPerKwh.toFixed(2)}/kWh ≈ ${fmtMoney(actualElectricityAnnual)}/year. This is separate from the ATO shortcut-rate claim above, which is a fixed packaged allowance rather than your real spend — the two can differ. Advanced mode lets you override the Wh/km efficiency and electricity price.\n\n[Read more about the ATO EV home-charging shortcut](https://novatedlease.guide/running-costs/ev-home-charging-shortcut/)`,
+          },
+        ]
+      : [
+          {
+            field: "fuelAnnual" as const,
+            label: "Fuel",
+            value: `${fmtMoney(fuelAnnual)}/year`,
+            tooltip: `Assumes roughly 6 L/100km at $1.80/L: (${answers.annualMileageKm.toLocaleString()} km ÷ 100 × 6 L) × $1.80/L ≈ ${fmtMoney(fuelAnnual)}/year. This blend reflects that hybrids (increasingly common in novated leases — e.g. a RAV4 Hybrid manages ~4.5 L/100km) now make up a large share of the market, blended with less efficient non-hybrid mid-size vehicles (~6-7 L/100km). Your actual fuel cost depends heavily on your specific vehicle and driving style.`,
+          },
+        ]),
     {
       field: "superFromPreNlIncome",
       label: "Super Guarantee basis",

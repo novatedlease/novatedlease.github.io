@@ -96,12 +96,10 @@ export function KV({
   const cls = ["nlc-kv", bold && "nlc-kv--bold", highlight && "nlc-kv--highlight"].filter(Boolean).join(" ");
   return (
     <div className={cls}>
-      <div className="nlc-kv__label">
-        {label}
-        {tooltip && <span style={{ marginLeft: 6 }}>{tooltip}</span>}
-      </div>
+      <div className="nlc-kv__label">{label}</div>
       <div className="nlc-kv__value nlc-num" style={color ? { color } : undefined}>
         {value}
+        {tooltip && <span style={{ marginLeft: 6 }}>{tooltip}</span>}
       </div>
     </div>
   );

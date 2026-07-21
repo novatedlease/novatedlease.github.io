@@ -600,6 +600,7 @@
   border: 1px solid rgba(11, 92, 171, 0.35);
   background: #eef5ff;
   box-shadow: var(--nlc-shadow-lg);
+  font-family: var(--nlc-font-sans);
   font-size: 13.5px;
   line-height: 1.45;
   color: var(--nlc-text-soft);
