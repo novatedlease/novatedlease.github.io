@@ -12,7 +12,7 @@ One of the least discussed — and most poorly understood — risks of novated l
 
 Most people assume that:
 
-> “Surely my employer still has to pay super on my original salary, right?”
+> “Surely my employer has to pay super on my original salary, right?”
 
 **Often yes. But not always. And importantly: they don’t have to.**
 
@@ -173,9 +173,9 @@ That makes this a **real, if uncommon, risk** worth understanding before you sig
 ---
 
 :::warning[Alert: check your super after 1 July 2026 — the Payday Super changeover]
-**Payday Super** — the new regime requiring employers to remit super contributions within days of each payday rather than quarterly — took effect from **1 July 2026**. It's quietly cost some novated leasers real money: if your employer switched to calculating your super on your **post-novated-lease salary** instead of your pre-NL salary, you permanently lose 12% of your sacrificed amount — which can add up to **$10,000+ over the life of an EV novated lease**.
+**Payday Super** — the new regime requiring employers to remit super contributions within days of each payday rather than quarterly — took effect from **1 July 2026**. It came to my attention that this new policy has led to some employers switching their calculation to **post-novated-lease income**, even when it was previously calculated on pre-NL income. If this happened to you, you permanently lose 12% of your sacrificed amount — which can add up to **$10,000+ over the life of an EV novated lease**.
 
-**Has Payday Super actually forced this? No.** The new “qualifying earnings” base that underpins Payday Super treats salary sacrifice exactly as before: non-super sacrifice (novated leases, laptops, and similar arrangements) is still excluded from the SG minimum — the same GN 2020/1 rule explained above, completely unchanged. Employers *could* always calculate SG on your post-NL figure; most simply chose to keep the pre-NL figure and “do the right thing.” Nothing about Payday Super changed that choice either way — when I polled a group on this a while back, ~95% said their super was unchanged after taking out a novated lease.
+**Has Payday Super actually forced this? No.** The new “qualifying earnings” base that underpins Payday Super treats salary sacrifice exactly as before: non-super sacrifice (novated leases, laptops, and similar arrangements) is still excluded from the SG minimum — the same GN 2020/1 rule explained above, completely unchanged. Employers *could* always calculate SG on your post-NL figure; most simply chose to keep the pre-NL figure and “do the right thing.” Nothing about Payday Super changed that choice either way.
 
 **So if your super has dropped since 1 July 2026, it's most likely one of two things:** (1) payroll was reconfigured for Payday Super and the new software defaulted to excluding the novated lease portion — an implementation issue rather than a deliberate policy change, or (2) your employer used the changeover as cover to quietly drop to the legal minimum — exactly the risk this page has always described, just newly triggered by an unrelated administrative change.
 
