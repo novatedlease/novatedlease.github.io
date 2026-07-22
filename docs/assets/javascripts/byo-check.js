@@ -231,20 +231,6 @@
       notes: ""
     },
     {
-      name: "BHP Western Australian Iron Ore (WAIO)",
-      aliases: ["BHP", "BHP WAIO", "WAIO", "BHP Iron Ore", "Western Australian Iron Ore"],
-      group: "Mining & Resources",
-      status: "not_available",
-      notes: "Panel of two approved providers: LeasePlan Australia (now trading as SGFleet, 1300 138 235) and ORIX Corporation Australia (1300 554 957). Novated lease agreements must be signed off by BHP's HR Enquiry Management Team. Confirmed for WAIO specifically — other BHP business units (e.g. Copper South Australia, Corporate) not yet confirmed."
-    },
-    {
-      name: "BHP Mitsubishi Alliance (BMA Coal)",
-      aliases: ["BHP", "BMA", "BMA Coal", "BHP BMA", "BHP Mitsubishi Alliance"],
-      group: "Mining & Resources",
-      status: "not_available",
-      notes: "Panel of two approved providers: LeasePlan Australia (now trading as SGFleet, 1300 138 235) and ORIX Corporation Australia (1300 554 957). Novated lease agreements must be signed off by BHP's HR Enquiry Management Team. Confirmed for BMA Coal specifically — other BHP business units (e.g. Copper South Australia, Corporate) not yet confirmed."
-    },
-    {
       name: "Epworth HealthCare",
       aliases: ["Epworth", "Epworth Richmond", "Epworth Eastern", "Epworth Hawthorn", "Epworth Brighton", "Epworth Camberwell", "Epworth Geelong", "Epworth Cliveden", "Epworth Freemasons", "Epworth Freemasons Clarendon Street", "Epworth Freemasons Victoria Parade", "Epworth Specialist Centre Berwick", "Epworth Specialist Centre Lilydale"],
       group: "Victoria",
