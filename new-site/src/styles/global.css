@@ -1301,6 +1301,19 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   margin: 12px 0 6px;
 }
 
+.article-browser__group-title {
+  font-weight: 600;
+  font-size: 0.72rem;
+  color: var(--color-text-faint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin: 10px 0 2px;
+}
+
+.article-browser__col-title + .article-browser__group-title {
+  margin-top: 0;
+}
+
 .article-browser__col ul {
   margin: 0;
   padding-left: 1.1em;
