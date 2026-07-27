@@ -79,7 +79,7 @@ export function SimpleMode(props: {
                 label="Offset account interest rate"
                 value={answers.homeLoanOffsetInterestRate}
                 onChange={(v) => set("homeLoanOffsetInterestRate", v)}
-                hint="Lease payments reduce what sits in offset, which slightly increases interest paid on the home loan — this estimates that effect."
+                hint="Buying with cash pulls that tens-of-thousands lump sum out of savings that would otherwise be saving interest in offset, while leasing instead makes smaller ongoing payments from offset. This estimates the flow-on opportunity-cost difference between those two cashflows."
               />
             )}
           </Section>
