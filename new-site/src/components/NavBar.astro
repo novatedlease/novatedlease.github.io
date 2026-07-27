@@ -69,15 +69,18 @@ const rightAlignLabels = new Set(sectionsWithDropdown.slice(-2).map(entry => ent
               )}
               <div class={`nav-dropdown${rightAlignLabels.has(entry.label) ? ' nav-dropdown--right' : ''}`} role="menu">
                 {entry.items.map(item => (
-                  <a
-                    href={item.href}
-                    class={`nav-dropdown__item${isActive(item.href) ? ' active' : ''}`}
-                    role="menuitem"
-                    target={item.external ? '_blank' : undefined}
-                    rel={item.external ? 'noopener noreferrer' : undefined}
-                  >
-                    {item.label}
-                  </a>
+                  <>
+                    {item.heading && <div class="nav-dropdown__heading">{item.heading}</div>}
+                    <a
+                      href={item.href}
+                      class={`nav-dropdown__item${isActive(item.href) ? ' active' : ''}`}
+                      role="menuitem"
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener noreferrer' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </>
                 ))}
               </div>
             </li>
@@ -145,14 +148,17 @@ const rightAlignLabels = new Set(sectionsWithDropdown.slice(-2).map(entry => ent
         <div class="nav-drawer__section">
           <div class="nav-drawer__section-title">{entry.label}</div>
           {entry.items.map(item => (
-            <a
-              href={item.href}
-              class={`nav-drawer__link${isActive(item.href) ? ' active' : ''}`}
-              target={item.external ? '_blank' : undefined}
-              rel={item.external ? 'noopener noreferrer' : undefined}
-            >
-              {item.label}
-            </a>
+            <>
+              {item.heading && <div class="nav-drawer__group-title">{item.heading}</div>}
+              <a
+                href={item.href}
+                class={`nav-drawer__link${isActive(item.href) ? ' active' : ''}`}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noopener noreferrer' : undefined}
+              >
+                {item.label}
+              </a>
+            </>
           ))}
         </div>
       );

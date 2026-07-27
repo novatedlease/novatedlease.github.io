@@ -224,6 +224,22 @@ button {
   opacity: 1;
 }
 
+.nav-dropdown__heading {
+  display: block;
+  padding: 10px 16px 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.nav-dropdown__heading:first-child {
+  padding-top: 6px;
+}
+
 .nav-dropdown__item {
   display: block;
   padding: 8px 16px;
@@ -370,6 +386,15 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: var(--color-text-faint);
+}
+
+.nav-drawer__group-title {
+  padding: 8px 18px 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-faint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .nav-drawer__link {
