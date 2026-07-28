@@ -238,6 +238,20 @@
       notes: ""
     },
     {
+      name: "BHP",
+      aliases: ["BHP Billiton", "BHP Group"],
+      group: "Mining & Resources",
+      status: "not_available",
+      notes: ""
+    },
+    {
+      name: "Fortescue",
+      aliases: ["Fortescue Metals Group", "FMG", "Fortescue Future Industries"],
+      group: "Mining & Resources",
+      status: "not_available",
+      notes: ""
+    },
+    {
       name: "Epworth HealthCare",
       aliases: ["Epworth", "Epworth Richmond", "Epworth Eastern", "Epworth Hawthorn", "Epworth Brighton", "Epworth Camberwell", "Epworth Geelong", "Epworth Cliveden", "Epworth Freemasons", "Epworth Freemasons Clarendon Street", "Epworth Freemasons Victoria Parade", "Epworth Specialist Centre Berwick", "Epworth Specialist Centre Lilydale"],
       group: "Victoria",
