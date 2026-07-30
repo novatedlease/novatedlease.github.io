@@ -26,7 +26,7 @@ export default defineConfig({
     remarkPlugins: [
       remarkGfm,
       remarkDirective,
-      remarkMath,
+      [remarkMath, { singleDollarTextMath: false }],
       remarkAdmonitions,
     ],
     rehypePlugins: [

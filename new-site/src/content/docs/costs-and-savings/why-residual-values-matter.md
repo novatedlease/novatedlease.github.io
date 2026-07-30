@@ -126,13 +126,13 @@ $$75\% \div 8 = 9.375\% \text{ per year}$$
 
 This explains the residual table directly:
 
-- Year 1: $75 - 1 \times 9.375 = 65.63\%$
-- Year 2: $75 - 2 \times 9.375 = 56.25\%$
-- Year 3: $75 - 3 \times 9.375 = 46.88\%$
+- Year 1: $$75 - 1 \times 9.375 = 65.63\%$$
+- Year 2: $$75 - 2 \times 9.375 = 56.25\%$$
+- Year 3: $$75 - 3 \times 9.375 = 46.88\%$$
 
 …eventually reaching 0% at year 8.
 
-This derivation is explicitly described in TD 93/142 using the formula, where $r$ = minimum residual value (as a percentage of cost) and $n$ = lease duration in years:
+This derivation is explicitly described in TD 93/142 using the formula, where $$r$$ = minimum residual value (as a percentage of cost) and $$n$$ = lease duration in years:
 
 $$r = 75\% - 9.375\% \times n$$
 
