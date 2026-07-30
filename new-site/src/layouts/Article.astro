@@ -128,6 +128,26 @@ for (const entry of navigation) {
       updateStickyHeader();
     });
 
+    // Merge adjacent duplicate first-column cells in article tables (visual rowspan)
+    document.querySelectorAll('.article-content table').forEach(function(table) {
+      var rows = Array.from(table.querySelectorAll('tbody > tr'));
+      var activeCell = null;
+      var activeText = null;
+      rows.forEach(function(row) {
+        var cell = row.querySelector('td:first-child');
+        if (!cell) { activeCell = null; activeText = null; return; }
+        var text = cell.textContent.trim();
+        if (activeCell && text === activeText) {
+          activeCell.rowSpan = (activeCell.rowSpan || 1) + 1;
+          activeCell.style.verticalAlign = 'middle';
+          cell.remove();
+        } else {
+          activeCell = cell;
+          activeText = text;
+        }
+      });
+    });
+
     // data-dismiss buttons
     document.querySelectorAll('[data-dismiss]').forEach(function(btn) {
       btn.addEventListener('click', function() {
