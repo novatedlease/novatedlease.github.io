@@ -2,7 +2,9 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import remarkGfm from 'remark-gfm';
 import remarkDirective from 'remark-directive';
+import remarkMath from 'remark-math';
 import rehypeRaw from 'rehype-raw';
+import rehypeKatex from 'rehype-katex';
 import { remarkAdmonitions } from './src/plugins/remark-admonitions.mjs';
 import { rehypeByline } from './src/plugins/rehype-byline.mjs';
 
@@ -24,10 +26,12 @@ export default defineConfig({
     remarkPlugins: [
       remarkGfm,
       remarkDirective,
+      remarkMath,
       remarkAdmonitions,
     ],
     rehypePlugins: [
       rehypeRaw,
+      rehypeKatex,
       rehypeByline,
     ],
     syntaxHighlight: 'prism',

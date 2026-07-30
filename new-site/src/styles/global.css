@@ -759,6 +759,13 @@ button {
   }
 }
 
+/* Math (KaTeX) */
+.article-content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2em 0;
+}
+
 /* Footnotes */
 .article-content .footnotes {
   margin-top: 2.5em;

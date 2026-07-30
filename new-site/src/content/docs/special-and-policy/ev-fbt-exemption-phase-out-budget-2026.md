@@ -79,15 +79,15 @@ The consequence is a dramatically lower saving, because much less of the lease p
 
 ## Quantifying the impact: FBT-applicable (100%) vs FBT-exempt
 
-Let **c** = the car's pre-on-road purchase price, and **t** = your marginal tax rate plus the 2% Medicare levy (i.e. 0.32, 0.39, or 0.47 for the three upper brackets).
+Let $c$ = the car's pre-on-road purchase price, and $t$ = your marginal tax rate plus the 2% Medicare levy (i.e. 0.32, 0.39, or 0.47 for the three upper brackets).
 
-Under ECM, **0.2c** of the lease payment must be converted from pre-tax to post-tax each year. The lost tax benefit on this component is **0.2c × t**.
+Under ECM, $0.2c$ of the lease payment must be converted from pre-tax to post-tax each year. The lost tax benefit on this component is $0.2c \times t$.
 
-In addition, there is a GST component payable on the same figure, equal to 1/11 of 0.2c — but this is paid pre-tax, so its net cost is **0.2c × (1/11) × (1 − t)**.
+In addition, there is a GST component payable on the same figure, equal to 1/11 of $0.2c$ — but this is paid pre-tax, so its net cost is $0.2c \times \frac{1}{11} \times (1 - t)$.
 
 **Total extra out-of-pocket cost per year (FBT-applicable 100% vs FBT-exempt):**
 
-> `0.2ct + c/55 − ct/55 = c(0.181818t + 0.0181818)`
+$$0.2ct + \frac{c}{55} - \frac{ct}{55} = c(0.181818t + 0.0181818)$$
 
 As a percentage of the car's pre-on-road cost, this equates to approximately:
 
@@ -103,17 +103,17 @@ As a percentage of the car's pre-on-road cost, this equates to approximately:
 | 37% + 2% Medicare levy | $7,127 |
 | 45% + 2% Medicare levy | $8,291 |
 
-You may substitute your own car price **c** and marginal rate **t** into the formula above.
+You may substitute your own car price $c$ and marginal rate $t$ into the formula above.
 
 ---
 
 ## Quantifying the impact: FBT-discounted (75%) vs FBT-exempt
 
-The 75% discount structure applies the same ECM logic, but scaled by 75% — that is, only **0.15c** (rather than **0.2c**) of the lease payment is redirected from pre-tax to post-tax.
+The 75% discount structure applies the same ECM logic, but scaled by 75% — that is, only $0.15c$ (rather than $0.2c$) of the lease payment is redirected from pre-tax to post-tax.
 
 **Total extra out-of-pocket cost per year (FBT-discounted 75% vs FBT-exempt):**
 
-> `0.15ct + 3c/220 − 3ct/220 = c(0.136364t + 0.0136364)`
+$$0.15ct + \frac{3c}{220} - \frac{3ct}{220} = c(0.136364t + 0.0136364)$$
 
 **For an $80,000 car**, the additional annual out-of-pocket cost compared to an equivalent FBT-exempt lease would be:
 
@@ -123,7 +123,7 @@ The 75% discount structure applies the same ECM logic, but scaled by 75% — tha
 | 37% + 2% Medicare levy | $5,346 |
 | 45% + 2% Medicare levy | $6,218 |
 
-Again, substitute your own values of **c** and **t** for your specific situation.
+Again, substitute your own values of $c$ and $t$ for your specific situation.
 
 ---
 

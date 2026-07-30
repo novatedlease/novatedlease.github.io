@@ -122,19 +122,19 @@ The underlying assumption is that:
 
 Mathematically:
 
-- 75% ÷ 8 = **9.375% per year**
+$$75\% \div 8 = 9.375\% \text{ per year}$$
 
 This explains the residual table directly:
 
-- Year 1: 75 − 1 × 9.375 = **65.63%**  
-- Year 2: 75 − 2 × 9.375 = **56.25%**  
-- Year 3: 75 − 3 × 9.375 = **46.88%**  
+- Year 1: $75 - 1 \times 9.375 = 65.63\%$
+- Year 2: $75 - 2 \times 9.375 = 56.25\%$
+- Year 3: $75 - 3 \times 9.375 = 46.88\%$
 
 …eventually reaching 0% at year 8.
 
-This derivation is explicitly described in TD 93/142 using the formula:
+This derivation is explicitly described in TD 93/142 using the formula, where $r$ = minimum residual value (as a percentage of cost) and $n$ = lease duration in years:
 
-> **Minimum residual value as a percentage of cost = 75% − [(75% ÷ 8) × duration in years]**
+$$r = 75\% - 9.375\% \times n$$
 
 Although the published table uses whole years, it is derived from a **linear equation**.
 
@@ -166,9 +166,7 @@ The mathematically consistent way to handle non‑integer terms would be to **ap
 
 For example, for a 1.5‑year lease:
 
-> Minimum residual value  
-> = 75 − 1.5 × 9.375  
-> = **60.94%**
+$$r = 75\% - 9.375\% \times 1.5 = 60.94\%$$
 
 ### The risk trade‑off of using next‑integer‑year residual values
 
