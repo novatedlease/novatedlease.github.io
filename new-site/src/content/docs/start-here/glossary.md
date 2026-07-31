@@ -46,7 +46,7 @@ A tax paid by employers when they provide non-cash benefits (fringe benefits) to
 ---
 
 **FBT base value**
-The value of the car used to calculate both the taxable value of the benefit and (therefore) RFBA. For most novated leases this is the vehicle purchase price before stamp duty, compulsory third party insurance, and registration. Sometimes listed on quotes as "vehicle price", "vehicle RRP", or "vehicle subtotal".
+The value of the car used to calculate both the taxable value of the benefit and (therefore) RFBA. For most novated leases this is the vehicle purchase price before stamp duty, compulsory third party insurance, and registration — but including GST and any Luxury Car Tax (LCT) payable. Sometimes listed on quotes as "vehicle price", "vehicle RRP", or "vehicle subtotal".
 
 ---
 

@@ -36,7 +36,7 @@ Before starting, gather the following information about the vehicle and your per
 - **FBT base value**  
   The value used for Fringe Benefits Tax calculations.  
   Often labelled as *vehicle value*, *vehicle RRP*, or *vehicle subtotal* (Tesla terminology).  
-  If not explicitly listed, derive it by subtracting stamp duty, registration, and compulsory third‑party insurance from the drive‑away price.
+  If not explicitly listed, derive it by subtracting stamp duty, registration, and compulsory third‑party insurance from the drive‑away price. GST and any Luxury Car Tax payable should remain included.
 
 - **Drive‑away price**  
   The total amount you would pay if purchasing the vehicle outright with cash.

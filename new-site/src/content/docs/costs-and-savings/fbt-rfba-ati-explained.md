@@ -107,7 +107,7 @@ Three important points follow from this:
 
 ### What determines the taxable value?
 
-For most novated leases, the taxable value of the car benefit is the **car’s FBT base value** (which is typically the vehicle purchase price prior to stamp duty, compulsory third party insurance and registration). 
+For most novated leases, the taxable value of the car benefit is the **car’s FBT base value** (which is typically the vehicle purchase price prior to stamp duty, compulsory third party insurance and registration — but inclusive of GST and any Luxury Car Tax payable). 
 
 If listed on your car quote, it is also sometimes called **vehicle price**, **vehicle RRP** or **vehicle subtotal**. 
 
