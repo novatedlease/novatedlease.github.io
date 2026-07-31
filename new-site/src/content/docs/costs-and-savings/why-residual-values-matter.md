@@ -140,6 +140,54 @@ Although the published table uses whole years, it is derived from a **linear equ
 
 ---
 
+### What "cost" does the percentage actually apply to?
+
+The ATO's residual percentages (28.13% for a 5‑year lease, and so on) are unambiguous. What is **less** clear — and where providers genuinely differ in practice — is what dollar figure that percentage is applied to. Most of the ATO's own documentation (IT 28, TD 93/142) refers only to the car's "cost," without elaborating on what is truly incorporated in the cost.
+
+In practice, there are two methodologies in use:
+
+**Method A** (the more common approach — used by almost every financier except CBA):
+
+> Cost base = drive‑away cost − GST saved (capped at $6,353 this financial year)
+
+**Method B** (used by CBA specifically):
+
+> Cost base = pre‑on‑road price of the vehicle − GST saved (capped at $6,353 this financial year)
+
+Note that the documentation fee is **not** part of the residual cost base under either method — it's only added into the separately‑calculated financed amount used for interest purposes. The real difference between the two methods is narrower than it first appears: Method A starts from the **drive‑away cost** (which includes on‑road costs — stamp duty, registration, CTP), while Method B starts from the **pre‑on‑road price**, excluding those on‑road costs from the base entirely.
+
+Method B will always produce a **lower dollar residual** than Method A for the same vehicle, by the amount of on‑road costs excluded from the base.
+
+This calculator defaults to Method A — the residual field is automatically pre‑filled using this formula — but you can override it with any figure you like, including a Method B figure if your quote is CBA‑financed.
+
+The ATO is not particularly clear on which is "correct" — the guidance simply isn't specific enough to settle it either way.
+
+There is one ATO example that arguably leans toward Method B: the "Patrick" example in the ATO's [Car leasing and FBT](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/car-leasing-and-fbt) guidance:
+
+> Patrick's employer plans to provide him with a new car for private use, to the value of $40,000, under a novated lease. Patrick chooses a car with a purchase price of $41,600, which includes $1,600 in on-road costs (registration, stamp duty, and dealer delivery fee). Patrick pays the car dealer $1,600 of his own money to cover the on-road costs...
+>
+> ...residual value is calculated as 46.88% of $40,000 = $18,752... For the purpose of calculating the taxable value of the car fringe benefit, the base value of the car is $40,000.
+
+Here, the $40,000 residual base excludes the $1,600 of on-road costs entirely — consistent with Method B's "strip out everything except the core vehicle price" approach.
+
+:::note[This isn't a perfect match]
+There is a slight discrepancy: in the Patrick example, Patrick pays the $1,600 on-road cost himself, directly to the dealer — it never forms part of the financed amount at all. That's a different scenario to a typical novated lease, where on-road costs and the GST saving both flow through the financed amount together. So while this is the closest thing to explicit ATO support for Method B, it isn't a precise match for how CBA (or any financier) actually applies the formula in a standard novated lease.
+:::
+
+**Why this matters to you:** the residual value is one of the inputs used to back out the [effective interest rate](/costs-and-savings/why-nl-interest-looks-high/) from a lease's monthly payments. Once two financiers are using different residual values for the same percentage, their quoted "effective interest rates" are no longer directly comparable — a 9% rate calculated against a Method A residual is not the same economic deal as a 9% rate calculated against a Method B residual.
+
+In practice, this means you shouldn't try to compare a CBA‑financed quote against a quote using a different financier purely on effective interest rate. Instead, compare the **full out‑of‑pocket impact** of both — the monthly finance repayments *and* the final residual payment, added together over the life of the lease — rather than relying on the EIR figure alone to judge which deal is better.
+
+### The friction this causes with BYO finance
+
+This mismatch can also cause a practical problem if you're arranging a [BYO / self‑managed novated lease](/tools/byo-employer-check/) and your chosen financier is CBA. Some novated lease providers will refuse to accept a CBA‑derived Method B residual, citing it as **"too low" and non‑compliant**.
+
+Strictly speaking, that objection isn't well‑founded on its own: Method B still applies the exact same ATO‑mandated percentage as Method A — it's simply applying that percentage to a smaller cost base (pre‑on‑road price rather than drive‑away cost). A lower dollar residual calculated this way isn't automatically below the ATO's minimum; it's a different — and arguably, per the Patrick example above, at least as defensible — interpretation of what "cost" means.
+
+In practice, though, this is exactly the kind of grey area a risk‑averse novated lease provider would rather avoid. If you run into this pushback, it's worth understanding that it may reflect the provider's own internal compliance comfort rather than a clear ATO ruling against Method B.
+
+---
+
 ### How is the residual defined for 13‑month or other non‑integer lease durations?
 
 The complication arises with **non‑integer lease terms**, such as 13 months or 18 months.
