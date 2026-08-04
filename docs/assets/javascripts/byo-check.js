@@ -54,7 +54,7 @@
       aliases: ["South Australia", "SA Public Service", "SA State Government", "South Australian Government", "SA Gov", "South Australian Public Sector", "SAAS", "SA Ambulance"],
       group: "SA Government",
       status: "possible",
-      notes: "Applies broadly across the SA public sector. Individual agency arrangements may vary — confirm with your specific agency's HR or payroll team."
+      notes: "Applies broadly across the SA public sector. Individual agency arrangements may vary — confirm with your specific agency's HR or payroll team. SA Government compliance rules require any BYO lease to be set up on a 2-month deferred finance method — this is part of the agreement with their salary packaging provider (Smart Salary) to ensure payroll deductions are established within the agreed timeframe."
     },
     {
       name: "Monash Health",
@@ -598,5 +598,47 @@
         .map(function (x) { return x.e; });
       renderResults(results, q);
     });
+  }
+
+  // Template copy button
+  var copyBtn = document.getElementById('byo-template-copy-btn');
+  var templateEl = document.getElementById('byo-template-text');
+  if (copyBtn && templateEl) {
+    copyBtn.addEventListener('click', function () {
+      var text = templateEl.innerText || templateEl.textContent;
+      var done = function () {
+        var original = 'Copy text';
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('is-copied');
+        setTimeout(function () {
+          copyBtn.textContent = original;
+          copyBtn.classList.remove('is-copied');
+        }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () {
+          fallbackCopy(text, done);
+        });
+      } else {
+        fallbackCopy(text, done);
+      }
+    });
+  }
+
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      document.execCommand('copy');
+      done();
+    } catch (e) {
+      // ignore — user can still select text manually
+    }
+    document.body.removeChild(ta);
   }
 })();
