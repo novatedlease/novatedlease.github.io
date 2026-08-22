@@ -1,4 +1,5 @@
 ---
+title: "Early termination payouts: how bad can it get?"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: How bad can a novated lease early termination payout get? Worked examples showing the asymmetric financial risk that catches many lessees by surprise.

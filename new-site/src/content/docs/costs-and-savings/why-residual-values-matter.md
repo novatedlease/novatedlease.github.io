@@ -1,4 +1,5 @@
 ---
+title: "All about residual values"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: Everything about novated lease residual values — what they are, why the ATO requires them, the underlying mathematics (TD 93/142), and how they work when leases are extended.

@@ -1,4 +1,5 @@
 ---
+title: "History of the novated lease calculator"
 datePublished: "2026-02-02"
 dateModified: "2026-06-05"
 description: The story behind the independent Australian novated lease calculator — from personal spreadsheet in 2023 to public web app, and the misconceptions each version was built to address.

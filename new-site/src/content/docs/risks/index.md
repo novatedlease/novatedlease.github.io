@@ -1,4 +1,5 @@
 ---
+title: "Risks and exit strategies"
 datePublished: "2026-05-23"
 dateModified: "2026-06-05"
 description: Risks of novated leasing that marketing rarely discusses — early termination, employer change, policy risk, and how to design exit strategies before signing.

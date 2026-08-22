@@ -1,4 +1,5 @@
 ---
+title: "Privacy Policy"
 datePublished: "2026-03-04"
 dateModified: "2026-06-05"
 description: Privacy policy for novatedlease.guide. What anonymous usage data is collected via Google Analytics 4, why, and how to opt out.

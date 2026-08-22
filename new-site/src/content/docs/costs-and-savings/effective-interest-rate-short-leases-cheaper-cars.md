@@ -1,4 +1,5 @@
 ---
+title: "Why interest rates are higher on short leases & cheaper cars"
 datePublished: "2026-04-02"
 dateModified: "2026-06-30"
 description: Why novated lease effective interest rates are higher on short lease terms and cheaper cars — explained through the fixed-dollar brokerage pricing practice used by financiers.

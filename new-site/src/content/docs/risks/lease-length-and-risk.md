@@ -1,4 +1,5 @@
 ---
+title: "Choosing the right lease length"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: Choosing the right novated lease length — how 1, 2, 3, 4, and 5 year terms differ in residual value, interest cost, and exposure to early termination risk.

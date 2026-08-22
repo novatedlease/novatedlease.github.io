@@ -1,4 +1,5 @@
 ---
+title: "You don't have to sell above the residual value"
 datePublished: "2026-02-18"
 dateModified: "2026-06-05"
 description: Debunking the myth that a novated lease is only worth it if you sell the car above the residual value — why this widespread rule of thumb is mathematically misleading.

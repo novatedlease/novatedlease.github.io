@@ -1,4 +1,5 @@
 ---
+title: "FBT, RFBA & adjusted taxable income explained"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: FBT, RFBA, and adjusted taxable income explained clearly — how the EV FBT exemption reduces income tax but can paradoxically increase HECS repayments, Division 293, and reduce childcare subsidy.

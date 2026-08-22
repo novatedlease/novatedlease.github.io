@@ -1,4 +1,5 @@
 ---
+title: "Novated leases and the childcare subsidy"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: Deep dive on how novated leases (especially FBT-exempt EVs) affect adjusted taxable income and childcare subsidy — including the special rule for hospital and NFP workers.

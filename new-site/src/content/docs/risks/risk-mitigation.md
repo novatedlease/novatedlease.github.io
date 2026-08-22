@@ -1,4 +1,5 @@
 ---
+title: "Risk mitigation strategies for early termination"
 datePublished: "2026-01-08"
 dateModified: "2026-06-05"
 description: Strategies to reduce the early termination risk of a novated lease — lease length choice, insurance, residual buffer, and structural approaches before signing.

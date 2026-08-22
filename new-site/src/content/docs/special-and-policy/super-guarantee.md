@@ -1,4 +1,5 @@
 ---
+title: "Super guarantee and payroll risks"
 datePublished: "2026-01-06"
 dateModified: "2026-07-15"
 description: Super guarantee and payroll risks in a novated lease — how some employers calculate SG on your reduced salary instead of your original ordinary time earnings, what changed (and didn't) with Payday Super from July 2026, and what to check.

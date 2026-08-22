@@ -1,4 +1,5 @@
 ---
+title: "Failure to pass on GST savings"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: Failure to pass on GST savings is an overlooked cost in some novated leases. How some providers retain the GST credit on running costs — and how to spot it on your statement.

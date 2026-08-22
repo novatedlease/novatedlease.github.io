@@ -1,4 +1,5 @@
 ---
+title: "Disclaimer"
 datePublished: "2026-01-08"
 dateModified: "2026-06-05"
 description: Disclaimer for the independent Australian novated lease guide. General information only — not financial, tax, or legal advice. Consult a qualified professional for personal recommendations.

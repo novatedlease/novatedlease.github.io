@@ -3,14 +3,15 @@ import Base from './Base.astro';
 
 interface Props {
   title?: string;
+  titleOverride?: string;
   description?: string;
   extraSchemas?: object[];
   noindex?: boolean;
 }
 
-const { title, description, extraSchemas, noindex } = Astro.props;
+const { title, titleOverride, description, extraSchemas, noindex } = Astro.props;
 ---
 
-<Base title={title} description={description} extraSchemas={extraSchemas} noindex={noindex}>
+<Base title={title} titleOverride={titleOverride} description={description} extraSchemas={extraSchemas} noindex={noindex}>
   <slot />
 </Base>

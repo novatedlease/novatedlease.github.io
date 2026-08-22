@@ -1,4 +1,5 @@
 ---
+title: "Don't double-count the hospital/NFP FBT cap"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: Why hospital and NFP workers should not double-count the FBT exemption when evaluating a novated lease — the cap and the EV exemption don't stack the way many assume.

@@ -1,4 +1,5 @@
 ---
+title: "How to use the novated lease calculator"
 datePublished: "2026-02-06"
 dateModified: "2026-07-05"
 description: Step-by-step guide on how to use the independent novated lease calculator — input fields, key assumptions, common pitfalls, and how to interpret the results.

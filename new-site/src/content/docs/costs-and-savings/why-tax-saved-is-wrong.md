@@ -1,4 +1,5 @@
 ---
+title: "Why \"tax saved\" is the wrong metric"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: Why "tax saved" is the wrong way to evaluate a novated lease, and what to look at instead — the most important conceptual shift for comparing leases meaningfully.

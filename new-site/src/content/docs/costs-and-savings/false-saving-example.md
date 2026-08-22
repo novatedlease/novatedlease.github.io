@@ -1,7 +1,7 @@
 ---
 datePublished: "2026-02-06"
 dateModified: "2026-06-05"
-title: "Real example: a marketed \"$21,320 savings\" was actually a $5,591 net loss"
+title: "A marketed \"$21,320 savings\" was actually a $5,591 net loss"
 description: A step-by-step breakdown of a real novated lease quote showing how the advertised savings figure overstates the true outcome — and how net financial position compares against a cash purchase and car loan.
 ---
 

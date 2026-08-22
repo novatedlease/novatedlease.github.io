@@ -1,4 +1,5 @@
 ---
+title: "Think like a gambler about your novated lease decision"
 datePublished: "2026-04-10"
 dateModified: "2026-06-05"
 description: Why the same novated lease can be brilliant for one person and terrible for another — risk-adjusted decision-making explained using gambling and probability framing.

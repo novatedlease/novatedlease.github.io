@@ -1,4 +1,5 @@
 ---
+title: "Choosing insurance premium vs excess"
 datePublished: "2026-02-14"
 dateModified: "2026-06-05"
 description: Choosing car insurance premium vs excess in a novated lease — why the optimal choice changes when premiums are pre-tax but excess is paid post-tax after a claim.

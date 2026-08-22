@@ -1,4 +1,5 @@
 ---
+title: "The ATO EV home charging shortcut (5.47c/km)"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: The ATO EV home charging shortcut (5.47c/km from 1 April 2026) explained — how the rate works, when to use which method, and how to maximise the claim under PCG 2024/2.

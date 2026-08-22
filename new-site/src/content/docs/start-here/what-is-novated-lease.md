@@ -1,4 +1,5 @@
 ---
+title: "What is a novated lease, really?"
 datePublished: "2026-01-06"
 dateModified: "2026-07-01"
 description: What is a novated lease — really? How they work mechanically, why the EV FBT exemption was a game-changer, and why apples-to-apples comparisons are still easy to get wrong.

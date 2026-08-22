@@ -1,7 +1,7 @@
 ---
 datePublished: "2026-01-06"
 dateModified: "2026-07-05"
-title: Is a novated lease worth it in Australia? (2026 guide)
+title: "Is a novated lease worth it in Australia?"
 description: Is a novated lease worth it in Australia? Independent 2026 guide covering EV FBT exemption, GST savings, HECS impact, borrowing capacity and real net outcomes.
 ---
 

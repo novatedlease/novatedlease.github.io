@@ -1,4 +1,5 @@
 ---
+title: "We reviewed 20 novated lease calculators"
 datePublished: "2026-03-06"
 dateModified: "2026-06-05"
 description: We reviewed the top 20 novated lease calculators on Google. Only one shows true net savings — the rest produce headline "tax saved" figures that mislead consumers.

@@ -1,4 +1,5 @@
 ---
+title: "Who I am (\"that novated lease guy\")"
 datePublished: "2026-01-07"
 dateModified: "2026-06-05"
 description: About the author — an Australian anaesthetist, biostatistician, and former mathematical olympiad national representative behind the independent novated lease guide and calculator.

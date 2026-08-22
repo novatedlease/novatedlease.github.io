@@ -1,4 +1,5 @@
 ---
+title: "$81k Tesla lease vs keeping my $25k Mazda"
 datePublished: "2026-03-19"
 dateModified: "2026-06-05"
 description: Real-life worked example — how leasing an $81k Tesla via FBT-exempt novated lease turned out roughly cost-neutral to keeping a $25k Mazda over five years.

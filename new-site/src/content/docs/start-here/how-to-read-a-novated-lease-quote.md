@@ -1,4 +1,5 @@
 ---
+title: "How to read a novated lease quote"
 datePublished: "2026-01-31"
 dateModified: "2026-06-30"
 description: How to read a novated lease quote — what each line item means, common pitfalls in "headline savings" figures, and how to compare proposals from different providers meaningfully.

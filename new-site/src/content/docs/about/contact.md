@@ -1,4 +1,5 @@
 ---
+title: "Contact"
 datePublished: "2026-02-02"
 dateModified: "2026-06-05"
 description: Contact the author of the independent Australian novated lease guide. Feedback, corrections, and edge cases welcome — many of the site's features came from reader input.

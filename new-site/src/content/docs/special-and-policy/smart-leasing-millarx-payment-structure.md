@@ -1,7 +1,7 @@
 ---
 datePublished: "2026-06-21"
 dateModified: "2026-06-21"
-title: Smart Leasing and MillarX — why their quoted figure needs adjusting in the calculator
+title: "Smart Leasing & MillarX — why their quoted figure needs adjusting"
 description: Smart Leasing and MillarX quote a regular payment derived from the full lease term, but only a subset of those periods are actual finance payments to the financier. Entering the quoted figure directly inflates the effective interest rate. Here is why, and how to correct it.
 ---
 

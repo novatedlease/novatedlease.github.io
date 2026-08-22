@@ -1,4 +1,5 @@
 ---
+title: "What happens if a novated lease ends early"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: What happens if a novated lease ends early — redundancy, resignation, job transfer, or vehicle write-off. How the lease unwinds and the financial consequences without mitigation.

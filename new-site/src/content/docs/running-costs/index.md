@@ -1,4 +1,5 @@
 ---
+title: "Running costs & claiming"
 datePublished: "2026-05-23"
 dateModified: "2026-06-05"
 description: Running costs and claiming in a novated lease — how the pre-tax running cost budget works, common pitfalls, and how to avoid losing entitlements you're owed.

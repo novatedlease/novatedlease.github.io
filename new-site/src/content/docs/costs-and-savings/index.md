@@ -1,4 +1,5 @@
 ---
+title: "Mechanisms explained"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
 description: How novated leases actually work financially — the mechanics behind tax savings, residual values, interest rates, and why headline "tax saved" figures can mislead.
