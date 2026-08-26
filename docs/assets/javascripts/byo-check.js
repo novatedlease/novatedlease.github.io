@@ -92,11 +92,18 @@
       notes: ""
     },
     {
+      name: "Australian Bureau of Statistics",
+      aliases: ["ABS", "Statistics Bureau"],
+      group: "Australian Federal Government",
+      status: "possible",
+      notes: ""
+    },
+    {
       name: "Australian Federal Government",
       aliases: ["APS", "Commonwealth Government", "Federal Government", "Australian Government", "Commonwealth", "Australian Public Service", "Canberra"],
       group: "Australian Federal Government",
       status: "partial",
-      notes: "Available in some Commonwealth agencies — not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, and ATO (listed separately above). Check with your specific agency's HR."
+      notes: "Available in some Commonwealth agencies — not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, ATO, and ABS (listed separately above). Check with your specific agency's HR."
     },
     {
       name: "Sydney Trains",
