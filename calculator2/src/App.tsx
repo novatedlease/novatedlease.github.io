@@ -271,7 +271,7 @@ function AdvancedMode(props: {
             {outputTab === "details" && (
               <>
                 <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, Employee Contribution Method (ECM), and EV charging." defaultOpen>
-                  <BasicInformationReport inputs={inputs} taxRateInclMedicarePct={47} onNavigateToDetails={navigateToDetails} />
+                  <BasicInformationReport inputs={inputs} onNavigateToDetails={navigateToDetails} />
                 </Section>
 
                 <Section
