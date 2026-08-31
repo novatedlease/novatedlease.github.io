@@ -25,7 +25,7 @@ describe("computeTotalSaving matches v1 SummaryView.tsx's totalSaving formula", 
     const residual = Math.max(0, financed - advancedDefaultInputs.leaseDocFee) * residualFractionForYears(advancedDefaultInputs.leaseDurationYears);
     const inputs = { ...advancedDefaultInputs, residualValueExGst: residual };
 
-    const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
+    const summary = computeFinancialSummary({ inputs });
     const { cashflowSaving, interestSaving, totalSaving } = computeTotalSaving({ summary, horizon: "at5" });
 
     expect(cashflowSaving).toBeCloseTo(11972, -2);
@@ -36,14 +36,14 @@ describe("computeTotalSaving matches v1 SummaryView.tsx's totalSaving formula", 
 
   test("interest term is exactly zero when the home loan offset rate is zero (no opportunity cost to speak of)", () => {
     const inputs = withOverrides(baseEvInputs(), { homeLoanOffsetInterestRate: 0 });
-    const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
+    const summary = computeFinancialSummary({ inputs });
     const { interestSaving } = computeTotalSaving({ summary, horizon: "at5" });
     expect(interestSaving).toBeCloseTo(0, 6);
   });
 
   test("lease-end horizon uses the .first (not .total) interest figures", () => {
     const inputs = withOverrides(baseEvInputs(), { leaseDurationYears: 3 });
-    const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
+    const summary = computeFinancialSummary({ inputs });
     const atLeaseEnd = computeTotalSaving({ summary, horizon: "atLeaseEnd" });
     expect(atLeaseEnd.interestSaving).toBeCloseTo(summary.irNl.first - summary.irCash.first, 6);
   });
@@ -53,7 +53,7 @@ describe("computeTotalSaving matches v1 SummaryView.tsx's totalSaving formula", 
     const residual = Math.max(0, financed - advancedDefaultInputs.leaseDocFee) * residualFractionForYears(advancedDefaultInputs.leaseDurationYears);
     const inputs = { ...advancedDefaultInputs, residualValueExGst: residual };
 
-    const summary = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
+    const summary = computeFinancialSummary({ inputs });
     const { totalSaving } = computeTotalSaving({ summary, horizon: "at5" });
 
     const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" onNavigateToDetails={() => {}} />);

@@ -768,7 +768,7 @@ useEffect(() => {
   );
 }
 
-export function computeFinancialSummary(opts: { inputs: Inputs; taxRateInclMedicarePct: number }) {
+export function computeFinancialSummary(opts: { inputs: Inputs }) {
   const i = opts.inputs;
 
   const yearsLease = clamp(i.leaseDurationYears, 0, 5);

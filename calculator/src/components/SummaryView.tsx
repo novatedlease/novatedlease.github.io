@@ -192,7 +192,7 @@ const electricityTooltip =
 
 export default function SummaryView({ inputs, taxRateInclMedicarePct, summaryHorizon }: Props) {
   const s = useMemo(
-    () => computeFinancialSummary({ inputs, taxRateInclMedicarePct: taxRateInclMedicarePct ?? 47 }),
+    () => computeFinancialSummary({ inputs }),
     [inputs, taxRateInclMedicarePct]
   );
 

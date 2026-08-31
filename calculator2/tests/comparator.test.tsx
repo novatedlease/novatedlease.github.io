@@ -44,7 +44,7 @@ describe("ComparatorView", () => {
 
 describe("extractPathwayNumbers (pure pathway maths, used to rank comparator columns)", () => {
   const inputs = baseEvInputs();
-  const s = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
+  const s = computeFinancialSummary({ inputs });
 
   test("nl pathway: cash total @ lease end = -(lease payments) + charging benefit - residual", () => {
     const nl = extractPathwayNumbers(s, inputs, "nl");
@@ -58,7 +58,7 @@ describe("extractPathwayNumbers (pure pathway maths, used to rank comparator col
 
   test("keep pathway: no upfront cost, no residual — only running costs and asset value", () => {
     const keepInputs = withOverrides(inputs, { compareWithCurrentCar: true, currentCarMarketValueNow: 20000, currentCarMarketValueAtEnd: 11000 });
-    const keepSummary = computeFinancialSummary({ inputs: keepInputs, taxRateInclMedicarePct: 47 });
+    const keepSummary = computeFinancialSummary({ inputs: keepInputs });
     const keep = extractPathwayNumbers(keepSummary, keepInputs, "keep");
     expect(keep.carValueAtLeaseEnd).toBe(keepSummary.currentCarValueAtLeaseEnd);
     expect(keep.carValueAt5).toBe(keepInputs.currentCarMarketValueAtEnd);

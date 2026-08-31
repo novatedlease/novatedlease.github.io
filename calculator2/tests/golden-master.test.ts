@@ -13,8 +13,6 @@ import {
 import { computeFinancialSummary } from "../../calculator/src/components/FinancialReport";
 import { baseEvInputs, withOverrides } from "./fixtures";
 
-const TAX_RATE_INCL_MEDICARE_PCT = 47;
-
 /**
  * Rounds every number in a (possibly nested) object/array to 2dp so snapshots are
  * stable across platforms and don't churn on floating-point noise in the 10th decimal.
@@ -34,10 +32,7 @@ function round(value: unknown): unknown {
 function snapshotFor(inputs: Inputs) {
   const category = getLeaseFbtCategory(inputs);
   const derived = computeDerived(inputs);
-  const summary = computeFinancialSummary({
-    inputs,
-    taxRateInclMedicarePct: TAX_RATE_INCL_MEDICARE_PCT,
-  });
+  const summary = computeFinancialSummary({ inputs });
 
   let effectiveRatePct: number | string;
   try {

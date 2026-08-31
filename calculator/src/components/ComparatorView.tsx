@@ -355,7 +355,7 @@ export default function ComparatorView({
   const columns = useMemo<ComparatorColumn[]>(() => {
     if (!canCompare) return [];
     return selectedPathways.map((p) => {
-      const s = computeFinancialSummary({ inputs: p.inputs, taxRateInclMedicarePct: 47 });
+      const s = computeFinancialSummary({ inputs: p.inputs });
       const nums = extractPathwayNumbers(s, p.inputs, p.pathwayType);
       return {
         key: p.key,

@@ -182,7 +182,7 @@ function SectionBlock({ title, cashRows, assetRows, liabilityRows }: { title: st
  */
 export function FinancialSummaryReport(props: { inputs: Inputs }) {
   const i = props.inputs;
-  const s = computeFinancialSummary({ inputs: i, taxRateInclMedicarePct: 47 });
+  const s = computeFinancialSummary({ inputs: i });
 
   const { yearsLease, yearsPost, fortnights, loanEnabled, keepEnabled } = s;
 

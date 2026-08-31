@@ -128,7 +128,7 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
 }
 
 export function SummaryView({ inputs, horizon, onNavigateToDetails }: Props) {
-  const s = computeFinancialSummary({ inputs, taxRateInclMedicarePct: 47 });
+  const s = computeFinancialSummary({ inputs });
 
   const isLeaseEnd = horizon === "lease_end";
   const years = isLeaseEnd ? s.yearsLease : 5;
