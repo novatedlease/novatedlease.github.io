@@ -446,6 +446,41 @@
       group: "Insurance",
       status: "not_available",
       notes: ""
+    },
+    {
+      name: "Yarra Valley Water",
+      aliases: ["YVW"],
+      group: "Victoria",
+      status: "possible",
+      notes: ""
+    },
+    {
+      name: "Australian Signals Directorate",
+      aliases: ["ASD", "Signals Directorate"],
+      group: "Australian Federal Government",
+      status: "possible",
+      notes: ""
+    },
+    {
+      name: "EBOS Group",
+      aliases: ["EBOS", "EBOS Healthcare", "Symbion"],
+      group: "Healthcare",
+      status: "possible",
+      notes: ""
+    },
+    {
+      name: "Department of Foreign Affairs and Trade",
+      aliases: ["DFAT", "Foreign Affairs and Trade"],
+      group: "Australian Federal Government",
+      status: "possible",
+      notes: ""
+    },
+    {
+      name: "MBB Group",
+      aliases: ["MBB"],
+      group: "Engineering & Consulting",
+      status: "possible",
+      notes: ""
     }
   ];
 
