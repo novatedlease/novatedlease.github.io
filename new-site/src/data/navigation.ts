@@ -93,6 +93,7 @@ export const navigation: NavEntry[] = [
     items: [
       { label: 'Who I am', href: '/about/about-me/' },
       { label: 'Calculator history', href: '/about/history/' },
+      { label: 'What readers say', href: '/about/what-readers-say/' },
       { label: 'Privacy Policy', href: '/about/privacy/' },
       { label: 'Disclaimer', href: '/about/disclaimer/' },
       { label: 'Contact', href: '/about/contact/' },

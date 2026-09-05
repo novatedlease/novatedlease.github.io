@@ -1,0 +1,73 @@
+---
+import FullPage from '../../layouts/FullPage.astro';
+import { testimonials } from '../../data/testimonials';
+
+// Every quote in the pool, grouped by where it was said, newest first within each group.
+const GROUPS: { domain: string; label: string; note: string }[] = [
+  { domain: 'whirlpool.net.au', label: 'Whirlpool forums', note: 'Public forum posts, mostly in the long-running novated lease threads.' },
+  { domain: 'reddit.com', label: 'Reddit', note: 'Public comments, mostly in r/NovatedLeasingAU and r/AusFinance.' },
+  { domain: 'ozbargain.com.au', label: 'OzBargain', note: 'Public forum and deal-thread comments.' },
+  { domain: 'facebook.com', label: 'Facebook group', note: 'Comments in a novated leasing discussion group.' },
+  { domain: 'buymeacoffee.com', label: 'Buy Me a Coffee supporters', note: 'Notes left by readers when they bought a coffee. Only notes the supporter made public are quoted.' },
+];
+const byDate = (a: { date: string }, b: { date: string }) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
+const groups = GROUPS.map(g => ({ ...g, items: testimonials.filter(t => t.domain === g.domain).sort(byDate) })).filter(g => g.items.length);
+const total = testimonials.length;
+const fmtDate = (iso: string) => new Date(iso + 'T00:00:00').toLocaleDateString('en-AU', { month: 'long', year: 'numeric' });
+---
+
+<FullPage
+  title="What readers say"
+  description={`${total} unsolicited public comments about the Novated Lease Guide and calculator, collected from Whirlpool, Reddit, OzBargain, Facebook and supporter notes, each linked to its source.`}
+>
+  <div class="readers-page">
+    <h1>What readers say</h1>
+    <p>
+      These are unsolicited comments about this site and its calculator, collected from public forums and from notes left by supporters.
+      There are {total} of them. Each is quoted in the author's own words, lightly trimmed for length, and linked to its source so you can
+      read it in full and in context. Names are given as the author chose to display them, or left out.
+    </p>
+    <p>
+      Not all of them are glowing, and that is the point. Several are from people who used the calculator to decide <em>against</em> a novated lease.
+      The tool is meant to get you to the right answer for your situation, whichever way it goes.
+    </p>
+
+    <nav class="readers-toc" aria-label="Sections">
+      {groups.map(g => (
+        <a href={`#${g.domain.replace(/\W/g, '-')}`}>
+          <img src={`https://www.google.com/s2/favicons?domain=${g.domain}&sz=16`} width="14" height="14" alt="" />
+          {g.label} <span class="readers-toc__count">{g.items.length}</span>
+        </a>
+      ))}
+    </nav>
+
+    {groups.map(g => (
+      <section class="readers-group" id={g.domain.replace(/\W/g, '-')}>
+        <h2>
+          <img src={`https://www.google.com/s2/favicons?domain=${g.domain}&sz=32`} width="18" height="18" alt="" />
+          {g.label} <span class="readers-group__count">{g.items.length}</span>
+        </h2>
+        <p class="readers-group__note">{g.note}</p>
+        <ul class="readers-list">
+          {g.items.map(t => (
+            <li class="readers-item">
+              <blockquote>"{t.quote}"</blockquote>
+              <div class="readers-item__meta">
+                <span>{t.who}</span>
+                <span aria-hidden="true">·</span>
+                <span>{fmtDate(t.date)}</span>
+                {t.source && (<><span aria-hidden="true">·</span><a href={t.source} target="_blank" rel="noopener">source</a></>)}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <p class="readers-footnote">
+      Comments from people who work in the novated leasing industry are deliberately not included. If you have found the site useful and
+      would like to add your own, the easiest way is a note with a <a href="https://buymeacoffee.com/changyang1230" target="_blank" rel="noopener">coffee</a>,
+      or a comment wherever you found the link.
+    </p>
+  </div>
+</FullPage>
