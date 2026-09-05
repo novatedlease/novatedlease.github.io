@@ -209,7 +209,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
               padding: "10px 20px",
               borderRadius: "var(--nlc-radius-md)",
               border: "none",
-              background: adjustedFn !== null ? "var(--nlc-blue)" : "var(--nlc-bg-sunken)",
+              background: adjustedFn !== null ? "var(--nlc-blue-solid)" : "var(--nlc-bg-sunken)",
               color: adjustedFn !== null ? "#fff" : "var(--nlc-text-faint)",
               cursor: adjustedFn !== null ? "pointer" : "default",
               fontSize: 13,

@@ -796,7 +796,7 @@ button {
 }
 
 .article-content table th {
-  background: var(--nl-blue);
+  background: var(--nl-blue-solid);
   color: #fff;
   font-weight: 600;
   font-size: 0.8rem;
@@ -951,7 +951,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 }
 
 .compact-table table th {
-  background: var(--nl-blue);
+  background: var(--nl-blue-solid);
   color: #fff;
   font-weight: 600;
   font-size: 0.77rem;

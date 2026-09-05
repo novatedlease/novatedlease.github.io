@@ -212,11 +212,11 @@
 }
 
 .nlc-btn--primary {
-  background: var(--nlc-blue);
+  background: var(--nlc-blue-solid);
   color: #fff;
 }
 .nlc-btn--primary:hover {
-  background: var(--nlc-blue-dark);
+  background: var(--nlc-blue-solid-hover);
 }
 
 .nlc-btn--secondary {
@@ -361,7 +361,7 @@
   border-right: none;
 }
 .nlc-pill-group__btn[aria-pressed="true"] {
-  background: var(--nlc-blue);
+  background: var(--nlc-blue-solid);
   color: #fff;
 }
 
@@ -524,7 +524,7 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  background: var(--nlc-blue);
+  background: var(--nlc-blue-solid);
   color: #fff;
   white-space: nowrap;
 }
@@ -677,7 +677,7 @@
   gap: 8px;
   border-radius: var(--nlc-radius-pill);
   border: none;
-  background: linear-gradient(135deg, var(--nlc-blue), var(--nlc-blue-dark));
+  background: linear-gradient(135deg, var(--nlc-blue-solid), var(--nlc-blue-solid-hover));
   color: #fff;
   font-weight: 700;
   font-size: 13px;
@@ -685,7 +685,7 @@
 }
 
 .nlc-tour-cta:hover {
-  background: linear-gradient(135deg, var(--nlc-blue-dark), var(--nlc-blue-dark));
+  background: linear-gradient(135deg, var(--nlc-blue-solid-hover), var(--nlc-blue-solid-hover));
 }
 
 .nlc-tour-cta__hide {

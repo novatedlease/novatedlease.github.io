@@ -43,6 +43,7 @@
 
   /* Solid variants: backgrounds that carry white text; stay saturated in dark mode */
   --nlc-blue-solid: #0b5cab;
+  --nlc-blue-solid-hover: #084a8c;
   --nlc-grey-solid: #4a4a4a;
 
   /* Report accents (text, borders, tints). Dark mode swaps these for lighter shades. */
@@ -123,6 +124,7 @@
   --nlc-blue-light: rgba(111, 176, 245, 0.12);
   --nlc-blue-mid: rgba(111, 176, 245, 0.26);
   --nlc-blue-solid: #1f6fd1;
+  --nlc-blue-solid-hover: #2b7de0;
   --nlc-grey-solid: #3a4352;
 
   --nlc-good: #34d399;
