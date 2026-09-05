@@ -20,6 +20,6 @@ Before making any financial decision — including entering into a novated lease
 
 Any tools, spreadsheets, calculators, or examples provided are intended to assist understanding only and rely on the accuracy of inputs provided. Use of this site and any accompanying materials is entirely at your own discretion and risk.
 
-This website is independent and is **not affiliated with, endorsed by, or associated with any novated lease provider, financier, employer, or salary packaging company**. No commissions, referral fees, or other benefits are received from novated lease providers in connection with the content on this site, with the exception of the voluntary Buy Me a Coffee support and an optional Tesla referral link.
+This website is independent and is **not affiliated with, endorsed by, or associated with any novated lease provider, financier, employer, or salary packaging company**. No commissions, referral fees, or other benefits are received from novated lease providers, and no leads or reader data are sold or passed on. The site is funded by voluntary Buy Me a Coffee donations from readers, plus an optional Tesla referral link. Some of that voluntary support has come from individuals and businesses who work in the industry. None of it was solicited, none carries any condition, and none has influenced what the site says or which providers it mentions. Donations from any source are accepted on that basis only.
 
 Errors or omissions are possible; corrections are welcome.
