@@ -49,9 +49,7 @@ const rightAlignLabels = new Set(sectionsWithDropdown.slice(-2).map(entry => ent
 
         if (isNavSection(entry) && entry.items) {
           const active = isSectionActive(entry.items) || (entry.href ? isActive(entry.href) : false);
-          // Calculator is styled as a CTA everywhere except the home page, where the hero already
-          // carries the primary button and a second highlighted item reads as two active states.
-          const isCta = entry.href === '/calculator/' && currentPath !== '/';
+          const isCta = entry.href === '/calculator/';
           return (
             <li>
               {entry.href ? (
