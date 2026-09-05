@@ -82,7 +82,7 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
   if (error) {
     return (
       <div style={{ fontSize: 13, lineHeight: 1.5 }}>
-        <NoteBox color="#b71c1c">
+        <NoteBox color="var(--nlc-acc-red)">
           Unable to compute the hypothetical lease payment for these inputs.
           <div style={{ marginTop: 6, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 11, opacity: 0.85 }}>{error}</div>
         </NoteBox>
@@ -90,22 +90,22 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
     );
   }
 
-  const th: React.CSSProperties = { textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#4a4a4a", color: "#fff" };
+  const th: React.CSSProperties = { textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-grey-solid)", color: "#fff" };
   const thR: React.CSSProperties = { ...th, textAlign: "right", whiteSpace: "nowrap" };
-  const td: React.CSSProperties = { padding: "6px 10px", borderBottom: "1px solid rgba(0,0,0,0.06)" };
+  const td: React.CSSProperties = { padding: "6px 10px", borderBottom: "1px solid var(--nlc-line-soft)" };
   const tdR: React.CSSProperties = { ...td, textAlign: "right", fontVariantNumeric: "tabular-nums" };
 
   return (
     <div style={{ fontSize: 13, lineHeight: 1.5 }}>
       <StatGrid>
-        <Stat label={`Quoted vehicle lease / ${period}`} value={money(fnToCol(currentVehiclePerFn2dp))} color="#0b5cab" note={`Implied rate: ${quotedAnnualRate != null ? fmtPct(quotedAnnualRate) : "—"}`} />
-        <Stat label={`Wholesale rate (${fmtPct(assumedAnnualRate)}) vehicle / ${period}`} value={money(fnToCol(hypotheticalPerFn2dp))} color="#1b5e20" />
-        <Stat label="Difference over term" value={`${moneyNoCents(Math.abs(diffTotal))} ${moreOrLess(diffTotal)}`} color={diffTotal >= 0 ? "#b71c1c" : "#1b5e20"} note="Pre-tax, lifetime total" />
+        <Stat label={`Quoted vehicle lease / ${period}`} value={money(fnToCol(currentVehiclePerFn2dp))} color="var(--nlc-blue)" note={`Implied rate: ${quotedAnnualRate != null ? fmtPct(quotedAnnualRate) : "—"}`} />
+        <Stat label={`Wholesale rate (${fmtPct(assumedAnnualRate)}) vehicle / ${period}`} value={money(fnToCol(hypotheticalPerFn2dp))} color="var(--nlc-acc-green)" />
+        <Stat label="Difference over term" value={`${moneyNoCents(Math.abs(diffTotal))} ${moreOrLess(diffTotal)}`} color={diffTotal >= 0 ? "var(--nlc-acc-red)" : "var(--nlc-acc-green)"} note="Pre-tax, lifetime total" />
       </StatGrid>
 
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, flexWrap: "wrap" }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-soft)" }}>Assumed wholesale rate:</div>
-        <div style={{ display: "inline-flex", border: "1px solid rgba(11,92,171,0.3)", borderRadius: 999, overflow: "hidden", background: "rgba(11,92,171,0.04)" }}>
+        <div style={{ display: "inline-flex", border: "1px solid var(--nlc-blue-mid)", borderRadius: 999, overflow: "hidden", background: "var(--nlc-blue-light)" }}>
           {[0.07, 0.08, 0.09].map((r) => {
             const active = assumedAnnualRate === r;
             return (
@@ -113,7 +113,7 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
                 key={r}
                 type="button"
                 onClick={() => setAssumedAnnualRate(r)}
-                style={{ appearance: "none", border: "none", background: active ? "#0b5cab" : "transparent", color: active ? "#fff" : "#0b5cab", padding: "5px 12px", cursor: "pointer", fontWeight: active ? 800 : 600, fontSize: 12, lineHeight: 1 }}
+                style={{ appearance: "none", border: "none", background: active ? "var(--nlc-blue-solid)" : "transparent", color: active ? "#fff" : "var(--nlc-blue)", padding: "5px 12px", cursor: "pointer", fontWeight: active ? 800 : 600, fontSize: 12, lineHeight: 1 }}
                 aria-pressed={active}
               >
                 {(r * 100).toFixed(0)}%
@@ -124,7 +124,7 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
         <InfoTooltip width={420} text="7% is a ballpark estimate of wholesale finance rate underlying typical novated leases. Actual wholesale rates vary over time and by financier, credit profile, term, and broader interest rate conditions." />
       </div>
 
-      <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+      <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--nlc-line)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
         <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 13 }}>
           <thead>
             <tr>
@@ -136,24 +136,24 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
           </thead>
           <tbody>
             <tr>
-              <td style={{ ...td, fontWeight: 600, color: "#1b5e20" }}>Wholesale (assumed)</td>
-              <td style={{ ...tdR, color: "#1b5e20" }}>{fmtPct(assumedAnnualRate)}</td>
-              <td style={{ ...tdR, color: "#1b5e20" }}>{money(fnToCol(hypotheticalPerFn2dp))}</td>
-              <td style={{ ...tdR, color: "#1b5e20" }}>{money(hypotheticalTotal)}</td>
+              <td style={{ ...td, fontWeight: 600, color: "var(--nlc-acc-green)" }}>Wholesale (assumed)</td>
+              <td style={{ ...tdR, color: "var(--nlc-acc-green)" }}>{fmtPct(assumedAnnualRate)}</td>
+              <td style={{ ...tdR, color: "var(--nlc-acc-green)" }}>{money(fnToCol(hypotheticalPerFn2dp))}</td>
+              <td style={{ ...tdR, color: "var(--nlc-acc-green)" }}>{money(hypotheticalTotal)}</td>
             </tr>
             <tr>
-              <td style={{ ...td, fontWeight: 600, color: "#0b5cab" }}>Quoted</td>
-              <td style={{ ...tdR, color: "#0b5cab" }}>{quotedAnnualRate != null ? fmtPct(quotedAnnualRate) : "–"}</td>
-              <td style={{ ...tdR, color: "#0b5cab" }}>{money(fnToCol(currentVehiclePerFn2dp))}</td>
-              <td style={{ ...tdR, color: "#0b5cab" }}>{money(currentTotal)}</td>
+              <td style={{ ...td, fontWeight: 600, color: "var(--nlc-blue)" }}>Quoted</td>
+              <td style={{ ...tdR, color: "var(--nlc-blue)" }}>{quotedAnnualRate != null ? fmtPct(quotedAnnualRate) : "–"}</td>
+              <td style={{ ...tdR, color: "var(--nlc-blue)" }}>{money(fnToCol(currentVehiclePerFn2dp))}</td>
+              <td style={{ ...tdR, color: "var(--nlc-blue)" }}>{money(currentTotal)}</td>
             </tr>
-            <tr style={{ background: "rgba(183,28,28,0.04)" }}>
-              <td style={{ padding: "6px 10px", fontWeight: 800, color: "#b71c1c" }}>Difference</td>
-              <td style={{ padding: "6px 10px", textAlign: "right", color: "#b71c1c" }}></td>
-              <td style={{ padding: "6px 10px", textAlign: "right", fontWeight: 800, fontVariantNumeric: "tabular-nums", color: "#b71c1c" }}>
+            <tr style={{ background: "color-mix(in srgb, var(--nlc-acc-red) 6%, transparent)" }}>
+              <td style={{ padding: "6px 10px", fontWeight: 800, color: "var(--nlc-acc-red)" }}>Difference</td>
+              <td style={{ padding: "6px 10px", textAlign: "right", color: "var(--nlc-acc-red)" }}></td>
+              <td style={{ padding: "6px 10px", textAlign: "right", fontWeight: 800, fontVariantNumeric: "tabular-nums", color: "var(--nlc-acc-red)" }}>
                 {money(Math.abs(fnToCol(diffPerFn)))} {moreOrLess(diffPerFn)}
               </td>
-              <td style={{ padding: "6px 10px", textAlign: "right", fontWeight: 800, fontVariantNumeric: "tabular-nums", color: "#b71c1c" }}>
+              <td style={{ padding: "6px 10px", textAlign: "right", fontWeight: 800, fontVariantNumeric: "tabular-nums", color: "var(--nlc-acc-red)" }}>
                 {moneyNoCents(Math.abs(diffTotal))} {moreOrLess(diffTotal)}
               </td>
             </tr>

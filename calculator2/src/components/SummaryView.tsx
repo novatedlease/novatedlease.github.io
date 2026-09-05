@@ -21,8 +21,8 @@ function fmtSigned(n: number): string {
   return `${n >= 0 ? "+" : "−"}$${Math.round(Math.abs(n)).toLocaleString("en-AU")}`;
 }
 
-const POS = "#1b5e20";
-const NEG = "#b40000";
+const POS = "var(--nlc-acc-green)";
+const NEG = "var(--nlc-neg)";
 
 function Hero(props: { amount: number; suffix: string }) {
   const positive = props.amount >= 0;
@@ -32,7 +32,7 @@ function Hero(props: { amount: number; suffix: string }) {
         padding: "14px 16px",
         borderRadius: "var(--nlc-radius-lg)",
         background: positive ? "var(--nlc-good-light)" : "var(--nlc-bad-light)",
-        border: `1px solid ${positive ? "rgba(46,125,50,0.22)" : "rgba(180,0,0,0.22)"}`,
+        border: `1px solid ${positive ? "color-mix(in srgb, var(--nlc-good) 25%, transparent)" : "color-mix(in srgb, var(--nlc-bad) 25%, transparent)"}`,
         marginBottom: 14,
       }}
     >
@@ -62,7 +62,7 @@ function DoubleSep() {
   return <div style={{ borderTop: "2px solid var(--nlc-border-mid)", margin: "6px 0" }} />;
 }
 
-const BLUE = "#0b5cab";
+const BLUE = "var(--nlc-blue)";
 
 function CardHeader(props: { title: string }) {
   return (

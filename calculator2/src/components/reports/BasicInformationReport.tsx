@@ -61,13 +61,13 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
   return (
     <div style={{ fontSize: 13, lineHeight: 1.4 }}>
       <StatGrid>
-        <Stat label="Amount Financed" value={`$${aud(amountFinanced)}`} color="#0b5cab" note="Drive-away + doc fee − GST saved" />
-        <Stat label={`ATO Residual (${Math.round(i.leaseDurationYears)}y)`} value={pct(residualPct)} color="#37474f" />
-        <Stat label="Residual Payable (inc GST)" value={`$${aud(residualPayableIncGst)}`} color="#37474f" />
+        <Stat label="Amount Financed" value={`$${aud(amountFinanced)}`} color="var(--nlc-blue)" note="Drive-away + doc fee − GST saved" />
+        <Stat label={`ATO Residual (${Math.round(i.leaseDurationYears)}y)`} value={pct(residualPct)} color="var(--nlc-acc-slate)" />
+        <Stat label="Residual Payable (inc GST)" value={`$${aud(residualPayableIncGst)}`} color="var(--nlc-acc-slate)" />
         <Stat
           label="Effective Interest Rate"
           value={effectiveInterestRatePct == null ? "—" : `${(Math.round(effectiveInterestRatePct * 100) / 100).toFixed(2)}%`}
-          color="#1b5e20"
+          color="var(--nlc-acc-green)"
           note="Definition 1 — see Effective Interest Rate section"
         />
       </StatGrid>
@@ -119,7 +119,7 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
             <button
               type="button"
               onClick={() => props.onNavigateToDetails!("details-section-3-effective-interest-rate")}
-              style={{ padding: 0, border: "none", background: "none", color: "#0b5cab", cursor: "pointer", font: "inherit", textDecoration: "underline", textAlign: "left" }}
+              style={{ padding: 0, border: "none", background: "none", color: "var(--nlc-blue)", cursor: "pointer", font: "inherit", textDecoration: "underline", textAlign: "left" }}
             >
               Effective Interest Rate (Definition 1)
             </button>
@@ -132,12 +132,12 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
       />
 
       {fbtApplicable && (
-        <div style={{ marginTop: 16, background: "rgba(230,81,0,0.04)", border: "1px solid rgba(230,81,0,0.18)", borderRadius: 10, padding: "10px 14px" }}>
-          <SubHead color="#e65100" mt={0}>Employee Contribution Method (ECM)</SubHead>
+        <div style={{ marginTop: 16, background: "color-mix(in srgb, var(--nlc-acc-orange) 6%, transparent)", border: "1px solid color-mix(in srgb, var(--nlc-acc-orange) 22%, transparent)", borderRadius: 10, padding: "10px 14px" }}>
+          <SubHead color="var(--nlc-acc-orange)" mt={0}>Employee Contribution Method (ECM)</SubHead>
           <StatGrid>
-            <Stat label="Annual ECM (post-tax)" value={`$${aud(ecmAnnual)}`} color="#e65100" note={`${Math.round(fbtStatutoryRate * 100)}% of dutiable value`} />
-            <Stat label="ECM per fortnight" value={`$${aud(ecmPerFn)}`} color="#e65100" />
-            <Stat label="FBT delta per fortnight" value={`$${aud(fbtDeltaPerFn)}`} color="#b71c1c" note="Extra cost vs FBT-exempt EV" />
+            <Stat label="Annual ECM (post-tax)" value={`$${aud(ecmAnnual)}`} color="var(--nlc-acc-orange)" note={`${Math.round(fbtStatutoryRate * 100)}% of dutiable value`} />
+            <Stat label="ECM per fortnight" value={`$${aud(ecmPerFn)}`} color="var(--nlc-acc-orange)" />
+            <Stat label="FBT delta per fortnight" value={`$${aud(fbtDeltaPerFn)}`} color="var(--nlc-acc-red)" note="Extra cost vs FBT-exempt EV" />
           </StatGrid>
           <KV label="Vehicle dutiable value" value={`$${aud(vehicleDutiableValue)}`} />
           <KV label="FBT statutory rate" value={`${Math.round(fbtStatutoryRate * 100)}%`} />
@@ -147,7 +147,7 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
             label="FBT delta (fortnight)"
             bold
             highlight
-            color="#b71c1c"
+            color="var(--nlc-acc-red)"
             tooltip={<InfoTooltip text="How much more this lease costs per fortnight vs an FBT-exempt EV. Formula: (ECM_fn × taxRate) + (ECM_fn ÷ 11 × (1 − taxRate))." />}
             value={`$${aud(fbtDeltaPerFn)}`}
           />
@@ -155,25 +155,25 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
       )}
 
       {i.vehicleType === "EV" && (
-        <div style={{ marginTop: 16, background: "rgba(245,124,0,0.04)", border: "1px solid rgba(245,124,0,0.18)", borderRadius: 10, padding: "10px 14px" }}>
-          <SubHead color="#e65100" mt={0}>
+        <div style={{ marginTop: 16, background: "color-mix(in srgb, var(--nlc-acc-amber) 6%, transparent)", border: "1px solid color-mix(in srgb, var(--nlc-acc-amber) 22%, transparent)", borderRadius: 10, padding: "10px 14px" }}>
+          <SubHead color="var(--nlc-acc-orange)" mt={0}>
             Annual Electricity Report{" "}
             <a
               href="https://novatedlease.guide/running-costs/ev-home-charging-shortcut/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontWeight: 500, textTransform: "none", letterSpacing: 0, color: "#0b5cab", textDecoration: "underline" }}
+              style={{ fontWeight: 500, textTransform: "none", letterSpacing: 0, color: "var(--nlc-blue)", textDecoration: "underline" }}
             >
               (learn more)
             </a>
           </SubHead>
           <StatGrid>
-            <Stat label="kWh per year" value={aud0(kwhPerYear)} color="#e65100" note="Annual mileage × efficiency" />
-            <Stat label="Actual charging cost" value={`$${aud(chargingExpensePerYear)}`} color="#e65100" />
+            <Stat label="kWh per year" value={aud0(kwhPerYear)} color="var(--nlc-acc-orange)" note="Annual mileage × efficiency" />
+            <Stat label="Actual charging cost" value={`$${aud(chargingExpensePerYear)}`} color="var(--nlc-acc-orange)" />
             <Stat
               label="Net charging expense"
               value={`$${aud(postReimbursementEffectiveChargingExpense)}`}
-              color={postReimbursementEffectiveChargingExpense <= 0 ? "#1b5e20" : "#b71c1c"}
+              color={postReimbursementEffectiveChargingExpense <= 0 ? "var(--nlc-acc-green)" : "var(--nlc-acc-red)"}
               note={postReimbursementEffectiveChargingExpense <= 0 ? "Net gain after tax benefit" : "After tax reimbursement"}
             />
           </StatGrid>
@@ -183,7 +183,7 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
           <KV
             label="Charging delta"
             value={`$${aud(chargingDelta)}`}
-            color={chargingDelta >= 0 ? "#1b5e20" : "#b71c1c"}
+            color={chargingDelta >= 0 ? "var(--nlc-acc-green)" : "var(--nlc-acc-red)"}
             tooltip={<InfoTooltip text="Claim minus actual cost. Positive = claim exceeds actual expense." />}
           />
           <KV
@@ -191,7 +191,7 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
             value={`$${aud(postReimbursementEffectiveChargingExpense)}`}
             bold
             highlight
-            color={postReimbursementEffectiveChargingExpense <= 0 ? "#1b5e20" : "#b71c1c"}
+            color={postReimbursementEffectiveChargingExpense <= 0 ? "var(--nlc-acc-green)" : "var(--nlc-acc-red)"}
             tooltip={
               <InfoTooltip
                 text={
@@ -203,7 +203,7 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
             }
           />
           {chargingDelta < 0 && (
-            <NoteBox color="#b71c1c" mt={10}>
+            <NoteBox color="var(--nlc-acc-red)" mt={10}>
               Your actual charging expense exceeds the ATO claim amount. Consider switching to actual cost method if it's higher than 5.47c/km.
             </NoteBox>
           )}

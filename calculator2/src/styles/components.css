@@ -598,7 +598,7 @@
   padding: 14px;
   border-radius: var(--nlc-radius-lg);
   border: 1px solid rgba(11, 92, 171, 0.35);
-  background: #eef5ff;
+  background: var(--nlc-layout-bg);
   box-shadow: var(--nlc-shadow-lg);
   font-family: var(--nlc-font-sans);
   font-size: 13.5px;
@@ -689,8 +689,8 @@
 }
 
 .nlc-tour-cta__hide {
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--nlc-line-strong);
+  background: var(--nlc-line-soft);
   color: var(--nlc-text-muted);
   border-radius: 999px;
   width: 20px;
@@ -703,7 +703,7 @@
   flex-shrink: 0;
 }
 .nlc-tour-cta__hide:hover {
-  background: rgba(0, 0, 0, 0.12);
+  background: var(--nlc-line);
   color: var(--nlc-text);
 }
 

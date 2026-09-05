@@ -28,13 +28,13 @@ export function SG(props: { rows: SGYearRow[]; sgRatePct?: number }) {
 
   return (
     <div style={{ fontSize: 13, lineHeight: 1.4 }}>
-      <NoteBox color="#e65100" mt={0}>
+      <NoteBox color="var(--nlc-acc-orange)" mt={0}>
         Only relevant if your payroll calculates Super Guarantee on <b>post-NL income</b>. On informal polling this
         applies to ~10% of people — check with your payroll.
       </NoteBox>
 
       <div style={{ marginTop: 14 }}>
-        <Stat label="Projected total SG loss over lease term" value={fmtMoney(totalLossInSg)} color="#b71c1c" note="Employer contributions your employer is projected not to make" />
+        <Stat label="Projected total SG loss over lease term" value={fmtMoney(totalLossInSg)} color="var(--nlc-acc-red)" note="Employer contributions your employer is projected not to make" />
       </div>
 
       <SubHead mt={16}>Year-by-Year Breakdown</SubHead>
@@ -58,12 +58,12 @@ export function SG(props: { rows: SGYearRow[]; sgRatePct?: number }) {
           ))}
           <tr style={TOTAL_ROW}>
             <td style={td({ fontWeight: 700 })} colSpan={3}>Total SG loss</td>
-            <td style={tdR({ fontWeight: 800, color: "#b71c1c" })}>{fmtMoney(totalLossInSg)}</td>
+            <td style={tdR({ fontWeight: 800, color: "var(--nlc-acc-red)" })}>{fmtMoney(totalLossInSg)}</td>
           </tr>
         </tbody>
       </Table>
 
-      <SubHead mt={16} color="#1b5e20">Mitigation</SubHead>
+      <SubHead mt={16} color="var(--nlc-acc-green)">Mitigation</SubHead>
       <div style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--nlc-text-soft)" }}>
         <p style={{ margin: "0 0 8px 0" }}>
           Over this lease term, your employer is projected to contribute <b>{fmtMoney(totalLossInSg)}</b> less in superannuation.

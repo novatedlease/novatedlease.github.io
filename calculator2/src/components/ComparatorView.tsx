@@ -15,7 +15,9 @@ import { Table, th, thR, td, tdR } from "./ui/shared";
 
 type PathwayType = "nl" | "cash" | "loan" | "keep";
 
-const PATHWAY_COLORS: Record<PathwayType, string> = { nl: "#0b5cab", cash: "#1b5e20", loan: "#4527a0", keep: "#00695c" };
+const PATHWAY_COLORS: Record<PathwayType, string> = { nl: "var(--nlc-blue)", cash: "var(--nlc-acc-green)", loan: "var(--nlc-acc-purple)", keep: "var(--nlc-acc-teal)" };
+// Saturated variants for header cells that carry white text (accents above lighten in dark mode).
+const PATHWAY_SOLID: Record<PathwayType, string> = { nl: "var(--nlc-blue-solid)", cash: "var(--nlc-acc-green-solid)", loan: "var(--nlc-acc-purple-solid)", keep: "var(--nlc-acc-teal-solid)" };
 const PATHWAY_LABELS: Record<PathwayType, string> = { nl: "Novated Lease", cash: "Offset Cash", loan: "Car Loan", keep: "Keep Old Car" };
 
 type SelectedKey = string;
@@ -77,10 +79,10 @@ function DetailedBreakdownTable({
     fontSize: 11,
     letterSpacing: "0.05em",
     textTransform: "uppercase",
-    background: "rgba(11,92,171,0.07)",
-    color: "#0b5cab",
-    borderTop: "2px solid rgba(11,92,171,0.15)",
-    borderBottom: "1px solid rgba(11,92,171,0.12)",
+    background: "var(--nlc-blue-light)",
+    color: "var(--nlc-blue)",
+    borderTop: "2px solid var(--nlc-blue-mid)",
+    borderBottom: "1px solid var(--nlc-blue-mid)",
   };
   const rowGroups: Array<{ title: string; rows: BreakdownRowDef[] }> = [
     { title: "Cash Flow", rows: cashFlowRows },
@@ -95,9 +97,9 @@ function DetailedBreakdownTable({
         <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 13 }}>
           <thead>
             <tr>
-              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#4a4a4a", color: "#fff", whiteSpace: "nowrap" }}>{headerLabel}</th>
+              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-grey-solid)", color: "#fff", whiteSpace: "nowrap" }}>{headerLabel}</th>
               {ranked.map((col) => (
-                <th key={col.key} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, background: col.color, color: "#fff", whiteSpace: "nowrap" }}>
+                <th key={col.key} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, background: PATHWAY_SOLID[col.pathwayType], color: "#fff", whiteSpace: "nowrap" }}>
                   {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
                   <div style={{ fontWeight: 600, opacity: 0.85, marginTop: 2 }}>{PATHWAY_LABELS[col.pathwayType]}</div>
                 </th>
@@ -371,21 +373,21 @@ export function ComparatorView({
       </div>
 
       {ratesMismatch && selectedPathways.length >= 2 && (
-        <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-bad-light)", border: "1.5px solid rgba(220,38,38,0.3)", color: "var(--nlc-bad-dark)" }}>
+        <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-bad-light)", border: "1.5px solid color-mix(in srgb, var(--nlc-bad) 35%, transparent)", color: "var(--nlc-bad-dark)" }}>
           <b>Home loan offset rates differ — comparison blocked.</b> Selected pathways use rates: {rates.join("%, ")}%. Ensure all
           selected quotes were saved with the same offset rate.
         </div>
       )}
 
       {incomeMismatch && selectedPathways.length >= 2 && (
-        <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-bad-light)", border: "1.5px solid rgba(220,38,38,0.3)", color: "var(--nlc-bad-dark)" }}>
+        <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-bad-light)", border: "1.5px solid color-mix(in srgb, var(--nlc-bad) 35%, transparent)", color: "var(--nlc-bad-dark)" }}>
           <b>Taxable income differs — comparison blocked.</b> Selected pathways use incomes: {incomes.map((v) => fmtAud0(v)).join(", ")}. Ensure all
           selected quotes were saved with the same taxable income, since it drives the marginal tax rate used throughout.
         </div>
       )}
 
       {salesMismatch && selectedPathways.length >= 2 && (
-        <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-bad-light)", border: "1.5px solid rgba(220,38,38,0.3)", color: "var(--nlc-bad-dark)" }}>
+        <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-bad-light)", border: "1.5px solid color-mix(in srgb, var(--nlc-bad) 35%, transparent)", color: "var(--nlc-bad-dark)" }}>
           <b>Old car sale proceeds differ — comparison blocked.</b> This shifts the starting cashflow and makes the figures
           incomparable across quotes.
         </div>
@@ -418,7 +420,7 @@ export function ComparatorView({
               <tr>
                 <th style={th()}>Metric</th>
                 {ranked.map((col) => (
-                  <th key={col.key} style={{ ...thR(), background: col.color, color: "#fff" }}>
+                  <th key={col.key} style={{ ...thR(), background: PATHWAY_SOLID[col.pathwayType], color: "#fff" }}>
                     {col.key === winnerKey && <div style={{ fontSize: 9, letterSpacing: "0.05em" }}>★ BEST</div>}
                     {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
                     <div style={{ fontWeight: 600, opacity: 0.85 }}>{PATHWAY_LABELS[col.pathwayType]}</div>
@@ -478,17 +480,17 @@ export function ComparatorView({
               const anyNl = selectedPathways.some((p) => p.pathwayType === "nl");
               const anySgRisk = selectedPathways.some((p) => p.pathwayType === "nl" && p.inputs.superFromPreNlIncome === "No");
               if (!anyNl && !anySgRisk) return null;
-              const linkStyle: React.CSSProperties = { color: "#0b5cab", textDecoration: "underline", cursor: "pointer" };
+              const linkStyle: React.CSSProperties = { color: "var(--nlc-blue)", textDecoration: "underline", cursor: "pointer" };
               return (
                 <div
                   style={{
                     padding: "12px 14px",
                     borderRadius: 12,
-                    background: "rgba(0,0,0,0.025)",
-                    border: "1px solid rgba(0,0,0,0.10)",
+                    background: "var(--nlc-fill-faint)",
+                    border: "1px solid var(--nlc-line)",
                     fontSize: 12,
                     lineHeight: 1.5,
-                    color: "rgba(0,0,0,0.70)",
+                    color: "var(--nlc-text-dim)",
                     display: "flex",
                     flexDirection: "column",
                     gap: 6,

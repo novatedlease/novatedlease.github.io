@@ -1,7 +1,7 @@
 /**
  * Shared UI atoms for report/output sections. CSS classes (styles/components.css)
  * carry structural styling; only the per-instance accent colour is inline, since
- * each report section picks its own arbitrary accent (e.g. "#b71c1c" for risk
+ * each report section picks its own arbitrary accent (e.g. "var(--nlc-acc-red)" for risk
  * sections) that a fixed set of CSS classes can't parametrise.
  *
  * API intentionally mirrors calculator/src/components/ui/shared.tsx so v1 report
@@ -16,15 +16,17 @@ function hexToRgb(hex: string) {
   // resolve it), so fall back to the default accent rather than emitting NaN into
   // the rgba() string, which browsers silently drop, leaving cards unstyled.
   const match = /^#([0-9a-fA-F]{6})$/.exec(hex);
-  const safeHex = match ? hex : "#0b5cab";
+  const safeHex = match ? hex : "var(--nlc-blue)";
   const r = parseInt(safeHex.slice(1, 3), 16);
   const g = parseInt(safeHex.slice(3, 5), 16);
   const b = parseInt(safeHex.slice(5, 7), 16);
   return { r, g, b };
 }
 
-function tint(hex: string, alpha: number) {
-  const { r, g, b } = hexToRgb(hex);
+function tint(color: string, alpha: number) {
+  // Accents are now CSS custom properties (so they can swap in dark mode); mix them in CSS.
+  if (color.startsWith("var(")) return `color-mix(in srgb, ${color} ${Math.round(alpha * 100)}%, transparent)`;
+  const { r, g, b } = hexToRgb(color);
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
@@ -34,7 +36,7 @@ export function Stat({
   label,
   value,
   note,
-  color = "#0b5cab",
+  color = "var(--nlc-blue)",
 }: {
   label: string;
   value: string;
@@ -109,7 +111,7 @@ export function KV({
 
 export function NoteBox({
   children,
-  color = "#0b5cab",
+  color = "var(--nlc-blue)",
   mt,
 }: {
   children: React.ReactNode;

@@ -152,16 +152,16 @@ export function LeaseReport(props: {
         <Stat
           label={`Pre-tax deduction / ${isMonthly ? "month" : "fortnight"}`}
           value={`$${aud0(Math.abs(fnToCol(actualPreTaxDeductionFn)))}`}
-          color="#0b5cab"
+          color="var(--nlc-blue)"
           note="Vehicle lease + running costs"
         />
-        <Stat label="Total take-home impact" value={`$${aud0(totalLifetimeImpact)}`} color="#b71c1c" note="Over full lease term" />
-        <Stat label="Residual payable (inc GST)" value={`$${aud0(residualPayableIncGst)}`} color="#37474f" note="Due at lease end" />
+        <Stat label="Total take-home impact" value={`$${aud0(totalLifetimeImpact)}`} color="var(--nlc-acc-red)" note="Over full lease term" />
+        <Stat label="Residual payable (inc GST)" value={`$${aud0(residualPayableIncGst)}`} color="var(--nlc-acc-slate)" note="Due at lease end" />
       </StatGrid>
 
       <SubHead mt={4}>1.1 Summary</SubHead>
 
-      <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+      <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--nlc-line)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
         <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse" }}>
           <thead>
             <tr>
@@ -207,7 +207,7 @@ export function LeaseReport(props: {
               </>
             ) : null}
 
-            <tr style={{ background: "rgba(11,92,171,0.04)" }}>
+            <tr style={{ background: "var(--nlc-blue-light)" }}>
               <td style={tdLeft(true)}>= Total Pre-Tax Deduction</td>
               <td style={td(true)}>{preTaxFmt(fnToCol(actualPreTaxDeductionFn))}</td>
               <td style={td(true)}>{preTaxFmt(actualPreTaxDeductionAnnual)}</td>
@@ -255,11 +255,11 @@ export function LeaseReport(props: {
                   <td style={td(false)}>{preTaxFmt(postTaxComponentAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxComponentLifetime)}</td>
                 </tr>
-                <tr style={{ background: "rgba(183,28,28,0.04)" }}>
-                  <td style={{ ...tdLeft(true), color: "#b71c1c" }}>= Total Take Home Impact</td>
-                  <td style={{ ...td(true), color: "#b71c1c" }}>{preTaxFmt(fnToCol(totalTakeHomeImpactFn))}</td>
-                  <td style={{ ...td(true), color: "#b71c1c" }}>{preTaxFmt(totalTakeHomeImpactAnnual)}</td>
-                  <td style={{ ...td(true, true), color: "#b71c1c" }}>{preTaxFmt(totalTakeHomeImpactLifetime)}</td>
+                <tr style={{ background: "color-mix(in srgb, var(--nlc-acc-red) 6%, transparent)" }}>
+                  <td style={{ ...tdLeft(true), color: "var(--nlc-acc-red)" }}>= Total Take Home Impact</td>
+                  <td style={{ ...td(true), color: "var(--nlc-acc-red)" }}>{preTaxFmt(fnToCol(totalTakeHomeImpactFn))}</td>
+                  <td style={{ ...td(true), color: "var(--nlc-acc-red)" }}>{preTaxFmt(totalTakeHomeImpactAnnual)}</td>
+                  <td style={{ ...td(true, true), color: "var(--nlc-acc-red)" }}>{preTaxFmt(totalTakeHomeImpactLifetime)}</td>
                 </tr>
               </>
             ) : (
@@ -281,11 +281,11 @@ export function LeaseReport(props: {
                   <td style={td(false)}>{preTaxFmt(postTaxRunningAnnual)}</td>
                   <td style={td(false)}>{preTaxFmt(postTaxRunningLifetime)}</td>
                 </tr>
-                <tr style={{ background: "rgba(183,28,28,0.04)" }}>
-                  <td style={{ ...tdLeft(true), color: "#b71c1c" }}>= Total Take Home Impact</td>
-                  <td style={{ ...td(true), color: "#b71c1c" }}>{preTaxFmt(fnToCol(postTaxTotalFn))}</td>
-                  <td style={{ ...td(true), color: "#b71c1c" }}>{preTaxFmt(postTaxTotalAnnual)}</td>
-                  <td style={{ ...td(true, true), color: "#b71c1c" }}>{preTaxFmt(postTaxTotalLifetime)}</td>
+                <tr style={{ background: "color-mix(in srgb, var(--nlc-acc-red) 6%, transparent)" }}>
+                  <td style={{ ...tdLeft(true), color: "var(--nlc-acc-red)" }}>= Total Take Home Impact</td>
+                  <td style={{ ...td(true), color: "var(--nlc-acc-red)" }}>{preTaxFmt(fnToCol(postTaxTotalFn))}</td>
+                  <td style={{ ...td(true), color: "var(--nlc-acc-red)" }}>{preTaxFmt(postTaxTotalAnnual)}</td>
+                  <td style={{ ...td(true, true), color: "var(--nlc-acc-red)" }}>{preTaxFmt(postTaxTotalLifetime)}</td>
                 </tr>
               </>
             )}
@@ -293,7 +293,7 @@ export function LeaseReport(props: {
         </table>
       </div>
 
-      <NoteBox color="#37474f" mt={10}>
+      <NoteBox color="var(--nlc-acc-slate)" mt={10}>
         After paying {preTaxFmt(totalLifetimeImpact)} in lease costs, you still owe <b>{preTaxFmt(residualPayableIncGst)}</b> in
         residual value to fully own the vehicle.
       </NoteBox>
@@ -327,7 +327,7 @@ export function LeaseReport(props: {
         <>
           <FYTable fyRows={fyRows} fbtApplies={fbtApplies} actualPreTaxDeductionFnForFy={actualPreTaxDeductionFnForFy} ecmPerFnForFy={ecmPerFnForFy} />
 
-          <div style={{ marginTop: 10, fontSize: 12, color: "rgba(0,0,0,0.6)", lineHeight: 1.55 }}>
+          <div style={{ marginTop: 10, fontSize: 12, color: "var(--nlc-text-dim)", lineHeight: 1.55 }}>
             <p style={{ margin: "0 0 6px 0" }}>
               * Take home figures do not account for other subsidies and liabilities (HECS, childcare subsidy, Medicare Levy
               Surcharge, other salary packaging, etc.).
@@ -339,7 +339,7 @@ export function LeaseReport(props: {
           </div>
         </>
       ) : (
-        <div style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", marginTop: 2, fontStyle: "italic" }}>Click to expand year-by-year tax breakdown</div>
+        <div style={{ fontSize: 12, color: "var(--nlc-text-dimmer)", marginTop: 2, fontStyle: "italic" }}>Click to expand year-by-year tax breakdown</div>
       )}
     </div>
   );
@@ -409,23 +409,23 @@ function FYTable(props: {
 
   const takeHomeRowCellStyle = (isLabel: boolean) => ({
     ...(isLabel ? tdLeft(true) : td(true)),
-    background: "rgba(11,92,171,0.05)",
-    color: "#0b5cab",
+    background: "var(--nlc-blue-light)",
+    color: "var(--nlc-blue)",
   });
 
   const GroupCell = (p: { text: string; rowSpan?: number }) => (
     <td
       rowSpan={p.rowSpan ?? 3}
       style={{
-        borderBottom: "1px solid rgba(0,0,0,0.12)",
+        borderBottom: "1px solid var(--nlc-line)",
         textAlign: "center",
         verticalAlign: "middle",
         padding: 0,
         width: 18,
         minWidth: 18,
         maxWidth: 18,
-        color: "rgba(0,0,0,0.4)",
-        background: "rgba(0,0,0,0.02)",
+        color: "var(--nlc-text-dimmer)",
+        background: "var(--nlc-fill-faint)",
         writingMode: "vertical-rl" as React.CSSProperties["writingMode"],
         transform: "rotate(180deg)",
         letterSpacing: 0.5,
@@ -444,13 +444,13 @@ function FYTable(props: {
         colSpan={years.length + 2}
         style={{
           padding: "7px 10px",
-          background: "rgba(11,92,171,0.06)",
+          background: "var(--nlc-blue-light)",
           fontSize: 11,
           fontWeight: 700,
-          color: "#0b5cab",
+          color: "var(--nlc-blue)",
           letterSpacing: "0.04em",
-          borderTop: "1px solid rgba(11,92,171,0.15)",
-          borderBottom: "1px solid rgba(11,92,171,0.15)",
+          borderTop: "1px solid var(--nlc-blue-mid)",
+          borderBottom: "1px solid var(--nlc-blue-mid)",
         }}
       >
         {p.text}
@@ -459,7 +459,7 @@ function FYTable(props: {
   );
 
   return (
-    <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+    <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--nlc-line)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
       <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse" }}>
         <thead>
           <tr>
@@ -592,10 +592,10 @@ const sectionDivider: React.CSSProperties = {
   letterSpacing: "0.05em",
   textTransform: "uppercase",
   textAlign: "left",
-  background: "rgba(11,92,171,0.07)",
-  color: "#0b5cab",
-  borderTop: "2px solid rgba(11,92,171,0.15)",
-  borderBottom: "1px solid rgba(11,92,171,0.12)",
+  background: "var(--nlc-blue-light)",
+  color: "var(--nlc-blue)",
+  borderTop: "2px solid var(--nlc-blue-mid)",
+  borderBottom: "1px solid var(--nlc-blue-mid)",
 };
 
 const th: React.CSSProperties = {
@@ -605,7 +605,7 @@ const th: React.CSSProperties = {
   fontWeight: 700,
   letterSpacing: "0.03em",
   textTransform: "uppercase",
-  background: "#0b5cab",
+  background: "var(--nlc-blue-solid)",
   color: "#fff",
   whiteSpace: "nowrap",
 };
@@ -616,9 +616,9 @@ const td = (bold?: boolean, emphasize?: boolean): React.CSSProperties => ({
   textAlign: "right",
   padding: "6px 10px",
   fontSize: 13,
-  borderBottom: bold ? "1px solid rgba(0,0,0,0.12)" : "1px solid rgba(0,0,0,0.06)",
+  borderBottom: bold ? "1px solid var(--nlc-line)" : "1px solid var(--nlc-line-soft)",
   fontWeight: emphasize ? 800 : bold ? 700 : 500,
-  color: emphasize ? "#0b5cab" : "inherit",
+  color: emphasize ? "var(--nlc-blue)" : "inherit",
   fontVariantNumeric: "tabular-nums",
   whiteSpace: "nowrap",
 });

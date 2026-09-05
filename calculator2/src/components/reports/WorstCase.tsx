@@ -139,7 +139,7 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
 
   return (
     <div style={{ fontSize: 13, lineHeight: 1.4 }}>
-      <NoteBox color="#b71c1c" mt={0}>
+      <NoteBox color="var(--nlc-acc-red)" mt={0}>
         <span>
           Early termination is an asymmetric risk: if your employment ends, you may be forced to settle remaining vehicle
           finance using post-tax dollars (plus GST), plus the residual. In some scenarios, total out-of-pocket can exceed
@@ -163,10 +163,10 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
           type="button"
           onClick={() => setAdjustForHlInterest((v) => !v)}
           aria-pressed={adjustForHlInterest}
-          style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 12px", borderRadius: 999, border: "1px solid #d6d6d6", background: adjustForHlInterest ? "#e8f0ff" : "#f7f7f7", color: "#222", fontSize: 12, fontWeight: 700, cursor: "pointer", userSelect: "none" }}
+          style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 12px", borderRadius: 999, border: "1px solid var(--nlc-toggle-border)", background: adjustForHlInterest ? "var(--nlc-toggle-on-bg)" : "var(--nlc-toggle-bg)", color: "var(--nlc-text)", fontSize: 12, fontWeight: 700, cursor: "pointer", userSelect: "none" }}
         >
           <span>Adjust for home loan interest saved</span>
-          <span aria-hidden="true" style={{ width: 34, height: 18, borderRadius: 999, background: adjustForHlInterest ? "#1565c0" : "#bdbdbd", position: "relative", flex: "0 0 auto" }}>
+          <span aria-hidden="true" style={{ width: 34, height: 18, borderRadius: 999, background: adjustForHlInterest ? "var(--nlc-chart-nl)" : "var(--nlc-toggle-knob-off)", position: "relative", flex: "0 0 auto" }}>
             <span style={{ position: "absolute", top: 2, left: adjustForHlInterest ? 18 : 2, width: 14, height: 14, borderRadius: 999, background: "#fff", boxShadow: "0 1px 2px rgba(0,0,0,0.18)" }} />
           </span>
         </button>
@@ -181,7 +181,7 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
           yAxisLabel={adjustForHlInterest ? "Total spent (adjusted for interest saving)" : "Total spent ($)"}
         />
       </div>
-      <div style={{ marginTop: 6, fontSize: 12, color: "#555" }}>
+      <div style={{ marginTop: 6, fontSize: 12, color: "var(--nlc-text-soft)" }}>
         This chart assumes the lease is terminated at each timepoint, triggering payout of remaining finance with
         post-tax dollars (plus GST) and the residual.
       </div>
@@ -198,20 +198,20 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
       </SubHead>
 
       {showTable && (
-        <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", marginTop: 4 }}>
+        <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--nlc-line)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", marginTop: 4 }}>
           <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 12 }}>
             <thead>
               <tr>
-                <th style={{ ...groupHeaderStyle, background: "#4a4a4a", color: "#fff", borderRight: "2px solid rgba(255,255,255,0.2)" }}></th>
-                <th style={{ ...groupHeaderStyle, background: "#0b5cab", color: "#fff", borderRight: "2px solid rgba(255,255,255,0.2)" }} colSpan={6}>
+                <th style={{ ...groupHeaderStyle, background: "var(--nlc-grey-solid)", color: "#fff", borderRight: "2px solid rgba(255,255,255,0.2)" }}></th>
+                <th style={{ ...groupHeaderStyle, background: "var(--nlc-blue-solid)", color: "#fff", borderRight: "2px solid rgba(255,255,255,0.2)" }} colSpan={6}>
                   Novated Lease
                 </th>
-                <th style={{ ...groupHeaderStyle, background: "#1b5e20", color: "#fff" }} colSpan={3}>
+                <th style={{ ...groupHeaderStyle, background: "var(--nlc-acc-green-solid)", color: "#fff" }} colSpan={3}>
                   Cash pathway (baseline)
                 </th>
               </tr>
               <tr>
-                <th style={{ ...thStyle, borderRight: "2px solid rgba(0,0,0,0.15)" }}>Termination timepoint (fortnight)</th>
+                <th style={{ ...thStyle, borderRight: "2px solid var(--nlc-line-strong)" }}>Termination timepoint (fortnight)</th>
                 <th style={thNlStyle}>
                   Hitherto Lease
                   <InfoTooltip text="Post-tax equivalent of lease paid so far, including running costs incurred up to this termination point. If the FY-to-FY take-home impact varies (e.g. near a marginal tax threshold), this uses the most expensive FY, consistent with the Lease Report." />
@@ -232,7 +232,7 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
                   Home Loan Interest Impact
                   <InfoTooltip text="Estimated additional home-loan interest incurred (vs the cash baseline) up to this timepoint, based on the offset-interest model. Negative figure (typical) means the novated lease is saving interest compared to the cash pathway." />
                 </th>
-                <th style={{ ...thNlStyle, borderRight: "2px solid rgba(11,92,171,0.3)" }}>
+                <th style={{ ...thNlStyle, borderRight: "2px solid var(--nlc-blue-mid)" }}>
                   Adjusted Total Spent
                   <InfoTooltip text="Adjusted total cost at this timepoint, defined as: total spent + home loan interest impact." />
                 </th>
@@ -253,13 +253,13 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
             <tbody>
               {series.map((r) => (
                 <tr key={r.n}>
-                  <td style={{ ...tdStyle, borderRight: "2px solid #ccc" }}>{r.n}</td>
+                  <td style={{ ...tdStyle, borderRight: "2px solid var(--nlc-line-strong)" }}>{r.n}</td>
                   <td style={tdStyle}>{fmtAudInt(r.hithertoLease)}</td>
                   <td style={tdStyle}>{fmtAudInt(r.remainingLeasePayout)}</td>
                   <td style={tdStyle}>{fmtAudInt(r.residual)}</td>
                   <td style={tdStyle}>{fmtAudInt(r.nlTotal)}</td>
                   <td style={tdStyle}>{fmtAudInt(r.additionalHlInterest)}</td>
-                  <td style={{ ...tdStyle, borderRight: "2px solid #ccc" }}>{fmtAudInt(r.nlAdjustedTotal)}</td>
+                  <td style={{ ...tdStyle, borderRight: "2px solid var(--nlc-line-strong)" }}>{fmtAudInt(r.nlAdjustedTotal)}</td>
                   <td style={tdStyle}>{fmtAudInt(r.cashUpfront)}</td>
                   <td style={tdStyle}>{fmtAudInt(r.cashHithertoRunning)}</td>
                   <td style={tdStyle}>{fmtAudInt(r.cashTotal)}</td>
@@ -523,8 +523,8 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
     return `$${Math.round(v)}`;
   };
 
-  const nlColor = "#1565c0";
-  const cashColor = "#f57c00";
+  const nlColor = "var(--nlc-chart-nl)";
+  const cashColor = "var(--nlc-acc-amber)";
 
   return (
     <div ref={ref} style={{ width: "100%" }}>
@@ -541,28 +541,28 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
               <span>Cash pathway (baseline)</span>
             </div>
           </div>
-          <div style={{ fontSize: 11, color: "#666", marginTop: 4 }}>
-            <span style={{ color: "#e53935" }}>Red area</span> = Novated Lease costs more ·{" "}
-            <span style={{ color: "#43a047" }}>Green area</span> = Novated Lease costs less
+          <div style={{ fontSize: 11, color: "var(--nlc-text-muted)", marginTop: 4 }}>
+            <span style={{ color: "var(--nlc-chart-red)" }}>Red area</span> = Novated Lease costs more ·{" "}
+            <span style={{ color: "var(--nlc-chart-green)" }}>Green area</span> = Novated Lease costs less
           </div>
         </div>
       </div>
 
-      <svg width="100%" height={height} onMouseMove={onMove} onMouseLeave={onLeave} style={{ marginTop: 8, background: "#fff" }}>
+      <svg width="100%" height={height} onMouseMove={onMove} onMouseLeave={onLeave} style={{ marginTop: 8, background: "var(--nlc-surface)" }}>
         <defs>
           <linearGradient id="nlAboveCashRed" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#e53935" stopOpacity={0.3} />
-            <stop offset="100%" stopColor="#e53935" stopOpacity={0.06} />
+            <stop offset="0%" stopColor="var(--nlc-chart-red)" stopOpacity={0.3} />
+            <stop offset="100%" stopColor="var(--nlc-chart-red)" stopOpacity={0.06} />
           </linearGradient>
           <linearGradient id="nlBelowCashGreen" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#43a047" stopOpacity={0.26} />
-            <stop offset="100%" stopColor="#43a047" stopOpacity={0.06} />
+            <stop offset="0%" stopColor="var(--nlc-chart-green)" stopOpacity={0.26} />
+            <stop offset="100%" stopColor="var(--nlc-chart-green)" stopOpacity={0.06} />
           </linearGradient>
         </defs>
         {yTicks.map((t) => (
           <g key={t.v}>
-            <line x1={margin.left} x2={margin.left + innerW} y1={t.y} y2={t.y} stroke="#e6e6e6" strokeWidth={1} />
-            <text x={margin.left - 8} y={t.y} textAnchor="end" dominantBaseline="middle" fontSize={11} fill="#666">
+            <line x1={margin.left} x2={margin.left + innerW} y1={t.y} y2={t.y} stroke="var(--nlc-border)" strokeWidth={1} />
+            <text x={margin.left - 8} y={t.y} textAnchor="end" dominantBaseline="middle" fontSize={11} fill="var(--nlc-text-muted)">
               {fmtAxisK(t.v)}
             </text>
           </g>
@@ -577,8 +577,8 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
             const x = xForN(n);
             return (
               <g key={yr}>
-                <line x1={x} x2={x} y1={y0} y2={y0 + 5} stroke="#888" strokeWidth={1} />
-                <text x={x} y={y0 + 18} textAnchor="middle" fontSize={11} fill="#666">
+                <line x1={x} x2={x} y1={y0} y2={y0 + 5} stroke="var(--nlc-text-faint)" strokeWidth={1} />
+                <text x={x} y={y0 + 18} textAnchor="middle" fontSize={11} fill="var(--nlc-text-muted)">
                   {yr}y
                 </text>
               </g>
@@ -586,8 +586,8 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
           });
         })()}
 
-        <line x1={margin.left} x2={margin.left} y1={margin.top} y2={margin.top + innerH} stroke="#bbb" strokeWidth={1} />
-        <line x1={margin.left} x2={margin.left + innerW} y1={margin.top + innerH} y2={margin.top + innerH} stroke="#bbb" strokeWidth={1} />
+        <line x1={margin.left} x2={margin.left} y1={margin.top} y2={margin.top + innerH} stroke="var(--nlc-border-mid)" strokeWidth={1} />
+        <line x1={margin.left} x2={margin.left + innerW} y1={margin.top + innerH} y2={margin.top + innerH} stroke="var(--nlc-border-mid)" strokeWidth={1} />
 
         {buildAreaPaths.green.map((d, idx) => (
           <path key={`g-${idx}`} d={d} fill="url(#nlBelowCashGreen)" />
@@ -597,10 +597,10 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
         ))}
         {crossover !== null && (
           <g>
-            <line x1={xForN(crossover)} x2={xForN(crossover)} y1={margin.top} y2={margin.top + innerH} stroke="#555" strokeDasharray="3 3" strokeWidth={1} />
+            <line x1={xForN(crossover)} x2={xForN(crossover)} y1={margin.top} y2={margin.top + innerH} stroke="var(--nlc-text-muted)" strokeDasharray="3 3" strokeWidth={1} />
             <g transform={`translate(${xForN(crossover) + 6}, ${margin.top + 4})`}>
-              <rect x={0} y={0} width={118} height={18} rx={9} fill="#f2f2f2" stroke="#cfcfcf" />
-              <text x={10} y={12} fontSize={11} fill="#333">
+              <rect x={0} y={0} width={118} height={18} rx={9} fill="var(--nlc-bg-sunken)" stroke="var(--nlc-border-mid)" />
+              <text x={10} y={12} fontSize={11} fill="var(--nlc-text)">
                 Break-even ≈ {(crossover / 26).toFixed(1)}y
               </text>
             </g>
@@ -612,7 +612,7 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
 
         {hovered && hoverX !== null && (
           <g>
-            <line x1={hoverX} x2={hoverX} y1={margin.top} y2={margin.top + innerH} stroke="#999" strokeDasharray="4 4" strokeWidth={1} opacity={0.8} />
+            <line x1={hoverX} x2={hoverX} y1={margin.top} y2={margin.top + innerH} stroke="var(--nlc-text-faint)" strokeDasharray="4 4" strokeWidth={1} opacity={0.8} />
             {hoverYnl !== null && <circle cx={hoverX} cy={hoverYnl} r={4} fill={nlColor} />}
             {hoverYcash !== null && <circle cx={hoverX} cy={hoverYcash} r={4} fill={cashColor} />}
 
@@ -642,10 +642,10 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
           </g>
         )}
 
-        <text x={margin.left + innerW / 2} y={height - 6} textAnchor="middle" fontSize={12} fill="#666">
+        <text x={margin.left + innerW / 2} y={height - 6} textAnchor="middle" fontSize={12} fill="var(--nlc-text-muted)">
           Termination timepoint (years)
         </text>
-        <text x={18} y={margin.top + innerH / 2} textAnchor="middle" fontSize={12} fill="#666" transform={`rotate(-90 18 ${margin.top + innerH / 2})`}>
+        <text x={18} y={margin.top + innerH / 2} textAnchor="middle" fontSize={12} fill="var(--nlc-text-muted)" transform={`rotate(-90 18 ${margin.top + innerH / 2})`}>
           {yAxisLabel}
         </text>
       </svg>
@@ -654,8 +654,8 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
 };
 
 const groupHeaderStyle: React.CSSProperties = { textAlign: "center", padding: "7px 8px", fontWeight: 700, fontSize: 11, letterSpacing: "0.03em", textTransform: "uppercase" };
-const thBase: React.CSSProperties = { textAlign: "left", padding: "6px 8px", borderBottom: "2px solid rgba(0,0,0,0.12)", fontWeight: 700, fontSize: 11, whiteSpace: "normal", lineHeight: 1.3 };
-const thStyle: React.CSSProperties = { ...thBase, background: "rgba(74,74,74,0.10)", color: "#333" };
-const thNlStyle: React.CSSProperties = { ...thBase, background: "rgba(11,92,171,0.10)", color: "#0b5cab" };
-const thCashStyle: React.CSSProperties = { ...thBase, background: "rgba(27,94,32,0.10)", color: "#1b5e20" };
-const tdStyle: React.CSSProperties = { padding: "5px 8px", borderBottom: "1px solid rgba(0,0,0,0.06)", whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums" };
+const thBase: React.CSSProperties = { textAlign: "left", padding: "6px 8px", borderBottom: "2px solid var(--nlc-line)", fontWeight: 700, fontSize: 11, whiteSpace: "normal", lineHeight: 1.3 };
+const thStyle: React.CSSProperties = { ...thBase, background: "var(--nlc-line-soft)", color: "var(--nlc-text)" };
+const thNlStyle: React.CSSProperties = { ...thBase, background: "var(--nlc-blue-light)", color: "var(--nlc-blue)" };
+const thCashStyle: React.CSSProperties = { ...thBase, background: "color-mix(in srgb, var(--nlc-acc-green) 12%, transparent)", color: "var(--nlc-acc-green)" };
+const tdStyle: React.CSSProperties = { padding: "5px 8px", borderBottom: "1px solid var(--nlc-line-soft)", whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums" };

@@ -24,11 +24,18 @@ const scenarioTitles: Record<ScenarioKey, string> = {
 };
 
 const scenarioColors: Record<ScenarioKey, string> = {
-  nl: "#0b5cab",
-  cash: "#1b5e20",
-  loan: "#4527a0",
-  keep: "#00695c",
-  ref: "rgba(0,0,0,0.55)",
+  nl: "var(--nlc-blue)",
+  cash: "var(--nlc-acc-green)",
+  loan: "var(--nlc-acc-purple)",
+  keep: "var(--nlc-acc-teal)",
+  ref: "var(--nlc-text-dim)",
+};
+const scenarioSolid: Record<ScenarioKey, string> = {
+  nl: "var(--nlc-blue-solid)",
+  cash: "var(--nlc-acc-green-solid)",
+  loan: "var(--nlc-acc-purple-solid)",
+  keep: "var(--nlc-acc-teal-solid)",
+  ref: "var(--nlc-grey-solid)",
 };
 
 type CombinedRow = { label: string; values: Partial<Record<ScenarioKey, number | null>>; bold?: boolean };
@@ -39,10 +46,10 @@ const groupHeaderStyle: React.CSSProperties = {
   fontSize: 11,
   letterSpacing: "0.05em",
   textTransform: "uppercase",
-  background: "rgba(11,92,171,0.07)",
-  color: "#0b5cab",
-  borderTop: "2px solid rgba(11,92,171,0.15)",
-  borderBottom: "1px solid rgba(11,92,171,0.12)",
+  background: "var(--nlc-blue-light)",
+  color: "var(--nlc-blue)",
+  borderTop: "2px solid var(--nlc-blue-mid)",
+  borderBottom: "1px solid var(--nlc-blue-mid)",
 };
 
 /**
@@ -84,11 +91,11 @@ function SummaryCombinedTable({
         <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 13 }}>
           <thead>
             <tr>
-              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#4a4a4a", color: "#fff", whiteSpace: "nowrap" }}>
+              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-grey-solid)", color: "#fff", whiteSpace: "nowrap" }}>
                 {headerLabel}
               </th>
               {visible.map((k) => (
-                <th key={k} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: scenarioColors[k], color: "#fff", whiteSpace: "nowrap" }}>
+                <th key={k} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: scenarioSolid[k], color: "#fff", whiteSpace: "nowrap" }}>
                   {scenarioTitles[k]}
                 </th>
               ))}
@@ -123,8 +130,6 @@ type CardRow = { label: string; value: string; bold?: boolean };
  */
 function SectionBlock({ title, cashRows, assetRows, liabilityRows }: { title: string; cashRows: CardRow[]; assetRows: CardRow[]; liabilityRows: CardRow[] }) {
   const accent = scenarioColors[(Object.keys(scenarioTitles) as ScenarioKey[]).find((k) => scenarioTitles[k] === title) ?? "nl"];
-  const m = /^#([0-9a-f]{6})$/i.exec(accent);
-  const [r, g, b] = m ? [parseInt(m[1].slice(0, 2), 16), parseInt(m[1].slice(2, 4), 16), parseInt(m[1].slice(4, 6), 16)] : [11, 92, 171];
 
   const Row = (p: CardRow) => (
     <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 10, alignItems: "baseline" }}>
@@ -138,15 +143,15 @@ function SectionBlock({ title, cashRows, assetRows, liabilityRows }: { title: st
     fontSize: 11,
     letterSpacing: "0.04em",
     textTransform: "uppercase",
-    color: `rgba(${r},${g},${b},0.8)`,
+    color: `color-mix(in srgb, ${accent} 80%, transparent)`,
     marginBottom: 8,
     paddingBottom: 4,
-    borderBottom: `1px solid rgba(${r},${g},${b},0.15)`,
+    borderBottom: `1px solid color-mix(in srgb, ${accent} 15%, transparent)`,
   };
 
   return (
     <div style={{ marginTop: 14, borderRadius: 10, overflow: "hidden", border: "1px solid var(--nlc-border)", boxShadow: "var(--nlc-shadow-sm)" }}>
-      <div style={{ background: `rgba(${r},${g},${b},0.09)`, borderBottom: `2px solid rgba(${r},${g},${b},0.2)`, padding: "8px 12px", fontWeight: 800, fontSize: 11, letterSpacing: "0.05em", textTransform: "uppercase", color: accent }}>
+      <div style={{ background: `color-mix(in srgb, ${accent} 9%, transparent)`, borderBottom: `2px solid color-mix(in srgb, ${accent} 20%, transparent)`, padding: "8px 12px", fontWeight: 800, fontSize: 11, letterSpacing: "0.05em", textTransform: "uppercase", color: accent }}>
         {title}
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, padding: "12px 14px" }}>
@@ -232,9 +237,9 @@ export function FinancialSummaryReport(props: { inputs: Inputs }) {
   return (
     <div style={{ fontSize: 13, lineHeight: 1.4 }}>
       <StatGrid>
-        <Stat label="NL total spend at 5 years" value={`$${Math.round(s.nlTotalSpentAt5).toLocaleString("en-AU")}`} color="#0b5cab" note="Lease costs + residual + post-lease running" />
-        <Stat label="Offset cash total at 5 years" value={`$${Math.round(s.offsetTotalSpentAt5).toLocaleString("en-AU")}`} color="#1b5e20" note="Upfront + running costs" />
-        {loanEnabled && <Stat label="Car loan total at 5 years" value={`$${Math.round(s.loanTotalSpentAt5).toLocaleString("en-AU")}`} color="#4527a0" note="Deposit + repayments + running" />}
+        <Stat label="NL total spend at 5 years" value={`$${Math.round(s.nlTotalSpentAt5).toLocaleString("en-AU")}`} color="var(--nlc-blue)" note="Lease costs + residual + post-lease running" />
+        <Stat label="Offset cash total at 5 years" value={`$${Math.round(s.offsetTotalSpentAt5).toLocaleString("en-AU")}`} color="var(--nlc-acc-green)" note="Upfront + running costs" />
+        {loanEnabled && <Stat label="Car loan total at 5 years" value={`$${Math.round(s.loanTotalSpentAt5).toLocaleString("en-AU")}`} color="var(--nlc-acc-purple)" note="Deposit + repayments + running" />}
       </StatGrid>
 
       <SubHead mt={4}>2.1 Summary</SubHead>

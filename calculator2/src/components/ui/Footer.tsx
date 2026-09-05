@@ -5,10 +5,10 @@ export function Footer(props: { showTourLink?: boolean; onStartTour?: () => void
       style={{
         marginTop: 24,
         paddingTop: 12,
-        borderTop: "1px solid rgba(0,0,0,0.15)",
+        borderTop: "1px solid var(--nlc-line-strong)",
         fontSize: 11,
         lineHeight: 1.45,
-        color: "rgba(0,0,0,0.65)",
+        color: "var(--nlc-text-dim)",
         width: "100%",
       }}
     >

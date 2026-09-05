@@ -11,6 +11,8 @@
   --nl-blue-dark:   #084a8c;
   --nl-blue-light:  rgba(11, 92, 171, 0.08);
   --nl-blue-mid:    rgba(11, 92, 171, 0.18);
+  --nl-blue-solid:  #0b5cab;
+  --nl-blue-solid-hover: #084a8c;
 
   /* Nav — dark charcoal, not blue */
   --nav-bg:         #1c2538;
@@ -28,6 +30,23 @@
   --color-text-soft:  #374151;
   --color-text-muted: #6b7280;
   --color-text-faint: #9ca3af;
+  --color-surface-raised: #ffffff;
+  --line-faint:   rgba(0,0,0,0.04);
+  --line-soft:    rgba(0,0,0,0.06);
+  --line:         rgba(0,0,0,0.10);
+  --line-strong:  rgba(0,0,0,0.15);
+  --code-bg:      rgba(0,0,0,0.06);
+  --scrim:        rgba(0,0,0,0.5);
+  --footer-bg:    #111827;
+  --home-card-bg:     #f4f8ff;
+  --home-card-border: #c7d9f0;
+  --adm-note-bg:        #f9fafb;
+  --adm-note-title-bg:  #f3f4f6;
+  --adm-note-text:      #374151;
+  --adm-success-text:   #065f46;
+  --adm-caution-text:   #92400e;
+  --adm-danger-text:    #991b1b;
+  --status-good:        #047857;
 
   /* Layout */
   --sidebar-width:  256px;
@@ -49,6 +68,58 @@
   --shadow-lg:  0 8px 32px rgba(0,0,0,0.12);
   --shadow-xl:  0 16px 48px rgba(0,0,0,0.14);
 }
+
+/* ============================================================
+   Dark theme. Set by the inline script in layouts/Base.astro
+   (stored choice, else system preference) before first paint.
+   ============================================================ */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --nl-blue:        #6fb0f5;
+  --nl-blue-dark:   #8ec2fa;
+  --nl-blue-light:  rgba(111, 176, 245, 0.12);
+  --nl-blue-mid:    rgba(111, 176, 245, 0.26);
+  --nl-blue-solid:  #1f6fd1;
+  --nl-blue-solid-hover: #2b7de0;
+  --nav-bg:         #0d1320;
+  --color-bg:         #0f141c;
+  --color-bg-subtle:  #151b26;
+  --color-surface:    #171e2a;
+  --color-surface-raised: #1d2634;
+  --color-border:     #283142;
+  --color-border-mid: #384357;
+  --color-text:       #e8ebf1;
+  --color-text-soft:  #c5cbd6;
+  --color-text-muted: #8f99ab;
+  --color-text-faint: #6c778b;
+  --line-faint:   rgba(255,255,255,0.05);
+  --line-soft:    rgba(255,255,255,0.08);
+  --line:         rgba(255,255,255,0.12);
+  --line-strong:  rgba(255,255,255,0.18);
+  --code-bg:      rgba(255,255,255,0.08);
+  --scrim:        rgba(0,0,0,0.7);
+  --footer-bg:    #0a0e16;
+  --home-card-bg:     #131b2a;
+  --home-card-border: #263450;
+  --adm-note-bg:        rgba(255,255,255,0.03);
+  --adm-note-title-bg:  rgba(255,255,255,0.06);
+  --adm-note-text:      #c5cbd6;
+  --adm-success-text:   #6ee7b7;
+  --adm-caution-text:   #fcd34d;
+  --adm-danger-text:    #fca5a5;
+  --status-good:        #34d399;
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.45);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.55);
+  --shadow-xl:  0 16px 48px rgba(0,0,0,0.6);
+}
+/* Logos with dark artwork on transparent backgrounds need a light plate in dark mode. */
+:root[data-theme="dark"] .featured-logo-strip__logo { background: #fff; padding: 4px 8px; border-radius: 6px; box-sizing: content-box; }
+:root[data-theme="dark"] .home-cta-btn--outline { color: var(--nl-blue); border-color: var(--nl-blue); }
+:root[data-theme="dark"] .home-cta-btn--outline:hover { color: var(--nl-blue); border-color: var(--nl-blue); }
+:root[data-theme="dark"] .article-content img,
+:root[data-theme="dark"] .calc-prose img { background: #fff; border-radius: var(--radius-sm); }
 
 /* ------------------------------------------------------------
    Reset & Base
@@ -168,7 +239,7 @@ button {
 }
 
 .site-nav__link--cta {
-  background: var(--nl-blue) !important;
+  background: var(--nl-blue-solid) !important;
   color: #fff !important;
   border-radius: var(--radius-md);
   padding: 7px 14px;
@@ -178,7 +249,7 @@ button {
 }
 
 .site-nav__link--cta:hover {
-  background: var(--nl-blue-dark) !important;
+  background: var(--nl-blue-solid-hover) !important;
 }
 
 .site-nav__chevron {
@@ -195,7 +266,7 @@ button {
   top: calc(100% + 6px);
   left: 0;
   min-width: 290px;
-  background: #fff;
+  background: var(--color-surface-raised);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
@@ -331,7 +402,7 @@ button {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.48);
+  background: var(--scrim);
   z-index: 150;
 }
 
@@ -341,7 +412,7 @@ button {
   left: 0;
   bottom: 0;
   width: 288px;
-  background: #fff;
+  background: var(--color-surface);
   z-index: 151;
   overflow-y: auto;
   transform: translateX(-100%);
@@ -463,7 +534,7 @@ button {
   margin-bottom: 2px;
 }
 
-.sidebar-nav__top-link:hover { background: rgba(0,0,0,0.04); color: var(--nl-blue); }
+.sidebar-nav__top-link:hover { background: var(--line-faint); color: var(--nl-blue); }
 .sidebar-nav__top-link.active { color: var(--nl-blue); font-weight: 700; }
 
 .sidebar-nav__section {
@@ -488,7 +559,7 @@ button {
 }
 
 .sidebar-nav__section-header:hover {
-  background: rgba(0,0,0,0.04);
+  background: var(--line-faint);
   color: var(--color-text-muted);
 }
 
@@ -689,7 +760,7 @@ button {
 .article-content :not(pre) > code {
   font-size: 0.84em;
   font-family: var(--font-mono);
-  background: rgba(0,0,0,0.06);
+  background: var(--code-bg);
   border-radius: var(--radius-sm);
   padding: 0.12em 0.38em;
   color: var(--color-text);
@@ -808,8 +879,8 @@ button {
 .admonition p:last-child { margin-bottom: 0; }
 
 /* Note */
-.admonition--note { background: #f9fafb; border-color: #9ca3af; }
-.admonition--note .admonition__title { background: #f3f4f6; color: #374151; }
+.admonition--note { background: var(--adm-note-bg); border-color: #9ca3af; }
+.admonition--note .admonition__title { background: var(--adm-note-title-bg); color: var(--adm-note-text); }
 
 /* Info */
 .admonition--info { background: rgba(11, 92, 171, 0.04); border-color: var(--nl-blue); }
@@ -819,17 +890,17 @@ button {
 .admonition--tip,
 .admonition--success { background: rgba(5, 122, 85, 0.04); border-color: #059669; }
 .admonition--tip .admonition__title,
-.admonition--success .admonition__title { background: rgba(5, 122, 85, 0.08); color: #065f46; }
+.admonition--success .admonition__title { background: rgba(5, 122, 85, 0.08); color: var(--adm-success-text); }
 
 /* Warning */
 .admonition--warning,
 .admonition--caution { background: rgba(217, 119, 6, 0.04); border-color: #d97706; }
 .admonition--warning .admonition__title,
-.admonition--caution .admonition__title { background: rgba(217, 119, 6, 0.08); color: #92400e; }
+.admonition--caution .admonition__title { background: rgba(217, 119, 6, 0.08); color: var(--adm-caution-text); }
 
 /* Danger */
 .admonition--danger { background: rgba(220, 38, 38, 0.04); border-color: #dc2626; }
-.admonition--danger .admonition__title { background: rgba(220, 38, 38, 0.08); color: #991b1b; }
+.admonition--danger .admonition__title { background: rgba(220, 38, 38, 0.08); color: var(--adm-danger-text); }
 
 /* Collapsible details */
 details.admonition--collapsible { cursor: default; }
@@ -905,7 +976,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: var(--scrim);
   z-index: 300;
   align-items: flex-start;
   justify-content: center;
@@ -919,7 +990,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 .search-modal {
   width: 100%;
   max-width: 600px;
-  background: #fff;
+  background: var(--color-surface-raised);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
   overflow: hidden;
@@ -945,7 +1016,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
    Footer
    ------------------------------------------------------------ */
 .site-footer {
-  background: #111827;
+  background: var(--footer-bg);
   color: rgba(255,255,255,0.62);
   font-size: 0.825rem;
   padding: 40px 24px;
@@ -1222,7 +1293,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #047857;
+  color: var(--status-good);
   white-space: nowrap;
 }
 .home-status__dot {
@@ -1301,7 +1372,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 .home-card ul li a {
   color: var(--color-text-soft);
   text-decoration: none;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid var(--line);
   transition: color 80ms, border-color 80ms;
 }
 
@@ -1335,7 +1406,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   transition: background 80ms;
 }
 
-.article-browser__toggle:hover { background: rgba(0,0,0,0.02); }
+.article-browser__toggle:hover { background: var(--line-faint); }
 
 .article-browser__arrow {
   font-size: 0.78rem;
@@ -1383,7 +1454,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 .article-browser__col ul li a {
   color: var(--color-text-soft);
   text-decoration: none;
-  border-bottom: 1px solid rgba(0,0,0,0.09);
+  border-bottom: 1px solid var(--line);
   transition: color 80ms;
 }
 
@@ -1501,7 +1572,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 13px 15px;
-  background: #fff;
+  background: var(--color-surface);
   scroll-snap-align: start;
   font-size: 0.85rem;
 }
@@ -1524,7 +1595,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 
 .testimonials__source a {
   color: inherit;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
+  border-bottom: 1px solid var(--line-strong);
   text-decoration: none;
 }
 
@@ -1534,7 +1605,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   right: 0;
   bottom: 4px;
   width: 60px;
-  background: linear-gradient(to right, transparent, rgba(248,249,250,0.9));
+  background: linear-gradient(to right, transparent, var(--color-bg-subtle));
   pointer-events: none;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
@@ -1601,7 +1672,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 #nl-calculator-root[data-loading="true"] {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  background: #fff;
+  background: var(--color-surface);
   overflow: hidden;
 }
 
@@ -1778,10 +1849,10 @@ body.drawer-open {
 
 /* Calculator preview card */
 .home-calc-preview {
-  border: 1px solid #c7d9f0;
+  border: 1px solid var(--home-card-border);
   border-top: 3px solid var(--nl-blue);
   border-radius: var(--radius-lg);
-  background: #f4f8ff;
+  background: var(--home-card-bg);
   box-shadow: 0 8px 32px rgba(11, 92, 171, 0.12), 0 2px 8px rgba(0,0,0,0.06);
   overflow: hidden;
   font-size: 0.8125rem;
@@ -1791,7 +1862,7 @@ body.drawer-open {
 
 .home-calc-preview__tabs {
   display: flex;
-  border-bottom: 1px solid #c7d9f0;
+  border-bottom: 1px solid var(--home-card-border);
   background: rgba(11, 92, 171, 0.04);
 }
 .home-calc-preview__tab {
@@ -1812,7 +1883,7 @@ body.drawer-open {
 .home-calc-preview__tab.is-active {
   color: var(--nl-blue);
   border-bottom-color: var(--nl-blue);
-  background: rgba(255,255,255,0.7);
+  background: var(--color-surface-raised);
 }
 .home-calc-preview__tab:focus-visible { outline: 2px solid var(--nl-blue); outline-offset: -2px; }
 
@@ -1834,7 +1905,7 @@ body.drawer-open {
 
 .home-calc-preview__header {
   background: rgba(11, 92, 171, 0.07);
-  border-bottom: 1px solid #c7d9f0;
+  border-bottom: 1px solid var(--home-card-border);
   padding: 9px 14px;
   display: flex;
   justify-content: space-between;
@@ -1886,7 +1957,7 @@ body.drawer-open {
 
 .home-calc-preview__rows {
   padding: 0 14px;
-  background: rgba(255,255,255,0.6);
+  background: var(--color-surface);
   margin: 0 0 0;
 }
 
@@ -1895,7 +1966,7 @@ body.drawer-open {
   justify-content: space-between;
   padding: 5px 0;
   color: var(--color-text-soft);
-  border-bottom: 1px solid rgba(0,0,0,0.04);
+  border-bottom: 1px solid var(--line-faint);
 }
 
 .home-calc-preview__row--subtotal {
@@ -1938,7 +2009,7 @@ body.drawer-open {
 .home-calc-preview__footer {
   padding: 9px 14px;
   background: rgba(11, 92, 171, 0.05);
-  border-top: 1px solid #c7d9f0;
+  border-top: 1px solid var(--home-card-border);
   font-size: 0.75rem;
   color: var(--color-text-muted);
 }
@@ -2079,7 +2150,7 @@ body.drawer-open {
 .readers-item__meta a {
   color: inherit;
   text-decoration: none;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-bottom: 1px solid var(--line-strong);
 }
 .readers-item__meta a:hover { color: var(--nl-blue); border-bottom-color: var(--nl-blue); }
 .readers-footnote {
@@ -2101,3 +2172,24 @@ body.drawer-open {
   border-bottom: 1px solid rgba(11, 92, 171, 0.3);
 }
 .testimonials__more a:hover { border-bottom-color: var(--nl-blue); }
+
+/* Theme toggle in the nav */
+.nav-theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: var(--radius-md);
+  color: rgba(255,255,255,0.85);
+  cursor: pointer;
+  transition: background 120ms, border-color 120ms;
+}
+.nav-theme-btn:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.28); color: #fff; }
+.nav-theme-btn svg { width: 16px; height: 16px; }
+.nav-theme-btn__sun { display: none; }
+:root[data-theme="dark"] .nav-theme-btn__sun { display: block; }
+:root[data-theme="dark"] .nav-theme-btn__moon { display: none; }

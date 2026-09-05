@@ -144,17 +144,17 @@ export function ATI(props: AtiProps) {
     <div style={{ fontSize: 13, lineHeight: 1.4 }}>
       {firstRow && (
         <StatGrid>
-          <Stat label="Original taxable income (pre-NL)" value={formatMoney(props.originalTaxableIncomePreNL)} color="#0b5cab" />
-          <Stat label="Taxable income post-NL" value={formatMoney(worstRow.taxableIncomePostNL)} color="#1b5e20" note={`FY ${worstRow.financialYearEnding} – lowest year`} />
+          <Stat label="Original taxable income (pre-NL)" value={formatMoney(props.originalTaxableIncomePreNL)} color="var(--nlc-blue)" />
+          <Stat label="Taxable income post-NL" value={formatMoney(worstRow.taxableIncomePostNL)} color="var(--nlc-acc-green)" note={`FY ${worstRow.financialYearEnding} – lowest year`} />
           {lastRow && lastRow.financialYearEnding !== firstRow.financialYearEnding && (
-            <Stat label="RFBA (per FBT year)" value={formatMoney(fullYearRfba)} color="#6a1b9a" note="Full year; added back to get ATI" />
+            <Stat label="RFBA (per FBT year)" value={formatMoney(fullYearRfba)} color="var(--nlc-purple)" note="Full year; added back to get ATI" />
           )}
         </StatGrid>
       )}
 
       <SubHead mt={4}>Calculation Purpose</SubHead>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, flexWrap: "wrap" }}>
-        <div style={{ display: "inline-flex", border: "1px solid rgba(11,92,171,0.28)", borderRadius: 999, overflow: "hidden", background: "rgba(11,92,171,0.04)" }}>
+        <div style={{ display: "inline-flex", border: "1px solid var(--nlc-blue-mid)", borderRadius: 999, overflow: "hidden", background: "var(--nlc-blue-light)" }}>
           {(
             [
               { value: "standard" as const, label: "Standard" },
@@ -167,7 +167,7 @@ export function ATI(props: AtiProps) {
                 key={value}
                 type="button"
                 onClick={() => setPurpose(value)}
-                style={{ appearance: "none", border: "none", background: active ? "#0b5cab" : "transparent", color: active ? "#fff" : "#0b5cab", padding: "5px 14px", cursor: "pointer", fontWeight: active ? 800 : 600, fontSize: 12, lineHeight: 1, whiteSpace: "nowrap" }}
+                style={{ appearance: "none", border: "none", background: active ? "var(--nlc-blue-solid)" : "transparent", color: active ? "#fff" : "var(--nlc-blue)", padding: "5px 14px", cursor: "pointer", fontWeight: active ? 800 : 600, fontSize: 12, lineHeight: 1, whiteSpace: "nowrap" }}
                 aria-pressed={active}
               >
                 {label}
@@ -207,21 +207,21 @@ export function ATI(props: AtiProps) {
               </td>
               <td style={tdR()}>{formatMoney(r.taxableIncomePostNL)}</td>
               <td style={tdR()}>{formatMoney(r.rfba)}</td>
-              <td style={tdR({ fontWeight: 700, color: "#6a1b9a" })}>{formatMoney(r.adjustedTaxableIncome)}</td>
+              <td style={tdR({ fontWeight: 700, color: "var(--nlc-purple)" })}>{formatMoney(r.adjustedTaxableIncome)}</td>
             </tr>
           ))}
         </tbody>
       </Table>
 
       {fbtApplicable && (
-        <NoteBox color="#e65100" mt={10}>
+        <NoteBox color="var(--nlc-acc-orange)" mt={10}>
           RFBA is shown as $0 because this is an FBT-applicable lease — we assume the Employee Contribution Method (ECM)
           is used to reduce FBT to zero.
         </NoteBox>
       )}
 
       {getLeaseFbtCategory(props.inputs) === "EV_FBT_DISCOUNTED" && (
-        <NoteBox color="#f57c00" mt={10}>
+        <NoteBox color="var(--nlc-acc-amber)" mt={10}>
           <div style={{ fontWeight: 700, marginBottom: 4 }}>25% FBT discount — RFBA treatment</div>
           Your vehicle is in the <b>25% FBT discount band</b> (base value above the full-exempt cap but below the LCT
           threshold). The discount reduces the ECM statutory rate from 20% to 15% — your salary-packaged ECM
@@ -235,7 +235,7 @@ export function ATI(props: AtiProps) {
         </NoteBox>
       )}
 
-      <NoteBox color="#1b5e20" mt={10}>
+      <NoteBox color="var(--nlc-acc-green)" mt={10}>
         <div style={{ fontWeight: 700, marginBottom: 6 }}>Next step: see what ATI changes might affect</div>
         <div style={{ marginBottom: 8 }}>
           Take your <b>RFBA</b> and updated <b>ATI</b> figures above and run them through these calculators:
@@ -252,7 +252,7 @@ export function ATI(props: AtiProps) {
         </ul>
       </NoteBox>
 
-      <NoteBox color="#0b5cab" mt={10}>
+      <NoteBox color="var(--nlc-blue)" mt={10}>
         <div style={{ fontWeight: 700, marginBottom: 6 }}>Notes</div>
         <ul style={{ margin: 0, paddingLeft: 18 }}>
           <li>

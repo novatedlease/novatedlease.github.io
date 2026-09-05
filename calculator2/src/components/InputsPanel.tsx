@@ -66,7 +66,7 @@ export function InputsPanel(props: {
 
   const fbtCategoryLabel =
     leaseFbtCategory === "EV_FBT_EXEMPT" ? "FBT-exempt" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "75% FBT applicable" : "FBT-applicable";
-  const fbtCategoryColor = leaseFbtCategory === "EV_FBT_EXEMPT" ? "#1b5e20" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "#92400e" : "#b71c1c";
+  const fbtCategoryColor = leaseFbtCategory === "EV_FBT_EXEMPT" ? "var(--nlc-acc-green)" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "var(--nlc-acc-brown)" : "var(--nlc-acc-red)";
 
   // Lease start date milestone checks (for the May-2026 phase-out info banner) —
   // mirrors v1 InputsPanel.tsx (~lines 369-402, 648-663).
@@ -140,7 +140,7 @@ export function InputsPanel(props: {
         </div>
 
         {isEv && (isTransitionalLease || isPostPhaseoutLease) && (
-          <NoteBox color="#0b5cab" mt={-8}>
+          <NoteBox color="var(--nlc-blue)" mt={-8}>
             <div style={{ fontWeight: 800, marginBottom: 3 }}>May 2026 FBT phase-out rules apply to this lease start date</div>
             <div style={{ opacity: 0.9 }}>
               {isTransitionalLease ? (
@@ -166,7 +166,7 @@ export function InputsPanel(props: {
 
       <Section title="Vehicle details" defaultOpen>
         {isEv && leaseFbtCategory === "EV_FBT_APPLICABLE" && (
-          <NoteBox color="#c81e1e">
+          <NoteBox color="var(--nlc-acc-red)">
             <div style={{ fontWeight: 800, marginBottom: 4 }}>This vehicle may not be eligible for FBT-exempt (EV) novated leasing.</div>
             <div style={{ opacity: 0.92 }}>
               {!usedEligibilityChecksOk ? (
@@ -274,11 +274,11 @@ export function InputsPanel(props: {
             style={{
               padding: "6px 10px",
               borderRadius: 10,
-              border: "1px solid rgba(180, 130, 0, 0.35)",
-              background: "rgba(255, 193, 7, 0.08)",
+              border: "1px solid color-mix(in srgb, var(--nlc-warn) 40%, transparent)",
+              background: "var(--nlc-warn-light)",
               fontSize: 12,
               fontWeight: 800,
-              color: "rgb(120, 80, 0)",
+              color: "var(--nlc-warn-dark)",
               marginBottom: 12,
             }}
           >
@@ -291,7 +291,7 @@ export function InputsPanel(props: {
         )}
         <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} suffix="years" min={1} max={5} decimals={0} />
         {needsLeaseRequote && (
-          <NoteBox color="#c81e1e">
+          <NoteBox color="var(--nlc-acc-red)">
             <div style={{ fontWeight: 800, marginBottom: 4 }}>Heads up: changing lease duration usually changes your per-fortnight lease quote.</div>
             <div style={{ opacity: 0.92 }}>
               Please update <b>Vehicle finance</b> (and <b>all other quote-dependent fields</b>) to match the new duration, otherwise the outputs may be misleading.

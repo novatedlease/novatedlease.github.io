@@ -14,10 +14,6 @@ function money(n: number) {
 function pct(rAnnual: number) {
   return Number.isFinite(rAnnual) ? `${(rAnnual * 100).toFixed(2)}%` : "—";
 }
-function hexToRgb(hex: string): [number, number, number] {
-  return [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16)];
-}
-
 /**
  * Ported from calculator/src/components/EffectiveInterestReport.tsx — same
  * maths/structure. One fix applied during the port: v1 re-implemented the GST-saved
@@ -107,34 +103,34 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 12px", borderRadius: 8, border: "1px solid rgba(11,92,171,0.25)", background: "rgba(11,92,171,0.06)", cursor: "pointer", fontWeight: 700, fontSize: 12, letterSpacing: "0.03em", color: "#0b5cab" }}
+            style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 12px", borderRadius: 8, border: "1px solid var(--nlc-blue-mid)", background: "var(--nlc-blue-light)", cursor: "pointer", fontWeight: 700, fontSize: 12, letterSpacing: "0.03em", color: "var(--nlc-blue)" }}
           >
             <span>{open ? "Hide amortisation table" : "Show amortisation table"}</span>
             <span style={{ fontSize: 11 }}>{open ? "▾" : "▸"}</span>
           </button>
 
           {open ? (
-            <div style={{ marginTop: 10, borderRadius: 10, border: "1px solid rgba(0,0,0,0.09)" }}>
+            <div style={{ marginTop: 10, borderRadius: 10, border: "1px solid var(--nlc-line)" }}>
               <div style={{ overflowX: "auto" }}>
                 <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 12.5 }}>
                   <thead>
                     <tr>
-                      <th style={{ textAlign: "center", padding: "7px 4px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>Month</th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>Starting Bal.</th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>Payment</th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>Post-Payment Bal.</th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>
+                      <th style={{ textAlign: "center", padding: "7px 4px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Month</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Starting Bal.</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Payment</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Post-Payment Bal.</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>
                         <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
                           Interest
                           <InfoTooltip text="Interest is calculated using a higher-precision rate than the rounded percentage shown above." />
                         </span>
                       </th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "#0b5cab", color: "#fff", whiteSpace: "nowrap" }}>Closing Bal.</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Closing Bal.</th>
                     </tr>
                   </thead>
                   <tbody style={{ fontVariantNumeric: "tabular-nums" }}>
                     {rows.map((r) => (
-                      <tr key={r.month} style={{ borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
+                      <tr key={r.month} style={{ borderBottom: "1px solid var(--nlc-line)" }}>
                         <td style={{ padding: "6px 4px", textAlign: "center" }}>{r.month}</td>
                         <td style={{ padding: "6px 6px", textAlign: "right", whiteSpace: "nowrap" }}>{money(r.starting)}</td>
                         <td style={{ padding: "6px 6px", textAlign: "right", whiteSpace: "nowrap" }}>{r.paymentDisplay ? `$ ${r.paymentDisplay}` : ""}</td>
@@ -158,15 +154,15 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
     };
 
     const defs = [
-      { id: "def1" as const, label: "Definition 1", title: "Recommended", rate: rateDef1, color: "#1b5e20", desc: "Standard financed amount" },
-      { id: "def1a" as const, label: "Definition 1a", title: "Inc. Management Fees", rate: rateDef1a, color: "#0b5cab", desc: "Lease + fees as payment" },
-      { id: "def2" as const, label: "Definition 2", title: "Provider-Style", rate: rateDef2, color: "#4527a0", desc: "Inflated financed amount" },
+      { id: "def1" as const, label: "Definition 1", title: "Recommended", rate: rateDef1, color: "var(--nlc-acc-green)", desc: "Standard financed amount" },
+      { id: "def1a" as const, label: "Definition 1a", title: "Inc. Management Fees", rate: rateDef1a, color: "var(--nlc-blue)", desc: "Lease + fees as payment" },
+      { id: "def2" as const, label: "Definition 2", title: "Provider-Style", rate: rateDef2, color: "var(--nlc-acc-purple)", desc: "Inflated financed amount" },
     ];
 
     const contentByDef: Record<"def1" | "def1a" | "def2", React.ReactNode> = {
       def1: (
         <>
-          <NoteBox color="#1b5e20" mt={0}>
+          <NoteBox color="var(--nlc-acc-green)" mt={0}>
             Closest to "what interest rate would amortise the financed amount down to residual value over the lease term."
           </NoteBox>
           <div style={{ marginTop: 10 }}>
@@ -175,14 +171,14 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
             <KV label="Fortnightly lease" value={money(leaseFn)} />
             <KV label={`Equivalent monthly lease over ${payableMonths} months`} value={money(monthlyEqDef1)} />
             <KV label="Months deferred" value={`${deferMonths} months`} />
-            <KV label="Effective annual rate" value={pct(rateDef1)} bold highlight color="#1b5e20" />
+            <KV label="Effective annual rate" value={pct(rateDef1)} bold highlight color="var(--nlc-acc-green)" />
           </div>
           <AmortisationTable financedAmount={financedStandardExGst} monthlyPayment={monthlyEqDef1} annualRate={rateDef1} />
         </>
       ),
       def1a: (
         <>
-          <NoteBox color="#0b5cab" mt={0}>
+          <NoteBox color="var(--nlc-blue)" mt={0}>
             Useful for comparing quotes — treats management fees as part of the lease payment, revealing true cost when fees are bundled into "running costs".
           </NoteBox>
           <div style={{ marginTop: 10 }}>
@@ -190,14 +186,14 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
             <KV label="Residual value payable (ex GST)" value={money(residualStandardExGst)} />
             <KV label="Fortnightly lease + management fee" value={money(leaseFn + mgmtFeeFn)} />
             <KV label={`Equivalent monthly over ${payableMonths} months`} value={money(monthlyEqDef1a)} />
-            <KV label="Effective annual rate (inc. fees)" value={pct(rateDef1a)} bold highlight color="#0b5cab" />
+            <KV label="Effective annual rate (inc. fees)" value={pct(rateDef1a)} bold highlight color="var(--nlc-blue)" />
           </div>
           <AmortisationTable financedAmount={financedStandardExGst} monthlyPayment={monthlyEqDef1a} annualRate={rateDef1a} />
         </>
       ),
       def2: (
         <>
-          <NoteBox color="#4527a0" mt={0}>
+          <NoteBox color="var(--nlc-acc-purple)" mt={0}>
             Can produce a misleadingly low rate when the financed amount is inflated with brokerage.
           </NoteBox>
           <div style={{ marginTop: 10 }}>
@@ -205,7 +201,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
             <KV label="Residual value payable (ex GST)" value={money(residualInflatedExGst)} />
             <KV label="Fortnightly lease" value={money(leaseFn)} />
             <KV label={`Equivalent monthly over ${payableMonths} months`} value={money(monthlyEqDef2)} />
-            <KV label="Effective annual rate (inflated)" value={pct(rateDef2)} bold highlight color="#4527a0" />
+            <KV label="Effective annual rate (inflated)" value={pct(rateDef2)} bold highlight color="var(--nlc-acc-purple)" />
           </div>
           <AmortisationTable financedAmount={financedInflatedExGst} monthlyPayment={monthlyEqDef2} annualRate={rateDef2} />
         </>
@@ -217,21 +213,20 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
           {defs.map((d) => {
             const active = activeDef === d.id;
-            const [r, g, b] = hexToRgb(d.color);
-            return (
+                        return (
               <button
                 key={d.id}
                 type="button"
                 onClick={() => setActiveDef(d.id)}
                 style={{
-                  border: active ? `2px solid ${d.color}` : `1.5px solid rgba(${r},${g},${b},0.22)`,
+                  border: active ? `2px solid ${d.color}` : `1.5px solid color-mix(in srgb, ${d.color} 22%, transparent)`,
                   borderRadius: 12,
                   padding: "11px 13px",
                   cursor: "pointer",
-                  background: active ? d.color : `rgba(${r},${g},${b},0.05)`,
+                  background: active ? d.color : `color-mix(in srgb, ${d.color} 5%, transparent)`,
                   color: active ? "#fff" : d.color,
                   opacity: active ? 1 : 0.45,
-                  boxShadow: active ? `0 3px 14px rgba(${r},${g},${b},0.38)` : "none",
+                  boxShadow: active ? `0 3px 14px color-mix(in srgb, ${d.color} 38%, transparent)` : "none",
                   textAlign: "left",
                   lineHeight: 1,
                 }}
@@ -245,11 +240,11 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
         </div>
 
         {Number.isFinite(rateDef1) && rateDef1 > 0.1 && (
-          <div style={{ marginBottom: 12, padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(217,119,6,0.35)", borderLeft: "3px solid #d97706", background: "rgba(217,119,6,0.06)", fontSize: 12, lineHeight: 1.45, color: "rgba(0,0,0,0.75)" }}>
-            <div style={{ fontWeight: 800, marginBottom: 3, color: "#92400e" }}>High rate — is a BYO lease available?</div>
+          <div style={{ marginBottom: 12, padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(217,119,6,0.35)", borderLeft: "3px solid #d97706", background: "rgba(217,119,6,0.06)", fontSize: 12, lineHeight: 1.45, color: "var(--nlc-text)" }}>
+            <div style={{ fontWeight: 800, marginBottom: 3, color: "var(--nlc-acc-brown)" }}>High rate — is a BYO lease available?</div>
             <div>
               Your effective rate exceeds 10%. It may be worth checking whether your employer supports a{" "}
-              <a href="/tools/byo-employer-check/" target="_blank" rel="noopener" style={{ color: "#b45309" }}>
+              <a href="/tools/byo-employer-check/" target="_blank" rel="noopener" style={{ color: "var(--nlc-warn-dark)" }}>
                 self-managed (BYO) novated lease
               </a>{" "}
               — these let you choose your own financier and typically carry a lower effective rate.
@@ -273,7 +268,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
     console.error("Effective interest report render failed", e);
     const msg = e instanceof Error ? e.message : typeof e === "string" ? e : JSON.stringify(e);
     return (
-      <div style={{ padding: 10, border: "1px solid rgba(200,0,0,0.35)", borderRadius: 10, background: "rgba(200,0,0,0.06)", fontSize: 14, lineHeight: 1.35 }}>
+      <div style={{ padding: 10, border: "1px solid color-mix(in srgb, var(--nlc-bad) 40%, transparent)", borderRadius: 10, background: "var(--nlc-bad-light)", fontSize: 14, lineHeight: 1.35 }}>
         <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 8 }}>Effective interest rate (error)</div>
         <div style={{ opacity: 0.9, marginBottom: 6 }}>Something went wrong while computing the effective interest rate.</div>
         <div style={{ fontFamily: "monospace", fontSize: 12, opacity: 0.85 }}>{msg}</div>

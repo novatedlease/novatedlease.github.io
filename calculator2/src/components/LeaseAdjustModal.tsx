@@ -171,7 +171,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
             padding: "12px 14px",
             borderRadius: "var(--nlc-radius-md)",
             background: adjustedDisplay !== null ? "var(--nlc-good-light)" : "var(--nlc-bg-sunken)",
-            border: adjustedDisplay !== null ? "1.5px solid rgba(46,125,50,0.3)" : "1.5px solid var(--nlc-border)",
+            border: adjustedDisplay !== null ? "1.5px solid color-mix(in srgb, var(--nlc-good) 35%, transparent)" : "1.5px solid var(--nlc-border)",
             fontSize: 20,
             fontWeight: 800,
             color: adjustedDisplay !== null ? "var(--nlc-good-dark)" : "var(--nlc-text-faint)",
