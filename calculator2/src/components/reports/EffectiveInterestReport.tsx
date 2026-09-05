@@ -154,9 +154,9 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
     };
 
     const defs = [
-      { id: "def1" as const, label: "Definition 1", title: "Recommended", rate: rateDef1, color: "var(--nlc-acc-green)", desc: "Standard financed amount" },
-      { id: "def1a" as const, label: "Definition 1a", title: "Inc. Management Fees", rate: rateDef1a, color: "var(--nlc-blue)", desc: "Lease + fees as payment" },
-      { id: "def2" as const, label: "Definition 2", title: "Provider-Style", rate: rateDef2, color: "var(--nlc-acc-purple)", desc: "Inflated financed amount" },
+      { id: "def1" as const, label: "Definition 1", title: "Recommended", rate: rateDef1, color: "var(--nlc-acc-green)", solid: "var(--nlc-acc-green-solid)", desc: "Standard financed amount" },
+      { id: "def1a" as const, label: "Definition 1a", title: "Inc. Management Fees", rate: rateDef1a, color: "var(--nlc-blue)", solid: "var(--nlc-blue-solid)", desc: "Lease + fees as payment" },
+      { id: "def2" as const, label: "Definition 2", title: "Provider-Style", rate: rateDef2, color: "var(--nlc-acc-purple)", solid: "var(--nlc-acc-purple-solid)", desc: "Inflated financed amount" },
     ];
 
     const contentByDef: Record<"def1" | "def1a" | "def2", React.ReactNode> = {
@@ -219,14 +219,14 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
                 type="button"
                 onClick={() => setActiveDef(d.id)}
                 style={{
-                  border: active ? `2px solid ${d.color}` : `1.5px solid color-mix(in srgb, ${d.color} 22%, transparent)`,
+                  border: active ? `2px solid ${d.solid}` : `1.5px solid color-mix(in srgb, ${d.color} 22%, transparent)`,
                   borderRadius: 12,
                   padding: "11px 13px",
                   cursor: "pointer",
-                  background: active ? d.color : `color-mix(in srgb, ${d.color} 5%, transparent)`,
+                  background: active ? d.solid : `color-mix(in srgb, ${d.color} 5%, transparent)`,
                   color: active ? "#fff" : d.color,
                   opacity: active ? 1 : 0.45,
-                  boxShadow: active ? `0 3px 14px color-mix(in srgb, ${d.color} 38%, transparent)` : "none",
+                  boxShadow: active ? `0 3px 14px color-mix(in srgb, ${d.solid} 38%, transparent)` : "none",
                   textAlign: "left",
                   lineHeight: 1,
                 }}
