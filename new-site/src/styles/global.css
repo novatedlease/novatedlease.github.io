@@ -115,7 +115,6 @@
   --shadow-xl:  0 16px 48px rgba(0,0,0,0.6);
 }
 /* Logos with dark artwork on transparent backgrounds need a light plate in dark mode. */
-:root[data-theme="dark"] .featured-logo-strip__logo { background: #fff; padding: 4px 8px; border-radius: 6px; box-sizing: content-box; }
 :root[data-theme="dark"] .home-cta-btn--outline { color: var(--nl-blue); border-color: var(--nl-blue); }
 :root[data-theme="dark"] .home-cta-btn--outline:hover { color: var(--nl-blue); border-color: var(--nl-blue); }
 :root[data-theme="dark"] .article-content img,
@@ -1496,42 +1495,51 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 .featured-logo-strip__items {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 24px;
+  align-items: stretch;
+  gap: 10px;
 }
 
+/* Every logo sits in an identical white chip so the row reads as one set in both themes. */
 .featured-logo-strip__link {
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  color: var(--color-text-muted);
+  gap: 9px;
+  height: 52px;
+  padding: 0 16px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: #374151;
   text-decoration: none;
-  border-bottom: none;
-  opacity: 0.75;
-  transition: opacity 120ms;
+  transition: box-shadow 120ms, border-color 120ms;
 }
-
-.featured-logo-strip__link:hover { opacity: 1; }
+.featured-logo-strip__link:hover { border-color: var(--color-border-mid); box-shadow: var(--shadow-sm); }
+:root[data-theme="dark"] .featured-logo-strip__link { border-color: transparent; }
 
 .featured-logo-strip__logo {
-  height: 40px;
+  height: 28px;
   width: auto;
-  max-width: 280px;
+  max-width: 200px;
   object-fit: contain;
   display: block;
 }
 
-.featured-logo-strip__logo--abc-news { height: 24px; max-width: 180px; }
-.featured-logo-strip__logo--pia { height: 38px; max-width: 300px; }
-.featured-logo-strip__logo--leasecheck { height: 24px; max-width: 180px; }
-.featured-logo-strip__logo--leaseofmind { height: 40px; width: 40px; border-radius: 50%; }
-.featured-logo-strip__logo--ccschecker { height: 40px; max-width: 160px; }
+.featured-logo-strip__logo--abc-news { height: 22px; }
+.featured-logo-strip__logo--pia { height: 30px; }
+.featured-logo-strip__logo--leasecheck { height: 22px; }
+.featured-logo-strip__logo--leaseofmind { height: 30px; width: 30px; border-radius: 50%; }
+.featured-logo-strip__logo--ccschecker { height: 30px; }
 
 .featured-logo-strip__name {
-  font-size: 0.72em;
+  font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--color-text-muted);
+  color: #374151;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .featured-logo-strip__link { height: 46px; padding: 0 12px; }
+  .featured-logo-strip__logo { max-width: 150px; }
 }
 
 /* Testimonials */
