@@ -41,7 +41,7 @@ import FullPage from '../../layouts/FullPage.astro';
       <h3>How it works in practice</h3>
       <p>The key thing to understand is that two parties are involved in a BYO lease, each handling a separate role:</p>
       <ul>
-        <li><strong>BYO finance specialist</strong> <span style="font-size:0.85em;color:rgba(0,0,0,0.45);font-style:italic;">(aka Third Party Introducer)</span> — sources and arranges the actual finance through their lending panel (think: a mortgage broker, but for your novated lease)</li>
+        <li><strong>BYO finance specialist</strong> <span style="font-size:0.85em;color:var(--color-text-muted);font-style:italic;">(aka Third Party Introducer)</span> — sources and arranges the actual finance through their lending panel (think: a mortgage broker, but for your novated lease)</li>
         <li><strong>Your existing salary packaging company</strong> (e.g. Paywise, Smartleasing) — continues handling the payroll deductions and FBT administration as normal</li>
       </ul>
       <p>These two sides operate independently. Your packaging company does not need to initiate or approve the finance; they simply process the salary deductions once the lease is in place.</p>
@@ -92,10 +92,10 @@ import FullPage from '../../layouts/FullPage.astro';
 .byo-explainer {
   margin: 16px 0 24px 0;
   padding: 14px 16px;
-  border: 1px solid rgba(0, 100, 200, 0.25);
-  border-left: 4px solid #2b6cb0;
+  border: 1px solid var(--nl-blue-mid);
+  border-left: 4px solid var(--nl-blue);
   border-radius: 8px;
-  background: rgba(43, 108, 176, 0.05);
+  background: var(--nl-blue-light);
   font-size: 0.92em;
   line-height: 1.6;
 }
@@ -122,26 +122,26 @@ import FullPage from '../../layouts/FullPage.astro';
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
-  background: white;
-  color: inherit;
-  box-shadow: 0 0 0 4px rgba(11, 92, 171, 0.1);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 0 0 4px var(--nl-blue-light);
 }
 
 #byo-search-input:focus {
-  border-color: #2b6cb0;
-  box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.12);
+  border-color: var(--nl-blue-dark);
+  box-shadow: 0 0 0 3px var(--nl-blue-mid);
 }
 
 #byo-search-input::placeholder {
-  color: rgba(0,0,0,0.38);
+  color: var(--color-text-faint);
 }
 
 .byo-result-card {
   margin: 12px 0;
   padding: 16px 18px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
-  background: white;
+  background: var(--color-surface);
 }
 
 .byo-result-card__name {
@@ -152,7 +152,7 @@ import FullPage from '../../layouts/FullPage.astro';
 
 .byo-result-card__group {
   font-size: 0.82em;
-  color: rgba(0, 0, 0, 0.48);
+  color: var(--color-text-muted);
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -185,36 +185,40 @@ import FullPage from '../../layouts/FullPage.astro';
   border: 1px solid rgba(140, 28, 28, 0.2);
 }
 
+:root[data-theme="dark"] .byo-badge--possible { background: rgba(52, 211, 153, 0.14); color: #6ee7b7; border-color: rgba(52, 211, 153, 0.35); }
+:root[data-theme="dark"] .byo-badge--partial { background: rgba(251, 191, 36, 0.14); color: #fcd34d; border-color: rgba(251, 191, 36, 0.35); }
+:root[data-theme="dark"] .byo-badge--not-available { background: rgba(248, 113, 113, 0.14); color: #fca5a5; border-color: rgba(248, 113, 113, 0.35); }
+
 .byo-result-card__notes {
   margin-top: 10px;
   font-size: 0.88em;
-  color: rgba(0, 0, 0, 0.62);
+  color: var(--color-text-soft);
   line-height: 1.55;
 }
 
 .byo-no-results {
   margin: 16px 0;
   padding: 24px 20px;
-  border: 1px dashed rgba(0, 0, 0, 0.18);
+  border: 1px dashed var(--line-strong);
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.02);
+  background: var(--line-faint);
   text-align: center;
 }
 
 .byo-no-results__icon { font-size: 2em; margin-bottom: 8px; line-height: 1; }
 .byo-no-results__title { font-weight: 700; font-size: 1.05em; margin-bottom: 10px; }
-.byo-no-results__body { font-size: 0.9em; color: rgba(0,0,0,0.62); line-height: 1.65; max-width: 540px; margin: 0 auto; }
+.byo-no-results__body { font-size: 0.9em; color: var(--color-text-soft); line-height: 1.65; max-width: 540px; margin: 0 auto; }
 
 .byo-providers-wrap {
   margin: 32px 0 20px 0;
   padding: 18px;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
-  background: rgba(255,255,255,0.7);
+  background: var(--color-bg-subtle);
 }
 
 .byo-providers-wrap__title { font-weight: 700; font-size: 1.0em; margin-bottom: 8px; }
-.byo-providers-wrap__disclaimer { font-size: 0.82em; color: rgba(0,0,0,0.52); margin-bottom: 14px; line-height: 1.55; font-style: italic; }
+.byo-providers-wrap__disclaimer { font-size: 0.82em; color: var(--color-text-muted); margin-bottom: 14px; line-height: 1.55; font-style: italic; }
 
 .byo-providers-wrap__grid {
   display: grid;
@@ -228,34 +232,34 @@ import FullPage from '../../layouts/FullPage.astro';
 
 .byo-provider-card {
   padding: 14px 16px;
-  border: 1px solid rgba(0,0,0,0.15);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: white;
+  background: var(--color-surface);
 }
 
 .byo-provider-card__name { font-weight: 700; font-size: 1.0em; margin-bottom: 4px; }
-.byo-provider-card__desc { font-size: 0.85em; color: rgba(0,0,0,0.62); margin-bottom: 6px; line-height: 1.4; }
-.byo-provider-card__community { font-size: 0.82em; color: rgba(0,0,0,0.55); margin-bottom: 8px; line-height: 1.4; }
-.byo-provider-card__url { font-size: 0.82em; color: #2b6cb0; text-decoration: none; display: inline-block; margin-top: 2px; }
+.byo-provider-card__desc { font-size: 0.85em; color: var(--color-text-soft); margin-bottom: 6px; line-height: 1.4; }
+.byo-provider-card__community { font-size: 0.82em; color: var(--color-text-muted); margin-bottom: 8px; line-height: 1.4; }
+.byo-provider-card__url { font-size: 0.82em; color: var(--nl-blue); text-decoration: none; display: inline-block; margin-top: 2px; }
 
 .byo-contribute-box {
   margin: 20px 0;
   padding: 14px 16px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: rgba(255,255,255,0.6);
+  background: var(--color-bg-subtle);
   font-size: 0.9em;
   line-height: 1.6;
 }
 
-.byo-db-count { font-size: 0.82em; color: rgba(0,0,0,0.45); margin-bottom: 4px; }
+.byo-db-count { font-size: 0.82em; color: var(--color-text-muted); margin-bottom: 4px; }
 
 .byo-how-it-works {
   margin: 24px 0;
   padding: 18px 20px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
-  background: rgba(255,255,255,0.65);
+  background: var(--color-bg-subtle);
 }
 
 .byo-how-it-works h3 { margin-top: 0 !important; }

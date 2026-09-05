@@ -729,6 +729,13 @@
   background: rgba(15, 23, 42, 0.6);
 }
 
+/* When a target is spotlit, the spotlight's giant shadow does the dimming so the
+   target itself stays at full brightness (matters in dark mode, where dimming an
+   already-dark card left no visible highlight). */
+.nlc-tour-overlay:has(.nlc-tour-spotlight) .nlc-tour-dim {
+  display: none;
+}
+
 .nlc-tour-spotlight {
   position: fixed;
   border-radius: var(--nlc-radius-md);
@@ -742,6 +749,13 @@
   .nlc-tour-spotlight {
     transition: none;
   }
+}
+
+:root[data-theme="dark"] .nlc-tour-dim {
+  background: rgba(0, 0, 0, 0.7);
+}
+:root[data-theme="dark"] .nlc-tour-spotlight {
+  box-shadow: 0 0 0 2px var(--nlc-blue), 0 0 0 7px rgba(111, 176, 245, 0.22), 0 0 0 9999px rgba(0, 0, 0, 0.7);
 }
 
 .nlc-tour-card {
