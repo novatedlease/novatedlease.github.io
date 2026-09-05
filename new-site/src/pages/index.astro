@@ -1,5 +1,10 @@
 ---
 import FullPage from '../layouts/FullPage.astro';
+import { testimonials } from '../data/testimonials';
+
+// Four rendered at build time (no-JS fallback + indexable); the inline script below
+// swaps in a random four from the full pool on each load.
+const initialTestimonials = testimonials.slice(0, 4);
 ---
 
 <FullPage
@@ -15,14 +20,16 @@ import FullPage from '../layouts/FullPage.astro';
       <div class="home-hero-left">
         <div class="home-hero">
           <h1>Novated Lease Guide & Calculator</h1>
+          <p class="home-hero-sub">Your <strong>true net cost</strong> — not the "tax saved" figure providers advertise.</p>
 
           <div class="home-cta-block">
             <div class="home-cta-row">
               <a href="/calculator/" class="home-cta-btn">Open the Calculator →</a>
               <a href="/tools/byo-employer-check/" class="home-cta-btn home-cta-btn--outline">Employer BYO Checker →</a>
             </div>
-            <p class="home-cta-caption">Calculator models true net cost — not the inflated "tax saved" figure providers advertise.</p>
           </div>
+
+          <p class="home-trust">Independent, ad-free, and no leads sold. <a href="https://www.abc.net.au/news/2026-04-04/novated-leases-electric-vehicles-explainer/106527770" target="_blank" rel="noopener">Quoted by ABC News</a>. Supported by <a href="#testimonials">80+ readers</a>.</p>
         </div>
 
         <hr style="border:none;border-top:1px solid var(--color-border);margin:32px 0 28px;" />
@@ -33,66 +40,109 @@ import FullPage from '../layouts/FullPage.astro';
           <p><strong>This site is written for both.</strong> The calculator is <a href="/start-here/calculator-comparison/">one of very few</a> that models true net savings — not the <a href="/costs-and-savings/false-saving-example/">misleading "tax saved" figure</a> most providers advertise. The accompanying articles cover the pros and cons in depth, written by someone with no affiliation with any leasing company and no financial interest in your decision.</p>
         </div>
 
-        <div class="home-alert">
-          <strong>🆕 Updated May 2026:</strong> The calculator and articles fully reflect the new EV FBT wind-back rules announced in the May 2026 Budget — including the 25% FBT discount applying from April 2027 for eligible EVs above $75,000. <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">Read the full explainer →</a>
+        <div class="home-status">
+          <span class="home-status__pill"><span class="home-status__dot" aria-hidden="true"></span>Up to date</span>
+          <p class="home-status__text">Reflects the EV FBT wind-back, including the 25% FBT discount applying from April 2027 for eligible EVs above $75,000. <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">Read the explainer →</a></p>
         </div>
       </div><!-- /.home-hero-left -->
 
-      <!-- Right column: example calculator result -->
+      <!-- Right column: two example calculator results (figures from the live engine, Simple-mode assumptions) -->
       <div class="home-calc-preview">
-        <div class="home-calc-preview__header">
-          <span class="home-calc-preview__badge">EV · FBT-exempt · 5 yr · $65,000</span>
-          <span class="home-calc-preview__label">Example result</span>
+        <div class="home-calc-preview__tabs" role="tablist" aria-label="Example results">
+          <button type="button" class="home-calc-preview__tab is-active" role="tab" aria-selected="true" data-panel="ev">EV · $110k salary</button>
+          <button type="button" class="home-calc-preview__tab" role="tab" aria-selected="false" data-panel="ice">Petrol · no offset</button>
         </div>
 
-        <div class="home-calc-preview__title">Novated Lease vs Offset Cash</div>
+        <!-- Example 1: lease wins -->
+        <div class="home-calc-preview__panel" data-panel="ev" role="tabpanel">
+          <div class="home-calc-preview__header">
+            <span class="home-calc-preview__badge">Example 1 of 2</span>
+            <span class="home-calc-preview__label">Lease wins</span>
+          </div>
+          <div class="home-calc-preview__assumptions">EV, FBT-exempt · $65,000 drive-away · $110k salary · 5-year lease · 6.1% offset account</div>
 
-        <div class="home-calc-preview__saving">
-          <div class="home-calc-preview__saving-amount">$28,477</div>
-          <div class="home-calc-preview__saving-desc">cheaper over 5 years</div>
+          <div class="home-calc-preview__title">Novated Lease vs Offset Cash</div>
+
+          <div class="home-calc-preview__saving">
+            <div class="home-calc-preview__saving-amount">$28,477</div>
+            <div class="home-calc-preview__saving-desc">cheaper over 5 years</div>
+          </div>
+
+          <div class="home-calc-preview__rows">
+            <div class="home-calc-preview__row"><span>NL lease payments</span><span>$60,433</span></div>
+            <div class="home-calc-preview__row"><span>NL residual payout</span><span>$18,420</span></div>
+            <div class="home-calc-preview__row"><span>NL electricity gain / loss</span><span>−$278</span></div>
+            <div class="home-calc-preview__row home-calc-preview__row--subtotal"><span>NL total</span><span>$78,575</span></div>
+            <div class="home-calc-preview__row"><span>Cash drive-away</span><span>$65,000</span></div>
+            <div class="home-calc-preview__row"><span>Cash running costs</span><span>$25,546</span></div>
+            <div class="home-calc-preview__row home-calc-preview__row--subtotal"><span>Offset Cash total</span><span>$90,546</span></div>
+          </div>
+
+          <div class="home-calc-preview__divider"></div>
+
+          <div class="home-calc-preview__result-rows">
+            <div class="home-calc-preview__result-row"><span>Cashflow advantage</span><span class="pos">+$11,971</span></div>
+            <div class="home-calc-preview__result-row"><span>Home loan offset advantage</span><span class="pos">+$16,506</span></div>
+            <div class="home-calc-preview__result-row home-calc-preview__result-row--total"><span>Total saving</span><span class="pos">$28,477</span></div>
+          </div>
         </div>
 
-        <div class="home-calc-preview__rows">
-          <div class="home-calc-preview__row">
-            <span>NL lease payments</span><span>$60,433</span>
+        <!-- Example 2: lease loses -->
+        <div class="home-calc-preview__panel" data-panel="ice" role="tabpanel" hidden>
+          <div class="home-calc-preview__header">
+            <span class="home-calc-preview__badge">Example 2 of 2</span>
+            <span class="home-calc-preview__label home-calc-preview__label--neg">Lease loses</span>
           </div>
-          <div class="home-calc-preview__row">
-            <span>NL residual payout</span><span>$18,420</span>
-          </div>
-          <div class="home-calc-preview__row">
-            <span>NL electricity gain</span><span>−$278</span>
-          </div>
-          <div class="home-calc-preview__row home-calc-preview__row--subtotal">
-            <span>NL total</span><span>$78,575</span>
-          </div>
-          <div class="home-calc-preview__row">
-            <span>Cash driveaway</span><span>$65,000</span>
-          </div>
-          <div class="home-calc-preview__row">
-            <span>Cash running costs</span><span>$25,546</span>
-          </div>
-          <div class="home-calc-preview__row home-calc-preview__row--subtotal">
-            <span>Offset Cash total</span><span>$90,546</span>
-          </div>
-        </div>
+          <div class="home-calc-preview__assumptions">Petrol, full FBT · $60,000 drive-away · $90k salary · 5-year lease · no offset account</div>
 
-        <div class="home-calc-preview__divider"></div>
+          <div class="home-calc-preview__title">Novated Lease vs Cash</div>
 
-        <div class="home-calc-preview__result-rows">
-          <div class="home-calc-preview__result-row">
-            <span>Cashflow advantage</span><span class="pos">+$11,971</span>
+          <div class="home-calc-preview__saving home-calc-preview__saving--neg">
+            <div class="home-calc-preview__saving-amount">$8,082</div>
+            <div class="home-calc-preview__saving-desc">more expensive over 5 years</div>
           </div>
-          <div class="home-calc-preview__result-row">
-            <span>Home loan offset advantage</span><span class="pos">+$16,506</span>
+
+          <div class="home-calc-preview__rows">
+            <div class="home-calc-preview__row"><span>NL lease payments</span><span>$80,120</span></div>
+            <div class="home-calc-preview__row"><span>NL residual payout</span><span>$17,002</span></div>
+            <div class="home-calc-preview__row home-calc-preview__row--subtotal"><span>NL total</span><span>$97,122</span></div>
+            <div class="home-calc-preview__row"><span>Cash drive-away</span><span>$60,000</span></div>
+            <div class="home-calc-preview__row"><span>Cash running costs</span><span>$29,040</span></div>
+            <div class="home-calc-preview__row home-calc-preview__row--subtotal"><span>Cash total</span><span>$89,040</span></div>
           </div>
-          <div class="home-calc-preview__result-row home-calc-preview__result-row--total">
-            <span>Total saving</span><span class="pos">$28,477</span>
+
+          <div class="home-calc-preview__divider"></div>
+
+          <div class="home-calc-preview__result-rows">
+            <div class="home-calc-preview__result-row"><span>Cashflow disadvantage</span><span class="neg">−$8,082</span></div>
+            <div class="home-calc-preview__result-row"><span>Home loan offset advantage</span><span class="muted">$0 · no offset</span></div>
+            <div class="home-calc-preview__result-row home-calc-preview__result-row--total"><span>Net extra cost</span><span class="neg">−$8,082</span></div>
           </div>
         </div>
 
         <div class="home-calc-preview__footer">
-          Illustrative — <a href="/calculator/">run with your own figures →</a>
+          Same calculator, two people: one saves $28,477, the other pays $8,082 more. <a href="/calculator/">Run your own figures →</a>
         </div>
+
+        <script is:inline>
+          (function () {
+            var card = document.currentScript && document.currentScript.parentElement;
+            if (!card) return;
+            var tabs = card.querySelectorAll('.home-calc-preview__tab');
+            var panels = card.querySelectorAll('.home-calc-preview__panel');
+            tabs.forEach(function (tab) {
+              tab.addEventListener('click', function () {
+                var key = tab.getAttribute('data-panel');
+                tabs.forEach(function (t) {
+                  var on = t === tab;
+                  t.classList.toggle('is-active', on);
+                  t.setAttribute('aria-selected', on ? 'true' : 'false');
+                });
+                panels.forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== key; });
+              });
+            });
+          })();
+        </script>
       </div><!-- /.home-calc-preview -->
 
     </div><!-- /.home-hero-split -->
@@ -115,6 +165,7 @@ import FullPage from '../layouts/FullPage.astro';
         <p class="home-card__desc">Cut through the numbers.</p>
         <ul>
           <li><a href="/calculator/">Open the calculator</a></li>
+          <li><a href="/tools/byo-employer-check/">Employer BYO Checker — can you bring your own provider?</a></li>
           <li><a href="/start-here/use-nl-calculator/">How to use the novated lease calculator</a></li>
           <li><a href="/start-here/how-to-read-a-novated-lease-quote/">How to read a novated lease quote</a></li>
           <li><a href="/costs-and-savings/why-nl-interest-looks-high/">Why novated lease interest rates look high</a></li>
@@ -252,7 +303,7 @@ import FullPage from '../layouts/FullPage.astro';
 
     <!-- Featured in -->
     <div class="featured-logo-strip">
-      <div class="featured-logo-strip__label">Featured in</div>
+      <div class="featured-logo-strip__label">As seen in</div>
       <div class="featured-logo-strip__items">
         <a class="featured-logo-strip__link" href="https://www.abc.net.au/news/2026-04-04/novated-leases-electric-vehicles-explainer/106527770" target="_blank" rel="noopener">
           <img class="featured-logo-strip__logo featured-logo-strip__logo--abc-news" src="/assets/images/featured/ABC_News_(Australia)_logo.svg.png" alt="ABC News" />
@@ -275,39 +326,21 @@ import FullPage from '../layouts/FullPage.astro';
     </div>
 
     <!-- Testimonials — buy me a coffee last -->
-    <div class="testimonials">
+    <div class="testimonials" id="testimonials">
       <div class="testimonials__title">What readers said</div>
       <div class="testimonials__scroll">
-        <div class="testimonials__track">
-          <div class="testimonials__card">
-            <div class="testimonials__quote">"I've been pointing my friends and family towards your calculator and it's saved them a bunch."</div>
-            <div class="testimonials__source">
-              <img src="https://www.google.com/s2/favicons?domain=reddit.com&sz=16" width="14" height="14" alt="" style="vertical-align:middle;" />
-              Reddit commenter (r/AusFinance) · <a href="https://www.reddit.com/r/AusFinance/comments/1rdaiia/comment/o73wgeq/" target="_blank" rel="noopener">source</a>
+        <div class="testimonials__track" id="testimonials-track">
+          {initialTestimonials.map(t => (
+            <div class="testimonials__card">
+              <div class="testimonials__quote">"{t.quote}"</div>
+              <div class="testimonials__source">
+                <img src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=16`} width="14" height="14" alt="" />
+                <span>{t.who}{t.source && <> · <a href={t.source} target="_blank" rel="noopener">source</a></>}</span>
+              </div>
             </div>
-          </div>
-          <div class="testimonials__card">
-            <div class="testimonials__quote">"Thanks for all your work... I hate to think of all the people who have gone into novated leases that haven't been aware of your calculator."</div>
-            <div class="testimonials__source">
-              <img src="https://www.google.com/s2/favicons?domain=ozbargain.com.au&sz=16" width="14" height="14" alt="" style="vertical-align:middle;" />
-              OzBargain commenter · <a href="https://www.ozbargain.com.au/node/949971#:~:text=downhillmtbr%20on-,01/03/2026%20%2D%2021:38,-+2" target="_blank" rel="noopener">source</a>
-            </div>
-          </div>
-          <div class="testimonials__card">
-            <div class="testimonials__quote">"I found your resources incredibly helpful and easy to follow. Appreciate your amazing work!"</div>
-            <div class="testimonials__source">
-              <img src="https://www.google.com/s2/favicons?domain=facebook.com&sz=16" width="14" height="14" alt="" style="vertical-align:middle;" />
-              Facebook group member · <a href="https://www.facebook.com/groups/602788952082399/posts/956465400048084/?comment_id=956524366708854" target="_blank" rel="noopener">source</a>
-            </div>
-          </div>
-          <div class="testimonials__card">
-            <div class="testimonials__quote">"I make it a rule to not give money to strangers on the internet but this is some of the best work I've seen on the internet..."</div>
-            <div class="testimonials__source">
-              <img src="https://www.google.com/s2/favicons?domain=buymeacoffee.com&sz=16" width="14" height="14" alt="" style="vertical-align:middle;" />
-              Buy Me a Coffee supporter · <a href="https://buymeacoffee.com/changyang1230/t/5386463" target="_blank" rel="noopener">source</a>
-            </div>
-          </div>
+          ))}
         </div>
+        <script type="application/json" id="testimonials-pool" set:html={JSON.stringify(testimonials)} />
         <div class="testimonials__fade" aria-hidden="true"></div>
       </div>
     </div>
@@ -316,6 +349,23 @@ import FullPage from '../layouts/FullPage.astro';
 </FullPage>
 
 <script is:inline>
+  // Rotate testimonials: pick a random four from the pool on each page load.
+  (function () {
+    try {
+      var pool = JSON.parse(document.getElementById('testimonials-pool').textContent);
+      var track = document.getElementById('testimonials-track');
+      if (!pool || pool.length <= 4 || !track) return;
+      for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+      var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+      track.innerHTML = pool.slice(0, 4).map(function (t) {
+        var src = t.source ? ' · <a href="' + esc(t.source) + '" target="_blank" rel="noopener">source</a>' : '';
+        return '<div class="testimonials__card"><div class="testimonials__quote">"' + esc(t.quote) + '"</div>' +
+          '<div class="testimonials__source"><img src="https://www.google.com/s2/favicons?domain=' + esc(t.domain) + '&amp;sz=16" width="14" height="14" alt="" /><span>' +
+          esc(t.who) + src + '</span></div></div>';
+      }).join('');
+    } catch (e) { /* keep the build-time four */ }
+  })();
+
   function toggleBrowser() {
     var browser = document.getElementById('article-browser');
     var arrow = document.getElementById('browser-arrow');

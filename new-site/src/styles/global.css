@@ -1048,12 +1048,35 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.12;
-  margin: 0 0 32px;
+  margin: 0 0 14px;
   max-width: 820px;
   color: var(--color-text);
 }
 
-.home-cta-block { margin: 28px 0 0; }
+.home-hero-sub {
+  margin: 0 0 18px;
+  font-size: 1.3125rem;
+  line-height: 1.45;
+  color: var(--color-text-soft);
+  max-width: 720px;
+}
+.home-hero-sub strong { color: var(--color-text); font-weight: 700; }
+
+/* Trust line under the hero CTA — plain sentence, deliberately undecorated */
+.home-trust {
+  margin: 18px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+.home-trust a {
+  color: var(--nl-blue);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(11, 92, 171, 0.3);
+}
+.home-trust a:hover { border-bottom-color: var(--nl-blue); }
+
+.home-cta-block { margin: 24px 0 0; }
 
 .home-cta-row {
   display: flex;
@@ -1180,21 +1203,50 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 
 .home-body a:hover { border-bottom-color: rgba(11, 92, 171, 0.65); }
 
-.home-alert {
-  margin: 20px 0;
-  padding: 14px 18px;
-  border: 1px solid rgba(5, 150, 105, 0.3);
-  border-left: 4px solid #059669;
-  border-radius: var(--radius-md);
-  background: rgba(5, 150, 105, 0.04);
-  font-size: 0.9375rem;
-  line-height: 1.65;
-  color: var(--color-text-soft);
+/* Rules-status line: quiet, no callout box */
+.home-status {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 22px 0 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
-
-.home-alert a {
+.home-status__pill {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: #047857;
-  border-bottom: 1px solid rgba(4, 120, 87, 0.3);
+  white-space: nowrap;
+}
+.home-status__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+}
+.home-status__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+.home-status__text a {
+  color: var(--nl-blue);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(11, 92, 171, 0.3);
+  white-space: nowrap;
+}
+.home-status__text a:hover { border-bottom-color: var(--nl-blue); }
+@media (max-width: 580px) {
+  .home-status { flex-direction: column; gap: 6px; }
 }
 
 /* Grid cards */
@@ -1464,9 +1516,11 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   font-size: 0.775rem;
   color: var(--color-text-muted);
   display: flex;
-  align-items: center;
-  gap: 5px;
+  align-items: flex-start;
+  gap: 6px;
+  line-height: 1.45;
 }
+.testimonials__source img { flex: 0 0 auto; margin-top: 2px; }
 
 .testimonials__source a {
   color: inherit;
@@ -1686,11 +1740,18 @@ body.drawer-open {
    Homepage — new elements
    ------------------------------------------------------------ */
 .home-cta-caption {
-  margin: 10px 0 0;
+  margin: 12px 0 0;
   font-size: 0.9375rem;
   color: var(--color-text-muted);
   line-height: 1.5;
 }
+.home-cta-caption a {
+  color: var(--nl-blue);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(11, 92, 171, 0.3);
+}
+.home-cta-caption a:hover { border-bottom-color: var(--nl-blue); }
 
 .home-pills__label {
   font-size: 0.875rem;
@@ -1711,8 +1772,8 @@ body.drawer-open {
 .home-hero-left { min-width: 0; }
 
 @media (max-width: 960px) {
-  .home-hero-split { grid-template-columns: 1fr; }
-  .home-calc-preview { display: none; }
+  .home-hero-split { grid-template-columns: 1fr; gap: 28px; }
+  .home-calc-preview { position: static; max-width: 420px; }
 }
 
 /* Calculator preview card */
@@ -1727,6 +1788,49 @@ body.drawer-open {
   position: sticky;
   top: calc(var(--nav-height) + 24px);
 }
+
+.home-calc-preview__tabs {
+  display: flex;
+  border-bottom: 1px solid #c7d9f0;
+  background: rgba(11, 92, 171, 0.04);
+}
+.home-calc-preview__tab {
+  flex: 1 1 0;
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 9px 8px;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 120ms, border-color 120ms, background 120ms;
+}
+.home-calc-preview__tab:hover { color: var(--color-text); background: rgba(11, 92, 171, 0.05); }
+.home-calc-preview__tab.is-active {
+  color: var(--nl-blue);
+  border-bottom-color: var(--nl-blue);
+  background: rgba(255,255,255,0.7);
+}
+.home-calc-preview__tab:focus-visible { outline: 2px solid var(--nl-blue); outline-offset: -2px; }
+
+.home-calc-preview__assumptions {
+  padding: 8px 14px 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--color-text-soft);
+}
+
+.home-calc-preview__label--neg { color: #b91c1c; }
+.home-calc-preview__saving--neg {
+  background: rgba(220, 38, 38, 0.06);
+  border-left-color: #dc2626;
+}
+.home-calc-preview__saving--neg .home-calc-preview__saving-amount { color: #dc2626; }
+.home-calc-preview__result-row .neg { color: #dc2626; font-weight: 600; }
+.home-calc-preview__result-row .muted { color: var(--color-text-muted); }
 
 .home-calc-preview__header {
   background: rgba(11, 92, 171, 0.07);

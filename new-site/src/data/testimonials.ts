@@ -1,0 +1,78 @@
+/**
+ * Pool of reader testimonials shown on the home page. Four are rendered at build
+ * time (so the section is complete without JS and indexable); a small inline
+ * script on the home page then swaps in a random four on each load.
+ *
+ * Rules for adding entries:
+ * - Quote verbatim; trim with an ellipsis rather than rewording.
+ * - Buy Me a Coffee notes: only ones the supporter left public; first name or
+ *   handle only, or "Anonymous supporter" when they posted as "Someone".
+ * - Facebook group posts are inside a private group: quote only with permission
+ *   or fully anonymised, and never link into the group.
+ * - No quotes from people who work in the novated lease industry.
+ */
+export type Testimonial = {
+  quote: string;
+  /** e.g. "Buy Me a Coffee supporter", "Reddit commenter (r/AusFinance)" */
+  who: string;
+  /** Domain used for the favicon, e.g. "buymeacoffee.com" */
+  domain: string;
+  /** Public link to the original, if there is one */
+  source?: string;
+  /** ISO date, for your own reference and future "recent" filtering */
+  date: string;
+};
+
+const BMAC = "https://buymeacoffee.com/changyang1230";
+
+export const testimonials: Testimonial[] = [
+  // ---- Buy Me a Coffee supporter notes (public) ----
+  { quote: "Saved me $300 a month in my negotiations with lease provider, you are a genuine hero.", who: "JLIN · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-06-25" },
+  { quote: "I'm a CPA and last novated lease cycle did my own calculations but this one is better than anything I've done!", who: "CPA · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-03-07" },
+  { quote: "Excellent info and calculator that helped me negotiate and save money on a new EV lease.", who: "Julian · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-05-26" },
+  { quote: "A fantastic tool that greatly assisted in both evaluating impact and negotiating the lease.", who: "Mike C · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-05-09" },
+  { quote: "Really helpful to demystify quotes from our sole-source novated lease provider, and help me get a better deal.", who: "u/mtbwill · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-02-25" },
+  { quote: "Very helpful for my partner and I in recently considering (and ultimately deciding against) novated leasing an EV.", who: "Lauren · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-07-24" },
+  { quote: "Extremely well documented calculator. The true insight into novated leases and their illusive and sometimes misleading \"tax savings\".", who: "Marius · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-07-04" },
+  { quote: "Very helpful. It should be a requirement of the novated lease companies, but in the meantime it is really valuable.", who: "KW · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-08-09" },
+  { quote: "Just when my cynicism was reaching an all-time high. Thank you.", who: "GP · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-07-09" },
+  { quote: "This was doing my head in. Your calculator is better than any provider.", who: "Anonymous · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-07-04" },
+  { quote: "Useful to convince my husband regarding benefits of leasing an EV vs paying cash. Especially good when comparing several quotes from lease providers.", who: "Erin · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-06-29" },
+  { quote: "Even though I'm a finance / spreadsheet guy, I still found this website and the info very instructive.", who: "Anonymous · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-06-01" },
+  { quote: "It has helped immensely, and has definitely saved me thousands.", who: "u/IDontKnowJillOrJack · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-04-02" },
+  { quote: "Cut through the marketing noise and much better than trying to discuss with salesmen.", who: "Kyle · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-03-31" },
+  { quote: "I would not have understood the pros/cons of a novated lease without the aid of this website.", who: "Christian · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-04-22" },
+  { quote: "A complex situation well explained and made me less vulnerable to companies with agendas. My decision is now much easier.", who: "Nic · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-02-26" },
+  { quote: "You've saved me a whole lot of worry during the lease process.", who: "Jonathon · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-08-27" },
+  { quote: "I make it a rule to not give money to strangers on the internet but this is some of the best work I've seen on the internet...", who: "GC · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: `${BMAC}/t/5386463`, date: "2026-02-07" },
+  { quote: "It's been reassuring to compare my own spreadsheet with your unbiased calculator.", who: "Eric · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-07-29" },
+  { quote: "Thanks so much for shining some much-needed light into this grey unregulated area!", who: "Zak · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-02-23" },
+  { quote: "You helped us and we've shared the calculator endlessly.", who: "Haz · Buy Me a Coffee supporter", domain: "buymeacoffee.com", source: BMAC, date: "2026-05-10" },
+
+  // ---- Other platforms (existing) ----
+  { quote: "I've been pointing my friends and family towards your calculator and it's saved them a bunch.", who: "Reddit commenter (r/AusFinance)", domain: "reddit.com", source: "https://www.reddit.com/r/AusFinance/comments/1rdaiia/comment/o73wgeq/", date: "2026-02-01" },
+  { quote: "Really helpful to reverse-engineer the effective interest rate in the quotes a handful of us employees were getting. We were all getting >10.5%, so a lot of us were able to get our provider to \"price beat\" other quotes and offer rates in the low to mid 8s.", who: "Reddit commenter (r/NovatedLeasingAU)", domain: "reddit.com", source: "https://www.reddit.com/r/NovatedLeasingAU/comments/1unpu90/comment/ovmg98w/", date: "2026-07-15" },
+  { quote: "I made the jump to 2 new EVs and sold our 2 ICE vehicles. Nothing wrong with the old vehicles but your calculator helped to convince me the current EV FBT exemption was the deal of the decade.", who: "Reddit commenter (r/NovatedLeasingAU)", domain: "reddit.com", source: "https://www.reddit.com/r/NovatedLeasingAU/comments/1unpu90/comment/ovnxiiz/", date: "2026-07-15" },
+  { quote: "This tool is epic! Well done 👏", who: "Reddit commenter (r/NovatedLeasingAU), on the early-termination risk section", domain: "reddit.com", source: "https://www.reddit.com/r/NovatedLeasingAU/comments/1qytnix/comment/o47tdsl/", date: "2026-02-01" },
+  { quote: "Always use the community calculator. No fuss, straightforward, not affiliated with any company so no follow-ups or salespeople.", who: "Reddit commenter (r/NovatedLeasingAU)", domain: "reddit.com", source: "https://www.reddit.com/r/NovatedLeasingAU/comments/1w5ms94/comment/p7geyt9/", date: "2026-09-01" },
+  { quote: "Do your own due diligence upfront and don't rely on the NL provider to tell you everything. Filling out the calculator and going through the detail view and screen tips will go a long way.", who: "Reddit commenter (r/NovatedLeasingAU)", domain: "reddit.com", source: "https://www.reddit.com/r/NovatedLeasingAU/comments/1vwzq2c/comment/p5qxv8r/", date: "2026-08-15" },
+  { quote: "There's a good calculator here to get an idea of what your situation might look like. A really handy comparison is the one that has \"compare with keeping existing car\". You can use this to simulate buying an ICE car without a lease.", who: "Reddit commenter (r/NovatedLeasingAU)", domain: "reddit.com", source: "https://www.reddit.com/r/NovatedLeasingAU/comments/1ujap21/comment/oumaq0k/", date: "2026-06-15" },
+  { quote: "The calculator has been vetted by the community and in use for ages and is very solid, so is probably worth trusting it for interest rates instead of the provider's quote.", who: "Reddit commenter (r/NovatedLeasingAU)", domain: "reddit.com", source: "https://www.reddit.com/r/NovatedLeasingAU/comments/1w1ejpj/comment/p6oixat/", date: "2026-08-15" },
+  { quote: "Thanks for all your work... I hate to think of all the people who have gone into novated leases that haven't been aware of your calculator.", who: "OzBargain commenter", domain: "ozbargain.com.au", source: "https://www.ozbargain.com.au/node/949971#:~:text=downhillmtbr%20on-,01/03/2026%20%2D%2021:38,-+2", date: "2026-03-01" },
+  { quote: "I had already validated my provider's figures using novatedlease.guide and they checked out.", who: "Whirlpool forum member", domain: "whirlpool.net.au", source: "https://forums.whirlpool.net.au/archive/3888l5n1#r76556054", date: "2026-06-14" },
+  { quote: "Have you checked out this amazing calculator made by changyang?", who: "Whirlpool forum member", domain: "whirlpool.net.au", source: "https://forums.whirlpool.net.au/archive/3yqm6m0v-11#r76312051", date: "2026-03-10" },
+  { quote: "Where they say it's 7.5% interest, but they add a $1,500 fee, the comparison rate is actually more like 9-10%. To get the actual comparison rate you need to use a calculator like novatedlease.guide.", who: "Whirlpool forum member", domain: "whirlpool.net.au", source: "https://forums.whirlpool.net.au/archive/3yqm6m0v-12#r76507035", date: "2026-05-26" },
+  { quote: "When plugging the quote into Changy's spreadsheet, it looks like we've been quoted an effective interest rate between 15-18%, amongst other hidden costs.", who: "Whirlpool forum member", domain: "whirlpool.net.au", source: "https://forums.whirlpool.net.au/archive/3yqm6m0v-11#r76132793", date: "2025-12-31" },
+  { quote: "I've had to reverse engineer the finance rate to compare. That's why changyang's spreadsheet is so useful.", who: "Whirlpool forum member", domain: "whirlpool.net.au", source: "https://forums.whirlpool.net.au/archive/3yqm6m0v-11#r76319924", date: "2026-03-13" },
+  { quote: "A fine piece of work. Everyone I know uses it. Respect and thanks.", who: "Whirlpool forum member, on the original spreadsheet", domain: "whirlpool.net.au", source: "https://forums.whirlpool.net.au/archive/3yqm6m0v-10#r75122401", date: "2025-02-12" },
+  { quote: "His sheet was amazingly helpful. Compares NL to loan to outright, along with a bunch of other helpful info.", who: "Whirlpool forum member, on the original spreadsheet", domain: "whirlpool.net.au", source: "https://forums.whirlpool.net.au/archive/3yqm6m0v-9#r74700248", date: "2024-10-08" },
+  { quote: "Really appreciate the effort you've put into your spreadsheet so that people can actually compare the costs.", who: "Whirlpool forum member, on the original spreadsheet", domain: "whirlpool.net.au", source: "https://forums.whirlpool.net.au/archive/3yqm6m0v-8#r74129894", date: "2024-05-02" },
+  { quote: "For the effective interest rate calc, it returns me 21.33%. Very eye opening.", who: "Whirlpool forum member, on the original spreadsheet", domain: "whirlpool.net.au", source: "https://forums.whirlpool.net.au/archive/3yqm6m0v-8#r73995698", date: "2024-03-22" },
+  { quote: "I found your resources incredibly helpful and easy to follow. Appreciate your amazing work!", who: "Facebook group member", domain: "facebook.com", source: "https://www.facebook.com/groups/602788952082399/posts/956465400048084/?comment_id=956524366708854", date: "2026-02-15" },
+  { quote: "Thanks for the really clear explanation. It's hard to find this information in simple English to explain to others.", who: "Facebook group member", domain: "facebook.com", source: "https://www.facebook.com/groups/602788952082399/posts/955880893439868/?comment_id=956341140060510", date: "2026-02-15" },
+  { quote: "Thanks for creating this, very helpful and clear.", who: "Facebook group member", domain: "facebook.com", source: "https://www.facebook.com/groups/602788952082399/posts/1008513731509917/?comment_id=1009007641460526", date: "2026-08-01" },
+  { quote: "Wow, these are all scenarios in my head and to know there is a tool that can do it all-in-one is great to know!", who: "Facebook group member", domain: "facebook.com", source: "https://www.facebook.com/groups/602788952082399/posts/1043975497963740/?comment_id=1044121324615824", date: "2026-06-15" },
+  { quote: "Your spreadsheet is amazing! Really helped me to understand the costs of a novated lease and, importantly, to communicate them to my husband.", who: "Facebook group member", domain: "facebook.com", source: "https://www.facebook.com/groups/602788952082399/posts/973255728369051/?comment_id=973259201702037&reply_comment_id=973260828368541", date: "2026-03-15" },
+  { quote: "Your spreadsheet is amazing. Provides a clear explanation rather than \"tax savings\" which seems to be the advertising enticement for a lot of NL companies.", who: "Facebook group member", domain: "facebook.com", source: "https://www.facebook.com/groups/602788952082399/posts/973255728369051/?comment_id=973278025033488", date: "2026-03-15" },
+  { quote: "A huge gratitude for building the NL Calculator and making it open for all. Great work.", who: "Facebook group member", domain: "facebook.com", source: "https://www.facebook.com/groups/602788952082399/posts/1000404355654188/?comment_id=1000614932299797", date: "2026-04-15" },
+];
