@@ -6,6 +6,7 @@ import { Button } from "./components/ui/Button";
 import { KV } from "./components/ui/shared";
 import { InfoTooltip } from "./components/ui/InfoTooltip";
 import { SummaryView } from "./components/SummaryView";
+import { noteInputChange } from "./state/engagement";
 
 export function SimpleMode(props: {
   answers: SimpleModeAnswers;
@@ -16,6 +17,7 @@ export function SimpleMode(props: {
   const { answers, setAnswers } = props;
 
   function set<K extends keyof SimpleModeAnswers>(key: K, value: SimpleModeAnswers[K]) {
+    noteInputChange(`simple.${key}`);
     setAnswers((prev) => ({ ...prev, [key]: value }));
   }
 

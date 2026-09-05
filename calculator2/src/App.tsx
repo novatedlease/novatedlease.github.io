@@ -25,6 +25,8 @@ import { QuotesPanel } from "./components/QuotesPanel";
 import { ComparatorView } from "./components/ComparatorView";
 import { InputsPanel } from "./components/InputsPanel";
 import { Tour } from "./components/Tour";
+import { CoffeeNudgeModal } from "./components/CoffeeNudgeModal";
+import { useCoffeeNudge } from "./hooks/useCoffeeNudge";
 import { type SavedQuoteV1, safeLoadQuotes } from "./state/savedQuotes";
 import { trackEvent, trackOncePerSession } from "./utils/analytics";
 
@@ -477,6 +479,10 @@ export default function App() {
     window.localStorage.setItem(TOUR_HIDDEN_KEY, "1");
     trackEvent("tour_hidden_forever");
   }
+  // One-time "buy me a coffee" message after sustained use (>= 4 min visible + >= 4 distinct
+  // fields edited; see src/state/engagement.ts). Held back while the tour owns the screen.
+  const coffeeNudge = useCoffeeNudge({ paused: tourOpen });
+
   function exitTour(reason: "completed" | "skipped", stepIndex: number) {
     setTourOpen(false);
     const snapshot = tourSnapshotRef.current;
@@ -533,6 +539,8 @@ export default function App() {
         />
       )}
       <Footer showTourLink={tourHidden} onStartTour={startTour} />
+
+      {coffeeNudge.open && !tourOpen && <CoffeeNudgeModal onClose={() => coffeeNudge.close()} />}
 
       {tourOpen && (
         <Tour

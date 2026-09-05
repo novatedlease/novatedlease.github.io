@@ -9,6 +9,7 @@ import { CurrencyField } from "./ui/Field";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import { LeaseAdjustModal } from "./LeaseAdjustModal";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
+import { noteInputChange } from "../state/engagement";
 
 function formatMoney(x: number): string {
   return `$ ${x.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -102,6 +103,7 @@ export function LeaseRateGuard(props: {
     const clamped = Math.max(0, perFn);
     trackOncePerSession("calculator_started", "calculator_started", { field: "vehicleLeasePerFn" });
     trackEvent("input_changed", { field: "vehicleLeasePerFn" });
+    noteInputChange("vehicleLeasePerFn");
 
     if (!Number.isFinite(minFn) || !Number.isFinite(maxFn)) {
       setInputs((p) => ({ ...p, vehicleLeasePerFn: clamped }));

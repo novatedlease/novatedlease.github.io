@@ -8,6 +8,7 @@ import { LeaseRateGuard } from "./LeaseRateGuard";
 import { NoteBox } from "./ui/shared";
 import { Button } from "./ui/Button";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
+import { noteInputChange } from "../state/engagement";
 
 /**
  * Full Advanced-mode input form — every field in the engine's `Inputs` type,
@@ -32,6 +33,7 @@ export function InputsPanel(props: {
   function touch(field: string) {
     trackOncePerSession("calculator_started", "calculator_started", { field });
     trackEvent("input_changed", { field });
+    noteInputChange(field);
   }
 
   // Lease-duration re-quote warning — mirrors v1 InputsPanel.tsx (~lines 36-42, 676-713):
