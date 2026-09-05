@@ -2,9 +2,9 @@
 import FullPage from '../layouts/FullPage.astro';
 import { testimonials } from '../data/testimonials';
 
-// Four rendered at build time (no-JS fallback + indexable); the inline script below
-// swaps in a random four from the full pool on each load.
-const initialTestimonials = testimonials.slice(0, 4);
+// Eight rendered at build time (no-JS fallback + indexable); the inline script below
+// swaps in a random eight from the full pool on each load.
+const initialTestimonials = testimonials.slice(0, 8);
 ---
 
 <FullPage
@@ -349,15 +349,15 @@ const initialTestimonials = testimonials.slice(0, 4);
 </FullPage>
 
 <script is:inline>
-  // Rotate testimonials: pick a random four from the pool on each page load.
+  // Rotate testimonials: pick a random eight from the pool on each page load.
   (function () {
     try {
       var pool = JSON.parse(document.getElementById('testimonials-pool').textContent);
       var track = document.getElementById('testimonials-track');
-      if (!pool || pool.length <= 4 || !track) return;
+      if (!pool || pool.length <= 8 || !track) return;
       for (var i = pool.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
       var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-      track.innerHTML = pool.slice(0, 4).map(function (t) {
+      track.innerHTML = pool.slice(0, 8).map(function (t) {
         var src = t.source ? ' · <a href="' + esc(t.source) + '" target="_blank" rel="noopener">source</a>' : '';
         return '<div class="testimonials__card"><div class="testimonials__quote">"' + esc(t.quote) + '"</div>' +
           '<div class="testimonials__source"><img src="https://www.google.com/s2/favicons?domain=' + esc(t.domain) + '&amp;sz=16" width="14" height="14" alt="" /><span>' +

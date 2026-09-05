@@ -1,7 +1,7 @@
 /**
- * Pool of reader testimonials shown on the home page. Four are rendered at build
+ * Pool of reader testimonials shown on the home page. Eight are rendered at build
  * time (so the section is complete without JS and indexable); a small inline
- * script on the home page then swaps in a random four on each load.
+ * script on the home page then swaps in a random eight on each load.
  *
  * Rules for adding entries:
  * - Quote verbatim; trim with an ellipsis rather than rewording.
