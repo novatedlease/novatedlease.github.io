@@ -1,6 +1,11 @@
 ---
 import FullPage from '../../layouts/FullPage.astro';
 
+// Build stamp appended to the calculator bundle URLs. The bundle keeps stable
+// filenames (main.js / style.css), so without this a browser can keep serving a
+// cached copy after a deploy.
+const v = Date.now().toString(36);
+
 // Ported verbatim from ../calculator-old/index.astro's FAQPage schema — kept in sync so
 // cut-over doesn't lose the structured-data SEO work already done for v1.
 const faqSchema = {
@@ -70,8 +75,8 @@ const faqSchema = {
       <div class="nl-calculator2-placeholder" aria-hidden="true"></div>
     </div>
 
-    <link rel="stylesheet" href="/assets/calculator/style.css" />
-    <script type="module" src="/assets/calculator/main.js"></script>
+    <link rel="stylesheet" href={`/assets/calculator/style.css?v=${v}`} />
+    <script type="module" src={`/assets/calculator/main.js?v=${v}`}></script>
 
     <div class="admonition admonition--info" style="margin:2rem 0 1rem;">
       <div class="admonition__title">Support this independent calculator &amp; guide</div>
