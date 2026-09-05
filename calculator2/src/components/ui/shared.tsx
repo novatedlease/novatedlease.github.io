@@ -113,10 +113,12 @@ export function NoteBox({
   children,
   color = "var(--nlc-blue)",
   mt,
+  mb,
 }: {
   children: React.ReactNode;
   color?: string;
   mt?: number;
+  mb?: number;
 }) {
   return (
     <div
@@ -126,6 +128,7 @@ export function NoteBox({
         borderColor: tint(color, 0.22),
         borderLeftColor: tint(color, 0.65),
         marginTop: mt,
+        marginBottom: mb,
       }}
     >
       {children}

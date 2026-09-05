@@ -166,7 +166,7 @@ export function InputsPanel(props: {
 
       <Section title="Vehicle details" defaultOpen>
         {isEv && leaseFbtCategory === "EV_FBT_APPLICABLE" && (
-          <NoteBox color="var(--nlc-acc-red)">
+          <NoteBox color="var(--nlc-acc-red)" mb={14}>
             <div style={{ fontWeight: 800, marginBottom: 4 }}>This vehicle may not be eligible for FBT-exempt (EV) novated leasing.</div>
             <div style={{ opacity: 0.92 }}>
               {!usedEligibilityChecksOk ? (
@@ -291,7 +291,7 @@ export function InputsPanel(props: {
         )}
         <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} suffix="years" min={1} max={5} decimals={0} />
         {needsLeaseRequote && (
-          <NoteBox color="var(--nlc-acc-red)">
+          <NoteBox color="var(--nlc-acc-red)" mb={14}>
             <div style={{ fontWeight: 800, marginBottom: 4 }}>Heads up: changing lease duration usually changes your per-fortnight lease quote.</div>
             <div style={{ opacity: 0.92 }}>
               Please update <b>Vehicle finance</b> (and <b>all other quote-dependent fields</b>) to match the new duration, otherwise the outputs may be misleading.
