@@ -1,8 +1,8 @@
 ---
 datePublished: "2026-05-04"
 dateModified: "2026-07-01"
-title: EV FBT exemption wind-back — 2026 Budget announcement explained
-description: The treasurer has announced a phased wind-back of the EV FBT exemption over the next three FBT years. This article explains who is affected, what changes apply, and the precise financial impact for each scenario.
+title: "When Does the EV FBT Exemption End? The 2027 to 2029 Phase-Out Explained"
+description: "The EV FBT exemption is not ending outright. From 1 April 2027 it is limited to cars under $75,000, with 75% of FBT applying above that, and from 1 April 2029 full exemption goes for all new leases. Who is grandfathered, what each tier costs, and the dollar impact for every scenario."
 ---
 
 # EV FBT exemption wind-back — 2026 Budget announcement explained

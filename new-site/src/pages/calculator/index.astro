@@ -29,6 +29,11 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
+      name: 'Does this calculator work for a used or second-hand car?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Set the vehicle condition to used (dealer sale) or used (private sale). A dealer sale attracts the GST saving on the purchase price; a private sale has no GST in the price, so there is no GST credit. For a used EV, the FBT exemption only applies if the car was first held and used on or after 1 July 2022 and Luxury Car Tax was never payable on it, and the calculator asks you to confirm both.' },
+    },
+    {
+      '@type': 'Question',
       name: "Why doesn't this calculator display a tax saving figure?",
       acceptedAnswer: { '@type': 'Answer', text: 'Tax reduction is only one component of the overall financial equation. A novated lease may also involve higher effective interest rates, management fees, brokerage, and early-termination risks. Focusing solely on "tax saved" can be misleading, so this calculator focuses on the real net financial outcome instead.' },
     },
@@ -127,6 +132,9 @@ const faqSchema = {
 
     <h3>Does this calculator support fractional lease terms like 13 months or 25 months?</h3>
     <p>No. The calculator supports whole-year lease durations only (1–5 years), and this is a deliberate design choice. Fractional lease durations introduce ambiguities around residual values, annual running costs, and fortnight counts that are handled inconsistently between providers. Modelling them with false precision would likely produce misleading results.</p>
+
+    <h3>Does this calculator work for a used or second-hand car?</h3>
+    <p>Yes. In the Advanced inputs, set the vehicle condition to <em>used, dealer sale</em> or <em>used, private sale</em>. A dealer sale still attracts the GST saving on the purchase price, while a private sale has no GST in the price and therefore no GST credit, which changes the financed amount. For a used EV, the FBT exemption applies only if the car was first held and used on or after 1 July 2022 and Luxury Car Tax was never payable on it; the calculator asks you to confirm both. See <a href="/costs-and-savings/used-car-gst-saving/">how the used-car GST saving works</a> for the detail.</p>
 
     <h3>Why doesn't this calculator display a "tax saving" figure?</h3>
     <p>You may notice that this calculator does not prominently display a single "tax saved" number — and that is deliberate. Novated lease providers often emphasise tax savings because it is psychologically compelling. However, tax reduction is only one component of the overall financial equation. A novated lease may also involve higher effective interest rates, management fees, brokerage, GST interactions, and early‑termination risks. Focusing solely on "tax saved" can therefore be misleading as explained in <a href="/costs-and-savings/why-tax-saved-is-wrong/">this explanatory article</a> and <a href="/costs-and-savings/false-saving-example/">a fully worked example</a>.</p>

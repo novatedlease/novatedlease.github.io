@@ -1,8 +1,8 @@
 ---
-title: "Failure to pass on GST savings"
+title: "Novated Lease GST Savings: Is Your Employer Passing Them On?"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
-description: Failure to pass on GST savings is an overlooked cost in some novated leases. How some providers retain the GST credit on running costs — and how to spot it on your statement.
+description: "Your employer claims the GST on novated lease running costs, but some (Victorian public hospitals in particular) keep it rather than passing it on. What the GST saving is worth, how to spot on your statement whether you are getting it, and what it costs you if not."
 ---
 
 # Failure to pass on GST savings — an overlooked cost in some novated leases

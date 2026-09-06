@@ -1,8 +1,8 @@
 ---
 datePublished: "2026-02-06"
 dateModified: "2026-06-05"
-title: "A marketed \"$21,320 savings\" was actually a $5,591 net loss"
-description: A step-by-step breakdown of a real novated lease quote showing how the advertised savings figure overstates the true outcome — and how net financial position compares against a cash purchase and car loan.
+title: "Novated Lease 'Tax Savings' Exposed: A $21,320 Claim That Was a $5,591 Loss"
+description: "A real novated lease quote advertised $21,320 in savings. Worked through line by line against paying cash and a car loan, it was a $5,591 net loss. How the tax-saved figure is constructed, what it leaves out, and how to check your own quote."
 ---
 
 # Real-life example: How a marketed "$21,320 savings" result in a $5,591 net loss
