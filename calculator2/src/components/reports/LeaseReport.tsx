@@ -142,7 +142,7 @@ export function LeaseReport(props: {
   const postTaxRunningLifetime = totalTakeHomeImpactOverLease * runningShare;
   const postTaxTotalLifetime = totalTakeHomeImpactOverLease;
 
-  const mostExpensiveImpactNote = "This is displaying the most expensive take home impact when the FY-to-FY effect varies";
+  const mostExpensiveImpactNote = "When your marginal tax rate differs between financial years (e.g. near a tax bracket boundary), the fortnight and annual columns use the year in which pre-tax dollars cost you the most take-home pay. The lifetime column sums the actual figure for each year.";
 
   const totalLifetimeImpact = fbtApplies ? totalTakeHomeImpactLifetime : postTaxTotalLifetime;
 
@@ -242,7 +242,7 @@ export function LeaseReport(props: {
                   <td style={tdLeft(false)}>
                     Pre-Tax Deduction&apos;s Equivalent Post-Tax Impact
                     <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.7, fontSize: 12 }}>
-                      <InfoTooltip text="Fortnight/Annual use the most expensive FY take-home impact factor for pre-tax dollars (i.e., the largest (1 − taxRate) across FYs)." />
+                      <InfoTooltip text={mostExpensiveImpactNote} />
                     </span>
                   </td>
                   <td style={td(false)}>{preTaxFmt(fnToCol(preTaxEquivalentPostTaxImpactFn))}</td>

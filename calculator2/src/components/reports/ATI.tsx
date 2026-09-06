@@ -175,7 +175,7 @@ export function ATI(props: AtiProps) {
             );
           })}
         </div>
-        <InfoTooltip text="When the FBT-exempt employer option is selected, the Reportable Fringe Benefits Amount (RFBA) is reduced to 53% for childcare subsidy means-testing." />
+        <InfoTooltip text="When the FBT-exempt (childcare) option is selected, the Reportable Fringe Benefits Amount (RFBA) is multiplied by 53%. This 'adjusted fringe benefits total' applies to Child Care Subsidy and Family Tax Benefit income tests for employees of FBT-exempt employers (public hospitals, PBIs, charities). It does not apply to HELP/HECS repayment income, which uses the full RFBA." />
       </div>
       <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", fontStyle: "italic", marginBottom: 12 }}>
         Choose the second option if you work for an FBT-exempt organisation (e.g. hospital) and are assessing childcare subsidy.
@@ -200,7 +200,7 @@ export function ATI(props: AtiProps) {
               <td style={td()}>
                 {r.financialYearEnding === rfbaTwoThirdsFromYear && (
                   <span style={{ marginRight: 6 }}>
-                    <InfoTooltip text={`From FY ${rfbaTwoThirdsFromYear} onwards, the RFBA is further reduced to two-thirds (2/3) due to base-value adjustment rule after 4 years.`} />
+                    <InfoTooltip text={`From FY ${rfbaTwoThirdsFromYear} onwards the RFBA is further reduced to two-thirds, because a car's FBT base value drops by one-third once it has been held for four full FBT years (1 April to 31 March).`} />
                   </span>
                 )}
                 {r.financialYearEnding}

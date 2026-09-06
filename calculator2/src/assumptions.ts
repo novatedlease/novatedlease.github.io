@@ -318,7 +318,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
       label: "Luxury vehicle adjustment",
       value: "$0/fortnight (assumed not applicable)",
       tooltip:
-        `Assumed $0. This is a separate pre-tax charge some providers add to quotes for vehicles above roughly $69,883, for complex employer-accounting reasons — it's a different concept from Luxury Car Tax (LCT) and is listed separately on some quotes when it applies. ${answers.driveawayCost > 69883 ? "Your drive-away price is above this threshold, so check your real quote for whether this applies to you. " : ""}Advanced mode lets you enter the real per-fortnight figure from your quote.\n\n[Read sgfleet's explainer on the luxury vehicle adjustment](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf)`,
+        `Assumed $0. This is a separate pre-tax charge some providers add to quotes for vehicles costing more than the ATO car limit ($69,883 for FY2026-27, indexed each July), for complex employer-accounting reasons — it's a different concept from Luxury Car Tax (LCT) and is listed separately on some quotes when it applies. ${vehicleBaseValue > 69883 ? "Your estimated vehicle value is above this limit, so check your real quote for whether this applies to you. " : ""}Advanced mode lets you enter the real per-fortnight figure from your quote.\n\n[Read sgfleet's explainer on the luxury vehicle adjustment](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf)`,
     },
     {
       field: "leaseDocFee",
@@ -388,9 +388,9 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     {
       field: "gstSavingPassedOn",
       label: "GST saving",
-      value: "Assumed passed on by your provider",
+      value: "Assumed passed on by your employer",
       tooltip:
-        "Most novated lease providers pass the GST saving on vehicle running costs through to you. A minority of employers (Victorian public hospitals in particular) do not pass this saving on — check your employer/provider's policy.\n\n[Read more about what happens if the GST saving isn't passed on](https://novatedlease.guide/running-costs/failure-to-pass-gst-saving/)",
+        "Most employers pass the GST saving on vehicle running costs through to you. A minority of employers (Victorian public hospitals in particular) do not pass this saving on — check your employer's policy.\n\n[Read more about what happens if the GST saving isn't passed on](https://novatedlease.guide/running-costs/failure-to-pass-gst-saving/)",
     },
   ];
 

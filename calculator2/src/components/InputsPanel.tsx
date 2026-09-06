@@ -99,7 +99,7 @@ export function InputsPanel(props: {
             { value: "EV", label: "Electric" },
             { value: "Non-EV", label: "Petrol / diesel / hybrid" },
           ]}
-          tooltip={<InfoTooltip text="FBT exemption applies only to eligible EVs: first held and used after 1 July 2022, and Luxury Car Tax (LCT) was not payable at any point." />}
+          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for leases starting on or after 1 April 2025, so choose 'Petrol / diesel / hybrid' for a PHEV. The car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the May 2026 phase-out rules also apply, based on your lease start date." />}
         />
 
         <SelectField
@@ -218,7 +218,7 @@ export function InputsPanel(props: {
           label="Total taxable income"
           value={inputs.totalTaxableIncome}
           onChange={(v) => set("totalTaxableIncome", v)}
-          tooltip={<InfoTooltip text="The sum of ALL income minus deductions — not just the portion via the workplace arranging this lease." />}
+          tooltip={<InfoTooltip text="Your current taxable income before any novated lease deduction: the sum of ALL income minus deductions — not just the salary from the employer arranging this lease." />}
         />
         <PercentField
           label="Home loan offset interest rate"
@@ -231,8 +231,7 @@ export function InputsPanel(props: {
               text={
                 "The spirit of this question: what is the opportunity cost of your cash — i.e. what would it otherwise be earning if it wasn't spent on buying the car outright?\n\n" +
                 "If your cash sits in your home loan offset account, use that loan's interest rate directly — the benefit (interest avoided) isn't taxable, so no adjustment is needed.\n\n" +
-                "If you don't have a home loan, use the next-best alternative you'd otherwise use, e.g. a High-Interest Savings Account (HISA) rate.\n\n" +
-                "If your cash would instead sit in an investment property's loan offset, or a HISA, the interest earned there IS taxable — so use the post-tax equivalent: rate × (1 − your marginal tax rate incl. Medicare levy). Example: a 6% HISA/investment-offset rate at a 45% + 2% Medicare marginal rate → 6% × (1 − 0.47) = 6% × 0.53 = 3.18%.\n\n" +
+                "If you don't have a home loan, use the next-best alternative you'd otherwise use, e.g. a High-Interest Savings Account (HISA). Because HISA interest (and interest avoided in an investment property's loan offset) is taxable, convert it to the post-tax equivalent: rate × (1 − your marginal tax rate incl. Medicare levy). Example: a 6% rate at a 45% + 2% Medicare marginal rate → 6% × (1 − 0.47) = 6% × 0.53 = 3.18%.\n\n" +
                 "Set to 0 if the cash would otherwise sit in a non-income-producing account."
               }
             />
@@ -351,7 +350,7 @@ export function InputsPanel(props: {
           tooltip={
             <InfoTooltip
               text={
-                "Only applies above $69,883, due to complex employer accounting reasons (a separate concept from the Luxury Car Tax (LCT) threshold). Listed separately on some quotes.\n\n" +
+                "Only applies to vehicles costing more than the ATO car limit ($69,883 for FY2026-27, indexed each July), due to complex employer accounting reasons (a separate concept from the Luxury Car Tax (LCT) threshold). Listed separately on some quotes.\n\n" +
                 "[Read sgfleet's explainer on the luxury vehicle adjustment](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf)"
               }
             />

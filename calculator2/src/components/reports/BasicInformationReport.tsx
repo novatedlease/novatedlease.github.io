@@ -177,7 +177,7 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
               note={postReimbursementEffectiveChargingExpense <= 0 ? "Net gain after tax benefit" : "After tax reimbursement"}
             />
           </StatGrid>
-          <KV label="kWh per year" value={aud0(kwhPerYear)} tooltip={<InfoTooltip text="Annual mileage × efficiency (Wh/km)." />} />
+          <KV label="kWh per year" value={aud0(kwhPerYear)} tooltip={<InfoTooltip text="Annual mileage × efficiency (Wh/km) ÷ 1,000." />} />
           <KV label="Actual charging expense per year" value={`$${aud(chargingExpensePerYear)}`} tooltip={<InfoTooltip text="Real out-of-pocket cost based on your tariff." />} />
           <KV label="NL claim amount per year" value={`$${aud(assumedChargingClaimPerYear)}`} tooltip={<InfoTooltip text="The packaged electricity amount. May default to ATO 5.47c/km shortcut — you can override in the Inputs panel." />} />
           <KV
