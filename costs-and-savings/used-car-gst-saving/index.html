@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="color-scheme" content="light dark"><script>
+      // Theme: stored choice wins; otherwise follow the system. Runs before first paint to avoid a flash.
+      (function () {
+        var root = document.documentElement;
+        var stored = null;
+        try { stored = localStorage.getItem('theme'); } catch (e) {}
+        var fromUrl = new URLSearchParams(location.search).get('theme');
+        if (fromUrl === 'dark' || fromUrl === 'light') stored = fromUrl;
+        var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        function apply(t) { if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.setAttribute('data-theme', 'light'); }
+        apply(stored === 'dark' || stored === 'light' ? stored : (mq && mq.matches ? 'dark' : 'light'));
+        if (mq && mq.addEventListener) mq.addEventListener('change', function (e) {
+          var s = null; try { s = localStorage.getItem('theme'); } catch (err) {}
+          if (s !== 'dark' && s !== 'light') apply(e.matches ? 'dark' : 'light');
+        });
+        window.toggleTheme = function () {
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          apply(next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          try { if (typeof gtag === 'function') gtag('event', 'theme_toggled', { theme: next }); } catch (e) {}
+        };
+      })();
+    </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>The used-car GST secret on a novated lease — Novated Lease Guide</title><meta name="description" content="The novated lease GST saving most people think applies only to new cars also works for private used-car sales — through a dealer middleman and Division 66 of the GST Act. How it works, why it's legal, and what it's worth."><link rel="canonical" href="https://novatedlease.guide/costs-and-savings/used-car-gst-saving/"><!-- Favicon --><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><!-- Open Graph --><meta property="og:type" content="article"><meta property="og:title" content="The used-car GST secret on a novated lease — Novated Lease Guide"><meta property="og:description" content="The novated lease GST saving most people think applies only to new cars also works for private used-car sales — through a dealer middleman and Division 66 of the GST Act. How it works, why it's legal, and what it's worth."><meta property="og:url" content="https://novatedlease.guide/costs-and-savings/used-car-gst-saving/"><meta property="og:image" content="https://novatedlease.guide/og/costs-and-savings/used-car-gst-saving.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="The used-car GST secret on a novated lease — Novated Lease Guide"><meta name="twitter:description" content="The novated lease GST saving most people think applies only to new cars also works for private used-car sales — through a dealer middleman and Division 66 of the GST Act. How it works, why it's legal, and what it's worth."><meta name="twitter:image" content="https://novatedlease.guide/og/costs-and-savings/used-car-gst-saving.png"><!-- Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://novatedlease.guide/#website","name":"Novated Lease Guide","url":"https://novatedlease.guide","description":"Independent, evidence-based guide and calculator for understanding novated leases in Australia.","publisher":{"@id":"https://novatedlease.guide/#org"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://novatedlease.guide/"},{"@type":"ListItem","position":2,"name":"Costs And Savings","item":"https://novatedlease.guide/costs-and-savings/"},{"@type":"ListItem","position":3,"name":"The used-car GST secret on a novated lease","item":"https://novatedlease.guide/costs-and-savings/used-car-gst-saving/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The used-car GST secret on a novated lease","description":"The novated lease GST saving most people think applies only to new cars also works for private used-car sales — through a dealer middleman and Division 66 of the GST Act. How it works, why it's legal, and what it's worth.","url":"https://novatedlease.guide/costs-and-savings/used-car-gst-saving/","image":"https://novatedlease.guide/og/costs-and-savings/used-car-gst-saving.png","author":{"@type":"Person","@id":"https://novatedlease.guide/about/about-me/#person","name":"changyang1230","url":"https://novatedlease.guide/about/about-me/","jobTitle":"Anaesthetist, biostatistician, and novated lease consumer advocate","description":"Australian anaesthetist, qualified biostatistician, and former mathematical olympiad national representative. Independent author of novatedlease.guide — a free evidence-based guide and calculator for understanding novated leases in Australia.","knowsAbout":["Novated leasing","Salary packaging","Fringe Benefits Tax","Electric vehicle FBT exemption","Australian personal finance","Australian tax","Biostatistics","Probability and statistics"],"sameAs":["https://www.reddit.com/user/changyang1230","https://buymeacoffee.com/changyang1230"]},"publisher":{"@type":"Organization","@id":"https://novatedlease.guide/#org","name":"Novated Lease Guide","url":"https://novatedlease.guide","logo":{"@type":"ImageObject","url":"https://novatedlease.guide/assets/images/logo.png"},"founder":{"@id":"https://novatedlease.guide/about/about-me/#person"}},"isPartOf":{"@id":"https://novatedlease.guide/#website"},"mainEntityOfPage":"https://novatedlease.guide/costs-and-savings/used-car-gst-saving/","datePublished":"2026-06-06","dateModified":"2026-06-30"}</script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-52RWVTCGLP"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-52RWVTCGLP', { anonymize_ip: true });
+    </script><link rel="stylesheet" href="/_astro/_slug_.nTyyVw3T.css"></head> <body> <nav class="site-nav" role="navigation" aria-label="Main navigation"> <div class="site-nav__inner"> <!-- Brand --> <a class="site-nav__brand" href="/"> <img class="site-nav__logo" src="/assets/images/logo.png" alt="" aria-hidden="true">
+Novated Lease Guide
+</a> <!-- Desktop links --> <ul class="site-nav__links" role="list"> <li> <a href="/" class="site-nav__link"> Home </a> </li><li> <a href="/calculator/" class="site-nav__link site-nav__link--cta"> Calculator <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </a> <div class="nav-dropdown" role="menu"> <a href="/calculator/" class="nav-dropdown__item" role="menuitem"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-dropdown__item" role="menuitem"> Employer BYO Checker </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Fundamentals <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <div class="nav-dropdown__heading">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-dropdown__item" role="menuitem"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-dropdown__item" role="menuitem"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-dropdown__item" role="menuitem"> Is a novated lease worth it? </a> <div class="nav-dropdown__heading">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-dropdown__item" role="menuitem"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-dropdown__item" role="menuitem"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-dropdown__item" role="menuitem"> 20 novated lease calculators reviewed </a> <div class="nav-dropdown__heading">Reference</div><a href="/start-here/glossary/" class="nav-dropdown__item" role="menuitem"> Glossary of terms </a>  </div> </li><li> <button class="site-nav__link active" aria-haspopup="true" aria-expanded="false" type="button"> Mechanisms <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/costs-and-savings/" class="nav-dropdown__item active" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-dropdown__item" role="menuitem"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-dropdown__item" role="menuitem"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-dropdown__item" role="menuitem"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-dropdown__item" role="menuitem"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-dropdown__heading">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-dropdown__item" role="menuitem"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-dropdown__item" role="menuitem"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-dropdown__heading">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-dropdown__item" role="menuitem"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-dropdown__item active" role="menuitem"> Used-car GST secret (Division 66) </a> <div class="nav-dropdown__heading">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-dropdown__item" role="menuitem"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-dropdown__item" role="menuitem"> You don&#39;t have to sell above residual </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Running Costs <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/running-costs/" class="nav-dropdown__item" role="menuitem"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-dropdown__item" role="menuitem"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-dropdown__item" role="menuitem"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-dropdown__item" role="menuitem"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-dropdown__item" role="menuitem"> Insurance premium vs excess </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Risks <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/risks/" class="nav-dropdown__item" role="menuitem"> Overview of risks &amp; exit strategies </a> <div class="nav-dropdown__heading">Early Termination</div><a href="/risks/early-termination/" class="nav-dropdown__item" role="menuitem"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-dropdown__item" role="menuitem"> How bad can early termination get </a> <div class="nav-dropdown__heading">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-dropdown__item" role="menuitem"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-dropdown__item" role="menuitem"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-dropdown__item" role="menuitem"> Think like a gambler </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Special Cases <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/special-and-policy/" class="nav-dropdown__item" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-dropdown__item" role="menuitem"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-dropdown__item" role="menuitem"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-dropdown__item" role="menuitem"> LCT threshold &amp; FBT exemption </a> <div class="nav-dropdown__heading">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-dropdown__item" role="menuitem"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-dropdown__item" role="menuitem"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-dropdown__heading">Downstream Impact</div><a href="/special-and-policy/childcare-subsidy/" class="nav-dropdown__item" role="menuitem"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-dropdown__item" role="menuitem"> Super guarantee &amp; payroll risks </a> <div class="nav-dropdown__heading">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-dropdown__item" role="menuitem"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-dropdown__item" role="menuitem"> Why novated leasing is poorly regulated </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> About <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/about/about-me/" class="nav-dropdown__item" role="menuitem"> Who I am </a> <a href="/about/history/" class="nav-dropdown__item" role="menuitem"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-dropdown__item" role="menuitem"> What readers say </a> <a href="/about/privacy/" class="nav-dropdown__item" role="menuitem"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-dropdown__item" role="menuitem"> Disclaimer </a> <a href="/about/contact/" class="nav-dropdown__item" role="menuitem"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-dropdown__item" role="menuitem" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </li> </ul> <!-- Right actions --> <div class="site-nav__actions"> <button class="nav-theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode" onclick="window.toggleTheme && window.toggleTheme()"> <svg class="nav-theme-btn__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg> <svg class="nav-theme-btn__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg> </button> <button class="nav-search-btn" onclick="window.openSearch && window.openSearch()" aria-label="Search site"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span class="nav-search-btn__text">Search</span> <span class="nav-search-btn__kbd">⌘K</span> </button> <button class="nav-hamburger" aria-label="Open navigation menu" onclick="window.openDrawer && window.openDrawer()"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"></path> </svg> </button> </div> </div> </nav> <!-- Mobile drawer --> <div class="nav-mobile-overlay" id="nav-overlay" onclick="window.closeDrawer && window.closeDrawer()"></div> <div class="nav-mobile-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu"> <div class="nav-drawer__header"> <span>Novated Lease Guide</span> <button class="nav-drawer__close" onclick="window.closeDrawer && window.closeDrawer()" aria-label="Close menu"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"></path> </svg> </button> </div> <!-- Drawer search --> <div style="padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.08);"> <button class="nav-search-btn" style="width:100%; justify-content:flex-start; background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: var(--color-text-muted);" onclick="window.closeDrawer(); setTimeout(() => window.openSearch && window.openSearch(), 200);" aria-label="Search"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:14px;height:14px;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span>Search</span> </button> </div> <div class="nav-drawer__section"> <a href="/" class="nav-drawer__link nav-drawer__link--top"> Home </a> </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Calculator</div> <a href="/calculator/" class="nav-drawer__link"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-drawer__link"> Employer BYO Checker </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Fundamentals</div> <div class="nav-drawer__group-title">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-drawer__link"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-drawer__link"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-drawer__link"> Is a novated lease worth it? </a> <div class="nav-drawer__group-title">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-drawer__link"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-drawer__link"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-drawer__link"> 20 novated lease calculators reviewed </a> <div class="nav-drawer__group-title">Reference</div><a href="/start-here/glossary/" class="nav-drawer__link"> Glossary of terms </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Mechanisms</div> <a href="/costs-and-savings/" class="nav-drawer__link active"> Overview </a> <div class="nav-drawer__group-title">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-drawer__link"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-drawer__link"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-drawer__link"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-drawer__link"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-drawer__group-title">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-drawer__link"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-drawer__link"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-drawer__group-title">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-drawer__link"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-drawer__link active"> Used-car GST secret (Division 66) </a> <div class="nav-drawer__group-title">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-drawer__link"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-drawer__link"> You don&#39;t have to sell above residual </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Running Costs</div> <a href="/running-costs/" class="nav-drawer__link"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-drawer__link"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-drawer__link"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-drawer__link"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-drawer__link"> Insurance premium vs excess </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Risks</div> <a href="/risks/" class="nav-drawer__link"> Overview of risks &amp; exit strategies </a> <div class="nav-drawer__group-title">Early Termination</div><a href="/risks/early-termination/" class="nav-drawer__link"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-drawer__link"> How bad can early termination get </a> <div class="nav-drawer__group-title">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-drawer__link"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-drawer__link"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-drawer__link"> Think like a gambler </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Special Cases</div> <a href="/special-and-policy/" class="nav-drawer__link"> Overview </a> <div class="nav-drawer__group-title">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-drawer__link"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-drawer__link"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-drawer__link"> LCT threshold &amp; FBT exemption </a> <div class="nav-drawer__group-title">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-drawer__link"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-drawer__link"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-drawer__group-title">Downstream Impact</div><a href="/special-and-policy/childcare-subsidy/" class="nav-drawer__link"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-drawer__link"> Super guarantee &amp; payroll risks </a> <div class="nav-drawer__group-title">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-drawer__link"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-drawer__link"> Why novated leasing is poorly regulated </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">About</div> <a href="/about/about-me/" class="nav-drawer__link"> Who I am </a> <a href="/about/history/" class="nav-drawer__link"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-drawer__link"> What readers say </a> <a href="/about/privacy/" class="nav-drawer__link"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-drawer__link"> Disclaimer </a> <a href="/about/contact/" class="nav-drawer__link"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-drawer__link" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </div> <script>
+  var _drawerScrollY = 0;
+  window.openDrawer = function() {
+    _drawerScrollY = window.scrollY;
+    document.body.style.top = '-' + _drawerScrollY + 'px';
+    document.body.classList.add('drawer-open');
+    document.getElementById('nav-drawer').classList.add('open');
+    document.getElementById('nav-overlay').classList.add('open');
+  };
+  window.closeDrawer = function() {
+    document.body.classList.remove('drawer-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _drawerScrollY);
+    document.getElementById('nav-drawer').classList.remove('open');
+    document.getElementById('nav-overlay').classList.remove('open');
+  };
+</script> <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search"> <div class="search-modal"> <div id="search-container"> <div style="padding: 16px 20px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 12px;"> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0; opacity:0.5;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <input id="search-input" type="search" placeholder="Search articles…" autocomplete="off" spellcheck="false" style="flex:1; border:none; outline:none; font-size:1rem; font-family:inherit; background:transparent; color:var(--color-text);" aria-label="Search"> <button onclick="window.closeSearch()" aria-label="Close search" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--color-text-muted);font-size:0.78rem;display:flex;align-items:center;gap:4px;"> <kbd style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:4px;padding:2px 6px;font-family:inherit;font-size:0.7rem;">Esc</kbd> </button> </div> <div id="search-results" class="search-results-wrap"></div> </div> </div> </div> <script>
+  (function() {
+    var overlay = document.getElementById('search-overlay');
+    var input = document.getElementById('search-input');
+    var resultsEl = document.getElementById('search-results');
+    var pagefind = null;
+    var searchTimeout = null;
+
+    window.openSearch = function() {
+      overlay.classList.add('open');
+      setTimeout(function() { input && input.focus(); }, 50);
+      initPagefind();
+    };
+
+    window.closeSearch = function() {
+      overlay.classList.remove('open');
+      if (input) { input.value = ''; }
+      if (resultsEl) { resultsEl.innerHTML = ''; }
+    };
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) window.closeSearch();
+    });
+
+    async function initPagefind() {
+      if (pagefind) return;
+      try {
+        pagefind = await import('/pagefind/pagefind.js');
+        await pagefind.options({ excerptLength: 20 });
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search index is being built. Run <code>npm run build</code> first to enable search.</div>';
+        pagefind = null;
+      }
+    }
+
+    async function doSearch(query) {
+      if (!pagefind || !query.trim()) {
+        resultsEl.innerHTML = '';
+        return;
+      }
+      try {
+        var results = await pagefind.search(query);
+        if (!results || results.results.length === 0) {
+          resultsEl.innerHTML = '<div class="search-no-results">No results for "<strong>' + escapeHtml(query) + '</strong>"</div>';
+          return;
+        }
+        var html = '';
+        var sliced = results.results.slice(0, 8);
+        for (var i = 0; i < sliced.length; i++) {
+          var data = await sliced[i].data();
+          html += '<a href="' + data.url + '" class="search-result-item" onclick="window.closeSearch()">';
+          html += '<div class="search-result-item__title">' + escapeHtml(data.meta?.title || '') + '</div>';
+          if (data.excerpt) {
+            html += '<div class="search-result-item__excerpt">' + data.excerpt + '</div>';
+          }
+          html += '</a>';
+        }
+        resultsEl.innerHTML = html;
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search error. Please try again.</div>';
+      }
+    }
+
+    input && input.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function() {
+        doSearch(input.value);
+      }, 200);
+    });
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  })();
+</script>  <div data-pagefind-body>  <div class="page-layout"> <main class="page-content" id="main-content"> <nav class="breadcrumbs" aria-label="Breadcrumb"> <a href="/">Home</a> <span class="breadcrumbs__sep">›</span> <span>Mechanisms</span> <span class="breadcrumbs__sep">›</span> <span>The used-car GST secret on a novated lease</span> </nav> <article class="article-content">  <h1 id="how-to-buy-or-sell-a-used-car-privately-and-still-save-gst-through-a-novated-lease">How to buy or sell a used car privately and still save GST through a novated lease</h1><p class="article-byline">By <a href="/about/about-me/">changyang1230</a> · Updated 30 June 2026</p>
+<p><em>— with one extra step.</em></p>
+<p>When it comes to used cars, almost everyone believes the GST saving only applies to a car bought from a dealer. The corollary: a private sale means no GST, and therefore a much smaller saving inside a novated lease.</p>
+<p>That’s not quite true. <strong>With one extra step</strong>, the saving is still on the table.</p>
+<div class="admonition admonition--tip"><div class="admonition__title">The secret, both ways</div><ul>
+<li><strong>If you’re buying</strong> a used car privately and financing it through a novated lease, there’s a way to get the cheaper private-sale price <em>and</em> the GST saving — the two things everyone assumes you have to choose between.</li>
+<li><strong>If you’re selling</strong>, the same mechanism widens your buyer pool to include novated-lease buyers (who would otherwise be priced out by losing the GST saving on a private buy) at only a small cost.</li>
+</ul></div>
+<hr>
+<h2 id="the-trade-off-everyone-assumes-and-why-its-wrong">The trade-off everyone assumes (and why it’s wrong)</h2>
+<p>The conventional wisdom goes like this:</p>
+<ul>
+<li><strong>Buy a used car from a dealer</strong> → e.g. if you buy a $66,000 car, the price tag consists of $60,000 + $6,000 GST, and there is $6,000 effective GST saving in the context of novated lease financing<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>.</li>
+<li><strong>Buy a used car privately</strong> → e.g. if you buy a $66,000 car, the price tag has no GST component, so the novated lease financing is done on the entire $66,000.</li>
+</ul>
+<p>So you choose: cheap price <em>or</em> GST saving. Not both.</p>
+<p>The secret is that you don’t actually have to choose.</p>
+<p>By putting a car dealer in the middle of the transaction for a small fee, a private used-car sale can be turned into a normal taxable supply — which means the buyer’s financier can claim the GST after all, on a car bought at the private-sale price.</p>
+<hr>
+<h2 id="how-it-actually-works-the-dealer-middleman">How it actually works: the dealer middleman</h2>
+<p>Take a used car worth $66,000.</p>
+<ul>
+<li>Sold <strong>privately</strong>, it’s just $66,000 with no GST.</li>
+<li>Sold <strong>through a dealer middleman</strong> (engaged for a small fee), it becomes $60,000 + $6,000 GST — the same $66,000, now split into a GST-exclusive price and the GST.</li>
+</ul>
+<p>The obvious question is where that $6,000 of claimable GST came from, given the original sale had none.</p>
+<p>When the dealer sells the car to the finance company (which finances the car under-the-hood for a novated lease), that’s an ordinary taxable supply — $60,000 plus $6,000 GST — so the dealer owes the ATO that $6,000 in output tax.</p>
+<p>The clever part is on the buying side. Because the private seller is unregistered for GST, at first glance there’s no GST in that sale and nothing for the dealer to claim.</p>
+<p>However <strong><a href="https://www.legislation.gov.au/C2004A00446/latest/text">Division 66 of the GST Act</a> has a provision for that.</strong> It lets a GST-registered business that buys second-hand goods from an unregistered seller, for resale in the ordinary course of business, claim a <strong>notional input tax credit</strong> equal to 1/11 of the price it paid, even though no GST was ever charged on that purchase.</p>
+<p>So on the $66,000 the dealer paid the private seller, it claims a notional credit of:</p>
+<blockquote>
+<p>$66,000 ÷ 11 = <strong>$6,000</strong></p>
+</blockquote>
+<p>That cancels exactly against the $6,000 of output tax the dealer owes on the on-sale to the financier. On the car itself, the dealer’s GST in and out net to zero.</p>
+<p>Their profit comes from a <strong>separate service fee</strong> of, say, $500 — charged for handling the transaction and paperwork. The fee is itself GST-applicable, so it breaks down as <strong>$454.55 + $45.45 GST</strong>. The dealer remits the $45.45 to the ATO and keeps $454.55 net.</p>
+<h3 id="setting-it-up-in-practice">Setting it up in practice</h3>
+<ol>
+<li><strong>Find a dealer willing to act as middleman</strong>, and agree the fee in writing. Some novated lease providers can point you to one. Reputable used-car dealers are often happy to do this for a flat fee — it is pure margin for some routine paperwork.</li>
+<li><strong>Agree who wears the fee</strong> (buyer or seller) as part of the price negotiation.</li>
+<li><strong>Make sure a proper tax invoice is issued</strong> by the dealer to the financier — that is what the financier needs to claim the credit.</li>
+<li><strong>Make sure the dealer keeps the <a href="https://www.legislation.gov.au/C2004A00446/latest/text">Division 66</a> records</strong> of the purchase from the private seller (name, address, date, description, price). Without these, the credit is not claimable.</li>
+</ol>
+<hr>
+<h2 id="why-the-finance-company-cant-just-do-this-itself">Why the finance company can’t just do this itself</h2>
+<p>If a dealer can claim a notional credit on a private purchase, why can’t your novated lease provider or the underlying financier buy the car directly and do the same?</p>
+<p>Because <a href="https://www.legislation.gov.au/C2004A00446/latest/text">Division 66</a> only applies to goods acquired for <strong>sale or exchange in the ordinary course of business</strong>.</p>
+<p>A financier buying your car is acquiring it to <strong>lease</strong> it, not to sell it, so it can’t use Division 66, and with no tax invoice it has nothing to claim. A car dealer, whose ordinary business <em>is</em> buying and selling cars, can.</p>
+<p>That’s the entire reason the dealer is interposed: they convert a GST-less private sale into a normal taxable supply, complete with the tax invoice the financier needs.</p>
+<p>It’s also why you can’t skip the dealer and just “do it yourself”.</p>
+<hr>
+<h2 id="the-numbers">The numbers</h2>
+<p>The dealer’s cash flow splits cleanly into two separate streams: the car transaction (which nets to zero) and the service fee (which is the dealer’s only profit):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Cash flow</th><th>Amount</th></tr></thead><tbody><tr><td><strong>Car transaction</strong></td><td></td></tr><tr><td>Received from finance company for the car</td><td>+$66,000.00</td></tr><tr><td>Paid to you (private seller)</td><td>−$66,000.00</td></tr><tr><td>GST owed on the on-sale (output tax)</td><td>−$6,000.00</td></tr><tr><td>Notional GST credit on the purchase (Division 66)</td><td>+$6,000.00</td></tr><tr><td><em>Subtotal — car flow</em></td><td><strong>$0.00</strong></td></tr><tr><td><strong>Service fee (separate)</strong></td><td></td></tr><tr><td>Service fee charged (GST-inclusive)</td><td>+$500.00</td></tr><tr><td>GST owed on the fee (1/11)</td><td>−$45.45</td></tr><tr><td><em>Subtotal — fee flow</em></td><td><strong>+$454.55</strong></td></tr><tr><td><strong>Net kept by the dealer</strong></td><td><strong>+$454.55</strong></td></tr></tbody></table>
+<p>From the buyer’s side, the win is just as clean: the lease is now written on <strong>$60,000</strong> instead of $66,000, because the financier recovers the $6,000<sup><a href="#user-content-fn-1" id="user-content-fnref-1-2" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>. You’ve kept the private-sale price and picked up the GST saving on top — minus only the small dealer service fee.</p>
+<p>From the seller’s side, the win is structural rather than monetary: the same trick brings novated-lease buyers back into your market — to them, your car is now ~9% cheaper in effective terms — while you still net essentially your private-sale price.</p>
+<div class="admonition admonition--info"><div class="admonition__title">Modelling this in the calculator</div><p>To model this scenario in the <a href="/calculator/">novated lease calculator</a>, choose <strong>“Used car – dealer sale”</strong> under <strong>“Vehicle condition”</strong> — that switches the lease base to the GST-exclusive figure to reflect the recovered credit.</p></div>
+<hr>
+<h2 id="is-this-even-legal">Is this even legal?</h2>
+<p>It feels too good to be true, so it’s worth being clear: <strong>this is the intended operation of the GST law, not a loophole.</strong></p>
+<p>That said, the “secret” only holds up if it’s done properly.</p>
+<p>The dealer must <strong>genuinely take title</strong> — actually buy the car and sell it on, with the records <a href="https://www.legislation.gov.au/C2004A00446/latest/text">Division 66</a> requires (the private seller’s name and address, the date, a description of the car, and the price). A fee to “paper” a transaction the dealer is not really part of does not qualify.</p>
+<p>The dealer must also issue a <strong>proper tax invoice</strong> to the financier on the on-sale. That tax invoice is what the financier relies on to claim the GST credit.</p>
+<div class="admonition admonition--warning"><div class="admonition__title">Caveat on pricier cars</div><p><strong>The car limit (GST credit cap).</strong> The GST credit a buyer can claim on a car is capped at 1/11 of the <strong>car limit</strong> — <strong>$69,883 for FY2026–27</strong>. The $66,000 example sits below this cap, so the financier recovers the full <strong>$6,000</strong>. For cars <em>above</em> the car limit, the recoverable GST plateaus at <strong>$6,353</strong> regardless of how much more the car costs — the saving stops scaling once the cap binds.</p></div>
+<hr>
+<h2 id="what-its-worth">What it’s worth</h2>
+<p>Net it off:</p>
+<ul>
+<li>A dealer service fee of around <strong>$500–$1,500</strong> (anecdotally).</li>
+<li>Against a GST saving of <strong>1/11 of the agreed price</strong> on a car below the car limit (e.g. <strong>$6,000</strong> on a $66,000 car)<sup><a href="#user-content-fn-1" id="user-content-fnref-1-3" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>, capped at <strong>~$6,353</strong> for cars above the car limit.</li>
+<li>And on an eligible EV, that saving stacks on top of the <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">FBT exemption</a> — a separate, much larger saving on the same car.</li>
+</ul>
+<hr>
+<h2 id="key-takeaway">Key takeaway</h2>
+<p>If you remember nothing else:</p>
+<blockquote>
+<p><strong>A private used-car sale doesn’t have to mean no GST saving. A dealer middleman, a small fee, and Division 66 between them convert a private sale into a normal taxable supply — and the GST saving reappears.</strong></p>
+</blockquote>
+<p>For buyers, that means private-sale pricing <em>and</em> the GST saving on the same car. For sellers, it means a wider buyer pool without changing what you net.</p>
+<hr>
+<h2 id="not-advice">Not advice</h2>
+<p>This page is general information about how Division 66 of the GST Act and the car limit interact with novated-lease purchases of second-hand cars. It is not financial, tax, or legal advice and does not take your circumstances into account. Tax law, thresholds, and ATO administrative practice can change. Before relying on this in a transaction, <strong>confirm the current rules and your specific eligibility with your lease provider and a registered tax agent</strong>.</p>
+<p>See the full <a href="/about/disclaimer/">disclaimer</a>.</p>
+<hr>
+<h2 id="related-reading">Related reading</h2>
+<ul>
+<li><a href="/special-and-policy/lct-threshold-fbt-exemption/">LCT threshold &#x26; FBT exemption</a></li>
+<li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">EV FBT exemption wind-back — 2026 Budget announcement</a></li>
+<li><a href="/running-costs/failure-to-pass-gst-saving/">Failure to pass on GST savings — an overlooked cost in some novated leases</a></li>
+<li><a href="/calculator/">Novated Lease Calculator</a></li>
+</ul>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p>Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the initially “exempted” GST is still payable at this stage. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a> <a href="#user-content-fnref-1-2" data-footnote-backref="" aria-label="Back to reference 1-2" class="data-footnote-backref">↩<sup>2</sup></a> <a href="#user-content-fnref-1-3" data-footnote-backref="" aria-label="Back to reference 1-3" class="data-footnote-backref">↩<sup>3</sup></a></p>
+</li>
+</ol>
+</section>  </article> <div class="admonition admonition--info"><div class="admonition__title">Support this independent calculator & guide</div><p>This calculator and guide are built and continuously maintained as an independent project.</p><p>If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:</p><ul><li><a href="https://buymeacoffee.com/changyang1230">Buying me a cuppa</a> ☕ to help cover hosting, development time, and future improvements, or</li><li><a href="https://ts.la/pradeep738043">Using a friend's Tesla referral link</a> for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.</li></ul></div><details class="admonition admonition--note admonition--collapsible"><summary class="admonition__title">I'm backing Dr Michael Keane's fight for salary packaging transparency</summary><p>Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.</p><p>Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on <a href="https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0">alleged sign-on fees</a> associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.</p><p>To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his <a href="https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging"><img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe</a>.</p></details> </main> <aside class="page-toc" aria-label="Table of contents"> <div class="toc" id="article-toc"><div class="toc__title">On this page</div><ul class="toc__list" role="list"><li class="toc__item"><a href="#the-trade-off-everyone-assumes-and-why-its-wrong" class="toc__link">The trade-off everyone assumes (and why it’s wrong)</a></li><li class="toc__item"><a href="#how-it-actually-works-the-dealer-middleman" class="toc__link">How it actually works: the dealer middleman</a></li><li class="toc__item toc__item--depth-3"><a href="#setting-it-up-in-practice" class="toc__link toc__list--depth-2 toc__link">Setting it up in practice</a></li><li class="toc__item"><a href="#why-the-finance-company-cant-just-do-this-itself" class="toc__link">Why the finance company can’t just do this itself</a></li><li class="toc__item"><a href="#the-numbers" class="toc__link">The numbers</a></li><li class="toc__item"><a href="#is-this-even-legal" class="toc__link">Is this even legal?</a></li><li class="toc__item"><a href="#what-its-worth" class="toc__link">What it’s worth</a></li><li class="toc__item"><a href="#key-takeaway" class="toc__link">Key takeaway</a></li><li class="toc__item"><a href="#not-advice" class="toc__link">Not advice</a></li><li class="toc__item"><a href="#related-reading" class="toc__link">Related reading</a></li><li class="toc__item"><a href="#footnote-label" class="toc__link">Footnotes</a></li></ul></div><script type="module">(function(){var l=document.querySelectorAll("#article-toc .toc__link");if(l.length===0)return;var c=Array.from(l).map(function(e){var t=e.getAttribute("href")||"",r=t.replace("#","");return{el:document.getElementById(r),link:e}}).filter(function(e){return e.el});function o(){for(var e=72,t=window.scrollY,r=null,n=c.length-1;n>=0;n--)if(c[n].el.getBoundingClientRect().top+t<=t+e+4){r=c[n];break}l.forEach(function(a){a.classList.remove("active")}),r&&r.link.classList.add("active")}window.addEventListener("scroll",o,{passive:!0}),o()})();</script> </aside> </div>  </div> <footer class="site-footer"> <div class="site-footer__inner"> <div class="site-footer__col"> <div class="site-footer__brand"> <img class="site-footer__logo" src="/assets/images/logo.png" alt="" aria-hidden="true">
+Novated Lease Guide
+</div> <p style="max-width:280px; line-height:1.6; margin:0; font-size:0.78rem;">
+Independent, evidence-based Australian novated lease guide and calculator.
+        Not affiliated with any financier or provider.
+</p> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Calculator</div> <ul class="site-footer__links"> <li><a href="/calculator/" class="site-footer__link">Novated Lease Calculator</a></li> <li><a href="/tools/byo-employer-check/" class="site-footer__link">Employer BYO checker</a></li> <li><a href="/start-here/use-nl-calculator/" class="site-footer__link">How to use the calculator</a></li> <li><a href="/start-here/calculator-comparison/" class="site-footer__link">20 calculators reviewed</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Key Articles</div> <ul class="site-footer__links"> <li><a href="/start-here/what-is-novated-lease/" class="site-footer__link">What is a novated lease?</a></li> <li><a href="/start-here/is-it-worth-it/" class="site-footer__link">Is it worth it?</a></li> <li><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="site-footer__link">Why "tax saved" is wrong</a></li> <li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="site-footer__link">EV FBT wind-back 2026</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">About</div> <ul class="site-footer__links"> <li><a href="/about/about-me/" class="site-footer__link">About me</a></li> <li><a href="/about/history/" class="site-footer__link">Calculator history</a></li> <li><a href="/about/what-readers-say/" class="site-footer__link">What readers say</a></li> <li><a href="/about/contact/" class="site-footer__link">Contact</a></li> <li><a href="/about/privacy/" class="site-footer__link">Privacy policy</a></li> <li><a href="/about/disclaimer/" class="site-footer__link">Disclaimer</a></li> <li><a href="https://buymeacoffee.com/changyang1230" class="site-footer__link" target="_blank" rel="noopener">Buy me a coffee ☕</a></li> </ul> </div> </div> <div class="site-footer__meta"> <div class="site-footer__meta-links"> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/privacy/">Privacy</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/disclaimer/">Disclaimer</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/contact/">Contact</a>
+&nbsp;&middot;&nbsp;
+      &copy; 2026
+</div> <div class="site-footer__meta-disclaimer">
+This site provides general information and educational commentary only. It does not constitute personal financial advice.
+</div> </div> </footer> <!-- GA4 link tracking & search keyboard shortcut --> <script>
+      // Track Buy Me a Coffee & Tesla referral link clicks
+      (function() {
+        function fireGa4(name, params) {
+          try { if (typeof gtag === 'function') gtag('event', name, params); } catch(e) {}
+        }
+        function trackLinks() {
+          document.querySelectorAll('a[href^="https://buymeacoffee.com/"],a[href^="https://www.buymeacoffee.com/"],a[href^="https://ts.la/"]').forEach(function(a) {
+            a.addEventListener('click', function() {
+              var href = a.getAttribute('href') || '';
+              fireGa4('support_link_click', {
+                link_label: href.includes('buymeacoffee') ? 'buymeacoffee' : 'tesla_referral',
+                link_url: href,
+                page_path: window.location.pathname,
+                page_title: document.title
+              });
+            }, { capture: true });
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', trackLinks);
+        } else {
+          trackLinks();
+        }
+      })();
+
+      // Keyboard shortcut: / or Ctrl+K to open search
+      document.addEventListener('keydown', function(e) {
+        if ((e.key === '/' || (e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) && !e.target.matches('input,textarea')) {
+          e.preventDefault();
+          window.openSearch && window.openSearch();
+        }
+        if (e.key === 'Escape') {
+          window.closeSearch && window.closeSearch();
+          window.closeDrawer && window.closeDrawer();
+        }
+      });
+    </script> </body> </html> <script type="module">(function(){var f=document.querySelectorAll(".compact-table table");f.forEach(function(r){var l=r.closest(".compact-table");if(!l)return;var e=r.querySelector("thead"),o=Array.from(r.querySelectorAll("tr th:first-child, tr td:first-child")),c=Array.from(r.querySelectorAll("tr th:nth-child(2), tr td:nth-child(2)"));o.concat(c).forEach(function(t){t.style.position="relative",t.style.backgroundColor="var(--color-bg)"}),o.forEach(function(t){t.style.whiteSpace="nowrap",t.style.zIndex="2"}),c.forEach(function(t){t.style.zIndex="2"}),r.querySelectorAll("thead th:first-child, thead th:nth-child(2)").forEach(function(t){t.style.zIndex="4"});function n(){var t=l.scrollLeft;o.forEach(function(a){a.style.transform="translateX("+t+"px)"}),c.forEach(function(a){a.style.transform="translateX("+t+"px)"})}if(l.addEventListener("scroll",n,{passive:!0}),n(),!e)return;function i(){var t=document.querySelector(".site-nav");return t?t.offsetHeight:56}function s(){var t=l.getBoundingClientRect(),a=i(),u=e.offsetHeight,d=a-t.top;d>0&&t.bottom>a+u?(e.style.transform="translateY("+d+"px)",e.style.position="relative",e.style.zIndex="3"):(e.style.transform="",e.style.position="",e.style.zIndex="")}window.addEventListener("scroll",s,{passive:!0}),s()}),document.querySelectorAll(".article-content table").forEach(function(r){var l=Array.from(r.querySelectorAll("tbody > tr")),e=null,o=null;l.forEach(function(c){var n=c.querySelector("td:first-child");if(!n){e=null,o=null;return}var i=n.textContent.trim();e&&i===o?(e.rowSpan=(e.rowSpan||1)+1,e.style.verticalAlign="middle",n.remove()):(e=n,o=i)})}),document.querySelectorAll("[data-dismiss]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-dismiss"));l&&(l.style.display="none")})}),document.querySelectorAll("[data-toggle]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-toggle"));if(l){var e=l.classList.toggle("open");r.textContent=e?"close ▴":"details ▾"}})})})();</script>

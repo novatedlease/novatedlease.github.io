@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="color-scheme" content="light dark"><script>
+      // Theme: stored choice wins; otherwise follow the system. Runs before first paint to avoid a flash.
+      (function () {
+        var root = document.documentElement;
+        var stored = null;
+        try { stored = localStorage.getItem('theme'); } catch (e) {}
+        var fromUrl = new URLSearchParams(location.search).get('theme');
+        if (fromUrl === 'dark' || fromUrl === 'light') stored = fromUrl;
+        var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        function apply(t) { if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.setAttribute('data-theme', 'light'); }
+        apply(stored === 'dark' || stored === 'light' ? stored : (mq && mq.matches ? 'dark' : 'light'));
+        if (mq && mq.addEventListener) mq.addEventListener('change', function (e) {
+          var s = null; try { s = localStorage.getItem('theme'); } catch (err) {}
+          if (s !== 'dark' && s !== 'light') apply(e.matches ? 'dark' : 'light');
+        });
+        window.toggleTheme = function () {
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          apply(next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          try { if (typeof gtag === 'function') gtag('event', 'theme_toggled', { theme: next }); } catch (e) {}
+        };
+      })();
+    </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ATO EV Home Charging Rate (5.47c/km): Claiming It on a Novated Lease — Novated Lease Guide</title><meta name="description" content="The ATO EV home charging rate is 5.47c/km from 1 April 2026, up from 4.2c/km. How the PCG 2024/2 shortcut works on a novated lease, when to use actual costs instead, the mixed home and public charging method, and how to claim the most."><link rel="canonical" href="https://novatedlease.guide/running-costs/ev-home-charging-shortcut/"><!-- Favicon --><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><!-- Open Graph --><meta property="og:type" content="article"><meta property="og:title" content="ATO EV Home Charging Rate (5.47c/km): Claiming It on a Novated Lease — Novated Lease Guide"><meta property="og:description" content="The ATO EV home charging rate is 5.47c/km from 1 April 2026, up from 4.2c/km. How the PCG 2024/2 shortcut works on a novated lease, when to use actual costs instead, the mixed home and public charging method, and how to claim the most."><meta property="og:url" content="https://novatedlease.guide/running-costs/ev-home-charging-shortcut/"><meta property="og:image" content="https://novatedlease.guide/og/running-costs/ev-home-charging-shortcut.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="ATO EV Home Charging Rate (5.47c/km): Claiming It on a Novated Lease — Novated Lease Guide"><meta name="twitter:description" content="The ATO EV home charging rate is 5.47c/km from 1 April 2026, up from 4.2c/km. How the PCG 2024/2 shortcut works on a novated lease, when to use actual costs instead, the mixed home and public charging method, and how to claim the most."><meta name="twitter:image" content="https://novatedlease.guide/og/running-costs/ev-home-charging-shortcut.png"><!-- Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://novatedlease.guide/#website","name":"Novated Lease Guide","url":"https://novatedlease.guide","description":"Independent, evidence-based guide and calculator for understanding novated leases in Australia.","publisher":{"@id":"https://novatedlease.guide/#org"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://novatedlease.guide/"},{"@type":"ListItem","position":2,"name":"Running Costs","item":"https://novatedlease.guide/running-costs/"},{"@type":"ListItem","position":3,"name":"ATO EV Home Charging Rate (5.47c/km): Claiming It on a Novated Lease","item":"https://novatedlease.guide/running-costs/ev-home-charging-shortcut/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"ATO EV Home Charging Rate (5.47c/km): Claiming It on a Novated Lease","description":"The ATO EV home charging rate is 5.47c/km from 1 April 2026, up from 4.2c/km. How the PCG 2024/2 shortcut works on a novated lease, when to use actual costs instead, the mixed home and public charging method, and how to claim the most.","url":"https://novatedlease.guide/running-costs/ev-home-charging-shortcut/","image":"https://novatedlease.guide/og/running-costs/ev-home-charging-shortcut.png","author":{"@type":"Person","@id":"https://novatedlease.guide/about/about-me/#person","name":"changyang1230","url":"https://novatedlease.guide/about/about-me/","jobTitle":"Anaesthetist, biostatistician, and novated lease consumer advocate","description":"Australian anaesthetist, qualified biostatistician, and former mathematical olympiad national representative. Independent author of novatedlease.guide — a free evidence-based guide and calculator for understanding novated leases in Australia.","knowsAbout":["Novated leasing","Salary packaging","Fringe Benefits Tax","Electric vehicle FBT exemption","Australian personal finance","Australian tax","Biostatistics","Probability and statistics"],"sameAs":["https://www.reddit.com/user/changyang1230","https://buymeacoffee.com/changyang1230"]},"publisher":{"@type":"Organization","@id":"https://novatedlease.guide/#org","name":"Novated Lease Guide","url":"https://novatedlease.guide","logo":{"@type":"ImageObject","url":"https://novatedlease.guide/assets/images/logo.png"},"founder":{"@id":"https://novatedlease.guide/about/about-me/#person"}},"isPartOf":{"@id":"https://novatedlease.guide/#website"},"mainEntityOfPage":"https://novatedlease.guide/running-costs/ev-home-charging-shortcut/","datePublished":"2026-01-06","dateModified":"2026-09-07"}</script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-52RWVTCGLP"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-52RWVTCGLP', { anonymize_ip: true });
+    </script><link rel="stylesheet" href="/_astro/_slug_.nTyyVw3T.css"></head> <body> <nav class="site-nav" role="navigation" aria-label="Main navigation"> <div class="site-nav__inner"> <!-- Brand --> <a class="site-nav__brand" href="/"> <img class="site-nav__logo" src="/assets/images/logo.png" alt="" aria-hidden="true">
+Novated Lease Guide
+</a> <!-- Desktop links --> <ul class="site-nav__links" role="list"> <li> <a href="/" class="site-nav__link"> Home </a> </li><li> <a href="/calculator/" class="site-nav__link site-nav__link--cta"> Calculator <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </a> <div class="nav-dropdown" role="menu"> <a href="/calculator/" class="nav-dropdown__item" role="menuitem"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-dropdown__item" role="menuitem"> Employer BYO Checker </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Fundamentals <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <div class="nav-dropdown__heading">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-dropdown__item" role="menuitem"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-dropdown__item" role="menuitem"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-dropdown__item" role="menuitem"> Is a novated lease worth it? </a> <div class="nav-dropdown__heading">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-dropdown__item" role="menuitem"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-dropdown__item" role="menuitem"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-dropdown__item" role="menuitem"> 20 novated lease calculators reviewed </a> <div class="nav-dropdown__heading">Reference</div><a href="/start-here/glossary/" class="nav-dropdown__item" role="menuitem"> Glossary of terms </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Mechanisms <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/costs-and-savings/" class="nav-dropdown__item" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-dropdown__item" role="menuitem"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-dropdown__item" role="menuitem"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-dropdown__item" role="menuitem"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-dropdown__item" role="menuitem"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-dropdown__heading">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-dropdown__item" role="menuitem"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-dropdown__item" role="menuitem"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-dropdown__heading">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-dropdown__item" role="menuitem"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-dropdown__item" role="menuitem"> Used-car GST secret (Division 66) </a> <div class="nav-dropdown__heading">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-dropdown__item" role="menuitem"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-dropdown__item" role="menuitem"> You don&#39;t have to sell above residual </a>  </div> </li><li> <button class="site-nav__link active" aria-haspopup="true" aria-expanded="false" type="button"> Running Costs <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/running-costs/" class="nav-dropdown__item active" role="menuitem"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-dropdown__item" role="menuitem"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-dropdown__item active" role="menuitem"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-dropdown__item" role="menuitem"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-dropdown__item" role="menuitem"> Insurance premium vs excess </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Risks <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/risks/" class="nav-dropdown__item" role="menuitem"> Overview of risks &amp; exit strategies </a> <div class="nav-dropdown__heading">Early Termination</div><a href="/risks/early-termination/" class="nav-dropdown__item" role="menuitem"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-dropdown__item" role="menuitem"> How bad can early termination get </a> <div class="nav-dropdown__heading">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-dropdown__item" role="menuitem"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-dropdown__item" role="menuitem"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-dropdown__item" role="menuitem"> Think like a gambler </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Special Cases <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/special-and-policy/" class="nav-dropdown__item" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-dropdown__item" role="menuitem"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-dropdown__item" role="menuitem"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-dropdown__item" role="menuitem"> LCT threshold &amp; FBT exemption </a> <div class="nav-dropdown__heading">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-dropdown__item" role="menuitem"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-dropdown__item" role="menuitem"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-dropdown__heading">Downstream Impact</div><a href="/special-and-policy/childcare-subsidy/" class="nav-dropdown__item" role="menuitem"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-dropdown__item" role="menuitem"> Super guarantee &amp; payroll risks </a> <div class="nav-dropdown__heading">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-dropdown__item" role="menuitem"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-dropdown__item" role="menuitem"> Why novated leasing is poorly regulated </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> About <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/about/about-me/" class="nav-dropdown__item" role="menuitem"> Who I am </a> <a href="/about/history/" class="nav-dropdown__item" role="menuitem"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-dropdown__item" role="menuitem"> What readers say </a> <a href="/about/privacy/" class="nav-dropdown__item" role="menuitem"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-dropdown__item" role="menuitem"> Disclaimer </a> <a href="/about/contact/" class="nav-dropdown__item" role="menuitem"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-dropdown__item" role="menuitem" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </li> </ul> <!-- Right actions --> <div class="site-nav__actions"> <button class="nav-theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode" onclick="window.toggleTheme && window.toggleTheme()"> <svg class="nav-theme-btn__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg> <svg class="nav-theme-btn__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg> </button> <button class="nav-search-btn" onclick="window.openSearch && window.openSearch()" aria-label="Search site"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span class="nav-search-btn__text">Search</span> <span class="nav-search-btn__kbd">⌘K</span> </button> <button class="nav-hamburger" aria-label="Open navigation menu" onclick="window.openDrawer && window.openDrawer()"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"></path> </svg> </button> </div> </div> </nav> <!-- Mobile drawer --> <div class="nav-mobile-overlay" id="nav-overlay" onclick="window.closeDrawer && window.closeDrawer()"></div> <div class="nav-mobile-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu"> <div class="nav-drawer__header"> <span>Novated Lease Guide</span> <button class="nav-drawer__close" onclick="window.closeDrawer && window.closeDrawer()" aria-label="Close menu"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"></path> </svg> </button> </div> <!-- Drawer search --> <div style="padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.08);"> <button class="nav-search-btn" style="width:100%; justify-content:flex-start; background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: var(--color-text-muted);" onclick="window.closeDrawer(); setTimeout(() => window.openSearch && window.openSearch(), 200);" aria-label="Search"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:14px;height:14px;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span>Search</span> </button> </div> <div class="nav-drawer__section"> <a href="/" class="nav-drawer__link nav-drawer__link--top"> Home </a> </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Calculator</div> <a href="/calculator/" class="nav-drawer__link"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-drawer__link"> Employer BYO Checker </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Fundamentals</div> <div class="nav-drawer__group-title">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-drawer__link"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-drawer__link"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-drawer__link"> Is a novated lease worth it? </a> <div class="nav-drawer__group-title">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-drawer__link"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-drawer__link"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-drawer__link"> 20 novated lease calculators reviewed </a> <div class="nav-drawer__group-title">Reference</div><a href="/start-here/glossary/" class="nav-drawer__link"> Glossary of terms </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Mechanisms</div> <a href="/costs-and-savings/" class="nav-drawer__link"> Overview </a> <div class="nav-drawer__group-title">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-drawer__link"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-drawer__link"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-drawer__link"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-drawer__link"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-drawer__group-title">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-drawer__link"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-drawer__link"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-drawer__group-title">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-drawer__link"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-drawer__link"> Used-car GST secret (Division 66) </a> <div class="nav-drawer__group-title">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-drawer__link"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-drawer__link"> You don&#39;t have to sell above residual </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Running Costs</div> <a href="/running-costs/" class="nav-drawer__link active"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-drawer__link"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-drawer__link active"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-drawer__link"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-drawer__link"> Insurance premium vs excess </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Risks</div> <a href="/risks/" class="nav-drawer__link"> Overview of risks &amp; exit strategies </a> <div class="nav-drawer__group-title">Early Termination</div><a href="/risks/early-termination/" class="nav-drawer__link"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-drawer__link"> How bad can early termination get </a> <div class="nav-drawer__group-title">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-drawer__link"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-drawer__link"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-drawer__link"> Think like a gambler </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Special Cases</div> <a href="/special-and-policy/" class="nav-drawer__link"> Overview </a> <div class="nav-drawer__group-title">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-drawer__link"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-drawer__link"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-drawer__link"> LCT threshold &amp; FBT exemption </a> <div class="nav-drawer__group-title">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-drawer__link"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-drawer__link"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-drawer__group-title">Downstream Impact</div><a href="/special-and-policy/childcare-subsidy/" class="nav-drawer__link"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-drawer__link"> Super guarantee &amp; payroll risks </a> <div class="nav-drawer__group-title">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-drawer__link"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-drawer__link"> Why novated leasing is poorly regulated </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">About</div> <a href="/about/about-me/" class="nav-drawer__link"> Who I am </a> <a href="/about/history/" class="nav-drawer__link"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-drawer__link"> What readers say </a> <a href="/about/privacy/" class="nav-drawer__link"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-drawer__link"> Disclaimer </a> <a href="/about/contact/" class="nav-drawer__link"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-drawer__link" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </div> <script>
+  var _drawerScrollY = 0;
+  window.openDrawer = function() {
+    _drawerScrollY = window.scrollY;
+    document.body.style.top = '-' + _drawerScrollY + 'px';
+    document.body.classList.add('drawer-open');
+    document.getElementById('nav-drawer').classList.add('open');
+    document.getElementById('nav-overlay').classList.add('open');
+  };
+  window.closeDrawer = function() {
+    document.body.classList.remove('drawer-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _drawerScrollY);
+    document.getElementById('nav-drawer').classList.remove('open');
+    document.getElementById('nav-overlay').classList.remove('open');
+  };
+</script> <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search"> <div class="search-modal"> <div id="search-container"> <div style="padding: 16px 20px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 12px;"> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0; opacity:0.5;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <input id="search-input" type="search" placeholder="Search articles…" autocomplete="off" spellcheck="false" style="flex:1; border:none; outline:none; font-size:1rem; font-family:inherit; background:transparent; color:var(--color-text);" aria-label="Search"> <button onclick="window.closeSearch()" aria-label="Close search" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--color-text-muted);font-size:0.78rem;display:flex;align-items:center;gap:4px;"> <kbd style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:4px;padding:2px 6px;font-family:inherit;font-size:0.7rem;">Esc</kbd> </button> </div> <div id="search-results" class="search-results-wrap"></div> </div> </div> </div> <script>
+  (function() {
+    var overlay = document.getElementById('search-overlay');
+    var input = document.getElementById('search-input');
+    var resultsEl = document.getElementById('search-results');
+    var pagefind = null;
+    var searchTimeout = null;
+
+    window.openSearch = function() {
+      overlay.classList.add('open');
+      setTimeout(function() { input && input.focus(); }, 50);
+      initPagefind();
+    };
+
+    window.closeSearch = function() {
+      overlay.classList.remove('open');
+      if (input) { input.value = ''; }
+      if (resultsEl) { resultsEl.innerHTML = ''; }
+    };
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) window.closeSearch();
+    });
+
+    async function initPagefind() {
+      if (pagefind) return;
+      try {
+        pagefind = await import('/pagefind/pagefind.js');
+        await pagefind.options({ excerptLength: 20 });
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search index is being built. Run <code>npm run build</code> first to enable search.</div>';
+        pagefind = null;
+      }
+    }
+
+    async function doSearch(query) {
+      if (!pagefind || !query.trim()) {
+        resultsEl.innerHTML = '';
+        return;
+      }
+      try {
+        var results = await pagefind.search(query);
+        if (!results || results.results.length === 0) {
+          resultsEl.innerHTML = '<div class="search-no-results">No results for "<strong>' + escapeHtml(query) + '</strong>"</div>';
+          return;
+        }
+        var html = '';
+        var sliced = results.results.slice(0, 8);
+        for (var i = 0; i < sliced.length; i++) {
+          var data = await sliced[i].data();
+          html += '<a href="' + data.url + '" class="search-result-item" onclick="window.closeSearch()">';
+          html += '<div class="search-result-item__title">' + escapeHtml(data.meta?.title || '') + '</div>';
+          if (data.excerpt) {
+            html += '<div class="search-result-item__excerpt">' + data.excerpt + '</div>';
+          }
+          html += '</a>';
+        }
+        resultsEl.innerHTML = html;
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search error. Please try again.</div>';
+      }
+    }
+
+    input && input.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function() {
+        doSearch(input.value);
+      }, 200);
+    });
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  })();
+</script>  <div data-pagefind-body>  <div class="page-layout"> <main class="page-content" id="main-content"> <nav class="breadcrumbs" aria-label="Breadcrumb"> <a href="/">Home</a> <span class="breadcrumbs__sep">›</span> <span>Running Costs</span> <span class="breadcrumbs__sep">›</span> <span>ATO EV Home Charging Rate (5.47c/km): Claiming It on a Novated Lease</span> </nav> <article class="article-content">  <h1 id="the-ato-ev-home-charging-shortcut-547ckm--how-it-actually-works">The ATO EV home charging shortcut (5.47c/km) — how it actually works</h1><p class="article-byline">By <a href="/about/about-me/">changyang1230</a> · Updated 7 September 2026</p>
+<p>For most novated lease expenses, the process is straightforward — you spend $X on something, submit the claim, and that amount is paid from pre-tax dollars.</p>
+<p>Electricity is a different beast. Different tariffs, solar vs grid, time-of-use pricing, free public chargers, workplace chargers, battery losses… it quickly becomes a record-keeping nightmare with no clean answer for what was actually spent.</p>
+<p>Recognising this, the ATO essentially said: <em>this is getting ridiculous</em>.</p>
+<p>So instead of forcing everyone to track the cost of every kWh, they introduced a <strong>simplified shortcut method</strong>.</p>
+<hr>
+<div class="admonition admonition--tip"><div class="admonition__title">Rate updated from 1 April 2026</div><p>From 1 April 2026 (the start of the 2026–27 FBT year), the home charging shortcut rate increases from <strong>4.2c/km to 5.47c/km</strong>. <a href="https://www.ato.gov.au/law/view/document?docid=COG/PCG20242/NAT/ATO/00001#H16">ATO source</a></p><p>Examples on this page use the updated <strong>5.47c/km</strong> rate unless otherwise noted.</p></div>
+<hr>
+<h2 id="what-is-the-ev-home-charging-shortcut">What is the EV home charging shortcut?</h2>
+<p>Under <strong>PCG 2024/2</strong>, the ATO allows EV owners to claim <strong>home charging costs</strong> at a flat rate of:</p>
+<blockquote>
+<p><strong>5.47 cents per kilometre driven</strong> (from 1 April 2026)
+Previously: 4.2 cents per kilometre (to 31 March 2026)</p>
+</blockquote>
+<p>This applies to <strong>home charging</strong>, and it is:</p>
+<ul>
+<li>based purely on <strong>odometer readings</strong></li>
+<li>completely <strong>independent</strong> of
+<ul>
+<li>your electricity tariff,</li>
+<li>when you charge,</li>
+<li>how much solar you use,</li>
+<li>how much free charging you get elsewhere.</li>
+</ul>
+</li>
+</ul>
+<p>In other words:</p>
+<blockquote>
+<p><strong>When it comes to claiming home charging expense, the ATO does not care how you actually charged the car. They only care how far you drove it.</strong></p>
+</blockquote>
+<p>This makes the method simple, cheap to comply with, and very predictable.</p>
+<hr>
+<h2 id="how-the-electricity-claim-actually-works">How the electricity claim actually works</h2>
+<p>A common misconception:</p>
+<blockquote>
+<p>I charge for free <sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup> / extremely cheap e.g. solar or workplace charging, so <em>why am I asked to ‘spend $820.50’ in the budget when I didn’t spend anything?</em></p>
+</blockquote>
+<p><strong>Claiming</strong> $820.50 in electricity does <strong>not</strong> mean you are <em>spending</em> an additional $820.50. In fact it does not even mean you are spending anything; <strong>what instead happens is you receive extra money.</strong></p>
+<p>Normally, every dollar of gross income gets taxed before it reaches you. For example, on the <strong>37% + 2% Medicare levy</strong> bracket, each <em>additional</em> $1.00 of gross income only becomes <strong>$0.61</strong> in your bank account.</p>
+<p>When you claim the $820.50 in electricity, you are directing that $820.50 of gross income to be paid out untaxed — as if the ATO agreed to let the full amount pass through.</p>
+<p>Compare the two scenarios:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Scenario</th><th>What happens to that $820.50 of gross income</th></tr></thead><tbody><tr><td><strong>Without</strong> claiming electricity</td><td>Taxed at 39% → only <strong>$500.50</strong> reaches you</td></tr><tr><td><strong>With</strong> the $820.50 electricity claim</td><td>Paid out pre-tax → the full <strong>$820.50</strong> reaches you</td></tr></tbody></table>
+<p>The difference is <strong>$320.00 extra</strong> — money you would not have had otherwise.</p>
+<p>Critically, this $320.00 has nothing to do with your actual charging cost. Whether you charged for free <sup><a href="#user-content-fn-1" id="user-content-fnref-1-2" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>, at 8c/kWh, or at 30c/kWh, the claim produces the same extra money.</p>
+<p>This is why you should claim the electricity amount even if your real charging cost is zero <sup><a href="#user-content-fn-1" id="user-content-fnref-1-3" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>.</p>
+<div class="admonition admonition--info"><div class="admonition__title">The formula</div><p><strong>Net extra money = claim amount × (marginal tax rate + 2% Medicare levy)</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Marginal tax bracket</th><th>Combined rate</th><th>Net extra money per $820.50 claimed</th></tr></thead><tbody><tr><td>30%</td><td>32%</td><td>$262.56</td></tr><tr><td>37%</td><td>39%</td><td>$320.00</td></tr><tr><td>45%</td><td>47%</td><td>$385.64</td></tr></tbody></table></div>
+<hr>
+<h2 id="the-counter-intuitive-bit-you-can-make-a-net-financial-gain-from-charging-and-driving">The counter-intuitive bit: you can make a net financial gain from charging and driving</h2>
+<p>Because the pre-tax benefit is fixed by distance — not by what you actually spent — if your real charging cost is low enough, you could <strong>be paid to</strong> charge your car. Here is what that looks like with real numbers.</p>
+<h3 id="example">Example</h3>
+<p>If you drive <strong>15,000 km</strong> in a year and are on <strong>top marginal tax bracket (45+2%)</strong>:</p>
+<ul>
+<li>Claim amount:
+15,000 × $0.0547 = <strong>$820.50</strong></li>
+</ul>
+<p>Your car has an average efficiency of 150Wh/km, and you charge your car on a cheap tariff of 8c/kWh.</p>
+<ul>
+<li>Actual electricity expense:
+15,000 x 0.15 x $0.08 = <strong>$180</strong></li>
+</ul>
+<p>When you claim the $820.50,</p>
+<ul>
+<li>Extra money made = $820.50 × 47% = <strong>$385.64</strong></li>
+</ul>
+<p>Once you reconcile with your actual expense, post-claiming you have made <strong>$205.64 profit</strong> from charging and driving the car.</p>
+<p>In the <a href="/calculator/">Novated Lease Calculator</a>, the calculations above are automatically performed in the <strong>Detail - Annual Electricity Report</strong>, under <strong>Net charging expense (after tax reimbursement)</strong>.</p>
+<hr>
+<h2 id="the-three-ways-you-can-claim-ev-charging">The three ways you can claim EV charging</h2>
+<p>If you read <strong>PCG 2024/2</strong> carefully, there are <strong>three permissible approaches</strong>.</p>
+<h3 id="1-use-547ckm-for-distance-driven">1. Use 5.47c/km for distance driven</h3>
+<p>This is the simplest and most common method.</p>
+<p>As discussed above, you:</p>
+<ul>
+<li>record odometer readings,</li>
+<li>calculate the distance driven,</li>
+<li>claim 5.47c/km for that distance (4.2c/km for FBT years ending before 1 April 2026).</li>
+</ul>
+<p>If you choose this approach, you can’t claim any commercial charger cost that you have incurred.</p>
+<hr>
+<h3 id="2-claim-only-commercial-charging-invoices">2. Claim only commercial charging invoices</h3>
+<p>If you <strong>use commercial chargers often</strong>, you can instead:</p>
+<ul>
+<li>keep invoices from public / commercial chargers,</li>
+<li>claim the actual dollar amounts paid.</li>
+</ul>
+<p>If you choose this approach, you can’t claim any home charging.</p>
+<hr>
+<h3 id="3-mixed-method-home-charging--commercial-charging">3. Mixed method (home charging + commercial charging)</h3>
+<p>This is the least common, but sometimes <strong>most beneficial</strong>, and it’s the method I personally use some years.</p>
+<p>It is also the most record-keeping-intensive approach, and only worthwhile if the additional benefit meaningfully exceeds the extra effort.</p>
+<p>You can do this <strong>only if</strong>:</p>
+<ul>
+<li>your vehicle can reliably report <strong>how much charging occurred at home vs elsewhere</strong>, and</li>
+<li>you keep proper records i.e. odometer reading for the period covering each FBT year i.e. <strong>1 April to 31 March</strong></li>
+</ul>
+<p>The method works like this:</p>
+<ul>
+<li>home charging distance → claimed at <strong>5.47c/km</strong> (pro-rated based on charging ratio; 4.2c/km for FBT years ending before 1 April 2026),</li>
+<li>commercial charging → claimed using <strong>actual invoices</strong>.</li>
+</ul>
+<p>The home charging to commercial charging ratio is derived from the energy split (kWh charged at home as a proportion of total charging).</p>
+<p><strong>Example:</strong></p>
+<p>From the period <strong>1/4/2023 to 31/3/2024</strong>, an EV has driven <strong>12,418km</strong>. According to the Tesla app, over this period, <strong>1,447 kWh</strong> is charged at home out of <strong>2,432 kWh</strong> total, which is <strong>59.5%</strong>.</p>
+<p>This means we can apportion the 12,418km to:</p>
+<ul>
+<li>7,389km (59.5%) charged at home</li>
+<li>the rest charged elsewhere.</li>
+</ul>
+<p>We then use the 4.2c/km rate (applicable for the 2023–24 FBT year in this example) to calculate the home portion charging expense, alongside all the commercial charging invoices in this time period, and claim both amounts.</p>
+<hr>
+<h2 id="how-to-choose-the-method-that-gives-you-the-highest-claim">How to choose the method that gives you the highest claim</h2>
+<p>The three methods can produce very different claim amounts for the same FBT year. Since a higher claim means more money in your pocket (as explained above), it pays to calculate each one before deciding.</p>
+<h3 id="step-1--does-your-car-support-the-mixed-method">Step 1 — Does your car support the mixed method?</h3>
+<p>The mixed method requires your car (or charger) to reliably report kWh charged at home vs. elsewhere, covering the full FBT year (1 April – 31 March).</p>
+<p><strong>Tesla — best in class.</strong> The Tesla app’s Charge Stats feature shows an explicit percentage and kWh breakdown between home, Supercharger, and other public charging, filterable by month or year. This is the gold standard — it directly produces the ratio the ATO requires with no manual work.</p>
+<p><strong>BMW (MyBMW) — usable with some effort.</strong> The app records kWh per session with the location address, and <a href="https://faq.bmw.com.au/s/article/My-BMW-App-Charging-Charging-history-Export-horzE">supports an Excel export</a> (confirmed on BMW Australia’s support site). There is no automatic “Home / Public” label, but home sessions are identifiable by address. Workable for FBT with minor manual classification.</p>
+<p><strong>Mercedes-EQ (Mercedes me app) — workable, but requires setup.</strong> The app can track home charging kWh if you register a compatible wallbox as “My charging station,” and public sessions if you use the MB.CHARGE Public service. Both conditions must be met simultaneously. No CSV export has been confirmed, but session history is viewable in-app.</p>
+<p><strong>Most other brands — not useful on their own:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Brand</th><th>App</th><th>Limitation</th></tr></thead><tbody><tr><td>Hyundai</td><td>Bluelink</td><td>No charging history with kWh</td></tr><tr><td>Kia</td><td>Kia Connect</td><td>No charging history with kWh</td></tr><tr><td>Volkswagen</td><td>We Connect</td><td>No charging session history</td></tr><tr><td>BYD</td><td>BYD Auto</td><td>No confirmed charging history log</td></tr><tr><td>Polestar</td><td>Polestar app</td><td>Public receipts via separate Polestar Charge app only; home charging not tracked</td></tr><tr><td>Volvo</td><td>Volvo Cars</td><td>No charging history in app</td></tr><tr><td>Audi</td><td>myAudi</td><td>Charging data missing or inconsistent; home charging not tracked</td></tr></tbody></table>
+<p>If your car falls into this group, you can still use the mixed method — but you’ll need to source the data from two places: your <strong>home charger’s own app</strong> (e.g. Wallbox, Zappi, Jet Charge, EVNEX) for home kWh, and your <strong>public network receipts</strong> (Chargefox, Evie Networks, NRMA Electric Vehicle Charging, etc.) for commercial kWh. Whether that record-keeping effort is worthwhile depends on how much commercial charging you do.</p>
+<p>If you cannot reliably reconstruct the home/away split, you are choosing between Method 1 and Method 2 only.</p>
+<h3 id="step-2--calculate-each-applicable-methods-claim-value">Step 2 — Calculate each applicable method’s claim value</h3>
+<p>Use the same FBT year (1 April – 31 March) for all calculations.</p>
+<p><strong>Method 1 — Odometer shortcut:</strong></p>
+<blockquote>
+<p>Claim = total km driven × $0.0547</p>
+</blockquote>
+<p><strong>Method 2 — Commercial invoices only:</strong></p>
+<blockquote>
+<p>Claim = sum of all commercial charging invoices for the period</p>
+</blockquote>
+<p><strong>Method 3 — Mixed (if available):</strong></p>
+<blockquote>
+<p>Claim = (total km driven × home charging %) × $0.0547 + sum of commercial charging invoices</p>
+</blockquote>
+<p>The home charging % comes from the energy split: kWh charged at home ÷ total kWh charged.</p>
+<h3 id="step-3--pick-the-highest">Step 3 — Pick the highest</h3>
+<p>Whichever method produces the largest dollar figure is the one you should use.</p>
+<p><strong>Worked example</strong> — you drive <strong>15,000 km</strong> in the FBT year, your commercial charging invoices total <strong>$400</strong>, and your car shows <strong>80% of energy came from home charging</strong>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Method</th><th>Calculation</th><th>Claim</th></tr></thead><tbody><tr><td>1 — Odometer shortcut</td><td>15,000 × $0.0547</td><td><strong>$820.50</strong></td></tr><tr><td>2 — Commercial invoices only</td><td>$400</td><td><strong>$400.00</strong></td></tr><tr><td>3 — Mixed</td><td>(15,000 × 80%) × $0.0547 + $400</td><td><strong>$1,056.40</strong></td></tr></tbody></table>
+<p>The mixed method wins here by <strong>$235.90</strong> over the next-best option — which translates to roughly <strong>$92–$111 extra in your pocket</strong> (depending on your tax bracket), purely from the additional record-keeping.</p>
+<div class="admonition admonition--tip"><div class="admonition__title">When does the mixed method beat the odometer shortcut?</div><p>Method 3 beats Method 1 whenever your actual commercial charging costs per kilometre exceed what the 5.47c/km rate would have given you for those same kilometres. Since most commercial chargers (Chargefox, Evie Networks, Tesla Supercharger, etc.) typically cost well above the implied rate of ~36c/kWh baked into the shortcut, <strong>anyone with meaningful commercial charging is likely to benefit from Method 3</strong> — if their car supports it.</p><p>Method 2 (commercial invoices only) rarely wins unless commercial charging absolutely dominates your usage.</p></div>
+<hr>
+<hr>
+<h2 id="the-key-takeaway">The key takeaway</h2>
+<p>If you remember nothing else:</p>
+<blockquote>
+<p><strong>The EV home charging shortcut puts extra money in your pocket based on distance driven, and this benefit is yours even if you charge cheaply or for free. <sup><a href="#user-content-fn-1" id="user-content-fnref-1-4" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup></strong></p>
+</blockquote>
+<p>For those with solar or cheap tariffs, it is <strong>surprisingly generous</strong>.</p>
+<hr>
+<h3 id="reference">Reference</h3>
+<ul>
+<li><a href="https://www.ato.gov.au/law/view/document?DocID=COG/PCG20242/NAT/ATO/00001">ATO Practical Compliance Guideline: <strong>PCG 2024/2</strong></a></li>
+<li><a href="https://www.ato.gov.au/law/view/document?docid=COG/PCG20242/NAT/ATO/00001#H16">ATO guidance on the 5.47c/km rate (from 1 April 2026)</a></li>
+</ul>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p>The one edge case worth noting: PCG 2024/2 requires that you have actually incurred electricity costs during the year. For the vast majority of solar households this is a non-issue — unless you are fully “off the grid”, some grid expenses still appear on every bill. However, if your solar system fully offsets your entire household electricity consumption and your bill is genuinely zero, you may not satisfy this requirement, and the shortcut method would technically be unavailable. This interpretation is not stated explicitly in the PCG itself, but follows from its eligibility criteria. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a> <a href="#user-content-fnref-1-2" data-footnote-backref="" aria-label="Back to reference 1-2" class="data-footnote-backref">↩<sup>2</sup></a> <a href="#user-content-fnref-1-3" data-footnote-backref="" aria-label="Back to reference 1-3" class="data-footnote-backref">↩<sup>3</sup></a> <a href="#user-content-fnref-1-4" data-footnote-backref="" aria-label="Back to reference 1-4" class="data-footnote-backref">↩<sup>4</sup></a></p>
+</li>
+</ol>
+</section>  </article> <div class="admonition admonition--info"><div class="admonition__title">Support this independent calculator & guide</div><p>This calculator and guide are built and continuously maintained as an independent project.</p><p>If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:</p><ul><li><a href="https://buymeacoffee.com/changyang1230">Buying me a cuppa</a> ☕ to help cover hosting, development time, and future improvements, or</li><li><a href="https://ts.la/pradeep738043">Using a friend's Tesla referral link</a> for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.</li></ul></div><details class="admonition admonition--note admonition--collapsible"><summary class="admonition__title">I'm backing Dr Michael Keane's fight for salary packaging transparency</summary><p>Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.</p><p>Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on <a href="https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0">alleged sign-on fees</a> associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.</p><p>To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his <a href="https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging"><img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe</a>.</p></details> </main> <aside class="page-toc" aria-label="Table of contents"> <div class="toc" id="article-toc"><div class="toc__title">On this page</div><ul class="toc__list" role="list"><li class="toc__item"><a href="#what-is-the-ev-home-charging-shortcut" class="toc__link">What is the EV home charging shortcut?</a></li><li class="toc__item"><a href="#how-the-electricity-claim-actually-works" class="toc__link">How the electricity claim actually works</a></li><li class="toc__item"><a href="#the-counter-intuitive-bit-you-can-make-a-net-financial-gain-from-charging-and-driving" class="toc__link">The counter-intuitive bit: you can make a net financial gain from charging and driving</a></li><li class="toc__item toc__item--depth-3"><a href="#example" class="toc__link toc__list--depth-2 toc__link">Example</a></li><li class="toc__item"><a href="#the-three-ways-you-can-claim-ev-charging" class="toc__link">The three ways you can claim EV charging</a></li><li class="toc__item toc__item--depth-3"><a href="#1-use-547ckm-for-distance-driven" class="toc__link toc__list--depth-2 toc__link">1. Use 5.47c/km for distance driven</a></li><li class="toc__item toc__item--depth-3"><a href="#2-claim-only-commercial-charging-invoices" class="toc__link toc__list--depth-2 toc__link">2. Claim only commercial charging invoices</a></li><li class="toc__item toc__item--depth-3"><a href="#3-mixed-method-home-charging--commercial-charging" class="toc__link toc__list--depth-2 toc__link">3. Mixed method (home charging + commercial charging)</a></li><li class="toc__item"><a href="#how-to-choose-the-method-that-gives-you-the-highest-claim" class="toc__link">How to choose the method that gives you the highest claim</a></li><li class="toc__item toc__item--depth-3"><a href="#step-1--does-your-car-support-the-mixed-method" class="toc__link toc__list--depth-2 toc__link">Step 1 — Does your car support the mixed method?</a></li><li class="toc__item toc__item--depth-3"><a href="#step-2--calculate-each-applicable-methods-claim-value" class="toc__link toc__list--depth-2 toc__link">Step 2 — Calculate each applicable method’s claim value</a></li><li class="toc__item toc__item--depth-3"><a href="#step-3--pick-the-highest" class="toc__link toc__list--depth-2 toc__link">Step 3 — Pick the highest</a></li><li class="toc__item"><a href="#the-key-takeaway" class="toc__link">The key takeaway</a></li><li class="toc__item toc__item--depth-3"><a href="#reference" class="toc__link toc__list--depth-2 toc__link">Reference</a></li><li class="toc__item"><a href="#footnote-label" class="toc__link">Footnotes</a></li></ul></div><script type="module">(function(){var l=document.querySelectorAll("#article-toc .toc__link");if(l.length===0)return;var c=Array.from(l).map(function(e){var t=e.getAttribute("href")||"",r=t.replace("#","");return{el:document.getElementById(r),link:e}}).filter(function(e){return e.el});function o(){for(var e=72,t=window.scrollY,r=null,n=c.length-1;n>=0;n--)if(c[n].el.getBoundingClientRect().top+t<=t+e+4){r=c[n];break}l.forEach(function(a){a.classList.remove("active")}),r&&r.link.classList.add("active")}window.addEventListener("scroll",o,{passive:!0}),o()})();</script> </aside> </div>  </div> <footer class="site-footer"> <div class="site-footer__inner"> <div class="site-footer__col"> <div class="site-footer__brand"> <img class="site-footer__logo" src="/assets/images/logo.png" alt="" aria-hidden="true">
+Novated Lease Guide
+</div> <p style="max-width:280px; line-height:1.6; margin:0; font-size:0.78rem;">
+Independent, evidence-based Australian novated lease guide and calculator.
+        Not affiliated with any financier or provider.
+</p> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Calculator</div> <ul class="site-footer__links"> <li><a href="/calculator/" class="site-footer__link">Novated Lease Calculator</a></li> <li><a href="/tools/byo-employer-check/" class="site-footer__link">Employer BYO checker</a></li> <li><a href="/start-here/use-nl-calculator/" class="site-footer__link">How to use the calculator</a></li> <li><a href="/start-here/calculator-comparison/" class="site-footer__link">20 calculators reviewed</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Key Articles</div> <ul class="site-footer__links"> <li><a href="/start-here/what-is-novated-lease/" class="site-footer__link">What is a novated lease?</a></li> <li><a href="/start-here/is-it-worth-it/" class="site-footer__link">Is it worth it?</a></li> <li><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="site-footer__link">Why "tax saved" is wrong</a></li> <li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="site-footer__link">EV FBT wind-back 2026</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">About</div> <ul class="site-footer__links"> <li><a href="/about/about-me/" class="site-footer__link">About me</a></li> <li><a href="/about/history/" class="site-footer__link">Calculator history</a></li> <li><a href="/about/what-readers-say/" class="site-footer__link">What readers say</a></li> <li><a href="/about/contact/" class="site-footer__link">Contact</a></li> <li><a href="/about/privacy/" class="site-footer__link">Privacy policy</a></li> <li><a href="/about/disclaimer/" class="site-footer__link">Disclaimer</a></li> <li><a href="https://buymeacoffee.com/changyang1230" class="site-footer__link" target="_blank" rel="noopener">Buy me a coffee ☕</a></li> </ul> </div> </div> <div class="site-footer__meta"> <div class="site-footer__meta-links"> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/privacy/">Privacy</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/disclaimer/">Disclaimer</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/contact/">Contact</a>
+&nbsp;&middot;&nbsp;
+      &copy; 2026
+</div> <div class="site-footer__meta-disclaimer">
+This site provides general information and educational commentary only. It does not constitute personal financial advice.
+</div> </div> </footer> <!-- GA4 link tracking & search keyboard shortcut --> <script>
+      // Track Buy Me a Coffee & Tesla referral link clicks
+      (function() {
+        function fireGa4(name, params) {
+          try { if (typeof gtag === 'function') gtag('event', name, params); } catch(e) {}
+        }
+        function trackLinks() {
+          document.querySelectorAll('a[href^="https://buymeacoffee.com/"],a[href^="https://www.buymeacoffee.com/"],a[href^="https://ts.la/"]').forEach(function(a) {
+            a.addEventListener('click', function() {
+              var href = a.getAttribute('href') || '';
+              fireGa4('support_link_click', {
+                link_label: href.includes('buymeacoffee') ? 'buymeacoffee' : 'tesla_referral',
+                link_url: href,
+                page_path: window.location.pathname,
+                page_title: document.title
+              });
+            }, { capture: true });
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', trackLinks);
+        } else {
+          trackLinks();
+        }
+      })();
+
+      // Keyboard shortcut: / or Ctrl+K to open search
+      document.addEventListener('keydown', function(e) {
+        if ((e.key === '/' || (e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) && !e.target.matches('input,textarea')) {
+          e.preventDefault();
+          window.openSearch && window.openSearch();
+        }
+        if (e.key === 'Escape') {
+          window.closeSearch && window.closeSearch();
+          window.closeDrawer && window.closeDrawer();
+        }
+      });
+    </script> </body> </html> <script type="module">(function(){var f=document.querySelectorAll(".compact-table table");f.forEach(function(r){var l=r.closest(".compact-table");if(!l)return;var e=r.querySelector("thead"),o=Array.from(r.querySelectorAll("tr th:first-child, tr td:first-child")),c=Array.from(r.querySelectorAll("tr th:nth-child(2), tr td:nth-child(2)"));o.concat(c).forEach(function(t){t.style.position="relative",t.style.backgroundColor="var(--color-bg)"}),o.forEach(function(t){t.style.whiteSpace="nowrap",t.style.zIndex="2"}),c.forEach(function(t){t.style.zIndex="2"}),r.querySelectorAll("thead th:first-child, thead th:nth-child(2)").forEach(function(t){t.style.zIndex="4"});function n(){var t=l.scrollLeft;o.forEach(function(a){a.style.transform="translateX("+t+"px)"}),c.forEach(function(a){a.style.transform="translateX("+t+"px)"})}if(l.addEventListener("scroll",n,{passive:!0}),n(),!e)return;function i(){var t=document.querySelector(".site-nav");return t?t.offsetHeight:56}function s(){var t=l.getBoundingClientRect(),a=i(),u=e.offsetHeight,d=a-t.top;d>0&&t.bottom>a+u?(e.style.transform="translateY("+d+"px)",e.style.position="relative",e.style.zIndex="3"):(e.style.transform="",e.style.position="",e.style.zIndex="")}window.addEventListener("scroll",s,{passive:!0}),s()}),document.querySelectorAll(".article-content table").forEach(function(r){var l=Array.from(r.querySelectorAll("tbody > tr")),e=null,o=null;l.forEach(function(c){var n=c.querySelector("td:first-child");if(!n){e=null,o=null;return}var i=n.textContent.trim();e&&i===o?(e.rowSpan=(e.rowSpan||1)+1,e.style.verticalAlign="middle",n.remove()):(e=n,o=i)})}),document.querySelectorAll("[data-dismiss]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-dismiss"));l&&(l.style.display="none")})}),document.querySelectorAll("[data-toggle]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-toggle"));if(l){var e=l.classList.toggle("open");r.textContent=e?"close ▴":"details ▾"}})})})();</script>

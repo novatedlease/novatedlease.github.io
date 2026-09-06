@@ -1,0 +1,404 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="color-scheme" content="light dark"><script>
+      // Theme: stored choice wins; otherwise follow the system. Runs before first paint to avoid a flash.
+      (function () {
+        var root = document.documentElement;
+        var stored = null;
+        try { stored = localStorage.getItem('theme'); } catch (e) {}
+        var fromUrl = new URLSearchParams(location.search).get('theme');
+        if (fromUrl === 'dark' || fromUrl === 'light') stored = fromUrl;
+        var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        function apply(t) { if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.setAttribute('data-theme', 'light'); }
+        apply(stored === 'dark' || stored === 'light' ? stored : (mq && mq.matches ? 'dark' : 'light'));
+        if (mq && mq.addEventListener) mq.addEventListener('change', function (e) {
+          var s = null; try { s = localStorage.getItem('theme'); } catch (err) {}
+          if (s !== 'dark' && s !== 'light') apply(e.matches ? 'dark' : 'light');
+        });
+        window.toggleTheme = function () {
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          apply(next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          try { if (typeof gtag === 'function') gtag('event', 'theme_toggled', { theme: next }); } catch (e) {}
+        };
+      })();
+    </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Is a Novated Lease Worth It? An Independent 2026 Answer — Novated Lease Guide</title><meta name="description" content="Short answer: often yes for an FBT-exempt EV on a higher income, often no for a petrol car or a short lease. An independent 2026 guide to the real numbers, the traps in &#34;tax saved&#34; figures, residuals and early exit, and when to walk away."><link rel="canonical" href="https://novatedlease.guide/start-here/is-it-worth-it/"><!-- Favicon --><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><!-- Open Graph --><meta property="og:type" content="article"><meta property="og:title" content="Is a Novated Lease Worth It? An Independent 2026 Answer — Novated Lease Guide"><meta property="og:description" content="Short answer: often yes for an FBT-exempt EV on a higher income, often no for a petrol car or a short lease. An independent 2026 guide to the real numbers, the traps in &#34;tax saved&#34; figures, residuals and early exit, and when to walk away."><meta property="og:url" content="https://novatedlease.guide/start-here/is-it-worth-it/"><meta property="og:image" content="https://novatedlease.guide/og/start-here/is-it-worth-it.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Is a Novated Lease Worth It? An Independent 2026 Answer — Novated Lease Guide"><meta name="twitter:description" content="Short answer: often yes for an FBT-exempt EV on a higher income, often no for a petrol car or a short lease. An independent 2026 guide to the real numbers, the traps in &#34;tax saved&#34; figures, residuals and early exit, and when to walk away."><meta name="twitter:image" content="https://novatedlease.guide/og/start-here/is-it-worth-it.png"><!-- Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://novatedlease.guide/#website","name":"Novated Lease Guide","url":"https://novatedlease.guide","description":"Independent, evidence-based guide and calculator for understanding novated leases in Australia.","publisher":{"@id":"https://novatedlease.guide/#org"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://novatedlease.guide/"},{"@type":"ListItem","position":2,"name":"Start Here","item":"https://novatedlease.guide/start-here/"},{"@type":"ListItem","position":3,"name":"Is a Novated Lease Worth It? An Independent 2026 Answer","item":"https://novatedlease.guide/start-here/is-it-worth-it/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Is a Novated Lease Worth It? An Independent 2026 Answer","description":"Short answer: often yes for an FBT-exempt EV on a higher income, often no for a petrol car or a short lease. An independent 2026 guide to the real numbers, the traps in \"tax saved\" figures, residuals and early exit, and when to walk away.","url":"https://novatedlease.guide/start-here/is-it-worth-it/","image":"https://novatedlease.guide/og/start-here/is-it-worth-it.png","author":{"@type":"Person","@id":"https://novatedlease.guide/about/about-me/#person","name":"changyang1230","url":"https://novatedlease.guide/about/about-me/","jobTitle":"Anaesthetist, biostatistician, and novated lease consumer advocate","description":"Australian anaesthetist, qualified biostatistician, and former mathematical olympiad national representative. Independent author of novatedlease.guide — a free evidence-based guide and calculator for understanding novated leases in Australia.","knowsAbout":["Novated leasing","Salary packaging","Fringe Benefits Tax","Electric vehicle FBT exemption","Australian personal finance","Australian tax","Biostatistics","Probability and statistics"],"sameAs":["https://www.reddit.com/user/changyang1230","https://buymeacoffee.com/changyang1230"]},"publisher":{"@type":"Organization","@id":"https://novatedlease.guide/#org","name":"Novated Lease Guide","url":"https://novatedlease.guide","logo":{"@type":"ImageObject","url":"https://novatedlease.guide/assets/images/logo.png"},"founder":{"@id":"https://novatedlease.guide/about/about-me/#person"}},"isPartOf":{"@id":"https://novatedlease.guide/#website"},"mainEntityOfPage":"https://novatedlease.guide/start-here/is-it-worth-it/","datePublished":"2026-01-06","dateModified":"2026-09-07"}</script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-52RWVTCGLP"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-52RWVTCGLP', { anonymize_ip: true });
+    </script><link rel="stylesheet" href="/_astro/_slug_.nTyyVw3T.css"></head> <body> <nav class="site-nav" role="navigation" aria-label="Main navigation"> <div class="site-nav__inner"> <!-- Brand --> <a class="site-nav__brand" href="/"> <img class="site-nav__logo" src="/assets/images/logo.png" alt="" aria-hidden="true">
+Novated Lease Guide
+</a> <!-- Desktop links --> <ul class="site-nav__links" role="list"> <li> <a href="/" class="site-nav__link"> Home </a> </li><li> <a href="/calculator/" class="site-nav__link site-nav__link--cta"> Calculator <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </a> <div class="nav-dropdown" role="menu"> <a href="/calculator/" class="nav-dropdown__item" role="menuitem"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-dropdown__item" role="menuitem"> Employer BYO Checker </a>  </div> </li><li> <button class="site-nav__link active" aria-haspopup="true" aria-expanded="false" type="button"> Fundamentals <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <div class="nav-dropdown__heading">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-dropdown__item" role="menuitem"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-dropdown__item" role="menuitem"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-dropdown__item active" role="menuitem"> Is a novated lease worth it? </a> <div class="nav-dropdown__heading">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-dropdown__item" role="menuitem"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-dropdown__item" role="menuitem"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-dropdown__item" role="menuitem"> 20 novated lease calculators reviewed </a> <div class="nav-dropdown__heading">Reference</div><a href="/start-here/glossary/" class="nav-dropdown__item" role="menuitem"> Glossary of terms </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Mechanisms <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/costs-and-savings/" class="nav-dropdown__item" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-dropdown__item" role="menuitem"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-dropdown__item" role="menuitem"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-dropdown__item" role="menuitem"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-dropdown__item" role="menuitem"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-dropdown__heading">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-dropdown__item" role="menuitem"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-dropdown__item" role="menuitem"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-dropdown__heading">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-dropdown__item" role="menuitem"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-dropdown__item" role="menuitem"> Used-car GST secret (Division 66) </a> <div class="nav-dropdown__heading">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-dropdown__item" role="menuitem"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-dropdown__item" role="menuitem"> You don&#39;t have to sell above residual </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Running Costs <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/running-costs/" class="nav-dropdown__item" role="menuitem"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-dropdown__item" role="menuitem"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-dropdown__item" role="menuitem"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-dropdown__item" role="menuitem"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-dropdown__item" role="menuitem"> Insurance premium vs excess </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Risks <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/risks/" class="nav-dropdown__item" role="menuitem"> Overview of risks &amp; exit strategies </a> <div class="nav-dropdown__heading">Early Termination</div><a href="/risks/early-termination/" class="nav-dropdown__item" role="menuitem"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-dropdown__item" role="menuitem"> How bad can early termination get </a> <div class="nav-dropdown__heading">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-dropdown__item" role="menuitem"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-dropdown__item" role="menuitem"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-dropdown__item" role="menuitem"> Think like a gambler </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Special Cases <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/special-and-policy/" class="nav-dropdown__item" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-dropdown__item" role="menuitem"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-dropdown__item" role="menuitem"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-dropdown__item" role="menuitem"> LCT threshold &amp; FBT exemption </a> <div class="nav-dropdown__heading">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-dropdown__item" role="menuitem"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-dropdown__item" role="menuitem"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-dropdown__heading">Downstream Impact</div><a href="/special-and-policy/childcare-subsidy/" class="nav-dropdown__item" role="menuitem"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-dropdown__item" role="menuitem"> Super guarantee &amp; payroll risks </a> <div class="nav-dropdown__heading">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-dropdown__item" role="menuitem"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-dropdown__item" role="menuitem"> Why novated leasing is poorly regulated </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> About <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/about/about-me/" class="nav-dropdown__item" role="menuitem"> Who I am </a> <a href="/about/history/" class="nav-dropdown__item" role="menuitem"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-dropdown__item" role="menuitem"> What readers say </a> <a href="/about/privacy/" class="nav-dropdown__item" role="menuitem"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-dropdown__item" role="menuitem"> Disclaimer </a> <a href="/about/contact/" class="nav-dropdown__item" role="menuitem"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-dropdown__item" role="menuitem" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </li> </ul> <!-- Right actions --> <div class="site-nav__actions"> <button class="nav-theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode" onclick="window.toggleTheme && window.toggleTheme()"> <svg class="nav-theme-btn__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg> <svg class="nav-theme-btn__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg> </button> <button class="nav-search-btn" onclick="window.openSearch && window.openSearch()" aria-label="Search site"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span class="nav-search-btn__text">Search</span> <span class="nav-search-btn__kbd">⌘K</span> </button> <button class="nav-hamburger" aria-label="Open navigation menu" onclick="window.openDrawer && window.openDrawer()"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"></path> </svg> </button> </div> </div> </nav> <!-- Mobile drawer --> <div class="nav-mobile-overlay" id="nav-overlay" onclick="window.closeDrawer && window.closeDrawer()"></div> <div class="nav-mobile-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu"> <div class="nav-drawer__header"> <span>Novated Lease Guide</span> <button class="nav-drawer__close" onclick="window.closeDrawer && window.closeDrawer()" aria-label="Close menu"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"></path> </svg> </button> </div> <!-- Drawer search --> <div style="padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.08);"> <button class="nav-search-btn" style="width:100%; justify-content:flex-start; background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: var(--color-text-muted);" onclick="window.closeDrawer(); setTimeout(() => window.openSearch && window.openSearch(), 200);" aria-label="Search"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:14px;height:14px;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span>Search</span> </button> </div> <div class="nav-drawer__section"> <a href="/" class="nav-drawer__link nav-drawer__link--top"> Home </a> </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Calculator</div> <a href="/calculator/" class="nav-drawer__link"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-drawer__link"> Employer BYO Checker </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Fundamentals</div> <div class="nav-drawer__group-title">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-drawer__link"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-drawer__link"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-drawer__link active"> Is a novated lease worth it? </a> <div class="nav-drawer__group-title">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-drawer__link"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-drawer__link"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-drawer__link"> 20 novated lease calculators reviewed </a> <div class="nav-drawer__group-title">Reference</div><a href="/start-here/glossary/" class="nav-drawer__link"> Glossary of terms </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Mechanisms</div> <a href="/costs-and-savings/" class="nav-drawer__link"> Overview </a> <div class="nav-drawer__group-title">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-drawer__link"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-drawer__link"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-drawer__link"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-drawer__link"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-drawer__group-title">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-drawer__link"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-drawer__link"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-drawer__group-title">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-drawer__link"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-drawer__link"> Used-car GST secret (Division 66) </a> <div class="nav-drawer__group-title">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-drawer__link"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-drawer__link"> You don&#39;t have to sell above residual </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Running Costs</div> <a href="/running-costs/" class="nav-drawer__link"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-drawer__link"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-drawer__link"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-drawer__link"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-drawer__link"> Insurance premium vs excess </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Risks</div> <a href="/risks/" class="nav-drawer__link"> Overview of risks &amp; exit strategies </a> <div class="nav-drawer__group-title">Early Termination</div><a href="/risks/early-termination/" class="nav-drawer__link"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-drawer__link"> How bad can early termination get </a> <div class="nav-drawer__group-title">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-drawer__link"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-drawer__link"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-drawer__link"> Think like a gambler </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Special Cases</div> <a href="/special-and-policy/" class="nav-drawer__link"> Overview </a> <div class="nav-drawer__group-title">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-drawer__link"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-drawer__link"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-drawer__link"> LCT threshold &amp; FBT exemption </a> <div class="nav-drawer__group-title">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-drawer__link"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-drawer__link"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-drawer__group-title">Downstream Impact</div><a href="/special-and-policy/childcare-subsidy/" class="nav-drawer__link"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-drawer__link"> Super guarantee &amp; payroll risks </a> <div class="nav-drawer__group-title">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-drawer__link"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-drawer__link"> Why novated leasing is poorly regulated </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">About</div> <a href="/about/about-me/" class="nav-drawer__link"> Who I am </a> <a href="/about/history/" class="nav-drawer__link"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-drawer__link"> What readers say </a> <a href="/about/privacy/" class="nav-drawer__link"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-drawer__link"> Disclaimer </a> <a href="/about/contact/" class="nav-drawer__link"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-drawer__link" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </div> <script>
+  var _drawerScrollY = 0;
+  window.openDrawer = function() {
+    _drawerScrollY = window.scrollY;
+    document.body.style.top = '-' + _drawerScrollY + 'px';
+    document.body.classList.add('drawer-open');
+    document.getElementById('nav-drawer').classList.add('open');
+    document.getElementById('nav-overlay').classList.add('open');
+  };
+  window.closeDrawer = function() {
+    document.body.classList.remove('drawer-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _drawerScrollY);
+    document.getElementById('nav-drawer').classList.remove('open');
+    document.getElementById('nav-overlay').classList.remove('open');
+  };
+</script> <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search"> <div class="search-modal"> <div id="search-container"> <div style="padding: 16px 20px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 12px;"> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0; opacity:0.5;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <input id="search-input" type="search" placeholder="Search articles…" autocomplete="off" spellcheck="false" style="flex:1; border:none; outline:none; font-size:1rem; font-family:inherit; background:transparent; color:var(--color-text);" aria-label="Search"> <button onclick="window.closeSearch()" aria-label="Close search" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--color-text-muted);font-size:0.78rem;display:flex;align-items:center;gap:4px;"> <kbd style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:4px;padding:2px 6px;font-family:inherit;font-size:0.7rem;">Esc</kbd> </button> </div> <div id="search-results" class="search-results-wrap"></div> </div> </div> </div> <script>
+  (function() {
+    var overlay = document.getElementById('search-overlay');
+    var input = document.getElementById('search-input');
+    var resultsEl = document.getElementById('search-results');
+    var pagefind = null;
+    var searchTimeout = null;
+
+    window.openSearch = function() {
+      overlay.classList.add('open');
+      setTimeout(function() { input && input.focus(); }, 50);
+      initPagefind();
+    };
+
+    window.closeSearch = function() {
+      overlay.classList.remove('open');
+      if (input) { input.value = ''; }
+      if (resultsEl) { resultsEl.innerHTML = ''; }
+    };
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) window.closeSearch();
+    });
+
+    async function initPagefind() {
+      if (pagefind) return;
+      try {
+        pagefind = await import('/pagefind/pagefind.js');
+        await pagefind.options({ excerptLength: 20 });
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search index is being built. Run <code>npm run build</code> first to enable search.</div>';
+        pagefind = null;
+      }
+    }
+
+    async function doSearch(query) {
+      if (!pagefind || !query.trim()) {
+        resultsEl.innerHTML = '';
+        return;
+      }
+      try {
+        var results = await pagefind.search(query);
+        if (!results || results.results.length === 0) {
+          resultsEl.innerHTML = '<div class="search-no-results">No results for "<strong>' + escapeHtml(query) + '</strong>"</div>';
+          return;
+        }
+        var html = '';
+        var sliced = results.results.slice(0, 8);
+        for (var i = 0; i < sliced.length; i++) {
+          var data = await sliced[i].data();
+          html += '<a href="' + data.url + '" class="search-result-item" onclick="window.closeSearch()">';
+          html += '<div class="search-result-item__title">' + escapeHtml(data.meta?.title || '') + '</div>';
+          if (data.excerpt) {
+            html += '<div class="search-result-item__excerpt">' + data.excerpt + '</div>';
+          }
+          html += '</a>';
+        }
+        resultsEl.innerHTML = html;
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search error. Please try again.</div>';
+      }
+    }
+
+    input && input.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function() {
+        doSearch(input.value);
+      }, 200);
+    });
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  })();
+</script>  <div data-pagefind-body>  <div class="page-layout"> <main class="page-content" id="main-content"> <nav class="breadcrumbs" aria-label="Breadcrumb"> <a href="/">Home</a> <span class="breadcrumbs__sep">›</span> <span>Fundamentals</span> <span class="breadcrumbs__sep">›</span> <span>Is a Novated Lease Worth It? An Independent 2026 Answer</span> </nav> <article class="article-content">  <h1 id="is-a-novated-lease-worth-it-in-australia-2026-guide">Is a novated lease worth it in Australia? (2026 guide)</h1><p class="article-byline">By <a href="/about/about-me/">changyang1230</a> · Updated 7 September 2026</p>
+<p>Instead of asking “are novated leases worth it?”, the better question is:</p>
+<blockquote>
+<p><strong>Given my income, job stability, alternatives and risk tolerance, am I genuinely better off overall?</strong></p>
+</blockquote>
+<p>Novated leases are highly <strong>context‑dependent</strong>. They can be very favourable in some situations — particularly for higher tax brackets and FBT‑exempt EVs — but mediocre or even harmful in others.</p>
+<hr>
+<h3 id="how-does-a-novated-lease-potentially-help-save-money">How does a novated lease potentially help save money</h3>
+<p>Before weighing the risks and benchmarks, it helps to understand <em>where</em> the potential savings actually come from, which is especially pronounced in the context of EVs.</p>
+<ol>
+<li>
+<p><strong>Pre‑tax funding for the vehicle</strong></p>
+<ul>
+<li>The car is primarily funded with pre‑tax income, with only the final residual (balloon) payment made from post‑tax money.</li>
+</ul>
+</li>
+<li>
+<p><strong>Pre‑tax running costs</strong></p>
+<ul>
+<li>Registration, insurance, electricity, servicing and tyres can be funded using pre‑tax salary.</li>
+</ul>
+</li>
+<li>
+<p><strong>GST savings</strong></p>
+<ul>
+<li>Up to $6,353 of GST can be exempted on the vehicle value <sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup> <sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup></li>
+<li>Claimable running costs are generally GST‑free within the packaging structure.</li>
+<li><em>Important:</em> Some employers <a href="/running-costs/failure-to-pass-gst-saving/">do not fully pass on GST savings</a> — always confirm this in your quote.</li>
+</ul>
+</li>
+<li>
+<p><strong>Opportunity cost benefits</strong></p>
+<ul>
+<li>Avoiding a large upfront payment can leave more money in a mortgage offset account, reducing home loan interest.</li>
+</ul>
+</li>
+<li>
+<p><strong>Fringe Benefits Tax (FBT) exemption for eligible EVs</strong></p>
+<ul>
+<li>No FBT applies to eligible EVs below the luxury car tax threshold ($91,387 for FY 2024‑25 and 2025‑26; rising to $91,661 from 1 July 2026).</li>
+<li>Note that PHEV FBT exemption ended on 1 April 2025.</li>
+</ul>
+</li>
+<li>
+<p><strong>Lease interest offset by other savings</strong></p>
+<ul>
+<li>While the effective interest rates under the hood of a lease may be high (often 8–12% if not higher), in many cases, this is outweighed by the overall saving in other aspects.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="how-using-pretax-income-creates-a-discount">How using pre‑tax income creates a “discount”</h3>
+<p>Using pre‑tax salary is economically similar to receiving a discount equivalent to your marginal tax rate.</p>
+<p>For example:</p>
+<ul>
+<li>If you are on the 45% tax bracket, plus 2% Medicare levy, your effective marginal rate is 47%.</li>
+<li>Spending $1,000 pre-tax only reduces your take-home pay by about $530.</li>
+<li>In other words, that $1,000 expense, when paid with pretax dollars, feels the same as paying $530 using typical post-tax dollars.</li>
+</ul>
+<p>This pretax “discount” effect is the core reason novated leases can work despite the fees and interests.</p>
+<p>However, this discount needs to be weighed up against additional fees and interests, as well as other potential caveats (see later) which may erode or even outweigh this benefit.</p>
+<hr>
+<h2 id="quick-pros-and-cons-overview">Quick pros and cons overview</h2>
+<p>For readers who prefer a high-level summary before diving deeper:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Potential Advantages</th><th>Potential Downsides</th></tr></thead><tbody><tr><td>Pre-tax funding creates “discount” effect</td><td>Higher effective interest rate (often 8–12% or higher)</td></tr><tr><td>GST savings on vehicle and running costs</td><td>Significantly reduced borrowing capacity</td></tr><tr><td>FBT exemption for eligible EVs</td><td>May affect HECS, childcare subsidy, Div 293, super contribution</td></tr><tr><td>Opportunity cost saved from not spending cash upfront</td><td>Residual (balloon) payment may surprise some</td></tr><tr><td>Bundled running costs for budgeting simplicity</td><td>Early termination can be expensive</td></tr></tbody></table>
+<p>The real outcome depends on your income, job stability, alternative financing options, and risk tolerance — which is why <a href="/calculator/">modelling your own scenario</a> is essential.</p>
+<hr>
+<h2 id="start-with-a-holistic-view-rather-than-the-savings-figure">Start with a holistic view rather than the savings figure</h2>
+<p>Many people are drawn to novated leases because of the headline savings figures. For example, due to FBT exemption, EV novated leases <em>can</em> be a genuinely great deal.  In my own case, I was <strong><a href="/about/about-me/#the-mind-blowing-discovery">$46,000 better off than paying cash</a></strong>. (You can see <a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjc1NTAwLCJkcml2ZWF3YXlDb3N0Ijo4MTQyMi41LCJlc3RpbWF0ZWRNYXJrZXRWYWx1ZUF0RW5kIjozMzAwMCwiYW5udWFsTWlsZWFnZUttIjoxNTAwMCwibGVhc2VEb2NGZWUiOjQ1MCwibGVhc2VTdGFydERhdGUiOiIyMDI2LTA4LTAzIiwibGVhc2VEdXJhdGlvblllYXJzIjo1LCJyZXNpZHVhbFZhbHVlRXhHc3QiOjIxMTE3LjA1MDM1LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjozMDAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo1OTcuNDcsImx1eHVyeVZlaGljbGVBZGpQZXJGbiI6MCwiZmluYW5jZWRBbW91bnRGb3JJbnRlcmVzdENhbGNFeEdzdCI6NzU1MTkuNSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjEzMDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6dHJ1ZSwiY3VycmVudENhck1hcmtldFZhbHVlTm93IjoyNTAwMCwiY3VycmVudENhck1hcmtldFZhbHVlQXRFbmQiOjE0MDAwLCJjdXJyZW50U2VydmljZU1haW50VHlyZXNBbm51YWwiOjgwMCwiY3VycmVudFJlZ2lzdHJhdGlvbkFubnVhbCI6OTAwLCJjdXJyZW50RnVlbEFubnVhbCI6MjM2Mi41LCJjdXJyZW50SW5zdXJhbmNlQW5udWFsIjoxMDAwfX0" title="Check out my novated lease calculation output from novatedlease.guide">a faithful reproduction of my personal circumstances</a> loaded in the calculator, except for the income figure)</p>
+<p>However, beyond simply crunching the savings figures, I encourage people to <strong>take a more holistic view</strong> of whether they are an appropriate candidate for a novated lease.</p>
+<hr>
+<h3 id="when-a-novated-lease-is-more-likely-to-be-worth-it">When a novated lease is more likely to be worth it</h3>
+<p>A novated lease tends to be more favourable if you:</p>
+<ul>
+<li>
+<p><strong>are on a <a href="/start-here/what-is-novated-lease/#why-spending-pre-tax-money-is-functionally-a-discount">high marginal tax bracket</a></strong><br>
+the higher your bracket, the larger the effective discount from spending pre-tax income</p>
+</li>
+<li>
+<p><strong>have <a href="/risks/early-termination/">stable employment</a></strong><br>
+moving jobs or losing your job is at best troublesome, and at worst a major financial loss</p>
+</li>
+<li>
+<p><strong>have a home loan with an offset account</strong><br>
+avoiding a large upfront cash payment can save substantial home-loan interest at today’s rates</p>
+</li>
+<li>
+<p><strong>do not need to borrow heavily during the lease term</strong><br>
+novated leases significantly reduce borrowing capacity - I have seen estimates where leasing a $70k car reduces borrowing power by $200k or more</p>
+</li>
+<li>
+<p><strong>have considered <a href="/costs-and-savings/fbt-rfba-ati-explained/">the impact on government subsidies</a></strong><br>
+childcare subsidy, HECS/HELP repayments, Division 293 tax, etc, can all be affected via reportable fringe benefits. (This impact is primarily relevant for FBT-exempt EV novated leases; ICE novated leases typically do not worsen eligibility for most government subsidies.)</p>
+</li>
+<li>
+<p><strong>have checked <a href="/special-and-policy/super-guarantee/">how your employer calculates super guarantee</a></strong><br>
+a small but non-trivial number of payroll departments calculate super on <em>post-novated-lease salary</em>, which can cost you $1,000+ per year in lost employer contributions.</p>
+</li>
+<li>
+<p><strong>have considered and mitigated the <a href="/risks/how-bad-can-early-termination-get/#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month">possible risk of vehicle write-off</a></strong>.<br>
+if the leased car is written-off and does not have new-for-old or adequate payout to repay all remaining obligation, the default insurance payout amount may leave you significantly out of pocket.</p>
+</li>
+<li>
+<p><strong>have a clear exit strategy at the end of the lease</strong><br>
+you should be prepared (and able) to pay out the residual if you want to own the car outright at the end of the lease.
+Otherwise, you risk being stuck perpetually leasing, which may no longer be attractive if FBT exemptions change.</p>
+</li>
+</ul>
+<hr>
+<h3 id="when-you-should-slow-down">When you should slow down</h3>
+<p>You should slow down and be more sceptical if several of the following apply:</p>
+<ul>
+<li>your job security is uncertain</li>
+<li>you may need to work overseas or leave Australian employment</li>
+<li>you are early in training or on fixed-term contracts</li>
+<li>you are near thresholds for means-tested benefits</li>
+<li>you are stretching financially to afford the lease payment</li>
+<li>you are thinking of buying a house in the near future which is close to your borrowing capacity</li>
+</ul>
+<p>In these cases, <strong>downside risks are more likely to outweigh headline savings</strong>.</p>
+<hr>
+<h2 id="the-most-common-mistake-using-the-wrong-savings-benchmark">The most common mistake: using the wrong savings benchmark</h2>
+<p>As <a href="/costs-and-savings/why-tax-saved-is-wrong/">elaborated elsewhere</a>, most novated lease quotes’ “savings” figures are based on the benchmark of:</p>
+<blockquote>
+<p>“Funding the same car using the same high-interest lease but with post-tax income.”</p>
+</blockquote>
+<p>For most people, this is <strong>not a realistic alternative</strong>. Their true alternatives would have been:</p>
+<ul>
+<li>paying cash from savings or an offset account</li>
+<li>taking out a competitively priced car loan</li>
+<li>keeping your current car</li>
+</ul>
+<p>The <a href="/calculator/">novated lease calculator</a> computes the <strong>true saving / loss</strong> compared to these realistic benchmarks.</p>
+<p>Often, a quote’s self-reported “savings” figure is misleadingly higher than the savings derived against these more meaningful and realistic benchmarks. In <a href="/costs-and-savings/false-saving-example/">an article</a>, I performed a full numerical breakdown showing how a quote stating a “$21,320 savings” is in fact a “$5,591 net loss” when compared to a cash purchase.</p>
+<p>Having a <strong>realistic savings figure</strong> helps you arrive at a <strong>more informed decision</strong> when combined with the other factors discussed above.</p>
+<hr>
+<h2 id="two-completely-different-ways-people-define-saving">Two completely different ways people define “saving”</h2>
+<p>When people talk about “saving money” with a novated lease, it is crucial to be clear about <strong>what the comparison actually is</strong>.</p>
+<p>There are at least two very different frames of reference that people implicitly use, often without realising it.</p>
+<h3 id="benchmark-1-saving-compared-to-buying-the-same-car-with-cash-or-a-loan">Benchmark 1: Saving compared to buying the same car with cash or a loan</h3>
+<p>This is the comparison most novated lease calculators (and most discussions) are built around:</p>
+<blockquote>
+<p>“If I were to buy <strong>this exact car</strong>, would a novated lease cost me less than paying cash or taking out a car loan?”</p>
+</blockquote>
+<p>This is the comparison under which statements like:</p>
+<blockquote>
+<p>“I was $46,000 better off than paying cash for this car”</p>
+</blockquote>
+<p>are potentially meaningful.</p>
+<h3 id="benchmark-2-saving-compared-to-not-buying-a-new-car-at-all">Benchmark 2: Saving compared to <em>not buying a new car at all</em></h3>
+<p>However, there is another baseline that is often overlooked:</p>
+<blockquote>
+<p>“What if I simply kept my existing car and didn’t get a new one?”</p>
+</blockquote>
+<p>This comparison is often the <strong>most important yet the most overlooked</strong>.</p>
+<p>The traditional rule of thumb is that “keeping your current car is always the cheapest”. And for many people and many scenarios, this remains true.</p>
+<p>Despite the potential saving under Benchmark 1, if you change the benchmark to “not buying a new car at all”, you may still end up worse off financially.</p>
+<p>In the case of FBT-exempt EV novated leases, this <strong>may or may not be true – especially if you belong to a higher tax bracket</strong>.</p>
+<p>In my personal circumstances, based on a few reasonable assumptions, over 5-years the net financial position for “keeping current $25k car” is roughly similar to “selling this car and getting a $81k EV via NL and paying the balloon to own outright in the end”.</p>
+<p>Some people might find the even more <strong>counterintuitive finding</strong> that “converting to new $70k EV via NL” actually improves their 5-year net worth compared to “keeping current $40k car”.</p>
+<p>This is where FBT-exempt novated leases genuinely challenge many traditional rules of car financing. Without careful number crunching, it can be challenging to arrive at the correct conclusion.</p>
+<h3 id="why-this-distinction-matters">Why this distinction matters</h3>
+<p>Saving money compared to other financing methods (cash or loan) can feel like great bang for the buck.</p>
+<p>However, it may not be the best overall decision if you fail to consider the alternative of simply “keeping your current car” or “buying a much cheaper ICE car”.</p>
+<p>An analogy would be someone saying they “<strong>saved 30k</strong> by bargaining the Mercedes <strong>from 150k down to 120k</strong>”; but such saving pales in comparison to simply getting a $40k Toyota.</p>
+<p>Neither option is objectively superior. For someone who values the Mercedes, the $30k “value saving” is absolutely real; for someone focused purely on minimising total cost, the Toyota still represents the greater saving.</p>
+<p>You need to be clear what the <strong>benchmark</strong> is. The <a href="/calculator/">novated lease calculator</a> helps you make such benchmarking as it is written with this in mind.</p>
+<hr>
+<h2 id="time-horizon-and-risk-matter">Time horizon and risk matter</h2>
+<p>Novated leases work best when they run to term.</p>
+<p>If that assumption fails — due to redundancy, resignation, or a vehicle write-off — the economics can deteriorate rapidly.</p>
+<p>Lease length therefore involves a trade-off between:</p>
+<ul>
+<li>maximising tax-advantaged pay-down, and</li>
+<li>limiting worst-case outcomes.</li>
+</ul>
+<p>This is explored in detail in the <strong><a href="/risks/">Risks &#x26; exit strategies</a></strong> section and should not be treated as an afterthought.</p>
+<hr>
+<h2 id="key-takeaway">Key takeaway</h2>
+<p>If you remember nothing else:</p>
+<blockquote>
+<p><strong>Novated leases are not universally good or bad — individual circumstances determine their appropriateness.</strong></p>
+</blockquote>
+<hr>
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<h3 id="are-novated-leases-worth-it-in-australia">Are novated leases worth it in Australia?</h3>
+<p>Sometimes. They are more likely to be worth it for higher income earners with stable employment, particularly when leasing an FBT‑exempt EV. However, individual modelling against realistic alternatives is essential.</p>
+<h3 id="is-a-novated-car-lease-worth-it-for-an-ev">Is a novated car lease worth it for an EV?</h3>
+<p>EV novated leases are often more competitive than petrol or diesel vehicles because of the FBT exemption. That said, reportable fringe benefits can affect HECS/HELP repayments, childcare subsidy, and other income-tested thresholds.</p>
+<h3 id="is-novated-leasing-worth-it-for-low-income-earners">Is novated leasing worth it for low income earners?</h3>
+<p>Generally less so. The effective tax benefit is smaller at lower marginal tax rates, while the structural risks (job change, early termination, write‑off) remain.</p>
+<h3 id="does-a-novated-lease-affect-borrowing-capacity">Does a novated lease affect borrowing capacity?</h3>
+<p>Yes. Many lenders treat novated lease repayments as ongoing liabilities, which can significantly reduce borrowing capacity — sometimes by far more than the car’s purchase price.</p>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p>Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the initially “exempted” GST is still payable at this stage. <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-2">
+<p>If one purchases a car via private sale, as there is no GST component on the car purchase price, one does not get any GST saving when this car is leased. <a href="#user-content-fnref-2" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>  </article> <div class="admonition admonition--info"><div class="admonition__title">Support this independent calculator & guide</div><p>This calculator and guide are built and continuously maintained as an independent project.</p><p>If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:</p><ul><li><a href="https://buymeacoffee.com/changyang1230">Buying me a cuppa</a> ☕ to help cover hosting, development time, and future improvements, or</li><li><a href="https://ts.la/pradeep738043">Using a friend's Tesla referral link</a> for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.</li></ul></div><details class="admonition admonition--note admonition--collapsible"><summary class="admonition__title">I'm backing Dr Michael Keane's fight for salary packaging transparency</summary><p>Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.</p><p>Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on <a href="https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0">alleged sign-on fees</a> associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.</p><p>To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his <a href="https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging"><img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe</a>.</p></details> </main> <aside class="page-toc" aria-label="Table of contents"> <div class="toc" id="article-toc"><div class="toc__title">On this page</div><ul class="toc__list" role="list"><li class="toc__item toc__item--depth-3"><a href="#how-does-a-novated-lease-potentially-help-save-money" class="toc__link toc__list--depth-2 toc__link">How does a novated lease potentially help save money</a></li><li class="toc__item toc__item--depth-3"><a href="#how-using-pretax-income-creates-a-discount" class="toc__link toc__list--depth-2 toc__link">How using pre‑tax income creates a “discount”</a></li><li class="toc__item"><a href="#quick-pros-and-cons-overview" class="toc__link">Quick pros and cons overview</a></li><li class="toc__item"><a href="#start-with-a-holistic-view-rather-than-the-savings-figure" class="toc__link">Start with a holistic view rather than the savings figure</a></li><li class="toc__item toc__item--depth-3"><a href="#when-a-novated-lease-is-more-likely-to-be-worth-it" class="toc__link toc__list--depth-2 toc__link">When a novated lease is more likely to be worth it</a></li><li class="toc__item toc__item--depth-3"><a href="#when-you-should-slow-down" class="toc__link toc__list--depth-2 toc__link">When you should slow down</a></li><li class="toc__item"><a href="#the-most-common-mistake-using-the-wrong-savings-benchmark" class="toc__link">The most common mistake: using the wrong savings benchmark</a></li><li class="toc__item"><a href="#two-completely-different-ways-people-define-saving" class="toc__link">Two completely different ways people define “saving”</a></li><li class="toc__item toc__item--depth-3"><a href="#benchmark-1-saving-compared-to-buying-the-same-car-with-cash-or-a-loan" class="toc__link toc__list--depth-2 toc__link">Benchmark 1: Saving compared to buying the same car with cash or a loan</a></li><li class="toc__item toc__item--depth-3"><a href="#benchmark-2-saving-compared-to-not-buying-a-new-car-at-all" class="toc__link toc__list--depth-2 toc__link">Benchmark 2: Saving compared to not buying a new car at all</a></li><li class="toc__item toc__item--depth-3"><a href="#why-this-distinction-matters" class="toc__link toc__list--depth-2 toc__link">Why this distinction matters</a></li><li class="toc__item"><a href="#time-horizon-and-risk-matter" class="toc__link">Time horizon and risk matter</a></li><li class="toc__item"><a href="#key-takeaway" class="toc__link">Key takeaway</a></li><li class="toc__item"><a href="#frequently-asked-questions" class="toc__link">Frequently asked questions</a></li><li class="toc__item toc__item--depth-3"><a href="#are-novated-leases-worth-it-in-australia" class="toc__link toc__list--depth-2 toc__link">Are novated leases worth it in Australia?</a></li><li class="toc__item toc__item--depth-3"><a href="#is-a-novated-car-lease-worth-it-for-an-ev" class="toc__link toc__list--depth-2 toc__link">Is a novated car lease worth it for an EV?</a></li><li class="toc__item toc__item--depth-3"><a href="#is-novated-leasing-worth-it-for-low-income-earners" class="toc__link toc__list--depth-2 toc__link">Is novated leasing worth it for low income earners?</a></li><li class="toc__item toc__item--depth-3"><a href="#does-a-novated-lease-affect-borrowing-capacity" class="toc__link toc__list--depth-2 toc__link">Does a novated lease affect borrowing capacity?</a></li><li class="toc__item"><a href="#footnote-label" class="toc__link">Footnotes</a></li></ul></div><script type="module">(function(){var l=document.querySelectorAll("#article-toc .toc__link");if(l.length===0)return;var c=Array.from(l).map(function(e){var t=e.getAttribute("href")||"",r=t.replace("#","");return{el:document.getElementById(r),link:e}}).filter(function(e){return e.el});function o(){for(var e=72,t=window.scrollY,r=null,n=c.length-1;n>=0;n--)if(c[n].el.getBoundingClientRect().top+t<=t+e+4){r=c[n];break}l.forEach(function(a){a.classList.remove("active")}),r&&r.link.classList.add("active")}window.addEventListener("scroll",o,{passive:!0}),o()})();</script> </aside> </div>  </div> <footer class="site-footer"> <div class="site-footer__inner"> <div class="site-footer__col"> <div class="site-footer__brand"> <img class="site-footer__logo" src="/assets/images/logo.png" alt="" aria-hidden="true">
+Novated Lease Guide
+</div> <p style="max-width:280px; line-height:1.6; margin:0; font-size:0.78rem;">
+Independent, evidence-based Australian novated lease guide and calculator.
+        Not affiliated with any financier or provider.
+</p> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Calculator</div> <ul class="site-footer__links"> <li><a href="/calculator/" class="site-footer__link">Novated Lease Calculator</a></li> <li><a href="/tools/byo-employer-check/" class="site-footer__link">Employer BYO checker</a></li> <li><a href="/start-here/use-nl-calculator/" class="site-footer__link">How to use the calculator</a></li> <li><a href="/start-here/calculator-comparison/" class="site-footer__link">20 calculators reviewed</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Key Articles</div> <ul class="site-footer__links"> <li><a href="/start-here/what-is-novated-lease/" class="site-footer__link">What is a novated lease?</a></li> <li><a href="/start-here/is-it-worth-it/" class="site-footer__link">Is it worth it?</a></li> <li><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="site-footer__link">Why "tax saved" is wrong</a></li> <li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="site-footer__link">EV FBT wind-back 2026</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">About</div> <ul class="site-footer__links"> <li><a href="/about/about-me/" class="site-footer__link">About me</a></li> <li><a href="/about/history/" class="site-footer__link">Calculator history</a></li> <li><a href="/about/what-readers-say/" class="site-footer__link">What readers say</a></li> <li><a href="/about/contact/" class="site-footer__link">Contact</a></li> <li><a href="/about/privacy/" class="site-footer__link">Privacy policy</a></li> <li><a href="/about/disclaimer/" class="site-footer__link">Disclaimer</a></li> <li><a href="https://buymeacoffee.com/changyang1230" class="site-footer__link" target="_blank" rel="noopener">Buy me a coffee ☕</a></li> </ul> </div> </div> <div class="site-footer__meta"> <div class="site-footer__meta-links"> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/privacy/">Privacy</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/disclaimer/">Disclaimer</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/contact/">Contact</a>
+&nbsp;&middot;&nbsp;
+      &copy; 2026
+</div> <div class="site-footer__meta-disclaimer">
+This site provides general information and educational commentary only. It does not constitute personal financial advice.
+</div> </div> </footer> <!-- GA4 link tracking & search keyboard shortcut --> <script>
+      // Track Buy Me a Coffee & Tesla referral link clicks
+      (function() {
+        function fireGa4(name, params) {
+          try { if (typeof gtag === 'function') gtag('event', name, params); } catch(e) {}
+        }
+        function trackLinks() {
+          document.querySelectorAll('a[href^="https://buymeacoffee.com/"],a[href^="https://www.buymeacoffee.com/"],a[href^="https://ts.la/"]').forEach(function(a) {
+            a.addEventListener('click', function() {
+              var href = a.getAttribute('href') || '';
+              fireGa4('support_link_click', {
+                link_label: href.includes('buymeacoffee') ? 'buymeacoffee' : 'tesla_referral',
+                link_url: href,
+                page_path: window.location.pathname,
+                page_title: document.title
+              });
+            }, { capture: true });
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', trackLinks);
+        } else {
+          trackLinks();
+        }
+      })();
+
+      // Keyboard shortcut: / or Ctrl+K to open search
+      document.addEventListener('keydown', function(e) {
+        if ((e.key === '/' || (e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) && !e.target.matches('input,textarea')) {
+          e.preventDefault();
+          window.openSearch && window.openSearch();
+        }
+        if (e.key === 'Escape') {
+          window.closeSearch && window.closeSearch();
+          window.closeDrawer && window.closeDrawer();
+        }
+      });
+    </script> </body> </html> <script type="module">(function(){var f=document.querySelectorAll(".compact-table table");f.forEach(function(r){var l=r.closest(".compact-table");if(!l)return;var e=r.querySelector("thead"),o=Array.from(r.querySelectorAll("tr th:first-child, tr td:first-child")),c=Array.from(r.querySelectorAll("tr th:nth-child(2), tr td:nth-child(2)"));o.concat(c).forEach(function(t){t.style.position="relative",t.style.backgroundColor="var(--color-bg)"}),o.forEach(function(t){t.style.whiteSpace="nowrap",t.style.zIndex="2"}),c.forEach(function(t){t.style.zIndex="2"}),r.querySelectorAll("thead th:first-child, thead th:nth-child(2)").forEach(function(t){t.style.zIndex="4"});function n(){var t=l.scrollLeft;o.forEach(function(a){a.style.transform="translateX("+t+"px)"}),c.forEach(function(a){a.style.transform="translateX("+t+"px)"})}if(l.addEventListener("scroll",n,{passive:!0}),n(),!e)return;function i(){var t=document.querySelector(".site-nav");return t?t.offsetHeight:56}function s(){var t=l.getBoundingClientRect(),a=i(),u=e.offsetHeight,d=a-t.top;d>0&&t.bottom>a+u?(e.style.transform="translateY("+d+"px)",e.style.position="relative",e.style.zIndex="3"):(e.style.transform="",e.style.position="",e.style.zIndex="")}window.addEventListener("scroll",s,{passive:!0}),s()}),document.querySelectorAll(".article-content table").forEach(function(r){var l=Array.from(r.querySelectorAll("tbody > tr")),e=null,o=null;l.forEach(function(c){var n=c.querySelector("td:first-child");if(!n){e=null,o=null;return}var i=n.textContent.trim();e&&i===o?(e.rowSpan=(e.rowSpan||1)+1,e.style.verticalAlign="middle",n.remove()):(e=n,o=i)})}),document.querySelectorAll("[data-dismiss]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-dismiss"));l&&(l.style.display="none")})}),document.querySelectorAll("[data-toggle]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-toggle"));if(l){var e=l.classList.toggle("open");r.textContent=e?"close ▴":"details ▾"}})})})();</script>
