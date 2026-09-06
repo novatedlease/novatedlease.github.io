@@ -1,8 +1,8 @@
 ---
 datePublished: "2026-04-29"
 dateModified: "2026-07-01"
-title: LCT Threshold & FBT Exemption
-description: How the Luxury Car Tax threshold determines FBT exemption eligibility for EV novated leases — including how the threshold is calculated each year.
+title: "LCT Threshold 2026-27 ($91,661) and the EV FBT Exemption"
+description: "The fuel-efficient LCT threshold is $91,661 for 2026-27 (up from $91,387), with a $120,000 zero-emission category announced for 2027-28. Full history table, how the ATO indexes it each July, and how it decides whether your EV novated lease is FBT-exempt."
 hide:
   - support
 ---

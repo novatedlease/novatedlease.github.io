@@ -1,15 +1,33 @@
 ---
-title: "All about residual values"
+title: "ATO Residual Value Table for Novated Leases (28.13% Explained)"
 datePublished: "2026-01-06"
-dateModified: "2026-06-05"
-description: Everything about novated lease residual values — what they are, why the ATO requires them, the underlying mathematics (TD 93/142), and how they work when leases are extended.
+dateModified: "2026-09-07"
+description: ATO minimum residual values for novated leases, from 65.63% at 1 year to 28.13% at 5 years, with the full table, why the ATO sets them (TD 93/142), why a residual is deferred payment rather than saving, and what happens when you extend or pay out early.
 ---
 
-# All about residual values
+# ATO residual value table for novated leases (28.13% explained)
 
 Residual value is one of the **most important variables** in a novated lease, and misunderstanding it is a major reason people misjudge whether a lease is good value.
 
 Unfortunately, some novated lease providers do not adequately explain residual values to first‑time lessees. As a result, some people are surprised to discover that they still owe tens of thousands of dollars at the end of the lease if they wish to keep the vehicle.
+
+## ATO residual value table
+
+<img src="/images/RV.png" alt="" style="max-width: 50%; height: auto;">
+
+Residual values are not set at random.
+
+They are constrained by **ATO minimum residual guidelines**, which specify the *lowest* residual value permitted for a given lease term.
+
+In particular:
+
+- 1 year lease → 65.63% residual  
+- 2 year lease → 56.25% residual  
+- 3 year lease → 46.88% residual  
+- 4 year lease → 37.50% residual  
+- 5 year lease → 28.13% residual  
+
+Providers may set residuals **above** these minimums, but they cannot set them below.
 
 ---
 
@@ -87,27 +105,7 @@ In other words, residual values exist to **protect the tax system from abuse**. 
 
 ---
 
-## Residual values table
-
-<img src="/images/RV.png" alt="" style="max-width: 50%; height: auto;">
-
-Residual values are not set at random.
-
-They are constrained by **ATO minimum residual guidelines**, which specify the *lowest* residual value permitted for a given lease term.
-
-In particular:
-
-- 1 year lease → 65.63% residual  
-- 2 year lease → 56.25% residual  
-- 3 year lease → 46.88% residual  
-- 4 year lease → 37.50% residual  
-- 5 year lease → 28.13% residual  
-
-Providers may set residuals **above** these minimums, but they cannot set them below.
-
----
-
-### How was residual value derived?
+## How was residual value derived?
 
 At first glance, the ATO residual table can look like a random list of percentages across 1 to 5 years.
 

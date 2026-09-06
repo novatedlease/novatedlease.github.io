@@ -1,8 +1,8 @@
 ---
-title: "Glossary of novated lease terms"
+title: "Novated Lease Glossary: FBT, RFBA, ECM, ATI, Residual and More"
 datePublished: "2026-03-08"
 dateModified: "2026-06-05"
-description: Glossary of novated lease terms used throughout the independent Australian guide — FBT, RFBA, ATI, ECM, residual value, statutory formula method, and more.
+description: "Plain-English definitions of every novated lease term: FBT, RFBA, ECM, ATI, residual value, statutory formula, gross-up, luxury car limit, employer share and more, each linked to the full explainer."
 ---
 
 # Glossary of novated lease terms

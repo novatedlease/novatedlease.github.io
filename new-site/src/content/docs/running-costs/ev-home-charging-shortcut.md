@@ -1,8 +1,8 @@
 ---
-title: "The ATO EV home charging shortcut (5.47c/km)"
+title: "ATO EV Home Charging Rate (5.47c/km): Claiming It on a Novated Lease"
 datePublished: "2026-01-06"
 dateModified: "2026-06-05"
-description: The ATO EV home charging shortcut (5.47c/km from 1 April 2026) explained — how the rate works, when to use which method, and how to maximise the claim under PCG 2024/2.
+description: "The ATO EV home charging rate is 5.47c/km from 1 April 2026, up from 4.2c/km. How the PCG 2024/2 shortcut works on a novated lease, when to use actual costs instead, the mixed home and public charging method, and how to claim the most."
 ---
 
 # The ATO EV home charging shortcut (5.47c/km) — how it actually works
