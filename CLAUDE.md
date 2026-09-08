@@ -47,7 +47,7 @@ What changed in the repo:
   the mark; still referenced by the schema.org `Organization.logo` in
   `src/layouts/Base.astro`.
 - `docs/assets/images/favicon.svg` (new), `favicon-32x32.png`,
-  `favicon-16x16.png` — blue rounded tile with the car line only.
+  `favicon-16x16.png` — blue rounded tile with the full mark at heavier stroke weight.
   `Base.astro` links the SVG first, PNGs as fallback.
 - `docs/assets/images/apple-touch-icon.png` — blue tile with the full mark.
 - `docs/assets/images/og-default.png` (1200×630) and `og-long.png`

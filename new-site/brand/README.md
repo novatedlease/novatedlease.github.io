@@ -7,7 +7,7 @@ note behind it) and the images generated from it. The shipped assets live in
 | Source | Generates | Notes |
 |---|---|---|
 | `../../docs/assets/images/logo.svg` | itself | The mark, white on transparent. Knock-outs use SVG luminance masks, so it sits on any background. Used by `NavBar.astro` and `Footer.astro`. |
-| `favicon.svg` | `favicon.svg`, `favicon-32x32.png`, `favicon-16x16.png` | Blue rounded tile, car line only (the full mark is unreadable at 16 px). |
+| `favicon.svg` | `favicon.svg`, `favicon-32x32.png`, `favicon-16x16.png` | Blue rounded tile with the full mark, drawn with roughly double stroke weight so it survives 32 px and 16 px. |
 | `apple-touch.svg` | `apple-touch-icon.png` (180×180) | Blue square tile with the full mark; iOS applies the rounding. |
 | `logo-tile.svg` | `logo.png` (1200×630) | Navy tile with the mark, referenced by the schema.org publisher entry in `Base.astro`. |
 | `og-default.html` | `og-default.png` (1200×630) | Dark editorial share image. |
