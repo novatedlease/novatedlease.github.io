@@ -99,7 +99,7 @@ export function InputsPanel(props: {
             { value: "EV", label: "Electric" },
             { value: "Non-EV", label: "Petrol / diesel / hybrid" },
           ]}
-          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for leases starting on or after 1 April 2025, so choose 'Petrol / diesel / hybrid' for a PHEV. The car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the May 2026 phase-out rules also apply, based on your lease start date." />}
+          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for the FBT exemption where the lease starts on or after 1 April 2025 — they can still be novated leased, just without the exemption — so choose 'Petrol / diesel / hybrid' for a PHEV. The car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the May 2026 phase-out rules also apply, based on your lease start date." />}
         />
 
         <SelectField
