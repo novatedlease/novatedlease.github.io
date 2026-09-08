@@ -103,29 +103,29 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 12px", borderRadius: 8, border: "1px solid var(--nlc-blue-mid)", background: "var(--nlc-blue-light)", cursor: "pointer", fontWeight: 700, fontSize: 12, letterSpacing: "0.03em", color: "var(--nlc-blue)" }}
+            style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 12px", borderRadius: 8, border: "1px solid var(--nlc-blue-mid)", background: "var(--nlc-blue-light)", cursor: "pointer", fontWeight: 700, fontSize: "var(--nlc-fs-sm)", letterSpacing: "0.03em", color: "var(--nlc-blue)" }}
           >
             <span>{open ? "Hide amortisation table" : "Show amortisation table"}</span>
-            <span style={{ fontSize: 11 }}>{open ? "▾" : "▸"}</span>
+            <span style={{ fontSize: "var(--nlc-fs-xs)" }}>{open ? "▾" : "▸"}</span>
           </button>
 
           {open ? (
             <div style={{ marginTop: 10, borderRadius: 10, border: "1px solid var(--nlc-line)" }}>
               <div style={{ overflowX: "auto" }}>
-                <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 12.5 }}>
+                <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: "var(--nlc-fs-sm)" }}>
                   <thead>
                     <tr>
-                      <th style={{ textAlign: "center", padding: "7px 4px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Month</th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Starting Bal.</th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Payment</th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Post-Payment Bal.</th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>
+                      <th style={{ textAlign: "center", padding: "7px 4px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Month</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Starting Bal.</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Payment</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Post-Payment Bal.</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>
                         <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
                           Interest
                           <InfoTooltip text="Interest is calculated using a higher-precision rate than the rounded percentage shown above." />
                         </span>
                       </th>
-                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Closing Bal.</th>
+                      <th style={{ textAlign: "right", padding: "7px 6px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-blue-solid)", color: "#fff", whiteSpace: "nowrap" }}>Closing Bal.</th>
                     </tr>
                   </thead>
                   <tbody style={{ fontVariantNumeric: "tabular-nums" }}>
@@ -142,7 +142,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
                   </tbody>
                 </table>
               </div>
-              <div style={{ fontSize: 12, opacity: 0.7, marginTop: 8 }}>
+              <div style={{ fontSize: "var(--nlc-fs-sm)", opacity: 0.7, marginTop: 8 }}>
                 Payments are shown as negatives (parentheses) and are blank during deferred months.
                 <br />
                 The closing balance at the end of the schedule may not exactly match the residual value payable due to rounding error.
@@ -209,7 +209,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
     };
 
     return (
-      <div style={{ fontSize: 13, lineHeight: 1.4 }}>
+      <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.4 }}>
         <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
           {defs.map((d) => {
             const active = activeDef === d.id;
@@ -231,16 +231,16 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
                   lineHeight: 1,
                 }}
               >
-                <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 5 }}>{d.label}</div>
-                <div style={{ fontSize: 22, fontWeight: 900, letterSpacing: "-0.02em", marginBottom: 5 }}>{pct(d.rate)}</div>
-                <div style={{ fontSize: 11, fontWeight: 500, opacity: 0.85, lineHeight: 1.3 }}>{d.desc}</div>
+                <div style={{ fontSize: "var(--nlc-fs-xs)", fontWeight: 800, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 5 }}>{d.label}</div>
+                <div style={{ fontSize: "var(--nlc-fs-2xl)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 5 }}>{pct(d.rate)}</div>
+                <div style={{ fontSize: "var(--nlc-fs-xs)", fontWeight: 500, opacity: 0.85, lineHeight: 1.3 }}>{d.desc}</div>
               </button>
             );
           })}
         </div>
 
         {Number.isFinite(rateDef1) && rateDef1 > 0.1 && (
-          <div style={{ marginBottom: 12, padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(217,119,6,0.35)", borderLeft: "3px solid #d97706", background: "rgba(217,119,6,0.06)", fontSize: 12, lineHeight: 1.45, color: "var(--nlc-text)" }}>
+          <div style={{ marginBottom: 12, padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(217,119,6,0.35)", borderLeft: "3px solid #d97706", background: "rgba(217,119,6,0.06)", fontSize: "var(--nlc-fs-sm)", lineHeight: 1.45, color: "var(--nlc-text)" }}>
             <div style={{ fontWeight: 800, marginBottom: 3, color: "var(--nlc-acc-brown)" }}>High rate — is a BYO lease available?</div>
             <div>
               Your effective rate exceeds 10%. It may be worth checking whether your employer supports a{" "}
@@ -268,10 +268,10 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
     console.error("Effective interest report render failed", e);
     const msg = e instanceof Error ? e.message : typeof e === "string" ? e : JSON.stringify(e);
     return (
-      <div style={{ padding: 10, border: "1px solid color-mix(in srgb, var(--nlc-bad) 40%, transparent)", borderRadius: 10, background: "var(--nlc-bad-light)", fontSize: 14, lineHeight: 1.35 }}>
-        <div style={{ fontWeight: 900, fontSize: 16, marginBottom: 8 }}>Effective interest rate (error)</div>
+      <div style={{ padding: 10, border: "1px solid color-mix(in srgb, var(--nlc-bad) 40%, transparent)", borderRadius: 10, background: "var(--nlc-bad-light)", fontSize: "var(--nlc-fs-lg)", lineHeight: 1.35 }}>
+        <div style={{ fontWeight: 800, fontSize: "var(--nlc-fs-xl)", marginBottom: 8 }}>Effective interest rate (error)</div>
         <div style={{ opacity: 0.9, marginBottom: 6 }}>Something went wrong while computing the effective interest rate.</div>
-        <div style={{ fontFamily: "monospace", fontSize: 12, opacity: 0.85 }}>{msg}</div>
+        <div style={{ fontFamily: "monospace", fontSize: "var(--nlc-fs-sm)", opacity: 0.85 }}>{msg}</div>
       </div>
     );
   }

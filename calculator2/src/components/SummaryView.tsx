@@ -36,10 +36,10 @@ function Hero(props: { amount: number; suffix: string }) {
         marginBottom: 14,
       }}
     >
-      <div className="nlc-num" style={{ fontSize: 32, fontWeight: 900, lineHeight: 1, color: positive ? POS : NEG }}>
+      <div className="nlc-num" style={{ fontSize: "var(--nlc-fs-display)", fontWeight: 800, lineHeight: 1, color: positive ? POS : NEG }}>
         {fmtAud0(Math.abs(props.amount))}
       </div>
-      <div style={{ fontSize: 13, opacity: 0.75, marginTop: 5, lineHeight: 1.3 }}>{props.suffix}</div>
+      <div style={{ fontSize: "var(--nlc-fs-md)", opacity: 0.75, marginTop: 5, lineHeight: 1.3 }}>{props.suffix}</div>
     </div>
   );
 }
@@ -47,8 +47,8 @@ function Hero(props: { amount: number; suffix: string }) {
 function BreakdownRow(props: { label: React.ReactNode; value: string; bold?: boolean; color?: string; indent?: boolean }) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, paddingLeft: props.indent ? 10 : 0 }}>
-      <div style={{ fontSize: 13, opacity: props.bold ? 1 : 0.75 }}>{props.label}</div>
-      <div className="nlc-num" style={{ fontWeight: props.bold ? 900 : 600, fontSize: props.bold ? 14 : 13, color: props.color, whiteSpace: "nowrap" }}>
+      <div style={{ fontSize: "var(--nlc-fs-md)", opacity: props.bold ? 1 : 0.75 }}>{props.label}</div>
+      <div className="nlc-num" style={{ fontWeight: props.bold ? 800 : 600, fontSize: props.bold ? "var(--nlc-fs-lg)" : "var(--nlc-fs-md)", color: props.color, whiteSpace: "nowrap" }}>
         {props.value}
       </div>
     </div>
@@ -67,7 +67,7 @@ const BLUE = "var(--nlc-blue)";
 function CardHeader(props: { title: string }) {
   return (
     <div style={{ marginBottom: 14 }}>
-      <div style={{ fontWeight: 900, fontSize: 15 }}>{props.title}</div>
+      <div style={{ fontWeight: 800, fontSize: "var(--nlc-fs-lg)" }}>{props.title}</div>
     </div>
   );
 }
@@ -104,7 +104,7 @@ function Disclaimer({ inputs, onNavigateToDetails }: { inputs: Inputs; onNavigat
   );
 
   return (
-    <div style={{ marginTop: 12, fontSize: 12, opacity: 0.7, lineHeight: 1.45 }}>
+    <div style={{ marginTop: 12, fontSize: "var(--nlc-fs-sm)", opacity: 0.7, lineHeight: 1.45 }}>
       {lines.map((line, i) => (
         <div key={i} style={{ marginTop: i === 0 ? 0 : 5 }}>
           {i >= lines.length - 2 && "⚠️ "}
@@ -121,7 +121,7 @@ const electricityTooltip =
 
 function NoteBox(p: { title: string; children: React.ReactNode }) {
   return (
-    <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", padding: "10px 12px", borderLeft: "3px solid var(--nlc-blue-mid)", background: "var(--nlc-blue-light)", borderRadius: "0 8px 8px 0" }}>
+    <div style={{ fontSize: "var(--nlc-fs-sm)", opacity: 0.75, fontStyle: "italic", padding: "10px 12px", borderLeft: "3px solid var(--nlc-blue-mid)", background: "var(--nlc-blue-light)", borderRadius: "0 8px 8px 0" }}>
       <strong>{p.title}</strong> {p.children}
     </div>
   );

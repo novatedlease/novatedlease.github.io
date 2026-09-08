@@ -77,7 +77,7 @@ export function InputsPanel(props: {
   return (
     <>
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", rowGap: 8, columnGap: 12, marginBottom: 12 }}>
-        <div style={{ fontWeight: 700, fontSize: 17, lineHeight: 1.1, paddingTop: 4, letterSpacing: "-0.02em" }}>Inputs</div>
+        <div style={{ fontWeight: 700, fontSize: "var(--nlc-fs-xl)", lineHeight: 1.1, paddingTop: 4, letterSpacing: "-0.02em" }}>Inputs</div>
         <Button
           size="sm"
           onClick={() => {
@@ -123,7 +123,7 @@ export function InputsPanel(props: {
         />
 
         {isEv && needsUsedEligibilityChecks && (
-          <div style={{ display: "grid", gap: 8, marginBottom: 16, fontSize: 13 }}>
+          <div style={{ display: "grid", gap: 8, marginBottom: 16, fontSize: "var(--nlc-fs-md)" }}>
             <label style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
               <input type="checkbox" checked={inputs.usedCarFirstHeldAfterJul2022} onChange={(e) => set("usedCarFirstHeldAfterJul2022", e.target.checked)} style={{ marginTop: 2 }} />
               <span>The car was first held and used after <b>1 July 2022</b></span>
@@ -135,7 +135,7 @@ export function InputsPanel(props: {
           </div>
         )}
 
-        <div style={{ fontSize: 12, fontWeight: 800, color: fbtCategoryColor, marginBottom: 12 }}>
+        <div style={{ fontSize: "var(--nlc-fs-sm)", fontWeight: 800, color: fbtCategoryColor, marginBottom: 12 }}>
           {fbtCategoryLabel}
         </div>
 
@@ -275,7 +275,7 @@ export function InputsPanel(props: {
               borderRadius: 10,
               border: "1px solid color-mix(in srgb, var(--nlc-warn) 40%, transparent)",
               background: "var(--nlc-warn-light)",
-              fontSize: 12,
+              fontSize: "var(--nlc-fs-sm)",
               fontWeight: 800,
               color: "var(--nlc-warn-dark)",
               marginBottom: 12,
@@ -313,7 +313,7 @@ export function InputsPanel(props: {
           label={
             <div>
               <div>Residual value</div>
-              <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11 }}>
+              <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: "var(--nlc-fs-xs)" }}>
                 {(["exGst", "incGst"] as const).map((mode, idx) => (
                   <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
                     {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
@@ -325,7 +325,7 @@ export function InputsPanel(props: {
                         border: "none",
                         background: "transparent",
                         cursor: "pointer",
-                        fontSize: 11,
+                        fontSize: "var(--nlc-fs-xs)",
                         fontWeight: residualGstMode === mode ? 800 : 400,
                         opacity: residualGstMode === mode ? 0.9 : 0.45,
                         textDecoration: residualGstMode === mode ? "underline" : "none",
@@ -424,7 +424,7 @@ export function InputsPanel(props: {
           {inputs.compareWithCarLoan && (
             <>
               <CurrencyField label="Initial deposit amount" value={inputs.carLoanInitialDeposit} onChange={(v) => set("carLoanInitialDeposit", v)} />
-              <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginBottom: 12 }}>
+              <div style={{ fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-text-muted)", marginBottom: 12 }}>
                 <b>Loan term</b> is forced to match lease duration ({inputs.leaseDurationYears} years) above. If you want to compare a
                 different loan term to the lease term, set up two separate quotes with the lengths you want, save them, and use the{" "}
                 <b>Compare</b> tab to juxtapose the outcomes.
@@ -441,7 +441,7 @@ export function InputsPanel(props: {
             <>
               <CurrencyField label="Current market value" value={inputs.currentCarMarketValueNow} onChange={(v) => set("currentCarMarketValueNow", v)} hint="Look up carsales.com.au or similar." />
               <CurrencyField label="Estimated market value after 5 years" value={inputs.currentCarMarketValueAtEnd} onChange={(v) => set("currentCarMarketValueAtEnd", v)} />
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-muted)", marginBottom: 10 }}>Annual running cost (inc GST)</div>
+              <div style={{ fontSize: "var(--nlc-fs-sm)", fontWeight: 700, color: "var(--nlc-text-muted)", marginBottom: 10 }}>Annual running cost (inc GST)</div>
               <CurrencyField label="Service / maintenance / tyres" value={inputs.currentServiceMaintTyresAnnual} onChange={(v) => set("currentServiceMaintTyresAnnual", v)} />
               <CurrencyField label="Registration" value={inputs.currentRegistrationAnnual} onChange={(v) => set("currentRegistrationAnnual", v)} />
               <CurrencyField label="Fuel" value={inputs.currentFuelAnnual} onChange={(v) => set("currentFuelAnnual", v)} />

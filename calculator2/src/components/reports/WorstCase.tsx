@@ -138,7 +138,7 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
   const [adjustForHlInterest, setAdjustForHlInterest] = useState(false);
 
   return (
-    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
+    <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.4 }}>
       <NoteBox color="var(--nlc-acc-red)" mt={0}>
         <span>
           Early termination is an asymmetric risk: if your employment ends, you may be forced to settle remaining vehicle
@@ -150,7 +150,7 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
         </a>
       </NoteBox>
 
-      <div style={{ marginTop: 10, fontSize: 12, color: "var(--nlc-text-muted)", lineHeight: 1.55 }}>
+      <div style={{ marginTop: 10, fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-text-muted)", lineHeight: 1.55 }}>
         <ul style={{ margin: 0, paddingLeft: 18 }}>
           <li>Many providers also charge an <b>early termination fee</b> (not modelled — typically a few hundred dollars).</li>
           <li>By default, this section models <b>cashflow only</b>. Turn on "Adjust for home loan interest saved" to estimate the offset-interest effect.</li>
@@ -163,7 +163,7 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
           type="button"
           onClick={() => setAdjustForHlInterest((v) => !v)}
           aria-pressed={adjustForHlInterest}
-          style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 12px", borderRadius: 999, border: "1px solid var(--nlc-toggle-border)", background: adjustForHlInterest ? "var(--nlc-toggle-on-bg)" : "var(--nlc-toggle-bg)", color: "var(--nlc-text)", fontSize: 12, fontWeight: 700, cursor: "pointer", userSelect: "none" }}
+          style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "8px 12px", borderRadius: 999, border: "1px solid var(--nlc-toggle-border)", background: adjustForHlInterest ? "var(--nlc-toggle-on-bg)" : "var(--nlc-toggle-bg)", color: "var(--nlc-text)", fontSize: "var(--nlc-fs-sm)", fontWeight: 700, cursor: "pointer", userSelect: "none" }}
         >
           <span>Adjust for home loan interest saved</span>
           <span aria-hidden="true" style={{ width: 34, height: 18, borderRadius: 999, background: adjustForHlInterest ? "var(--nlc-chart-nl)" : "var(--nlc-toggle-knob-off)", position: "relative", flex: "0 0 auto" }}>
@@ -181,7 +181,7 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
           yAxisLabel={adjustForHlInterest ? "Total spent (adjusted for interest saving)" : "Total spent ($)"}
         />
       </div>
-      <div style={{ marginTop: 6, fontSize: 12, color: "var(--nlc-text-soft)" }}>
+      <div style={{ marginTop: 6, fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-text-soft)" }}>
         This chart assumes the lease is terminated at each timepoint, triggering payout of remaining finance with
         post-tax dollars (plus GST) and the residual.
       </div>
@@ -193,13 +193,13 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
           style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8, font: "inherit", color: "inherit", letterSpacing: "inherit", textTransform: "inherit" }}
         >
           <span>{showTable ? "Hide calculation table" : "Show calculation table"}</span>
-          <span style={{ fontSize: 12 }}>{showTable ? "▾" : "▸"}</span>
+          <span style={{ fontSize: "var(--nlc-fs-sm)" }}>{showTable ? "▾" : "▸"}</span>
         </button>
       </SubHead>
 
       {showTable && (
         <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--nlc-line)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", marginTop: 4 }}>
-          <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 12 }}>
+          <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: "var(--nlc-fs-sm)" }}>
             <thead>
               <tr>
                 <th style={{ ...groupHeaderStyle, background: "var(--nlc-grey-solid)", color: "#fff", borderRight: "2px solid rgba(255,255,255,0.2)" }}></th>
@@ -529,8 +529,8 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
   return (
     <div ref={ref} style={{ width: "100%" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
-        <div style={{ fontWeight: 700, fontSize: 13 }}>Total spent vs termination timepoint</div>
-        <div style={{ display: "flex", gap: 12, fontSize: 12, opacity: 0.85, flexDirection: "column" }}>
+        <div style={{ fontWeight: 700, fontSize: "var(--nlc-fs-md)" }}>Total spent vs termination timepoint</div>
+        <div style={{ display: "flex", gap: 12, fontSize: "var(--nlc-fs-sm)", opacity: 0.85, flexDirection: "column" }}>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <span style={{ width: 10, height: 10, background: nlColor, display: "inline-block", borderRadius: 2 }} />
@@ -541,7 +541,7 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
               <span>Cash pathway (baseline)</span>
             </div>
           </div>
-          <div style={{ fontSize: 11, color: "var(--nlc-text-muted)", marginTop: 4 }}>
+          <div style={{ fontSize: "var(--nlc-fs-xs)", color: "var(--nlc-text-muted)", marginTop: 4 }}>
             <span style={{ color: "var(--nlc-chart-red)" }}>Red area</span> = Novated Lease costs more ·{" "}
             <span style={{ color: "var(--nlc-chart-green)" }}>Green area</span> = Novated Lease costs less
           </div>
@@ -653,8 +653,8 @@ const WorstCaseChart: React.FC<WorstCaseChartProps> = ({ data, fmtMoney, height 
   );
 };
 
-const groupHeaderStyle: React.CSSProperties = { textAlign: "center", padding: "7px 8px", fontWeight: 700, fontSize: 11, letterSpacing: "0.03em", textTransform: "uppercase" };
-const thBase: React.CSSProperties = { textAlign: "left", padding: "6px 8px", borderBottom: "2px solid var(--nlc-line)", fontWeight: 700, fontSize: 11, whiteSpace: "normal", lineHeight: 1.3 };
+const groupHeaderStyle: React.CSSProperties = { textAlign: "center", padding: "7px 8px", fontWeight: 700, fontSize: "var(--nlc-fs-xs)", letterSpacing: "0.03em", textTransform: "uppercase" };
+const thBase: React.CSSProperties = { textAlign: "left", padding: "6px 8px", borderBottom: "2px solid var(--nlc-line)", fontWeight: 700, fontSize: "var(--nlc-fs-xs)", whiteSpace: "normal", lineHeight: 1.3 };
 const thStyle: React.CSSProperties = { ...thBase, background: "var(--nlc-line-soft)", color: "var(--nlc-text)" };
 const thNlStyle: React.CSSProperties = { ...thBase, background: "var(--nlc-blue-light)", color: "var(--nlc-blue)" };
 const thCashStyle: React.CSSProperties = { ...thBase, background: "color-mix(in srgb, var(--nlc-acc-green) 12%, transparent)", color: "var(--nlc-acc-green)" };

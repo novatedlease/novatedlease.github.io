@@ -86,6 +86,22 @@
   /* Numeric type: tabular figures for anything money/percent so columns align */
   --nlc-font-numeric: var(--nlc-font-sans);
 
+  /* Type scale. Every font-size in the app resolves to one of these seven steps.
+     Before this existed the app used 19 distinct sizes, including half-pixel
+     steps (10.5 / 11.5 / 13.5 / 14.5) that read as arbitrary rather than as a
+     scale — the main reason the page was described as having "a million fonts". */
+  --nlc-fs-xs: 11px;      /* micro labels, badges, hints, table headers */
+  --nlc-fs-sm: 12.5px;    /* secondary text, small buttons, fine print */
+  --nlc-fs-md: 13.5px;    /* default body: tables, key-values, buttons */
+  --nlc-fs-lg: 15px;      /* inputs, section headings, dialog body */
+  --nlc-fs-xl: 18px;      /* card and dialog titles */
+  --nlc-fs-2xl: 20px;     /* stat values */
+  --nlc-fs-display: clamp(24px, 4vw, 32px); /* verdict headline, summary number */
+
+  /* Weights. Inter is loaded at 400-800 only (see new-site/src/layouts/Base.astro);
+     font-weight: 900 renders as a synthesised faux-bold that visibly differs from
+     the real cuts, so 800 is the heaviest weight this app may use. */
+
   /* Spacing scale (4px base) */
   --nlc-space-1: 4px;
   --nlc-space-2: 8px;

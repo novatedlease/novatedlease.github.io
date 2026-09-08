@@ -43,7 +43,7 @@
   background: transparent;
   padding: 7px 16px;
   border-radius: var(--nlc-radius-pill);
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
   font-weight: 600;
   color: var(--nlc-text-muted);
   transition: background var(--nlc-duration-fast) var(--nlc-ease), color var(--nlc-duration-fast) var(--nlc-ease);
@@ -81,7 +81,7 @@
 }
 
 .nlc-verdict__label {
-  font-size: 11px;
+  font-size: var(--nlc-fs-xs);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -90,7 +90,7 @@
 }
 
 .nlc-verdict__headline {
-  font-size: clamp(24px, 4vw, 32px);
+  font-size: var(--nlc-fs-display);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -106,7 +106,7 @@
 
 .nlc-verdict__sub {
   margin-top: 6px;
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
   color: var(--nlc-text-muted);
 }
 
@@ -160,13 +160,13 @@
   align-items: baseline;
   gap: var(--nlc-space-2);
   font-weight: 700;
-  font-size: 14.5px;
+  font-size: var(--nlc-fs-lg);
   letter-spacing: -0.005em;
 }
 
 .nlc-section__desc {
   margin-top: 4px;
-  font-size: 12.5px;
+  font-size: var(--nlc-fs-sm);
   color: var(--nlc-text-muted);
   line-height: 1.45;
   max-width: 64ch;
@@ -199,7 +199,7 @@
   border-radius: var(--nlc-radius-md);
   border: 1px solid transparent;
   font-weight: 600;
-  font-size: 13.5px;
+  font-size: var(--nlc-fs-md);
   padding: 9px 16px;
   transition: background var(--nlc-duration-fast) var(--nlc-ease), border-color var(--nlc-duration-fast) var(--nlc-ease),
     color var(--nlc-duration-fast) var(--nlc-ease);
@@ -208,7 +208,7 @@
 
 .nlc-btn--sm {
   padding: 6px 12px;
-  font-size: 12.5px;
+  font-size: var(--nlc-fs-sm);
 }
 
 .nlc-btn--primary {
@@ -261,7 +261,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 12.5px;
+  font-size: var(--nlc-fs-sm);
   font-weight: 600;
   color: var(--nlc-text-soft);
   margin-bottom: 6px;
@@ -281,7 +281,7 @@
   border: 1px solid var(--nlc-border-mid);
   background: var(--nlc-bg);
   color: var(--nlc-text);
-  font-size: 14px;
+  font-size: var(--nlc-fs-lg);
   font-family: inherit;
   transition: border-color var(--nlc-duration-fast) var(--nlc-ease), box-shadow var(--nlc-duration-fast) var(--nlc-ease);
 }
@@ -305,7 +305,7 @@
   border: 1px solid var(--nlc-border-mid);
   background: var(--nlc-bg-sunken);
   color: var(--nlc-text-muted);
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
   font-weight: 600;
 }
 
@@ -327,14 +327,14 @@
 
 .nlc-field__hint {
   margin-top: 5px;
-  font-size: 11.5px;
+  font-size: var(--nlc-fs-xs);
   color: var(--nlc-text-muted);
   line-height: 1.4;
 }
 
 .nlc-field__error {
   margin-top: 5px;
-  font-size: 11.5px;
+  font-size: var(--nlc-fs-xs);
   color: var(--nlc-bad-dark);
   line-height: 1.4;
   font-weight: 600;
@@ -352,7 +352,7 @@
   border: none;
   background: var(--nlc-bg);
   padding: 8px 14px;
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
   font-weight: 600;
   color: var(--nlc-text-muted);
   border-right: 1px solid var(--nlc-border-mid);
@@ -394,7 +394,7 @@
 }
 
 .nlc-tab__title {
-  font-size: 13.5px;
+  font-size: var(--nlc-fs-md);
   font-weight: 700;
   color: var(--nlc-text-muted);
 }
@@ -403,7 +403,7 @@
 }
 
 .nlc-tab__desc {
-  font-size: 11px;
+  font-size: var(--nlc-fs-xs);
   font-weight: 500;
   color: var(--nlc-text-muted);
   margin-top: 2px;
@@ -426,7 +426,7 @@
 }
 
 .nlc-stat__label {
-  font-size: 10px;
+  font-size: var(--nlc-fs-xs);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -435,13 +435,13 @@
 }
 
 .nlc-stat__value {
-  font-size: 20px;
+  font-size: var(--nlc-fs-2xl);
   font-weight: 800;
   line-height: 1.1;
 }
 
 .nlc-stat__note {
-  font-size: 11px;
+  font-size: var(--nlc-fs-xs);
   color: var(--nlc-text-muted);
   margin-top: 5px;
   line-height: 1.35;
@@ -449,7 +449,7 @@
 
 .nlc-subhead {
   font-weight: 700;
-  font-size: 10.5px;
+  font-size: var(--nlc-fs-xs);
   letter-spacing: 0.055em;
   text-transform: uppercase;
   color: var(--nlc-text-muted);
@@ -469,13 +469,13 @@
 }
 
 .nlc-kv__label {
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
   opacity: 0.75;
   line-height: 1.3;
 }
 
 .nlc-kv__value {
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
   font-weight: 500;
   white-space: nowrap;
 }
@@ -495,7 +495,7 @@
 .nlc-notebox {
   border-radius: var(--nlc-radius-md);
   padding: 10px 12px;
-  font-size: 12.5px;
+  font-size: var(--nlc-fs-sm);
   line-height: 1.5;
   color: var(--nlc-text-soft);
   margin-top: var(--nlc-space-3);
@@ -514,13 +514,13 @@
   border-radius: var(--nlc-radius-md);
   overflow: hidden;
   border: 1px solid var(--nlc-border);
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
 }
 
 .nlc-table th {
   text-align: left;
   padding: 7px 10px;
-  font-size: 11px;
+  font-size: var(--nlc-fs-xs);
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -536,7 +536,7 @@
 
 .nlc-table td {
   padding: 6px 10px;
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
   border-top: 1px solid var(--nlc-border);
   vertical-align: top;
 }
@@ -553,7 +553,7 @@
   align-items: center;
   padding: 2px 8px;
   border-radius: var(--nlc-radius-pill);
-  font-size: 10.5px;
+  font-size: var(--nlc-fs-xs);
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -584,8 +584,8 @@
   border-radius: 999px;
   border: 1px solid rgba(11, 92, 171, 0.55);
   color: var(--nlc-blue);
-  font-size: 11px;
-  font-weight: 900;
+  font-size: var(--nlc-fs-xs);
+  font-weight: 800;
   line-height: 1;
   cursor: pointer;
   user-select: none;
@@ -601,7 +601,7 @@
   background: var(--nlc-layout-bg);
   box-shadow: var(--nlc-shadow-lg);
   font-family: var(--nlc-font-sans);
-  font-size: 13.5px;
+  font-size: var(--nlc-fs-md);
   line-height: 1.45;
   color: var(--nlc-text-soft);
 }
@@ -629,7 +629,7 @@
   gap: var(--nlc-space-3);
   padding: 7px 0;
   border-bottom: 1px solid var(--nlc-border);
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
 }
 
 .nlc-assumptions__row:last-child {
@@ -652,7 +652,7 @@
   border: none;
   background: none;
   color: var(--nlc-blue);
-  font-size: 11.5px;
+  font-size: var(--nlc-fs-xs);
   font-weight: 700;
   padding: 2px 6px;
   border-radius: var(--nlc-radius-sm);
@@ -680,7 +680,7 @@
   background: linear-gradient(135deg, var(--nlc-blue-solid), var(--nlc-blue-solid-hover));
   color: #fff;
   font-weight: 700;
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
   padding: 9px 16px;
 }
 
@@ -698,7 +698,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: var(--nlc-fs-md);
   line-height: 1;
   flex-shrink: 0;
 }
@@ -711,7 +711,7 @@
   border: none;
   background: none;
   color: var(--nlc-text-muted);
-  font-size: 11.5px;
+  font-size: var(--nlc-fs-xs);
   font-weight: 600;
   padding: 0;
   text-decoration: underline;
@@ -781,7 +781,7 @@
 }
 
 .nlc-tour-card__eyebrow {
-  font-size: 11px;
+  font-size: var(--nlc-fs-xs);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -790,14 +790,14 @@
 }
 
 .nlc-tour-card__title {
-  font-size: 16px;
+  font-size: var(--nlc-fs-xl);
   font-weight: 800;
   margin-bottom: 8px;
   line-height: 1.25;
 }
 
 .nlc-tour-card__body {
-  font-size: 13.5px;
+  font-size: var(--nlc-fs-md);
   line-height: 1.5;
   color: var(--nlc-text-soft);
 }
@@ -819,7 +819,7 @@
   border: none;
   background: none;
   color: var(--nlc-blue);
-  font-size: 12px;
+  font-size: var(--nlc-fs-sm);
   font-weight: 700;
   padding: 0;
 }
@@ -878,13 +878,13 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 20px;
+  font-size: var(--nlc-fs-2xl);
   line-height: 1;
   color: var(--nlc-text-muted);
 }
 
 .nlc-coffee-emoji {
-  font-size: 34px;
+  font-size: 34px; /* decorative emoji, deliberately off the text scale */
   line-height: 1;
   margin-bottom: 10px;
 }
@@ -892,13 +892,13 @@
 .nlc-coffee-title {
   margin: 0 0 12px;
   padding-right: 24px;
-  font-size: 18px;
+  font-size: var(--nlc-fs-xl);
   font-weight: 800;
   line-height: 1.3;
 }
 
 .nlc-coffee-body {
-  font-size: 14px;
+  font-size: var(--nlc-fs-lg);
   line-height: 1.55;
   flex: 1 1 auto;
   min-height: 0;
@@ -921,7 +921,7 @@
 }
 
 .nlc-coffee-fineprint {
-  font-size: 12px;
+  font-size: var(--nlc-fs-sm);
   color: var(--nlc-text-muted);
 }
 

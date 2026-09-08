@@ -81,22 +81,22 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
 
   if (error) {
     return (
-      <div style={{ fontSize: 13, lineHeight: 1.5 }}>
+      <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.5 }}>
         <NoteBox color="var(--nlc-acc-red)">
           Unable to compute the hypothetical lease payment for these inputs.
-          <div style={{ marginTop: 6, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 11, opacity: 0.85 }}>{error}</div>
+          <div style={{ marginTop: 6, fontFamily: "var(--nlc-font-mono)", fontSize: "var(--nlc-fs-xs)", opacity: 0.85 }}>{error}</div>
         </NoteBox>
       </div>
     );
   }
 
-  const th: React.CSSProperties = { textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-grey-solid)", color: "#fff" };
+  const th: React.CSSProperties = { textAlign: "left", padding: "7px 10px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-grey-solid)", color: "#fff" };
   const thR: React.CSSProperties = { ...th, textAlign: "right", whiteSpace: "nowrap" };
   const td: React.CSSProperties = { padding: "6px 10px", borderBottom: "1px solid var(--nlc-line-soft)" };
   const tdR: React.CSSProperties = { ...td, textAlign: "right", fontVariantNumeric: "tabular-nums" };
 
   return (
-    <div style={{ fontSize: 13, lineHeight: 1.5 }}>
+    <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.5 }}>
       <StatGrid>
         <Stat label={`Quoted vehicle lease / ${period}`} value={money(fnToCol(currentVehiclePerFn2dp))} color="var(--nlc-blue)" note={`Implied rate: ${quotedAnnualRate != null ? fmtPct(quotedAnnualRate) : "—"}`} />
         <Stat label={`Wholesale rate (${fmtPct(assumedAnnualRate)}) vehicle / ${period}`} value={money(fnToCol(hypotheticalPerFn2dp))} color="var(--nlc-acc-green)" />
@@ -104,7 +104,7 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
       </StatGrid>
 
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, flexWrap: "wrap" }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-soft)" }}>Assumed wholesale rate:</div>
+        <div style={{ fontSize: "var(--nlc-fs-sm)", fontWeight: 700, color: "var(--nlc-text-soft)" }}>Assumed wholesale rate:</div>
         <div style={{ display: "inline-flex", border: "1px solid var(--nlc-blue-mid)", borderRadius: 999, overflow: "hidden", background: "var(--nlc-blue-light)" }}>
           {[0.07, 0.08, 0.09].map((r) => {
             const active = assumedAnnualRate === r;
@@ -113,7 +113,7 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
                 key={r}
                 type="button"
                 onClick={() => setAssumedAnnualRate(r)}
-                style={{ appearance: "none", border: "none", background: active ? "var(--nlc-blue-solid)" : "transparent", color: active ? "#fff" : "var(--nlc-blue)", padding: "5px 12px", cursor: "pointer", fontWeight: active ? 800 : 600, fontSize: 12, lineHeight: 1 }}
+                style={{ appearance: "none", border: "none", background: active ? "var(--nlc-blue-solid)" : "transparent", color: active ? "#fff" : "var(--nlc-blue)", padding: "5px 12px", cursor: "pointer", fontWeight: active ? 800 : 600, fontSize: "var(--nlc-fs-sm)", lineHeight: 1 }}
                 aria-pressed={active}
               >
                 {(r * 100).toFixed(0)}%
@@ -125,7 +125,7 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
       </div>
 
       <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--nlc-line)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-        <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 13 }}>
+        <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: "var(--nlc-fs-md)" }}>
           <thead>
             <tr>
               <th style={th}></th>
@@ -162,7 +162,7 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
       </div>
 
       <SubHead mt={14}>Interpretation</SubHead>
-      <div style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--nlc-text-soft)" }}>
+      <div style={{ fontSize: "var(--nlc-fs-sm)", lineHeight: 1.55, color: "var(--nlc-text-soft)" }}>
         <p style={{ margin: "0 0 8px 0" }}>
           The difference above is a simple estimate of the gross financing margin between your quoted vehicle lease and an
           assumed wholesale finance rate. In practice, novated lease providers derive margin from multiple sources — the

@@ -6,7 +6,7 @@ export function Footer(props: { showTourLink?: boolean; onStartTour?: () => void
         marginTop: 24,
         paddingTop: 12,
         borderTop: "1px solid var(--nlc-line-strong)",
-        fontSize: 11,
+        fontSize: "var(--nlc-fs-xs)",
         lineHeight: 1.45,
         color: "var(--nlc-text-dim)",
         width: "100%",

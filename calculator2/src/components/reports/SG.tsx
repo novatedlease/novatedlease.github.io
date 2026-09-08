@@ -27,7 +27,7 @@ export function SG(props: { rows: SGYearRow[]; sgRatePct?: number }) {
   }
 
   return (
-    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
+    <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.4 }}>
       <NoteBox color="var(--nlc-acc-orange)" mt={0}>
         Only relevant if your payroll calculates Super Guarantee on <b>post-NL income</b>. On informal polling this
         applies to ~10% of people — check with your payroll.
@@ -64,7 +64,7 @@ export function SG(props: { rows: SGYearRow[]; sgRatePct?: number }) {
       </Table>
 
       <SubHead mt={16} color="var(--nlc-acc-green)">Mitigation</SubHead>
-      <div style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--nlc-text-soft)" }}>
+      <div style={{ fontSize: "var(--nlc-fs-sm)", lineHeight: 1.55, color: "var(--nlc-text-soft)" }}>
         <p style={{ margin: "0 0 8px 0" }}>
           Over this lease term, your employer is projected to contribute <b>{fmtMoney(totalLossInSg)}</b> less in superannuation.
         </p>

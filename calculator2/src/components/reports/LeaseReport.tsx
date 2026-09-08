@@ -147,7 +147,7 @@ export function LeaseReport(props: {
   const totalLifetimeImpact = fbtApplies ? totalTakeHomeImpactLifetime : postTaxTotalLifetime;
 
   return (
-    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
+    <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.4 }}>
       <StatGrid>
         <Stat
           label={`Pre-tax deduction / ${isMonthly ? "month" : "fortnight"}`}
@@ -241,7 +241,7 @@ export function LeaseReport(props: {
                 <tr>
                   <td style={tdLeft(false)}>
                     Pre-Tax Deduction&apos;s Equivalent Post-Tax Impact
-                    <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.7, fontSize: 12 }}>
+                    <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.7, fontSize: "var(--nlc-fs-sm)" }}>
                       <InfoTooltip text={mostExpensiveImpactNote} />
                     </span>
                   </td>
@@ -267,7 +267,7 @@ export function LeaseReport(props: {
                 <tr>
                   <td style={tdLeft(false)}>
                     {lvAdjFn > 0 ? "Vehicle Lease + LV Adjustment" : "Vehicle Lease"}
-                    <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.7, fontSize: 12 }}>
+                    <span style={{ marginLeft: 8, fontWeight: 500, opacity: 0.7, fontSize: "var(--nlc-fs-sm)" }}>
                       <InfoTooltip text={mostExpensiveImpactNote} />
                     </span>
                   </td>
@@ -319,7 +319,7 @@ export function LeaseReport(props: {
           }}
         >
           <span>1.2 Breakdown by Financial Years</span>
-          <span style={{ fontSize: 12 }}>{fyExpanded ? "▾" : "▸"}</span>
+          <span style={{ fontSize: "var(--nlc-fs-sm)" }}>{fyExpanded ? "▾" : "▸"}</span>
         </button>
       </SubHead>
 
@@ -327,7 +327,7 @@ export function LeaseReport(props: {
         <>
           <FYTable fyRows={fyRows} fbtApplies={fbtApplies} actualPreTaxDeductionFnForFy={actualPreTaxDeductionFnForFy} ecmPerFnForFy={ecmPerFnForFy} />
 
-          <div style={{ marginTop: 10, fontSize: 12, color: "var(--nlc-text-dim)", lineHeight: 1.55 }}>
+          <div style={{ marginTop: 10, fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-text-dim)", lineHeight: 1.55 }}>
             <p style={{ margin: "0 0 6px 0" }}>
               * Take home figures do not account for other subsidies and liabilities (HECS, childcare subsidy, Medicare Levy
               Surcharge, other salary packaging, etc.).
@@ -339,7 +339,7 @@ export function LeaseReport(props: {
           </div>
         </>
       ) : (
-        <div style={{ fontSize: 12, color: "var(--nlc-text-dimmer)", marginTop: 2, fontStyle: "italic" }}>Click to expand year-by-year tax breakdown</div>
+        <div style={{ fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-text-dimmer)", marginTop: 2, fontStyle: "italic" }}>Click to expand year-by-year tax breakdown</div>
       )}
     </div>
   );
@@ -430,7 +430,7 @@ function FYTable(props: {
         transform: "rotate(180deg)",
         letterSpacing: 0.5,
         fontWeight: 700,
-        fontSize: 10,
+        fontSize: "var(--nlc-fs-xs)",
         overflow: "hidden",
       }}
     >
@@ -445,7 +445,7 @@ function FYTable(props: {
         style={{
           padding: "7px 10px",
           background: "var(--nlc-blue-light)",
-          fontSize: 11,
+          fontSize: "var(--nlc-fs-xs)",
           fontWeight: 700,
           color: "var(--nlc-blue)",
           letterSpacing: "0.04em",
@@ -588,7 +588,7 @@ function FYTable(props: {
 const sectionDivider: React.CSSProperties = {
   padding: "9px 10px 7px",
   fontWeight: 800,
-  fontSize: 11,
+  fontSize: "var(--nlc-fs-xs)",
   letterSpacing: "0.05em",
   textTransform: "uppercase",
   textAlign: "left",
@@ -601,7 +601,7 @@ const sectionDivider: React.CSSProperties = {
 const th: React.CSSProperties = {
   textAlign: "right",
   padding: "7px 10px",
-  fontSize: 11,
+  fontSize: "var(--nlc-fs-xs)",
   fontWeight: 700,
   letterSpacing: "0.03em",
   textTransform: "uppercase",
@@ -615,7 +615,7 @@ const thLeft: React.CSSProperties = { ...th, textAlign: "left" };
 const td = (bold?: boolean, emphasize?: boolean): React.CSSProperties => ({
   textAlign: "right",
   padding: "6px 10px",
-  fontSize: 13,
+  fontSize: "var(--nlc-fs-md)",
   borderBottom: bold ? "1px solid var(--nlc-line)" : "1px solid var(--nlc-line-soft)",
   fontWeight: emphasize ? 800 : bold ? 700 : 500,
   color: emphasize ? "var(--nlc-blue)" : "inherit",

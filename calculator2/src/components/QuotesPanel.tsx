@@ -128,7 +128,7 @@ export function QuotesPanel(props: {
             boxShadow: "var(--nlc-shadow-lg)",
             padding: 12,
             zIndex: 50,
-            fontSize: 12.5,
+            fontSize: "var(--nlc-fs-sm)",
           }}
         >
           <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
@@ -140,7 +140,7 @@ export function QuotesPanel(props: {
               onKeyDown={(e) => {
                 if (e.key === "Enter") saveCurrent();
               }}
-              style={{ flex: 1, fontSize: 12.5, padding: "6px 8px" }}
+              style={{ flex: 1, fontSize: "var(--nlc-fs-sm)", padding: "6px 8px" }}
             />
             <Button variant="primary" size="sm" onClick={saveCurrent}>
               Save
@@ -164,7 +164,7 @@ export function QuotesPanel(props: {
                         if (e.key === "Escape") setRenamingId(null);
                       }}
                       onBlur={() => commitRename(q.id)}
-                      style={{ flex: 1, fontSize: 12.5, padding: "4px 6px" }}
+                      style={{ flex: 1, fontSize: "var(--nlc-fs-sm)", padding: "4px 6px" }}
                     />
                   ) : (
                     <button
