@@ -24,7 +24,8 @@ async function getFonts() {
 
 function getLogo() {
   if (!logoCache) {
-    const logoPath = resolve(process.cwd(), 'public/assets/images/logo.png');
+    // White mark on transparent (484×222 aspect), rendered from logo.svg
+    const logoPath = resolve(process.cwd(), 'public/assets/images/logo-mark.png');
     logoCache = `data:image/png;base64,${readFileSync(logoPath).toString('base64')}`;
   }
   return logoCache;
@@ -93,14 +94,13 @@ export const GET: APIRoute = async ({ props }) => {
             type: 'img',
             props: {
               src: logoBase64,
-              width: 500,
-              height: 500,
+              width: 560,
+              height: 257,
               style: {
                 position: 'absolute',
-                right: '-10px',
-                bottom: '-40px',
-                opacity: 0.07,
-                borderRadius: '60px',
+                right: '20px',
+                bottom: '30px',
+                opacity: 0.08,
               },
             },
           },
@@ -129,9 +129,8 @@ export const GET: APIRoute = async ({ props }) => {
                         type: 'img',
                         props: {
                           src: logoBase64,
-                          width: 62,
-                          height: 62,
-                          style: { borderRadius: '12px' },
+                          width: 120,
+                          height: 55,
                         },
                       },
                       {
