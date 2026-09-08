@@ -203,7 +203,7 @@ export function LeaseRateGuard(props: {
         label={
           <div>
             <div>Vehicle finance (ex GST)</div>
-            <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: "var(--nlc-fs-xs)", alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11, alignItems: "center" }}>
               {(["perFn", "perMonth"] as const).map((mode, idx) => (
                 <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
                   {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
@@ -215,7 +215,7 @@ export function LeaseRateGuard(props: {
                       border: "none",
                       background: "transparent",
                       cursor: "pointer",
-                      fontSize: "var(--nlc-fs-xs)",
+                      fontSize: 11,
                       fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
                       opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
                       textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
@@ -244,7 +244,7 @@ export function LeaseRateGuard(props: {
         <button
           type="button"
           onClick={() => setLeaseAdjModalOpen(true)}
-          style={{ padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: "var(--nlc-fs-xs)", color: "var(--nlc-text-muted)", opacity: 0.7, textDecoration: "underline", textUnderlineOffset: 2, fontWeight: 500 }}
+          style={{ padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: 10, color: "var(--nlc-text-muted)", opacity: 0.7, textDecoration: "underline", textUnderlineOffset: 2, fontWeight: 500 }}
         >
           Smart Leasing / MillarX customer?
         </button>
@@ -267,7 +267,7 @@ export function LeaseRateGuard(props: {
           borderRadius: "var(--nlc-radius-md)",
           borderLeft: guardMsg ? "3px solid var(--nlc-bad)" : "3px solid var(--nlc-blue-mid)",
           background: guardMsg ? "var(--nlc-bad-light)" : "var(--nlc-bg-sunken)",
-          fontSize: "var(--nlc-fs-sm)",
+          fontSize: 12,
           lineHeight: 1.5,
         }}
       >
@@ -282,7 +282,7 @@ export function LeaseRateGuard(props: {
         ) : (
           <span style={{ fontWeight: 700 }}>Effective interest rate: </span>
         )}
-        <span style={{ fontWeight: 800 }}>{formatPct(liveRate)}</span>
+        <span style={{ fontWeight: 900 }}>{formatPct(liveRate)}</span>
         <InfoTooltip
           width={440}
           text={
@@ -325,7 +325,7 @@ export function LeaseRateGuard(props: {
               background: "none",
               cursor: "pointer",
               lineHeight: 0.8,
-              fontSize: "var(--nlc-fs-xs)",
+              fontSize: 11,
               color: hoveredArrow === "up" ? "var(--nlc-blue)" : "var(--nlc-text-muted)",
               userSelect: "none",
               WebkitUserSelect: "none",
@@ -364,7 +364,7 @@ export function LeaseRateGuard(props: {
               background: "none",
               cursor: "pointer",
               lineHeight: 0.8,
-              fontSize: "var(--nlc-fs-xs)",
+              fontSize: 11,
               color: hoveredArrow === "down" ? "var(--nlc-blue)" : "var(--nlc-text-muted)",
               userSelect: "none",
               WebkitUserSelect: "none",

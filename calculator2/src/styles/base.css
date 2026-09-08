@@ -9,7 +9,7 @@
 .nlc-root {
   font-family: var(--nlc-font-sans);
   color: var(--nlc-text);
-  font-size: var(--nlc-fs-lg);
+  font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }

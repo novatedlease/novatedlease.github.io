@@ -76,7 +76,7 @@ function DetailedBreakdownTable({
   const groupHeaderStyle: React.CSSProperties = {
     padding: "9px 10px 7px",
     fontWeight: 800,
-    fontSize: "var(--nlc-fs-xs)",
+    fontSize: 11,
     letterSpacing: "0.05em",
     textTransform: "uppercase",
     background: "var(--nlc-blue-light)",
@@ -92,15 +92,15 @@ function DetailedBreakdownTable({
 
   return (
     <div style={{ marginBottom: 20 }}>
-      <div style={{ fontWeight: 800, fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-blue)", letterSpacing: "0.03em", marginBottom: 6 }}>{headerLabel}</div>
+      <div style={{ fontWeight: 800, fontSize: 12, color: "var(--nlc-blue)", letterSpacing: "0.03em", marginBottom: 6 }}>{headerLabel}</div>
       <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--nlc-border)", boxShadow: "var(--nlc-shadow-sm)" }}>
-        <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: "var(--nlc-fs-md)" }}>
+        <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 13 }}>
           <thead>
             <tr>
-              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-grey-solid)", color: "#fff", whiteSpace: "nowrap" }}>{headerLabel}</th>
+              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-grey-solid)", color: "#fff", whiteSpace: "nowrap" }}>{headerLabel}</th>
               {ranked.map((col) => (
-                <th key={col.key} style={{ textAlign: "right", padding: "7px 10px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, background: PATHWAY_SOLID[col.pathwayType], color: "#fff", whiteSpace: "nowrap" }}>
-                  {col.pathwayType !== "keep" && <div style={{ fontWeight: 800 }}>{col.quoteName}</div>}
+                <th key={col.key} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, background: PATHWAY_SOLID[col.pathwayType], color: "#fff", whiteSpace: "nowrap" }}>
+                  {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
                   <div style={{ fontWeight: 600, opacity: 0.85, marginTop: 2 }}>{PATHWAY_LABELS[col.pathwayType]}</div>
                 </th>
               ))}
@@ -315,7 +315,7 @@ export function ComparatorView({
 
   if (savedQuotes.length === 0) {
     return (
-      <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.6, color: "var(--nlc-text-muted)" }}>
+      <div style={{ fontSize: 13, lineHeight: 1.6, color: "var(--nlc-text-muted)" }}>
         Save at least two quotes (see "Saved quotes" above) to compare them side by side — e.g. a
         novated lease arrangement on a $60k EV vs a cash purchase of a $30k petrol car.
       </div>
@@ -323,9 +323,9 @@ export function ComparatorView({
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14, fontSize: "var(--nlc-fs-md)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 14, fontSize: 13 }}>
       <div style={{ border: "1px solid var(--nlc-border)", borderRadius: "var(--nlc-radius-lg)", padding: 14 }}>
-        <div style={{ fontWeight: 700, fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-purple)", marginBottom: 10 }}>
+        <div style={{ fontWeight: 700, fontSize: 12.5, color: "var(--nlc-purple)", marginBottom: 10 }}>
           Select pathways to compare ({selectedKeys.size}/{MAX_PATHWAYS})
         </div>
         {savedQuotes.map((q) => {
@@ -333,9 +333,9 @@ export function ComparatorView({
           if (paths.length === 0) return null;
           return (
             <div key={q.id} style={{ marginBottom: 10 }}>
-              <div style={{ fontWeight: 700, fontSize: "var(--nlc-fs-sm)", marginBottom: 6 }}>
+              <div style={{ fontWeight: 700, fontSize: 12.5, marginBottom: 6 }}>
                 {q.name}
-                <span style={{ fontWeight: 500, fontSize: "var(--nlc-fs-xs)", color: "var(--nlc-text-muted)", marginLeft: 8 }}>
+                <span style={{ fontWeight: 500, fontSize: 11, color: "var(--nlc-text-muted)", marginLeft: 8 }}>
                   {paths[0]!.inputs.leaseDurationYears}yr lease · {paths[0]!.inputs.homeLoanOffsetInterestRate}% offset rate
                 </span>
               </div>
@@ -403,7 +403,7 @@ export function ComparatorView({
         <>
           {offerLeaseEndOption && (
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-text-muted)", fontWeight: 600 }}>Horizon</span>
+              <span style={{ fontSize: 12, color: "var(--nlc-text-muted)", fontWeight: 600 }}>Horizon</span>
               <div className="nlc-pill-group">
                 <button type="button" className="nlc-pill-group__btn" aria-pressed={effectiveHorizon === "five_year"} onClick={() => setHorizon("five_year")}>
                   @ 5y
@@ -421,8 +421,8 @@ export function ComparatorView({
                 <th style={th()}>Metric</th>
                 {ranked.map((col) => (
                   <th key={col.key} style={{ ...thR(), background: PATHWAY_SOLID[col.pathwayType], color: "#fff" }}>
-                    {col.key === winnerKey && <div style={{ fontSize: "var(--nlc-fs-xs)", letterSpacing: "0.05em" }}>★ BEST</div>}
-                    {col.pathwayType !== "keep" && <div style={{ fontWeight: 800 }}>{col.quoteName}</div>}
+                    {col.key === winnerKey && <div style={{ fontSize: 9, letterSpacing: "0.05em" }}>★ BEST</div>}
+                    {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
                     <div style={{ fontWeight: 600, opacity: 0.85 }}>{PATHWAY_LABELS[col.pathwayType]}</div>
                   </th>
                 ))}
@@ -488,7 +488,7 @@ export function ComparatorView({
                     borderRadius: 12,
                     background: "var(--nlc-fill-faint)",
                     border: "1px solid var(--nlc-line)",
-                    fontSize: "var(--nlc-fs-sm)",
+                    fontSize: 12,
                     lineHeight: 1.5,
                     color: "var(--nlc-text-dim)",
                     display: "flex",

@@ -59,7 +59,7 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
   const postReimbursementEffectiveChargingExpense = chargingExpensePerYear - assumedChargingClaimPerYear * taxRate;
 
   return (
-    <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.4 }}>
+    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
       <StatGrid>
         <Stat label="Amount Financed" value={`$${aud(amountFinanced)}`} color="var(--nlc-blue)" note="Drive-away + doc fee − GST saved" />
         <Stat label={`ATO Residual (${Math.round(i.leaseDurationYears)}y)`} value={pct(residualPct)} color="var(--nlc-acc-slate)" />

@@ -67,13 +67,13 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
           type="button"
           onClick={props.onClose}
           aria-label="Close"
-          style={{ position: "absolute", top: 14, right: 16, padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: "var(--nlc-fs-2xl)", lineHeight: 1, color: "var(--nlc-text-muted)" }}
+          style={{ position: "absolute", top: 14, right: 16, padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: 20, lineHeight: 1, color: "var(--nlc-text-muted)" }}
         >
           ✕
         </button>
 
-        <div style={{ fontWeight: 800, fontSize: "var(--nlc-fs-xl)", marginBottom: 4, paddingRight: 24 }}>Adjust your quoted finance figure</div>
-        <div style={{ fontSize: "var(--nlc-fs-md)", color: "var(--nlc-text-muted)", marginBottom: 20, lineHeight: 1.45 }}>
+        <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 4, paddingRight: 24 }}>Adjust your quoted finance figure</div>
+        <div style={{ fontSize: 13, color: "var(--nlc-text-muted)", marginBottom: 20, lineHeight: 1.45 }}>
           {provider === "smart" ? "Smart Leasing" : "MillarX"} derives your regular payment as though you are paying for all {totalMonths} monthly
           finance payments — but only {totalMonths - bufferMonths} of those are actual payments to the financier. The remainder is held as a budget
           reserve (refundable if unused at term end). The calculator needs the figure based on the {totalMonths - bufferMonths} true financier
@@ -98,7 +98,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
                 boxShadow: provider === p ? "var(--nlc-shadow-sm)" : "none",
                 cursor: "pointer",
                 fontWeight: provider === p ? 800 : 500,
-                fontSize: "var(--nlc-fs-md)",
+                fontSize: 13,
                 color: provider === p ? "var(--nlc-blue)" : "var(--nlc-text-muted)",
                 whiteSpace: "nowrap",
               }}
@@ -109,10 +109,10 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
         </div>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-          <div style={{ fontSize: "var(--nlc-fs-sm)", fontWeight: 700, color: "var(--nlc-text-muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>
             Your quoted finance figure (ex GST)
           </div>
-          <div style={{ display: "flex", gap: 4, fontSize: "var(--nlc-fs-xs)" }}>
+          <div style={{ display: "flex", gap: 4, fontSize: 11 }}>
             {(["perFn", "perMonth"] as const).map((mode, idx) => (
               <span key={mode} style={{ display: "flex", gap: 4, alignItems: "center" }}>
                 {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
@@ -124,7 +124,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
                     border: "none",
                     background: "transparent",
                     cursor: "pointer",
-                    fontSize: "var(--nlc-fs-xs)",
+                    fontSize: 11,
                     fontWeight: quotePeriodMode === mode ? 800 : 400,
                     opacity: quotePeriodMode === mode ? 0.9 : 0.45,
                     textDecoration: quotePeriodMode === mode ? "underline" : "none",
@@ -137,7 +137,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
           </div>
         </div>
         <div style={{ position: "relative", marginBottom: 8 }}>
-          <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", fontWeight: 700, fontSize: "var(--nlc-fs-xl)", color: "var(--nlc-text-faint)", pointerEvents: "none" }}>$</div>
+          <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", fontWeight: 700, fontSize: 16, color: "var(--nlc-text-faint)", pointerEvents: "none" }}>$</div>
           <input
             ref={quotedInputRef}
             className="nlc-input"
@@ -154,16 +154,16 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
               const n = parseFloat(String(quotedText).trim().replace(/[$,]/g, ""));
               if (Number.isFinite(n) && n > 0) setQuotedText(fmtResult(n));
             }}
-            style={{ boxSizing: "border-box", padding: "12px 14px 12px 32px", fontSize: "var(--nlc-fs-2xl)", fontWeight: 700 }}
+            style={{ boxSizing: "border-box", padding: "12px 14px 12px 32px", fontSize: 20, fontWeight: 700 }}
           />
         </div>
 
-        <div style={{ fontSize: "var(--nlc-fs-xs)", color: "var(--nlc-text-muted)", textAlign: "right", marginBottom: 16 }}>
+        <div style={{ fontSize: 11, color: "var(--nlc-text-muted)", textAlign: "right", marginBottom: 16 }}>
           × {totalMonths - bufferMonths} / {totalMonths}
           {factor !== null ? ` = ${(factor * 100).toFixed(3)}%` : ""}
         </div>
 
-        <div style={{ fontSize: "var(--nlc-fs-sm)", fontWeight: 700, color: "var(--nlc-text-muted)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-muted)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
           Enter this into the calculator ({quotePeriodMode === "perFn" ? "per fortnight" : "per month"})
         </div>
         <div
@@ -172,7 +172,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
             borderRadius: "var(--nlc-radius-md)",
             background: adjustedDisplay !== null ? "var(--nlc-good-light)" : "var(--nlc-bg-sunken)",
             border: adjustedDisplay !== null ? "1.5px solid color-mix(in srgb, var(--nlc-good) 35%, transparent)" : "1.5px solid var(--nlc-border)",
-            fontSize: "var(--nlc-fs-2xl)",
+            fontSize: 20,
             fontWeight: 800,
             color: adjustedDisplay !== null ? "var(--nlc-good-dark)" : "var(--nlc-text-faint)",
             letterSpacing: "-0.01em",
@@ -185,7 +185,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
           {adjustedDisplay !== null ? `$${fmtResult(adjustedDisplay)}` : "—"}
         </div>
 
-        <div style={{ fontSize: "var(--nlc-fs-xs)", color: "var(--nlc-text-muted)", lineHeight: 1.5, marginBottom: 20 }}>
+        <div style={{ fontSize: 11, color: "var(--nlc-text-muted)", lineHeight: 1.5, marginBottom: 20 }}>
           Once applied, the calculator's total cost will appear slightly lower than your provider's quoted total. This is expected — the
           provider's quote treats the buffer payments as a true financial obligation, whereas this calculator correctly models only the{" "}
           {totalMonths - bufferMonths} actual financier payments as a cost. The buffer surplus is returned to you at term end if unused.
@@ -195,7 +195,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
           <button
             type="button"
             onClick={props.onClose}
-            style={{ padding: "10px 18px", borderRadius: "var(--nlc-radius-md)", border: "1px solid var(--nlc-border-mid)", background: "transparent", cursor: "pointer", fontSize: "var(--nlc-fs-md)", fontWeight: 600, color: "var(--nlc-text-muted)" }}
+            style={{ padding: "10px 18px", borderRadius: "var(--nlc-radius-md)", border: "1px solid var(--nlc-border-mid)", background: "transparent", cursor: "pointer", fontSize: 13, fontWeight: 600, color: "var(--nlc-text-muted)" }}
           >
             Cancel
           </button>
@@ -212,7 +212,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
               background: adjustedFn !== null ? "var(--nlc-blue-solid)" : "var(--nlc-bg-sunken)",
               color: adjustedFn !== null ? "#fff" : "var(--nlc-text-faint)",
               cursor: adjustedFn !== null ? "pointer" : "default",
-              fontSize: "var(--nlc-fs-md)",
+              fontSize: 13,
               fontWeight: 800,
             }}
           >

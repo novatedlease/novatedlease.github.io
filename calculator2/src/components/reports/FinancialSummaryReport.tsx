@@ -43,7 +43,7 @@ type CombinedRow = { label: string; values: Partial<Record<ScenarioKey, number |
 const groupHeaderStyle: React.CSSProperties = {
   padding: "9px 10px 7px",
   fontWeight: 800,
-  fontSize: "var(--nlc-fs-xs)",
+  fontSize: 11,
   letterSpacing: "0.05em",
   textTransform: "uppercase",
   background: "var(--nlc-blue-light)",
@@ -88,14 +88,14 @@ function SummaryCombinedTable({
   return (
     <div style={{ marginTop: 10, marginBottom: 20 }}>
       <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--nlc-border)", boxShadow: "var(--nlc-shadow-sm)" }}>
-        <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: "var(--nlc-fs-md)" }}>
+        <table style={{ width: "100%", minWidth: "max-content", borderCollapse: "collapse", fontSize: 13 }}>
           <thead>
             <tr>
-              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-grey-solid)", color: "#fff", whiteSpace: "nowrap" }}>
+              <th style={{ textAlign: "left", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: "var(--nlc-grey-solid)", color: "#fff", whiteSpace: "nowrap" }}>
                 {headerLabel}
               </th>
               {visible.map((k) => (
-                <th key={k} style={{ textAlign: "right", padding: "7px 10px", fontSize: "var(--nlc-fs-xs)", fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: scenarioSolid[k], color: "#fff", whiteSpace: "nowrap" }}>
+                <th key={k} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", textTransform: "uppercase", background: scenarioSolid[k], color: "#fff", whiteSpace: "nowrap" }}>
                   {scenarioTitles[k]}
                 </th>
               ))}
@@ -140,7 +140,7 @@ function SectionBlock({ title, cashRows, assetRows, liabilityRows }: { title: st
 
   const groupLabelStyle: React.CSSProperties = {
     fontWeight: 700,
-    fontSize: "var(--nlc-fs-xs)",
+    fontSize: 11,
     letterSpacing: "0.04em",
     textTransform: "uppercase",
     color: `color-mix(in srgb, ${accent} 80%, transparent)`,
@@ -151,7 +151,7 @@ function SectionBlock({ title, cashRows, assetRows, liabilityRows }: { title: st
 
   return (
     <div style={{ marginTop: 14, borderRadius: 10, overflow: "hidden", border: "1px solid var(--nlc-border)", boxShadow: "var(--nlc-shadow-sm)" }}>
-      <div style={{ background: `color-mix(in srgb, ${accent} 9%, transparent)`, borderBottom: `2px solid color-mix(in srgb, ${accent} 20%, transparent)`, padding: "8px 12px", fontWeight: 800, fontSize: "var(--nlc-fs-xs)", letterSpacing: "0.05em", textTransform: "uppercase", color: accent }}>
+      <div style={{ background: `color-mix(in srgb, ${accent} 9%, transparent)`, borderBottom: `2px solid color-mix(in srgb, ${accent} 20%, transparent)`, padding: "8px 12px", fontWeight: 800, fontSize: 11, letterSpacing: "0.05em", textTransform: "uppercase", color: accent }}>
         {title}
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, padding: "12px 14px" }}>
@@ -235,7 +235,7 @@ export function FinancialSummaryReport(props: { inputs: Inputs }) {
   ];
 
   return (
-    <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.4 }}>
+    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
       <StatGrid>
         <Stat label="NL total spend at 5 years" value={`$${Math.round(s.nlTotalSpentAt5).toLocaleString("en-AU")}`} color="var(--nlc-blue)" note="Lease costs + residual + post-lease running" />
         <Stat label="Offset cash total at 5 years" value={`$${Math.round(s.offsetTotalSpentAt5).toLocaleString("en-AU")}`} color="var(--nlc-acc-green)" note="Upfront + running costs" />
@@ -246,7 +246,7 @@ export function FinancialSummaryReport(props: { inputs: Inputs }) {
 
       {yearsPost > 0 && (
         <>
-          <div style={{ marginTop: 8, marginBottom: 6, fontWeight: 800, fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-blue)", letterSpacing: "0.03em" }}>
+          <div style={{ marginTop: 8, marginBottom: 6, fontWeight: 800, fontSize: 12, color: "var(--nlc-blue)", letterSpacing: "0.03em" }}>
             @ {Math.round(yearsLease)} Years (End of Lease / Loan)
           </div>
           <SummaryCombinedTable
@@ -271,7 +271,7 @@ export function FinancialSummaryReport(props: { inputs: Inputs }) {
         </>
       )}
 
-      <div style={{ marginTop: 14, marginBottom: 6, fontWeight: 800, fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-blue)", letterSpacing: "0.03em" }}>@ 5 Years</div>
+      <div style={{ marginTop: 14, marginBottom: 6, fontWeight: 800, fontSize: 12, color: "var(--nlc-blue)", letterSpacing: "0.03em" }}>@ 5 Years</div>
       <SummaryCombinedTable
         headerLabel="@ 5y"
         visible={summaryVisibleCols}
@@ -293,7 +293,7 @@ export function FinancialSummaryReport(props: { inputs: Inputs }) {
       />
 
       <SubHead mt={16}>2.2 Detailed Worksheet Per Scenario</SubHead>
-      <div style={{ fontSize: "var(--nlc-fs-xs)", color: "var(--nlc-text-muted)", marginTop: -4, marginBottom: 10, fontStyle: "italic" }}>
+      <div style={{ fontSize: 11.5, color: "var(--nlc-text-muted)", marginTop: -4, marginBottom: 10, fontStyle: "italic" }}>
         * does not account for sale of current car in this section
       </div>
 

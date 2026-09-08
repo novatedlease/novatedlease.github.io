@@ -141,7 +141,7 @@ export function ATI(props: AtiProps) {
   const fullYearRfba = fbtApplicable ? 0 : grossUp * statutoryRate * props.fbtBaseValue * (purpose === "fbtExemptChildcare" ? 0.53 : 1);
 
   return (
-    <div style={{ fontSize: "var(--nlc-fs-md)", lineHeight: 1.4 }}>
+    <div style={{ fontSize: 13, lineHeight: 1.4 }}>
       {firstRow && (
         <StatGrid>
           <Stat label="Original taxable income (pre-NL)" value={formatMoney(props.originalTaxableIncomePreNL)} color="var(--nlc-blue)" />
@@ -167,7 +167,7 @@ export function ATI(props: AtiProps) {
                 key={value}
                 type="button"
                 onClick={() => setPurpose(value)}
-                style={{ appearance: "none", border: "none", background: active ? "var(--nlc-blue-solid)" : "transparent", color: active ? "#fff" : "var(--nlc-blue)", padding: "5px 14px", cursor: "pointer", fontWeight: active ? 800 : 600, fontSize: "var(--nlc-fs-sm)", lineHeight: 1, whiteSpace: "nowrap" }}
+                style={{ appearance: "none", border: "none", background: active ? "var(--nlc-blue-solid)" : "transparent", color: active ? "#fff" : "var(--nlc-blue)", padding: "5px 14px", cursor: "pointer", fontWeight: active ? 800 : 600, fontSize: 12, lineHeight: 1, whiteSpace: "nowrap" }}
                 aria-pressed={active}
               >
                 {label}
@@ -177,7 +177,7 @@ export function ATI(props: AtiProps) {
         </div>
         <InfoTooltip text="When the FBT-exempt (childcare) option is selected, the Reportable Fringe Benefits Amount (RFBA) is multiplied by 53%. This 'adjusted fringe benefits total' applies to Child Care Subsidy and Family Tax Benefit income tests for employees of FBT-exempt employers (public hospitals, PBIs, charities). It does not apply to HELP/HECS repayment income, which uses the full RFBA." />
       </div>
-      <div style={{ fontSize: "var(--nlc-fs-sm)", color: "var(--nlc-text-muted)", fontStyle: "italic", marginBottom: 12 }}>
+      <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", fontStyle: "italic", marginBottom: 12 }}>
         Choose the second option if you work for an FBT-exempt organisation (e.g. hospital) and are assessing childcare subsidy.
       </div>
 
