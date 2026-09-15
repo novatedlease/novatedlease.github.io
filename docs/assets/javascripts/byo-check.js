@@ -12,21 +12,21 @@
       aliases: ["SMHS", "South Metro Health", "South Metro", "South Metropolitan Health", "WA Health", "Fiona Stanley", "Fremantle Hospital"],
       group: "WA Health",
       status: "possible",
-      notes: "Confirmed: MillarX reports 2 completed BYO leases with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "East Metropolitan Health Service",
       aliases: ["EMHS", "East Metro Health", "East Metro", "East Metropolitan Health", "WA Health", "Royal Perth Hospital", "RPH", "Bentley Hospital", "Armadale Hospital"],
       group: "WA Health",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "North Metropolitan Health Service",
       aliases: ["NMHS", "North Metro Health", "North Metro", "North Metropolitan Health", "WA Health", "King Edward Memorial Hospital", "KEMH", "Sir Charles Gairdner Hospital", "SCGH", "Osborne Park Hospital", "Graylands"],
       group: "WA Health",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Child and Adolescent Health Service",
@@ -68,14 +68,14 @@
       aliases: ["Monash Medical Centre", "MMC", "Southern Health", "Monash Medical", "Monash Hospital", "Dandenong Hospital", "Casey Hospital"],
       group: "Victoria",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Department of Defence",
       aliases: ["DoD", "Defence", "ADF", "Australian Defence Force", "Defence APS", "Dept of Defence", "Dept Defence", "Australian Army", "Royal Australian Navy", "Royal Australian Air Force", "RAAF", "RAN"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: "Confirmed: MillarX reports 3 completed BYO leases with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "National Disability Insurance Agency",
@@ -96,7 +96,7 @@
       aliases: ["Centrelink", "Medicare", "Child Support", "Department of Human Services", "Human Services", "Services Aus"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: "Confirmed: MillarX reports 2 completed BYO leases with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Australian Bureau of Statistics",
@@ -110,14 +110,14 @@
       aliases: ["APS", "Commonwealth Government", "Federal Government", "Australian Government", "Commonwealth", "Australian Public Service", "Canberra"],
       group: "Australian Federal Government",
       status: "partial",
-      notes: "Available in many Commonwealth agencies \u2014 not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, ATO, and ABS, and MillarX lists a further 30-odd agencies (each listed separately here). Check with your specific agency's HR. MillarX also reports 1 completed BYO lease recorded simply as \"APS\" (Sept 2026)."
+      notes: "Available in many Commonwealth agencies \u2014 not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, ATO, and ABS, and MillarX lists a further 30-odd agencies (each listed separately here). Check with your specific agency's HR."
     },
     {
       name: "Sydney Trains",
       aliases: ["Sydney Trains NSW", "Transport for NSW trains"],
       group: "NSW Government",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Victoria Police",
@@ -445,7 +445,7 @@
       aliases: ["EH", "Box Hill Hospital", "BHH", "Maroondah Hospital", "MH", "Angliss Hospital", "AH", "The Angliss", "Upper Ferntree Gully Hospital", "Healesville & District Hospital", "Healesville and District Hospital", "HDH", "Wantirna Health", "WH", "Yarra Ranges Health", "YRH", "Peter James Centre", "PJC", "Turning Point"],
       group: "Victoria",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Allianz",
@@ -466,28 +466,28 @@
       aliases: ["ASD", "Signals Directorate"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "EBOS Group",
       aliases: ["EBOS", "EBOS Healthcare", "Symbion"],
       group: "Healthcare",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Department of Foreign Affairs and Trade",
       aliases: ["DFAT", "Foreign Affairs and Trade"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "MBB Group",
       aliases: ["MBB"],
       group: "Engineering & Consulting",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Attorney-General's Department",
@@ -823,7 +823,7 @@
       aliases: ["Marymede", "Marymede College"],
       group: "Victorian Education",
       status: "possible",
-      notes: "Listed as BYO-eligible by MillarX (Sept 2026). Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: "Listed as BYO-eligible by MillarX (Sept 2026)."
     },
     {
       name: "Department of Education (Queensland)",
@@ -893,42 +893,42 @@
       aliases: ["Catholic Education Vic", "Catholic Education Victoria", "MACS", "Melbourne Archdiocese Catholic Schools", "Catholic Education Melbourne", "CEM", "CECV", "Catholic Education Commission of Victoria", "Victorian Catholic schools"],
       group: "Victorian Education",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Department of Education (Commonwealth)",
       aliases: ["Department of Education", "Federal Department of Education", "Australian Government Department of Education", "Commonwealth Department of Education", "DoE"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: "MillarX reports 1 completed BYO lease with a \"Department of Education\" (Sept 2026), listed alongside other Commonwealth agencies \u2014 most likely the federal department. State education departments are listed separately; confirm with your HR."
+      notes: "Reported as BYO-eligible (Sept 2026) \u2014 most likely the federal department. State education departments are listed separately; confirm with your HR."
     },
     {
       name: "Department of State Development, Infrastructure and Planning (QLD)",
       aliases: ["DSDIP", "State Development QLD", "Queensland Department of State Development", "Department of State Development", "State Development, Infrastructure and Planning", "Dept of State Development"],
       group: "Queensland Government",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Lindsay Australia",
       aliases: ["Lindsay Transport", "Lindsay Rural", "Lindsay Fresh Logistics", "Lindsay Brothers"],
       group: "Transport & Logistics",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "SA Police",
       aliases: ["SAPOL", "South Australia Police", "South Australian Police", "SA Police Department"],
       group: "SA Government",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
     {
       name: "Stannards",
       aliases: ["Stannards Accountants and Advisors", "Stannards Accountants", "Stannards Advisors"],
       group: "Professional Services",
       status: "possible",
-      notes: "Confirmed: MillarX reports 1 completed BYO lease with this employer (Sept 2026)."
+      notes: ""
     },
   ];
 
