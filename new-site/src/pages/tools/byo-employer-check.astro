@@ -35,8 +35,6 @@ import FullPage from '../../layouts/FullPage.astro';
       <div id="byo-results-area"></div>
     </div>
 
-    <div id="byo-providers-section"></div>
-
     <div class="byo-how-it-works">
       <h3>How it works in practice</h3>
       <p>The key thing to understand is that two parties are involved in a BYO lease, each handling a separate role:</p>
@@ -56,11 +54,23 @@ import FullPage from '../../layouts/FullPage.astro';
         <li><strong>The lease settles.</strong> Your salary packaging company begins processing the deductions as normal. The BYO specialist's job is done.</li>
         <li><strong>Finalise the admin arrangement with your salary packaging company.</strong> Using the documentation provided by the BYO specialist, you return to your existing salary packaging company (e.g. Paywise, Smartleasing) to set up the ongoing payroll deduction arrangement. They handle the FBT administration and fortnightly salary sacrifice from this point forward.</li>
       </ol>
+      <div class="byo-find-specialist">
+        <strong>Finding a BYO specialist.</strong> I don't rank or recommend individual companies — I have no affiliation with any of them and receive no referral fees, commissions, or other compensation. Some neutral ways to find one:
+        <ul>
+          <li>Search for <em>"self-managed novated lease"</em> or <em>"third party introducer novated lease"</em> — that is the industry term for the finance broker role described above.</li>
+          <li>Ask in <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noopener">r/NovatedLeasingAU</a> or the <a href="https://www.facebook.com/groups/602788952082399" target="_blank" rel="noopener">Novated Lease Q&amp;A Australia</a> Facebook group, where several specialists take part openly and past discussion is searchable.</li>
+          <li>Get more than one quote, and compare them on <a href="/calculator/">effective interest rate and net cost</a> rather than the headline fortnightly figure.</li>
+        </ul>
+      </div>
     </div>
 
     <div class="byo-contribute-box">
       <strong>Know of another employer?</strong> If you have first-hand knowledge that your employer permits — or explicitly disallows — BYO finance for novated leases, <a href="/about/contact/">contact me</a> with details and I'll add it to the database.
     </div>
+
+    <p class="byo-credit">
+      Parts of this employer database were compiled with information contributed by two BYO finance specialists, Lease of Mind and MillarX. Their help in getting it started is gratefully acknowledged — this is a credit for that contribution, not an endorsement or recommendation of either company.
+    </p>
 
     <script is:inline src="/assets/javascripts/byo-check.js"></script>
 
@@ -209,38 +219,26 @@ import FullPage from '../../layouts/FullPage.astro';
 .byo-no-results__title { font-weight: 700; font-size: 1.05em; margin-bottom: 10px; }
 .byo-no-results__body { font-size: 0.9em; color: var(--color-text-soft); line-height: 1.65; max-width: 540px; margin: 0 auto; }
 
-.byo-providers-wrap {
-  margin: 32px 0 20px 0;
-  padding: 18px;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  background: var(--color-bg-subtle);
-}
-
-.byo-providers-wrap__title { font-weight: 700; font-size: 1.0em; margin-bottom: 8px; }
-.byo-providers-wrap__disclaimer { font-size: 0.82em; color: var(--color-text-muted); margin-bottom: 14px; line-height: 1.55; font-style: italic; }
-
-.byo-providers-wrap__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-@media (max-width: 600px) {
-  .byo-providers-wrap__grid { grid-template-columns: 1fr; }
-}
-
-.byo-provider-card {
+.byo-find-specialist {
+  margin: 18px 0 0 0;
   padding: 14px 16px;
   border: 1px solid var(--color-border);
   border-radius: 8px;
   background: var(--color-surface);
+  font-size: 0.9em;
+  line-height: 1.6;
 }
 
-.byo-provider-card__name { font-weight: 700; font-size: 1.0em; margin-bottom: 4px; }
-.byo-provider-card__desc { font-size: 0.85em; color: var(--color-text-soft); margin-bottom: 6px; line-height: 1.4; }
-.byo-provider-card__community { font-size: 0.82em; color: var(--color-text-muted); margin-bottom: 8px; line-height: 1.4; }
-.byo-provider-card__url { font-size: 0.82em; color: var(--nl-blue); text-decoration: none; display: inline-block; margin-top: 2px; }
+.byo-find-specialist ul { margin: 8px 0 0 0; }
+.byo-find-specialist li { margin-bottom: 4px; }
+
+.byo-credit {
+  margin: 18px 0 8px 0;
+  font-size: 0.82em;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  font-style: italic;
+}
 
 .byo-contribute-box {
   margin: 20px 0;

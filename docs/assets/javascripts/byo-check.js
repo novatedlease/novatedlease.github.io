@@ -630,48 +630,7 @@
     container.innerHTML = results.map(function (e) { return renderResultCard(e); }).join('');
   }
 
-  function renderProviders() {
-    var providers = [
-      {
-        name: 'MillarX',
-        url: 'https://millarx.com.au',
-        desc: 'Specialises in self-managed / BYO novated leases',
-        communityHtml: 'Ex-admin of <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noopener">r/NovatedLeasingAU</a>'
-      },
-      {
-        name: 'Lease of Mind',
-        url: 'https://leaseofmind.com.au',
-        desc: 'Specialises in self-managed / BYO novated leases',
-        communityHtml: 'Admin of the <a href="https://www.facebook.com/groups/602788952082399" target="_blank" rel="noopener">Novated Lease Q&amp;A Australia</a> Facebook group'
-      }
-    ];
-    if (Math.random() < 0.5) providers.reverse();
-
-    var section = document.getElementById('byo-providers-section');
-    if (!section) return;
-    section.innerHTML =
-      '<div class="byo-providers-wrap">' +
-      '<div class="byo-providers-wrap__title">Providers that specialise in self-managed novated leases</div>' +
-      '<div class="byo-providers-wrap__disclaimer">' +
-      'These are not the only companies that offer BYO / self-managed novated leases, but both are well represented in Australian personal finance communities, have been consistently helpful in their respective online forums, and have actively contributed to this employer database. ' +
-      'I have no affiliation with either provider and receive no referral fees, commissions, or other compensation for including these links. They are listed in randomised order.' +
-      '</div>' +
-      '<div class="byo-providers-wrap__grid">' +
-      providers.map(function (p) {
-        return '<div class="byo-provider-card">' +
-          '<div class="byo-provider-card__name">' + escapeHtml(p.name) + '</div>' +
-          '<div class="byo-provider-card__desc">' + escapeHtml(p.desc) + '</div>' +
-          (p.communityHtml ? '<div class="byo-provider-card__community">' + p.communityHtml + '</div>' : '') +
-          '<a class="byo-provider-card__url" href="' + escapeHtml(p.url) + '" target="_blank" rel="noopener" onclick="if(typeof gtag===\'function\'){gtag(\'event\',\'click\',{event_category:\'byo_provider\',event_label:\'' + escapeHtml(p.name) + '\'})}">' + escapeHtml(p.url.replace('https://', '')) + ' ↗</a>' +
-          '</div>';
-      }).join('') +
-      '</div></div>';
-  }
-
   // db count suppressed intentionally
-
-  // Init providers
-  renderProviders();
 
   // Search handler
   var input = document.getElementById('byo-search-input');
