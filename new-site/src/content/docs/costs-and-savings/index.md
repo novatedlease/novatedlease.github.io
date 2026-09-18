@@ -1,7 +1,7 @@
 ---
 title: "Mechanisms explained"
 datePublished: "2026-01-06"
-dateModified: "2026-06-05"
+dateModified: "2026-09-17"
 description: How novated leases actually work financially — the mechanics behind tax savings, residual values, interest rates, and why headline "tax saved" figures can mislead.
 ---
 
@@ -37,3 +37,9 @@ This section explains the financial mechanics behind novated leases in enough de
 
 - **[The "$70k is too low for novated lease savings" myth — corrected](/costs-and-savings/low-income-novated-lease-savings/)**
   A common forum claim holds that lower-income earners cannot benefit meaningfully from a novated lease. This article shows why that is mathematically wrong for anyone in the same tax bracket — while acknowledging the legitimate non-tax reasons to be more cautious at lower incomes.
+
+- **[Used EV on a novated lease instead of buying new?](/costs-and-savings/used-ev-novated-lease/)**
+  Buying an EV two to three years old skips the steepest part of the depreciation curve while keeping most of the FBT-exempt novated lease savings. Covers the two eligibility criteria, the GST consequence of a private sale, the on-road costs a used-car invoice leaves out, and the value judgement between a cheaper used car and a pricier new one.
+
+- **[The used-car GST secret — Division 66 and the dealer middleman](/costs-and-savings/used-car-gst-saving/)**
+  The GST saving most people think applies only to new cars also works on a private used-car sale, through a dealer middleman and Division 66 of the GST Act. How it works, why it is legal, and what it is worth.

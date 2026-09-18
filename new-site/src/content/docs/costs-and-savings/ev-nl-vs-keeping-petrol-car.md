@@ -1,7 +1,7 @@
 ---
 title: "$81k Tesla lease vs keeping my $25k Mazda"
 datePublished: "2026-03-19"
-dateModified: "2026-06-05"
+dateModified: "2026-09-17"
 description: Real-life worked example — how leasing an $81k Tesla via FBT-exempt novated lease turned out roughly cost-neutral to keeping a $25k Mazda over five years.
 ---
 
@@ -57,12 +57,11 @@ Adjust the fuel price, income, interest rate, or current car values to model you
 :::tip[Don't need an $81k EV — used EVs can work too]
 The example above was for a new Tesla Model 3 Long Range at $81,400 which was the price back in 2023. That's not everyone's budget and it doesn't need to be.
 
-A used EV can be significantly cheaper, available immediately (no waiting period), and **still fully eligible for the FBT exemption**, provided it meets two criteria:
+A used EV can be significantly cheaper, available immediately (no waiting period), and **still fully eligible for the FBT exemption**, provided it was first held and used on or after 1 July 2022 and Luxury Car Tax was never payable on it.
 
-- It was **first held and used on or after 1 July 2022**, and
-- **Luxury Car Tax was never payable** on the vehicle (i.e. the original sale price was below the LCT threshold, or it was otherwise exempt)
+Buying two to three years old saves you the steepest portion of the depreciation curve while still netting most of the novated lease savings — which can make the "vs keeping your current car" comparison even more compelling. There are a few things that change when the car is used, though: the GST treatment of a private sale, the on-road costs a used-car invoice leaves out, and the eligibility checks above.
 
-A used BYD Atto 3 extended range from 2023, for example, might come in under $33,000 driveaway — which changes the monthly lease payment substantially and could make the "vs keeping your current car" comparison even more compelling. 
+[Used EV on a novated lease instead of buying new?](/costs-and-savings/used-ev-novated-lease/) covers all of it.
 
 [The calculator](/calculator/) supports used EVs. Set "Vehicle condition" to "Used" and fill in the relevant eligibility fields to model your scenario.
 :::

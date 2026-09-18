@@ -47,6 +47,7 @@ export const navigation: NavEntry[] = [
       { label: 'Why interest rates look high', href: '/costs-and-savings/why-nl-interest-looks-high/', heading: 'Interest Rates' },
       { label: 'Effective rates on short leases & cheap cars', href: '/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/' },
       { label: 'FBT, RFBA, and adjusted taxable income', href: '/costs-and-savings/fbt-rfba-ati-explained/', heading: 'FBT & GST' },
+      { label: 'Used EV instead of new?', href: '/costs-and-savings/used-ev-novated-lease/' },
       { label: 'Used-car GST secret (Division 66)', href: '/costs-and-savings/used-car-gst-saving/' },
       { label: 'All about residual values', href: '/costs-and-savings/why-residual-values-matter/', heading: 'Residual Values' },
       { label: "You don't have to sell above residual", href: '/costs-and-savings/residual-values-vs-sales-price/' },
