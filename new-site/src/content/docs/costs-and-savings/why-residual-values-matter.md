@@ -78,36 +78,11 @@ As a result, the car’s market value and the end‑of‑lease residual value ar
 
 ---
 
-## The ATO’s intent behind residual values
-
-Many people understand *what* the residual or balloon payment is, but struggle to understand **why it exists at all**.
-
-The answer is simple: **because the ATO requires it**.
-
-The concept of a mandatory minimum residual value was introduced by the ATO decades ago, first in **[IT 28 (1960)][it28]** and later clarified in **[TD 93/142][td93142]** (with subsequent addenda).
-
-You *can* read those rulings directly, but they are dense, technical, and heavy on legal terminology.
-
-The short version is this:
-
-> Residual values exist to ensure that leases are **genuine leases**, not disguised loans.
-
-From the ATO’s perspective, a lease is meant to be meaningfully different from a loan.
-
-If leases were allowed to run down the value of an asset to a token amount (for example, claiming that a car is “worth $50” after a two‑year lease), they would effectively become **fully tax‑deductible loans in disguise**.
-
-To prevent this, the ATO enforces minimum residual values that:
-
-- assume the asset still has **some remaining economic value** at the end of the lease, and  
-- very coarsely correspond to real‑world depreciation over time.
-
-In other words, residual values exist to **protect the tax system from abuse**. They ensure that lease payments broadly reflect depreciation of the asset rather than its full cost.
-
----
-
 ## Asking for a lower residual value
 
-The table above is the default, not an absolute floor. The same determination that sets those minimums — **[TD 93/142][td93142]** — also provides for a lower figure.
+That independence runs one way, though. The residual is not derived from your car's expected market value — but a credible estimate of that market value is the one thing that can move it.
+
+The table above is the default, not an absolute floor. The determination that sets those minimums — **[TD 93/142][td93142]** — also provides for a lower figure.
 
 **Paragraph 4:**
 
@@ -133,6 +108,33 @@ On a $60,000 car over five years, dropping the residual from 28.13% ($16,878) to
 
 The trade-off is cash flow, not cost — your periodic deductions rise. And there is a second benefit worth having in its own right: **exposure at payout**. If high kilometres mean the car will be worth well under the standard residual, that gap is money you are liable for regardless; a lower residual brings the contractual figure closer to reality instead of deferring the shortfall to the end.
 :::
+
+---
+
+## The ATO’s intent behind residual values
+
+Many people understand *what* the residual or balloon payment is, but struggle to understand **why it exists at all**.
+
+The answer is simple: **because the ATO requires it**.
+
+The concept of a mandatory minimum residual value was introduced by the ATO decades ago, first in **[IT 28 (1960)][it28]** and later clarified in **[TD 93/142][td93142]** (with subsequent addenda).
+
+You *can* read those rulings directly, but they are dense, technical, and heavy on legal terminology.
+
+The short version is this:
+
+> Residual values exist to ensure that leases are **genuine leases**, not disguised loans.
+
+From the ATO’s perspective, a lease is meant to be meaningfully different from a loan.
+
+If leases were allowed to run down the value of an asset to a token amount (for example, claiming that a car is “worth $50” after a two‑year lease), they would effectively become **fully tax‑deductible loans in disguise**.
+
+To prevent this, the ATO enforces minimum residual values that:
+
+- assume the asset still has **some remaining economic value** at the end of the lease, and  
+- very coarsely correspond to real‑world depreciation over time.
+
+In other words, residual values exist to **protect the tax system from abuse**. They ensure that lease payments broadly reflect depreciation of the asset rather than its full cost.
 
 ---
 
