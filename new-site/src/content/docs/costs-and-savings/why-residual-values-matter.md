@@ -82,7 +82,9 @@ As a result, the car’s market value and the end‑of‑lease residual value ar
 
 That independence runs one way, though. The residual is not derived from your car's expected market value — but a credible estimate of that market value is the one thing that can move it.
 
-The table above is the default, not an absolute floor. The determination that sets those minimums — **[TD 93/142][td93142]** — also provides for a lower figure.
+The table above is the default, not an absolute floor.
+
+Those minimums come from **Taxation Determination [TD 93/142][td93142]** — *Income tax: in calculating the residual value of a leased item, may a lower residual value than those outlined in IT 28 be adopted in light of the more generous depreciation rates?* — and the same determination provides for going below them.
 
 **Paragraph 4:**
 
@@ -117,7 +119,7 @@ Many people understand *what* the residual or balloon payment is, but struggle t
 
 The answer is simple: **because the ATO requires it**.
 
-The concept of a mandatory minimum residual value was introduced by the ATO decades ago, first in **[IT 28 (1960)][it28]** and later clarified in **[TD 93/142][td93142]** (with subsequent addenda).
+The concept of a mandatory minimum residual value was introduced by the ATO decades ago, first in **[IT 28 (1960)][it28]** and later clarified in TD 93/142 (with subsequent addenda).
 
 You *can* read those rulings directly, but they are dense, technical, and heavy on legal terminology.
 
@@ -144,7 +146,7 @@ At first glance, the ATO residual table can look like a random list of percentag
 
 It isn’t.
 
-There is explicit mathematics behind these numbers, laid out in **TD 93/142**.
+There is explicit mathematics behind these numbers, laid out in TD 93/142.
 
 The underlying assumption is that:
 
@@ -284,9 +286,7 @@ For example:
 
 This is true even if the lease is structured as consecutive extensions rather than a single multi‑year lease.
 
-The ATO made this explicit in **TD 93/142**, including worked examples (see Example 3). This clarification around lease extensions was reinforced in the 2021 addendum.
-
-<https://www.ato.gov.au/law/view/document?docid=TXD/TD93142/NAT/ATO/00001>
+The ATO made this explicit in TD 93/142, including worked examples (see Example 3). This clarification around lease extensions was reinforced in the [2021 addendum][td93142a2], which inserted Example 3 and confirmed that the minimum is calculated on the **total** period the asset has been leased, across consecutive leases.
 
 It is worth noting that **some novated lease providers and financiers still apply a “repeated 65.63%” style calculation** when leases are extended (i.e. compounding the residual on the prior residual rather than referencing the original vehicle value).
 
@@ -303,4 +303,5 @@ If you remember nothing else:
 They represent **deferred payment** for part of the car’s cost that was never eligible for tax savings.
 
 [td93142]: https://www.ato.gov.au/law/view/document?LocID=%22TXD%2FTD93142%2FNAT%2FATO%22&PiT=99991231235958  
-[it28]: https://www.ato.gov.au/law/view/document?DocID=ITR/IT28/NAT/ATO/00001
+[it28]: https://www.ato.gov.au/law/view/document?DocID=ITR/IT28/NAT/ATO/00001  
+[td93142a2]: https://www.ato.gov.au/law/view/document?docid=TXD%2FTD93142A2%2FNAT%2FATO%2F00001
