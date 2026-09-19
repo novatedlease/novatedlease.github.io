@@ -1,8 +1,8 @@
 ---
 title: "ATO Residual Value Table for Novated Leases (28.13% Explained)"
 datePublished: "2026-01-06"
-dateModified: "2026-09-07"
-description: ATO minimum residual values for novated leases, from 65.63% at 1 year to 28.13% at 5 years, with the full table, why the ATO sets them (TD 93/142), why a residual is deferred payment rather than saving, and what happens when you extend or pay out early.
+dateModified: "2026-09-19"
+description: ATO minimum residual values for novated leases, from 65.63% at 1 year to 28.13% at 5 years, with the full table, why the ATO sets them (TD 93/142), how to ask for a lower residual under paragraph 4, why a residual is deferred payment rather than saving, and what happens when you extend or pay out early.
 ---
 
 # ATO residual value table for novated leases (28.13% explained)
@@ -27,7 +27,34 @@ In particular:
 - 4 year lease → 37.50% residual  
 - 5 year lease → 28.13% residual  
 
-Providers may set residuals **above** these minimums, but they cannot set them below.
+Providers may set residuals **above** these minimums, and in the ordinary case they cannot set them below — though there is a narrow provision for going lower, covered [in the next section](#asking-for-a-lower-residual-value).
+
+---
+
+## Asking for a lower residual value
+
+The table above is the default, not an absolute floor. The same determination that sets those minimums also provides for a lower figure.
+
+**[TD 93/142][td93142], paragraph 4:**
+
+> A residual value lower than those outlined in the applicable table may be used where a well considered and fair estimate of the likely market value of the item at the end of the lease would result in a lower value.
+
+So if you have genuine reason to believe your car's market value at the point of payout will be significantly below the table figure, you *do* have the ability to ask for a lower residual value.
+
+The two worked examples in the determination approach the same point from the other direction, and are the clearest statement of how it operates. Each concludes that **"in the absence of evidence indicating that the car would have a lower market value at the end of the lease"**, the minimum applies. The table is what you fall back to when nobody has made a case — not a ceiling on making one.
+
+### What this looks like in practice
+
+Two practical constraints matter more than the legal test:
+
+- **It is typically only entertained where your mileage is high** — say, more than 30,000 km a year. That is the clearest case of a car predictably falling well below the standard depreciation assumption, and it is the scenario providers and financiers are used to assessing. Worth being precise here: this threshold is industry practice, not law. Paragraph 4 sets no kilometre figure and asks only for a "well considered and fair estimate".
+- **You have to pencil it in at the start.** The residual is fixed when the lease is written. It is not something you can revisit in year four once the car's actual market value has become obvious. If you expect high kilometres, raise it during the quoting stage, before anything is signed.
+
+:::note[What a lower residual actually does to your numbers]
+It does not make the car cheaper. It shifts *when* you pay: more of the cost is amortised through the lease, so your periodic payments rise and the balloon at the end shrinks. Total interest falls slightly, because the average outstanding balance is lower.
+
+The real reason to want it is exposure at payout. If high kilometres mean the car will be worth well under the standard residual, that gap is money you are liable for regardless — a lower residual brings the contractual figure closer to reality instead of deferring the shortfall to the end.
+:::
 
 ---
 
