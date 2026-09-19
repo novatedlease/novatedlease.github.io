@@ -51,9 +51,13 @@ Two practical constraints matter more than the legal test:
 - **You have to pencil it in at the start.** The residual is fixed when the lease is written. It is not something you can revisit in year four once the car's actual market value has become obvious. If you expect high kilometres, raise it during the quoting stage, before anything is signed.
 
 :::note[What a lower residual actually does to your numbers]
-It does not make the car cheaper. It shifts *when* you pay: more of the cost is amortised through the lease, so your periodic payments rise and the balloon at the end shrinks. Total interest falls slightly, because the average outstanding balance is lower.
+**All else being equal — that is, if you can obtain the same effective interest rate — a lower residual makes the car genuinely cheaper, not merely rescheduled.**
 
-The real reason to want it is exposure at payout. If high kilometres mean the car will be worth well under the standard residual, that gap is money you are liable for regardless — a lower residual brings the contractual figure closer to reality instead of deferring the shortfall to the end.
+The reason is the pre-tax/post-tax split. Lease payments come out of **pre-tax** salary; the residual at the end is paid with **post-tax** money. Lowering the residual moves part of the car's value out of the balloon and into the payments, so a larger share of the car is paid down in pre-tax dollars over the course of the lease — and that portion attracts the tax saving that the balloon never does.
+
+On a $60,000 car over five years, dropping the residual from 28.13% ($16,878) to 20% ($12,000) shifts $4,878 from the post-tax balloon into pre-tax lease payments. On a 47% marginal rate that is roughly **$2,300 of additional tax saving**, on exactly the same car. Two smaller effects push the same way: total interest falls slightly, because the average outstanding balance is lower; and less of the car's value is left sitting in a residual that [carries GST you cannot recover](/costs-and-savings/used-car-gst-saving/).
+
+The trade-off is cash flow, not cost — your periodic deductions rise. And there is a second benefit worth having in its own right: **exposure at payout**. If high kilometres mean the car will be worth well under the standard residual, that gap is money you are liable for regardless; a lower residual brings the contractual figure closer to reality instead of deferring the shortfall to the end.
 :::
 
 ---
