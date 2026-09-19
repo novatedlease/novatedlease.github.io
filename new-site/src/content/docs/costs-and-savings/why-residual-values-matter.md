@@ -11,6 +11,22 @@ Residual value is one of the **most important variables** in a novated lease, an
 
 Unfortunately, some novated lease providers do not adequately explain residual values to first‑time lessees. As a result, some people are surprised to discover that they still owe tens of thousands of dollars at the end of the lease if they wish to keep the vehicle.
 
+## What a residual value actually is
+
+In a novated lease, the residual value (sometimes called a balloon payment) is the **amount you still owe at the end of the lease term** if you want to keep the vehicle.
+
+It is not optional.
+
+At the end of the lease, you must either:
+
+- pay the residual and keep the car, or  
+- refinance the residual into a new lease or loan, or  
+- sell the car (or return it via the provider) and use the proceeds to clear the residual.  
+
+Regardless of which path you take, the residual is a **real financial liability** that does not disappear.
+
+---
+
 ## ATO residual value table
 
 <img src="/images/RV.png" alt="" style="max-width: 50%; height: auto;">
@@ -27,54 +43,7 @@ In particular:
 - 4 year lease → 37.50% residual  
 - 5 year lease → 28.13% residual  
 
-Providers may set residuals **above** these minimums, and in the ordinary case they cannot set them below — though there is a narrow provision for going lower, covered [in the next section](#asking-for-a-lower-residual-value).
-
----
-
-## Asking for a lower residual value
-
-The table above is the default, not an absolute floor. The same determination that sets those minimums also provides for a lower figure.
-
-**[TD 93/142][td93142], paragraph 4:**
-
-> A residual value lower than those outlined in the applicable table may be used where a well considered and fair estimate of the likely market value of the item at the end of the lease would result in a lower value.
-
-So if you have genuine reason to believe your car's market value at the point of payout will be significantly below the table figure, you *do* have the ability to ask for a lower residual value.
-
-The two worked examples in the determination approach the same point from the other direction, and are the clearest statement of how it operates. Each concludes that **"in the absence of evidence indicating that the car would have a lower market value at the end of the lease"**, the minimum applies. The table is what you fall back to when nobody has made a case — not a ceiling on making one.
-
-### What this looks like in practice
-
-Two practical constraints matter more than the legal test:
-
-- **It is typically only entertained where your mileage is high** — say, more than 30,000 km a year. That is the clearest case of a car predictably falling well below the standard depreciation assumption, and it is the scenario providers and financiers are used to assessing. Worth being precise here: this threshold is industry practice, not law. Paragraph 4 sets no kilometre figure and asks only for a "well considered and fair estimate".
-- **You have to pencil it in at the start.** The residual is fixed when the lease is written. It is not something you can revisit in year four once the car's actual market value has become obvious. If you expect high kilometres, raise it during the quoting stage, before anything is signed.
-
-:::note[What a lower residual actually does to your numbers]
-**All else being equal — that is, if you can obtain the same effective interest rate — a lower residual makes the car genuinely cheaper, not merely rescheduled.**
-
-The reason is the pre-tax/post-tax split. Lease payments come out of **pre-tax** salary; the residual at the end is paid with **post-tax** money. Lowering the residual moves part of the car's value out of the balloon and into the payments, so a larger share of the car is paid down in pre-tax dollars over the course of the lease — and that portion attracts the tax saving that the balloon never does.
-
-On a $60,000 car over five years, dropping the residual from 28.13% ($16,878) to 20% ($12,000) shifts $4,878 from the post-tax balloon into pre-tax lease payments. On a 47% marginal rate that is roughly **$2,300 of additional tax saving**, on exactly the same car. Two smaller effects push the same way: total interest falls slightly, because the average outstanding balance is lower; and less of the car's value is left sitting in a residual that carries GST you cannot recover.
-
-The trade-off is cash flow, not cost — your periodic deductions rise. And there is a second benefit worth having in its own right: **exposure at payout**. If high kilometres mean the car will be worth well under the standard residual, that gap is money you are liable for regardless; a lower residual brings the contractual figure closer to reality instead of deferring the shortfall to the end.
-:::
-
----
-
-## What a residual value actually is
-
-In a novated lease, the residual value (sometimes called a balloon payment) is the **amount you still owe at the end of the lease term** if you want to keep the vehicle.
-
-It is not optional.
-
-At the end of the lease, you must either:
-
-- pay the residual and keep the car, or  
-- refinance the residual into a new lease or loan, or  
-- sell the car (or return it via the provider) and use the proceeds to clear the residual.  
-
-Regardless of which path you take, the residual is a **real financial liability** that does not disappear.
+Providers may set residuals **above** these minimums, and in the ordinary case they cannot set them below — though there is a narrow provision for going lower, covered [further below](#asking-for-a-lower-residual-value).
 
 ---
 
@@ -105,7 +74,7 @@ It does not.
 
 The residual is an **accounting construct**, not a valuation estimate or guarantee.
 
-As a result, the car’s market value and the end‑of‑lease residual value are **independent variables**. When evaluating the total financial outcome of a novated lease, both must be considered separately. 
+As a result, the car’s market value and the end‑of‑lease residual value are **independent variables**. When evaluating the total financial outcome of a novated lease, both must be considered separately.
 
 ---
 
@@ -133,6 +102,37 @@ To prevent this, the ATO enforces minimum residual values that:
 - very coarsely correspond to real‑world depreciation over time.
 
 In other words, residual values exist to **protect the tax system from abuse**. They ensure that lease payments broadly reflect depreciation of the asset rather than its full cost.
+
+---
+
+## Asking for a lower residual value
+
+The table above is the default, not an absolute floor. The same determination that sets those minimums — **[TD 93/142][td93142]** — also provides for a lower figure.
+
+**Paragraph 4:**
+
+> A residual value lower than those outlined in the applicable table may be used where a well considered and fair estimate of the likely market value of the item at the end of the lease would result in a lower value.
+
+So if you have genuine reason to believe your car's market value at the point of payout will be significantly below the table figure, you *do* have the ability to ask for a lower residual value.
+
+The two worked examples in the determination approach the same point from the other direction, and are the clearest statement of how it operates. Each concludes that **"in the absence of evidence indicating that the car would have a lower market value at the end of the lease"**, the minimum applies. The table is what you fall back to when nobody has made a case — not a ceiling on making one.
+
+### What this looks like in practice
+
+Two practical constraints matter more than the legal test:
+
+- **It is typically only entertained where your mileage is high** — say, more than 30,000 km a year. That is the clearest case of a car predictably falling well below the standard depreciation assumption, and it is the scenario providers and financiers are used to assessing. Worth being precise here: this threshold is industry practice, not law. Paragraph 4 sets no kilometre figure and asks only for a "well considered and fair estimate".
+- **You have to pencil it in at the start.** The residual is fixed when the lease is written. It is not something you can revisit in year four once the car's actual market value has become obvious. If you expect high kilometres, raise it during the quoting stage, before anything is signed.
+
+:::note[What a lower residual actually does to your numbers]
+**All else being equal — that is, if you can obtain the same effective interest rate — a lower residual makes the car genuinely cheaper, not merely rescheduled.**
+
+The reason is the pre-tax/post-tax split. Lease payments come out of **pre-tax** salary; the residual at the end is paid with **post-tax** money. Lowering the residual moves part of the car's value out of the balloon and into the payments, so a larger share of the car is paid down in pre-tax dollars over the course of the lease — and that portion attracts the tax saving that the balloon never does.
+
+On a $60,000 car over five years, dropping the residual from 28.13% ($16,878) to 20% ($12,000) shifts $4,878 from the post-tax balloon into pre-tax lease payments. On a 47% marginal rate that is roughly **$2,300 of additional tax saving**, on exactly the same car. Two smaller effects push the same way: total interest falls slightly, because the average outstanding balance is lower; and less of the car's value is left sitting in a residual that carries GST you cannot recover.
+
+The trade-off is cash flow, not cost — your periodic deductions rise. And there is a second benefit worth having in its own right: **exposure at payout**. If high kilometres mean the car will be worth well under the standard residual, that gap is money you are liable for regardless; a lower residual brings the contractual figure closer to reality instead of deferring the shortfall to the end.
+:::
 
 ---
 
