@@ -99,11 +99,18 @@
       notes: ""
     },
     {
+      name: "Australian Communications and Media Authority",
+      aliases: ["ACMA", "Communications and Media Authority", "Australian Communications & Media Authority", "Communications Authority", "Media Authority"],
+      group: "Australian Federal Government",
+      status: "possible",
+      notes: ""
+    },
+    {
       name: "Australian Federal Government",
       aliases: ["APS", "Commonwealth Government", "Federal Government", "Australian Government", "Commonwealth", "Australian Public Service", "Canberra"],
       group: "Australian Federal Government",
       status: "partial",
-      notes: "Available in some Commonwealth agencies — not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, ATO, and ABS (listed separately above). Check with your specific agency's HR."
+      notes: "Available in some Commonwealth agencies — not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, ATO, ABS, and ACMA (listed separately above). Check with your specific agency's HR."
     },
     {
       name: "Sydney Trains",
