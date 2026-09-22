@@ -142,6 +142,8 @@ For higher-income borrowers, the lease deductions represent a much smaller perce
 
 ### Why does the novated lease perform better?
 
+Both sides of this comparison run for the same term: a **five-year car loan** against a **five-year EV novated lease**, sized to a similar repayment. Term matters a great deal here — a shorter lease raises the fortnightly payment and worsens the result — so the two are held level at five years.
+
 It is commonly assumed that the benefit comes solely from reducing taxable income. In reality, that is only part of the story.
 
 For the EV novated lease:
