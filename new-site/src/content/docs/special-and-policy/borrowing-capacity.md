@@ -14,6 +14,18 @@ coAuthor:
 
 So I asked someone who runs those calculators for a living. The modelling and the core write-up below were contributed by **[Leonard Nagawidjaja](https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/)** of [AA Finance Solutions](https://www.aafinancesolutions.com.au/), an MFAA-approved credit adviser with over 15 years in the industry (Australian Credit Licence #462491), who ran a matrix of scenarios through the **Bankwest** and **Macquarie** servicing calculators at my request. His section is presented essentially as he wrote it; the results grid, the explanation of the three assessment methods, and the commentary that follows are mine, with Leonard's calculations.
 
+:::info[The short version]
+- **Lease length is the biggest thing you control.** A short lease limits your exposure to [early-termination risk](/risks/early-termination/), but it raises the fortnightly payment — and a servicing calculator only looks at the payment. On these numbers a **2-year lease costs 2.3× to 6.1× the car's price** in borrowing power, depending on the lender and the lease's interest rate. A **5-year lease costs 1.7× to 3.1×**.
+
+- **Your income level matters just as much.** The same 5-year lease that costs 1.7× the car's price on a $130,000 income costs only **1.3×** on $300,000. The lease payment is roughly fixed; the surplus income it eats into is not.
+
+- **It is not automatically worse than a car loan.** This was the surprise. A car loan cost 2.6×–3.2× here. A favourably-assessed novated lease beats that comfortably, an unfavourably-assessed one merely matches it, and only a short lease is clearly worse. The common assumption that a novated lease must hurt your borrowing capacity more than a car loan does not survive contact with the numbers.
+
+- **What to actually do:** get a real novated lease quote, then ask a mortgage broker to run your borrowing capacity **with and without it**. The single largest variable — how the lender treats the lease — is not something you control or can look up in advance.
+
+[Skip to the full modelling grid ↓](#the-full-modelling-grid) — every scenario, both lenders, all three assessment methods.
+:::
+
 Every scenario is built around one of two real, similarly-priced mid-size SUVs:
 
 <div class="car-cards">
@@ -52,8 +64,6 @@ Every scenario is built around one of two real, similarly-priced mid-size SUVs:
 </div>
 
 The car loans finance the full drive-away price with no deposit, so wherever a loan amount appears below it is also the car's price. The borrower earns $130,000 — with one scenario repeated at $300,000 — and is buying at 80% LVR.
-
-**Just want the numbers?** [Skip to the full modelling grid ↓](#the-full-modelling-grid) — every scenario, both lenders, all three assessment methods.
 
 ---
 
