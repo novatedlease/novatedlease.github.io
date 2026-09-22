@@ -22,6 +22,15 @@ Leonard's section is presented essentially as he wrote it. The full results grid
 Neither of us is paid for this. There is no referral arrangement, no commission, and no lead generation — consistent with [how this site operates](/about/about-me/).
 :::
 
+:::note[The two cars in the model]
+Every scenario below is built around one of two real, similarly-priced mid-size SUVs:
+
+- **EV — BYD Sealion 7 Premium**, $60,789.25 drive-away
+- **Petrol — Toyota RAV4 GXL Auto eFour**, $58,807 drive-away
+
+The car loans finance the full drive-away price with no deposit, so wherever a loan amount appears below it is also the car's price. The borrower earns $130,000 (with one scenario repeated at $300,000) and is buying at 80% LVR.
+:::
+
 ---
 
 ## Novated lease vs car loan: how it affects your borrowing capacity
@@ -204,7 +213,7 @@ Only the 5-year, 9% EV lease was modelled at this income level.
 | Macquarie | EV novated lease · 5 yr · 9% | $1,280,000 | $1,360,000 | $1,360,000 |
 
 :::note[Assumptions behind every row]
-The two cars modelled are a **BYD Sealion 7 Premium at $60,789.25 drive-away** (the EV) and a **Toyota RAV4 GXL Auto eFour at $58,807 drive-away** (the petrol comparison). The car-loan rows finance the full drive-away price with no deposit, which is why the loan amount and the car's price are the same number. Single applicant, no dependants. Living expenses set at the lender's HEM benchmark: a $2,520 per month base for Bankwest and $2,400 for Macquarie at the $130,000 income level, and $4,190 at $300,000. A $200 per month vehicle maintenance allowance is already built into the expense figure in **every** row, including the baseline — so the "no car" row is a person who runs a car, not a person who does not own one. Everything else in the applicant's profile is held constant across rows, so the differences shown are attributable to the vehicle finance alone.
+The cars are the BYD Sealion 7 Premium ($60,789.25) and Toyota RAV4 GXL Auto eFour ($58,807) introduced at the top, each financed at full drive-away price with no deposit. Single applicant, no dependants. Living expenses set at the lender's HEM benchmark: a $2,520 per month base for Bankwest and $2,400 for Macquarie at the $130,000 income level, and $4,190 at $300,000. A $200 per month vehicle maintenance allowance is already built into the expense figure in **every** row, including the baseline — so the "no car" row is a person who runs a car, not a person who does not own one. Everything else in the applicant's profile is held constant across rows, so the differences shown are attributable to the vehicle finance alone.
 :::
 
 [^label]: The source table repeated the "EV" label on this row. It is the petrol comparison: its running-cost allowance is far higher ($172.19 against $123.42 per fortnight), and its loan repayment is 96.8% of the EV row's — matching the RAV4's price as 96.7% of the BYD's almost exactly.
