@@ -208,26 +208,26 @@ Each capacity figure carries a second line: how much borrowing power the scenari
 | Scenario | Pre-tax per fortnight (annual) | Post-tax per fortnight | Taxable income | M1 — full liability | M2 — tax-free add-back | M3 — no liability |
 | --- | --- | --- | --- | --- | --- | --- |
 | Baseline — no car | — | — | $130,000 | **$683,000** | **$683,000** | **$683,000** |
-| EV novated lease · 5 yr · 9% | [$589.57 ($15,329)][calc-ev5y9] | — | $114,671 | $527,600<br /><small>−$155,400, 2.6× car value</small> | $577,350<br /><small>−$105,650, 1.7× car value</small> | $577,350<br /><small>−$105,650, 1.7× car value</small> |
-| EV novated lease · 5 yr · 15% | [$682.45 ($17,744)][calc-ev5y15] | — | $112,256 | $503,150<br /><small>−$179,850, 3.0× car value</small> | $560,700<br /><small>−$122,300, 2.0× car value</small> | $560,700<br /><small>−$122,300, 2.0× car value</small> |
-| EV novated lease · 2 yr · 9% | [$774.27 ($20,131)][calc-ev2y9] | — | $109,869 | $478,950<br /><small>−$204,050, 3.4× car value</small> | $544,250<br /><small>−$138,750, 2.3× car value</small> | $544,250<br /><small>−$138,750, 2.3× car value</small> |
-| EV novated lease · 2 yr · 15% | [$878.55 ($22,842)][calc-ev2y15] | — | $107,158 | $451,450<br /><small>−$231,550, 3.8× car value</small> | $525,550<br /><small>−$157,450, 2.6× car value</small> | $525,550<br /><small>−$157,450, 2.6× car value</small> |
-| ICE novated lease · 5 yr · 9% | [$220.81 ($5,741)][calc-ice5y9] | $417.20 (ECM) | $124,259 | $514,850<br /><small>−$168,150, 2.9× car value</small> | $533,450<br /><small>−$149,550, 2.5× car value</small> | $533,450<br /><small>−$149,550, 2.5× car value</small> |
-| Car loan · EV (BYD, $60,789) · 5 yr · 6.49% | — | [$555.07 + $123.42 running][calc-loan] | $130,000 | $526,750<br /><small>−$156,250, 2.6× car value</small> | $526,750<br /><small>−$156,250, 2.6× car value</small> | $526,750<br /><small>−$156,250, 2.6× car value</small> |
-| Car loan · ICE (RAV4, $58,807) · 5 yr · 6.49%[^label] | — | $537.20 + $172.19 running | $130,000 | $513,850<br /><small>−$169,150, 2.9× car value</small> | $513,850<br /><small>−$169,150, 2.9× car value</small> | $513,850<br /><small>−$169,150, 2.9× car value</small> |
+| EV novated lease · 5 yr · 9% | [$589.57 ($15,329)][calc-ev5y9] | — | $114,671 | $527,600<br /><small>−$155,400, 2.6× car</small> | $577,350<br /><small>−$105,650, 1.7× car</small> | $577,350<br /><small>−$105,650, 1.7× car</small> |
+| EV novated lease · 5 yr · 15% | [$682.45 ($17,744)][calc-ev5y15] | — | $112,256 | $503,150<br /><small>−$179,850, 3.0× car</small> | $560,700<br /><small>−$122,300, 2.0× car</small> | $560,700<br /><small>−$122,300, 2.0× car</small> |
+| EV novated lease · 2 yr · 9% | [$774.27 ($20,131)][calc-ev2y9] | — | $109,869 | $478,950<br /><small>−$204,050, 3.4× car</small> | $544,250<br /><small>−$138,750, 2.3× car</small> | $544,250<br /><small>−$138,750, 2.3× car</small> |
+| EV novated lease · 2 yr · 15% | [$878.55 ($22,842)][calc-ev2y15] | — | $107,158 | $451,450<br /><small>−$231,550, 3.8× car</small> | $525,550<br /><small>−$157,450, 2.6× car</small> | $525,550<br /><small>−$157,450, 2.6× car</small> |
+| ICE novated lease · 5 yr · 9% | [$220.81 ($5,741)][calc-ice5y9] | $417.20 (ECM) | $124,259 | $514,850<br /><small>−$168,150, 2.9× car</small> | $533,450<br /><small>−$149,550, 2.5× car</small> | $533,450<br /><small>−$149,550, 2.5× car</small> |
+| Car loan · EV (BYD, $60,789) · 5 yr · 6.49% | — | [$555.07 + $123.42 running][calc-loan] | $130,000 | $526,750<br /><small>−$156,250, 2.6× car</small> | $526,750<br /><small>−$156,250, 2.6× car</small> | $526,750<br /><small>−$156,250, 2.6× car</small> |
+| Car loan · ICE (RAV4, $58,807) · 5 yr · 6.49%[^label] | — | $537.20 + $172.19 running | $130,000 | $513,850<br /><small>−$169,150, 2.9× car</small> | $513,850<br /><small>−$169,150, 2.9× car</small> | $513,850<br /><small>−$169,150, 2.9× car</small> |
 
 ### Macquarie — $130,000 single applicant
 
 | Scenario | Pre-tax per fortnight (annual) | Post-tax per fortnight | Taxable income | M1 — full liability | M2 — tax-free add-back | M3 — no liability |
 | --- | --- | --- | --- | --- | --- | --- |
 | Baseline — no car | — | — | $130,000 | **$690,000** | **$690,000** | **$690,000** |
-| EV novated lease · 5 yr · 9% | [$589.57 ($15,329)][calc-ev5y9] | — | $114,671 | $525,000<br /><small>−$165,000, 2.7× car value</small> | $570,000<br /><small>−$120,000, 2.0× car value</small> | $585,000<br /><small>−$105,000, 1.7× car value</small> |
-| EV novated lease · 5 yr · 15% | [$682.45 ($17,744)][calc-ev5y15] | — | $112,256 | $500,000<br /><small>−$190,000, 3.1× car value</small> | $560,000<br /><small>−$130,000, 2.1× car value</small> | $568,000<br /><small>−$122,000, 2.0× car value</small> |
-| EV novated lease · 2 yr · 9% | [$774.27 ($20,131)][calc-ev2y9] | — | $109,869 | $340,000<br /><small>−$350,000, 5.8× car value</small> | $400,000<br /><small>−$290,000, 4.8× car value</small> | $550,000<br /><small>−$140,000, 2.3× car value</small> |
-| EV novated lease · 2 yr · 15% | [$878.55 ($22,842)][calc-ev2y15] | — | $107,158 | $320,000<br /><small>−$370,000, 6.1× car value</small> | $390,000<br /><small>−$300,000, 4.9× car value</small> | $540,000<br /><small>−$150,000, 2.5× car value</small> |
-| ICE novated lease · 5 yr · 9% | [$220.81 ($5,741)][calc-ice5y9] | $417.20 (ECM) | $124,259 | $520,000<br /><small>−$170,000, 2.9× car value</small> | $550,000<br /><small>−$140,000, 2.4× car value</small> | $540,000<br /><small>−$150,000, 2.6× car value</small> |
-| Car loan · EV (BYD, $60,789) · 5 yr · 6.49% | — | [$555.07 + $123.42 running][calc-loan] | $130,000 | $505,000<br /><small>−$185,000, 3.0× car value</small> | $505,000<br /><small>−$185,000, 3.0× car value</small> | $505,000<br /><small>−$185,000, 3.0× car value</small> |
-| Car loan · ICE (RAV4, $58,807) · 5 yr · 6.49%[^label] | — | $537.20 + $172.19 running | $130,000 | $500,000<br /><small>−$190,000, 3.2× car value</small> | $500,000<br /><small>−$190,000, 3.2× car value</small> | $500,000<br /><small>−$190,000, 3.2× car value</small> |
+| EV novated lease · 5 yr · 9% | [$589.57 ($15,329)][calc-ev5y9] | — | $114,671 | $525,000<br /><small>−$165,000, 2.7× car</small> | $570,000<br /><small>−$120,000, 2.0× car</small> | $585,000<br /><small>−$105,000, 1.7× car</small> |
+| EV novated lease · 5 yr · 15% | [$682.45 ($17,744)][calc-ev5y15] | — | $112,256 | $500,000<br /><small>−$190,000, 3.1× car</small> | $560,000<br /><small>−$130,000, 2.1× car</small> | $568,000<br /><small>−$122,000, 2.0× car</small> |
+| EV novated lease · 2 yr · 9% | [$774.27 ($20,131)][calc-ev2y9] | — | $109,869 | $340,000<br /><small>−$350,000, 5.8× car</small> | $400,000<br /><small>−$290,000, 4.8× car</small> | $550,000<br /><small>−$140,000, 2.3× car</small> |
+| EV novated lease · 2 yr · 15% | [$878.55 ($22,842)][calc-ev2y15] | — | $107,158 | $320,000<br /><small>−$370,000, 6.1× car</small> | $390,000<br /><small>−$300,000, 4.9× car</small> | $540,000<br /><small>−$150,000, 2.5× car</small> |
+| ICE novated lease · 5 yr · 9% | [$220.81 ($5,741)][calc-ice5y9] | $417.20 (ECM) | $124,259 | $520,000<br /><small>−$170,000, 2.9× car</small> | $550,000<br /><small>−$140,000, 2.4× car</small> | $540,000<br /><small>−$150,000, 2.6× car</small> |
+| Car loan · EV (BYD, $60,789) · 5 yr · 6.49% | — | [$555.07 + $123.42 running][calc-loan] | $130,000 | $505,000<br /><small>−$185,000, 3.0× car</small> | $505,000<br /><small>−$185,000, 3.0× car</small> | $505,000<br /><small>−$185,000, 3.0× car</small> |
+| Car loan · ICE (RAV4, $58,807) · 5 yr · 6.49%[^label] | — | $537.20 + $172.19 running | $130,000 | $500,000<br /><small>−$190,000, 3.2× car</small> | $500,000<br /><small>−$190,000, 3.2× car</small> | $500,000<br /><small>−$190,000, 3.2× car</small> |
 
 ### $300,000 single applicant
 
@@ -236,9 +236,9 @@ Only the 5-year, 9% EV lease was modelled at this income level.
 | Lender | Scenario | M1 — full liability | M2 — tax-free add-back | M3 — no liability |
 | --- | --- | --- | --- | --- |
 | Bankwest | Baseline — no car | **$1,445,550** | **$1,445,550** | **$1,445,550** |
-| Bankwest | [EV novated lease · 5 yr · 9%][calc-ev5y9-300k] | $1,290,150<br /><small>−$155,400, 2.6× car value</small> | $1,363,150<br /><small>−$82,400, 1.4× car value</small> | $1,363,150<br /><small>−$82,400, 1.4× car value</small> |
+| Bankwest | [EV novated lease · 5 yr · 9%][calc-ev5y9-300k] | $1,290,150<br /><small>−$155,400, 2.6× car</small> | $1,363,150<br /><small>−$82,400, 1.4× car</small> | $1,363,150<br /><small>−$82,400, 1.4× car</small> |
 | Macquarie | Baseline — no car | **$1,440,000** | **$1,440,000** | **$1,440,000** |
-| Macquarie | [EV novated lease · 5 yr · 9%][calc-ev5y9-300k] | $1,280,000<br /><small>−$160,000, 2.6× car value</small> | $1,360,000<br /><small>−$80,000, 1.3× car value</small> | $1,360,000<br /><small>−$80,000, 1.3× car value</small> |
+| Macquarie | [EV novated lease · 5 yr · 9%][calc-ev5y9-300k] | $1,280,000<br /><small>−$160,000, 2.6× car</small> | $1,360,000<br /><small>−$80,000, 1.3× car</small> | $1,360,000<br /><small>−$80,000, 1.3× car</small> |
 
 **Assumptions behind every row.** The cars are the BYD Sealion 7 Premium ($60,789.25) and Toyota RAV4 GXL Auto eFour ($58,807) introduced at the top, each financed at full drive-away price with no deposit. Single applicant, no dependants. Living expenses set at the lender's HEM benchmark: a $2,520 per month base for Bankwest and $2,400 for Macquarie at the $130,000 income level, and $4,190 at $300,000. A $200 per month vehicle maintenance allowance is already built into the expense figure in **every** row, including the baseline — so the "no car" row is a person who runs a car, not a person who does not own one. Everything else in the applicant's profile is held constant across rows, so the differences shown are attributable to the vehicle finance alone.
 
