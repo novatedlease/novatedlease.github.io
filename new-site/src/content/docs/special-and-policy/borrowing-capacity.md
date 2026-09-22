@@ -21,7 +21,7 @@ So I asked someone who runs those calculators for a living. The modelling and th
 
 - **It is not automatically worse than a car loan.** This was the surprise. A car loan cost 2.6×–3.2× here. A favourably-assessed novated lease beats that comfortably, an unfavourably-assessed one merely matches it, and only a short lease is clearly worse. The common assumption that a novated lease must hurt your borrowing capacity more than a car loan does not survive contact with the numbers.
 
-- **What to actually do:** get a real novated lease quote, then ask a mortgage broker to run your borrowing capacity **with and without it**. The single largest variable — how the lender treats the lease — is not something you control or can look up in advance.
+- **What to actually do:** get a real novated lease quote, then ask a mortgage broker to run your borrowing capacity **with and without it**. The single largest variable — how the lender treats the lease — is set by each lender's credit policy, which brokers can see and consumers cannot.
 
 [Skip to the full modelling grid ↓](#the-full-modelling-grid) — every scenario, both lenders, all three assessment methods.
 :::
@@ -201,8 +201,12 @@ Two things follow from this arithmetic:
 - **Method 1 is the punitive one.** It gives the borrower no credit whatsoever for the tax the sacrifice saves them, while still charging them the full repayment. At Bankwest it lands within $1,000 of the equivalent car loan ($527,600 against $526,750) — which is the point: under Method 1, a novated lease is *just a car loan with extra steps* as far as servicing is concerned.
 - **Methods 2 and 3 are arithmetically identical for Bankwest**, and close for Macquarie. Adding back $15,329 of non-taxable income and then subtracting a $15,329 liability nets to zero, so both approaches land in the same place. They differ at Macquarie only because of how that calculator applies buffers and haircuts to income versus liabilities.
 
-:::warning[These are modelled treatments, not published lender policies]
-The three columns are three *ways of entering the same lease* into each lender's servicing calculator. They are not a statement that Bankwest uses one and Macquarie uses another. Which treatment a lender applies — and whether it will apply it to your specific employer's arrangement — is exactly the thing you need a broker to confirm before you sign anything. Policies also change, and these were run in September 2026.
+:::warning[Each lender does have a rule — you just can't read it]
+The three columns are three *ways of entering the same lease* into a servicing calculator. They are not a claim that Bankwest uses one and Macquarie uses another.
+
+Every lender does have a defined position on how a novated lease is treated. It is written into their credit policy and supplied to accredited mortgage brokers — it is simply **not published for consumers**. That asymmetry is the practical problem: a broker can tell you where a given lender sits and how it will read your specific employer's arrangement, and you generally cannot work it out for yourself from anything public.
+
+So the number that matters most to your result is knowable — just not by you, directly. Policies also change, and these scenarios were run in September 2026.
 :::
 
 ---
