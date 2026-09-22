@@ -176,8 +176,8 @@ Leonard's article quotes the headline numbers. Below is everything the model pro
 | EV novated lease · 2 yr · 9% | $774.27 ($20,131) | — | $109,869 | $478,950 | $544,250 | $544,250 |
 | EV novated lease · 2 yr · 15% | $878.55 ($22,842) | — | $107,158 | $451,450 | $525,550 | $525,550 |
 | ICE novated lease · 5 yr · 9% | $220.81 ($5,741) | $417.20 (ECM) | $124,259 | $514,850 | $533,450 | $533,450 |
-| Car loan · EV · 5 yr · 6.49% | — | $555.07 + $123.42 running | $130,000 | $526,750 | $526,750 | $526,750 |
-| Car loan · ICE · 5 yr · 6.49%[^label] | — | $537.20 + $172.19 running | $130,000 | $513,850 | $513,850 | $513,850 |
+| Car loan · EV (BYD, $60,789) · 5 yr · 6.49% | — | $555.07 + $123.42 running | $130,000 | $526,750 | $526,750 | $526,750 |
+| Car loan · ICE (RAV4, $58,807) · 5 yr · 6.49%[^label] | — | $537.20 + $172.19 running | $130,000 | $513,850 | $513,850 | $513,850 |
 
 ### Macquarie — $130,000 single applicant
 
@@ -189,8 +189,8 @@ Leonard's article quotes the headline numbers. Below is everything the model pro
 | EV novated lease · 2 yr · 9% | $774.27 ($20,131) | — | $109,869 | $340,000 | $400,000 | $550,000 |
 | EV novated lease · 2 yr · 15% | $878.55 ($22,842) | — | $107,158 | $320,000 | $390,000 | $540,000 |
 | ICE novated lease · 5 yr · 9% | $220.81 ($5,741) | $417.20 (ECM) | $124,259 | $520,000 | $550,000 | $540,000 |
-| Car loan · EV · 5 yr · 6.49% | — | $555.07 + $123.42 running | $130,000 | $505,000 | $505,000 | $505,000 |
-| Car loan · ICE · 5 yr · 6.49%[^label] | — | $537.20 + $172.19 running | $130,000 | $500,000 | $500,000 | $500,000 |
+| Car loan · EV (BYD, $60,789) · 5 yr · 6.49% | — | $555.07 + $123.42 running | $130,000 | $505,000 | $505,000 | $505,000 |
+| Car loan · ICE (RAV4, $58,807) · 5 yr · 6.49%[^label] | — | $537.20 + $172.19 running | $130,000 | $500,000 | $500,000 | $500,000 |
 
 ### $300,000 single applicant
 
@@ -204,10 +204,10 @@ Only the 5-year, 9% EV lease was modelled at this income level.
 | Macquarie | EV novated lease · 5 yr · 9% | $1,280,000 | $1,360,000 | $1,360,000 |
 
 :::note[Assumptions behind every row]
-Single applicant, no dependants. Living expenses set at the lender's HEM benchmark: a $2,520 per month base for Bankwest and $2,400 for Macquarie at the $130,000 income level, and $4,190 at $300,000. A $200 per month vehicle maintenance allowance is already built into the expense figure in **every** row, including the baseline — so the "no car" row is a person who runs a car, not a person who does not own one. Everything else in the applicant's profile is held constant across rows, so the differences shown are attributable to the vehicle finance alone.
+The two cars modelled are a **BYD Sealion 7 Premium at $60,789.25 drive-away** (the EV) and a **Toyota RAV4 GXL Auto eFour at $58,807 drive-away** (the petrol comparison). The car-loan rows finance the full drive-away price with no deposit, which is why the loan amount and the car's price are the same number. Single applicant, no dependants. Living expenses set at the lender's HEM benchmark: a $2,520 per month base for Bankwest and $2,400 for Macquarie at the $130,000 income level, and $4,190 at $300,000. A $200 per month vehicle maintenance allowance is already built into the expense figure in **every** row, including the baseline — so the "no car" row is a person who runs a car, not a person who does not own one. Everything else in the applicant's profile is held constant across rows, so the differences shown are attributable to the vehicle finance alone.
 :::
 
-[^label]: This row was labelled as a second EV car loan in the source model. The smaller loan and much higher running-cost allowance ($172.19 vs $123.42 per fortnight) identify it as the petrol comparison, which is how it is presented here.
+[^label]: The source table repeated the "EV" label on this row. It is the petrol comparison: its running-cost allowance is far higher ($172.19 against $123.42 per fortnight), and its loan repayment is 96.8% of the EV row's — matching the RAV4's price as 96.7% of the BYD's almost exactly.
 
 ---
 
@@ -223,16 +223,20 @@ This is the single most important finding in the whole exercise, and it is uncom
 
 ### 2. The "3× the car" rule of thumb is roughly right — for a car loan
 
-This was the claim I most wanted to test. On a $60,789 car loan:
+This was the claim I most wanted to test, and the modelling is set up to test it cleanly: each car loan finances the car's full drive-away price, so the amount borrowed *is* the car's value.
 
-| | Capacity lost | As a multiple of the amount financed |
+| Car loan | Capacity lost | As a multiple of the car's price |
 | --- | --- | --- |
-| Bankwest | $156,250 | 2.6× |
-| Macquarie | $185,000 | 3.0× |
+| BYD Sealion 7, $60,789 — Bankwest | $156,250 | 2.6× |
+| BYD Sealion 7, $60,789 — Macquarie | $185,000 | 3.0× |
+| Toyota RAV4, $58,807 — Bankwest | $169,150 | 2.9× |
+| Toyota RAV4, $58,807 — Macquarie | $190,000 | 3.2× |
 
-So the folklore holds up well for conventional car finance. For the *five-year* novated lease scenarios, which were sized to a comparable repayment, the multiple lands between **1.7× and 2.7×** depending on the assessment method — better than a car loan, but still far more than the price of the car. The two-year leases are worse again, for the reason in the next point.
+So the folklore holds up well for conventional car finance — 2.6× to 3.2× across four combinations, with 3× sitting squarely in the middle.
 
-Nobody should take much comfort from any of this. Whichever way it is assessed, a car around $60,000 removes somewhere between $105,000 and $185,000 of borrowing power on a $130,000 income.
+For the *five-year* novated leases the multiple ranges from **1.7× to 3.1×**, and which end you land on is decided almost entirely by the assessment method: the generous treatments cluster around 1.7–2.1×, the punitive one around 2.6–3.1×. In other words, a novated lease assessed favourably beats a car loan by roughly a full car; assessed punitively it is no better. The two-year leases are worse again, for the reason in the next point.
+
+Nobody should take much comfort from any of this. Whichever way it is assessed, a ~$60,000 car removes somewhere between $105,000 and $190,000 of borrowing power on a $130,000 income.
 
 ### 3. Longer leases are better for servicing — the opposite of the usual risk advice
 
