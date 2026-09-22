@@ -254,7 +254,7 @@ Take the 5-year, 9% EV lease at Bankwest. Under Method 3 it costs you $105,650 o
 
 At Macquarie, the two-year lease rows are starker still: $340,000 under Method 1 against $550,000 under Method 3. A $210,000 spread.
 
-This is the single most important finding in the whole exercise, and it is uncomfortable, because it is the one variable a borrower has no control over. You can choose the car, the term and the provider. You cannot choose how the credit assessor keys it in.
+This is the single most important finding in the whole exercise, and it is uncomfortable, because it is the one variable a borrower has no control over. You can choose the car, the term and the provider. You cannot choose how the lender assesses your situation as reported.
 
 ### 2. The "3× the car" rule of thumb is roughly right — for a car loan
 
