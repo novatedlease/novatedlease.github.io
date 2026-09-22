@@ -12,9 +12,46 @@ coAuthor:
 
 "Will a novated lease wreck my borrowing capacity?" is one of the most frequently asked questions I receive, and until now it is the one I have been least equipped to answer. The commonly repeated rule of thumb — *a leased car costs you about three times its value in borrowing power* — gets quoted constantly, but I had never seen it tested against an actual lender servicing calculator.
 
-So I asked someone who runs those calculators for a living. The modelling and the core write-up below were contributed by **[Leonard Nagawidjaja](https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/)** of [AA Finance Solutions](https://www.aafinancesolutions.com.au/), an MFAA-approved credit adviser with over 15 years in the industry (Australian Credit Licence #462491), who ran a matrix of scenarios through the **Bankwest** and **Macquarie** servicing calculators at my request. His section is presented essentially as he wrote it; the results grid, the explanation of the three assessment methods, and the commentary that follows are mine. Neither of us is paid for this — no referral arrangement, no commission, no leads sold, consistent with [how this site operates](/about/about-me/).
+So I asked someone who runs those calculators for a living. The modelling and the core write-up below were contributed by **[Leonard Nagawidjaja](https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/)** of [AA Finance Solutions](https://www.aafinancesolutions.com.au/), an MFAA-approved credit adviser with over 15 years in the industry (Australian Credit Licence #462491), who ran a matrix of scenarios through the **Bankwest** and **Macquarie** servicing calculators at my request. His section is presented essentially as he wrote it; the results grid, the explanation of the three assessment methods, and the commentary that follows are mine, with Leonard's calculations.
 
-Every scenario is built around one of two real, similarly-priced mid-size SUVs: a **BYD Sealion 7 Premium** at $60,789.25 drive-away as the EV, and a **Toyota RAV4 GXL Auto eFour** at $58,807 as the petrol comparison. The car loans finance the full drive-away price with no deposit, so wherever a loan amount appears below it is also the car's price. The borrower earns $130,000 — with one scenario repeated at $300,000 — and is buying at 80% LVR.
+Every scenario is built around one of two real, similarly-priced mid-size SUVs:
+
+<div class="car-cards">
+<figure class="car-card car-card--ev">
+<svg viewBox="0 0 240 120" fill="none" role="img" aria-label="Electric SUV, side view">
+  <g stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 88 V67 C20 60 24 55 31 53 L74 44 L97 22 C100 19 104 18 108 18 H155 C160 18 165 20 168 24 L187 48 L211 54 C218 56 222 61 222 68 V88"/>
+    <path d="M20 88 H50"/><path d="M90 88 H152"/><path d="M192 88 H222"/>
+  </g>
+  <g stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M102 45 L116 28 H147 L162 45 Z"/><path d="M131 28 V45"/>
+  </g>
+  <g stroke="currentColor" stroke-width="7">
+    <circle cx="71" cy="88" r="17"/><circle cx="171" cy="88" r="17"/>
+  </g>
+  <path d="M203 58 L190 76 H198 L196 88 L209 70 H201 Z" fill="currentColor" stroke="none"/>
+</svg>
+<figcaption><span class="car-card__name">BYD Sealion 7 Premium</span><span class="car-card__meta">EV · $60,789.25 drive-away</span></figcaption>
+</figure>
+<figure class="car-card car-card--ice">
+<svg viewBox="0 0 240 120" fill="none" role="img" aria-label="Petrol SUV, side view">
+  <g stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 88 V67 C20 60 24 55 31 53 L74 44 L97 22 C100 19 104 18 108 18 H155 C160 18 165 20 168 24 L187 48 L211 54 C218 56 222 61 222 68 V88"/>
+    <path d="M20 88 H50"/><path d="M90 88 H152"/><path d="M192 88 H222"/>
+  </g>
+  <g stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M102 45 L116 28 H147 L162 45 Z"/><path d="M131 28 V45"/>
+  </g>
+  <g stroke="currentColor" stroke-width="7">
+    <circle cx="71" cy="88" r="17"/><circle cx="171" cy="88" r="17"/>
+  </g>
+  <path d="M200 58 C208 70 212 75 212 80 A12 12 0 0 1 188 80 C188 75 192 70 200 58 Z" fill="currentColor" stroke="none"/>
+</svg>
+<figcaption><span class="car-card__name">Toyota RAV4 GXL Auto eFour</span><span class="car-card__meta">Petrol · $58,807 drive-away</span></figcaption>
+</figure>
+</div>
+
+The car loans finance the full drive-away price with no deposit, so wherever a loan amount appears below it is also the car's price. The borrower earns $130,000 — with one scenario repeated at $300,000 — and is buying at 80% LVR.
 
 ---
 
