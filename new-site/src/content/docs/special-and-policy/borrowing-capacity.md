@@ -53,6 +53,8 @@ Every scenario is built around one of two real, similarly-priced mid-size SUVs:
 
 The car loans finance the full drive-away price with no deposit, so wherever a loan amount appears below it is also the car's price. The borrower earns $130,000 — with one scenario repeated at $300,000 — and is buying at 80% LVR.
 
+**Just want the numbers?** [Skip to the full modelling grid ↓](#the-full-modelling-grid) — every scenario, both lenders, all three assessment methods.
+
 ---
 
 ## Novated lease vs car loan: how it affects your borrowing capacity
