@@ -17,7 +17,7 @@ So I asked someone who runs those calculators for a living. The modelling and th
 :::info[The short version]
 - **Lease length is the biggest thing you control.** A short lease limits your exposure to [early-termination risk](/risks/early-termination/), but it raises the fortnightly payment — and a servicing calculator only looks at the payment. On these numbers a **2-year lease costs 2.3× to 6.1× the car's price** in borrowing power, depending on the lender and the lease's interest rate. A **5-year lease costs 1.7× to 3.1×**.
 
-- **Your income level matters just as much.** The same 5-year lease that costs 1.7× the car's price on a $130,000 income costs only **1.3×** on $300,000. The lease payment is roughly fixed; the surplus income it eats into is not.
+- **Your income level matters just as much.** The same 5-year lease that costs 1.7× the car's price on a $130,000 income costs only **1.3×** on $300,000.
 
 - **It is not automatically worse than a car loan.** This was the surprise. A car loan cost 2.6×–3.2× here. A favourably-assessed novated lease beats that comfortably, an unfavourably-assessed one merely matches it, and only a short lease is clearly worse. The common assumption that a novated lease must hurt your borrowing capacity more than a car loan does not survive contact with the numbers.
 
