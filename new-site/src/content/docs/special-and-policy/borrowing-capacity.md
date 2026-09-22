@@ -4,7 +4,7 @@ datePublished: "2026-09-22"
 description: "Modelled borrowing capacity across EV and ICE novated leases, car loans, two real lender calculators and two income levels — plus the three different ways a lender can assess a salary-sacrificed lease, which matters more than the tax saving itself."
 coAuthor:
   name: "Leonard Nagawidjaja"
-  url: "https://aafinancesolutions.com.au"
+  url: "https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/"
   jobTitle: "Finance broker, AA Finance Solutions"
 ---
 
@@ -15,7 +15,7 @@ coAuthor:
 So I asked someone who runs those calculators for a living.
 
 :::info[About this article]
-The modelling and the core write-up below were contributed by **Leonard Nagawidjaja** of [AA Finance Solutions](https://aafinancesolutions.com.au), an MFAA-approved credit adviser with over 15 years in the industry (Australian Credit Licence #462491). He ran a matrix of scenarios through the **Bankwest** and **Macquarie** servicing calculators at my request.
+The modelling and the core write-up below were contributed by **[Leonard Nagawidjaja](https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/)** of [AA Finance Solutions](https://www.aafinancesolutions.com.au/), an MFAA-approved credit adviser with over 15 years in the industry (Australian Credit Licence #462491). He ran a matrix of scenarios through the **Bankwest** and **Macquarie** servicing calculators at my request.
 
 Leonard's section is presented essentially as he wrote it. The full results grid, the explanation of the three assessment methods, and the commentary that follows are mine.
 
@@ -270,7 +270,7 @@ At $130,000, the 9% EV lease costs 15.5% of Bankwest capacity. At $300,000, the 
 
 > Leonard Nagawidjaja is a dedicated finance broker committed to helping individuals, families, and businesses achieve their financial goals with confidence. With extensive experience over 15 years in the industry, across home loans, investment lending, asset finance, and refinancing solutions, Leonard takes a personalised approach to every client relationship. He understands that no two financial situations are the same and works closely with clients to find tailored lending strategies that suit their needs and long-term objectives. Known for his professionalism, transparency, and attention to detail, Leonard is passionate about simplifying the finance process and delivering exceptional outcomes from application through to settlement.
 >
-> B.Bus, Dip. Fin · MFAA Approved Credit Adviser · Australian Credit Licence #462491 · [AA Finance Solutions](https://aafinancesolutions.com.au)
+> B.Bus, Dip. Fin · MFAA Approved Credit Adviser · Australian Credit Licence #462491 · [Leonard's profile at AA Finance Solutions](https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/)
 
 I am grateful to Leonard for running this modelling and writing it up. This site carries no advertising and sells no leads; the link above is a credit, not a referral arrangement, and I receive nothing if you contact him.
 
