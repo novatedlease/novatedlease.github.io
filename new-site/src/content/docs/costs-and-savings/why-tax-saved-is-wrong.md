@@ -88,7 +88,7 @@ If a novated lease arrangement results in:
 - higher interest costs,
 - additional fees,
 - bundled insurances you would not otherwise buy,
-- worse outcomes for super, childcare subsidies, or borrowing capacity,
+- worse outcomes for super, childcare subsidies, or [borrowing capacity](/special-and-policy/borrowing-capacity/),
 - reduced job or life flexibility
 
 then it is entirely possible to:

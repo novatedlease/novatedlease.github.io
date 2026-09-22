@@ -71,7 +71,7 @@ For readers who prefer a high-level summary before diving deeper:
 | Potential Advantages | Potential Downsides |
 |----------------------|--------------------|
 | Pre-tax funding creates "discount" effect | Higher effective interest rate (often 8–12% or higher) |
-| GST savings on vehicle and running costs | Significantly reduced borrowing capacity |
+| GST savings on vehicle and running costs | [Significantly reduced borrowing capacity](/special-and-policy/borrowing-capacity/) |
 | FBT exemption for eligible EVs | May affect HECS, childcare subsidy, Div 293, super contribution |
 | Opportunity cost saved from not spending cash upfront | Residual (balloon) payment may surprise some |
 | Bundled running costs for budgeting simplicity | Early termination can be expensive |
@@ -102,7 +102,7 @@ A novated lease tends to be more favourable if you:
   avoiding a large upfront cash payment can save substantial home-loan interest at today’s rates
 
 - **do not need to borrow heavily during the lease term**  
-  novated leases significantly reduce borrowing capacity - I have seen estimates where leasing a $70k car reduces borrowing power by $200k or more
+  novated leases significantly reduce borrowing capacity — [modelling through two lender servicing calculators](/special-and-policy/borrowing-capacity/) put the cost of a ~$61k car at $105,000 to $185,000 of borrowing power on a $130,000 income
 
 - **have considered [the impact on government subsidies](/costs-and-savings/fbt-rfba-ati-explained/)**  
   childcare subsidy, HECS/HELP repayments, Division 293 tax, etc, can all be affected via reportable fringe benefits. (This impact is primarily relevant for FBT-exempt EV novated leases; ICE novated leases typically do not worsen eligibility for most government subsidies.)
@@ -128,7 +128,7 @@ You should slow down and be more sceptical if several of the following apply:
 - you are early in training or on fixed-term contracts
 - you are near thresholds for means-tested benefits
 - you are stretching financially to afford the lease payment
-- you are thinking of buying a house in the near future which is close to your borrowing capacity
+- you are thinking of buying a house in the near future which is close to [your borrowing capacity](/special-and-policy/borrowing-capacity/)
 
 In these cases, **downside risks are more likely to outweigh headline savings**.
 
@@ -245,7 +245,7 @@ Generally less so. The effective tax benefit is smaller at lower marginal tax ra
 
 ### Does a novated lease affect borrowing capacity?
 
-Yes. Many lenders treat novated lease repayments as ongoing liabilities, which can significantly reduce borrowing capacity — sometimes by far more than the car’s purchase price.
+Yes. Many lenders treat novated lease repayments as ongoing liabilities, which can significantly reduce borrowing capacity — sometimes by far more than the car’s purchase price. [A dedicated article](/special-and-policy/borrowing-capacity/) works through modelled figures from two lender servicing calculators, and explains why the way a lender records the lease matters more than the tax saving itself.
 
 [^1]: Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the initially "exempted" GST is still payable at this stage. 
 [^2]: If one purchases a car via private sale, as there is no GST component on the car purchase price, one does not get any GST saving when this car is leased.

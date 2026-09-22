@@ -129,7 +129,7 @@ The scenario above is helped significantly by the Mazda continuing to depreciate
 
 **A longer lease may not be appropriate for your situation**
 
-For EV novated leases, a longer term generally achieves a higher saving. However, it also comes with greater exposure to risks — including [early termination risk](/risks/early-termination/) and reduced borrowing capacity for those planning to take out a property loan. If your job security is uncertain, or if you plan to buy property in the near future, a shorter lease may be more appropriate, which limits the achievable benefit.
+For EV novated leases, a longer term generally achieves a higher saving. However, it also comes with greater exposure to risks — including [early termination risk](/risks/early-termination/) and reduced borrowing capacity for those planning to take out a property loan. (Counter-intuitively, a *longer* lease is the gentler option on [borrowing capacity](/special-and-policy/borrowing-capacity/), because servicing calculators look at the size of the repayment rather than its duration.) If your job security is uncertain, or if you plan to buy property in the near future, a shorter lease may be more appropriate, which limits the achievable benefit.
 
 **A high-interest-rate lease provider changes the equation**
 

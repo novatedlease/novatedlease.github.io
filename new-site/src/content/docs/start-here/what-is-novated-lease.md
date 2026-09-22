@@ -154,7 +154,7 @@ while quietly minimising your attention on:
 
 - interest and fees you would not otherwise pay
 - risk from [early termination](/risks/early-termination/) or [policy change](/special-and-policy/ev-fbt-exemption-review-timing/)
-- reduced borrowing capacity
+- [reduced borrowing capacity](/special-and-policy/borrowing-capacity/)
 - potentially reduced [super contribution](/special-and-policy/super-guarantee/)
 - and other drawbacks. 
 

@@ -147,7 +147,7 @@ Theoretical savings must always be balanced against:
 - [vehicle write-off scenarios](/risks/how-bad-can-early-termination-get/#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month),
 - policy risk (e.g. [FBT exemption review](/special-and-policy/ev-fbt-exemption-review-timing/)),
 - career flexibility, 
-- borrowing capacity impact etc. 
+- [borrowing capacity impact](/special-and-policy/borrowing-capacity/) etc. 
 
 ---
 

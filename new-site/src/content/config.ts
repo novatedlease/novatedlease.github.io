@@ -11,6 +11,15 @@ const docs = defineCollection({
     // from git history at build time (see plugins/git-dates.mjs) so it can
     // never go stale. Any dateModified left in a file's frontmatter is inert.
     datePublished: z.string().optional(),
+    // Optional guest contributor, shown in the byline alongside changyang1230
+    // and added to the schema.org Article author list.
+    coAuthor: z
+      .object({
+        name: z.string(),
+        url: z.string().optional(),
+        jobTitle: z.string().optional(),
+      })
+      .optional(),
   }),
 });
 

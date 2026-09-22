@@ -47,6 +47,9 @@ The result is that outcomes can differ substantially depending on:
 
 The articles in this section focus on the most important non-obvious interactions:
 
+- **[How a novated lease affects home loan borrowing capacity](/special-and-policy/borrowing-capacity/)** *(New — 22 September 2026)*  
+  Modelling contributed by a mortgage broker, run through the Bankwest and Macquarie servicing calculators: what an EV lease, an ICE lease and a plain car loan each cost you in borrowing power, and why the *way a lender enters the lease* swings the answer by more than anything the borrower controls.
+
 - **[Adjusted taxable income and childcare subsidy](/special-and-policy/childcare-subsidy/)**  
   EV novated leases can reduce income tax while *increasing* adjusted taxable income, with flow-on effects to childcare subsidy, HELP repayments, child support, and Division 293. This includes the special (and often misunderstood) treatment for hospital and FBT-exempt employers.
 
@@ -88,6 +91,7 @@ If *any* of the following are true for you:
 
 - you work for a hospital, NFP, or public-sector employer,
 - you work for NSW Health and are affected by employer share policy,
+- you are planning to buy a property during the lease term,
 - you receive childcare subsidy or other family assistance,
 - you have HELP debt or are near Division 293 thresholds,
 - your employer uses a less common (but still legal) method of calculating super contributions,

@@ -14,7 +14,7 @@ export function rehypeByline() {
     const frontmatter = file.data?.astro?.frontmatter;
     if (!frontmatter) return;
 
-    const { datePublished } = frontmatter;
+    const { datePublished, coAuthor } = frontmatter;
     const dateModified = file.path ? getLastModified(file.path) : undefined;
     if (!datePublished && !dateModified) return;
 
@@ -32,6 +32,20 @@ export function rehypeByline() {
         children: [{ type: 'text', value: 'changyang1230' }],
       },
     ];
+
+    if (coAuthor?.name) {
+      children.push({ type: 'text', value: ' and ' });
+      children.push(
+        coAuthor.url
+          ? {
+              type: 'element',
+              tagName: 'a',
+              properties: { href: coAuthor.url, rel: 'noopener', target: '_blank' },
+              children: [{ type: 'text', value: coAuthor.name }],
+            }
+          : { type: 'text', value: coAuthor.name }
+      );
+    }
 
     if (dateModified && dateModified !== datePublished) {
       children.push({ type: 'text', value: ` · Updated ${formatDate(dateModified)}` });

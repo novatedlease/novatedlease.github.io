@@ -12,7 +12,7 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   canonicalUrl?: string;
-  articleMeta?: { title: string; description?: string; datePublished?: string; dateModified?: string };
+  articleMeta?: { title: string; description?: string; datePublished?: string; dateModified?: string; coAuthor?: { name: string; url?: string; jobTitle?: string } };
   extraSchemas?: object[];
   noindex?: boolean;
 }
@@ -105,7 +105,17 @@ const articleSchema = articleMeta ? {
   description: articleMeta.description || description,
   url: fullCanonical,
   image: ogImage,
-  author: authorPerson,
+  author: articleMeta.coAuthor
+    ? [
+        authorPerson,
+        {
+          '@type': 'Person',
+          name: articleMeta.coAuthor.name,
+          ...(articleMeta.coAuthor.url ? { url: articleMeta.coAuthor.url } : {}),
+          ...(articleMeta.coAuthor.jobTitle ? { jobTitle: articleMeta.coAuthor.jobTitle } : {}),
+        },
+      ]
+    : authorPerson,
   publisher: publisherOrg,
   isPartOf: { '@id': `${siteUrl}/#website` },
   mainEntityOfPage: fullCanonical,
