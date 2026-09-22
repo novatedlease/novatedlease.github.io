@@ -12,24 +12,9 @@ coAuthor:
 
 "Will a novated lease wreck my borrowing capacity?" is one of the most frequently asked questions I receive, and until now it is the one I have been least equipped to answer. The commonly repeated rule of thumb — *a leased car costs you about three times its value in borrowing power* — gets quoted constantly, but I had never seen it tested against an actual lender servicing calculator.
 
-So I asked someone who runs those calculators for a living.
+So I asked someone who runs those calculators for a living. The modelling and the core write-up below were contributed by **[Leonard Nagawidjaja](https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/)** of [AA Finance Solutions](https://www.aafinancesolutions.com.au/), an MFAA-approved credit adviser with over 15 years in the industry (Australian Credit Licence #462491), who ran a matrix of scenarios through the **Bankwest** and **Macquarie** servicing calculators at my request. His section is presented essentially as he wrote it; the results grid, the explanation of the three assessment methods, and the commentary that follows are mine. Neither of us is paid for this — no referral arrangement, no commission, no leads sold, consistent with [how this site operates](/about/about-me/).
 
-:::info[About this article]
-The modelling and the core write-up below were contributed by **[Leonard Nagawidjaja](https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/)** of [AA Finance Solutions](https://www.aafinancesolutions.com.au/), an MFAA-approved credit adviser with over 15 years in the industry (Australian Credit Licence #462491). He ran a matrix of scenarios through the **Bankwest** and **Macquarie** servicing calculators at my request.
-
-Leonard's section is presented essentially as he wrote it. The full results grid, the explanation of the three assessment methods, and the commentary that follows are mine.
-
-Neither of us is paid for this. There is no referral arrangement, no commission, and no lead generation — consistent with [how this site operates](/about/about-me/).
-:::
-
-:::note[The two cars in the model]
-Every scenario below is built around one of two real, similarly-priced mid-size SUVs:
-
-- **EV — BYD Sealion 7 Premium**, $60,789.25 drive-away
-- **Petrol — Toyota RAV4 GXL Auto eFour**, $58,807 drive-away
-
-The car loans finance the full drive-away price with no deposit, so wherever a loan amount appears below it is also the car's price. The borrower earns $130,000 (with one scenario repeated at $300,000) and is buying at 80% LVR.
-:::
+Every scenario is built around one of two real, similarly-priced mid-size SUVs: a **BYD Sealion 7 Premium** at $60,789.25 drive-away as the EV, and a **Toyota RAV4 GXL Auto eFour** at $58,807 as the petrol comparison. The car loans finance the full drive-away price with no deposit, so wherever a loan amount appears below it is also the car's price. The borrower earns $130,000 — with one scenario repeated at $300,000 — and is buying at 80% LVR.
 
 ---
 
@@ -216,9 +201,7 @@ Only the 5-year, 9% EV lease was modelled at this income level.
 | Macquarie | Baseline — no car | **$1,440,000** | **$1,440,000** | **$1,440,000** |
 | Macquarie | [EV novated lease · 5 yr · 9%][calc-ev5y9-300k] | $1,280,000<br /><small>−$160,000, 2.6× car value</small> | $1,360,000<br /><small>−$80,000, 1.3× car value</small> | $1,360,000<br /><small>−$80,000, 1.3× car value</small> |
 
-:::note[Assumptions behind every row]
-The cars are the BYD Sealion 7 Premium ($60,789.25) and Toyota RAV4 GXL Auto eFour ($58,807) introduced at the top, each financed at full drive-away price with no deposit. Single applicant, no dependants. Living expenses set at the lender's HEM benchmark: a $2,520 per month base for Bankwest and $2,400 for Macquarie at the $130,000 income level, and $4,190 at $300,000. A $200 per month vehicle maintenance allowance is already built into the expense figure in **every** row, including the baseline — so the "no car" row is a person who runs a car, not a person who does not own one. Everything else in the applicant's profile is held constant across rows, so the differences shown are attributable to the vehicle finance alone.
-:::
+**Assumptions behind every row.** The cars are the BYD Sealion 7 Premium ($60,789.25) and Toyota RAV4 GXL Auto eFour ($58,807) introduced at the top, each financed at full drive-away price with no deposit. Single applicant, no dependants. Living expenses set at the lender's HEM benchmark: a $2,520 per month base for Bankwest and $2,400 for Macquarie at the $130,000 income level, and $4,190 at $300,000. A $200 per month vehicle maintenance allowance is already built into the expense figure in **every** row, including the baseline — so the "no car" row is a person who runs a car, not a person who does not own one. Everything else in the applicant's profile is held constant across rows, so the differences shown are attributable to the vehicle finance alone.
 
 [^label]: The source table repeated the "EV" label on this row. It is the petrol comparison: its running-cost allowance is far higher ($172.19 against $123.42 per fortnight), and its loan repayment is 96.8% of the EV row's — matching the RAV4's price as 96.7% of the BYD's almost exactly.
 
@@ -293,9 +276,7 @@ At $130,000, the 9% EV lease costs 15.5% of Bankwest capacity. At $300,000, the 
 
 I am grateful to Leonard for running this modelling and writing it up. This site carries no advertising and sells no leads; the link above is a credit, not a referral arrangement, and I receive nothing if you contact him.
 
-:::caution[This is general information, not credit advice]
-Every servicing calculator is proprietary, every lender's treatment of salary sacrifice differs, and all of these figures depend on assumptions that will not match yours. Nothing here is a commitment from Bankwest, Macquarie, or any other lender, and nothing here is personal credit advice. See the [full disclaimer](/about/disclaimer/).
-:::
+**None of this is credit advice.** Every servicing calculator is proprietary, every lender's treatment of salary sacrifice differs, and all of these figures depend on assumptions that will not match yours. Nothing here is a commitment from Bankwest, Macquarie, or any other lender. See the [full disclaimer](/about/disclaimer/).
 
 [calc-ev5y9]: https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo0MzguNzE3Mjg0MzU3Nzg3NCwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMH19
 [calc-ev5y15]: https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo1MzEuNTk0NTk2MzY5NjM2MywibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMH19
