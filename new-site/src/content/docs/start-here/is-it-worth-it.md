@@ -102,7 +102,7 @@ A novated lease tends to be more favourable if you:
   avoiding a large upfront cash payment can save substantial home-loan interest at today’s rates
 
 - **do not need to borrow heavily during the lease term**  
-  novated leases significantly reduce borrowing capacity — [modelling through two lender servicing calculators](/special-and-policy/borrowing-capacity/) put the cost of a ~$61k car at $105,000 to $185,000 of borrowing power on a $130,000 income
+  novated leases significantly reduce borrowing capacity — [modelling through two lender servicing calculators](/special-and-policy/borrowing-capacity/) put the cost of a five-year lease on a ~$61k EV at $105,000 to $130,000 of borrowing power on a $130,000 income
 
 - **have considered [the impact on government subsidies](/costs-and-savings/fbt-rfba-ati-explained/)**  
   childcare subsidy, HECS/HELP repayments, Division 293 tax, etc, can all be affected via reportable fringe benefits. (This impact is primarily relevant for FBT-exempt EV novated leases; ICE novated leases typically do not worsen eligibility for most government subsidies.)
@@ -245,7 +245,7 @@ Generally less so. The effective tax benefit is smaller at lower marginal tax ra
 
 ### Does a novated lease affect borrowing capacity?
 
-Yes. Many lenders treat novated lease repayments as ongoing liabilities, which can significantly reduce borrowing capacity — sometimes by far more than the car’s purchase price. [A dedicated article](/special-and-policy/borrowing-capacity/) works through modelled figures from two lender servicing calculators, and explains why the way a lender records the lease matters more than the tax saving itself.
+Yes. Lenders either enter the lease as a liability (adding the sacrificed salary back as non-taxable income) or assess you on your reduced salary, and either way it can significantly reduce borrowing capacity — often by around twice the car’s purchase price. [A dedicated article](/special-and-policy/borrowing-capacity/) works through modelled figures from two lender servicing calculators, and explains why a five-year lease can cost less borrowing power than a car loan while a short lease can cost far more.
 
 [^1]: Novated lease companies often claim that this full amount of GST is saved; however on closer scrutiny this is not entirely true if one chooses to pay the residual value to own the vehicle outright at the end of the lease. The residual value payable includes GST, and therefore part of the initially "exempted" GST is still payable at this stage. 
 [^2]: If one purchases a car via private sale, as there is no GST component on the car purchase price, one does not get any GST saving when this car is leased.
