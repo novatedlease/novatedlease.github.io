@@ -109,7 +109,8 @@
       aliases: ["ABS", "Statistics Bureau"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "employee", date: "2026-08-26" }]
     },
     {
       name: "Australian Communications and Media Authority",
