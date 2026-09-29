@@ -157,28 +157,31 @@
       group: "Victoria",
       status: "possible",
       notes: "Previously known as Alfred Health / The Alfred Hospital.",
-      sources: [{ type: "industry", date: "2026-07-31" }]
+      sources: [{ type: "employee", date: "2026-05-23" }, { type: "industry", date: "2026-07-31" }]
     },
     {
       name: "Royal Children's Hospital",
       aliases: ["RCH", "The Royal Children's Hospital Melbourne", "Melbourne Children's Hospital"],
       group: "Victoria",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "employee", date: "2026-05-23" }]
     },
     {
       name: "Royal Victorian Eye and Ear Hospital",
       aliases: ["RVEEH", "Eye and Ear Hospital", "Victorian Eye and Ear"],
       group: "Victoria",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "employee", date: "2026-05-23" }]
     },
     {
       name: "Bendigo Health",
       aliases: ["Bendigo Hospital", "Bendigo Base Hospital", "Anne Caudle Centre", "John Bomford Centre"],
       group: "Victoria",
       status: "possible",
-      notes: "Salary packaging via Maxxia. Important lender restriction: Westpac will not allow Maxxia to make payments from Maxxia's own account — Westpac insists the employer make payments directly, which is incompatible with how Maxxia operates. Avoid Westpac as your BYO lender at this employer."
+      notes: "Salary packaging via Maxxia. Important lender restriction: Westpac will not allow Maxxia to make payments from Maxxia's own account — Westpac insists the employer make payments directly, which is incompatible with how Maxxia operates. Avoid Westpac as your BYO lender at this employer.",
+      sources: [{ type: "employee", date: "2026-05-25" }]
     },
     {
       name: "Western Health",
@@ -186,7 +189,7 @@
       group: "Victoria",
       status: "possible",
       notes: "",
-      sources: [{ type: "industry", date: "2026-09-06" }]
+      sources: [{ type: "employee", date: "2026-05-24" }, { type: "industry", date: "2026-09-06" }]
     },
     {
       name: "Cabrini Health",
@@ -201,7 +204,8 @@
       aliases: ["University Hospital Geelong", "Geelong Hospital", "The Geelong Hospital", "UHG", "McKellar Centre", "Andrew Love Cancer Centre", "Barwon Health North"],
       group: "Victoria",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "employee", date: "2026-05-24" }]
     },
     {
       name: "Goulburn Valley Health",
@@ -284,7 +288,8 @@
       ],
       group: "Queensland Government",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "employee", date: "2026-05-24" }]
     },
     {
       name: "Rio Tinto",
