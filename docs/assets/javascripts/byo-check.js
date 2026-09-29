@@ -437,6 +437,14 @@
       sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
+      name: "Apple",
+      aliases: ["Apple Inc", "Apple Australia", "Apple Pty Ltd", "Apple Store", "Apple Retail"],
+      group: "Technology",
+      status: "not_available",
+      notes: "",
+      sources: [{ type: "employee", date: "2026-09-29" }]
+    },
+    {
       name: "NSW Department of Customer Service",
       aliases: ["DCS NSW", "Service NSW", "NSW DCS", "Department of Customer Service NSW"],
       group: "NSW Government",
