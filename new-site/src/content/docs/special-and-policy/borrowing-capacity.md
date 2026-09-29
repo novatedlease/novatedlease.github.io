@@ -202,10 +202,6 @@ Method 2 is shown in the grid below for comparison. We have not yet confirmed a 
 
 Every lender has a defined position on how a novated lease is treated. It is written into their credit policy and supplied to accredited mortgage brokers — it is simply **not published for consumers**. A broker can tell you where a given lender sits and how it will read your specific employer's arrangement; you generally cannot work it out for yourself from anything public. Policies also change, and these scenarios were run in September 2026.
 
-:::note[Updated 29 September 2026]
-An earlier version of this page showed much larger Method 2 losses for Macquarie's two-year leases ($290,000 and $300,000, 4.8× and 4.9× the car's price). Leonard re-ran those scenarios and corrected them to $140,000 and $160,000; the Macquarie Method 2 figures below are the corrected ones. The page also previously said it was not known which method each lender uses. Both use Method 3.
-:::
-
 ---
 
 ## The full modelling grid
