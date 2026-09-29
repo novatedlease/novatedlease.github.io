@@ -11,8 +11,9 @@ note behind it) and the images generated from it. The shipped assets live in
 | `apple-touch.svg` | `apple-touch-icon.png` (180×180) | Blue square tile with the full mark; iOS applies the rounding. |
 | `logo-tile.svg` | `logo.png` (1200×630) | Navy tile with the mark, referenced by the schema.org publisher entry in `Base.astro`. |
 | `og-default.html` | `og-default.png` (1200×630) | Dark editorial share image. |
-| `bmc-cover.html` | `og-long.png` (1600×400) and the Buy Me a Coffee cover | Same design at the cover ratio. |
-| `bmc-cover.dc.html` | — | The Claude Design canvas artboard the cover was drafted in. |
+| `og-long.html` | `og-long.png` (1600×400) | Same design at the wide share ratio (headline, tagline, chips, mark). |
+| `og-long.dc.html` | — | The Claude Design canvas artboard that design was drafted in. |
+| `bmc-cover.html` | Buy Me a Coffee cover (`bmc-cover-1600x400.png` + `@2x`, in iCloud `novatedlease-brand/`) | Title and mark only — BMaC scales the cover to the viewport and floats its cards over the lower half, so the tagline and chips were cropped or covered and the headline read far too large (2026-09-08). Kept inside the band BMaC actually shows; see the comment in the file. |
 
 ## Re-rendering
 
@@ -26,7 +27,14 @@ IMG=../../docs/assets/images
 "$CHROME" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 \
   --window-size=1200,630 --screenshot="$IMG/og-default.png" "file://$PWD/og-default.html"
 "$CHROME" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 \
-  --window-size=1600,400 --screenshot="$IMG/og-long.png" "file://$PWD/bmc-cover.html"
+  --window-size=1600,400 --screenshot="$IMG/og-long.png" "file://$PWD/og-long.html"
+
+# Buy Me a Coffee cover (not shipped with the site; upload from iCloud novatedlease-brand/)
+BRAND="$HOME/Library/Mobile Documents/com~apple~CloudDocs/novatedlease-brand"
+"$CHROME" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 \
+  --window-size=1600,400 --screenshot="$BRAND/bmc-cover-1600x400.png" "file://$PWD/bmc-cover.html"
+"$CHROME" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 --force-device-scale-factor=2 \
+  --window-size=1600,400 --screenshot="$BRAND/bmc-cover-3200x800@2x.png" "file://$PWD/bmc-cover.html"
 
 # Icons (screenshot each SVG at its own size with a transparent background)
 for f in favicon apple-touch logo-tile; do

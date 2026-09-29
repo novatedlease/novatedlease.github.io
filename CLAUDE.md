@@ -61,9 +61,14 @@ What changed in the repo:
 
 Related, outside this repo:
 
-- The Buy Me a Coffee page cover (buymeacoffee.com/changyang1230) uses the same
-  1600×400 design as `og-long.png`. BMaC's stated cover size is 1600×400; on
+- The Buy Me a Coffee page cover (buymeacoffee.com/changyang1230) is its own
+  source, `new-site/brand/bmc-cover.html`: **title and mark only**. It started
+  as the `og-long.png` design, but BMaC scales the 1600×400 cover to the
+  viewport width, centre-crops it to a shorter band, and floats the
+  About/Support cards over the lower half — so the tagline and chips were
+  cropped or hidden and the headline read enormous (Dr Yang, 2026-09-08). On
   phones it crops toward the centre, so keep essentials away from the edges.
+  Rendered PNGs go to iCloud `novatedlease-brand/`, not the site.
 - The design was explored on a Claude Design canvas (four directions; "A · Dark
   editorial" chosen; alternatives kept on a second page):
   https://claude.ai/code/artifact/2e0d2c20-2767-40df-a048-8f776d11e7b1

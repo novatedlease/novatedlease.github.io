@@ -10,3 +10,6 @@ new-site/dist/
 # Private notes (symlink to iCloud novatedlease-private/); never commit
 private
 private/
+
+# Astro build cache
+new-site/.astro/
