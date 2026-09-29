@@ -6,3 +6,7 @@
 # Node
 new-site/node_modules/
 new-site/dist/
+
+# Private notes (symlink to iCloud novatedlease-private/); never commit
+private
+private/

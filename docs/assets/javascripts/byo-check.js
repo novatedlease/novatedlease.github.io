@@ -513,7 +513,8 @@
       aliases: ["DET Victoria", "DoE Victoria", "Victorian Department of Education", "VIC Department of Education", "Victoria Education", "Victorian Schools", "VIC Schools", "Victorian public schools"],
       group: "Victorian Education",
       status: "possible",
-      notes: ""
+      notes: "Self-managed leases are permitted, but finance must be arranged directly with a bank (e.g. CommBank, Westpac); third-party introducers are not accepted.",
+      sources: [{ type: "employee", date: "2026-04-21" }]
     },
     {
       name: "Eastern Health",
