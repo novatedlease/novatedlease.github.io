@@ -6,7 +6,7 @@
       group: "WA Health",
       status: "possible",
       notes: "",
-      sources: [{ type: "industry", date: "2026-09-15" }]
+      sources: [{ type: "industry", date: "2026-04-12" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "East Metropolitan Health Service",
@@ -14,7 +14,7 @@
       group: "WA Health",
       status: "possible",
       notes: "",
-      sources: [{ type: "author", date: "2026-03-09" }, { type: "industry", date: "2026-09-15" }]
+      sources: [{ type: "author", date: "2026-03-09" }, { type: "industry", date: "2026-04-12" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "North Metropolitan Health Service",
@@ -22,21 +22,23 @@
       group: "WA Health",
       status: "possible",
       notes: "",
-      sources: [{ type: "industry", date: "2026-09-15" }]
+      sources: [{ type: "industry", date: "2026-04-12" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Child and Adolescent Health Service",
       aliases: ["CAHS", "Perth Children's Hospital", "PCH", "CAMHS", "Child and Adolescent Mental Health Services", "Child and Adolescent Mental Health", "Princess Margaret Hospital", "PMH", "Community Child Health", "Neonatology WA"],
       group: "WA Health",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-04-12" }]
     },
     {
       name: "WA Country Health Service",
       aliases: ["WACHS", "WA Country Health", "Country Health WA", "Broome Regional Hospital", "Kalgoorlie Health Campus", "Albany Health Campus", "Geraldton Hospital", "Bunbury Hospital", "Midwest Health", "Kimberley Health", "Goldfields Health", "Pilbara Health", "South West Health", "Wheatbelt Health", "Great Southern Health"],
       group: "WA Health",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-04-12" }]
     },
     {
       name: "Department of Education WA",
@@ -89,7 +91,8 @@
       aliases: ["ATO", "Tax Office"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-04-21" }]
     },
     {
       name: "Services Australia",
@@ -136,7 +139,7 @@
       group: "Victoria",
       status: "not_available",
       notes: "",
-      sources: [{ type: "industry", date: "2026-05-22" }]
+      sources: [{ type: "industry", date: "2026-04-21" }, { type: "industry", date: "2026-05-22" }]
     },
     {
       name: "Royal Melbourne Hospital",
@@ -489,7 +492,7 @@
       group: "Victoria",
       status: "possible",
       notes: "",
-      sources: [{ type: "industry", date: "2026-09-15" }]
+      sources: [{ type: "industry", date: "2026-06-16" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Allianz",
