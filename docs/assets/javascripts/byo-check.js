@@ -6,7 +6,7 @@
       group: "WA Health",
       status: "possible",
       notes: "",
-      sources: [{ type: "industry", date: "2026-04-12" }, { type: "industry", date: "2026-09-15" }]
+      sources: [{ type: "industry", date: "2026-04-12" }, { type: "industry", date: "2026-05-20" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "East Metropolitan Health Service",
@@ -22,7 +22,7 @@
       group: "WA Health",
       status: "possible",
       notes: "",
-      sources: [{ type: "industry", date: "2026-04-12" }, { type: "industry", date: "2026-09-15" }]
+      sources: [{ type: "industry", date: "2026-04-12" }, { type: "industry", date: "2026-05-20" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Child and Adolescent Health Service",
@@ -45,14 +45,16 @@
       aliases: ["DoE WA", "WA Education", "WA Dept of Education", "WA Department of Education", "WA schools", "Education WA", "WA public schools"],
       group: "WA Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-20" }]
     },
     {
       name: "WA Government",
       aliases: ["Western Australia", "WA Public Service", "WA State Government", "Western Australian Government", "WA Gov", "Western Australian Public Sector", "WAPOL", "WA Police"],
       group: "WA Government",
       status: "possible",
-      notes: "Applies broadly across the WA public sector. Individual agency arrangements may vary — confirm with your specific agency's HR or payroll team."
+      notes: "Applies broadly across the WA public sector. Individual agency arrangements may vary — confirm with your specific agency's HR or payroll team.",
+      sources: [{ type: "industry", date: "2026-05-20" }]
     },
     {
       name: "SA Government",
@@ -60,7 +62,7 @@
       group: "SA Government",
       status: "possible",
       notes: "Applies broadly across the SA public sector. Individual agency arrangements may vary — confirm with your specific agency's HR or payroll team. SA Government compliance rules require any BYO lease to be set up on a 2-month deferred finance method — this is part of the agreement with their salary packaging provider (Smart Salary) to ensure payroll deductions are established within the agreed timeframe.",
-      sources: [{ type: "industry", date: "2026-05-21" }]
+      sources: [{ type: "industry", date: "2026-05-20" }, { type: "industry", date: "2026-05-21" }, { type: "industry", date: "2026-08-04" }]
     },
     {
       name: "Monash Health",
@@ -68,7 +70,7 @@
       group: "Victoria",
       status: "possible",
       notes: "",
-      sources: [{ type: "industry", date: "2026-05-21" }, { type: "industry", date: "2026-09-15" }]
+      sources: [{ type: "industry", date: "2026-05-20" }, { type: "industry", date: "2026-05-21" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Department of Defence",
@@ -92,7 +94,7 @@
       group: "Australian Federal Government",
       status: "possible",
       notes: "",
-      sources: [{ type: "industry", date: "2026-04-21" }]
+      sources: [{ type: "industry", date: "2026-04-21" }, { type: "industry", date: "2026-05-22" }]
     },
     {
       name: "Services Australia",
@@ -183,7 +185,8 @@
       aliases: ["Footscray Hospital", "Sunshine Hospital", "Williamstown Hospital", "Sunbury Day Hospital", "Western Health Victoria"],
       group: "Victoria",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-06" }]
     },
     {
       name: "Cabrini Health",
@@ -289,7 +292,7 @@
       group: "Mining & Resources",
       status: "not_available",
       notes: "",
-      sources: [{ type: "employee", date: "2026-05-23" }]
+      sources: [{ type: "employee", date: "2026-05-23" }, { type: "industry", date: "2026-07-28" }]
     },
     {
       name: "BHP",
@@ -297,14 +300,15 @@
       group: "Mining & Resources",
       status: "not_available",
       notes: "",
-      sources: [{ type: "employee", date: "2026-07-28" }]
+      sources: [{ type: "industry", date: "2026-07-28" }, { type: "employee", date: "2026-07-28" }]
     },
     {
       name: "Fortescue",
       aliases: ["Fortescue Metals Group", "FMG", "Fortescue Future Industries"],
       group: "Mining & Resources",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-07-28" }]
     },
     {
       name: "Australian Gas Networks",
@@ -319,49 +323,56 @@
       aliases: ["Epworth", "Epworth Richmond", "Epworth Eastern", "Epworth Hawthorn", "Epworth Brighton", "Epworth Camberwell", "Epworth Geelong", "Epworth Cliveden", "Epworth Freemasons", "Epworth Freemasons Clarendon Street", "Epworth Freemasons Victoria Parade", "Epworth Specialist Centre Berwick", "Epworth Specialist Centre Lilydale"],
       group: "Victoria",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-29" }]
     },
     {
       name: "RACV",
       aliases: ["Royal Automobile Club of Victoria"],
       group: "Victoria",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-27" }]
     },
     {
       name: "Brisbane City Council",
       aliases: ["BCC", "Brisbane Council", "Brisbane City", "City of Brisbane"],
       group: "Queensland Local Government",
       status: "not_available",
-      notes: "Panel of providers available."
+      notes: "Panel of providers available.",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "Logan City Council",
       aliases: ["Logan Council", "Logan City", "Logan", "City of Logan"],
       group: "Queensland Local Government",
       status: "not_available",
-      notes: "Panel of providers available."
+      notes: "Panel of providers available.",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "Moreton Bay Regional Council",
       aliases: ["MBRC", "Moreton Bay Council", "Moreton Bay"],
       group: "Queensland Local Government",
       status: "not_available",
-      notes: "Panel of providers available."
+      notes: "Panel of providers available.",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "Woolworths Group",
       aliases: ["Woolworths", "Woolies", "WOW", "Woolworths Supermarkets", "BIG W", "Big W"],
       group: "Retail",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "Crown Resorts",
       aliases: ["Crown Casino", "Crown Melbourne", "Crown Perth", "Crown Sydney", "Crown Limited"],
       group: "Hospitality",
-      status: "not_available",
-      notes: ""
+      status: "possible",
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-08" }]
     },
     {
       name: "Department of Agriculture, Fisheries and Forestry",
@@ -376,42 +387,48 @@
       aliases: ["Sydney Catholic Education", "Catholic Education Diocese of Sydney", "SCS", "Archdiocese of Sydney schools", "Catholic Education Office Sydney", "CEO Sydney"],
       group: "NSW Education",
       status: "not_available",
-      notes: "Panel of providers available."
+      notes: "Panel of providers available.",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "Department of Energy, Environment and Climate Action",
       aliases: ["DEECA", "Dept of Energy Vic", "Department of Energy Victoria", "Victorian Department of Energy", "Energy Environment Climate Action Victoria"],
       group: "Victoria Government",
       status: "not_available",
-      notes: "Panel of providers available."
+      notes: "Panel of providers available.",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "Queensland Rail",
       aliases: ["QR", "QLD Rail", "Qld Rail", "Queensland Railways"],
       group: "Queensland Government",
       status: "not_available",
-      notes: "Panel of providers available."
+      notes: "Panel of providers available.",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "City of Adelaide",
       aliases: ["Adelaide City Council", "Adelaide Council", "CoA", "ACC"],
       group: "SA Local Government",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "Macquarie University",
       aliases: ["Macquarie Uni", "MQU", "MQ", "MQ University", "Macquarie Uni Sydney"],
       group: "NSW Universities",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "SINCH",
       aliases: ["Sinch Australia", "Sinch AB", "CLX Communications", "MessageMedia"],
       group: "Technology",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-01" }]
     },
     {
       name: "NSW Department of Customer Service",
@@ -426,21 +443,24 @@
       aliases: ["Thales Australia", "Thales Group Australia", "Thales"],
       group: "Defence & Technology",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-03" }]
     },
     {
       name: "Queensland Government",
       aliases: ["QLD Government", "Qld Government", "Queensland Public Service", "QLD Govt", "Queensland State Government", "Queensland Public Sector"],
       group: "Queensland Government",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-05" }, { type: "industry", date: "2026-09-06" }]
     },
     {
       name: "Tasmanian Government",
       aliases: ["TAS Government", "Tas Government", "Tasmanian State Service", "TAS Govt", "Tasmania Government", "Tasmanian Public Service", "Tasmanian Public Sector"],
       group: "Tasmanian Government",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-05" }, { type: "industry", date: "2026-09-06" }]
     },
     {
       name: "NSW Department of Education",
@@ -448,28 +468,31 @@
       group: "NSW Education",
       status: "possible",
       notes: "BYO confirmed possible for teachers (Sept 2026). Earlier reports said self-managed leases were only accepted through Smartleasing or National Australia Bank \u2014 check which financiers payroll will accept.",
-      sources: [{ type: "employee", date: "2026-06-08" }, { type: "industry", date: "2026-09-07" }]
+      sources: [{ type: "industry", date: "2026-06-08" }, { type: "industry", date: "2026-09-07" }]
     },
     {
       name: "Zoetis Australia",
       aliases: ["Zoetis", "Zoetis Inc Australia", "Zoetis Australia Research and Manufacturing"],
       group: "Pharmaceutical",
       status: "not_available",
-      notes: "Salary packaging is contracted to an undisclosed exclusive provider — BYO finance is not available."
+      notes: "Salary packaging is contracted to an undisclosed exclusive provider — BYO finance is not available.",
+      sources: [{ type: "industry", date: "2026-06-08" }]
     },
     {
       name: "RACGP",
       aliases: ["Royal Australian College of General Practitioners", "Royal Australian College of GPs", "Australian College of General Practitioners"],
       group: "Healthcare",
       status: "not_available",
-      notes: "Exclusive salary packaging provider (undisclosed) — BYO finance is not available."
+      notes: "Exclusive salary packaging provider (undisclosed) — BYO finance is not available.",
+      sources: [{ type: "industry", date: "2026-06-08" }]
     },
     {
       name: "EGIS Group",
       aliases: ["EGIS", "Egis", "Egis Group Australia", "Egis Australia", "Egis Pty Ltd"],
       group: "Engineering & Consulting",
       status: "not_available",
-      notes: "Exclusive salary packaging provider (undisclosed) — BYO finance is not available."
+      notes: "Exclusive salary packaging provider (undisclosed) — BYO finance is not available.",
+      sources: [{ type: "industry", date: "2026-06-08" }]
     },
     {
       name: "Melbourne Archdiocese Catholic Schools",
