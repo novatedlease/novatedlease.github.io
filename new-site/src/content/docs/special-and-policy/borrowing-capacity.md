@@ -15,13 +15,15 @@ By now, most people looking into a novated lease hopefully realise that one of i
 So, for the first time in this site's history, I asked an appropriately qualified expert to contribute. The modelling and the core write-up below were contributed by **[Leonard Nagawidjaja](https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/)** of [AA Finance Solutions](https://www.aafinancesolutions.com.au/), an MFAA-approved credit adviser with over 15 years in the industry (Australian Credit Licence #462491), who ran a matrix of scenarios through the **Bankwest** and **Macquarie** servicing calculators at my request. His section is presented as he wrote it; the results grid, the explanation of the assessment methods, and the commentary that follows are mine, based on Leonard's calculations.
 
 :::info[The short version]
-- **Lease length has a big impact.** A short lease limits your exposure to [early-termination risk](/risks/early-termination/), but it raises the fortnightly payment — and a servicing calculator only looks at the payment. On these numbers a **2-year EV novated lease costs 2.3× to 4.9× the car's price** in borrowing power, depending on the lender and the lease's interest rate. A **5-year EV lease costs 1.7× to 2.1×**.
+- **Lease length has a big impact.** A short lease limits your exposure to [early-termination risk](/risks/early-termination/), but it raises the fortnightly payment — and a servicing calculator only looks at the payment. On these numbers a **2-year EV novated lease costs 2.3× to 2.6× the car's price** in borrowing power, depending on the lender and the lease's interest rate. A **5-year EV lease costs 1.7× to 2.0×**.
 
 - **Your income level matters just as much.** The same 5-year novated lease that costs 1.7× the car's price on a $130,000 income costs only **1.3×** on $300,000.
 
-- **A five-year novated lease costs less borrowing power than a car loan.** This was the surprise. A five-year car loan cost 2.6×–3.2× the car's price in borrowing power; a five-year EV lease cost 1.7×–2.1×, and even the petrol lease (2.4×–2.6×) came in under the petrol car loan (2.9×–3.2×). Only a two-year lease, at one of the two lenders, came out clearly worse. The common assumption that a novated lease must hurt your borrowing capacity more than a car loan does not hold on these numbers.
+- **A five-year novated lease costs less borrowing power than a car loan.** This was the surprise. A five-year car loan cost 2.6×–3.2× the car's price in borrowing power; a five-year EV lease cost 1.7×–2.0×, and even the petrol lease (2.5×–2.6×) came in under the petrol car loan (2.9×–3.2×). The worst lease in the grid, a two-year lease at 15%, only drew level with the car loan. The common assumption that a novated lease must hurt your borrowing capacity more than a car loan does not hold on these numbers.
 
-- **What to actually do:** get a real novated lease quote, then ask a mortgage broker to run your borrowing capacity **with and without it**. How the lender treats the lease — which matters most on a short lease — is set by each lender's credit policy, which brokers can see and consumers cannot.
+- **Both lenders assess the lease the same way.** Bankwest and Macquarie both assess you on the reduced salary that actually reaches your payslip, and do not add the pre-tax deduction back as a liability ([Method 3](#how-lenders-assess-a-novated-lease)).
+
+- **What to actually do:** get a real novated lease quote, then ask a mortgage broker to run your borrowing capacity **with and without it**. Other lenders' treatment of the lease is set by their credit policy, which brokers can see and consumers cannot.
 
 [Skip to the full modelling grid ↓](#the-full-modelling-grid) — every scenario, both lenders, each assessment method.
 :::
@@ -184,27 +186,31 @@ For borrowers planning to purchase a property, a vehicle finance decision can ha
 
 ## How lenders assess a novated lease
 
-Leonard's last point is worth making explicit. A car loan is unambiguous: it is a debt with a repayment, and every lender treats it the same way. A novated lease is not a debt in your name at all — it is a deduction from your payslip — and lenders take one of two views about what to do with it. Each lender's credit policy specifies which of the two lease methods below it uses, and tells mortgage brokers how to enter the lease figures accordingly.
+Leonard's last point is worth making explicit. A car loan is unambiguous: it is a debt with a repayment, and every lender treats it the same way. A novated lease is not a debt in your name at all — it is a deduction from your payslip — and a lender can take one of two views about what to do with it. Each lender's credit policy specifies which of the two lease methods below it uses, and tells mortgage brokers how to enter the lease figures accordingly.
 
 | | How the lender enters it | What the borrower is assessed on |
 | --- | --- | --- |
 | **Method 1 — full liability** *(car loans only)* | The repayment is entered as an ongoing commitment, and the borrower's income is taken at the full salary | $130,000 taxable income, **minus** the car loan's $678.49 per fortnight repayment and running costs |
 | **Method 2 — liability plus tax-free add-back** | Same liability, but the sacrificed amount is added back as non-taxable income | $114,671 taxable + $15,329 non-taxable income, minus a $589.57 per fortnight liability |
-| **Method 3 — no liability, reduced income** | The lease is not recorded as a liability at all; the borrower is simply assessed on the reduced salary that actually hits their payslip | $114,671 taxable income, no liability |
+| **Method 3 — reduced income** | The pre-tax deduction is not recorded as a liability; the borrower is simply assessed on the reduced salary that actually hits their payslip. Any post-tax part of the lease (the [ECM](/start-here/glossary/) contribution on a petrol car) is still entered as a liability | $114,671 taxable income, no liability |
 
 *(Method 2 and 3 figures are for the 5-year, 9% EV lease. $589.57 per fortnight pre-tax × 26 = $15,329 per year.)*
 
-The Method 2 and Method 3 columns are two *ways of entering the same lease* into a servicing calculator. They are not a claim that Bankwest uses one and Macquarie uses the other.
+**Both Bankwest and Macquarie use Method 3.** Leonard has confirmed this for both, and Macquarie's guidance to brokers spells it out: reduce the applicant's income by the pre-tax lease deduction, enter only the post-tax part of the lease as a liability, and enter no liability at all when the lease is paid entirely pre-tax, as an FBT-exempt EV lease usually is. Macquarie also asks brokers to record how the borrower will clear the balloon at the end of the lease.
 
-Every lender does have a defined position on how a novated lease is treated. It is written into their credit policy and supplied to accredited mortgage brokers — it is simply **not published for consumers**. That asymmetry is the practical problem: a broker can tell you where a given lender sits and how it will read your specific employer's arrangement, and you generally cannot work it out for yourself from anything public.
+Method 2 is shown in the grid below for comparison. We have not yet confirmed a lender that uses it.
 
-So the number that matters most to your result is knowable — just not by you, directly. Policies also change, and these scenarios were run in September 2026.
+Every lender has a defined position on how a novated lease is treated. It is written into their credit policy and supplied to accredited mortgage brokers — it is simply **not published for consumers**. A broker can tell you where a given lender sits and how it will read your specific employer's arrangement; you generally cannot work it out for yourself from anything public. Policies also change, and these scenarios were run in September 2026.
+
+:::note[Updated 29 September 2026]
+An earlier version of this page showed much larger Method 2 losses for Macquarie's two-year leases ($290,000 and $300,000, 4.8× and 4.9× the car's price). Leonard re-ran those scenarios and corrected them to $140,000 and $160,000; the Macquarie Method 2 figures below are the corrected ones. The page also previously said it was not known which method each lender uses. Both use Method 3.
+:::
 
 ---
 
 ## The full modelling grid
 
-Leonard's article quotes the headline numbers. Below is every scenario the model produced, so you can see the full spread. Car loans are shown under Method 1 only and novated leases under Methods 2 and 3 only, matching how lenders actually assess each.
+Leonard's article quotes the headline numbers. Below is every scenario the model produced, so you can see the full spread. Car loans are shown under Method 1 only and novated leases under Methods 2 and 3 only, matching how lenders actually assess each. **Method 3 is the column that applies at both of these lenders**; Method 2 shows what the same lease would look like at a lender that adds the deduction back instead.
 
 Each capacity figure carries a second line: how much borrowing power the scenario costs against that lender's no-car baseline, and what that loss works out to as a multiple of the car's drive-away price ($60,789 for the BYD, $58,807 for the RAV4).
 
@@ -228,10 +234,10 @@ Each capacity figure carries a second line: how much borrowing power the scenari
 | Scenario | Pre-tax per fortnight (annual) | Post-tax per fortnight | Taxable income | M1 — full liability | M2 — tax-free add-back | M3 — no liability |
 | --- | --- | --- | --- | --- | --- | --- |
 | Baseline — no car | — | — | $130,000 | **$690,000** | **$690,000** | **$690,000** |
-| EV novated lease · 5 yr · 9% | [$589.57 ($15,329)][calc-ev5y9] | — | $114,671 | — | $570,000<br /><small>−$120,000, 2.0× car</small> | $585,000<br /><small>−$105,000, 1.7× car</small> |
-| EV novated lease · 5 yr · 15% | [$682.45 ($17,744)][calc-ev5y15] | — | $112,256 | — | $560,000<br /><small>−$130,000, 2.1× car</small> | $568,000<br /><small>−$122,000, 2.0× car</small> |
-| EV novated lease · 2 yr · 9% | [$774.27 ($20,131)][calc-ev2y9] | — | $109,869 | — | $400,000<br /><small>−$290,000, 4.8× car</small> | $550,000<br /><small>−$140,000, 2.3× car</small> |
-| EV novated lease · 2 yr · 15% | [$878.55 ($22,842)][calc-ev2y15] | — | $107,158 | — | $390,000<br /><small>−$300,000, 4.9× car</small> | $540,000<br /><small>−$150,000, 2.5× car</small> |
+| EV novated lease · 5 yr · 9% | [$589.57 ($15,329)][calc-ev5y9] | — | $114,671 | — | $580,000<br /><small>−$110,000, 1.8× car</small> | $585,000<br /><small>−$105,000, 1.7× car</small> |
+| EV novated lease · 5 yr · 15% | [$682.45 ($17,744)][calc-ev5y15] | — | $112,256 | — | $565,000<br /><small>−$125,000, 2.1× car</small> | $568,000<br /><small>−$122,000, 2.0× car</small> |
+| EV novated lease · 2 yr · 9% | [$774.27 ($20,131)][calc-ev2y9] | — | $109,869 | — | $550,000<br /><small>−$140,000, 2.3× car</small> | $550,000<br /><small>−$140,000, 2.3× car</small> |
+| EV novated lease · 2 yr · 15% | [$878.55 ($22,842)][calc-ev2y15] | — | $107,158 | — | $530,000<br /><small>−$160,000, 2.6× car</small> | $540,000<br /><small>−$150,000, 2.5× car</small> |
 | ICE novated lease · 5 yr · 9% | [$220.81 ($5,741)][calc-ice5y9] | $417.20 (ECM) | $124,259 | — | $550,000<br /><small>−$140,000, 2.4× car</small> | $540,000<br /><small>−$150,000, 2.6× car</small> |
 | Car loan · EV (BYD, $60,789) · 5 yr · 6.49% | — | [$555.07 + $123.42 running][calc-loan] | $130,000 | $505,000<br /><small>−$185,000, 3.0× car</small> | — | — |
 | Car loan · ICE (RAV4, $58,807) · 5 yr · 6.49%[^label] | — | $537.20 + $172.19 running | $130,000 | $500,000<br /><small>−$190,000, 3.2× car</small> | — | — |
@@ -255,11 +261,9 @@ Only the 5-year, 9% EV lease was modelled at this income level.
 
 ## What the numbers actually say
 
-### 1. The assessment method matters little on a five-year lease, and a lot on a two-year one
+### 1. Method 2 or Method 3 barely changes the result, and both lenders use Method 3
 
-At Bankwest, Methods 2 and 3 give identical results in every row. At Macquarie, the five-year leases differ by $8,000 to $15,000 between the two methods — small against a six-figure reduction.
-
-The two-year leases are another matter. Macquarie's Method 2 puts them at $400,000 and $390,000, against $550,000 and $540,000 under Method 3. That is a **$150,000 difference produced by nothing but how the lender interprets the lease** — same borrower, same car, same lease, same lender.
+At Bankwest, Methods 2 and 3 give identical results in every row. At Macquarie the two methods differ by at most $10,000 in any row, small against a six-figure reduction. Since both lenders use Method 3 anyway, the Method 3 column is the one to read.
 
 ### 2. The "3× the car" rule of thumb is roughly right for a car loan
 
@@ -274,21 +278,21 @@ This was the claim I most wanted to test, and the modelling is set up to test it
 
 So the folklore holds up well for conventional car finance — 2.6× to 3.2× across four combinations, with 3× sitting squarely in the middle.
 
-For the *five-year* EV leases the multiple is **1.7× to 2.1×** — better than the equivalent car loan by roughly the price of the car itself. The five-year petrol lease, at 2.4× to 2.6×, still beats the petrol car loan (2.9× to 3.2×), though by less, for the reason in point 5. The two-year leases are worse again, for the reason in the next point.
+For the *five-year* EV leases the multiple is **1.7× to 2.0×** — better than the equivalent car loan by roughly the price of the car itself. The five-year petrol lease, at 2.5× to 2.6×, still beats the petrol car loan (2.9× to 3.2×), though by less, for the reason in point 5. The two-year leases are worse again, for the reason in the next point.
 
 Note, though, that whichever way it is financed over five years, a ~$60,000 car removes somewhere between $105,000 and $190,000 of borrowing power on a $130,000 income.
 
 ### 3. Longer leases are better for servicing — the opposite of the usual risk advice
 
-A 2-year lease has a much higher fortnightly payment than a 5-year lease on the same car, and servicing calculators only care about the payment. At Bankwest, stretching a 9% EV lease from 2 years to 5 years recovers $33,100 of capacity under either lease method.
+A 2-year lease has a much higher fortnightly payment than a 5-year lease on the same car, and servicing calculators only care about the payment. Stretching a 9% EV lease from 2 years to 5 years recovers $33,100 of capacity at Bankwest and $35,000 at Macquarie.
 
-Macquarie is where this gets alarming. Under Method 2, its two-year lease rows cost **$290,000 and $300,000** of capacity — 4.8× and 4.9× the price of the car. Nothing else in the entire grid comes close, car loans included. Under Method 3 the same two leases cost $140,000 and $150,000 — less than the car loan. At this lender, whether a short lease is a problem comes down to a method you cannot choose.
+The two-year leases cost 2.3× to 2.6× the car's price in borrowing power. At worst (Bankwest, 15%) that is level with a car loan on the same car: most of the lease's advantage is gone.
 
 This runs against the general advice in [lease length and risk](/risks/lease-length-and-risk/), where a shorter lease reduces your exposure to [early-termination loss](/risks/early-termination/). For borrowing capacity it points the other way: the shorter the lease, the bigger the hit.
 
 ### 4. The interest rate inside the lease impacts your borrowing capacity
 
-Going from 9% to 15% on the same 5-year EV lease costs $16,650 of Bankwest capacity under either method, and $10,000 to $17,000 at Macquarie. The lease rate is already [the least transparent number in a novated lease quote](/costs-and-savings/why-nl-interest-looks-high/); this is one more reason to extract it and negotiate it rather than accept the first quote.
+Going from 9% to 15% on the same 5-year EV lease costs $16,650 of Bankwest capacity and $17,000 at Macquarie. The lease rate is already [the least transparent number in a novated lease quote](/costs-and-savings/why-nl-interest-looks-high/); this is one more reason to extract it and negotiate it rather than accept the first quote.
 
 ### 5. An ICE novated lease behaves worse than it looks
 
@@ -305,7 +309,8 @@ At $130,000, the 9% EV lease costs 15.5% of Bankwest capacity. At $300,000, the 
 ## What to do with this if you are buying a house
 
 - **Get the servicing test run before you sign the lease, not after.** A broker can model your actual numbers in ten minutes. A four or five-year lease commitment cannot be unwound cheaply — see [what happens on early termination](/risks/early-termination/).
-- **Ask the specific question: how does this lender treat a salary-sacrificed novated lease?** "Does a novated lease affect borrowing capacity?" gets you a useless yes. You want to know whether the lender assesses you on your reduced salary (Method 3) or enters the deduction as a liability with the sacrificed amount added back as non-taxable income (Method 2), and whether the answer differs between the lenders on your shortlist. It matters most on a short lease.
+- **Ask the specific question: how does this lender treat a salary-sacrificed novated lease?** "Does a novated lease affect borrowing capacity?" gets you a useless yes. You want to know whether the lender assesses you on your reduced salary (Method 3, as Bankwest and Macquarie do) or treats it some other way, and whether the answer differs between the lenders on your shortlist.
+- **Have a plan for the balloon.** Lenders want to know how you will clear the residual at the end of the lease: savings, selling the car, or rolling into a new lease. Tell your broker up front.
 - **If the gap is a deal-breaker, the order of operations matters.** Settling the mortgage first and starting the lease afterwards is the standard advice for a reason. The reverse order is what costs people six figures of capacity.
 - **Do not forget the second-order effects.** For an FBT-exempt EV, the lease also raises your [adjusted taxable income via RFBA](/costs-and-savings/fbt-rfba-ati-explained/), with flow-on consequences for [childcare subsidy](/special-and-policy/childcare-subsidy/), HELP repayments and Division 293 — none of which show up in a servicing calculator.
 - **Separate this decision from the tax question entirely.** Borrowing capacity is not a cost you can net off against the lease saving, and [the "tax saved" figure on your quote](/costs-and-savings/why-tax-saved-is-wrong/) was never measuring this in the first place. Run the financial comparison in [the calculator](/calculator/), then treat the servicing impact as a separate constraint that either fits your plans or does not.
