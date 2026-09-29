@@ -204,6 +204,13 @@
       notes: "Smart Salary is the exclusive/panel salary packaging provider, but a self-managed (BYO) novated lease is permitted. Applies across all St Vincent's Public and Private sites nationally."
     },
     {
+      name: "St John of God Health Care",
+      aliases: ["St John of God", "SJOG", "SJGHC", "St John of God Hospital", "St John of God Murdoch", "St John of God Subiaco", "St John of God Midland", "St John of God Mt Lawley", "St John of God Geelong", "St John of God Ballarat", "St John of God Bendigo", "St John of God Accord"],
+      group: "Healthcare",
+      status: "not_available",
+      notes: ""
+    },
+    {
       name: "Ambulance Victoria",
       aliases: ["Ambulance VIC", "AV", "Victorian Ambulance"],
       group: "Victoria",
