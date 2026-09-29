@@ -5,21 +5,24 @@
       aliases: ["SMHS", "South Metro Health", "South Metro", "South Metropolitan Health", "WA Health", "Fiona Stanley", "Fremantle Hospital"],
       group: "WA Health",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
     {
       name: "East Metropolitan Health Service",
       aliases: ["EMHS", "East Metro Health", "East Metro", "East Metropolitan Health", "WA Health", "Royal Perth Hospital", "RPH", "Bentley Hospital", "Armadale Hospital"],
       group: "WA Health",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "author", date: "2026-03-09" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "North Metropolitan Health Service",
       aliases: ["NMHS", "North Metro Health", "North Metro", "North Metropolitan Health", "WA Health", "King Edward Memorial Hospital", "KEMH", "Sir Charles Gairdner Hospital", "SCGH", "Osborne Park Hospital", "Graylands"],
       group: "WA Health",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Child and Adolescent Health Service",
@@ -54,28 +57,32 @@
       aliases: ["South Australia", "SA Public Service", "SA State Government", "South Australian Government", "SA Gov", "South Australian Public Sector", "SAAS", "SA Ambulance"],
       group: "SA Government",
       status: "possible",
-      notes: "Applies broadly across the SA public sector. Individual agency arrangements may vary — confirm with your specific agency's HR or payroll team. SA Government compliance rules require any BYO lease to be set up on a 2-month deferred finance method — this is part of the agreement with their salary packaging provider (Smart Salary) to ensure payroll deductions are established within the agreed timeframe."
+      notes: "Applies broadly across the SA public sector. Individual agency arrangements may vary — confirm with your specific agency's HR or payroll team. SA Government compliance rules require any BYO lease to be set up on a 2-month deferred finance method — this is part of the agreement with their salary packaging provider (Smart Salary) to ensure payroll deductions are established within the agreed timeframe.",
+      sources: [{ type: "industry", date: "2026-05-21" }]
     },
     {
       name: "Monash Health",
       aliases: ["Monash Medical Centre", "MMC", "Southern Health", "Monash Medical", "Monash Hospital", "Dandenong Hospital", "Casey Hospital"],
       group: "Victoria",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-21" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Department of Defence",
       aliases: ["DoD", "Defence", "ADF", "Australian Defence Force", "Defence APS", "Dept of Defence", "Dept Defence", "Australian Army", "Royal Australian Navy", "Royal Australian Air Force", "RAAF", "RAN"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-21" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "National Disability Insurance Agency",
       aliases: ["NDIA", "NDIS Agency", "National Disability Insurance Scheme Agency", "NDIS"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-21" }, { type: "industry", date: "2026-05-22" }]
     },
     {
       name: "Australian Taxation Office",
@@ -89,7 +96,8 @@
       aliases: ["Centrelink", "Medicare", "Child Support", "Services Aus"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-22" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Australian Bureau of Statistics",
@@ -103,42 +111,48 @@
       aliases: ["ACMA", "Communications and Media Authority", "Australian Communications & Media Authority", "Communications Authority", "Media Authority"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-21" }]
     },
     {
       name: "Australian Federal Government",
       aliases: ["APS", "Commonwealth Government", "Federal Government", "Australian Government", "Commonwealth", "Australian Public Service", "Canberra"],
       group: "Australian Federal Government",
       status: "partial",
-      notes: "Available in some Commonwealth agencies — not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, ATO, ABS, and ACMA (listed separately above). Check with your specific agency's HR."
+      notes: "Available in some Commonwealth agencies — not universal across the APS. Confirmed for Department of Defence, NDIA, Services Australia, ATO, ABS, and ACMA (listed separately above). Check with your specific agency's HR.",
+      sources: [{ type: "industry", date: "2026-05-21" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Sydney Trains",
       aliases: ["Sydney Trains NSW", "Transport for NSW trains"],
       group: "NSW Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-22" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Victoria Police",
       aliases: ["Vic Pol", "VicPol", "Victoria Police Force"],
       group: "Victoria",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-22" }]
     },
     {
       name: "Royal Melbourne Hospital",
       aliases: ["RMH", "Melbourne Health", "The Royal Melbourne"],
       group: "Victoria",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-22" }]
     },
     {
       name: "Bayside Health",
       aliases: ["Alfred Hospital", "The Alfred", "Alfred Health"],
       group: "Victoria",
       status: "possible",
-      notes: "Previously known as Alfred Health / The Alfred Hospital."
+      notes: "Previously known as Alfred Health / The Alfred Hospital.",
+      sources: [{ type: "industry", date: "2026-07-31" }]
     },
     {
       name: "Royal Children's Hospital",
@@ -173,7 +187,8 @@
       aliases: ["Cabrini", "Cabrini Hospital", "Cabrini Malvern", "Cabrini Brighton"],
       group: "Victoria",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-25" }]
     },
     {
       name: "Barwon Health",
@@ -187,49 +202,56 @@
       aliases: ["GV Health", "Goulburn Valley Base Hospital", "Shepparton Hospital"],
       group: "Victoria",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "employee", date: "2026-07-28" }]
     },
     {
       name: "NSW Health",
       aliases: ["New South Wales Health", "NSW Health Service", "Health NSW", "Adolescent and Young Adult Hospice Manly", "Albury Wodonga Health [Albury Campus]", "Armidale Hospital", "Auburn Hospital", "Ballina District Hospital", "Balmain Hospital", "Balranald Multi Purpose Service", "Bankstown Lidcombe Hospital", "Baradine Multi Purpose Service", "Barham Hospital", "Barraba Multi Purpose Service", "Batemans Bay Hospital", "Bathurst Base Hospital", "Batlow/Adelong Multi Purpose Service", "Bellinger River District Hospital", "Belmont Hospital", "Berrigan Multi Purpose Service", "Bingara Multi Purpose Service", "Blacktown Hospital", "Blayney Multi Purpose Service", "Blue Mountains Hospital", "Boggabri Multi Purpose Service", "Bombala Multi Purpose Service", "Bonalbo Hospital", "Boorowa Multi Purpose Service", "Bourke Multi Purpose Service", "Bourke Street Health Service", "Bowral Hospital", "Braeside Hospital", "Braidwood Multi Purpose Service", "Brewarrina Multi Purpose Service", "Broken Hill Hospital", "Bulahdelah Hospital", "Bulli Hospital", "Byron Bay Hospital", "Byron Central Hospital", "Calvary Health Care - Sydney", "Calvary Mater Newcastle", "Camden Hospital", "Campbelltown Hospital", "Canowindra Soldiers Memorial Hospital", "Canterbury Hospital", "Casino and District Memorial Hospital", "Cessnock Hospital", "Cobar Health Service", "Coffs Harbour Hospital", "Coledale Hospital", "Collarenebri Multi Purpose Service", "Concord Repatriation Hospital", "Condobolin Health Service", "Coolah Multi Purpose Service", "Coolamon-Ganmain Multi Purpose Service", "Cooma Hospital and Health Service", "Coonabarabran Health Service", "Coonamble Multi Purpose Service", "Cootamundra Hospital", "Coraki Hospital", "Coral Tree Family Centre", "Corowa Health Service", "Cowra Health Service", "Crookwell District Hospital", "Cudal Health Service", "Culcairn Multi Purpose Service", "Cumberland Hospital", "David Berry Hospital", "Delegate Multi Purpose Service", "Deniliquin Hospital", "Denman Multi Purpose Service", "Dorrigo Multi Purpose Service", "Dubbo Hospital", "Dunedoo Multi Purpose Service", "Dungog Hospital", "Eugowra Memorial Multipurpose Service", "Fairfield Hospital", "Finley Hospital", "Gilgandra Multi Purpose Service", "Glen Innes Hospital", "Gloucester Soldiers' Memorial Hospital", "Goodooga Health Service", "Gosford Hospital", "Goulburn Base Hospital", "Gower Wilson Multi Purpose Service", "Grafton Base Hospital", "Greenwich Hospital", "Grenfell Multi Purpose Service", "Griffith Base Hospital", "Gulargambone Multi Purpose Service", "Gulgong Multi Purpose Service", "Gundagai Hospital", "Gunnedah Hospital", "Guyra Multi Purpose Service", "Hawkesbury Hospital", "Hay Hospital", "Henty Multi Purpose Service", "Hillston Hospital", "Holbrook Hospital", "Hornsby Ku-ring-gai Hospital", "Inverell Hospital", "Ivanhoe Hospital", "Jerilderie Multi Purpose Service", "John Hunter Hospital", "Junee Multi Purpose Service", "Justice Health & Forensic Mental Health", "Justice Health Services", "Karitane", "Kempsey District Hospital", "Kenmore Hospital", "Kiama Hospital", "Kurri Kurri Hospital", "Kyogle Multi Purpose Service", "Lachlan Health Service - Forbes", "Lachlan Health Service - Parkes", "Lake Cargelligo Multi Purpose Service", "Leeton Hospital", "Lightning Ridge Multi Purpose Service", "Lismore Base Hospital", "Lithgow Hospital", "Liverpool Hospital", "Lockhart Hospital", "Long Jetty Health Care Centre", "Lourdes Hospital Dubbo", "Macksville District Hospital", "Maclean District Hospital", "Macquarie Hospital", "Maitland Hospital", "Manilla Hospital", "Manly Hospital", "Manning Hospital", "Menindee Health Service", "Mercy Care Hospital - Albury", "Mercy Care Hospital - Young", "Merriwa Multi Purpose Service", "Milton Ulladulla Hospital", "Molong Health Service", "Mona Vale Hospital", "Moree Hospital", "Morisset Hospital", "Moruya Hospital", "Mount Druitt Hospital", "Mudgee Health Service", "Mullumbimby Hospital", "Murrumburrah-Harden Hospital", "Murwillumbah District Hospital", "Muswellbrook Hospital", "Narrabri Hospital", "Narrandera Hospital", "Narromine Health Service", "Nepean Hospital", "Neringah Hospital", "Nimbin Multi Purpose Service", "Northern Beaches Hospital", "Nyngan Multi Purpose Service", "Oberon Multi Purpose Service", "Orange Health Service", "Pambula Hospital", "Peak Hill Multipurpose Service", "Port Kembla Hospital", "Port Macquarie Base Hospital", "Portland Tabulam Health Centre", "Prince of Wales Hospital", "Queanbeyan Hospital", "Quirindi Hospital", "Riverlands Drug and Alcohol Centre", "Royal Hospital for Women", "Royal North Shore Hospital", "Royal Prince Alfred Hospital", "Royal Prince Alfred Institute of Rheumatology & Orthopaedics", "Royal Rehabilitation Hospital", "Ryde Hospital", "Rylstone Multi Purpose Service", "Sacred Heart Health Service", "Scott Memorial Hospital, Scone", "Shellharbour Hospital", "Shoalhaven Hospital", "Singleton Hospital", "South East Regional Hospital", "Springwood Hospital", "St George Hospital NSW", "St Joseph's Hospital", "Sutherland Hospital", "Sydney Children's Hospital", "Sydney Dental Hospital", "Sydney Hospital / Sydney Eye Hospital", "Tamworth Hospital", "Temora Hospital", "Tenterfield Hospital", "The Children's Hospital at Westmead", "The Tweed Hospital", "Thomas Walker Hospital", "Tibooburra Health Service", "Tingha Multi Purpose Service", "Tocumwal Hospital", "Tomaree Community Hospital", "Tottenham Multipurpose Service", "Trangie Multi Purpose Service", "Tresillian Care Centres", "Tresillian Family Care Centre, Kingswood", "Trundle Multi Purpose Health Service", "Tullamore Multi Purpose Health Service", "Tumbarumba Multi Purpose Service", "Tumut Hospital", "Urana Multi Purpose Service", "Urbenville Multi Purpose Service", "Vegetable Creek Multi Purpose Service Emmaville", "Wagga Wagga Hospital", "Walcha Multi Purpose Service", "Walgett Multipurpose Service", "War Memorial Hospital", "Warialda Multi Purpose Service", "Warren Multi Purpose Service", "Wauchope District Memorial Hospital", "Wee Waa Hospital", "Wellington Health Service", "Wentworth Hospital", "Werris Creek Hospital", "Westmead Hospital", "White Cliffs Health Service", "Wilcannia Multi Purpose Service", "Wilson Memorial Community Hospital, Murrurundi", "Wingham Hospital", "Wollongong Hospital", "Woy Woy Hospital", "Wyalong Hospital", "Wyong Hospital", "Yass District Hospital", "Young Hospital"],
       group: "NSW Government",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-22" }]
     },
     {
       name: "St Vincent's Health Australia",
       aliases: ["St Vincent's Hospital", "St Vincent's Health Network", "St Vincent's Public Hospital", "St Vincent's Private Hospital", "SVHA", "St Vincent's Hospital Sydney", "St Vincent's Hospital Darlinghurst", "St Vincent's Hospital Melbourne", "St Vincent's Hospital Fitzroy"],
       group: "Healthcare",
       status: "possible",
-      notes: "Smart Salary is the exclusive/panel salary packaging provider, but a self-managed (BYO) novated lease is permitted. Applies across all St Vincent's Public and Private sites nationally."
+      notes: "Smart Salary is the exclusive/panel salary packaging provider, but a self-managed (BYO) novated lease is permitted. Applies across all St Vincent's Public and Private sites nationally.",
+      sources: [{ type: "employee", date: "2026-07-31" }]
     },
     {
       name: "St John of God Health Care",
       aliases: ["St John of God", "SJOG", "SJGHC", "St John of God Hospital", "St John of God Murdoch", "St John of God Subiaco", "St John of God Midland", "St John of God Mt Lawley", "St John of God Geelong", "St John of God Ballarat", "St John of God Bendigo", "St John of God Accord"],
       group: "Healthcare",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-07-31" }]
     },
     {
       name: "Ambulance Victoria",
       aliases: ["Ambulance VIC", "AV", "Victorian Ambulance"],
       group: "Victoria",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-22" }]
     },
     {
       name: "Metro Trains Melbourne",
       aliases: ["Metro Trains", "Metro Melbourne", "Melbourne Metro", "MTM"],
       group: "Victoria",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-22" }]
     },
     {
       name: "V/Line",
       aliases: ["VLine", "V Line", "V-Line", "V/Line Victoria"],
       group: "Victoria",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-05-22" }]
     },
     {
       name: "Queensland Health",
@@ -263,14 +285,16 @@
       aliases: ["Rio Tinto Group", "Rio Tinto Australia"],
       group: "Mining & Resources",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "employee", date: "2026-05-23" }]
     },
     {
       name: "BHP",
       aliases: ["BHP Billiton", "BHP Group"],
       group: "Mining & Resources",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "employee", date: "2026-07-28" }]
     },
     {
       name: "Fortescue",
@@ -284,7 +308,8 @@
       aliases: ["AGN", "Australian Gas Networks Limited", "Envestra"],
       group: "Energy & Utilities",
       status: "not_available",
-      notes: "Maxxia is the sole salary packaging provider and self-managed (BYO) finance is not offered. Novated leases are financed through Maxxia's panel of financiers."
+      notes: "Maxxia is the sole salary packaging provider and self-managed (BYO) finance is not offered. Novated leases are financed through Maxxia's panel of financiers.",
+      sources: [{ type: "employee", date: "2026-09-29" }]
     },
     {
       name: "Epworth HealthCare",
@@ -340,7 +365,8 @@
       aliases: ["DAFF", "Dept of Agriculture", "Dept Agriculture", "Australian Department of Agriculture", "Agriculture Fisheries and Forestry", "Dept of Agriculture Fisheries and Forestry"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: "Panel of providers available. BYO confirmed possible (Sept 2026)."
+      notes: "Panel of providers available. BYO confirmed possible (Sept 2026).",
+      sources: [{ type: "industry", date: "2026-09-07" }]
     },
     {
       name: "Sydney Catholic Schools",
@@ -389,7 +415,8 @@
       aliases: ["DCS NSW", "Service NSW", "NSW DCS", "Department of Customer Service NSW"],
       group: "NSW Government",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-03" }]
     },
     {
       name: "Thales Group",
@@ -417,7 +444,8 @@
       aliases: ["NSW DoE", "DoE NSW", "Department of Education NSW", "NSW Education Department", "NSW Public Schools", "NSW Schools", "Education NSW"],
       group: "NSW Education",
       status: "possible",
-      notes: "BYO confirmed possible for teachers (Sept 2026). Earlier reports said self-managed leases were only accepted through Smartleasing or National Australia Bank \u2014 check which financiers payroll will accept."
+      notes: "BYO confirmed possible for teachers (Sept 2026). Earlier reports said self-managed leases were only accepted through Smartleasing or National Australia Bank \u2014 check which financiers payroll will accept.",
+      sources: [{ type: "employee", date: "2026-06-08" }, { type: "industry", date: "2026-09-07" }]
     },
     {
       name: "Zoetis Australia",
@@ -445,7 +473,8 @@
       aliases: ["MACS", "Melbourne Catholic Schools", "Catholic Education Melbourne", "Archdiocese of Melbourne schools", "Catholic Education Office Melbourne", "CEM", "Melbourne Archdiocesan Catholic Schools"],
       group: "Victorian Education",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-06-09" }]
     },
     {
       name: "Department of Education Victoria",
@@ -459,98 +488,112 @@
       aliases: ["EH", "Box Hill Hospital", "BHH", "Maroondah Hospital", "MH", "Angliss Hospital", "AH", "The Angliss", "Upper Ferntree Gully Hospital", "Healesville & District Hospital", "Healesville and District Hospital", "HDH", "Wantirna Health", "WH", "Yarra Ranges Health", "YRH", "Peter James Centre", "PJC", "Turning Point"],
       group: "Victoria",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Allianz",
       aliases: ["Allianz Australia", "Allianz Insurance"],
       group: "Insurance",
       status: "not_available",
-      notes: ""
+      notes: "",
+      sources: [{ type: "employee", date: "2026-07-07" }]
     },
     {
       name: "Yarra Valley Water",
       aliases: ["YVW"],
       group: "Victoria",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-03" }]
     },
     {
       name: "Australian Signals Directorate",
       aliases: ["ASD", "Signals Directorate"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-03" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "EBOS Group",
       aliases: ["EBOS", "EBOS Healthcare", "Symbion"],
       group: "Healthcare",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-03" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Department of Foreign Affairs and Trade",
       aliases: ["DFAT", "Foreign Affairs and Trade"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-03" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "MBB Group",
       aliases: ["MBB"],
       group: "Engineering & Consulting",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-03" }, { type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Marymede Catholic College",
       aliases: ["Marymede", "Marymede College"],
       group: "Victorian Education",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Catholic Education Victoria",
       aliases: ["Catholic Education Vic", "Catholic Education Victoria", "MACS", "Melbourne Archdiocese Catholic Schools", "Catholic Education Melbourne", "CEM", "CECV", "Catholic Education Commission of Victoria", "Victorian Catholic schools"],
       group: "Victorian Education",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Department of Education (Commonwealth)",
       aliases: ["Department of Education", "Federal Department of Education", "Australian Government Department of Education", "Commonwealth Department of Education", "DoE"],
       group: "Australian Federal Government",
       status: "possible",
-      notes: "Most likely the federal department; state education departments are listed separately. Confirm with your HR."
+      notes: "Most likely the federal department; state education departments are listed separately. Confirm with your HR.",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Department of State Development, Infrastructure and Planning (QLD)",
       aliases: ["DSDIP", "State Development QLD", "Queensland Department of State Development", "Department of State Development", "State Development, Infrastructure and Planning", "Dept of State Development"],
       group: "Queensland Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Lindsay Australia",
       aliases: ["Lindsay Transport", "Lindsay Rural", "Lindsay Fresh Logistics", "Lindsay Brothers"],
       group: "Transport & Logistics",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
     {
       name: "SA Police",
       aliases: ["SAPOL", "South Australia Police", "South Australian Police", "SA Police Department"],
       group: "SA Government",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
     {
       name: "Stannards",
       aliases: ["Stannards Accountants and Advisors", "Stannards Accountants", "Stannards Advisors"],
       group: "Professional Services",
       status: "possible",
-      notes: ""
+      notes: "",
+      sources: [{ type: "industry", date: "2026-09-15" }]
     },
   ];
 
@@ -612,6 +655,28 @@
       .replace(/"/g, '&quot;');
   }
 
+  var SOURCE_LABELS = {
+    industry: 'Industry source',
+    employee: 'Confirmed by an employee',
+    author: "Site author's own lease"
+  };
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  function formatSourceDate(iso) {
+    var p = iso.split('-');
+    return parseInt(p[2], 10) + ' ' + MONTHS[parseInt(p[1], 10) - 1] + ' ' + p[0];
+  }
+
+  function renderSources(sources) {
+    if (!sources || !sources.length) return '';
+    return '<ul class="byo-result-card__sources">' +
+      sources.map(function (s) {
+        return '<li>' + escapeHtml(SOURCE_LABELS[s.type] || s.type) +
+          ' · ' + formatSourceDate(s.date) + '</li>';
+      }).join('') +
+      '</ul>';
+  }
+
   function renderResultCard(e) {
     var statusMap = {
       possible: { label: 'BYO Finance: Available', icon: '✅', cls: 'byo-badge--possible' },
@@ -624,6 +689,7 @@
       (e.group ? '<div class="byo-result-card__group">' + escapeHtml(e.group) + '</div>' : '') +
       '<div class="byo-badge ' + st.cls + '">' + st.icon + ' ' + st.label + '</div>' +
       (e.notes ? '<div class="byo-result-card__notes">' + escapeHtml(e.notes) + '</div>' : '') +
+      renderSources(e.sources) +
       '</div>';
   }
 
