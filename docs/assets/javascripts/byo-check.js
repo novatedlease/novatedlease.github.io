@@ -280,6 +280,13 @@
       notes: ""
     },
     {
+      name: "Australian Gas Networks",
+      aliases: ["AGN", "Australian Gas Networks Limited", "Envestra"],
+      group: "Energy & Utilities",
+      status: "not_available",
+      notes: "Maxxia is the sole salary packaging provider and self-managed (BYO) finance is not offered. Novated leases are financed through Maxxia's panel of financiers."
+    },
+    {
       name: "Epworth HealthCare",
       aliases: ["Epworth", "Epworth Richmond", "Epworth Eastern", "Epworth Hawthorn", "Epworth Brighton", "Epworth Camberwell", "Epworth Geelong", "Epworth Cliveden", "Epworth Freemasons", "Epworth Freemasons Clarendon Street", "Epworth Freemasons Victoria Parade", "Epworth Specialist Centre Berwick", "Epworth Specialist Centre Lilydale"],
       group: "Victoria",
