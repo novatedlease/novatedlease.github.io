@@ -19,11 +19,11 @@ So, for the first time in this site's history, I asked an appropriately qualifie
 
 - **Your income level matters just as much.** The same 5-year novated lease that costs 1.7× the car's price on a $130,000 income costs only **1.3×** on $300,000.
 
-- **A five-year novated lease costs less borrowing power than a five-year car loan.** This was the surprise. A five-year car loan cost 2.6×–3.2× the car's price in borrowing power; a five-year EV lease cost 1.7×–2.0×, and even the petrol lease (2.5×–2.6×) came in under the petrol car loan (2.9×–3.2×). The worst lease in the grid, a two-year lease at 15%, only drew level with the car loan. The common assumption that a novated lease must hurt your borrowing capacity more than a car loan does not hold on these numbers.
+- **A five-year novated lease costs less borrowing power than a five-year car loan.** This was the surprise. A five-year car loan cost 2.6×–3.2× the car's price in borrowing power; a five-year EV lease cost 1.7×–2.0×, and even the petrol lease (2.5×–2.6×) came in under the petrol car loan (2.9×–3.2×). The worst lease in the grid, a two-year lease at 15%, only drew level with the car loan. The common assumption that a novated lease must hurt your borrowing capacity more than a car loan does not hold on these numbers. Paying cash still beats both for borrowing power, though it costs you deposit instead ([point 6](#6-paying-cash-is-still-best-for-servicing-but-it-comes-out-of-your-deposit)).
 
 - **Both lenders assess the lease the same way.** Bankwest and Macquarie both assess you on the reduced salary that actually reaches your payslip, and do not count the pre-tax deduction as a debt repayment ([how lenders assess a novated lease](#how-lenders-assess-a-novated-lease)).
 
-- **What to actually do:** get a real novated lease quote, then ask a mortgage broker to run your borrowing capacity **with and without it**. Other lenders' treatment of the lease is set by their credit policy, which brokers can see and consumers cannot.
+- **What to actually do:** get a real novated lease quote, then ask a mortgage broker to run your borrowing capacity **with and without it**.
 
 [Skip to the full modelling grid ↓](#the-full-modelling-grid) — every scenario, both lenders, each assessment method.
 :::
@@ -59,7 +59,7 @@ Every scenario is built around one of two real, similarly-priced mid-size SUVs:
   <g stroke="currentColor" stroke-width="7">
     <circle cx="71" cy="88" r="17"/><circle cx="171" cy="88" r="17"/>
   </g>
-  <path d="M200 58 C208 70 212 75 212 80 A12 12 0 0 1 188 80 C188 75 192 70 200 58 Z" fill="currentColor" stroke="none"/>
+  <path d="M206 61 C210.5 66.5 212 69.5 212 74.5 A6 6 0 0 1 200 74.5 C200 69.5 201.5 66.5 206 61 Z" fill="currentColor" stroke="none"/>
 </svg>
 <figcaption><span class="car-card__name">Toyota RAV4 GXL Auto eFour</span><span class="car-card__meta">Petrol · $58,807 drive-away</span></figcaption>
 </figure>
@@ -156,19 +156,11 @@ For higher-income borrowers, the lease deductions represent a much smaller perce
 
 Both sides of this comparison run for the same term: a **five-year car loan** against a **five-year EV novated lease**, sized to a similar repayment. Term matters a great deal here — a shorter lease raises the fortnightly payment and worsens the result — so the two are held level at five years.
 
-It is commonly assumed that the benefit comes solely from reducing taxable income. In reality, that is only part of the story.
-
 For the EV novated lease:
 
 - Gross salary remained $130,000
 - Salary sacrifice was $17,743.70 per annum
 - Taxable salary reduced to $112,256
-
-The reduction in taxable income helps, but the larger factor is often how the lender assesses the lease repayment itself.
-
-If a lender recognises the tax-free nature of an EV novated lease, the borrowing capacity impact can be relatively modest.
-
-If a lender simply treats the salary sacrifice as a liability, much of the tax benefit disappears for servicing purposes.
 
 ### Key takeaway
 
@@ -177,8 +169,6 @@ For borrowers planning to purchase a property, a vehicle finance decision can ha
 - A traditional car loan reduced borrowing capacity the most.
 - An EV novated lease generally produced a better servicing outcome.
 - Longer lease terms performed better than shorter terms.
-- Lender policy plays a major role in the result.
-- **The way the lender assesses the novated lease is often more important than the tax savings themselves.**
 
 **Bottom line:** if you're considering both a property purchase and a new vehicle, it is worth reviewing the servicing impact before committing. The cheapest vehicle finance option is not always the option that provides the strongest borrowing capacity outcome.
 
@@ -195,7 +185,7 @@ Leonard's last point is worth making explicit. A car loan is unambiguous: it is 
 
 *(Novated lease figures are for the 5-year, 9% EV lease. $589.57 per fortnight pre-tax × 26 = $15,329 per year.)*
 
-**This is how both Bankwest and Macquarie assess a novated lease.** Leonard has confirmed it for both, and Macquarie's guidance to brokers spells it out: reduce the applicant's income by the pre-tax lease deduction, enter only the post-tax part of the lease as a commitment, and enter nothing at all when the lease is paid entirely pre-tax, as an FBT-exempt EV lease usually is. Macquarie also asks brokers to record how the borrower will clear the balloon at the end of the lease.
+**This is how both Bankwest and Macquarie assess a novated lease, and how most lenders do.**[^addback] Leonard has confirmed it for both, and Macquarie's guidance to brokers spells it out: reduce the applicant's income by the pre-tax lease deduction, enter only the post-tax part of the lease as a commitment, and enter nothing at all when the lease is paid entirely pre-tax, as an FBT-exempt EV lease usually is. Macquarie also asks brokers to record how the borrower will clear the balloon at the end of the lease.
 
 Every lender has a defined position on how a novated lease is treated. It is written into their credit policy and supplied to accredited mortgage brokers — it is simply **not published for consumers**. A broker can tell you where a given lender sits and how it will read your specific employer's arrangement; you generally cannot work it out for yourself from anything public. Policies also change, and these scenarios were run in September 2026.
 
@@ -248,12 +238,7 @@ Only the 5-year, 9% EV lease was modelled at this income level.
 
 **Assumptions behind every row.** The cars are the BYD Sealion 7 Premium ($60,789.25) and Toyota RAV4 GXL Auto eFour ($58,807) introduced at the top, each financed at full drive-away price with no deposit. Single applicant, no dependants. Living expenses set at the lender's HEM benchmark: a $2,520 per month base for Bankwest and $2,400 for Macquarie at the $130,000 income level, and $4,190 at $300,000. A $200 per month vehicle maintenance allowance is already built into the expense figure in **every** row, including the baseline — so the "no car" row is a person who runs a car, not a person who does not own one. Everything else in the applicant's profile is held constant across rows, so the differences shown are attributable to the vehicle finance alone.
 
-[^hem]: Lenders do not simply take your declared living expenses at face value. They compare them with the **Household Expenditure Measure (HEM)**, a benchmark of what a household like yours typically spends on basic living costs, set by household income, household size and location. The lender uses whichever is higher, so HEM works as a floor: even if your own declaration adds up to less, the HEM figure is used instead.
-
-    That floor decides whether taking the car costs out of your declaration helps:
-
-    - **If your declared expenses are comfortably above HEM**, removing the vehicle costs genuinely lowers the expense figure the lender uses, and your borrowing capacity goes up.
-    - **If your declared expenses are already at or close to HEM**, removing the vehicle costs may achieve little. Your declaration drops below the floor, the lender reverts to HEM, and the figure it assesses you on barely changes.
+[^addback]: A handful of lenders take a different route. They enter the pre-tax lease deduction as a debt repayment, then add the same amount back to your income as tax-free income, which roughly cancels out. Leonard's modelling ran every scenario this way as well, and the result came within $10,000 of the reduced-income method in every case, so it makes little practical difference to borrowing capacity.
 
 [^label]: The source table repeated the "EV" label on this row. It is the petrol comparison: its running-cost allowance is far higher ($172.19 against $123.42 per fortnight), and its loan repayment is 96.8% of the EV row's — matching the RAV4's price as 96.7% of the BYD's almost exactly.
 
@@ -290,24 +275,56 @@ This runs against the general advice in [lease length and risk](/risks/lease-len
 
 Going from 9% to 15% on the same 5-year EV lease costs $16,650 of Bankwest capacity and $17,000 at Macquarie. The lease rate is already [the least transparent number in a novated lease quote](/costs-and-savings/why-nl-interest-looks-high/); this is one more reason to extract it and negotiate it rather than accept the first quote.
 
-### 4. An ICE novated lease behaves worse than it looks
+### 4. An ICE novated lease behaves worse than an EV novated lease
 
 The ICE lease has the smallest pre-tax deduction of any lease row — $220.81 per fortnight — and the highest taxable income. It still lands below every 5-year EV lease.
 
-The reason is the **[Employee Contribution Method](/start-here/glossary/)**: $417.20 per fortnight of that lease is paid from *post-tax* salary to extinguish the FBT liability. Post-tax money has no tax benefit attached, so however the lender enters the lease, that part behaves exactly like a car-loan repayment. The FBT exemption on EVs is not just a tax saving — it is also what keeps the whole payment on the pre-tax side of the ledger, where a lender can give you credit for it.
+The reason is the **[Employee Contribution Method](/start-here/glossary/)**: $417.20 per fortnight of that lease is paid from *post-tax* salary to extinguish the FBT liability. Post-tax money has no tax benefit attached, and the lender enters it as a commitment, so that part behaves exactly like a car-loan repayment. The pre-tax part only reduces your salary, and because it also reduces your tax, it costs you less than its face value: on a $130,000 income, $100 of pre-tax deduction takes about $68 out of your pay. The FBT exemption on EVs is not just a tax saving: it is also what keeps the whole payment on the pre-tax side, where each dollar costs you less borrowing power.
 
 ### 5. Higher incomes dilute the effect, but do not remove it
 
 At $130,000, the 9% EV lease costs 15.5% of Bankwest capacity. At $300,000, the same lease costs 5.7%. Two things are at work. The higher earner's larger tax saving means the same pre-tax deduction takes fewer after-tax dollars out of their pay, and what it does take is a much smaller share of a much larger surplus. This is consistent with [how novated lease benefits generally scale with income](/costs-and-savings/low-income-novated-lease-savings/).
+
+### 6. Paying cash is still best for servicing, but it comes out of your deposit
+
+A novated lease holding its own against a five-year car loan does not make it the best option for borrowing power. By design, any finance is worse than none: a lease or a loan adds a commitment the lender must deduct, and a car bought outright adds none. The baseline row in the grid is effectively the cash buyer. It already includes a car's running costs, so buying a ~$60,000 car outright would leave the capacity figure where it is ($683,000 at Bankwest, $690,000 at Macquarie), against $105,000 to $190,000 lost by financing it.
+
+Cash has its own cost, though. The $60,000 comes out of your savings, which is usually the money earmarked for the deposit. A smaller deposit means a smaller property within your borrowing capacity, a higher LVR, possibly lenders mortgage insurance, or a longer wait to save. So paying cash does not escape the trade-off; it moves it from your borrowing capacity to your deposit.
+
+---
+
+## Living expenses and the HEM floor
+
+A servicing calculator has two sides: your income, and your commitments plus living expenses. Everything above is about the first side, and how the lease is entered. The living-expenses side has a trap of its own.
+
+### Your car's running costs should not be counted twice
+
+A novated lease packages the car's running costs (fuel or charging, servicing, tyres, insurance, rego) into the same pre-tax deduction as the finance. The lender already accounts for that deduction on the income side. If your declared living expenses still include those running costs, the lender is counting them twice.
+
+So when you apply for a home loan with a lease in place, your broker can, and should, take the vehicle running costs out of your declared living expenses and note why. Macquarie's guidance to brokers asks for exactly this note.
+
+### Whether that helps depends on HEM
+
+Lenders do not simply take your declared living expenses at face value. They compare them with the **Household Expenditure Measure (HEM)**, a benchmark of what a household like yours typically spends on basic living costs, set by household income, household size and location, and updated quarterly. The lender uses whichever is higher. HEM works as a floor: even if your own declaration adds up to less, the HEM figure is used instead.
+
+That floor decides how much removing the running costs is worth. Take the single $130,000 borrower from the grid, with a Bankwest HEM of $2,520 a month, and say the lease covers $300 a month of running costs:
+
+| Household's declared living expenses (including $300 of car costs) | After removing the car costs | What the lender uses | Reduction in assessed expenses |
+| --- | --- | --- | --- |
+| $3,500 — well above HEM | $3,200 | $3,200 | **$300**, the full amount |
+| $2,700 — just above HEM | $2,400 | $2,520 (HEM) | **$180**, part of it |
+| $2,500 — already below HEM | $2,200 | $2,520 (HEM) | **$0** |
+
+- **If your declared expenses are well above HEM,** removing the running costs genuinely lowers the expenses the lender uses, and claws back part of the lease's hit to your borrowing capacity.
+- **If your declared expenses are at or close to HEM,** removing them achieves little or nothing. The lender falls back to HEM, and the assessed expenses barely move. In effect you are still being assessed as if you pay the car's running costs out of your living expenses, as well as through the lease deduction. In this scenario, it's indeed as if they are double-counting your car's running cost.
 
 ---
 
 ## What to do with this if you are buying a house
 
 - **Get the servicing test run before you sign the lease, not after.** A broker can model your actual numbers in ten minutes. A four or five-year lease commitment cannot be unwound cheaply — see [what happens on early termination](/risks/early-termination/).
-- **Ask the specific question: how does this lender treat a salary-sacrificed novated lease?** "Does a novated lease affect borrowing capacity?" gets you a useless yes. You want to know whether the lender assesses you on your reduced salary, as Bankwest and Macquarie do, or treats the deduction as a debt repayment against your full salary, and whether the answer differs between the lenders on your shortlist.
 - **Have a plan for the balloon.** Lenders want to know how you will clear the residual at the end of the lease: savings, selling the car, or rolling into a new lease. Tell your broker up front.
-- **Declare your living expenses with the lease in mind.** Your car's running costs (fuel or charging, servicing, insurance, rego) are paid through the lease, so they should not appear again in your declared living expenses. Ask your broker to note this for the lender, so the same costs are not counted twice. Whether this actually lifts your borrowing capacity depends on where your expenses sit against the lender's HEM benchmark.[^hem]
+- **Declare your living expenses with the lease in mind.** Your car's running costs are paid through the lease, so ask your broker to take them out of your declared living expenses. Whether that actually lifts your borrowing capacity depends on how close your expenses are to the HEM benchmark: see [living expenses and the HEM floor](#living-expenses-and-the-hem-floor).
 - **If the gap is a deal-breaker, the order of operations matters.** Settling the mortgage first and starting the lease afterwards is the standard advice for a reason. The reverse order is what costs people six figures of capacity.
 - **Do not forget the second-order effects.** For an FBT-exempt EV, the lease also raises your [adjusted taxable income via RFBA](/costs-and-savings/fbt-rfba-ati-explained/), with flow-on consequences for [childcare subsidy](/special-and-policy/childcare-subsidy/), HELP repayments and Division 293 — none of which show up in a servicing calculator.
 - **Separate this decision from the tax question entirely.** Borrowing capacity is not a cost you can net off against the lease saving, and [the "tax saved" figure on your quote](/costs-and-savings/why-tax-saved-is-wrong/) was never measuring this in the first place. Run the financial comparison in [the calculator](/calculator/), then treat the servicing impact as a separate constraint that either fits your plans or does not.
