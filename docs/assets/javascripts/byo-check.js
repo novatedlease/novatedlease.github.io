@@ -453,6 +453,14 @@
       sources: [{ type: "industry", date: "2026-06-03" }]
     },
     {
+      name: "NSW State Emergency Service",
+      aliases: ["NSW SES", "SES NSW", "SES", "State Emergency Service NSW", "New South Wales State Emergency Service"],
+      group: "NSW Government",
+      status: "not_available",
+      notes: "",
+      sources: [{ type: "employee", date: "2026-09-30" }]
+    },
+    {
       name: "Thales Group",
       aliases: ["Thales Australia", "Thales Group Australia", "Thales"],
       group: "Defence & Technology",
