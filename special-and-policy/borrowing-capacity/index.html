@@ -1,0 +1,669 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="color-scheme" content="light dark"><script>
+      // Theme: stored choice wins; otherwise follow the system. Runs before first paint to avoid a flash.
+      (function () {
+        var root = document.documentElement;
+        var stored = null;
+        try { stored = localStorage.getItem('theme'); } catch (e) {}
+        var fromUrl = new URLSearchParams(location.search).get('theme');
+        if (fromUrl === 'dark' || fromUrl === 'light') stored = fromUrl;
+        var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        function apply(t) { if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.setAttribute('data-theme', 'light'); }
+        apply(stored === 'dark' || stored === 'light' ? stored : (mq && mq.matches ? 'dark' : 'light'));
+        if (mq && mq.addEventListener) mq.addEventListener('change', function (e) {
+          var s = null; try { s = localStorage.getItem('theme'); } catch (err) {}
+          if (s !== 'dark' && s !== 'light') apply(e.matches ? 'dark' : 'light');
+        });
+        window.toggleTheme = function () {
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          apply(next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          try { if (typeof gtag === 'function') gtag('event', 'theme_toggled', { theme: next }); } catch (e) {}
+        };
+      })();
+    </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>How a novated lease affects your home loan borrowing capacity — Novated Lease Guide</title><meta name="description" content="Modelled borrowing capacity across EV and ICE novated leases, car loans, two real lender calculators and two income levels — plus how lenders actually assess a salary-sacrificed lease, and why a five-year lease can cost less borrowing power than a car loan."><link rel="canonical" href="https://novatedlease.guide/special-and-policy/borrowing-capacity/"><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><!-- Open Graph --><meta property="og:type" content="article"><meta property="og:title" content="How a novated lease affects your home loan borrowing capacity — Novated Lease Guide"><meta property="og:description" content="Modelled borrowing capacity across EV and ICE novated leases, car loans, two real lender calculators and two income levels — plus how lenders actually assess a salary-sacrificed lease, and why a five-year lease can cost less borrowing power than a car loan."><meta property="og:url" content="https://novatedlease.guide/special-and-policy/borrowing-capacity/"><meta property="og:image" content="https://novatedlease.guide/og/special-and-policy/borrowing-capacity.png?v=2"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How a novated lease affects your home loan borrowing capacity — Novated Lease Guide"><meta name="twitter:description" content="Modelled borrowing capacity across EV and ICE novated leases, car loans, two real lender calculators and two income levels — plus how lenders actually assess a salary-sacrificed lease, and why a five-year lease can cost less borrowing power than a car loan."><meta name="twitter:image" content="https://novatedlease.guide/og/special-and-policy/borrowing-capacity.png?v=2"><!-- Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://novatedlease.guide/#website","name":"Novated Lease Guide","url":"https://novatedlease.guide","description":"Independent, evidence-based guide and calculator for understanding novated leases in Australia.","publisher":{"@id":"https://novatedlease.guide/#org"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://novatedlease.guide/"},{"@type":"ListItem","position":2,"name":"Special And Policy","item":"https://novatedlease.guide/special-and-policy/"},{"@type":"ListItem","position":3,"name":"How a novated lease affects your home loan borrowing capacity","item":"https://novatedlease.guide/special-and-policy/borrowing-capacity/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How a novated lease affects your home loan borrowing capacity","description":"Modelled borrowing capacity across EV and ICE novated leases, car loans, two real lender calculators and two income levels — plus how lenders actually assess a salary-sacrificed lease, and why a five-year lease can cost less borrowing power than a car loan.","url":"https://novatedlease.guide/special-and-policy/borrowing-capacity/","image":"https://novatedlease.guide/og/special-and-policy/borrowing-capacity.png?v=2","author":[{"@type":"Person","@id":"https://novatedlease.guide/about/about-me/#person","name":"changyang1230","url":"https://novatedlease.guide/about/about-me/","jobTitle":"Anaesthetist, biostatistician, and novated lease consumer advocate","description":"Australian anaesthetist, qualified biostatistician, and former mathematical olympiad national representative. Independent author of novatedlease.guide — a free evidence-based guide and calculator for understanding novated leases in Australia.","knowsAbout":["Novated leasing","Salary packaging","Fringe Benefits Tax","Electric vehicle FBT exemption","Australian personal finance","Australian tax","Biostatistics","Probability and statistics"],"sameAs":["https://www.reddit.com/user/changyang1230","https://buymeacoffee.com/changyang1230"]},{"@type":"Person","name":"Leonard Nagawidjaja","url":"https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/","jobTitle":"Finance broker, AA Finance Solutions"}],"publisher":{"@type":"Organization","@id":"https://novatedlease.guide/#org","name":"Novated Lease Guide","url":"https://novatedlease.guide","logo":{"@type":"ImageObject","url":"https://novatedlease.guide/assets/images/logo.png"},"founder":{"@id":"https://novatedlease.guide/about/about-me/#person"}},"isPartOf":{"@id":"https://novatedlease.guide/#website"},"mainEntityOfPage":"https://novatedlease.guide/special-and-policy/borrowing-capacity/","datePublished":"2026-09-22","dateModified":"2026-10-01"}</script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-52RWVTCGLP"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-52RWVTCGLP', { anonymize_ip: true });
+    </script><link rel="stylesheet" href="/_astro/_slug_.C0U9lMJy.css"></head> <body> <nav class="site-nav" role="navigation" aria-label="Main navigation"> <div class="site-nav__inner"> <!-- Brand --> <a class="site-nav__brand" href="/"> <img class="site-nav__logo" src="/assets/images/logo.svg" alt="" aria-hidden="true">
+Novated Lease Guide
+</a> <!-- Desktop links --> <ul class="site-nav__links" role="list"> <li> <a href="/" class="site-nav__link"> Home </a> </li><li> <a href="/calculator/" class="site-nav__link site-nav__link--cta"> Calculator <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </a> <div class="nav-dropdown" role="menu"> <a href="/calculator/" class="nav-dropdown__item" role="menuitem"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-dropdown__item" role="menuitem"> Employer BYO Checker </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Fundamentals <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <div class="nav-dropdown__heading">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-dropdown__item" role="menuitem"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-dropdown__item" role="menuitem"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-dropdown__item" role="menuitem"> Is a novated lease worth it? </a> <div class="nav-dropdown__heading">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-dropdown__item" role="menuitem"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-dropdown__item" role="menuitem"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-dropdown__item" role="menuitem"> 20 novated lease calculators reviewed </a> <div class="nav-dropdown__heading">Reference</div><a href="/start-here/glossary/" class="nav-dropdown__item" role="menuitem"> Glossary of terms </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Mechanisms <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/costs-and-savings/" class="nav-dropdown__item" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-dropdown__item" role="menuitem"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-dropdown__item" role="menuitem"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-dropdown__item" role="menuitem"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-dropdown__item" role="menuitem"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-dropdown__heading">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-dropdown__item" role="menuitem"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-dropdown__item" role="menuitem"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-dropdown__heading">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-dropdown__item" role="menuitem"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-ev-novated-lease/" class="nav-dropdown__item" role="menuitem"> Used EV instead of new? </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-dropdown__item" role="menuitem"> Used-car GST secret (Division 66) </a> <div class="nav-dropdown__heading">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-dropdown__item" role="menuitem"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-dropdown__item" role="menuitem"> You don&#39;t have to sell above residual </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Running Costs <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/running-costs/" class="nav-dropdown__item" role="menuitem"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-dropdown__item" role="menuitem"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-dropdown__item" role="menuitem"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-dropdown__item" role="menuitem"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-dropdown__item" role="menuitem"> Insurance premium vs excess </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Risks <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/risks/" class="nav-dropdown__item" role="menuitem"> Overview of risks &amp; exit strategies </a> <div class="nav-dropdown__heading">Early Termination</div><a href="/risks/early-termination/" class="nav-dropdown__item" role="menuitem"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-dropdown__item" role="menuitem"> How bad can early termination get </a> <div class="nav-dropdown__heading">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-dropdown__item" role="menuitem"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-dropdown__item" role="menuitem"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-dropdown__item" role="menuitem"> Think like a gambler </a>  </div> </li><li> <button class="site-nav__link active" aria-haspopup="true" aria-expanded="false" type="button"> Special Cases <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/special-and-policy/" class="nav-dropdown__item active" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-dropdown__item" role="menuitem"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-dropdown__item" role="menuitem"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-dropdown__item" role="menuitem"> LCT threshold &amp; FBT exemption </a> <div class="nav-dropdown__heading">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-dropdown__item" role="menuitem"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-dropdown__item" role="menuitem"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-dropdown__heading">Downstream Impact</div><a href="/special-and-policy/borrowing-capacity/" class="nav-dropdown__item active" role="menuitem"> Home loan borrowing capacity </a> <a href="/special-and-policy/childcare-subsidy/" class="nav-dropdown__item" role="menuitem"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-dropdown__item" role="menuitem"> Super guarantee &amp; payroll risks </a> <div class="nav-dropdown__heading">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-dropdown__item" role="menuitem"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-dropdown__item" role="menuitem"> Why novated leasing is poorly regulated </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> About <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/about/about-me/" class="nav-dropdown__item" role="menuitem"> Who I am </a> <a href="/about/history/" class="nav-dropdown__item" role="menuitem"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-dropdown__item" role="menuitem"> What readers say </a> <a href="/about/privacy/" class="nav-dropdown__item" role="menuitem"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-dropdown__item" role="menuitem"> Disclaimer </a> <a href="/about/contact/" class="nav-dropdown__item" role="menuitem"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-dropdown__item" role="menuitem" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </li> </ul> <!-- Right actions --> <div class="site-nav__actions"> <button class="nav-theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode" onclick="window.toggleTheme && window.toggleTheme()"> <svg class="nav-theme-btn__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg> <svg class="nav-theme-btn__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg> </button> <button class="nav-search-btn" onclick="window.openSearch && window.openSearch()" aria-label="Search site"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span class="nav-search-btn__text">Search</span> <span class="nav-search-btn__kbd">⌘K</span> </button> <button class="nav-hamburger" aria-label="Open navigation menu" onclick="window.openDrawer && window.openDrawer()"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"></path> </svg> </button> </div> </div> </nav> <!-- Mobile drawer --> <div class="nav-mobile-overlay" id="nav-overlay" onclick="window.closeDrawer && window.closeDrawer()"></div> <div class="nav-mobile-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu"> <div class="nav-drawer__header"> <span>Novated Lease Guide</span> <button class="nav-drawer__close" onclick="window.closeDrawer && window.closeDrawer()" aria-label="Close menu"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"></path> </svg> </button> </div> <!-- Drawer search --> <div style="padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.08);"> <button class="nav-search-btn" style="width:100%; justify-content:flex-start; background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: var(--color-text-muted);" onclick="window.closeDrawer(); setTimeout(() => window.openSearch && window.openSearch(), 200);" aria-label="Search"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:14px;height:14px;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span>Search</span> </button> </div> <div class="nav-drawer__section"> <a href="/" class="nav-drawer__link nav-drawer__link--top"> Home </a> </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Calculator</div> <a href="/calculator/" class="nav-drawer__link"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-drawer__link"> Employer BYO Checker </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Fundamentals</div> <div class="nav-drawer__group-title">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-drawer__link"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-drawer__link"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-drawer__link"> Is a novated lease worth it? </a> <div class="nav-drawer__group-title">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-drawer__link"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-drawer__link"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-drawer__link"> 20 novated lease calculators reviewed </a> <div class="nav-drawer__group-title">Reference</div><a href="/start-here/glossary/" class="nav-drawer__link"> Glossary of terms </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Mechanisms</div> <a href="/costs-and-savings/" class="nav-drawer__link"> Overview </a> <div class="nav-drawer__group-title">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-drawer__link"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-drawer__link"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-drawer__link"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-drawer__link"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-drawer__group-title">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-drawer__link"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-drawer__link"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-drawer__group-title">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-drawer__link"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-ev-novated-lease/" class="nav-drawer__link"> Used EV instead of new? </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-drawer__link"> Used-car GST secret (Division 66) </a> <div class="nav-drawer__group-title">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-drawer__link"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-drawer__link"> You don&#39;t have to sell above residual </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Running Costs</div> <a href="/running-costs/" class="nav-drawer__link"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-drawer__link"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-drawer__link"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-drawer__link"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-drawer__link"> Insurance premium vs excess </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Risks</div> <a href="/risks/" class="nav-drawer__link"> Overview of risks &amp; exit strategies </a> <div class="nav-drawer__group-title">Early Termination</div><a href="/risks/early-termination/" class="nav-drawer__link"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-drawer__link"> How bad can early termination get </a> <div class="nav-drawer__group-title">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-drawer__link"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-drawer__link"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-drawer__link"> Think like a gambler </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Special Cases</div> <a href="/special-and-policy/" class="nav-drawer__link active"> Overview </a> <div class="nav-drawer__group-title">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-drawer__link"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-drawer__link"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-drawer__link"> LCT threshold &amp; FBT exemption </a> <div class="nav-drawer__group-title">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-drawer__link"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-drawer__link"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-drawer__group-title">Downstream Impact</div><a href="/special-and-policy/borrowing-capacity/" class="nav-drawer__link active"> Home loan borrowing capacity </a> <a href="/special-and-policy/childcare-subsidy/" class="nav-drawer__link"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-drawer__link"> Super guarantee &amp; payroll risks </a> <div class="nav-drawer__group-title">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-drawer__link"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-drawer__link"> Why novated leasing is poorly regulated </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">About</div> <a href="/about/about-me/" class="nav-drawer__link"> Who I am </a> <a href="/about/history/" class="nav-drawer__link"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-drawer__link"> What readers say </a> <a href="/about/privacy/" class="nav-drawer__link"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-drawer__link"> Disclaimer </a> <a href="/about/contact/" class="nav-drawer__link"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-drawer__link" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </div> <script>
+  var _drawerScrollY = 0;
+  window.openDrawer = function() {
+    _drawerScrollY = window.scrollY;
+    document.body.style.top = '-' + _drawerScrollY + 'px';
+    document.body.classList.add('drawer-open');
+    document.getElementById('nav-drawer').classList.add('open');
+    document.getElementById('nav-overlay').classList.add('open');
+  };
+  window.closeDrawer = function() {
+    document.body.classList.remove('drawer-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _drawerScrollY);
+    document.getElementById('nav-drawer').classList.remove('open');
+    document.getElementById('nav-overlay').classList.remove('open');
+  };
+</script> <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search"> <div class="search-modal"> <div id="search-container"> <div style="padding: 16px 20px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 12px;"> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0; opacity:0.5;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <input id="search-input" type="search" placeholder="Search articles…" autocomplete="off" spellcheck="false" style="flex:1; border:none; outline:none; font-size:1rem; font-family:inherit; background:transparent; color:var(--color-text);" aria-label="Search"> <button onclick="window.closeSearch()" aria-label="Close search" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--color-text-muted);font-size:0.78rem;display:flex;align-items:center;gap:4px;"> <kbd style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:4px;padding:2px 6px;font-family:inherit;font-size:0.7rem;">Esc</kbd> </button> </div> <div id="search-results" class="search-results-wrap"></div> </div> </div> </div> <script>
+  (function() {
+    var overlay = document.getElementById('search-overlay');
+    var input = document.getElementById('search-input');
+    var resultsEl = document.getElementById('search-results');
+    var pagefind = null;
+    var searchTimeout = null;
+
+    window.openSearch = function() {
+      overlay.classList.add('open');
+      setTimeout(function() { input && input.focus(); }, 50);
+      initPagefind();
+    };
+
+    window.closeSearch = function() {
+      overlay.classList.remove('open');
+      if (input) { input.value = ''; }
+      if (resultsEl) { resultsEl.innerHTML = ''; }
+    };
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) window.closeSearch();
+    });
+
+    async function initPagefind() {
+      if (pagefind) return;
+      try {
+        pagefind = await import('/pagefind/pagefind.js');
+        await pagefind.options({ excerptLength: 20 });
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search index is being built. Run <code>npm run build</code> first to enable search.</div>';
+        pagefind = null;
+      }
+    }
+
+    async function doSearch(query) {
+      if (!pagefind || !query.trim()) {
+        resultsEl.innerHTML = '';
+        return;
+      }
+      try {
+        var results = await pagefind.search(query);
+        if (!results || results.results.length === 0) {
+          resultsEl.innerHTML = '<div class="search-no-results">No results for "<strong>' + escapeHtml(query) + '</strong>"</div>';
+          return;
+        }
+        var html = '';
+        var sliced = results.results.slice(0, 8);
+        for (var i = 0; i < sliced.length; i++) {
+          var data = await sliced[i].data();
+          html += '<a href="' + data.url + '" class="search-result-item" onclick="window.closeSearch()">';
+          html += '<div class="search-result-item__title">' + escapeHtml(data.meta?.title || '') + '</div>';
+          if (data.excerpt) {
+            html += '<div class="search-result-item__excerpt">' + data.excerpt + '</div>';
+          }
+          html += '</a>';
+        }
+        resultsEl.innerHTML = html;
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search error. Please try again.</div>';
+      }
+    }
+
+    input && input.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function() {
+        doSearch(input.value);
+      }, 200);
+    });
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  })();
+</script>  <div data-pagefind-body>  <div class="page-layout"> <main class="page-content" id="main-content"> <nav class="breadcrumbs" aria-label="Breadcrumb"> <a href="/">Home</a> <span class="breadcrumbs__sep">›</span> <span>Special Cases</span> <span class="breadcrumbs__sep">›</span> <span>How a novated lease affects your home loan borrowing capacity</span> </nav> <article class="article-content">  <h1 id="how-a-novated-lease-affects-your-home-loan-borrowing-capacity">How a novated lease affects your home loan borrowing capacity</h1><p class="article-byline">By <a href="/about/about-me/">changyang1230</a> and <a href="https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/" rel="noopener" target="_blank">Leonard Nagawidjaja</a> · Updated 1 October 2026</p>
+<p>By now, most people looking into a novated lease hopefully realise that one of its downsides is the impact on their ability to service a home loan. But by how much? It is one of the most common questions online, and until now it is the one I have been least equipped to answer. The commonly repeated rule of thumb — <em>a leased car costs you about three times its value in borrowing power</em> — gets quoted constantly, but it has never been officially confirmed, and it takes no account of lease length, taxable income or anything else that varies from one borrower to the next.</p>
+<p>So, for the first time in this site’s history, I asked an expert to contribute. The modelling and the core write-up below were contributed by <strong><a href="https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/">Leonard Nagawidjaja</a></strong> of <a href="https://www.aafinancesolutions.com.au/">AA Finance Solutions</a>, an MFAA-approved credit adviser with over 15 years in the industry (Australian Credit Licence #462491), who ran a matrix of scenarios through <strong>Bankwest’s</strong> and <strong>Macquarie’s</strong> calculators. His section is presented as he wrote it; the results grid, the explanation of the assessment methods, and the commentary that follows are mine, based on Leonard’s calculations.</p>
+<p>All the figures in this article are indicative only. Your own result will differ with your circumstances (income, household, other debts), with each lender’s servicing calculator, and with where your living expenses sit against the lender’s <a href="#living-expenses-and-the-hem-floor">HEM benchmark</a>. Treat the ”× car” multiples as a guide to the size and direction of the effect, not as the figure you will get.</p>
+<div class="admonition admonition--info"><div class="admonition__title">The short version</div><ul>
+<li>
+<p><strong>Lease length has a big impact.</strong> A short lease limits your exposure to <a href="/risks/early-termination/">early-termination risk</a>, but it raises the fortnightly payment, which impacts your borrowing capacity. On these numbers a <strong>2-year EV novated lease costs 2.3× to 2.6× the car’s price</strong> in borrowing power, depending on the lender and the lease’s interest rate. A <strong>5-year EV lease costs 1.7× to 2.0×</strong>.</p>
+</li>
+<li>
+<p><strong>Your income level matters just as much.</strong> The same 5-year novated lease that costs 1.7× the car’s price on a $130,000 income costs only <strong>1.3×</strong> on $300,000.</p>
+</li>
+<li>
+<p><strong>A five-year novated lease costs less borrowing power than a five-year car loan.</strong> This was the surprise. A five-year car loan cost 2.6×–3.2× the car’s price in borrowing power; a five-year EV lease cost 1.7×–2.0×, and even the petrol lease (2.5×–2.6×) came in under the petrol car loan (2.9×–3.2×). The worst lease in the grid, a two-year lease at 15%, only drew level with the car loan. The common assumption that a novated lease must hurt your borrowing capacity more than a car loan does not hold on these numbers. Paying cash still beats both for borrowing power, though it costs you deposit instead (<a href="#6-paying-cash-is-still-best-for-servicing-but-it-comes-out-of-your-deposit">point 6</a>).</p>
+</li>
+<li>
+<p><strong>Both lenders assess the lease the same way.</strong> Bankwest and Macquarie both assess you on the reduced salary that actually reaches your payslip, and do not count the pre-tax deduction as a debt repayment (<a href="#how-lenders-assess-a-novated-lease">how lenders assess a novated lease</a>).</p>
+</li>
+<li>
+<p><strong>What to actually do:</strong> get a real novated lease quote, then ask a mortgage broker to run your borrowing capacity <strong>with and without it</strong>.</p>
+</li>
+</ul><p><a href="#the-full-modelling-grid">Skip to the full modelling grid ↓</a> — every scenario, both lenders, each assessment method.</p></div>
+<p>Every scenario is built around one of two real, similarly-priced mid-size SUVs:</p>
+<div class="car-cards">
+<figure class="car-card car-card--ev">
+<svg viewBox="0 0 240 120" fill="none" role="img" aria-label="Electric SUV, side view">
+  <g stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 88 V67 C20 60 24 55 31 53 L74 44 L97 22 C100 19 104 18 108 18 H155 C160 18 165 20 168 24 L187 48 L211 54 C218 56 222 61 222 68 V88"></path>
+    <path d="M20 88 H50"></path><path d="M90 88 H152"></path><path d="M192 88 H222"></path>
+  </g>
+  <g stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M102 45 L116 28 H147 L162 45 Z"></path><path d="M131 28 V45"></path>
+  </g>
+  <g stroke="currentColor" stroke-width="7">
+    <circle cx="71" cy="88" r="17"></circle><circle cx="171" cy="88" r="17"></circle>
+  </g>
+  <path d="M203 58 L190 76 H198 L196 88 L209 70 H201 Z" fill="currentColor" stroke="none"></path>
+</svg>
+<figcaption><span class="car-card__name">BYD Sealion 7 Premium</span><span class="car-card__meta">EV · $60,789.25 drive-away</span></figcaption>
+</figure>
+<figure class="car-card car-card--ice">
+<svg viewBox="0 0 240 120" fill="none" role="img" aria-label="Petrol SUV, side view">
+  <g stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 88 V67 C20 60 24 55 31 53 L74 44 L97 22 C100 19 104 18 108 18 H155 C160 18 165 20 168 24 L187 48 L211 54 C218 56 222 61 222 68 V88"></path>
+    <path d="M20 88 H50"></path><path d="M90 88 H152"></path><path d="M192 88 H222"></path>
+  </g>
+  <g stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M102 45 L116 28 H147 L162 45 Z"></path><path d="M131 28 V45"></path>
+  </g>
+  <g stroke="currentColor" stroke-width="7">
+    <circle cx="71" cy="88" r="17"></circle><circle cx="171" cy="88" r="17"></circle>
+  </g>
+  <path d="M206 61 C210.5 66.5 212 69.5 212 74.5 A6 6 0 0 1 200 74.5 C200 69.5 201.5 66.5 206 61 Z" fill="currentColor" stroke="none"></path>
+</svg>
+<figcaption><span class="car-card__name">Toyota RAV4 GXL Auto eFour</span><span class="car-card__meta">Petrol · $58,807 drive-away</span></figcaption>
+</figure>
+</div>
+<p>The car loans finance the full drive-away price with no deposit, so wherever a loan amount appears below it is also the car’s price. The borrower earns $130,000 — with one scenario repeated at $300,000 — and is buying at 80% LVR.</p>
+<hr>
+<h2 id="novated-lease-vs-car-loan-how-it-affects-your-borrowing-capacity">Novated lease vs car loan: how it affects your borrowing capacity</h2>
+<p><em>By Leonard Nagawidjaja, AA Finance Solutions</em></p>
+<p>When purchasing a vehicle, many clients focus on the tax savings of a novated lease or the interest rate of a car loan. However, when you’re planning to buy a property, the more important question is:</p>
+<blockquote>
+<p>How will the lender assess the commitment, and what impact will it have on borrowing capacity?</p>
+</blockquote>
+<p>Based on the modelling below, the answer can be surprisingly different from what most people expect.</p>
+<h3 id="the-starting-point">The starting point</h3>
+<p>For a single applicant earning $130,000 per year, borrowing capacity without any vehicle finance was modelled at:</p>
+<ul>
+<li><strong>Bankwest: $683,000</strong></li>
+<li><strong>Macquarie: $690,000</strong></li>
+</ul>
+<p>Assumptions include:</p>
+<ul>
+<li>Single applicant</li>
+<li>No dependants</li>
+<li>Living expenses based on the lender’s HEM (Household Expenditure Measure)</li>
+<li>$200 per month vehicle maintenance allowance already included</li>
+</ul>
+<h3 id="option-1-traditional-car-loan-for-the-ev">Option 1: traditional car loan for the EV</h3>
+<p>The model used a car loan at 6.49% p.a. plus a $15 monthly fee. With a loan of $60,789 and a loan term of 5 years, the total repayment is <a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo0MzguNzE3Mjg0MzU3Nzg3NCwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOnRydWUsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MCwiY2FyTG9hbkludGVyZXN0UmF0ZVBjdCI6Ni40OSwiY2FyTG9hbk1vbnRobHlGZWUiOjE1LCJjb21wYXJlV2l0aEN1cnJlbnRDYXIiOmZhbHNlLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVOb3ciOjI1MDAwLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVBdEVuZCI6MTQwMDAsImN1cnJlbnRTZXJ2aWNlTWFpbnRUeXJlc0FubnVhbCI6ODAwLCJjdXJyZW50UmVnaXN0cmF0aW9uQW5udWFsIjo5MDAsImN1cnJlbnRGdWVsQW5udWFsIjoyMzYyLjUsImN1cnJlbnRJbnN1cmFuY2VBbm51YWwiOjEwMDB9fQ">$678.49 per fortnight</a> (consisting of $555.07 per fortnight for the loan and $123.42 per fortnight for running costs).</p>
+<p>Borrowing capacity impact:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Lender</th><th>Borrowing capacity</th></tr></thead><tbody><tr><td>Bankwest</td><td>$526,750</td></tr><tr><td>Macquarie</td><td>$505,000</td></tr></tbody></table>
+<p>Compared to having no vehicle finance:</p>
+<ul>
+<li>Bankwest capacity reduced by <strong>$156,250</strong> <small>2.6× car</small></li>
+<li>Macquarie capacity reduced by <strong>$185,000</strong> <small>3.0× car</small></li>
+</ul>
+<p>The reason is simple: lenders assess the loan repayment as an ongoing financial commitment that reduces disposable income available for mortgage repayments.</p>
+<h3 id="option-2-ev-novated-lease">Option 2: EV novated lease</h3>
+<p>In comparison, a borrower who took an EV novated lease under a similar repayment:</p>
+<ul>
+<li>EV novated lease</li>
+<li>5-year term</li>
+<li>15% interest rate</li>
+<li><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo1MzEuNTk0NTk2MzY5NjM2MywibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMH19">Pre-tax deduction of $682.45 per fortnight</a></li>
+</ul>
+<p>Borrowing capacity impact:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Lender</th><th>Borrowing capacity</th></tr></thead><tbody><tr><td>Bankwest</td><td>$560,700<br><small>−$122,300, 2.0× car</small></td></tr><tr><td>Macquarie</td><td>$568,000<br><small>−$122,000, 2.0× car</small></td></tr></tbody></table>
+<p>Compared to the traditional car loan:</p>
+<ul>
+<li>Bankwest capacity increased by <strong>$33,950</strong></li>
+<li>Macquarie capacity increased by <strong>$63,000</strong></li>
+</ul>
+<h3 id="what-about-higher-income-earners">What about higher income earners?</h3>
+<p>At $300,000 income, the difference becomes much smaller.</p>
+<p><strong>Bankwest</strong></p>
+<ul>
+<li>No car: $1,445,550</li>
+<li>EV novated lease: $1,363,150</li>
+</ul>
+<p>Reduction: approximately $82,400 <small>1.4× car</small></p>
+<p><strong>Macquarie</strong></p>
+<ul>
+<li>No car: $1,440,000</li>
+<li>EV novated lease: $1,360,000</li>
+</ul>
+<p>Reduction: approximately $80,000 <small>1.3× car</small></p>
+<p>For higher-income borrowers, the lease deductions represent a much smaller percentage of income, so servicing is less affected.</p>
+<h3 id="why-does-the-novated-lease-perform-better">Why does the novated lease perform better?</h3>
+<p>Both sides of this comparison run for the same term: a <strong>five-year car loan</strong> against a <strong>five-year EV novated lease</strong>, sized to a similar repayment. Term matters a great deal here — a shorter lease raises the fortnightly payment and worsens the result — so the two are held level at five years.</p>
+<p>For the EV novated lease:</p>
+<ul>
+<li>Gross salary remained $130,000</li>
+<li>Salary sacrifice was $17,743.70 per annum</li>
+<li>Taxable salary reduced to $112,256</li>
+</ul>
+<h3 id="key-takeaway">Key takeaway</h3>
+<p>For borrowers planning to purchase a property, a vehicle finance decision can have a significant impact on borrowing capacity. Based on this modelling:</p>
+<ul>
+<li>A traditional car loan reduced borrowing capacity the most.</li>
+<li>An EV novated lease generally produced a better servicing outcome.</li>
+<li>Longer lease terms performed better than shorter terms.</li>
+</ul>
+<p><strong>Bottom line:</strong> if you’re considering both a property purchase and a new vehicle, it is worth reviewing the servicing impact before committing. The cheapest vehicle finance option is not always the option that provides the strongest borrowing capacity outcome.</p>
+<hr>
+<h2 id="how-lenders-assess-a-novated-lease">How lenders assess a novated lease</h2>
+<p>Leonard’s last point is worth making explicit. A car loan is unambiguous: it is a debt with a repayment, and every lender treats it the same way. A novated lease is not a debt in your name at all. It is a deduction from your payslip, and the lender has to decide how to treat it.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>How the lender enters it</th><th>What the borrower is assessed on</th></tr></thead><tbody><tr><td><strong>Car loan</strong></td><td>The repayment is entered as an ongoing commitment, and the borrower’s income is taken at the full salary</td><td>$130,000 taxable income, <strong>minus</strong> the car loan’s $678.49 per fortnight repayment and running costs</td></tr><tr><td><strong>Novated lease</strong></td><td>The pre-tax deduction is not entered as a debt; the borrower is assessed on the reduced salary that actually hits their payslip. Any post-tax part of the lease (the <a href="/start-here/glossary/">ECM</a> contribution on a petrol car) is still entered as a commitment</td><td>$114,671 taxable income, no commitment</td></tr></tbody></table>
+<p><em>(Novated lease figures are for the 5-year, 9% EV lease. $589.57 per fortnight pre-tax × 26 = $15,329 per year.)</em></p>
+<p><strong>This is how both Bankwest and Macquarie assess a novated lease, and how most lenders do.</strong><sup><a href="#user-content-fn-addback" id="user-content-fnref-addback" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup> Leonard has confirmed it for both, and Macquarie’s guidance to brokers spells it out: reduce the applicant’s income by the pre-tax lease deduction, enter only the post-tax part of the lease as a commitment, and enter nothing at all when the lease is paid entirely pre-tax, as an FBT-exempt EV lease usually is. Macquarie also asks brokers to record how the borrower will clear the balloon at the end of the lease.</p>
+<p>Every lender has a defined position on how a novated lease is treated. It is written into their credit policy and supplied to accredited mortgage brokers — it is simply <strong>not published for consumers</strong>. A broker can tell you where a given lender sits and how it will read your specific employer’s arrangement; you generally cannot work it out for yourself from anything public. Policies also change, and these scenarios were run in September 2026.</p>
+<hr>
+<h2 id="the-full-modelling-grid">The full modelling grid</h2>
+<p>Leonard’s article quotes the headline numbers. Below is every scenario the model produced, so you can see the full spread, each assessed the way that lender actually treats it.</p>
+<p>Each capacity figure carries a second line: how much borrowing power the scenario costs against that lender’s no-car baseline, and what that loss works out to as a multiple of the car’s drive-away price ($60,789 for the BYD, $58,807 for the RAV4).</p>
+<p><strong>Every lease and loan payment in these tables is a link.</strong> Each one opens <a href="/calculator/">the calculator</a> loaded with the exact inputs that produced it — car price, term, effective interest rate, running costs, income — so you can check the derivation, or change one field and see what it does to the payment. The borrowing capacity figures are Leonard’s servicing-calculator output and are not reproducible here.</p>
+<h3 id="bankwest--130000-single-applicant">Bankwest — $130,000 single applicant</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Scenario</th><th>Pre-tax per fortnight (annual)</th><th>Post-tax per fortnight</th><th>Taxable income</th><th>Borrowing capacity</th></tr></thead><tbody><tr><td>Baseline — no car</td><td>—</td><td>—</td><td>$130,000</td><td><strong>$683,000</strong></td></tr><tr><td>EV novated lease · 5 yr · 9%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo0MzguNzE3Mjg0MzU3Nzg3NCwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMH19">$589.57 ($15,329)</a></td><td>—</td><td>$114,671</td><td>$577,350<br><small>−$105,650, 1.7× car</small></td></tr><tr><td>EV novated lease · 5 yr · 15%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo1MzEuNTk0NTk2MzY5NjM2MywibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMH19">$682.45 ($17,744)</a></td><td>—</td><td>$112,256</td><td>$560,700<br><small>−$122,300, 2.0× car</small></td></tr><tr><td>EV novated lease · 2 yr · 9%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjIsInJlc2lkdWFsVmFsdWVFeEdzdCI6MzEzODEuODIzODYzNjM2MzYsIm1vbnRoc0RlZmVycmVkIjoyLCJ0b3RhbFRheGFibGVJbmNvbWUiOjEzMDAwMCwiaG9tZUxvYW5PZmZzZXRJbnRlcmVzdFJhdGUiOjYuMSwidmVoaWNsZUxlYXNlUGVyRm4iOjYyMy40MTM2OTQwMTM1MTgxLCJsdXh1cnlWZWhpY2xlQWRqUGVyRm4iOjAsImZpbmFuY2VkQW1vdW50Rm9ySW50ZXJlc3RDYWxjRXhHc3QiOjU1Nzg5LjkwOTA5MDkwOTA5LCJzdXBlckZyb21QcmVObEluY29tZSI6IlllcyIsImdzdFNhdmluZ1Bhc3NlZE9uIjoiWWVzIiwic2VydmljZU1haW50VHlyZXNBbm51YWwiOjEwMCwic2F2ZVNoYXJlQW5udWFsIjowLCJyZWdpc3RyYXRpb25Bbm51YWwiOjk4NC44OCwiZWxlY3RyaWNpdHlBbm51YWwiOjgyMC41LCJmdWVsQW5udWFsIjoyMzYyLjUsImluc3VyYW5jZUFubnVhbCI6MTUwMCwibWFuYWdlbWVudEZlZXNBbm51YWwiOjUxNi44OCwiYXZnQXVkUGVyS3doIjowLjE1LCJhdmdXaFBlckttIjoxNjUsImNvbXBhcmVXaXRoQ2FyTG9hbiI6ZmFsc2UsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MTAwMDAsImNhckxvYW5JbnRlcmVzdFJhdGVQY3QiOjYsImNhckxvYW5Nb250aGx5RmVlIjoyNSwiY29tcGFyZVdpdGhDdXJyZW50Q2FyIjpmYWxzZSwiY3VycmVudENhck1hcmtldFZhbHVlTm93IjoyNTAwMCwiY3VycmVudENhck1hcmtldFZhbHVlQXRFbmQiOjE0MDAwLCJjdXJyZW50U2VydmljZU1haW50VHlyZXNBbm51YWwiOjgwMCwiY3VycmVudFJlZ2lzdHJhdGlvbkFubnVhbCI6OTAwLCJjdXJyZW50RnVlbEFubnVhbCI6MjM2Mi41LCJjdXJyZW50SW5zdXJhbmNlQW5udWFsIjoxMDAwfX0">$774.27 ($20,131)</a></td><td>—</td><td>$109,869</td><td>$544,250<br><small>−$138,750, 2.3× car</small></td></tr><tr><td>EV novated lease · 2 yr · 15%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjIsInJlc2lkdWFsVmFsdWVFeEdzdCI6MzEzODEuODIzODYzNjM2MzYsIm1vbnRoc0RlZmVycmVkIjoyLCJ0b3RhbFRheGFibGVJbmNvbWUiOjEzMDAwMCwiaG9tZUxvYW5PZmZzZXRJbnRlcmVzdFJhdGUiOjYuMSwidmVoaWNsZUxlYXNlUGVyRm4iOjcyNy42OTM5Mjk3OTA5NTk0LCJsdXh1cnlWZWhpY2xlQWRqUGVyRm4iOjAsImZpbmFuY2VkQW1vdW50Rm9ySW50ZXJlc3RDYWxjRXhHc3QiOjU1Nzg5LjkwOTA5MDkwOTA5LCJzdXBlckZyb21QcmVObEluY29tZSI6IlllcyIsImdzdFNhdmluZ1Bhc3NlZE9uIjoiWWVzIiwic2VydmljZU1haW50VHlyZXNBbm51YWwiOjEwMCwic2F2ZVNoYXJlQW5udWFsIjowLCJyZWdpc3RyYXRpb25Bbm51YWwiOjk4NC44OCwiZWxlY3RyaWNpdHlBbm51YWwiOjgyMC41LCJmdWVsQW5udWFsIjoyMzYyLjUsImluc3VyYW5jZUFubnVhbCI6MTUwMCwibWFuYWdlbWVudEZlZXNBbm51YWwiOjUxNi44OCwiYXZnQXVkUGVyS3doIjowLjE1LCJhdmdXaFBlckttIjoxNjUsImNvbXBhcmVXaXRoQ2FyTG9hbiI6ZmFsc2UsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MTAwMDAsImNhckxvYW5JbnRlcmVzdFJhdGVQY3QiOjYsImNhckxvYW5Nb250aGx5RmVlIjoyNSwiY29tcGFyZVdpdGhDdXJyZW50Q2FyIjpmYWxzZSwiY3VycmVudENhck1hcmtldFZhbHVlTm93IjoyNTAwMCwiY3VycmVudENhck1hcmtldFZhbHVlQXRFbmQiOjE0MDAwLCJjdXJyZW50U2VydmljZU1haW50VHlyZXNBbm51YWwiOjgwMCwiY3VycmVudFJlZ2lzdHJhdGlvbkFubnVhbCI6OTAwLCJjdXJyZW50RnVlbEFubnVhbCI6MjM2Mi41LCJjdXJyZW50SW5zdXJhbmNlQW5udWFsIjoxMDAwfX0">$878.55 ($22,842)</a></td><td>—</td><td>$107,158</td><td>$525,550<br><small>−$157,450, 2.6× car</small></td></tr><tr><td>ICE novated lease · 5 yr · 9%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJOb24tRVYiLCJ2ZWhpY2xlQ29uZGl0aW9uIjoiTmV3IiwidXNlZENhckZpcnN0SGVsZEFmdGVySnVsMjAyMiI6ZmFsc2UsInVzZWRDYXJMY3ROZXZlclBheWFibGUiOmZhbHNlLCJ2ZWhpY2xlQmFzZVZhbHVlIjo1NDIzNiwiZHJpdmVhd2F5Q29zdCI6NTg4MDcsImVzdGltYXRlZE1hcmtldFZhbHVlQXRFbmQiOjI0MDAwLCJhbm51YWxNaWxlYWdlS20iOjE1MDAwLCJsZWFzZURvY0ZlZSI6MCwibGVhc2VTdGFydERhdGUiOiIyMDI2LTA3LTEwIiwibGVhc2VEdXJhdGlvblllYXJzIjo1LCJyZXNpZHVhbFZhbHVlRXhHc3QiOjE1MTU1LjQ0NjY2MzYzNjM2MywibW9udGhzRGVmZXJyZWQiOjIsInRvdGFsVGF4YWJsZUluY29tZSI6MTMwMDAwLCJob21lTG9hbk9mZnNldEludGVyZXN0UmF0ZSI6Ni4xLCJ2ZWhpY2xlTGVhc2VQZXJGbiI6NDIzLjY3MDM3NzIwOTExMzE2LCJsdXh1cnlWZWhpY2xlQWRqUGVyRm4iOjAsImZpbmFuY2VkQW1vdW50Rm9ySW50ZXJlc3RDYWxjRXhHc3QiOjUzODc2LjQ1NDU0NTQ1NDU0NCwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MTQ4NSwiaW5zdXJhbmNlQW5udWFsIjoxNTAwLCJtYW5hZ2VtZW50RmVlc0FubnVhbCI6NTE2Ljg4LCJhdmdBdWRQZXJLd2giOjAuMTUsImF2Z1doUGVyS20iOjE2NSwiY29tcGFyZVdpdGhDYXJMb2FuIjpmYWxzZSwiY2FyTG9hbkluaXRpYWxEZXBvc2l0IjoxMDAwMCwiY2FyTG9hbkludGVyZXN0UmF0ZVBjdCI6NiwiY2FyTG9hbk1vbnRobHlGZWUiOjI1LCJjb21wYXJlV2l0aEN1cnJlbnRDYXIiOmZhbHNlLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVOb3ciOjI1MDAwLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVBdEVuZCI6MTQwMDAsImN1cnJlbnRTZXJ2aWNlTWFpbnRUeXJlc0FubnVhbCI6ODAwLCJjdXJyZW50UmVnaXN0cmF0aW9uQW5udWFsIjo5MDAsImN1cnJlbnRGdWVsQW5udWFsIjoyMzYyLjUsImN1cnJlbnRJbnN1cmFuY2VBbm51YWwiOjEwMDB9fQ">$220.81 ($5,741)</a></td><td>$417.20 (ECM)</td><td>$124,259</td><td>$533,450<br><small>−$149,550, 2.5× car</small></td></tr><tr><td>Car loan · EV (BYD, $60,789) · 5 yr · 6.49%</td><td>—</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo0MzguNzE3Mjg0MzU3Nzg3NCwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOnRydWUsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MCwiY2FyTG9hbkludGVyZXN0UmF0ZVBjdCI6Ni40OSwiY2FyTG9hbk1vbnRobHlGZWUiOjE1LCJjb21wYXJlV2l0aEN1cnJlbnRDYXIiOmZhbHNlLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVOb3ciOjI1MDAwLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVBdEVuZCI6MTQwMDAsImN1cnJlbnRTZXJ2aWNlTWFpbnRUeXJlc0FubnVhbCI6ODAwLCJjdXJyZW50UmVnaXN0cmF0aW9uQW5udWFsIjo5MDAsImN1cnJlbnRGdWVsQW5udWFsIjoyMzYyLjUsImN1cnJlbnRJbnN1cmFuY2VBbm51YWwiOjEwMDB9fQ">$555.07 + $123.42 running</a></td><td>$130,000</td><td>$526,750<br><small>−$156,250, 2.6× car</small></td></tr><tr><td>Car loan · ICE (RAV4, $58,807) · 5 yr · 6.49%<sup><a href="#user-content-fn-label" id="user-content-fnref-label" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup></td><td>—</td><td>$537.20 + $172.19 running</td><td>$130,000</td><td>$513,850<br><small>−$169,150, 2.9× car</small></td></tr></tbody></table>
+<h3 id="macquarie--130000-single-applicant">Macquarie — $130,000 single applicant</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Scenario</th><th>Pre-tax per fortnight (annual)</th><th>Post-tax per fortnight</th><th>Taxable income</th><th>Borrowing capacity</th></tr></thead><tbody><tr><td>Baseline — no car</td><td>—</td><td>—</td><td>$130,000</td><td><strong>$690,000</strong></td></tr><tr><td>EV novated lease · 5 yr · 9%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo0MzguNzE3Mjg0MzU3Nzg3NCwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMH19">$589.57 ($15,329)</a></td><td>—</td><td>$114,671</td><td>$585,000<br><small>−$105,000, 1.7× car</small></td></tr><tr><td>EV novated lease · 5 yr · 15%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo1MzEuNTk0NTk2MzY5NjM2MywibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMH19">$682.45 ($17,744)</a></td><td>—</td><td>$112,256</td><td>$568,000<br><small>−$122,000, 2.0× car</small></td></tr><tr><td>EV novated lease · 2 yr · 9%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjIsInJlc2lkdWFsVmFsdWVFeEdzdCI6MzEzODEuODIzODYzNjM2MzYsIm1vbnRoc0RlZmVycmVkIjoyLCJ0b3RhbFRheGFibGVJbmNvbWUiOjEzMDAwMCwiaG9tZUxvYW5PZmZzZXRJbnRlcmVzdFJhdGUiOjYuMSwidmVoaWNsZUxlYXNlUGVyRm4iOjYyMy40MTM2OTQwMTM1MTgxLCJsdXh1cnlWZWhpY2xlQWRqUGVyRm4iOjAsImZpbmFuY2VkQW1vdW50Rm9ySW50ZXJlc3RDYWxjRXhHc3QiOjU1Nzg5LjkwOTA5MDkwOTA5LCJzdXBlckZyb21QcmVObEluY29tZSI6IlllcyIsImdzdFNhdmluZ1Bhc3NlZE9uIjoiWWVzIiwic2VydmljZU1haW50VHlyZXNBbm51YWwiOjEwMCwic2F2ZVNoYXJlQW5udWFsIjowLCJyZWdpc3RyYXRpb25Bbm51YWwiOjk4NC44OCwiZWxlY3RyaWNpdHlBbm51YWwiOjgyMC41LCJmdWVsQW5udWFsIjoyMzYyLjUsImluc3VyYW5jZUFubnVhbCI6MTUwMCwibWFuYWdlbWVudEZlZXNBbm51YWwiOjUxNi44OCwiYXZnQXVkUGVyS3doIjowLjE1LCJhdmdXaFBlckttIjoxNjUsImNvbXBhcmVXaXRoQ2FyTG9hbiI6ZmFsc2UsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MTAwMDAsImNhckxvYW5JbnRlcmVzdFJhdGVQY3QiOjYsImNhckxvYW5Nb250aGx5RmVlIjoyNSwiY29tcGFyZVdpdGhDdXJyZW50Q2FyIjpmYWxzZSwiY3VycmVudENhck1hcmtldFZhbHVlTm93IjoyNTAwMCwiY3VycmVudENhck1hcmtldFZhbHVlQXRFbmQiOjE0MDAwLCJjdXJyZW50U2VydmljZU1haW50VHlyZXNBbm51YWwiOjgwMCwiY3VycmVudFJlZ2lzdHJhdGlvbkFubnVhbCI6OTAwLCJjdXJyZW50RnVlbEFubnVhbCI6MjM2Mi41LCJjdXJyZW50SW5zdXJhbmNlQW5udWFsIjoxMDAwfX0">$774.27 ($20,131)</a></td><td>—</td><td>$109,869</td><td>$550,000<br><small>−$140,000, 2.3× car</small></td></tr><tr><td>EV novated lease · 2 yr · 15%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjIsInJlc2lkdWFsVmFsdWVFeEdzdCI6MzEzODEuODIzODYzNjM2MzYsIm1vbnRoc0RlZmVycmVkIjoyLCJ0b3RhbFRheGFibGVJbmNvbWUiOjEzMDAwMCwiaG9tZUxvYW5PZmZzZXRJbnRlcmVzdFJhdGUiOjYuMSwidmVoaWNsZUxlYXNlUGVyRm4iOjcyNy42OTM5Mjk3OTA5NTk0LCJsdXh1cnlWZWhpY2xlQWRqUGVyRm4iOjAsImZpbmFuY2VkQW1vdW50Rm9ySW50ZXJlc3RDYWxjRXhHc3QiOjU1Nzg5LjkwOTA5MDkwOTA5LCJzdXBlckZyb21QcmVObEluY29tZSI6IlllcyIsImdzdFNhdmluZ1Bhc3NlZE9uIjoiWWVzIiwic2VydmljZU1haW50VHlyZXNBbm51YWwiOjEwMCwic2F2ZVNoYXJlQW5udWFsIjowLCJyZWdpc3RyYXRpb25Bbm51YWwiOjk4NC44OCwiZWxlY3RyaWNpdHlBbm51YWwiOjgyMC41LCJmdWVsQW5udWFsIjoyMzYyLjUsImluc3VyYW5jZUFubnVhbCI6MTUwMCwibWFuYWdlbWVudEZlZXNBbm51YWwiOjUxNi44OCwiYXZnQXVkUGVyS3doIjowLjE1LCJhdmdXaFBlckttIjoxNjUsImNvbXBhcmVXaXRoQ2FyTG9hbiI6ZmFsc2UsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MTAwMDAsImNhckxvYW5JbnRlcmVzdFJhdGVQY3QiOjYsImNhckxvYW5Nb250aGx5RmVlIjoyNSwiY29tcGFyZVdpdGhDdXJyZW50Q2FyIjpmYWxzZSwiY3VycmVudENhck1hcmtldFZhbHVlTm93IjoyNTAwMCwiY3VycmVudENhck1hcmtldFZhbHVlQXRFbmQiOjE0MDAwLCJjdXJyZW50U2VydmljZU1haW50VHlyZXNBbm51YWwiOjgwMCwiY3VycmVudFJlZ2lzdHJhdGlvbkFubnVhbCI6OTAwLCJjdXJyZW50RnVlbEFubnVhbCI6MjM2Mi41LCJjdXJyZW50SW5zdXJhbmNlQW5udWFsIjoxMDAwfX0">$878.55 ($22,842)</a></td><td>—</td><td>$107,158</td><td>$540,000<br><small>−$150,000, 2.5× car</small></td></tr><tr><td>ICE novated lease · 5 yr · 9%</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJOb24tRVYiLCJ2ZWhpY2xlQ29uZGl0aW9uIjoiTmV3IiwidXNlZENhckZpcnN0SGVsZEFmdGVySnVsMjAyMiI6ZmFsc2UsInVzZWRDYXJMY3ROZXZlclBheWFibGUiOmZhbHNlLCJ2ZWhpY2xlQmFzZVZhbHVlIjo1NDIzNiwiZHJpdmVhd2F5Q29zdCI6NTg4MDcsImVzdGltYXRlZE1hcmtldFZhbHVlQXRFbmQiOjI0MDAwLCJhbm51YWxNaWxlYWdlS20iOjE1MDAwLCJsZWFzZURvY0ZlZSI6MCwibGVhc2VTdGFydERhdGUiOiIyMDI2LTA3LTEwIiwibGVhc2VEdXJhdGlvblllYXJzIjo1LCJyZXNpZHVhbFZhbHVlRXhHc3QiOjE1MTU1LjQ0NjY2MzYzNjM2MywibW9udGhzRGVmZXJyZWQiOjIsInRvdGFsVGF4YWJsZUluY29tZSI6MTMwMDAwLCJob21lTG9hbk9mZnNldEludGVyZXN0UmF0ZSI6Ni4xLCJ2ZWhpY2xlTGVhc2VQZXJGbiI6NDIzLjY3MDM3NzIwOTExMzE2LCJsdXh1cnlWZWhpY2xlQWRqUGVyRm4iOjAsImZpbmFuY2VkQW1vdW50Rm9ySW50ZXJlc3RDYWxjRXhHc3QiOjUzODc2LjQ1NDU0NTQ1NDU0NCwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MTQ4NSwiaW5zdXJhbmNlQW5udWFsIjoxNTAwLCJtYW5hZ2VtZW50RmVlc0FubnVhbCI6NTE2Ljg4LCJhdmdBdWRQZXJLd2giOjAuMTUsImF2Z1doUGVyS20iOjE2NSwiY29tcGFyZVdpdGhDYXJMb2FuIjpmYWxzZSwiY2FyTG9hbkluaXRpYWxEZXBvc2l0IjoxMDAwMCwiY2FyTG9hbkludGVyZXN0UmF0ZVBjdCI6NiwiY2FyTG9hbk1vbnRobHlGZWUiOjI1LCJjb21wYXJlV2l0aEN1cnJlbnRDYXIiOmZhbHNlLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVOb3ciOjI1MDAwLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVBdEVuZCI6MTQwMDAsImN1cnJlbnRTZXJ2aWNlTWFpbnRUeXJlc0FubnVhbCI6ODAwLCJjdXJyZW50UmVnaXN0cmF0aW9uQW5udWFsIjo5MDAsImN1cnJlbnRGdWVsQW5udWFsIjoyMzYyLjUsImN1cnJlbnRJbnN1cmFuY2VBbm51YWwiOjEwMDB9fQ">$220.81 ($5,741)</a></td><td>$417.20 (ECM)</td><td>$124,259</td><td>$540,000<br><small>−$150,000, 2.6× car</small></td></tr><tr><td>Car loan · EV (BYD, $60,789) · 5 yr · 6.49%</td><td>—</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMzAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo0MzguNzE3Mjg0MzU3Nzg3NCwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOnRydWUsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MCwiY2FyTG9hbkludGVyZXN0UmF0ZVBjdCI6Ni40OSwiY2FyTG9hbk1vbnRobHlGZWUiOjE1LCJjb21wYXJlV2l0aEN1cnJlbnRDYXIiOmZhbHNlLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVOb3ciOjI1MDAwLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVBdEVuZCI6MTQwMDAsImN1cnJlbnRTZXJ2aWNlTWFpbnRUeXJlc0FubnVhbCI6ODAwLCJjdXJyZW50UmVnaXN0cmF0aW9uQW5udWFsIjo5MDAsImN1cnJlbnRGdWVsQW5udWFsIjoyMzYyLjUsImN1cnJlbnRJbnN1cmFuY2VBbm51YWwiOjEwMDB9fQ">$555.07 + $123.42 running</a></td><td>$130,000</td><td>$505,000<br><small>−$185,000, 3.0× car</small></td></tr><tr><td>Car loan · ICE (RAV4, $58,807) · 5 yr · 6.49%<sup><a href="#user-content-fn-label" id="user-content-fnref-label-2" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup></td><td>—</td><td>$537.20 + $172.19 running</td><td>$130,000</td><td>$500,000<br><small>−$190,000, 3.2× car</small></td></tr></tbody></table>
+<h3 id="300000-single-applicant">$300,000 single applicant</h3>
+<p>Only the 5-year, 9% EV lease was modelled at this income level.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Lender</th><th>Scenario</th><th>Borrowing capacity</th></tr></thead><tbody><tr><td>Bankwest</td><td>Baseline — no car</td><td><strong>$1,445,550</strong></td></tr><tr><td>Bankwest</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjozMDAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo0MzguNzE3Mjg0MzU3Nzg3NCwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMH19">EV novated lease · 5 yr · 9%</a></td><td>$1,363,150<br><small>−$82,400, 1.4× car</small></td></tr><tr><td>Macquarie</td><td>Baseline — no car</td><td><strong>$1,440,000</strong></td></tr><tr><td>Macquarie</td><td><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjU0OTkwLCJkcml2ZWF3YXlDb3N0Ijo2MDc4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjQwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDctMTAiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTU2OTMuNzAxNDI3MjcyNzI3LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjozMDAwMDAsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjEsInZlaGljbGVMZWFzZVBlckZuIjo0MzguNzE3Mjg0MzU3Nzg3NCwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo1NTc4OS45MDkwOTA5MDkwOSwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjoxMDAsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo5ODQuODgsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNSwiZnVlbEFubnVhbCI6MjM2Mi41LCJpbnN1cmFuY2VBbm51YWwiOjE1MDAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MTYuODgsImF2Z0F1ZFBlckt3aCI6MC4xNSwiYXZnV2hQZXJLbSI6MTY1LCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo2LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMH19">EV novated lease · 5 yr · 9%</a></td><td>$1,360,000<br><small>−$80,000, 1.3× car</small></td></tr></tbody></table>
+<p><strong>Assumptions behind every row.</strong> The cars are the BYD Sealion 7 Premium ($60,789.25) and Toyota RAV4 GXL Auto eFour ($58,807) introduced at the top, each financed at full drive-away price with no deposit. Single applicant, no dependants. Living expenses set at the lender’s HEM benchmark: a $2,520 per month base for Bankwest and $2,400 for Macquarie at the $130,000 income level, and $4,190 at $300,000. A $200 per month vehicle maintenance allowance is already built into the expense figure in <strong>every</strong> row, including the baseline — so the “no car” row is a person who runs a car, not a person who does not own one. Everything else in the applicant’s profile is held constant across rows, so the differences shown are attributable to the vehicle finance alone.</p>
+<hr>
+<h2 id="what-the-numbers-actually-say">What the numbers actually say</h2>
+<h3 id="1-the-3-the-car-rule-of-thumb-is-roughly-right-for-a-car-loan">1. The “3× the car” rule of thumb is roughly right for a car loan</h3>
+<p>This was the claim I most wanted to test, and the modelling is set up to test it cleanly: each car loan finances the car’s full drive-away price, so the amount borrowed <em>is</em> the car’s value.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Car loan</th><th>Capacity lost</th><th>As a multiple of the car’s price</th></tr></thead><tbody><tr><td>BYD Sealion 7, $60,789 — Bankwest</td><td>$156,250</td><td>2.6×</td></tr><tr><td>BYD Sealion 7, $60,789 — Macquarie</td><td>$185,000</td><td>3.0×</td></tr><tr><td>Toyota RAV4, $58,807 — Bankwest</td><td>$169,150</td><td>2.9×</td></tr><tr><td>Toyota RAV4, $58,807 — Macquarie</td><td>$190,000</td><td>3.2×</td></tr></tbody></table>
+<p>So the folklore holds up well for conventional car finance — 2.6× to 3.2× across four combinations, with 3× sitting squarely in the middle.</p>
+<p>For the <em>five-year</em> EV leases the multiple is <strong>1.7× to 2.0×</strong> — better than the equivalent car loan by roughly the price of the car itself. The five-year petrol lease, at 2.5× to 2.6×, still beats the petrol car loan (2.9× to 3.2×), though by less, for the reason in point 4. The two-year leases are worse again, for the reason in the next point.</p>
+<p>Note, though, that whichever way it is financed over five years, a ~$60,000 car removes somewhere between $105,000 and $190,000 of borrowing power on a $130,000 income.</p>
+<h3 id="2-longer-leases-are-better-for-servicing--the-opposite-of-the-usual-risk-advice">2. Longer leases are better for servicing — the opposite of the usual risk advice</h3>
+<p>A 2-year lease has a much higher fortnightly payment than a 5-year lease on the same car, and servicing calculators only care about the payment. Stretching a 9% EV lease from 2 years to 5 years recovers $33,100 of capacity at Bankwest and $35,000 at Macquarie.</p>
+<p>The two-year leases cost 2.3× to 2.6× the car’s price in borrowing power. At worst (Bankwest, 15%) that is level with a car loan on the same car: most of the lease’s advantage is gone.</p>
+<p>This runs against the general advice in <a href="/risks/lease-length-and-risk/">lease length and risk</a>, where a shorter lease reduces your exposure to <a href="/risks/early-termination/">early-termination loss</a>. For borrowing capacity it points the other way: the shorter the lease, the bigger the hit.</p>
+<h3 id="3-the-interest-rate-inside-the-lease-impacts-your-borrowing-capacity">3. The interest rate inside the lease impacts your borrowing capacity</h3>
+<p>Going from 9% to 15% on the same 5-year EV lease costs $16,650 of Bankwest capacity and $17,000 at Macquarie. The lease rate is already <a href="/costs-and-savings/why-nl-interest-looks-high/">the least transparent number in a novated lease quote</a>; this is one more reason to extract it and negotiate it rather than accept the first quote.</p>
+<h3 id="4-an-ice-novated-lease-behaves-worse-than-an-ev-novated-lease">4. An ICE novated lease behaves worse than an EV novated lease</h3>
+<p>The ICE lease has the smallest pre-tax deduction of any lease row — $220.81 per fortnight — and the highest taxable income. It still lands below every 5-year EV lease.</p>
+<p>The reason is the <strong><a href="/start-here/glossary/">Employee Contribution Method</a></strong>: $417.20 per fortnight of that lease is paid from <em>post-tax</em> salary to extinguish the FBT liability. Post-tax money has no tax benefit attached, and the lender enters it as a commitment, so that part behaves exactly like a car-loan repayment. The pre-tax part only reduces your salary, and because it also reduces your tax, it costs you less than its face value: on a $130,000 income, $100 of pre-tax deduction takes about $68 out of your pay. The FBT exemption on EVs is not just a tax saving: it is also what keeps the whole payment on the pre-tax side, where each dollar costs you less borrowing power.</p>
+<h3 id="5-higher-incomes-dilute-the-effect-but-do-not-remove-it">5. Higher incomes dilute the effect, but do not remove it</h3>
+<p>At $130,000, the 9% EV lease costs 15.5% of Bankwest capacity. At $300,000, the same lease costs 5.7%. Two things are at work. The higher earner’s larger tax saving means the same pre-tax deduction takes fewer after-tax dollars out of their pay, and what it does take is a much smaller share of a much larger surplus. This is consistent with <a href="/costs-and-savings/low-income-novated-lease-savings/">how novated lease benefits generally scale with income</a>.</p>
+<h3 id="6-paying-cash-is-still-best-for-servicing-but-it-comes-out-of-your-deposit">6. Paying cash is still best for servicing, but it comes out of your deposit</h3>
+<p>A novated lease holding its own against a five-year car loan does not make it the best option for borrowing power. By design, any finance is worse than none: a lease or a loan adds a commitment the lender must deduct, and a car bought outright adds none. The baseline row in the grid is effectively the cash buyer. It already includes a car’s running costs, so buying a ~$60,000 car outright would leave the capacity figure where it is ($683,000 at Bankwest, $690,000 at Macquarie), against $105,000 to $190,000 lost by financing it.</p>
+<p>Cash has its own cost, though. The $60,000 comes out of your savings, which is usually the money earmarked for the deposit. A smaller deposit means a smaller property within your borrowing capacity, a higher LVR, possibly lenders mortgage insurance, or a longer wait to save. So paying cash does not escape the trade-off; it moves it from your borrowing capacity to your deposit.</p>
+<hr>
+<h2 id="living-expenses-and-the-hem-floor">Living expenses and the HEM floor</h2>
+<p>A servicing calculator has two sides: your income, and your commitments plus living expenses. Everything above is about the first side, and how the lease is entered. The living-expenses side has a trap of its own.</p>
+<h3 id="your-cars-running-costs-should-not-be-counted-twice">Your car’s running costs should not be counted twice</h3>
+<p>A novated lease packages the car’s running costs (fuel or charging, servicing, tyres, insurance, rego) into the same pre-tax deduction as the finance. The lender already accounts for that deduction on the income side. If your declared living expenses still include those running costs, the lender is counting them twice.</p>
+<p>So when you apply for a home loan with a lease in place, your broker can, and should, take the vehicle running costs out of your declared living expenses and note why. Macquarie’s guidance to brokers asks for exactly this note.</p>
+<h3 id="whether-that-helps-depends-on-hem">Whether that helps depends on HEM</h3>
+<p>Lenders do not simply take your declared living expenses at face value. They compare them with the <strong>Household Expenditure Measure (HEM)</strong>, a benchmark of what a household like yours typically spends on basic living costs, set by household income, household size and location, and updated quarterly. The lender uses whichever is higher. HEM works as a floor: even if your own declaration adds up to less, the HEM figure is used instead.</p>
+<p>That floor decides how much removing the running costs is worth. Take the single $130,000 borrower from the grid, with a Bankwest HEM of $2,520 a month, and say the lease covers $300 a month of running costs:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Household’s declared living expenses (including $300 of car costs)</th><th>After removing the car costs</th><th>What the lender uses</th><th>Reduction in assessed expenses</th></tr></thead><tbody><tr><td>$3,500 — well above HEM</td><td>$3,200</td><td>$3,200</td><td><strong>$300</strong>, the full amount</td></tr><tr><td>$2,700 — just above HEM</td><td>$2,400</td><td>$2,520 (HEM)</td><td><strong>$180</strong>, part of it</td></tr><tr><td>$2,500 — already below HEM</td><td>$2,200</td><td>$2,520 (HEM)</td><td><strong>$0</strong></td></tr></tbody></table>
+<ul>
+<li><strong>If your declared expenses are well above HEM,</strong> removing the running costs genuinely lowers the expenses the lender uses, and claws back part of the lease’s hit to your borrowing capacity.</li>
+<li><strong>If your declared expenses are at or close to HEM,</strong> removing them achieves little or nothing. The lender falls back to HEM, and the assessed expenses barely move. In effect you are still being assessed as if you pay the car’s running costs out of your living expenses, as well as through the lease deduction. In this scenario, it’s indeed as if they are double-counting your car’s running cost.</li>
+</ul>
+<hr>
+<h2 id="what-to-do-with-this-if-you-are-buying-a-house">What to do with this if you are buying a house</h2>
+<ul>
+<li><strong>Get the servicing test run before you sign the lease, not after.</strong> A broker can model your actual numbers in ten minutes. A four or five-year lease commitment cannot be unwound cheaply — see <a href="/risks/early-termination/">what happens on early termination</a>.</li>
+<li><strong>Have a plan for the balloon.</strong> Lenders want to know how you will clear the residual at the end of the lease: savings, selling the car, or rolling into a new lease. Tell your broker up front.</li>
+<li><strong>Declare your living expenses with the lease in mind.</strong> Your car’s running costs are paid through the lease, so ask your broker to take them out of your declared living expenses. Whether that actually lifts your borrowing capacity depends on how close your expenses are to the HEM benchmark: see <a href="#living-expenses-and-the-hem-floor">living expenses and the HEM floor</a>.</li>
+<li><strong>If the gap is a deal-breaker, the order of operations matters.</strong> Settling the mortgage first and starting the lease afterwards is the standard advice for a reason. The reverse order is what costs people six figures of capacity.</li>
+<li><strong>Do not forget the second-order effects.</strong> For an FBT-exempt EV, the lease also raises your <a href="/costs-and-savings/fbt-rfba-ati-explained/">adjusted taxable income via RFBA</a>, with flow-on consequences for <a href="/special-and-policy/childcare-subsidy/">childcare subsidy</a>, HELP repayments and Division 293 — none of which show up in a servicing calculator.</li>
+<li><strong>Separate this decision from the tax question entirely.</strong> Borrowing capacity is not a cost you can net off against the lease saving, and <a href="/costs-and-savings/why-tax-saved-is-wrong/">the “tax saved” figure on your quote</a> was never measuring this in the first place. Run the financial comparison in <a href="/calculator/">the calculator</a>, then treat the servicing impact as a separate constraint that either fits your plans or does not.</li>
+</ul>
+<hr>
+<h2 id="about-the-contributor">About the contributor</h2>
+<blockquote>
+<p>Leonard Nagawidjaja is a dedicated finance broker committed to helping individuals, families, and businesses achieve their financial goals with confidence. With extensive experience over 15 years in the industry, across home loans, investment lending, asset finance, and refinancing solutions, Leonard takes a personalised approach to every client relationship. He understands that no two financial situations are the same and works closely with clients to find tailored lending strategies that suit their needs and long-term objectives. Known for his professionalism, transparency, and attention to detail, Leonard is passionate about simplifying the finance process and delivering exceptional outcomes from application through to settlement.</p>
+<p>B.Bus, Dip. Fin · MFAA Approved Credit Adviser · Australian Credit Licence #462491 · <a href="https://www.aafinancesolutions.com.au/consultant/leonard-nagawidjaja/">Leonard’s profile at AA Finance Solutions</a></p>
+</blockquote>
+<p>I am grateful to Leonard for running this modelling and writing it up. This site carries no advertising and sells no leads; the link above is a credit, not a referral arrangement, and I receive nothing if you contact him.</p>
+<p><strong>None of this is credit advice.</strong> Every servicing calculator is proprietary, every lender’s treatment of salary sacrifice differs, and all of these figures depend on assumptions that will not match yours. Nothing here is a commitment from Bankwest, Macquarie, or any other lender. See the <a href="/about/disclaimer/">full disclaimer</a>.</p>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-addback">
+<p>A handful of lenders take a different route. They enter the pre-tax lease deduction as a debt repayment, then add the same amount back to your income as tax-free income, which roughly cancels out. Leonard’s modelling ran every scenario this way as well, and the result came within $10,000 of the reduced-income method in every case, so it makes little practical difference to borrowing capacity. <a href="#user-content-fnref-addback" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-label">
+<p>The source table repeated the “EV” label on this row. It is the petrol comparison: its running-cost allowance is far higher ($172.19 against $123.42 per fortnight), and its loan repayment is 96.8% of the EV row’s — matching the RAV4’s price as 96.7% of the BYD’s almost exactly. <a href="#user-content-fnref-label" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a> <a href="#user-content-fnref-label-2" data-footnote-backref="" aria-label="Back to reference 2-2" class="data-footnote-backref">↩<sup>2</sup></a></p>
+</li>
+</ol>
+</section>  </article> <div class="admonition admonition--info"><div class="admonition__title">Support this independent calculator & guide</div><p>This calculator and guide are built and continuously maintained as an independent project.</p><p>If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:</p><ul><li><a href="https://buymeacoffee.com/changyang1230">Buying me a cuppa</a> ☕ to help cover hosting, development time, and future improvements, or</li><li><a href="https://ts.la/pradeep738043">Using a friend's Tesla referral link</a> for a $350 discount if you're ordering a Tesla — the referral credit goes to them, not me.</li></ul></div><details class="admonition admonition--note admonition--collapsible"><summary class="admonition__title">I'm backing Dr Michael Keane's fight for salary packaging transparency</summary><p>Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.</p><p>Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on <a href="https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0">alleged sign-on fees</a> associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.</p><p>To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his <a href="https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging"><img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe</a>.</p></details> </main> <aside class="page-toc" aria-label="Table of contents"> <div class="toc" id="article-toc"><div class="toc__title">On this page</div><ul class="toc__list" role="list"><li class="toc__item"><a href="#novated-lease-vs-car-loan-how-it-affects-your-borrowing-capacity" class="toc__link">Novated lease vs car loan: how it affects your borrowing capacity</a></li><li class="toc__item toc__item--depth-3"><a href="#the-starting-point" class="toc__link toc__list--depth-2 toc__link">The starting point</a></li><li class="toc__item toc__item--depth-3"><a href="#option-1-traditional-car-loan-for-the-ev" class="toc__link toc__list--depth-2 toc__link">Option 1: traditional car loan for the EV</a></li><li class="toc__item toc__item--depth-3"><a href="#option-2-ev-novated-lease" class="toc__link toc__list--depth-2 toc__link">Option 2: EV novated lease</a></li><li class="toc__item toc__item--depth-3"><a href="#what-about-higher-income-earners" class="toc__link toc__list--depth-2 toc__link">What about higher income earners?</a></li><li class="toc__item toc__item--depth-3"><a href="#why-does-the-novated-lease-perform-better" class="toc__link toc__list--depth-2 toc__link">Why does the novated lease perform better?</a></li><li class="toc__item toc__item--depth-3"><a href="#key-takeaway" class="toc__link toc__list--depth-2 toc__link">Key takeaway</a></li><li class="toc__item"><a href="#how-lenders-assess-a-novated-lease" class="toc__link">How lenders assess a novated lease</a></li><li class="toc__item"><a href="#the-full-modelling-grid" class="toc__link">The full modelling grid</a></li><li class="toc__item toc__item--depth-3"><a href="#bankwest--130000-single-applicant" class="toc__link toc__list--depth-2 toc__link">Bankwest — $130,000 single applicant</a></li><li class="toc__item toc__item--depth-3"><a href="#macquarie--130000-single-applicant" class="toc__link toc__list--depth-2 toc__link">Macquarie — $130,000 single applicant</a></li><li class="toc__item toc__item--depth-3"><a href="#300000-single-applicant" class="toc__link toc__list--depth-2 toc__link">$300,000 single applicant</a></li><li class="toc__item"><a href="#what-the-numbers-actually-say" class="toc__link">What the numbers actually say</a></li><li class="toc__item toc__item--depth-3"><a href="#1-the-3-the-car-rule-of-thumb-is-roughly-right-for-a-car-loan" class="toc__link toc__list--depth-2 toc__link">1. The “3× the car” rule of thumb is roughly right for a car loan</a></li><li class="toc__item toc__item--depth-3"><a href="#2-longer-leases-are-better-for-servicing--the-opposite-of-the-usual-risk-advice" class="toc__link toc__list--depth-2 toc__link">2. Longer leases are better for servicing — the opposite of the usual risk advice</a></li><li class="toc__item toc__item--depth-3"><a href="#3-the-interest-rate-inside-the-lease-impacts-your-borrowing-capacity" class="toc__link toc__list--depth-2 toc__link">3. The interest rate inside the lease impacts your borrowing capacity</a></li><li class="toc__item toc__item--depth-3"><a href="#4-an-ice-novated-lease-behaves-worse-than-an-ev-novated-lease" class="toc__link toc__list--depth-2 toc__link">4. An ICE novated lease behaves worse than an EV novated lease</a></li><li class="toc__item toc__item--depth-3"><a href="#5-higher-incomes-dilute-the-effect-but-do-not-remove-it" class="toc__link toc__list--depth-2 toc__link">5. Higher incomes dilute the effect, but do not remove it</a></li><li class="toc__item toc__item--depth-3"><a href="#6-paying-cash-is-still-best-for-servicing-but-it-comes-out-of-your-deposit" class="toc__link toc__list--depth-2 toc__link">6. Paying cash is still best for servicing, but it comes out of your deposit</a></li><li class="toc__item"><a href="#living-expenses-and-the-hem-floor" class="toc__link">Living expenses and the HEM floor</a></li><li class="toc__item toc__item--depth-3"><a href="#your-cars-running-costs-should-not-be-counted-twice" class="toc__link toc__list--depth-2 toc__link">Your car’s running costs should not be counted twice</a></li><li class="toc__item toc__item--depth-3"><a href="#whether-that-helps-depends-on-hem" class="toc__link toc__list--depth-2 toc__link">Whether that helps depends on HEM</a></li><li class="toc__item"><a href="#what-to-do-with-this-if-you-are-buying-a-house" class="toc__link">What to do with this if you are buying a house</a></li><li class="toc__item"><a href="#about-the-contributor" class="toc__link">About the contributor</a></li><li class="toc__item"><a href="#footnote-label" class="toc__link">Footnotes</a></li></ul></div><script type="module">(function(){var l=document.querySelectorAll("#article-toc .toc__link");if(l.length===0)return;var c=Array.from(l).map(function(e){var t=e.getAttribute("href")||"",r=t.replace("#","");return{el:document.getElementById(r),link:e}}).filter(function(e){return e.el});function o(){for(var e=72,t=window.scrollY,r=null,n=c.length-1;n>=0;n--)if(c[n].el.getBoundingClientRect().top+t<=t+e+4){r=c[n];break}l.forEach(function(a){a.classList.remove("active")}),r&&r.link.classList.add("active")}window.addEventListener("scroll",o,{passive:!0}),o()})();</script> </aside> </div>  </div> <footer class="site-footer"> <div class="site-footer__inner"> <div class="site-footer__col"> <div class="site-footer__brand"> <img class="site-footer__logo" src="/assets/images/logo.svg" alt="" aria-hidden="true">
+Novated Lease Guide
+</div> <p style="max-width:280px; line-height:1.6; margin:0; font-size:0.78rem;">
+Independent, evidence-based Australian novated lease guide and calculator.
+        Not affiliated with any financier or provider.
+</p> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Calculator</div> <ul class="site-footer__links"> <li><a href="/calculator/" class="site-footer__link">Novated Lease Calculator</a></li> <li><a href="/tools/byo-employer-check/" class="site-footer__link">Employer BYO checker</a></li> <li><a href="/start-here/use-nl-calculator/" class="site-footer__link">How to use the calculator</a></li> <li><a href="/start-here/calculator-comparison/" class="site-footer__link">20 calculators reviewed</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Key Articles</div> <ul class="site-footer__links"> <li><a href="/start-here/what-is-novated-lease/" class="site-footer__link">What is a novated lease?</a></li> <li><a href="/start-here/is-it-worth-it/" class="site-footer__link">Is it worth it?</a></li> <li><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="site-footer__link">Why "tax saved" is wrong</a></li> <li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="site-footer__link">EV FBT wind-back 2026</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">About</div> <ul class="site-footer__links"> <li><a href="/about/about-me/" class="site-footer__link">About me</a></li> <li><a href="/about/history/" class="site-footer__link">Calculator history</a></li> <li><a href="/about/what-readers-say/" class="site-footer__link">What readers say</a></li> <li><a href="/about/contact/" class="site-footer__link">Contact</a></li> <li><a href="/about/privacy/" class="site-footer__link">Privacy policy</a></li> <li><a href="/about/disclaimer/" class="site-footer__link">Disclaimer</a></li> <li><a href="https://buymeacoffee.com/changyang1230" class="site-footer__link" target="_blank" rel="noopener">Buy me a coffee ☕</a></li> </ul> </div> </div> <div class="site-footer__meta"> <div class="site-footer__meta-links"> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/privacy/">Privacy</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/disclaimer/">Disclaimer</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/contact/">Contact</a>
+&nbsp;&middot;&nbsp;
+      &copy; 2026
+</div> <div class="site-footer__meta-disclaimer">
+This site provides general information and educational commentary only. It does not constitute personal financial advice.
+</div> </div> </footer> <!-- GA4 link tracking & search keyboard shortcut --> <script>
+      // Track Buy Me a Coffee & Tesla referral link clicks
+      (function() {
+        function fireGa4(name, params) {
+          try { if (typeof gtag === 'function') gtag('event', name, params); } catch(e) {}
+        }
+        function trackLinks() {
+          document.querySelectorAll('a[href^="https://buymeacoffee.com/"],a[href^="https://www.buymeacoffee.com/"],a[href^="https://ts.la/"]').forEach(function(a) {
+            a.addEventListener('click', function() {
+              var href = a.getAttribute('href') || '';
+              fireGa4('support_link_click', {
+                link_label: href.includes('buymeacoffee') ? 'buymeacoffee' : 'tesla_referral',
+                link_url: href,
+                page_path: window.location.pathname,
+                page_title: document.title
+              });
+            }, { capture: true });
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', trackLinks);
+        } else {
+          trackLinks();
+        }
+      })();
+
+      // Keyboard shortcut: / or Ctrl+K to open search
+      document.addEventListener('keydown', function(e) {
+        if ((e.key === '/' || (e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) && !e.target.matches('input,textarea')) {
+          e.preventDefault();
+          window.openSearch && window.openSearch();
+        }
+        if (e.key === 'Escape') {
+          window.closeSearch && window.closeSearch();
+          window.closeDrawer && window.closeDrawer();
+        }
+      });
+    </script> </body> </html> <script type="module">(function(){var f=document.querySelectorAll(".compact-table table");f.forEach(function(r){var l=r.closest(".compact-table");if(!l)return;var e=r.querySelector("thead"),o=Array.from(r.querySelectorAll("tr th:first-child, tr td:first-child")),c=Array.from(r.querySelectorAll("tr th:nth-child(2), tr td:nth-child(2)"));o.concat(c).forEach(function(t){t.style.position="relative",t.style.backgroundColor="var(--color-bg)"}),o.forEach(function(t){t.style.whiteSpace="nowrap",t.style.zIndex="2"}),c.forEach(function(t){t.style.zIndex="2"}),r.querySelectorAll("thead th:first-child, thead th:nth-child(2)").forEach(function(t){t.style.zIndex="4"});function n(){var t=l.scrollLeft;o.forEach(function(a){a.style.transform="translateX("+t+"px)"}),c.forEach(function(a){a.style.transform="translateX("+t+"px)"})}if(l.addEventListener("scroll",n,{passive:!0}),n(),!e)return;function i(){var t=document.querySelector(".site-nav");return t?t.offsetHeight:56}function s(){var t=l.getBoundingClientRect(),a=i(),u=e.offsetHeight,d=a-t.top;d>0&&t.bottom>a+u?(e.style.transform="translateY("+d+"px)",e.style.position="relative",e.style.zIndex="3"):(e.style.transform="",e.style.position="",e.style.zIndex="")}window.addEventListener("scroll",s,{passive:!0}),s()}),document.querySelectorAll(".article-content table").forEach(function(r){var l=Array.from(r.querySelectorAll("tbody > tr")),e=null,o=null;l.forEach(function(c){var n=c.querySelector("td:first-child");if(!n){e=null,o=null;return}var i=n.textContent.trim();e&&i===o?(e.rowSpan=(e.rowSpan||1)+1,e.style.verticalAlign="middle",n.remove()):(e=n,o=i)})}),document.querySelectorAll("[data-dismiss]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-dismiss"));l&&(l.style.display="none")})}),document.querySelectorAll("[data-toggle]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-toggle"));if(l){var e=l.classList.toggle("open");r.textContent=e?"close ▴":"details ▾"}})})})();</script>
