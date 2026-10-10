@@ -52,7 +52,7 @@ For leases committed to **before 1 April 2027**, two additional criteria apply u
 
 [^1]: Or the applicable LCT threshold at the time of purchase if the lease commenced in an earlier financial year. It is [$91,661](/special-and-policy/lct-threshold-fbt-exemption/) from 1/7/26.
 [^2]: Protected until the commitment ends. <span class="draft-tag">Draft</span> A refinance, a change of term or residual, a job change and several other events count as a new commitment; see [what ends your grandfathering](#what-ends-your-grandfathering).
-[^3]: The upper limit is the fuel-efficient car LCT threshold for the financial year in which the employer first holds the car: [$91,661](/special-and-policy/lct-threshold-fbt-exemption/) for 2026–27, indexed each July after that. <span class="draft-tag">Draft</span> The draft ties the ceiling to the *fuel-efficient car* limit specifically, so a separate $120,000 zero-emission LCT category, if it is legislated, would not obviously lift this ceiling. That is my reading of the draft rather than something it states.
+[^3]: The upper limit is the fuel-efficient car LCT threshold for the financial year in which your novated lease starts: [$91,661](/special-and-policy/lct-threshold-fbt-exemption/) for 2026–27, indexed each July after that. <span class="draft-tag">Draft</span> The draft ties the ceiling to the *fuel-efficient car* limit specifically, so a separate $120,000 zero-emission LCT category, if it is legislated, would not obviously lift this ceiling. That is my reading of the draft rather than something it states.
 
 ---
 
@@ -106,12 +106,14 @@ For leases committed to from 1 April 2027, the draft has only three tests (new s
 
 1. the car is a battery electric or hydrogen fuel cell vehicle (plug-in hybrids are not included);
 2. the benefit is provided to a **current employee**; and
-3. the car's **base value at the time the employer first holds it** is at or below the fuel-efficient LCT threshold for that financial year.
+3. the car's **base value when your novated lease starts** is at or below the fuel-efficient LCT threshold for that financial year.
+
+The draft's own wording is the base value "at the earliest holding time", which the explanatory materials describe as when the employer first "holds" the car. Your employer never owns the car: the financier does. But in FBT law a car is "held" by whoever leases it, and the novation agreement makes your employer the lessee for as long as you work there. So for a novated lease, the earliest holding time is in practice the start of the novated lease, and the base value is the car's price at that point.
 
 Two things follow, **if passed as drafted**:
 
-- **The 1 July 2022 and "LCT never payable" tests disappear for new leases.** A used EV first sold before July 2022, or one that originally attracted LCT, would be tested only on its value when your employer acquires it.
-- **Base value for a used car is what the employer pays for it.** The $75,000 cutoff for the 100% discount, and the LCT threshold for the 25% discount, apply to that price, not to the car's original price. A used EV bought for $60,000 that cost $85,000 new would get the 100% discount in 2027–29.
+- **The 1 July 2022 and "LCT never payable" tests disappear for new leases.** A used EV first sold before July 2022, or one that originally attracted LCT, would be tested only on its price when your novated lease starts.
+- **Base value for a used car is its price when your lease starts**, the figure on the invoice the financier pays. The $75,000 cutoff for the 100% discount, and the LCT threshold for the 25% discount, apply to that price, not to the car's original price. A used EV bought for $60,000 that cost $85,000 new would get the 100% discount in 2027–29.
 
 See [used EV on a novated lease](/costs-and-savings/used-ev-novated-lease/) for the wider comparison.
 :::

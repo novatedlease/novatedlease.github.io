@@ -47,9 +47,9 @@ See [LCT threshold and FBT exemption](/special-and-policy/lct-threshold-fbt-exem
 ### Leases from 1 April 2027: the history tests are proposed to go
 
 :::draft[Exposure draft — not yet law]
-The [exposure draft legislation](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#eligibility-under-the-new-rules-used-evs) released in September 2026 replaces the exemption with a 100% or 25% FBT discount for leases committed to from 1 April 2027. **If it passes as drafted**, the two history tests above do not carry over. A used EV would need only to be battery electric (or hydrogen), be provided to a current employee, and have a base value, **when your employer acquires it**, at or below the fuel-efficient LCT threshold.
+The [exposure draft legislation](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#eligibility-under-the-new-rules-used-evs) released in September 2026 replaces the exemption with a 100% or 25% FBT discount for leases committed to from 1 April 2027. **If it passes as drafted**, the two history tests above do not carry over. A used EV would need only to be battery electric (or hydrogen), be provided to a current employee, and have a base value, **when your novated lease starts**, at or below the fuel-efficient LCT threshold. (The draft says when the employer first "holds" the car; your employer holds it as the lessee under the novation agreement, even though the financier owns it.)
 
-For a used car, that base value is essentially the price your employer pays. So, under the draft:
+For a used car, that base value is essentially its price when the lease starts, the figure on the invoice. So, under the draft:
 
 - an EV first sold before July 2022, or one that attracted LCT when new, could qualify on its current price;
 - a used EV bought for $75,000 or less would get the **100% discount** for leases committed to before 1 April 2029, even if it cost more than that new;

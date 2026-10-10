@@ -99,7 +99,7 @@ export function InputsPanel(props: {
             { value: "EV", label: "Electric" },
             { value: "Non-EV", label: "Petrol / diesel / hybrid" },
           ]}
-          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for the FBT exemption where the lease starts on or after 1 April 2025 — they can still be novated leased, just without the exemption — so choose 'Petrol / diesel / hybrid' for a PHEV. For leases starting before 1 April 2027, the car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the phase-out rules in the September 2026 exposure draft apply instead: the car's value when your employer acquires it must be within the fuel-efficient LCT threshold, and the 2022 and LCT-history tests no longer apply." />}
+          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for the FBT exemption where the lease starts on or after 1 April 2025 — they can still be novated leased, just without the exemption — so choose 'Petrol / diesel / hybrid' for a PHEV. For leases starting before 1 April 2027, the car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the phase-out rules in the September 2026 exposure draft apply instead: the car's price when your novated lease starts must be within the fuel-efficient LCT threshold, and the 2022 and LCT-history tests no longer apply." />}
         />
 
         <SelectField
@@ -129,7 +129,7 @@ export function InputsPanel(props: {
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#eligibility-under-the-new-rules-used-evs" target="_blank" rel="noopener">
               exposure draft
             </a>
-            , the 1 July 2022 and LCT-history tests no longer apply. Only the car's value when your employer acquires it is tested. Not yet law.
+            , the 1 July 2022 and LCT-history tests no longer apply. Only the car's price when your novated lease starts is tested. Not yet law.
           </div>
         )}
 
