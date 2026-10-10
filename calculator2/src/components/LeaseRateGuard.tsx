@@ -63,6 +63,46 @@ export function computeLeaseGuardBounds(inputs: Inputs): { minFn: number; maxFn:
 }
 
 /**
+ * Next rate on the 0.1% grid in `dir`'s direction, clamped to 0.1%-30%. The solver behind
+ * liveRate stops within $0.001 of the payment, which on a small loan leaves the rate up to
+ * ~0.0003% off the grid (e.g. 9.8004%). The tolerance must exceed that, or a rate just above
+ * a grid point steps back onto itself and the arrow appears stuck. 0.005% is still well
+ * below the 0.01% the display shows.
+ */
+export function nextNudgeRate(liveRate: number, dir: 1 | -1): number {
+  const curTimes10 = liveRate * 1000;
+  const EPS = 0.05;
+  const nearest = Math.round(curTimes10);
+  const onGrid = Math.abs(curTimes10 - nearest) < EPS;
+  const baseTimes10 = onGrid ? nearest : dir > 0 ? Math.floor(curTimes10) : Math.ceil(curTimes10);
+  return Math.max(0.1, Math.min(30, (baseTimes10 + dir) / 10)) / 100;
+}
+
+/**
+ * The vehicleLeasePerFn one rate step away, or null if the live rate can't be computed.
+ * liveRate is solved from vehicleLeasePerFn alone, so the luxury vehicle adjustment is not
+ * subtracted here (doing so made each step jump ~2% when an adjustment was entered).
+ */
+export function nudgedVehicleLeasePerFn(inputs: Inputs, dir: 1 | -1): number | null {
+  const { liveRate } = computeLeaseGuardBounds(inputs);
+  if (!Number.isFinite(liveRate)) return null;
+  try {
+    return Math.max(
+      0,
+      fortnightlyLeaseFromEffectiveAnnualRate({
+        financedAmountExGst: financedAmountExGstFromInputs(inputs),
+        residualValueExGst: inputs.residualValueExGst,
+        leaseYears: Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears))),
+        deferMonths: Math.max(0, Math.round(inputs.monthsDeferred)),
+        effectiveAnnualRate: nextNudgeRate(liveRate, dir),
+      }),
+    );
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Ported from calculator/src/App.tsx's "lease quote safeguard" (lines ~800-919)
  * and the matching display block in InputsPanel.tsx (~lines 905-1083): rejects a
  * fortnightly lease payment that implies an effective rate outside 0.1%-30% p.a.
@@ -144,39 +184,11 @@ export function LeaseRateGuard(props: {
     }
   }
 
-  // Steps the live rate to the next 0.1% grid point in `dir`'s direction (with float-drift
-  // epsilon handling — mirrors v1 App.tsx's nlguide:nudgeEffectiveRate handler exactly) and
-  // recomputes vehicleLeasePerFn from it.
+  // Steps the live rate to the next 0.1% grid point in `dir`'s direction and recomputes
+  // vehicleLeasePerFn from it (see nudgedVehicleLeasePerFn).
   function nudgeRate(dir: 1 | -1) {
-    const snap = guardSnapRef.current;
-    if (!Number.isFinite(snap.liveRate)) return;
-
-    const curTimes10 = snap.liveRate * 1000;
-    const EPS = 1e-3;
-    const nearest = Math.round(curTimes10);
-    const onGrid = Math.abs(curTimes10 - nearest) < EPS;
-    const baseTimes10 = onGrid ? nearest : dir > 0 ? Math.floor(curTimes10) : Math.ceil(curTimes10);
-    const nextPct = (baseTimes10 + dir) / 10;
-    const clampedPct = Math.max(0.1, Math.min(30, nextPct));
-    const nextRate = clampedPct / 100;
-
-    try {
-      const financedExGst = financedAmountExGstFromInputs(snap.inputs);
-      const leaseYears = Math.max(1, Math.min(5, Math.round(snap.inputs.leaseDurationYears)));
-      const deferMonths = Math.max(0, Math.round(snap.inputs.monthsDeferred));
-      const nextTotalLeaseFn = fortnightlyLeaseFromEffectiveAnnualRate({
-        financedAmountExGst: financedExGst,
-        residualValueExGst: snap.inputs.residualValueExGst,
-        leaseYears,
-        deferMonths,
-        effectiveAnnualRate: nextRate,
-      });
-      const nextVehicleOnly = Math.max(0, nextTotalLeaseFn - snap.inputs.luxuryVehicleAdjPerFn);
-      commitPerFn(nextVehicleOnly);
-    } catch {
-      // ignore engine errors
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const next = nudgedVehicleLeasePerFn(guardSnapRef.current.inputs, dir);
+    if (next !== null) commitPerFn(next);
   }
 
   function startNudgeRepeat(dir: 1 | -1) {
