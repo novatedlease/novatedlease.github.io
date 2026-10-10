@@ -203,24 +203,24 @@ That exposure is cheap **only while those conditions hold**. However the same ex
 
 ### Policy risk: the FBT-exemption wind-back
 
-:::warning[Review concluded — May 2026]
-The legislated review of the EV FBT exemption has now concluded. On 4 May 2026, the treasurer announced a phased wind-back. See the [full wind-back announcement](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for complete details.
+:::warning[Review concluded; draft legislation released]
+The legislated review of the EV FBT exemption has concluded. On 4 May 2026 the treasurer announced a phased wind-back, and exposure draft legislation followed on 10 September 2026 (not yet law). See the [full wind-back article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for complete details.
 :::
 
 Lease length also determines how exposed you are to **policy change risk**.
 
 The EV FBT exemption was [subject to a formal legislative review](/special-and-policy/ev-fbt-exemption-review-timing/) (to be completed within the 18-month period of 1/1/2026 to 1/7/2027). [^1] That review has now concluded with the May 2026 Budget announcement. The exemption has been partially wound back rather than fully retained or fully discontinued:
 
-- **existing leases entered before 1 April 2027** on eligible vehicles remain grandfathered until the end of their contract,
-- **new leases from 1 April 2027** face a reduced exemption (a 75% FBT discount rather than full exemption for cars above $75,000), and
-- **new leases from 1 April 2029** will no longer receive a full FBT exemption, with only a 75% discount remaining for eligible vehicles.
+- **leases committed to before 1 April 2027** on eligible vehicles remain grandfathered until that commitment ends,
+- **new leases from 1 April 2027** keep a 100% FBT discount for cars up to $75,000, but cars above $75,000 get only a 25% discount (75% of the normal FBT applies), and
+- **new leases from 1 April 2029** get only the 25% discount, whatever the car's price.
 
 This matters for lease structure:
 
 - a straight 5-year lease locks in today’s rules for the full term,
 - a 1 + 1 + 1 + 1 structure exposes each renewal to the new rules on renewal.
 
-If you entered your lease before 1 April 2027 and remain employed, your exemption is locked in until the lease concludes. If you have not yet entered a lease, the calculus depends on your vehicle price and planned start date.
+Under the exposure draft, a renewal, refinance, change of term or residual, or a **change of employer** (even within the same corporate group) is a new commitment, which moves the car onto the rules in force on that date. If you committed to your lease before 1 April 2027 and stay with the same employer on the same terms, your exemption is locked in until the lease concludes. If you have not yet entered a lease, the calculus depends on your vehicle price and planned start date. See [what ends your grandfathering](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#what-ends-your-grandfathering).
 
 [^1]: It is not clear whether the review would last the entire duration. Therefore it is theoretically possible for the review process to be completed within 2026 itself and recommendation to terminate (for example) to be tabled to parliament prior to 2027.
 

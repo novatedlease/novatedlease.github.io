@@ -57,7 +57,7 @@ Adjust the fuel price, income, interest rate, or current car values to model you
 :::tip[Don't need an $81k EV — used EVs can work too]
 The example above was for a new Tesla Model 3 Long Range at $81,400 which was the price back in 2023. That's not everyone's budget and it doesn't need to be.
 
-A used EV can be significantly cheaper, available immediately (no waiting period), and **still fully eligible for the FBT exemption**, provided it was first held and used on or after 1 July 2022 and Luxury Car Tax was never payable on it.
+A used EV can be significantly cheaper, available immediately (no waiting period), and **still fully eligible for the FBT exemption**, provided it was first held and used on or after 1 July 2022 and Luxury Car Tax was never payable on it. For leases committed to from 1 April 2027, the exposure draft legislation proposes dropping those two history tests; see [used EV on a novated lease](/costs-and-savings/used-ev-novated-lease/).
 
 Buying two to three years old saves you the steepest portion of the depreciation curve while still netting most of the novated lease savings — which can make the "vs keeping your current car" comparison even more compelling. There are a few things that change when the car is used, though: the GST treatment of a private sale, the on-road costs a used-car invoice leaves out, and the eligibility checks above.
 

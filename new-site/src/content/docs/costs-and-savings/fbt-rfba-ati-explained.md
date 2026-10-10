@@ -59,8 +59,8 @@ For eligible electric vehicles:
 
 - the **car benefit itself is [exempt from FBT](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/electric-cars-exemption)**
 
-:::warning[This exemption is being wound back — 4 May 2026 announcement]
-The treasurer has announced a staged wind-back of the EV FBT exemption. Existing leases entered prior to 1 April 2027 on eligible vehicles remain grandfathered. For new leases entered from April 2027 onward, the exemption is progressively reduced. See the [2026 Budget announcement article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for full details.
+:::warning[This exemption is being wound back]
+The treasurer announced a staged wind-back on 4 May 2026, and exposure draft legislation followed on 10 September 2026 (not yet law). Leases committed to before 1 April 2027 on eligible vehicles remain grandfathered. For new leases from April 2027 the exemption becomes a 100% or 25% FBT discount depending on the car's value and the commitment date. Under the draft, a car on the 25% discount still carries a reduced reportable fringe benefits amount of about 9.4% of its base value; see [the 25% tier and your reportable fringe benefits](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#the-25-tier-and-your-reportable-fringe-benefits).
 :::
 
 This exemption dramatically [reduces the cost](/start-here/ev-vs-ice-compared/) of a novated lease because:

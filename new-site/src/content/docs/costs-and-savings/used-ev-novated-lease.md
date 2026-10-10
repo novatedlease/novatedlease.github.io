@@ -1,6 +1,6 @@
 ---
 datePublished: "2026-09-17"
-dateModified: "2026-09-18"
+dateModified: "2026-10-10"
 title: "Used EV on a novated lease instead of buying new?"
 description: A used EV two to three years old skips the steepest part of the depreciation curve while still keeping most of the FBT-exempt novated lease savings. What changes on eligibility, GST, on-road costs and financing — and the value judgement nobody can settle for you.
 ---
@@ -31,7 +31,7 @@ For an FBT-exempt EV, the [reportable fringe benefits amount (RFBA)](/costs-and-
 
 ## First, check the car is actually eligible
 
-Before any of the above matters, the used EV has to qualify for the FBT exemption at all. Two criteria apply, and the second one catches people out:
+Before any of the above matters, the used EV has to qualify for the FBT exemption at all. For a lease committed to **before 1 April 2027**, two criteria apply, and the second one catches people out:
 
 - It was **first held and used on or after 1 July 2022**, and
 - **Luxury Car Tax has never been payable** on it.
@@ -43,6 +43,18 @@ Neither criterion is visible from looking at the car. Ask the seller or dealer f
 :::
 
 See [LCT threshold and FBT exemption](/special-and-policy/lct-threshold-fbt-exemption/) for the historical LCT thresholds.
+
+### Leases from 1 April 2027: the history tests are proposed to go
+
+The [exposure draft legislation](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#eligibility-under-the-new-rules-used-evs) released in September 2026 replaces the exemption with a 100% or 25% FBT discount for leases committed to from 1 April 2027. **If it passes as drafted**, the two history tests above do not carry over. A used EV would need only to be battery electric (or hydrogen), be provided to a current employee, and have a base value, **when your employer acquires it**, at or below the fuel-efficient LCT threshold.
+
+For a used car, that base value is essentially the price your employer pays. So, under the draft:
+
+- an EV first sold before July 2022, or one that attracted LCT when new, could qualify on its current price;
+- a used EV bought for $75,000 or less would get the **100% discount** for leases committed to before 1 April 2029, even if it cost more than that new;
+- from 1 April 2029, every new lease gets only the 25% discount, used or new.
+
+This is draft wording and could change before the bill passes, so confirm with your provider which rules apply on the date you commit.
 
 ---
 

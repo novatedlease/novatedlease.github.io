@@ -37,7 +37,7 @@ The mechanism used in FBT-applicable (ICE) novated leases to eliminate the emplo
 ---
 
 **EV FBT exemption**
-A legislated exemption (introduced October 2022) under which eligible electric vehicles provided under a novated lease are exempt from Fringe Benefits Tax. This significantly reduces the cost of an EV novated lease compared with an ICE vehicle lease. PHEVs that were not on order before 1 April 2025 are no longer eligible. The exemption is being wound back: a phased reduction was announced in May 2026, with new leases from 1 April 2027 subject to reduced concessions. See [EV vs ICE novated leases compared](/start-here/ev-vs-ice-compared/) and [EV FBT exemption wind-back — 2026 Budget announcement](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/).
+A legislated exemption (introduced October 2022) under which eligible electric vehicles provided under a novated lease are exempt from Fringe Benefits Tax. This significantly reduces the cost of an EV novated lease compared with an ICE vehicle lease. PHEVs that were not on order before 1 April 2025 are no longer eligible. The exemption is being wound back: a phased reduction was announced in May 2026 and released as exposure draft legislation in September 2026. Leases committed to from 1 April 2027 get a 100% or 25% FBT discount instead, depending on the car's value and the commitment date. See [EV vs ICE novated leases compared](/start-here/ev-vs-ice-compared/) and [EV FBT exemption wind-back — 2026 Budget announcement](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/).
 
 ---
 

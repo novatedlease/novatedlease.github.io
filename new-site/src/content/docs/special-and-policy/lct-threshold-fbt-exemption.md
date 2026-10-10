@@ -179,8 +179,10 @@ The measure is currently expected to take effect from **1 July 2027** at the ear
 :::
 
 
-:::warning[EV FBT exemption wind-back announced — 4 May 2026]
-On 4 May 2026, the treasurer announced a phased wind-back of the EV FBT exemption across the next three FBT years. The LCT threshold continues to function as the hard eligibility ceiling for the remaining FBT concessions — but from 1 April 2029 onward, no new lease will be fully FBT-exempt. Existing leases entered prior to 1 April 2027 on eligible vehicles remain grandfathered.
+:::warning[EV FBT exemption wind-back: draft legislation released]
+On 4 May 2026, the treasurer announced a phased wind-back of the EV FBT exemption, and exposure draft legislation followed on 10 September 2026 (not yet law). The LCT threshold continues to function as the hard eligibility ceiling for the remaining FBT concessions, but from 1 April 2029 onward no new lease gets the full discount. Leases committed to before 1 April 2027 on eligible vehicles remain grandfathered.
+
+The draft ties the ceiling to the *fuel-efficient car* limit for the financial year in which the employer first holds the car. If a separate $120,000 zero-emission category is legislated, it would not obviously raise this ceiling; that is my reading of the draft rather than something it states.
 
 See the [full announcement breakdown](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for a complete scenario table and quantified financial impact analysis.
 :::
