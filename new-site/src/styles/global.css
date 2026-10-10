@@ -897,6 +897,52 @@ button {
 .admonition--warning .admonition__title,
 .admonition--caution .admonition__title { background: rgba(217, 119, 6, 0.08); color: var(--adm-caution-text); }
 
+/* Draft legislation: content that depends on an exposure draft bill and may change.
+   Amber like Warning, but a dashed border and a "Draft" pill mark it as provisional.
+   Pair with .draft-tag for single sentences. Remove both once the law passes. */
+.admonition--draft {
+  background: rgba(217, 119, 6, 0.04);
+  border: 1px dashed #d97706;
+  border-left: 4px solid #d97706;
+}
+.admonition--draft .admonition__title {
+  background: rgba(217, 119, 6, 0.08);
+  color: var(--adm-caution-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.admonition--draft .admonition__title::before {
+  content: 'Draft';
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 3px 7px;
+  border: 1px solid #d97706;
+  border-radius: 999px;
+  background: rgba(217, 119, 6, 0.12);
+}
+.draft-tag {
+  display: inline-block;
+  vertical-align: 0.12em;
+  margin-right: 0.35em;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 3px 7px;
+  border: 1px solid #d97706;
+  border-radius: 999px;
+  background: rgba(217, 119, 6, 0.12);
+  color: var(--adm-caution-text);
+  white-space: nowrap;
+}
+
 /* Danger */
 .admonition--danger { background: rgba(220, 38, 38, 0.04); border-color: #dc2626; }
 .admonition--danger .admonition__title { background: rgba(220, 38, 38, 0.08); color: var(--adm-danger-text); }

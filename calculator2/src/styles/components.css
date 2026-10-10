@@ -944,3 +944,22 @@
     flex: 1 1 auto;
   }
 }
+
+/* Exposure-draft marker, matching .draft-tag on the site. Remove once the law passes. */
+.nlc-draft-tag {
+  display: inline-block;
+  vertical-align: 0.1em;
+  margin-right: 0.4em;
+  font-family: var(--nlc-font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 3px 6px;
+  border: 1px solid #d97706;
+  border-radius: 999px;
+  background: var(--nlc-warn-light);
+  color: var(--nlc-warn-dark);
+  white-space: nowrap;
+}

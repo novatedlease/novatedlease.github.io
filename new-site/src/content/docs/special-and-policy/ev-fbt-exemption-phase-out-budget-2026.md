@@ -8,7 +8,7 @@ description: "The EV FBT exemption is not ending outright. From 1 April 2027 it 
 # EV FBT exemption wind-back — 2026 Budget announcement explained
 
 :::warning[Draft legislation released — 10 September 2026]
-The phased wind-back announced on 4 May 2026 now has [exposure draft legislation and explanatory materials](https://consult.treasury.gov.au/c2026-800622). Consultation closed on 28 September 2026. The bill has not yet been introduced to Parliament, so it is **not yet law** and details can still change before it passes. Where a point below depends on the draft's exact wording, it says "if passed as drafted".
+The phased wind-back announced on 4 May 2026 now has [exposure draft legislation and explanatory materials](https://consult.treasury.gov.au/c2026-800622). Consultation closed on 28 September 2026. The bill has not yet been introduced to Parliament, so it is **not yet law** and details can still change before it passes. Sections that depend on the draft's exact wording are marked <span class="draft-tag">Draft</span> or set in a dashed amber box, and may change.
 :::
 
 :::note[What is an exposure draft?]
@@ -23,7 +23,7 @@ Notably, the announcement provides genuine lead time rather than an immediate ru
 
 ## The complete picture: who is affected, and when
 
-The table below sets out every scenario depending on lease start date, vehicle FBT value, and FBT year:
+The table below sets out every scenario depending on when you committed to the lease, the vehicle's FBT value, and the FBT year:
 
 | Lease committed to | Vehicle FBT value | 1 Apr 2027 – 31 Mar 2029 | 1 Apr 2029 onward |
 |---|---|---|---|
@@ -48,11 +48,11 @@ For leases committed to **before 1 April 2027**, two additional criteria apply u
 - the car must have been first held and used on or after 1 July 2022, and
 - Luxury Car Tax must never have been payable on it.
 
-For leases committed to **from 1 April 2027**, the draft drops both. See [eligibility under the new rules](#eligibility-under-the-new-rules-used-evs) below.
+<span class="draft-tag">Draft</span> For leases committed to **from 1 April 2027**, the draft drops both. See [eligibility under the new rules](#eligibility-under-the-new-rules-used-evs) below.
 
 [^1]: Or the applicable LCT threshold at the time of purchase if the lease commenced in an earlier financial year. It is [$91,661](/special-and-policy/lct-threshold-fbt-exemption/) from 1/7/26.
-[^2]: Protected until the commitment ends. A refinance, a change of term or residual, a job change and several other events count as a new commitment; see [what ends your grandfathering](#what-ends-your-grandfathering).
-[^3]: The upper limit is the fuel-efficient car LCT threshold for the financial year in which the employer first holds the car: [$91,661](/special-and-policy/lct-threshold-fbt-exemption/) for 2026–27, indexed each July after that. The draft ties the ceiling to the *fuel-efficient car* limit specifically, so a separate $120,000 zero-emission LCT category, if it is legislated, would not obviously lift this ceiling. That is my reading of the draft rather than something it states.
+[^2]: Protected until the commitment ends. <span class="draft-tag">Draft</span> A refinance, a change of term or residual, a job change and several other events count as a new commitment; see [what ends your grandfathering](#what-ends-your-grandfathering).
+[^3]: The upper limit is the fuel-efficient car LCT threshold for the financial year in which the employer first holds the car: [$91,661](/special-and-policy/lct-threshold-fbt-exemption/) for 2026–27, indexed each July after that. <span class="draft-tag">Draft</span> The draft ties the ceiling to the *fuel-efficient car* limit specifically, so a separate $120,000 zero-emission LCT category, if it is legislated, would not obviously lift this ceiling. That is my reading of the draft rather than something it states.
 
 ---
 
@@ -70,16 +70,19 @@ The tiers below are the policy as announced and as written in the exposure draft
 
 ## It's the commitment date that counts
 
+:::draft[Exposure draft — not yet law]
 The dates above are **commitment** dates, not delivery dates or lease start dates. The draft's explanatory materials describe a commitment as the point at which the arrangement is financially binding and cannot be backed out of.
 
 In practice: if you sign and are bound to a novated lease in March 2027 for an EV that is delivered in June 2027, you are on the pre-April-2027 rules. If you are still negotiating on 1 April 2027, you are not. Anyone ordering in early 2027 should ask their provider exactly when their arrangement becomes binding.
 
 Commencement works the same way if Parliament is slow: the draft starts on the later of 1 April 2027 and the first quarter-day after Royal Assent, but applies back to benefits provided from 1 April 2027 either way.
+:::
 
 ---
 
 ## What ends your grandfathering
 
+:::draft[Exposure draft — not yet law]
 Grandfathering lasts as long as the commitment it is attached to. The explanatory materials list events that count as a **new commitment** for the same car. Each one moves the car onto whatever rules apply on the date of the new commitment:
 
 - **Refinancing** the car.
@@ -92,11 +95,13 @@ Grandfathering lasts as long as the commitment it is attached to. The explanator
 The job-change point matters most. A nurse who moves hospitals in 2028 keeps the same car but loses the pre-2027 exemption on it, and the car is then tested on its value under the 2027–29 rules (or the 2029 rules, after 31 March 2029).
 
 The draft also warns that ending an existing lease early and immediately starting a new one, purely to keep the old exemption or lock in the 100% discount before 2029, may be caught by the general anti-avoidance rules.
+:::
 
 ---
 
 ## Eligibility under the new rules (used EVs)
 
+:::draft[Exposure draft — not yet law]
 For leases committed to from 1 April 2027, the draft has only three tests (new section 9A(2) of the FBT Act):
 
 1. the car is a battery electric or hydrogen fuel cell vehicle (plug-in hybrids are not included);
@@ -109,6 +114,7 @@ Two things follow, **if passed as drafted**:
 - **Base value for a used car is what the employer pays for it.** The $75,000 cutoff for the 100% discount, and the LCT threshold for the 25% discount, apply to that price, not to the car's original price. A used EV bought for $60,000 that cost $85,000 new would get the 100% discount in 2027–29.
 
 See [used EV on a novated lease](/costs-and-savings/used-ev-novated-lease/) for the wider comparison.
+:::
 
 ---
 
@@ -187,6 +193,7 @@ Compare this with the full-FBT table above: the 25% discount saves about a quart
 
 ## The 25% tier and your reportable fringe benefits
 
+:::draft[Exposure draft — not yet law]
 Your reportable fringe benefits amount (RFBA) on your payment summary does not affect your income tax, but it is added to income for the HECS repayment rate, childcare subsidy, Division 293 tax and the Medicare levy surcharge (see [FBT, RFBA and adjusted taxable income](/costs-and-savings/fbt-rfba-ati-explained/)).
 
 Under the draft (not yet law), the RFBA is worked out **as if there were no discount**: the statutory fraction of 0.2 is used, minus your post-tax contributions, and the result is grossed up by 1.8868 (new subsection 135P(3)). For an $80,000 car:
@@ -198,6 +205,7 @@ Under the draft (not yet law), the RFBA is worked out **as if there were no disc
 | Full FBT | 0.2 × $80,000 = $16,000 | $0 |
 
 So a 25%-tier car leaves about **9.4% of its base value** on your payment summary each year, much less than an exempt car but not zero. Like the ECM, it falls to two-thirds once the car has been held for four full FBT years. This assumes your provider sets the post-tax contribution at exactly 0.15 of the base value, which is what eliminates the employer's FBT.
+:::
 
 ---
 
@@ -205,7 +213,7 @@ So a 25%-tier car leaves about **9.4% of its base value** on your payment summar
 
 The financial impact of moving from the exemption to full FBT or the 25% discount is significant — in the thousands of dollars per year for most mid-range EV novated leases. The more expensive the car and the higher your marginal tax rate, the larger the dollar impact.
 
-For **people already in a lease**: if your car was at or below the LCT threshold when you committed to the lease before 1 April 2027, you are protected until that commitment ends. Be aware of what [counts as a new commitment](#what-ends-your-grandfathering), particularly changing jobs.
+For **people already in a lease**: if your car was at or below the LCT threshold when you committed to the lease before 1 April 2027, you are protected until that commitment ends. <span class="draft-tag">Draft</span> Be aware of what [counts as a new commitment](#what-ends-your-grandfathering), particularly changing jobs.
 
 For **people considering a new lease between April 2027 and March 2029**, the calculus changes materially depending on vehicle price:
 
@@ -220,11 +228,11 @@ For **people planning a lease from April 2029 onward**, the full EV FBT exemptio
 ## Key takeaways
 
 - The wind-back is phased and now in exposure draft legislation (September 2026); it is not yet law.
-- Grandfathering depends on when you **commit** to the lease, not when the car arrives, and it ends if you refinance, change the lease terms or change jobs.
+- <span class="draft-tag">Draft</span> Grandfathering depends on when you **commit** to the lease, not when the car arrives, and it ends if you refinance, change the lease terms or change jobs.
 - From 1 April 2029, no new EV novated lease gets the full discount, regardless of vehicle price.
 - For a top-bracket earner driving an $80,000 EV, full FBT instead of the exemption adds over $8,000 in out-of-pocket costs per year.
-- The 25% discount is a small buffer: it keeps only about a quarter of the exemption's benefit, though it also keeps most of the car off your reportable fringe benefits.
-- For new leases from April 2027, the draft drops the 1 July 2022 and LCT-history tests, which opens the discount to older and ex-LCT used EVs priced within the limits.
+- The 25% discount is a small buffer: it keeps only about a quarter of the exemption's benefit. <span class="draft-tag">Draft</span> It also keeps most of the car off your reportable fringe benefits.
+- <span class="draft-tag">Draft</span> For new leases from April 2027, the draft drops the 1 July 2022 and LCT-history tests, which opens the discount to older and ex-LCT used EVs priced within the limits.
 - If you are in a qualifying lease committed before 1 April 2027 and nothing changes, **no action is required**.
 
 ---

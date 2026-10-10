@@ -4,7 +4,7 @@ import type { Inputs } from "@engine/types";
 import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate, getEcmMultiplierForFy, getRfbaStatutoryRate } from "@engine/types";
 import { computeDerived } from "@engine/derived";
 import { computeRfbaSchedule } from "@engine/rfba";
-import { Stat, StatGrid, SubHead, KV, NoteBox, Table, th, thR, td, tdR } from "../ui/shared";
+import { DraftTag, Stat, StatGrid, SubHead, KV, NoteBox, Table, th, thR, td, tdR } from "../ui/shared";
 
 /**
  * Ported from calculator/src/components/ATI.tsx. v1 re-implemented the RFBA
@@ -223,7 +223,10 @@ export function ATI(props: AtiProps) {
 
       {getLeaseFbtCategory(props.inputs) === "EV_FBT_DISCOUNTED" && (
         <NoteBox color="var(--nlc-acc-amber)" mt={10}>
-          <div style={{ fontWeight: 700, marginBottom: 4 }}>25% FBT discount — RFBA treatment</div>
+          <div style={{ fontWeight: 700, marginBottom: 4 }}>
+            <DraftTag />
+            25% FBT discount — RFBA treatment
+          </div>
           Your vehicle is in the <b>25% FBT discount band</b> (base value above the full-exempt cap but below the LCT
           threshold). The discount reduces the ECM statutory rate from 20% to 15%, and your post-tax ECM
           contribution covers that 15%, so your employer pays no FBT. Your RFBA, however, is worked out at the full

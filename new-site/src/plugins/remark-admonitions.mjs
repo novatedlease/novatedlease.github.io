@@ -14,6 +14,7 @@ const TYPE_LABELS = {
   bug: 'Bug',
   failure: 'Failure',
   caution: 'Caution',
+  draft: 'Exposure draft — not yet law',
 };
 
 export function remarkAdmonitions() {

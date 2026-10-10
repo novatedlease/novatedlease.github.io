@@ -5,7 +5,7 @@ import { Section } from "./ui/Section";
 import { CurrencyField, PercentField, NumberField, PillGroup, YesNoToggle, SelectField, DateField } from "./ui/Field";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import { LeaseRateGuard } from "./LeaseRateGuard";
-import { NoteBox } from "./ui/shared";
+import { DraftTag, NoteBox } from "./ui/shared";
 import { Button } from "./ui/Button";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { noteInputChange } from "../state/engagement";
@@ -65,7 +65,7 @@ export function InputsPanel(props: {
   const effectiveLctThreshold = getEvLctThresholdForLeaseStart(inputs.leaseStartDate);
 
   const fbtCategoryLabel =
-    leaseFbtCategory === "EV_FBT_EXEMPT" ? "FBT-exempt" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "25% FBT discount (75% of FBT applies) — exposure draft, not yet law" : "FBT-applicable";
+    leaseFbtCategory === "EV_FBT_EXEMPT" ? "FBT-exempt" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "25% FBT discount (75% of FBT applies)" : "FBT-applicable";
   const fbtCategoryColor = leaseFbtCategory === "EV_FBT_EXEMPT" ? "var(--nlc-acc-green)" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "var(--nlc-acc-brown)" : "var(--nlc-acc-red)";
 
   // Lease start date milestone checks (for the May-2026 phase-out info banner) —
@@ -124,6 +124,7 @@ export function InputsPanel(props: {
 
         {isEv && inputs.vehicleCondition !== "New" && !needsUsedEligibilityChecks && (
           <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginBottom: 12, lineHeight: 1.45 }}>
+            <DraftTag />
             Used EV, lease starting from 1 April 2027: under the September 2026{" "}
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#eligibility-under-the-new-rules-used-evs" target="_blank" rel="noopener">
               exposure draft
@@ -146,12 +147,16 @@ export function InputsPanel(props: {
         )}
 
         <div style={{ fontSize: 12, fontWeight: 800, color: fbtCategoryColor, marginBottom: 12 }}>
+          {isEv && (isTransitionalLease || isPostPhaseoutLease) && <DraftTag />}
           {fbtCategoryLabel}
         </div>
 
         {isEv && (isTransitionalLease || isPostPhaseoutLease) && (
           <NoteBox color="var(--nlc-blue)" mt={-8}>
-            <div style={{ fontWeight: 800, marginBottom: 3 }}>FBT phase-out rules apply to this lease start date (exposure draft, not yet law)</div>
+            <div style={{ fontWeight: 800, marginBottom: 3 }}>
+              <DraftTag />
+              FBT phase-out rules apply to this lease start date (exposure draft, not yet law)
+            </div>
             <div style={{ opacity: 0.9 }}>
               {isTransitionalLease ? (
                 <>
@@ -291,6 +296,7 @@ export function InputsPanel(props: {
               marginBottom: 12,
             }}
           >
+            <DraftTag />
             25% FBT discount (75% of FBT applies, per the exposure draft, not yet law) —{" "}
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener" style={{ color: "inherit" }}>
               phase-out rules

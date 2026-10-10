@@ -220,7 +220,7 @@ This matters for lease structure:
 - a straight 5-year lease locks in today’s rules for the full term,
 - a 1 + 1 + 1 + 1 structure exposes each renewal to the new rules on renewal.
 
-Under the exposure draft, a renewal, refinance, change of term or residual, or a **change of employer** (even within the same corporate group) is a new commitment, which moves the car onto the rules in force on that date. If you committed to your lease before 1 April 2027 and stay with the same employer on the same terms, your exemption is locked in until the lease concludes. If you have not yet entered a lease, the calculus depends on your vehicle price and planned start date. See [what ends your grandfathering](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#what-ends-your-grandfathering).
+<span class="draft-tag">Draft</span> Under the exposure draft, a renewal, refinance, change of term or residual, or a **change of employer** (even within the same corporate group) is a new commitment, which moves the car onto the rules in force on that date. If you committed to your lease before 1 April 2027 and stay with the same employer on the same terms, your exemption is locked in until the lease concludes. If you have not yet entered a lease, the calculus depends on your vehicle price and planned start date. See [what ends your grandfathering](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#what-ends-your-grandfathering).
 
 [^1]: It is not clear whether the review would last the entire duration. Therefore it is theoretically possible for the review process to be completed within 2026 itself and recommendation to terminate (for example) to be tabled to parliament prior to 2027.
 

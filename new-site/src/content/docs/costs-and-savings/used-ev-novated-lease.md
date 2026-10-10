@@ -46,6 +46,7 @@ See [LCT threshold and FBT exemption](/special-and-policy/lct-threshold-fbt-exem
 
 ### Leases from 1 April 2027: the history tests are proposed to go
 
+:::draft[Exposure draft — not yet law]
 The [exposure draft legislation](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#eligibility-under-the-new-rules-used-evs) released in September 2026 replaces the exemption with a 100% or 25% FBT discount for leases committed to from 1 April 2027. **If it passes as drafted**, the two history tests above do not carry over. A used EV would need only to be battery electric (or hydrogen), be provided to a current employee, and have a base value, **when your employer acquires it**, at or below the fuel-efficient LCT threshold.
 
 For a used car, that base value is essentially the price your employer pays. So, under the draft:
@@ -55,6 +56,7 @@ For a used car, that base value is essentially the price your employer pays. So,
 - from 1 April 2029, every new lease gets only the 25% discount, used or new.
 
 This is draft wording and could change before the bill passes, so confirm with your provider which rules apply on the date you commit.
+:::
 
 ---
 

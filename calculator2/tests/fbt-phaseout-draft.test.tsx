@@ -47,5 +47,6 @@ describe("phase-out exposure draft", () => {
     expect(html).toContain("7,547");
     expect(html).not.toContain("RFBA is shown as $0");
     expect(html).toContain("5% of the base value");
+    expect(html).toContain("nlc-draft-tag");
   });
 });
