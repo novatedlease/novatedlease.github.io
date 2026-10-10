@@ -65,7 +65,7 @@ export function InputsPanel(props: {
   const effectiveLctThreshold = getEvLctThresholdForLeaseStart(inputs.leaseStartDate);
 
   const fbtCategoryLabel =
-    leaseFbtCategory === "EV_FBT_EXEMPT" ? "FBT-exempt" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "25% FBT discount (75% of FBT applies)" : "FBT-applicable";
+    leaseFbtCategory === "EV_FBT_EXEMPT" ? "FBT-exempt" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "25% FBT discount (75% of FBT applies) — exposure draft, not yet law" : "FBT-applicable";
   const fbtCategoryColor = leaseFbtCategory === "EV_FBT_EXEMPT" ? "var(--nlc-acc-green)" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "var(--nlc-acc-brown)" : "var(--nlc-acc-red)";
 
   // Lease start date milestone checks (for the May-2026 phase-out info banner) —
@@ -274,7 +274,7 @@ export function InputsPanel(props: {
               <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
                 EV FBT phase-out tiers
               </a>
-              , and is treated as the date you commit to the lease. The rules follow the date the lease becomes binding, not the delivery date.
+              , and is treated as the date you commit to the lease. Under the exposure draft (not yet law), the rules follow the date the lease becomes binding, not the delivery date.
             </>
           }
         />
@@ -291,7 +291,7 @@ export function InputsPanel(props: {
               marginBottom: 12,
             }}
           >
-            25% FBT discount (75% of FBT applies) —{" "}
+            25% FBT discount (75% of FBT applies, per the exposure draft, not yet law) —{" "}
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener" style={{ color: "inherit" }}>
               phase-out rules
             </a>{" "}

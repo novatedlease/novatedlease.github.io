@@ -58,6 +58,8 @@ For leases committed to **from 1 April 2027**, the draft drops both. See [eligib
 
 ## Key observations from the table
 
+The tiers below are the policy as announced and as written in the exposure draft. They are not law until the bill passes.
+
 **Existing leases entered before 1 April 2027** are substantially protected. If your car's FBT base value was at or below the applicable LCT threshold when you signed, your lease continues FBT-exempt until it concludes — regardless of whether that end date falls after 2027 or 2029.
 
 **New leases committed to between 1 April 2027 and 31 March 2029** face a sliding scale. Cars valued at $75,000 or less get a **100% FBT discount**, which works out the same as the exemption, for the life of that lease. Cars between $75,001 and the LCT threshold get a 25% discount from the outset, meaning 75% of the normal FBT applies. Cars above the LCT threshold pay full FBT, as they always have.
@@ -187,7 +189,7 @@ Compare this with the full-FBT table above: the 25% discount saves about a quart
 
 Your reportable fringe benefits amount (RFBA) on your payment summary does not affect your income tax, but it is added to income for the HECS repayment rate, childcare subsidy, Division 293 tax and the Medicare levy surcharge (see [FBT, RFBA and adjusted taxable income](/costs-and-savings/fbt-rfba-ati-explained/)).
 
-Under the draft, the RFBA is worked out **as if there were no discount**: the statutory fraction of 0.2 is used, minus your post-tax contributions, and the result is grossed up by 1.8868 (new subsection 135P(3)). For an $80,000 car:
+Under the draft (not yet law), the RFBA is worked out **as if there were no discount**: the statutory fraction of 0.2 is used, minus your post-tax contributions, and the result is grossed up by 1.8868 (new subsection 135P(3)). For an $80,000 car:
 
 | Tier | Your post-tax (ECM) contribution | RFBA |
 |---|---|---|

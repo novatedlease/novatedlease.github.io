@@ -63,7 +63,7 @@ The articles in this section focus on the most important non-obvious interaction
   For some NSW Health employees (especially doctors and nurses), there is a blanket policy requiring staff to “share” their tax savings from all salary packaging arrangements, including novated leases. This substantially reduces the net benefit they can achieve.
 
 - **[EV FBT exemption wind-back — 2026 Budget announcement explained](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/)** *(Updated October 2026 for the exposure draft)*  
-  The phased wind-back of the EV FBT exemption, now in exposure draft legislation. Who is grandfathered and what ends it, what the 100% and 25% FBT discounts mean in practice, how used EVs qualify under the new rules, and the precise dollar impact using algebraic derivations.
+  The phased wind-back of the EV FBT exemption, now in exposure draft legislation (not yet law). Who is grandfathered and what ends it, what the 100% and 25% FBT discounts mean in practice, how used EVs qualify under the new rules, and the precise dollar impact using algebraic derivations.
 
 - **[EV FBT exemption review timing](/special-and-policy/ev-fbt-exemption-review-timing/)**  
   The EV FBT exemption was subject to a formal legislative review — which has now concluded with the May 2026 Budget announcement. This article covers the original review clause and the policy risk considerations for different lease structures. See also the [2026 Budget announcement article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for the confirmed outcome.
