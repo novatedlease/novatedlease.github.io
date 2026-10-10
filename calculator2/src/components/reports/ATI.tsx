@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { InfoTooltip } from "../ui/InfoTooltip";
 import type { Inputs } from "@engine/types";
-import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate, getEcmMultiplierForFy } from "@engine/types";
+import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate, getEcmMultiplierForFy, getRfbaStatutoryRate } from "@engine/types";
 import { computeDerived } from "@engine/derived";
 import { computeRfbaSchedule } from "@engine/rfba";
 import { Stat, StatGrid, SubHead, KV, NoteBox, Table, th, thR, td, tdR } from "../ui/shared";
@@ -12,14 +12,15 @@ import { Stat, StatGrid, SubHead, KV, NoteBox, Table, th, thR, td, tdR } from ".
  * (the file even had a comment noting this was meant to be temporary) — this port
  * uses the canonical engine functions instead. Same formula, so no behaviour change.
  *
- * Note for anyone continuing the maths audit: RFBA is intentionally zeroed
- * whenever isFbtApplicable() is true (see `rfba` below) — the calculator assumes
- * the Employee Contribution Method reduces the FBT taxable value (and therefore
- * the reportable fringe benefit) to nil. Full RFBA is only computed for the
- * EV_FBT_EXEMPT category, reflecting the documented "double-counting" quirk where
- * RFBA still applies at the notional pre-exemption value despite $0 FBT payable
- * (see new-site/src/content/docs/special-and-policy/fbt-exemption-double-counting.md).
- * This is deliberate, not the bug it might look like from the RFBA schedule helper alone.
+ * Note for anyone continuing the maths audit: RFBA uses getRfbaStatutoryRate(),
+ * i.e. the full 0.2 fraction less the ECM contribution. The calculator assumes the
+ * Employee Contribution Method reduces the FBT taxable value to nil, so:
+ * - EV_FBT_EXEMPT: 0.2 (full RFBA at the notional pre-exemption value despite $0 FBT,
+ *   the documented "double-counting" quirk — see
+ *   new-site/src/content/docs/special-and-policy/fbt-exemption-double-counting.md);
+ * - EV_FBT_DISCOUNTED: 0.05, because the September 2026 exposure draft's s 135P(3)
+ *   works RFBA out at 0.2 while the ECM only covers 0.15;
+ * - fully FBT-applicable: 0.
  */
 
 export type AtiCalculationPurpose = "standard" | "fbtExemptChildcare";
@@ -65,7 +66,7 @@ export function ATI(props: AtiProps) {
   const [purpose, setPurpose] = useState<AtiCalculationPurpose>("standard");
 
   const grossUp = props.grossUpRate ?? 1.8868;
-  const statutoryRate = props.statutoryRate ?? 0.2;
+  const statutoryRate = props.statutoryRate ?? getRfbaStatutoryRate(getLeaseFbtCategory(props.inputs));
 
   const leaseEndDate = useMemo(() => computeLeaseEndDate(props.leaseStartDate, props.leaseTermYears), [props.leaseStartDate, props.leaseTermYears]);
 
@@ -124,7 +125,7 @@ export function ATI(props: AtiProps) {
       .slice()
       .sort((a, b) => a.financialYearEnding - b.financialYearEnding)
       .map((r) => {
-        const rfba = fbtApplicable ? 0 : rfbaByFinancialYearEnding.get(r.financialYearEnding) ?? 0;
+        const rfba = rfbaByFinancialYearEnding.get(r.financialYearEnding) ?? 0;
         let rfbaAdjusted = purpose === "fbtExemptChildcare" ? rfba * 0.53 : rfba;
         if (r.financialYearEnding >= rfbaTwoThirdsFromYear) rfbaAdjusted = rfbaAdjusted * (2 / 3);
         const rfbaForAti = rfbaAdjusted;
@@ -132,13 +133,13 @@ export function ATI(props: AtiProps) {
         const taxableIncomePostNL = taxableIncomePostNlByFinancialYearEnding.get(r.financialYearEnding) ?? r.taxableIncomePostNL;
         return { ...r, taxableIncomePostNL, rfba: rfbaForAti, adjustedTaxableIncome: taxableIncomePostNL + rfbaForAti };
       });
-  }, [props.rows, taxableIncomePostNlByFinancialYearEnding, rfbaByFinancialYearEnding, purpose, rfbaTwoThirdsFromYear, fbtApplicable]);
+  }, [props.rows, taxableIncomePostNlByFinancialYearEnding, rfbaByFinancialYearEnding, purpose, rfbaTwoThirdsFromYear]);
 
   const firstRow = computedRows[0];
   const lastRow = computedRows[computedRows.length - 1];
   const worstRow = computedRows.length > 0 ? computedRows.reduce((min, r) => (r.taxableIncomePostNL < min.taxableIncomePostNL ? r : min), computedRows[0]) : firstRow;
 
-  const fullYearRfba = fbtApplicable ? 0 : grossUp * statutoryRate * props.fbtBaseValue * (purpose === "fbtExemptChildcare" ? 0.53 : 1);
+  const fullYearRfba = grossUp * statutoryRate * props.fbtBaseValue * (purpose === "fbtExemptChildcare" ? 0.53 : 1);
 
   return (
     <div style={{ fontSize: 13, lineHeight: 1.4 }}>
@@ -213,7 +214,7 @@ export function ATI(props: AtiProps) {
         </tbody>
       </Table>
 
-      {fbtApplicable && (
+      {fbtApplicable && getLeaseFbtCategory(props.inputs) !== "EV_FBT_DISCOUNTED" && (
         <NoteBox color="var(--nlc-acc-orange)" mt={10}>
           RFBA is shown as $0 because this is an FBT-applicable lease — we assume the Employee Contribution Method (ECM)
           is used to reduce FBT to zero.
@@ -224,13 +225,15 @@ export function ATI(props: AtiProps) {
         <NoteBox color="var(--nlc-acc-amber)" mt={10}>
           <div style={{ fontWeight: 700, marginBottom: 4 }}>25% FBT discount — RFBA treatment</div>
           Your vehicle is in the <b>25% FBT discount band</b> (base value above the full-exempt cap but below the LCT
-          threshold). The discount reduces the ECM statutory rate from 20% to 15% — your salary-packaged ECM
-          contribution covers only that 15% portion. Once ECM eliminates the 15% taxable value, the taxable fringe
-          benefit amount is $0, and therefore <b>RFBA = $0</b>. The remaining 5% is a rate reduction, not a separately
-          identifiable exempt benefit, so it does not generate any additional RFBA.{" "}
+          threshold). The discount reduces the ECM statutory rate from 20% to 15%, and your post-tax ECM
+          contribution covers that 15%, so your employer pays no FBT. Your RFBA, however, is worked out at the full
+          20% rate less your contribution, leaving <b>5% of the base value</b> (grossed up) as RFBA each year.{" "}
           <span style={{ opacity: 0.8, fontStyle: "italic" }}>
-            This reflects the author's best interpretation of the Treasurer's press release and existing FBT
-            legislation. The final treatment is subject to the enacting legislation, which is pending.
+            Based on the September 2026 exposure draft (new s 135P(3) of the FBT Act), which is not yet law.{" "}
+            <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#the-25-tier-and-your-reportable-fringe-benefits" target="_blank" rel="noopener">
+              How this is worked out
+            </a>
+            .
           </span>
         </NoteBox>
       )}

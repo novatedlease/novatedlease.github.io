@@ -148,6 +148,31 @@ export function getEcmStatutoryRate(category: LeaseFbtCategory): number {
   return 0.2;
 }
 
+/**
+ * Returns the statutory fraction used for the reportable fringe benefits amount (RFBA),
+ * net of the ECM contribution. RFBA is worked out at the full 0.2 fraction minus the
+ * employee's post-tax contributions (FBTAA s 135P(3) in the September 2026 exposure
+ * draft disregards the new s 9A discount), and the ECM covers getEcmStatutoryRate().
+ * - EV_FBT_EXEMPT → 0.2 (no contribution)
+ * - EV_FBT_DISCOUNTED → 0.05 (0.2 less a 0.15 contribution)
+ * - EV_FBT_APPLICABLE / NON_EV_FBT_APPLICABLE → 0 (contribution covers the full 0.2)
+ */
+export function getRfbaStatutoryRate(category: LeaseFbtCategory): number {
+  return Math.max(0, 0.2 - getEcmStatutoryRate(category));
+}
+
+/**
+ * Whether the used-EV history tests (first held and used on or after 1 July 2022, LCT
+ * never payable) apply. They belong to the s 8A exemption, which covers leases committed
+ * to before 1 April 2027; the replacement s 9A in the September 2026 exposure draft
+ * tests only the base value when the employer first holds the car.
+ */
+export function usedEvHistoryTestsApply(i: Inputs): boolean {
+  if (i.vehicleCondition === "New") return false;
+  const leaseStart = new Date(i.leaseStartDate + "T00:00:00Z");
+  return !(leaseStart >= new Date(Date.UTC(2027, 3, 1)));
+}
+
 export type EvFbtEligibility = {
   isEv: boolean;
   eligible: boolean;
@@ -165,7 +190,7 @@ export function deriveEvFbtEligibility(i: Inputs): EvFbtEligibility {
   const lctThreshold = getEvLctThresholdForLeaseStart(i.leaseStartDate);
   const isOverEvLctThreshold = i.vehicleBaseValue > lctThreshold;
 
-  const needsUsedEligibilityChecks = i.vehicleCondition !== "New";
+  const needsUsedEligibilityChecks = usedEvHistoryTestsApply(i);
   const usedEligibilityChecksOk =
     !needsUsedEligibilityChecks || (i.usedCarFirstHeldAfterJul2022 && i.usedCarLctNeverPayable);
 
@@ -192,15 +217,15 @@ export function deriveEvFbtEligibility(i: Inputs): EvFbtEligibility {
  * Post phase-out (1 Apr 2029+):
  *   ≤ LCT threshold → DISCOUNTED (75% of FBT applies); > LCT → APPLICABLE.
  *
- * All EV categories also require: first held & used after 1/7/22, and LCT was never paid
- * (for used vehicles, confirmed via the usedCar* checkboxes).
+ * Used EVs on the legacy rules also require: first held & used after 1/7/22, and LCT was
+ * never paid (confirmed via the usedCar* checkboxes). The September 2026 exposure draft drops
+ * both tests for leases committed to from 1 Apr 2027 (see usedEvHistoryTestsApply).
  */
 export function getLeaseFbtCategory(i: Inputs): LeaseFbtCategory {
   if (i.vehicleType !== "EV") return "NON_EV_FBT_APPLICABLE";
 
-  const needsUsedEligibilityChecks = i.vehicleCondition !== "New";
   const usedEligibilityChecksOk =
-    !needsUsedEligibilityChecks || (i.usedCarFirstHeldAfterJul2022 && i.usedCarLctNeverPayable);
+    !usedEvHistoryTestsApply(i) || (i.usedCarFirstHeldAfterJul2022 && i.usedCarLctNeverPayable);
   if (!usedEligibilityChecksOk) return "EV_FBT_APPLICABLE";
 
   const baseValue = i.vehicleBaseValue;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Inputs } from "@engine/types";
-import { getLeaseFbtCategory, getEvLctThresholdForLeaseStart, EV_TRANSITIONAL_FULL_EXEMPT_CAP } from "@engine/types";
+import { getLeaseFbtCategory, getEvLctThresholdForLeaseStart, usedEvHistoryTestsApply, EV_TRANSITIONAL_FULL_EXEMPT_CAP } from "@engine/types";
 import { Section } from "./ui/Section";
 import { CurrencyField, PercentField, NumberField, PillGroup, YesNoToggle, SelectField, DateField } from "./ui/Field";
 import { InfoTooltip } from "./ui/InfoTooltip";
@@ -60,12 +60,12 @@ export function InputsPanel(props: {
 
   const isEv = inputs.vehicleType === "EV";
   const leaseFbtCategory = getLeaseFbtCategory(inputs);
-  const needsUsedEligibilityChecks = inputs.vehicleCondition !== "New";
+  const needsUsedEligibilityChecks = usedEvHistoryTestsApply(inputs);
   const usedEligibilityChecksOk = !needsUsedEligibilityChecks || (inputs.usedCarFirstHeldAfterJul2022 && inputs.usedCarLctNeverPayable);
   const effectiveLctThreshold = getEvLctThresholdForLeaseStart(inputs.leaseStartDate);
 
   const fbtCategoryLabel =
-    leaseFbtCategory === "EV_FBT_EXEMPT" ? "FBT-exempt" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "75% FBT applicable" : "FBT-applicable";
+    leaseFbtCategory === "EV_FBT_EXEMPT" ? "FBT-exempt" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "25% FBT discount (75% of FBT applies)" : "FBT-applicable";
   const fbtCategoryColor = leaseFbtCategory === "EV_FBT_EXEMPT" ? "var(--nlc-acc-green)" : leaseFbtCategory === "EV_FBT_DISCOUNTED" ? "var(--nlc-acc-brown)" : "var(--nlc-acc-red)";
 
   // Lease start date milestone checks (for the May-2026 phase-out info banner) —
@@ -99,7 +99,7 @@ export function InputsPanel(props: {
             { value: "EV", label: "Electric" },
             { value: "Non-EV", label: "Petrol / diesel / hybrid" },
           ]}
-          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for the FBT exemption where the lease starts on or after 1 April 2025 — they can still be novated leased, just without the exemption — so choose 'Petrol / diesel / hybrid' for a PHEV. The car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the May 2026 phase-out rules also apply, based on your lease start date." />}
+          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for the FBT exemption where the lease starts on or after 1 April 2025 — they can still be novated leased, just without the exemption — so choose 'Petrol / diesel / hybrid' for a PHEV. For leases starting before 1 April 2027, the car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the phase-out rules in the September 2026 exposure draft apply instead: the car's value when your employer acquires it must be within the fuel-efficient LCT threshold, and the 2022 and LCT-history tests no longer apply." />}
         />
 
         <SelectField
@@ -122,6 +122,16 @@ export function InputsPanel(props: {
           tooltip={<InfoTooltip text="Determines FBT-exemption eligibility as well as GST treatment for initial purchase." />}
         />
 
+        {isEv && inputs.vehicleCondition !== "New" && !needsUsedEligibilityChecks && (
+          <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginBottom: 12, lineHeight: 1.45 }}>
+            Used EV, lease starting from 1 April 2027: under the September 2026{" "}
+            <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#eligibility-under-the-new-rules-used-evs" target="_blank" rel="noopener">
+              exposure draft
+            </a>
+            , the 1 July 2022 and LCT-history tests no longer apply. Only the car's value when your employer acquires it is tested. Not yet law.
+          </div>
+        )}
+
         {isEv && needsUsedEligibilityChecks && (
           <div style={{ display: "grid", gap: 8, marginBottom: 16, fontSize: 13 }}>
             <label style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
@@ -141,18 +151,18 @@ export function InputsPanel(props: {
 
         {isEv && (isTransitionalLease || isPostPhaseoutLease) && (
           <NoteBox color="var(--nlc-blue)" mt={-8}>
-            <div style={{ fontWeight: 800, marginBottom: 3 }}>May 2026 FBT phase-out rules apply to this lease start date</div>
+            <div style={{ fontWeight: 800, marginBottom: 3 }}>FBT phase-out rules apply to this lease start date (exposure draft, not yet law)</div>
             <div style={{ opacity: 0.9 }}>
               {isTransitionalLease ? (
                 <>
-                  Leases starting <b>1 Apr 2027 – 31 Mar 2029</b>: full FBT exemption only for cars ≤ $
+                  Leases starting <b>1 Apr 2027 – 31 Mar 2029</b>: 100% FBT discount (no FBT) only for cars ≤ $
                   {EV_TRANSITIONAL_FULL_EXEMPT_CAP.toLocaleString("en-AU")}; cars ${(EV_TRANSITIONAL_FULL_EXEMPT_CAP + 1).toLocaleString("en-AU")}–$
-                  {effectiveLctThreshold.toLocaleString("en-AU")} have 75% of FBT apply; above the LCT threshold is fully applicable.
+                  {effectiveLctThreshold.toLocaleString("en-AU")} get a 25% FBT discount (75% of FBT applies); above the LCT threshold, full FBT applies.
                 </>
               ) : (
                 <>
-                  Leases starting <b>from 1 Apr 2029</b>: full FBT exemption is no longer available. Cars at or below the LCT threshold
-                  (${effectiveLctThreshold.toLocaleString("en-AU")}) receive 75% of FBT applies; above the LCT threshold is fully applicable.
+                  Leases starting <b>from 1 Apr 2029</b>: the full exemption is no longer available. Cars at or below the LCT threshold
+                  (${effectiveLctThreshold.toLocaleString("en-AU")}) get a 25% FBT discount (75% of FBT applies); above the LCT threshold, full FBT applies.
                 </>
               )}{" "}
               <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
@@ -264,7 +274,7 @@ export function InputsPanel(props: {
               <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
                 EV FBT phase-out tiers
               </a>
-              .
+              , and is treated as the date you commit to the lease. The rules follow the date the lease becomes binding, not the delivery date.
             </>
           }
         />
@@ -281,9 +291,9 @@ export function InputsPanel(props: {
               marginBottom: 12,
             }}
           >
-            75% FBT Applicable —{" "}
+            25% FBT discount (75% of FBT applies) —{" "}
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener" style={{ color: "inherit" }}>
-              May 2026 phase-out rules
+              phase-out rules
             </a>{" "}
             apply to this lease start date
           </div>
