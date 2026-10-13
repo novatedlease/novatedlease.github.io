@@ -1,6 +1,6 @@
 ---
 datePublished: "2026-09-17"
-dateModified: "2026-10-10"
+dateModified: "2026-10-12"
 title: "Used EV on a novated lease instead of buying new?"
 description: A used EV two to three years old skips the steepest part of the depreciation curve while still keeping most of the FBT-exempt novated lease savings. What changes on eligibility, GST, on-road costs and financing — and the value judgement nobody can settle for you.
 ---
@@ -19,7 +19,7 @@ Big topic. Here are some thoughts around it.
 
 Depreciation is the single largest cost of owning any car, and it is worst on a new car — a new car loses far more value in its first two or three years than in the years after that. EVs over the past few years have been especially brutal on this front, as new-model prices continue to fall and push used values down with them. Buying a car that has already taken that hit means there is less depreciation left in the car's future.
 
-A common misconception is that a novated lease is only for a new car. In fact, some novated leasing consultants are reported to have misled people on this, or at least to have steered them in the direction of a new car. The fact is that apart from very old cars (say, eight years or more), you are typically able to lease a car that is some 2 to 3 years of age.
+A common misconception is that a novated lease is only for a new car. In fact, some novated leasing consultants are reported to have misled people on this, or at least to have steered them in the direction of a new car. The fact is that a car some 2 to 3 years of age is typically fine; the providers' [age limits](#how-old-can-the-car-be) only start to bite on cars around seven or more years old.
 
 The FBT exemption removes fringe benefits tax on an eligible EV whether it is new or used, and the income tax saving comes from paying the lease and running costs out of pre-tax salary — which works the same way on a smaller amount. While you get a smaller dollar saving on a cheaper car (compared to its cash purchase ownership cost), you will nevertheless spend a lower amount compared to leasing a more expensive new car.
 
@@ -43,6 +43,25 @@ Neither criterion is visible from looking at the car. Ask the seller or dealer f
 :::
 
 See [LCT threshold and FBT exemption](/special-and-policy/lct-threshold-fbt-exemption/) for the historical LCT thresholds.
+
+---
+
+## How old can the car be?
+
+Separately from the FBT rules, the financier sets its own limit on the car's age. The usual rule is about the car's age at the **end** of the lease, not at the start, so an older car means a shorter term. The age limit isn't standardised. Here is what some providers publish (checked October 2026):
+
+| Provider | Published limit |
+|---|---|
+| [Smartleasing](https://www.smart.com.au/novated-leasing/used-cars/) | Under 12 years old at the end of the lease, minimum value $5,000 |
+| [Paywise](https://www.paywise.com.au/novated-leasing/used-car-novated-lease/) | Under 12 years old at the end of the lease |
+| [AccessPay](https://accesspay.com.au/novated-leasing-for-used-cars/) | Generally under 12 years old at the end of the lease, minimum value $5,000 |
+| [Clear Lease](https://www.clearlease.com.au/novated-leasing/driver-faqs/cars-not-eligible-novated-lease) | Under 12 years old at the end of the lease, with exceptions for prestige or low-depreciation models |
+| [SG Fleet](https://www.sgfleet.com/au/novated-leasing/novate-used-cars) | No more than 10 years old at the end of the lease, minimum value $10,000 excluding GST |
+| [RemServ](https://www.remservsalarypackage.com.au/benefits/novated-lease) | "Not more than seven years old" (the page doesn't say whether at the start or the end of the lease) |
+
+Under a 12-year limit, a seven-year-old car can be leased for at most five years, and a nine-year-old car for at most three. Smartleasing and AccessPay both note that the exact limit depends on the financier behind the lease, so treat these as guides and ask your provider for the figure that applies to you.
+
+This matters most for the older cars the [proposed 2027 rules](#leases-from-1-april-2027-the-history-tests-are-proposed-to-go) would open up. A 2019–2020 Audi e-tron, Mercedes EQC or Porsche Taycan leased in April 2027 will already be seven or eight years old. Under a 12-year limit that allows only a four- or five-year term, under SG Fleet's 10-year limit only two or three years, and some providers may not accept it at all. An older EV is also more likely to have a degraded battery, so check its state of health before you commit.
 
 ### Leases from 1 April 2027: the history tests are proposed to go
 
@@ -135,7 +154,7 @@ For a used EV it will also ask you to confirm the two eligibility criteria above
 
 > **Buying an EV two to three years old saves you the steepest portion of the depreciation curve, but still nets you the savings achieved from FBT-exempt novated leases.**
 
-Check the two eligibility criteria before you commit, get the stamp duty and transfer fee into the financed amount from the get-go, and be aware that a private sale costs you the GST saving unless you go through a dealer middleman.
+Check the two eligibility criteria and your provider's age limit before you commit, get the stamp duty and transfer fee into the financed amount from the get-go, and be aware that a private sale costs you the GST saving unless you go through a dealer middleman.
 
 Beyond that, whether you take the cheapest EV that works or spend more on something fresher is a value judgement, not a calculation.
 
