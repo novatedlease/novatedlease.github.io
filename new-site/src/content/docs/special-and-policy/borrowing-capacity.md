@@ -164,6 +164,8 @@ For the EV novated lease:
 - Salary sacrifice was $17,743.70 per annum
 - Taxable salary reduced to $112,256
 
+The difference comes from how each is assessed. The car loan repayment is deducted as a debt from the full $130,000 salary, dollar for dollar. The novated lease is not treated as a debt at all; the lender simply assesses the lower taxable salary of $112,256. Because the lease is paid from pre-tax income, it reduces take-home pay by less than its face value, so it costs less borrowing power than a car loan with a similar repayment.
+
 ### Key takeaway
 
 For borrowers planning to purchase a property, a vehicle finance decision can have a significant impact on borrowing capacity. Based on this modelling:
@@ -171,6 +173,7 @@ For borrowers planning to purchase a property, a vehicle finance decision can ha
 - A traditional car loan reduced borrowing capacity the most.
 - An EV novated lease generally produced a better servicing outcome.
 - Longer lease terms performed better than shorter terms.
+- **A novated lease is assessed as reduced income rather than as a debt, which is why it performs better than a car loan.**
 
 **Bottom line:** if you're considering both a property purchase and a new vehicle, it is worth reviewing the servicing impact before committing. The cheapest vehicle finance option is not always the option that provides the strongest borrowing capacity outcome.
 
@@ -297,7 +300,7 @@ Cash has its own cost, though. The $60,000 comes out of your savings, which is u
 
 ## Living expenses and the HEM floor
 
-A servicing calculator has two sides: your income, and your commitments plus living expenses. Everything above is about the first side, and how the lease is entered. The living-expenses side has a trap of its own.
+A servicing calculator has two sides: your income, and your commitments plus living expenses. The living-expenses side has a trap of its own.
 
 ### Your car's running costs should not be counted twice
 
