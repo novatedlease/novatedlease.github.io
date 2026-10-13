@@ -50,16 +50,31 @@ The key number is the **marginal rate**: most salaried borrowers sit in the **15
 
 Your employer withholds HELP each payday from the **same taxable earnings** it uses for income tax, i.e. your salary **after** the pre-tax novated lease deduction. Reportable fringe benefits play no part in payroll withholding.
 
-So every pre-tax dollar you sacrifice reduces your withholding by:
+Take someone on a **$100,000** salary with a HELP debt, who sacrifices **$17,000 a year** pre-tax for an EV novated lease. Using 2026–27 rates, here is what their employer withholds over a full year:
 
-| | Per $1 sacrificed |
-|---|---|
-| Income tax (30% bracket) | 30c |
-| Medicare levy | 2c |
-| **HELP withholding** | **15c** |
-| **Total** | **47c** |
+| | Before the lease | After the lease |
+|---|---|---|
+| Taxable income | $100,000 | $83,000 |
+| Income tax | $20,520 | $15,420 |
+| Medicare levy | $2,000 | $1,660 |
+| HELP withheld | $4,570.80 | $2,020.80 |
+| **Take-home pay** | **$72,909.20** | **$63,899.20** |
 
-Novated lease quotes (and [the calculator](/calculator/), by default) assume only the **income tax and Medicare** part, around 32%. If you have a HELP debt, payroll's reduction is closer to **47%**, so your take-home pay falls by noticeably less than the quote said.
+Take-home pay falls by **$9,010** a year, or about **$347 a fortnight**.
+
+The quote tells a different story. Novated lease quotes generally **leave HELP out** (as does [the calculator](/calculator/), by default). They only count the income tax and Medicare saving:
+
+| | Per year | Per fortnight |
+|---|---|---|
+| Pre-tax deduction | $17,000 | $653.85 |
+| Less income tax and Medicare saved | −$5,440 | −$209.23 |
+| **Take-home impact on the quote** | **$11,560** | **$444.62** |
+| **Take-home impact on the payslip** | **$9,010** | **$346.54** |
+| **Difference: HELP no longer withheld** | **$2,550** | **$98.08** |
+
+The ~$98 a fortnight that "appears" on the payslip is simply HELP that payroll has stopped withholding: its formula now sees taxable income of $83,000 instead of $100,000.
+
+In this example the whole $17,000 sits inside the 30% tax bracket and the 15% HELP band, so every dollar sacrificed saves exactly 30% + 2% + 15% = 47c. If your sacrifice crosses a tax bracket or a HELP threshold, the per-dollar figure changes partway through, and the [calculator's](/calculator/) year-by-year taxable income is the easier way to work it out.
 
 That extra take-home pay is real cash this payday. It is not a real saving, as the next section shows.
 
