@@ -194,7 +194,7 @@ The direction of the impact depends on the **FBT treatment** of the lease:
 
 Use [the calculator](/calculator/) to estimate changes in your **adjusted taxable income**, and assess downstream effects on repayments and subsidies before accepting a quote.
 
-See: [adjusted taxable income explained](/special-and-policy/childcare-subsidy/)
+See: [adjusted taxable income explained](/special-and-policy/childcare-subsidy/), and [novated leases and HECS/HELP](/special-and-policy/hecs-help/) if you have a HELP debt.
 
 :::warning[Always check how novated lease affects your government liability and subsidy]
 You could lose thousands in subsidies, particularly under an EV (FBT‑exempt) novated lease.

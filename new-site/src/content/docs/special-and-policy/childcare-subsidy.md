@@ -1,7 +1,7 @@
 ---
 title: "Novated leases and the childcare subsidy"
 datePublished: "2026-01-06"
-dateModified: "2026-06-05"
+dateModified: "2026-10-13"
 description: Deep dive on how novated leases (especially FBT-exempt EVs) affect adjusted taxable income and childcare subsidy — including the special rule for hospital and NFP workers.
 ---
 
@@ -134,28 +134,9 @@ This is the number used for childcare subsidy, HECS/HELP, child support, and Div
 
 ---
 
-## Worked example: how to estimate the increase in HELP / HECS repayments
+## HELP / HECS repayments
 
-If you have a HELP or HECS debt, you can estimate the additional repayment caused by a novated lease as follows:
-
-1. Ensure the “total taxable income” you start with reflects your **true taxable income as per ATO rules** (all income minus all deductions).
-2. In Section 4 of the calculator's detail tab, look under the **adjusted taxable income** column.
-3. The calculator calculates ATI for each year based on your lease details.
-4. Suppose:
-
-    - Original taxable income: $100,000  
-    - Calculated adjusted taxable income: $109,424  
-   **Note:** This may still not be your final ATI if you have other components (e.g. rental losses, overseas income). Always sanity-check with your accountant.
-
-5. Look up the HELP repayment table for the relevant year.
-6. If your repayment rate was previously:
-
-    - ATI of $100,000 → $4950, and is now  
-    - ATI of $109,424 → $6,363.60. 
-
-    Then **$1,413.60** is your increased HELP repayment.
-
-7. Repeat this process for any other ATI-based liability or subsidy relevant to you.
+HELP repayments are also assessed on this higher figure, but with an extra twist: payroll withholds HELP on your *reduced* taxable income, so the shortfall usually arrives as a bill at tax time. See [novated leases and HECS/HELP](/special-and-policy/hecs-help/) for how it works, a worked example, and what to do about it.
 
 ---
 

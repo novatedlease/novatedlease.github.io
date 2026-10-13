@@ -50,6 +50,9 @@ The articles in this section focus on the most important non-obvious interaction
 - **[How a novated lease affects home loan borrowing capacity](/special-and-policy/borrowing-capacity/)** *(New — 22 September 2026)*  
   Modelling contributed by a mortgage broker, run through the Bankwest and Macquarie servicing calculators: what an EV lease, an ICE lease and a plain car loan each cost you in borrowing power, and why the *way a lender enters the lease* swings the answer by more than anything the borrower controls.
 
+- **[Novated leases and HECS/HELP](/special-and-policy/hecs-help/)** *(New — 13 October 2026)*  
+  With an EV lease, payroll withholds HELP on your reduced salary, but the ATO assesses it on repayment income including RFBA. Why your payslip looks better than your quote, why a bill follows at tax time, and how big it will be.
+
 - **[Adjusted taxable income and childcare subsidy](/special-and-policy/childcare-subsidy/)**  
   EV novated leases can reduce income tax while *increasing* adjusted taxable income, with flow-on effects to childcare subsidy, HELP repayments, child support, and Division 293. This includes the special (and often misunderstood) treatment for hospital and FBT-exempt employers.
 

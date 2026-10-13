@@ -236,6 +236,8 @@ These are general tendencies rather than universal rules. The actual outcome dep
 
 There is an additional [in-depth article on adjusted taxable income](/special-and-policy/childcare-subsidy/), which includes numerical examples as well as a special rule for childcare subsidy for public hospital or public benevolent institution employees. 
 
+If you have a HELP/HECS debt, read [novated leases and HECS/HELP](/special-and-policy/hecs-help/): payroll withholds HELP on your reduced salary, so the extra repayment usually arrives as a bill at tax time.
+
 ---
 
 ## Key takeaway

@@ -84,6 +84,7 @@ export const navigation: NavEntry[] = [
       { label: "Don't double-count the NFP FBT cap", href: '/special-and-policy/fbt-exemption-double-counting/', heading: 'FBT & Salary Packaging Caps' },
       { label: 'NSW Health "Employer Share"', href: '/special-and-policy/nsw-health-employer-share/' },
       { label: 'Home loan borrowing capacity', href: '/special-and-policy/borrowing-capacity/', heading: 'Downstream Impact' },
+      { label: 'HECS / HELP repayments', href: '/special-and-policy/hecs-help/' },
       { label: 'Childcare subsidy impact', href: '/special-and-policy/childcare-subsidy/' },
       { label: 'Super guarantee & payroll risks', href: '/special-and-policy/super-guarantee/' },
       { label: 'Smart Leasing / MillarX payment structure', href: '/special-and-policy/smart-leasing-millarx-payment-structure/', heading: 'Miscellaneous' },
