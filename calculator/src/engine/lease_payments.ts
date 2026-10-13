@@ -48,7 +48,7 @@ export function computeLeasePaymentsOverLease(opts: {
     const postTaxEcmThisFy = getEcm(r.fy) * r.count;
 
     const postNlTaxableIncome = r.originalTaxableIncome - preTaxDeductionThisFy;
-    const postNlTax = taxSummaryAUResident(postNlTaxableIncome).totalTax;
+    const postNlTax = taxSummaryAUResident(postNlTaxableIncome, r.fy).totalTax;
 
     const postNlTakeHome = postNlTaxableIncome - postNlTax - postTaxEcmThisFy;
 

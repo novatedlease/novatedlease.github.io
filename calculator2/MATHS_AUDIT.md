@@ -90,9 +90,14 @@ for what needs a decision.
 
 - **File:** `calculator/src/engine/tax_au.ts:10-26` — brackets at $18,200/$45,000/$135,000/$190,000
   with rates 16/30/37/45%; flat 2% Medicare levy (no low-income phase-out modelled).
-- **Found:** These are the current (Stage 3-revised) resident tax brackets, unchanged since
-  1 July 2024 and still current for 2026-27.
-- **Verdict: MATCHES** for brackets and the 2% Medicare levy rate.
+- **Found:** These are the Stage 3-revised resident tax brackets from 1 July 2024.
+- **Correction (2026-10-13):** the 16% rate was cut to 15% from 1 July 2026 and 14% from
+  1 July 2027 (Treasury Laws Amendment (More Cost of Living Relief) Act 2025), so "still
+  current for 2026-27" was wrong. `tax_au.ts` now takes an optional financial year
+  (`lowBracketRate(fy)`); the FY breakdown, lease payments, lease report, worst case and the
+  basic-information marginal rate pass it. Without a year it keeps 16%, so v1 components are
+  unchanged. Regression test: `tests/tax-brackets-by-fy.test.ts`.
+- **Verdict: FIXED** for brackets; MATCHES for the 2% Medicare levy rate.
 - **Gap found:** SG rate (12%), Div 293 threshold ($250,000), and HECS/HELP repayment thresholds
   do **not appear anywhere in `calculator/src/engine/`** — grepped the whole engine directory.
   `derived.ts`'s `sgRows` computes the *reduction in pre-tax salary-sacrificed income* (a

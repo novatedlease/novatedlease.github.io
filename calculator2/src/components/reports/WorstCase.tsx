@@ -45,7 +45,7 @@ export const WorstCase: React.FC<WorstCaseProps> = ({ inputs }) => {
     const postTaxEcmThisFy = ecmPerFn * r.count;
 
     const postNlTaxableIncome = r.originalTaxableIncome - preTaxDeductionThisFy;
-    const postNlTax = taxSummaryAUResident(postNlTaxableIncome).totalTax;
+    const postNlTax = taxSummaryAUResident(postNlTaxableIncome, r.fy).totalTax;
 
     const postNlTakeHome = postNlTaxableIncome - postNlTax - postTaxEcmThisFy;
 

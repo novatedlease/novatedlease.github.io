@@ -31,11 +31,11 @@ export function buildFyBreakdown(args: {
 
   return fyCounts.map(({ fy, count }) => {
     const originalTaxableIncome = i.totalTaxableIncome;
-    const originalTax = taxSummaryAUResident(originalTaxableIncome).totalTax;
+    const originalTax = taxSummaryAUResident(originalTaxableIncome, fy).totalTax;
     const originalTakeHome = originalTaxableIncome - originalTax;
 
     const postNlTaxableIncome = Math.max(0, originalTaxableIncome - count * preTaxTotalFn);
-    const postNlTax = taxSummaryAUResident(postNlTaxableIncome).totalTax;
+    const postNlTax = taxSummaryAUResident(postNlTaxableIncome, fy).totalTax;
     const postNlTakeHome = postNlTaxableIncome - postNlTax;
 
     const takeHomeImpactPerPay = count > 0 ? (originalTakeHome - postNlTakeHome) / count : 0;

@@ -84,7 +84,7 @@ export function LeaseReport(props: {
     const postTaxEcmThisFy = ecmPerFnForFy(r.fy) * r.count;
 
     const postNlTaxableIncome = r.originalTaxableIncome - preTaxDeductionThisFy;
-    const postNlTax = taxSummaryAUResident(postNlTaxableIncome).totalTax;
+    const postNlTax = taxSummaryAUResident(postNlTaxableIncome, r.fy).totalTax;
 
     const postNlTakeHome = postNlTaxableIncome - postNlTax - postTaxEcmThisFy;
 
@@ -388,7 +388,7 @@ function FYTable(props: {
     const preTaxDeductionThisFy = props.actualPreTaxDeductionFnForFy(r.fy) * r.count;
     const postTaxEcmThisFy = props.ecmPerFnForFy(r.fy) * r.count;
     const postNlTaxableIncome = r.originalTaxableIncome - preTaxDeductionThisFy;
-    const postNlTax = taxSummaryAUResident(postNlTaxableIncome).totalTax;
+    const postNlTax = taxSummaryAUResident(postNlTaxableIncome, r.fy).totalTax;
     const postNlTakeHome = postNlTaxableIncome - postNlTax - postTaxEcmThisFy;
     const takeHomeImpactPerPay = r.count > 0 ? (r.originalTakeHome - postNlTakeHome) / r.count : 0;
 

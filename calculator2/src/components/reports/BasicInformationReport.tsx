@@ -2,6 +2,7 @@ import type { Inputs } from "@engine/types";
 import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate } from "@engine/types";
 import { residualPercentForYears, gstSaved } from "@engine/ato";
 import { taxSummaryAUResident } from "@engine/tax_au";
+import { fyForDate, parseISODate } from "@engine/lease_schedule";
 import { financedAmountExGstFromInputs, effectiveAnnualRateFromFortnightlyLease } from "@engine/effectiveinterest";
 import { estimateAnnualChargingExpense } from "@engine/charging";
 import { aud, aud0, pct } from "../../utils/format";
@@ -15,7 +16,8 @@ import { Stat, StatGrid, SubHead, KV, NoteBox } from "../ui/shared";
 export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedicarePct?: number; onNavigateToDetails?: (anchorId?: string) => void }) {
   const i = props.inputs;
 
-  const t = taxSummaryAUResident(i.totalTaxableIncome);
+  // Marginal rate for the financial year the lease starts in.
+  const t = taxSummaryAUResident(i.totalTaxableIncome, fyForDate(parseISODate(i.leaseStartDate)));
   const taxRatePct = props.taxRateInclMedicarePct ?? t.marginalRateInclMedicare * 100;
   const taxRate = taxRatePct / 100;
 
