@@ -100,7 +100,17 @@ In one recent account, that came to roughly $1,200 paid out of pocket to the sta
 Ideally you would want to either get the used car dealer to incorporate it for you, or you should just look up the expected stamp duty and transfer fee yourself and get these included in your novated lease financing from the get-go.
 
 :::tip[The practical version]
-1. Before signing anything, look up your state's stamp duty and transfer fee for the purchase price. Every state department of transport publishes a calculator / calculation algorithm.
+1. Before signing anything, look up your state's stamp duty and transfer fee for the purchase price. Every state department of transport publishes a calculator / calculation algorithm:
+   <div class="link-buttons">
+   <a href="https://www.service.nsw.gov.au/transaction/check-motor-vehicle-stamp-duty" target="_blank" rel="noopener">NSW</a>
+   <a href="https://www.vicroads.vic.gov.au/buy-sell-transfer/transfer-fees-and-exemptions" target="_blank" rel="noopener">VIC</a>
+   <a href="https://www.qld.gov.au/transport/registration/fees/duty/calculator" target="_blank" rel="noopener">QLD</a>
+   <a href="https://transport.wa.gov.au/licensing/vehicle/duty-calculator" target="_blank" rel="noopener">WA</a>
+   <a href="https://www.revenuesa.sa.gov.au/stamp-duty-vehicles/calculate-stamp-duty" target="_blank" rel="noopener">SA</a>
+   <a href="https://www.transport.tas.gov.au/fees_forms/registration_fees/accordion/duty_and_transfer_fee_calculator" target="_blank" rel="noopener">TAS</a>
+   <a href="https://services.revenue.act.gov.au/calculator/motor-vehicle-duty" target="_blank" rel="noopener">ACT</a>
+   <a href="https://nt.gov.au/driving/rego/getting-an-nt-registration/register-or-transfer-your-vehicle/mvr-duty-calculator" target="_blank" rel="noopener">NT</a>
+   </div>
 2. Ask the dealer whether they will handle the transfer and invoice it as part of the sale.
 3. If they won't, tell your novated lease provider the figure **up front** and ask for it to be included in the financed amount.
 4. Do not leave this to the end. Once the deal is documented at the lower figure, adding the on-road costs back in is awkward or impossible, and you simply pay them yourself with post-tax money.

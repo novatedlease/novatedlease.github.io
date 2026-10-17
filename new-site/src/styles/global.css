@@ -845,6 +845,36 @@ button {
   color: var(--color-text-muted);
 }
 
+/* Row of outline buttons inside an article, e.g. one link per state. */
+.link-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 4px;
+}
+
+.article-content .link-buttons a {
+  display: inline-block;
+  min-width: 52px;
+  padding: 6px 12px;
+  border: 1px solid color-mix(in srgb, var(--nl-blue) 45%, transparent);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--nl-blue);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background 80ms, border-color 80ms;
+}
+
+.article-content .link-buttons a:hover {
+  background: var(--nl-blue-light);
+  border-color: var(--nl-blue);
+  color: var(--nl-blue);
+}
+
 /* ------------------------------------------------------------
    Admonitions
    ------------------------------------------------------------ */
