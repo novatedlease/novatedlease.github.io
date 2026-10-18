@@ -1398,7 +1398,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 /* Grid cards */
 .home-grid-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   margin: 28px 0;
 }
