@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import type { Inputs } from "@engine/types";
 import { computeFinancialSummary } from "../engineAdapter";
 import { resolveAutoFields } from "../assumptions";
@@ -51,7 +51,7 @@ function money2(n: number | null | undefined): string {
   return n < 0 ? `$ (${fmt})` : `$ ${fmt}`;
 }
 
-type BreakdownColumn = { key: SelectedKey; color: string; nums: PathwayNumbers; pathwayType: PathwayType; quoteName: string };
+type BreakdownColumn = { key: SelectedKey; color: string; nums: PathwayNumbers; pathwayType: PathwayType; quoteName: string; incomeLabel?: string };
 type BreakdownRowDef = { label: string; getValue: (col: BreakdownColumn, leaseEnd: boolean) => number | null; bold?: boolean };
 
 /**
@@ -101,6 +101,7 @@ function DetailedBreakdownTable({
               {ranked.map((col) => (
                 <th key={col.key} style={{ textAlign: "right", padding: "7px 10px", fontSize: 11, fontWeight: 700, background: PATHWAY_SOLID[col.pathwayType], color: "#fff", whiteSpace: "nowrap" }}>
                   {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
+                  {col.incomeLabel && <div style={{ fontWeight: 600, opacity: 0.85 }}>{col.incomeLabel}</div>}
                   <div style={{ fontWeight: 600, opacity: 0.85, marginTop: 2 }}>{PATHWAY_LABELS[col.pathwayType]}</div>
                 </th>
               ))}
@@ -108,7 +109,7 @@ function DetailedBreakdownTable({
           </thead>
           <tbody>
             {rowGroups.map((group) => (
-              <>
+              <Fragment key={group.title}>
                 <tr key={`${group.title}-header`}>
                   <td colSpan={1 + ranked.length} style={groupHeaderStyle}>
                     {group.title}
@@ -127,7 +128,7 @@ function DetailedBreakdownTable({
                     })}
                   </tr>
                 ))}
-              </>
+              </Fragment>
             ))}
           </tbody>
         </table>
@@ -259,17 +260,21 @@ export function ComparatorView({
   const effectiveHorizon = offerLeaseEndOption ? horizon : "five_year";
   const isLeaseEnd = effectiveHorizon === "lease_end";
 
-  const canCompare = selectedPathways.length >= 2 && !ratesMismatch && !salesMismatch && !incomeMismatch;
+  // Different taxable incomes are allowed (e.g. you vs your partner): each pathway is computed
+  // from its own quote's inputs, and every figure is a take-home impact rather than salary, so
+  // the columns compare fairly at household level.
+  const canCompare = selectedPathways.length >= 2 && !ratesMismatch && !salesMismatch;
 
   const columns = useMemo(() => {
     if (!canCompare) return [];
     return selectedPathways.map((p) => {
       const s = computeFinancialSummary({ inputs: p.inputs });
       const nums = extractPathwayNumbers(s, p.inputs, p.pathwayType);
-      return { key: p.key, color: PATHWAY_COLORS[p.pathwayType], nums, pathwayType: p.pathwayType, quoteName: p.quoteName };
+      const incomeLabel = incomeMismatch && p.pathwayType === "nl" ? `${fmtAud0(p.inputs.totalTaxableIncome)} income` : undefined;
+      return { key: p.key, color: PATHWAY_COLORS[p.pathwayType], nums, pathwayType: p.pathwayType, quoteName: p.quoteName, incomeLabel };
       // eslint-disable-next-line react-hooks/exhaustive-deps
     });
-  }, [selectedPathways, canCompare]);
+  }, [selectedPathways, canCompare, incomeMismatch]);
 
   const toggle = (key: SelectedKey) => {
     setSelectedKeys((prev) => {
@@ -336,7 +341,7 @@ export function ComparatorView({
               <div style={{ fontWeight: 700, fontSize: 12.5, marginBottom: 6 }}>
                 {q.name}
                 <span style={{ fontWeight: 500, fontSize: 11, color: "var(--nlc-text-muted)", marginLeft: 8 }}>
-                  {paths[0]!.inputs.leaseDurationYears}yr lease · {paths[0]!.inputs.homeLoanOffsetInterestRate}% offset rate
+                  {paths[0]!.inputs.leaseDurationYears}yr lease · {paths[0]!.inputs.homeLoanOffsetInterestRate}% offset rate · {fmtAud0(paths[0]!.inputs.totalTaxableIncome)} income
                 </span>
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -379,10 +384,12 @@ export function ComparatorView({
         </div>
       )}
 
-      {incomeMismatch && selectedPathways.length >= 2 && (
-        <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-bad-light)", border: "1.5px solid color-mix(in srgb, var(--nlc-bad) 35%, transparent)", color: "var(--nlc-bad-dark)" }}>
-          <b>Taxable income differs — comparison blocked.</b> Selected pathways use incomes: {incomes.map((v) => fmtAud0(v)).join(", ")}. Ensure all
-          selected quotes were saved with the same taxable income, since it drives the marginal tax rate used throughout.
+      {incomeMismatch && canCompare && (
+        <div style={{ padding: "10px 14px", borderRadius: 10, background: "var(--nlc-warn-light)", border: "1px solid color-mix(in srgb, var(--nlc-warn) 40%, transparent)", color: "var(--nlc-warn-dark)" }}>
+          <b>These quotes use different taxable incomes</b> ({incomes.map((v) => fmtAud0(v)).join(", ")}), for example you and your partner.
+          Each figure is that person&rsquo;s take-home impact, so the columns compare fairly at household level. Effects on adjusted
+          taxable income (HECS/HELP, childcare subsidy, Division 293, Medicare levy surcharge) and on super differ by person and are not
+          included.
         </div>
       )}
 
@@ -423,6 +430,7 @@ export function ComparatorView({
                   <th key={col.key} style={{ ...thR(), background: PATHWAY_SOLID[col.pathwayType], color: "#fff" }}>
                     {col.key === winnerKey && <div style={{ fontSize: 9, letterSpacing: "0.05em" }}>★ BEST</div>}
                     {col.pathwayType !== "keep" && <div style={{ fontWeight: 900 }}>{col.quoteName}</div>}
+                    {col.incomeLabel && <div style={{ fontWeight: 600, opacity: 0.85 }}>{col.incomeLabel}</div>}
                     <div style={{ fontWeight: 600, opacity: 0.85 }}>{PATHWAY_LABELS[col.pathwayType]}</div>
                   </th>
                 ))}

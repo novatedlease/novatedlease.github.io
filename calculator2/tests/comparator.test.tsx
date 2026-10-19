@@ -1,5 +1,6 @@
-import { describe, expect, test } from "vitest";
+import { afterEach, describe, expect, test } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { ComparatorView, extractPathwayNumbers } from "../src/components/ComparatorView";
 import { computeFinancialSummary } from "../src/engineAdapter";
 import type { SavedQuoteV1 } from "../src/state/savedQuotes";
@@ -39,6 +40,35 @@ describe("ComparatorView", () => {
     ];
     const html = renderToStaticMarkup(<ComparatorView savedQuotes={quotes} defaultInputs={defaults} />);
     expect(html.match(/\bNaN\b|>undefined</g)).toBeNull();
+  });
+});
+
+describe("ComparatorView with different taxable incomes (you vs your partner)", () => {
+  afterEach(cleanup);
+  const defaults = baseEvInputs();
+
+  test("compares rather than blocks, labels each NL column with its income, and shows the household note", () => {
+    const quotes = [mkQuote("q1", "Me", { totalTaxableIncome: 190000 }), mkQuote("q2", "Partner", { totalTaxableIncome: 95000 })];
+    render(<ComparatorView savedQuotes={quotes} defaultInputs={defaults} />);
+    // Checkboxes are in quote order: [Me NL, Me cash, Partner NL, Partner cash].
+    const boxes = screen.getAllByRole("checkbox");
+    fireEvent.click(boxes[0]!);
+    fireEvent.click(boxes[2]!);
+
+    expect(screen.queryByText(/comparison blocked/i)).toBeNull();
+    expect(screen.getAllByText("Net Financial Position").length).toBeGreaterThan(0);
+    expect(screen.getByText(/These quotes use different taxable incomes/)).toBeTruthy();
+    expect(screen.getAllByText("$190,000 income").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("$95,000 income").length).toBeGreaterThan(0);
+  });
+
+  test("the two NL columns differ because each uses its own income", () => {
+    const hi = withOverrides(baseEvInputs(), { totalTaxableIncome: 190000 });
+    const lo = withOverrides(baseEvInputs(), { totalTaxableIncome: 95000 });
+    const nlHi = extractPathwayNumbers(computeFinancialSummary({ inputs: hi }), hi, "nl");
+    const nlLo = extractPathwayNumbers(computeFinancialSummary({ inputs: lo }), lo, "nl");
+    // Higher marginal rate → smaller take-home hit for the same lease.
+    expect(nlHi.cashTotalAt5).toBeGreaterThan(nlLo.cashTotalAt5);
   });
 });
 
