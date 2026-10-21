@@ -1,7 +1,7 @@
 ---
 title: "ATO Residual Value Table for Novated Leases (28.13% Explained)"
 datePublished: "2026-01-06"
-dateModified: "2026-09-19"
+dateModified: "2026-10-21"
 description: ATO minimum residual values for novated leases, from 65.63% at 1 year to 28.13% at 5 years, with the full table, why the ATO sets them (TD 93/142), how to ask for a lower residual under paragraph 4, why a residual is deferred payment rather than saving, and what happens when you extend or pay out early.
 ---
 
@@ -106,7 +106,7 @@ Two practical constraints matter more than the legal test:
 
 The reason is the pre-tax/post-tax split. Lease payments come out of **pre-tax** salary; the residual at the end is paid with **post-tax** money. Lowering the residual moves part of the car's value out of the balloon and into the payments, so a larger share of the car is paid down in pre-tax dollars over the course of the lease — and that portion attracts the tax saving that the balloon never does.
 
-On a $60,000 car over five years, dropping the residual from 28.13% ($16,878) to 20% ($12,000) shifts $4,878 from the post-tax balloon into pre-tax lease payments. On a 47% marginal rate that is roughly **$2,300 of additional tax saving**, on exactly the same car. Two smaller effects push the same way: total interest falls slightly, because the average outstanding balance is lower; and less of the car's value is left sitting in a residual that carries GST you cannot recover.
+On a $60,000 cost base over five years, dropping the residual from 28.13% ($16,878 ex GST) to 20% ($12,000 ex GST) shifts $4,878 from the post-tax balloon into pre-tax lease payments. On a 47% marginal rate that is roughly **$2,300 of additional tax saving**, on exactly the same car. Two smaller effects push the same way: total interest falls slightly, because the average outstanding balance is lower; and less of the car's value is left sitting in a residual that carries GST you cannot recover.
 
 The trade-off is cash flow, not cost — your periodic deductions rise. And there is a second benefit worth having in its own right: **exposure at payout**. If high kilometres mean the car will be worth well under the standard residual, that gap is money you are liable for regardless; a lower residual brings the contractual figure closer to reality instead of deferring the shortfall to the end.
 :::
@@ -193,6 +193,18 @@ Note that the documentation fee is **not** part of the residual cost base under 
 Method B will always produce a **lower dollar residual** than Method A for the same vehicle, by the amount of on‑road costs excluded from the base.
 
 This calculator defaults to Method A — the residual field is automatically pre‑filled using this formula — but you can override it with any figure you like, including a Method B figure if your quote is CBA‑financed.
+
+:::note[The residual you pay includes GST]
+Both methods give the residual **ex GST**. The amount you actually pay at the end of the lease has **10% GST added**, and most quotes show both figures.
+
+For example, take a $65,000 drive-away price that includes about $4,800 of stamp duty and registration, so the GST saved is about $5,470. Under Method A:
+
+- cost base: $65,000 − $5,470 = $59,530
+- residual ex GST: $59,530 × 28.13% = $16,745
+- **residual payable, inc GST: $16,745 × 1.1 = $18,420**
+
+A common shortcut is to apply the percentage straight to the drive-away price: $65,000 × 28.13% = $18,285. It lands close to the GST-inclusive figure, but slightly low, because it treats the whole drive-away price as if it carried GST, when stamp duty and registration carry none. It is fine as a rough check, not as the method.
+:::
 
 The ATO is not particularly clear on which is "correct" — the guidance simply isn't specific enough to settle it either way.
 
