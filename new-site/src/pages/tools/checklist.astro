@@ -1,0 +1,724 @@
+---
+import FullPage from '../../layouts/FullPage.astro';
+
+type Item = {
+  id: string; title: string; detail: string; links?: { label: string; href: string }[];
+  /** Only relevant to this car type: 'ev' (FBT-exempt electric) or 'ice' (petrol, diesel, hybrid: FBT applies). */
+  car?: 'ev' | 'ice';
+  /** Only relevant to used cars. */
+  used?: boolean;
+};
+type Section = { id: string; title: string; intro?: string; items: Item[] };
+
+const sections: Section[] = [
+  {
+    id: 'eligibility',
+    title: '1. Eligibility and timing',
+    items: [
+      {
+        id: 'ev-vs-ice',
+        car: 'ice',
+        title: 'I am aware an EV novated lease usually offers far more achievable saving, because of the FBT exemption',
+        detail:
+          'A petrol, diesel or hybrid lease must pay part of the lease from post-tax salary to cover FBT, which removes much of the benefit. The two are effectively different products, so compare them before settling on a non-EV. This is purely a suggestion based on the difference in tax treatment, and naturally does not take into account what you need in a vehicle.',
+        links: [{ label: 'EV vs ICE novated leases', href: '/start-here/ev-vs-ice-compared/' }],
+      },
+      {
+        id: 'used-option',
+        car: 'ev',
+        title: 'If I am leasing mainly for the FBT exemption, I am aware a used EV can qualify too',
+        detail:
+          'Many people assume a novated lease is only for a new EV. It is not: a used EV that was first held and used on or after 1 July 2022, and never had Luxury Car Tax payable, gets the same FBT exemption as a new one. Buying two or three years old skips the steepest depreciation while keeping most of the saving.',
+        links: [{ label: 'Used EV on a novated lease', href: '/costs-and-savings/used-ev-novated-lease/' }],
+      },
+      {
+        id: 'binding-date',
+        car: 'ev',
+        title: 'If my EV’s FBT base value is over $75,000, I know it is safer to have it delivered before 1 April 2027, because of legislative risk',
+        detail:
+          'The draft legislation tests when the lease becomes binding, which may give some relief, but it is not yet law. When the plug-in hybrid exemption ended in 2025, the car had to be delivered before the cut-off date. Having it delivered before 1 April 2027 is the safest position. In other words, if a $75,001 car is purchased today and delivered on 2 April 2027, there remains some theoretical risk that it no longer enjoys the full FBT exemption.',
+        links: [{ label: 'Commitment date', href: '/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#its-the-commitment-date-that-counts' }],
+      },
+      {
+        id: 'used-ev',
+        car: 'ev', used: true,
+        title: 'For a used EV, I have checked its eligibility and the financier’s age limit',
+        detail:
+          'For leases committed before 1 April 2027: first held and used on or after 1 July 2022, and LCT never payable. Most financiers also want the car under 10–12 years old at the end of the lease.',
+        links: [{ label: 'Used EV on a novated lease', href: '/costs-and-savings/used-ev-novated-lease/' }],
+      },
+    ],
+  },
+  {
+    id: 'finance',
+    title: '2. The quote and the finance',
+    items: [
+      {
+        id: 'effective-rate',
+        title: 'I checked the effective interest rate in the calculator',
+        detail:
+          'Do not rely on a "base rate" or the quoted comparison rate. Smartleasing and MillarX quotes need the calculator’s built-in adjustment first, or the rate comes out about a point too high.',
+        links: [
+          { label: 'Calculator', href: '/calculator/' },
+          { label: 'Why rates look high', href: '/costs-and-savings/why-nl-interest-looks-high/' },
+          { label: 'Smart / MillarX adjustment', href: '/special-and-policy/smart-leasing-millarx-payment-structure/' },
+        ],
+      },
+      {
+        id: 'panel',
+        title: 'If my employer has a panel, I got the providers to outbid each other, comparing like for like',
+        detail:
+          'Show each provider the others’ quotes. Compare on the same kilometres and budgets, and compare the vehicle lease line, the amount financed and the residual, not the total fortnightly deduction.',
+        links: [{ label: 'How to read a quote', href: '/start-here/how-to-read-a-novated-lease-quote/' }],
+      },
+      {
+        id: 'byo',
+        title: 'If my employer allows BYO, I considered BYO finance',
+        detail: 'BYO finance often comes at a much lower effective interest rate. You arrange the finance; your employer’s salary packaging company keeps doing the payroll. It is rarely advertised.',
+        links: [{ label: 'Employer BYO checker', href: '/tools/byo-employer-check/' }],
+      },
+      {
+        id: 'amount-financed',
+        title: 'The amount financed reconciles to the car',
+        detail:
+          'It should be roughly the drive-away price plus the documentation fee, minus the GST saving (up to $6,353). If it is higher, find out exactly what the difference is: it is often add-ons you did not ask for.',
+        links: [{ label: 'Financed amount: is it clean?', href: '/start-here/how-to-read-a-novated-lease-quote/#financed-amount-is-it-clean' }],
+      },
+      {
+        id: 'insurance-financed',
+        title: 'If comprehensive insurance is in the amount financed, I considered moving it to running costs',
+        detail: 'Financed, it attracts interest for the whole lease and makes an early-termination payout bigger. As a running cost it does neither.',
+        links: [
+          { label: 'Insurance bundled into finance', href: '/costs-and-savings/why-nl-interest-looks-high/#some-providers-bundle-insurance-into-the-financed-amount' },
+          { label: 'Early termination: worked examples', href: '/risks/how-bad-can-early-termination-get/' },
+        ],
+      },
+      {
+        id: 'add-ons',
+        title: 'Every package and extra in the quote is one I truly want, at a price I am happy with',
+        detail:
+          'Dent and paint protection, dash cams, tint, small-damage repair and similar packages are often marked up with commission built in, and you may get them cheaper outside the lease, though you do pay for them with post-tax dollars. Financed, they also make early termination worse. The same goes for running-cost extras such as roadside assistance or a carbon offset.',
+        links: [{ label: 'Bundled add-ons', href: '/start-here/how-to-read-a-novated-lease-quote/#financed-amount-is-it-clean' }],
+      },
+      {
+        id: 'term',
+        title: 'I chose the lease length deliberately',
+        detail:
+          'Longer usually saves more but leaves more exposed if the lease ends early, and shorter costs more borrowing capacity. Tip: if you expect to drive 30,000 km a year or more, ask for a lower residual at the start. It cannot be changed later.',
+        links: [
+          { label: 'Choosing the lease length', href: '/risks/lease-length-and-risk/' },
+          { label: 'Asking for a lower residual', href: '/costs-and-savings/why-residual-values-matter/#asking-for-a-lower-residual-value' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'running',
+    title: '3. Running costs and insurance',
+    items: [
+      {
+        id: 'budgets',
+        title: 'Every running-cost budget is a reasonable estimate, and I understand it is a piggy bank',
+        detail:
+          'The budget is your own pre-tax money set aside and claimed back, and it always trues up to what you spend: a refund if you over-budget, top-ups if you under-budget. An unrealistically low budget only makes the quote look cheaper, but will require additional top-up deductions when your budgeted deduction is insufficient for your actual expenses.',
+        links: [{ label: 'Running costs are a piggy bank', href: '/running-costs/running-costs-piggy-bank/' }],
+      },
+      {
+        id: 'charging',
+        car: 'ev',
+        title: 'EV: there is a charging budget, even though I charge cheaply',
+        detail: 'Claiming the ATO rate (5.47c/km) puts extra money in your pocket even if your charging is cheap or free. Removing it is a common mistake: setting it to zero is ALWAYS worse financially compared to claiming any amount. If this sounds counter-intuitive, please read the linked article for the financial mechanism.',
+        links: [{ label: 'ATO home charging rate', href: '/running-costs/ev-home-charging-shortcut/' }],
+      },
+      {
+        id: 'charging-away',
+        car: 'ev',
+        title: 'EV: if I will charge away from home a lot, I chose the claiming method that pays more',
+        detail:
+          'Commercial charging invoices, or the mixed method (home km at 5.47c plus commercial invoices) if your car records the home/away split, can beat the 5.47c/km shortcut. Budget for it.',
+        links: [{ label: 'The three claiming methods', href: '/running-costs/ev-home-charging-shortcut/#the-three-ways-you-can-claim-ev-charging' }],
+      },
+      {
+        id: 'gst-passed',
+        title: 'I checked whether GST on running costs is passed on to me',
+        detail:
+          'Some employers keep it, which makes every running cost about 10% dearer. It is employer policy, so there is usually little you can do, but count it in your figures.',
+        links: [{ label: 'GST pass-through', href: '/running-costs/failure-to-pass-gst-saving/' }],
+      },
+      {
+        id: 'insurance',
+        title: 'I compared the provider’s insurance and gap cover with arranging my own, on cost',
+        detail:
+          'Provider-affiliated policies often carry commission. Check what a write-off would leave you owing: once any new-for-old period ends (check your policy), a default agreed value can leave $10,000 or more unpaid. Gap or total-loss cover, or a higher agreed value, closes that gap at a price.',
+        links: [
+          { label: 'Write-off example', href: '/risks/how-bad-can-early-termination-get/#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month' },
+          { label: 'Premium vs excess', href: '/running-costs/insurance-premium-and-excess/' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'pay',
+    title: '4. Your pay and the bigger picture',
+    items: [
+      {
+        id: 'borrowing',
+        title: 'I understand the effect on my borrowing capacity',
+        detail: 'If a home loan is in the near future, give your mortgage broker the lease quote and ask them to run your capacity with and without it.',
+        links: [{ label: 'Borrowing capacity', href: '/special-and-policy/borrowing-capacity/' }],
+      },
+      {
+        id: 'super',
+        title: 'Payroll has confirmed in writing whether super is paid on my pre-lease or post-lease salary',
+        detail:
+          'On post-lease salary, you lose 12% of everything you sacrifice, which can exceed $10,000 over an EV lease. Check again after any payroll change, such as Payday Super from 1 July 2026.',
+        links: [{ label: 'Super guarantee', href: '/special-and-policy/super-guarantee/' }],
+      },
+      {
+        id: 'rfba',
+        car: 'ev',
+        title: 'My figures include the effect on childcare subsidy, HELP, child support, Division 293 and the Medicare levy surcharge',
+        detail:
+          'An EV lease lowers taxable income but usually raises adjusted taxable income.',
+        links: [
+          { label: 'RFBA explained', href: '/costs-and-savings/fbt-rfba-ati-explained/' },
+          { label: 'HECS/HELP', href: '/special-and-policy/hecs-help/' },
+          { label: 'Childcare subsidy', href: '/special-and-policy/childcare-subsidy/' },
+        ],
+      },
+      {
+        id: 'help-bill',
+        car: 'ev',
+        title: 'If I have a HELP/HECS debt, I have planned for a possible tax-time bill',
+        detail:
+          'Payroll withholds HELP from your reduced salary, but the ATO assesses it on an income that adds your reportable fringe benefits back. Because of this gap in the PAYG withholding assumptions, an EV lease can leave you with a large, unexpected tax bill. Work out the expected effect with the adjusted taxable income section in the calculator (Details tab, section 4). To avoid the shock, ask payroll to withhold the correct amount, or set the difference aside in your own bank account.',
+        links: [
+          { label: 'Novated leases and HECS/HELP', href: '/special-and-policy/hecs-help/' },
+          { label: 'Calculator', href: '/calculator/' },
+        ],
+      },
+      {
+        id: 'nfp-cap',
+        car: 'ice',
+        title: 'Petrol or other FBT-applicable lease at a hospital or NFP: I am not counting the FBT cap as a new perk',
+        detail:
+          'If you could already use the $9,010 / $15,900 cap on living expenses, packaging the car under it moves that benefit rather than adding one. Check the quote does not count it as extra saving.',
+        links: [{ label: 'Double-counting the cap', href: '/special-and-policy/fbt-exemption-double-counting/' }],
+      },
+      {
+        id: 'nsw-health',
+        title: 'NSW Health doctor or nurse: the employer share is in my figures',
+        detail: 'NSW Health keeps part of the tax saving on all salary packaging, including novated leases. Tip: if you also have separate employment with another organisation, strongly consider doing the novated lease through that employment instead, so you don’t lose part of the saving to the employer share. Reminder: the tax saving depends on your TOTAL taxable income, not just that job’s income, so it does not matter if the other employment only pays $30k.',
+        links: [{ label: 'NSW Health employer share', href: '/special-and-policy/nsw-health-employer-share/' }],
+      },
+      {
+        id: 'net-outcome',
+        title: 'I compared against keeping my current car, not just against buying the same new car with cash',
+        detail:
+          '"Compare with keeping current car" in the calculator is the realistic reference point for most people. "New car by lease vs new car by cash" flatters the lease, and the quote’s "tax saved" figure flatters it more.',
+        links: [
+          { label: 'Keeping the current car', href: '/costs-and-savings/ev-nl-vs-keeping-petrol-car/' },
+          { label: 'Why "tax saved" is the wrong metric', href: '/costs-and-savings/why-tax-saved-is-wrong/' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'risk',
+    title: '5. Risk and the exit',
+    items: [
+      {
+        id: 'run-to-term',
+        title: 'I understand the savings only materialise if the lease runs to its natural end, and I know the payout I would face if it ended early',
+        detail:
+          'Job loss without a new employer to take the lease, illness, a write-off, a change of mind, going contractor or sole trader, or moving overseas can turn a good deal into a bad one: the remaining payments and residual become due post-tax, plus GST. Section 7 of the calculator shows what that means at each point in the lease. Under the draft, taking the lease to a new employer after 1 April 2027 is a new commitment on the new rules. Even so, it is a bet that pays off on average, with some chance of a worse outcome.',
+        links: [
+          { label: 'Early termination', href: '/risks/early-termination/' },
+          { label: 'Worked examples', href: '/risks/how-bad-can-early-termination-get/' },
+          { label: 'Think like a gambler', href: '/risks/novated-lease-risk-adjusted-decision/' },
+        ],
+      },
+      {
+        id: 'unpaid-leave',
+        title: 'No unpaid period is coming up, or I have planned for it',
+        detail: 'Parental leave or other unpaid leave stops the salary deductions, and the lease payments still fall due.',
+        links: [{ label: 'Early termination', href: '/risks/early-termination/' }],
+      },
+      {
+        id: 'extension',
+        title: 'If I plan to lease for x years and extend by y, I know the extension is a new commitment',
+        detail:
+          'Under the 2026 draft, the extension falls under whatever rules apply when you extend. The residual on an extension must also follow the original ATO table, not "65.63% of 65.63%".',
+        links: [
+          { label: 'What ends your grandfathering', href: '/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#what-ends-your-grandfathering' },
+          { label: 'Residuals on extensions', href: '/costs-and-savings/why-residual-values-matter/#how-residual-values-work-when-a-lease-is-extended' },
+        ],
+      },
+      {
+        id: 'lease-protection',
+        title: 'I have considered lease protection insurance',
+        detail: 'It reduces the saving to protect the downside. Compare its total cost, including interest if financed, with the risk it covers.',
+        links: [{ label: 'Risk mitigation', href: '/risks/risk-mitigation/' }],
+      },
+      {
+        id: 'end-plan',
+        title: 'I have a plan for the residual, and know what each option costs',
+        detail:
+          'Pay it out (GST-inclusive), sell the car, refinance, or start a new lease. Will you actually have the cash at the end? A new lease later is a new commitment and may be on less favourable FBT rules.',
+        links: [{ label: 'Residual values', href: '/costs-and-savings/why-residual-values-matter/' }],
+      },
+    ],
+  },
+  {
+    id: 'signing',
+    title: '6. Before you sign',
+    items: [
+      {
+        id: 'final-quote',
+        title: 'The final documents match what was agreed',
+        detail: 'Price, kilometres, budgets, add-ons removed, residual and lease payment. A re-issued quote can quietly bring back something you removed.',
+      },
+      {
+        id: 'on-roads',
+        used: true,
+        title: 'On-road costs are accounted for, especially on a used car',
+        detail:
+          'A used-car invoice often leaves out stamp duty and the transfer fee. Get them into the amount financed, or you pay them yourself with post-tax money. For a private sale, a dealer middleman can recover the GST saving.',
+        links: [
+          { label: 'On-road costs', href: '/costs-and-savings/used-ev-novated-lease/#savings-on-the-on-road-cost' },
+          { label: 'Used-car GST', href: '/costs-and-savings/used-car-gst-saving/' },
+        ],
+      },
+      {
+        id: 'cancellation',
+        title: 'I know the cancellation terms and deposit deadlines',
+        detail:
+          'Some quotes allow a cancellation charge once finance is approved and the car is ordered. Dealers may set a deposit deadline that a novated lease can struggle to meet.',
+      },
+      {
+        id: 'calculator-run',
+        title: 'I have saved my final quote in the calculator',
+        detail: 'Use "Copy link" or Quotes so you can check your payslips and statements against it later.',
+        links: [{ label: 'Calculator', href: '/calculator/' }],
+      },
+    ],
+  },
+];
+
+const total = sections.reduce((n, s) => n + s.items.length, 0);
+const description =
+  'A final novated lease checklist to go through before you sign: eligibility, competing quotes, the effective interest rate, add-ons, running costs, super, HECS and other income tests, and the exit. Tick items off and keep notes; nothing leaves your browser.';
+---
+
+<FullPage title="Novated Lease Final Checklist" description={description}>
+  <div class="ck-page">
+    <div class="ck-print-head" aria-hidden="true">
+      <img src="/assets/images/favicon.svg" alt="" width="40" height="40" />
+      <div>
+        <div class="ck-print-brand">Novated Lease Guide</div>
+        <div class="ck-print-url"><a href="https://novatedlease.guide/tools/checklist/">novatedlease.guide/tools/checklist/</a></div>
+      </div>
+      <div class="ck-print-meta"><span id="ck-print-date"></span><br /><span id="ck-print-filter"></span></div>
+      <img class="ck-print-qr" src="/assets/images/qr-checklist.svg" alt="" width="56" height="56" />
+    </div>
+    <h1>Novated lease final checklist</h1>
+
+    <p class="ck-lede">
+      <em>Almost everything</em> this site covers, in one list, before you sign. Tick items off as you go and use the notes to record what you found.
+    </p>
+
+    <div class="ck-disclaimer">
+      <strong>This is not financial advice.</strong> It is a general list of things to check, based on years of online discussion, stories and feedback, and it does not take your personal circumstances into account. Not every item applies to everyone, and ticking every box does not mean a lease is right for you. Your ticks and notes are saved only in this browser, on this device.
+      See the <a href="/about/disclaimer/">disclaimer</a>.
+    </div>
+
+    <div class="ck-filters" data-pagefind-ignore>
+      <div class="ck-filter" role="group" aria-label="Car type">
+        <span class="ck-filter-label">Car</span>
+        <button type="button" data-filter="car" data-value="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="car" data-value="ev" aria-pressed="false">Electric</button>
+        <button type="button" data-filter="car" data-value="ice" aria-pressed="false">Petrol / hybrid</button>
+      </div>
+      <div class="ck-filter" role="group" aria-label="New or used">
+        <span class="ck-filter-label">Condition</span>
+        <button type="button" data-filter="cond" data-value="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="cond" data-value="new" aria-pressed="false">New</button>
+        <button type="button" data-filter="cond" data-value="used" aria-pressed="false">Used</button>
+      </div>
+    </div>
+
+    <div class="ck-toolbar" data-pagefind-ignore>
+      <span class="ck-progress"><span id="ck-done">0</span> of <span id="ck-total">{total}</span> checked</span>
+      <span class="ck-buttons">
+        <button type="button" id="ck-print">Print / save as PDF</button>
+        <button type="button" id="ck-copy">Copy as text</button>
+        <button type="button" id="ck-reset">Clear all</button>
+      </span>
+      <span class="ck-status" id="ck-status" role="status" aria-live="polite"></span>
+    </div>
+
+    {sections.map((s) => (
+      <section class="ck-section" id={s.id}>
+        <h2>{s.title} <span class="ck-section-count" data-section={s.id}></span></h2>
+        <ul class="ck-list">
+          {s.items.map((it) => (
+            <li class="ck-item" data-id={it.id} data-car={it.car ?? 'all'} data-used={it.used ? 'yes' : 'all'}>
+              <label class="ck-row">
+                <input type="checkbox" class="ck-box" data-id={it.id} />
+                <span class="ck-title">{it.title}</span>
+              </label>
+              {(it.car || it.used) && (
+                <p class="ck-tags">
+                  {it.car === 'ev' && <span class="ck-tag ck-tag--ev">Electric only</span>}
+                  {it.car === 'ice' && <span class="ck-tag ck-tag--ice">Petrol / hybrid only</span>}
+                  {it.used && <span class="ck-tag ck-tag--used">Used car</span>}
+                </p>
+              )}
+              <p class="ck-detail">{it.detail}</p>
+              {it.links && (
+                <p class="ck-links">
+                  {it.links.map((l, i) => (
+                    <>{i > 0 && ' · '}<a href={l.href}>{l.label}</a></>
+                  ))}
+                </p>
+              )}
+              <details class="ck-notes" data-id={it.id}>
+                <summary>Notes</summary>
+                <textarea class="ck-note" data-id={it.id} rows="2" placeholder="e.g. what you checked, the figure, who confirmed it"></textarea>
+              </details>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <div class="ck-print-foot" aria-hidden="true">
+      This checklist and the calculator are free and independent, with no ads and no leads sold.
+      If they helped you, you can support them at buymeacoffee.com/changyang1230. Thank you.
+    </div>
+
+    <p class="ck-footer">
+      Spotted something missing? <a href="/about/contact/">Let me know</a>. This checklist was suggested by a reader.
+    </p>
+  </div>
+
+  <div id="ck-coffee" hidden data-pagefind-ignore>
+    <div class="ck-coffee-dim" data-close></div>
+    <div class="ck-coffee-card" role="dialog" aria-modal="true" aria-labelledby="ck-coffee-title" tabindex="-1">
+      <button type="button" class="ck-coffee-close" data-close aria-label="Close">✕</button>
+      <div class="ck-coffee-emoji" aria-hidden="true">☕</div>
+      <h2 id="ck-coffee-title" class="ck-coffee-title">Why is this free?</h2>
+      <div class="ck-coffee-body">
+        <p>Many people have asked me that. I do not serve ads or sell leads to novated lease companies.</p>
+        <p>
+          It is an <a href="/about/history/" target="_blank" rel="noopener">original financial model</a>, built from scratch and maintained over hundreds of hours. Yet everything is free. That is deliberate: I want as many people as possible to see through the industry's sales maths. I would rather help many more people than squeeze a few extra bucks out of it by charging admission at the door.
+        </p>
+        <p>
+          That said, I believe in its value. With motivated readers, we have helped keep novated lease companies honest and pushed back on dishonest practices. Many have taken the effective interest rate back to their provider, negotiated several percentage points off, and saved thousands. Others gained clarity, mitigated risks, or talked themselves out of an expensive mistake.
+        </p>
+        <p>If it has done any of that for you, a coffee is genuinely appreciated and helps keep it going.</p>
+        <p class="ck-coffee-fineprint">No pressure, and nothing changes if you say no. This will only appear once on this page.</p>
+      </div>
+      <div class="ck-coffee-actions">
+        <a class="ck-coffee-btn ck-coffee-btn--primary" id="ck-coffee-go" href="https://buymeacoffee.com/changyang1230" target="_blank" rel="noopener noreferrer">Buy me a coffee ☕</a>
+        <button type="button" class="ck-coffee-btn" data-close>No thanks</button>
+      </div>
+    </div>
+  </div>
+</FullPage>
+
+<style>
+  .ck-page { max-width: var(--content-max); margin: 0 auto; padding: 32px 16px 64px; }
+  .ck-lede { font-size: 1.05rem; color: var(--color-text-soft); }
+  .ck-disclaimer {
+    background: var(--adm-note-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md);
+    padding: 12px 14px; margin: 16px 0 20px; font-size: 0.92rem; color: var(--adm-note-text);
+  }
+  .ck-toolbar {
+    position: sticky; top: var(--nav-height); z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;
+    background: var(--color-bg); border-bottom: 1px solid var(--color-border); padding: 10px 0; margin-bottom: 8px;
+  }
+  .ck-progress { font-weight: 700; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  .ck-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ck-buttons button {
+    font: inherit; font-size: 0.85rem; padding: 6px 12px; border-radius: var(--radius-sm); cursor: pointer;
+    border: 1px solid var(--color-border-mid); background: var(--color-surface); color: var(--color-text);
+  }
+  .ck-buttons button:hover { border-color: var(--nl-blue); color: var(--nl-blue); }
+  .ck-status { font-size: 0.85rem; color: var(--status-good); }
+  .ck-filters { display: flex; flex-wrap: wrap; gap: 10px 20px; margin: 0 0 8px; }
+  .ck-filter { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .ck-filter-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-text-muted); margin-right: 2px; }
+  .ck-filter button {
+    font: inherit; font-size: 0.85rem; padding: 5px 12px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--color-border-mid); background: var(--color-surface); color: var(--color-text-soft);
+  }
+  .ck-filter button[aria-pressed='true'] { background: var(--nl-blue-solid); border-color: var(--nl-blue-solid); color: #fff; font-weight: 600; }
+  .ck-tags { margin: 6px 0 0 28px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .ck-tag { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--color-border-mid); color: var(--color-text-soft); }
+  .ck-tag--ev { border-color: var(--nl-blue-mid); color: var(--nl-blue); }
+  .ck-item[hidden], .ck-section[hidden] { display: none; }
+  .ck-section { margin-top: 28px; }
+  .ck-section h2 { font-size: 1.2rem; margin-bottom: 8px; }
+  .ck-section-count { font-size: 0.85rem; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--color-text-muted); }
+  .ck-list { list-style: none; padding: 0; margin: 0; }
+  .ck-item { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px 14px; margin: 10px 0; background: var(--color-surface); }
+  .ck-item.is-done { background: var(--nl-blue-light); border-color: var(--nl-blue-mid); }
+  .ck-row { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+  .ck-box { width: 18px; height: 18px; margin-top: 2px; flex: 0 0 auto; accent-color: var(--nl-blue); }
+  .ck-title { font-weight: 600; }
+  .ck-detail { margin: 6px 0 0 28px; font-size: 0.92rem; color: var(--color-text-soft); }
+  .ck-links { margin: 4px 0 0 28px; font-size: 0.85rem; }
+  .ck-notes { margin: 6px 0 0 28px; }
+  .ck-notes summary { cursor: pointer; font-size: 0.85rem; color: var(--color-text-muted); }
+  .ck-notes.has-note summary { color: var(--nl-blue); font-weight: 600; }
+  .ck-note {
+    width: 100%; margin-top: 6px; font: inherit; font-size: 0.9rem; padding: 8px; box-sizing: border-box;
+    border: 1px solid var(--color-border-mid); border-radius: var(--radius-sm); background: var(--color-bg); color: var(--color-text);
+  }
+  .ck-footer { margin-top: 32px; font-size: 0.9rem; color: var(--color-text-muted); }
+
+  .ck-coffee-dim { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); z-index: 2147482000; }
+  .ck-coffee-card {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2147482001;
+    width: 520px; max-width: calc(100vw - 32px); max-height: calc(100vh - 32px);
+    display: flex; flex-direction: column; background: var(--color-surface-raised); color: var(--color-text);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 28px 30px 24px; outline: none;
+  }
+  .ck-coffee-close { position: absolute; top: 14px; right: 16px; padding: 0; border: none; background: transparent; cursor: pointer; font-size: 20px; line-height: 1; color: var(--color-text-muted); }
+  .ck-coffee-emoji { font-size: 34px; line-height: 1; margin-bottom: 10px; }
+  .ck-coffee-title { margin: 0 0 12px; padding-right: 24px; font-size: 18px; font-weight: 800; line-height: 1.3; }
+  .ck-coffee-body { font-size: 14px; line-height: 1.55; flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+  .ck-coffee-body p { margin: 0 0 10px; }
+  .ck-coffee-body a { color: var(--nl-blue); text-decoration: underline; }
+  .ck-coffee-fineprint { font-size: 12px; color: var(--color-text-muted); }
+  .ck-coffee-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; flex: 0 0 auto; }
+  .ck-coffee-btn {
+    font: inherit; font-size: 14px; font-weight: 600; padding: 9px 16px; border-radius: var(--radius-md); cursor: pointer;
+    border: 1px solid var(--color-border-mid); background: var(--color-surface); color: var(--color-text); text-decoration: none; text-align: center;
+  }
+  .ck-coffee-btn--primary { background: var(--nl-blue-solid); border-color: var(--nl-blue-solid); color: #fff; }
+  .ck-coffee-btn--primary:hover { background: var(--nl-blue-solid-hover); }
+  @media (max-width: 600px) {
+    .ck-coffee-card { padding: 22px 18px 18px; }
+    .ck-coffee-btn { flex: 1 1 auto; }
+  }
+
+  .ck-print-head, .ck-print-foot { display: none; }
+
+  @media print {
+    @page { margin: 14mm 12mm; }
+    :global(.site-nav), :global(.site-footer), :global(.search-overlay), :global(.nav-mobile-drawer), :global(.nav-mobile-overlay) { display: none !important; }
+    :global(html), :global(body) { background: #fff !important; }
+    /* Always print in light mode: dark-theme colours would otherwise carry onto paper. */
+    :global(:root), :global(:root[data-theme="dark"]) { color-scheme: light !important; --nl-blue: #0b5cab !important; --nl-blue-dark: #084a8c !important; --nl-blue-light: rgba(11, 92, 171, 0.08) !important; --nl-blue-mid: rgba(11, 92, 171, 0.18) !important; --nl-blue-solid: #0b5cab !important; --nl-blue-solid-hover: #084a8c !important; --color-bg: #ffffff !important; --color-bg-subtle: #f8f9fa !important; --color-surface: #ffffff !important; --color-surface-raised: #ffffff !important; --color-border: #e5e7eb !important; --color-border-mid: #d1d5db !important; --color-text: #111827 !important; --color-text-soft: #374151 !important; --color-text-muted: #6b7280 !important; --color-text-faint: #9ca3af !important; --adm-note-bg: #f9fafb !important; --adm-note-text: #374151 !important; --status-good: #047857 !important; }
+    :global(body) { color: #111827 !important; }
+    .ck-disclaimer { font-size: 10.5px; padding: 6px 10px; margin: 8px 0 12px; }
+    .ck-tags { margin-top: 2px; }
+    .ck-tag { font-size: 9.5px; padding: 0 6px; }
+    #ck-coffee { display: none !important; }
+    .ck-print-head {
+      display: flex; align-items: center; gap: 10px; padding-bottom: 8px; margin-bottom: 12px;
+      border-bottom: 2px solid #0b5cab; color: #111827;
+    }
+    .ck-print-head img { width: 40px; height: 40px; }
+    .ck-print-brand { font-weight: 800; font-size: 15px; }
+    .ck-print-url { font-size: 11px; color: #4b5563; }
+    .ck-print-url a { color: #0b5cab; text-decoration: none; }
+    .ck-print-qr { width: 72px; height: 72px; margin-left: 12px; }
+    .ck-print-meta { margin-left: auto; text-align: right; font-size: 11px; color: #4b5563; }
+    .ck-print-foot {
+      display: block; margin-top: 18px; padding-top: 8px; border-top: 1px solid #d1d5db;
+      font-size: 10.5px; color: #6b7280; break-inside: avoid;
+    }
+    .ck-lede { font-size: 12px; }
+    .ck-page h1 { font-size: 20px; margin: 0 0 6px; }
+    .ck-section h2 { font-size: 14px; }
+    .ck-item { padding: 6px 10px; margin: 6px 0; }
+    .ck-title { font-size: 12.5px; }
+    .ck-detail { font-size: 11px; }
+    .ck-item.is-done { background: none; }
+    .ck-toolbar, .ck-filters, .ck-notes:not(.has-note), .ck-links, .ck-footer { display: none !important; }
+    .ck-disclaimer a { color: inherit; text-decoration: none; }
+    .ck-page { padding: 0; }
+    .ck-item { break-inside: avoid; border-color: #999; }
+    .ck-notes.has-note summary { display: none; }
+    .ck-note { border: none; padding: 0; resize: none; }
+  }
+</style>
+
+<script>
+  const KEY = 'nl-checklist-v1';
+  type State = { checked: Record<string, boolean>; notes: Record<string, string> };
+
+  function load(): State {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        const s = JSON.parse(raw);
+        return { checked: s.checked || {}, notes: s.notes || {} };
+      }
+    } catch {}
+    return { checked: {}, notes: {} };
+  }
+  function save(s: State) {
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch {}
+  }
+
+  const state = load();
+  const boxes = Array.from(document.querySelectorAll<HTMLInputElement>('.ck-box'));
+  const notes = Array.from(document.querySelectorAll<HTMLTextAreaElement>('.ck-note'));
+  const status = document.getElementById('ck-status')!;
+
+  function flash(msg: string) {
+    status.textContent = msg;
+    setTimeout(() => { if (status.textContent === msg) status.textContent = ''; }, 2500);
+  }
+
+  // Car-type / condition filters. An item is shown unless it is tagged for a category the
+  // reader has filtered out. Counts, Copy and Print only cover the items shown.
+  const FILTER_KEY = 'nl-checklist-filter-v1';
+  let filter: { car: string; cond: string } = { car: 'all', cond: 'all' };
+  try { filter = { ...filter, ...JSON.parse(localStorage.getItem(FILTER_KEY) || '{}') }; } catch {}
+  const isShown = (li: HTMLElement) =>
+    (filter.car === 'all' || li.dataset.car === 'all' || li.dataset.car === filter.car) &&
+    (filter.cond !== 'new' || li.dataset.used !== 'yes');
+  function applyFilter() {
+    document.querySelectorAll<HTMLButtonElement>('.ck-filter button').forEach((btn) => {
+      btn.setAttribute('aria-pressed', String(filter[btn.dataset.filter as 'car' | 'cond'] === btn.dataset.value));
+    });
+    document.querySelectorAll<HTMLElement>('.ck-item').forEach((li) => { li.hidden = !isShown(li); });
+    document.querySelectorAll<HTMLElement>('.ck-section').forEach((sec) => {
+      sec.hidden = !sec.querySelector('.ck-item:not([hidden])');
+    });
+    refresh();
+  }
+  document.querySelectorAll<HTMLButtonElement>('.ck-filter button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filter[btn.dataset.filter as 'car' | 'cond'] = btn.dataset.value!;
+      try { localStorage.setItem(FILTER_KEY, JSON.stringify(filter)); } catch {}
+      applyFilter();
+    });
+  });
+
+  function refresh() {
+    let done = 0, shown = 0;
+    for (const b of boxes) {
+      const item = b.closest<HTMLElement>('.ck-item')!;
+      item.classList.toggle('is-done', b.checked);
+      if (item.hidden) continue;
+      shown++;
+      if (b.checked) done++;
+    }
+    document.getElementById('ck-done')!.textContent = String(done);
+    document.getElementById('ck-total')!.textContent = String(shown);
+    document.querySelectorAll<HTMLElement>('.ck-section').forEach((sec) => {
+      const bs = Array.from(sec.querySelectorAll<HTMLInputElement>('.ck-box')).filter((b) => !b.closest<HTMLElement>('.ck-item')!.hidden);
+      const n = bs.filter((b) => b.checked).length;
+      const el = sec.querySelector<HTMLElement>('.ck-section-count');
+      if (el) el.textContent = `${n}/${bs.length}`;
+    });
+    for (const t of notes) {
+      t.closest('.ck-notes')!.classList.toggle('has-note', t.value.trim() !== '');
+    }
+  }
+
+  // One-time coffee nudge after more than 10 ticks. Its own flag, separate from the
+  // calculator's (nlc2-coffee-nudge-shown), so each tool asks at most once per browser.
+  const NUDGE_KEY = 'nl-checklist-coffee-nudge-shown';
+  const NUDGE_AFTER = 10;
+  function track(name: string, params: Record<string, unknown> = {}) {
+    try { (window as any).gtag?.('event', name, params); } catch {}
+  }
+  function nudgeAlreadyShown() {
+    try { return localStorage.getItem(NUDGE_KEY) === '1'; } catch { return true; }
+  }
+  const nudge = document.getElementById('ck-coffee')!;
+  function closeNudge(reason: 'dismissed' | 'support_clicked') {
+    nudge.hidden = true;
+    document.removeEventListener('keydown', onNudgeKey);
+    if (reason === 'dismissed') track('coffee_nudge_dismissed', { source: 'final_checklist' });
+  }
+  function onNudgeKey(e: KeyboardEvent) { if (e.key === 'Escape') closeNudge('dismissed'); }
+  nudge.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', () => closeNudge('dismissed')));
+  document.getElementById('ck-coffee-go')!.addEventListener('click', () => {
+    track('coffee_nudge_clicked', { source: 'final_checklist' });
+    track('support_link_click', {
+      link_label: 'buymeacoffee', link_url: 'https://buymeacoffee.com/changyang1230',
+      page_path: location.pathname, page_title: document.title, source: 'coffee_nudge_checklist',
+    });
+    closeNudge('support_clicked');
+  });
+  function maybeNudge() {
+    const ticked = boxes.filter((b) => b.checked).length;
+    if (ticked <= NUDGE_AFTER || nudgeAlreadyShown()) return;
+    try { localStorage.setItem(NUDGE_KEY, '1'); } catch {}
+    nudge.hidden = false;
+    document.addEventListener('keydown', onNudgeKey);
+    requestAnimationFrame(() => (nudge.querySelector('.ck-coffee-card') as HTMLElement).focus());
+    track('coffee_nudge_shown', { source: 'final_checklist', ticked });
+  }
+
+  for (const b of boxes) {
+    b.checked = !!state.checked[b.dataset.id!];
+    b.addEventListener('change', () => {
+      state.checked[b.dataset.id!] = b.checked; save(state); refresh();
+      if (b.checked) maybeNudge();
+    });
+  }
+  for (const t of notes) {
+    const v = state.notes[t.dataset.id!] || '';
+    t.value = v;
+    if (v.trim()) (t.closest('details') as HTMLDetailsElement).open = true;
+    t.addEventListener('input', () => { state.notes[t.dataset.id!] = t.value; save(state); refresh(); });
+  }
+  applyFilter();
+
+  function asText(): string {
+    const lines: string[] = ['Novated lease final checklist (novatedlease.guide/tools/checklist/)', ''];
+    document.querySelectorAll<HTMLElement>('.ck-section:not([hidden])').forEach((sec) => {
+      lines.push(sec.querySelector('h2')!.firstChild!.textContent!.trim());
+      sec.querySelectorAll<HTMLElement>('.ck-item:not([hidden])').forEach((it) => {
+        const id = it.dataset.id!;
+        const title = it.querySelector('.ck-title')!.textContent!.trim();
+        lines.push(`[${state.checked[id] ? 'x' : ' '}] ${title}`);
+        const n = (state.notes[id] || '').trim();
+        if (n) lines.push('    Note: ' + n.replace(/\n/g, '\n          '));
+      });
+      lines.push('');
+    });
+    return lines.join('\n');
+  }
+
+  function fillPrintHeader() {
+    const d = new Date();
+    document.getElementById('ck-print-date')!.textContent =
+      'Printed ' + d.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+    const carLabel: Record<string, string> = { all: 'All cars', ev: 'Electric', ice: 'Petrol / hybrid' };
+    const condLabel: Record<string, string> = { all: 'new or used', new: 'New', used: 'Used' };
+    const done = document.getElementById('ck-done')!.textContent, total = document.getElementById('ck-total')!.textContent;
+    document.getElementById('ck-print-filter')!.textContent = `${carLabel[filter.car]} · ${condLabel[filter.cond]} · ${done} of ${total} checked`;
+  }
+  // Also covers the browser's own Print menu, not just our button.
+  window.addEventListener('beforeprint', fillPrintHeader);
+
+  document.getElementById('ck-print')!.addEventListener('click', () => {
+    fillPrintHeader();
+    notes.forEach((t) => { if (t.value.trim()) (t.closest('details') as HTMLDetailsElement).open = true; });
+    window.print();
+  });
+  document.getElementById('ck-copy')!.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(asText()); flash('Copied'); }
+    catch { flash('Copy failed; try Print instead'); }
+  });
+  let armed = false;
+  const resetBtn = document.getElementById('ck-reset') as HTMLButtonElement;
+  resetBtn.addEventListener('click', () => {
+    if (!armed) { armed = true; resetBtn.textContent = 'Click again to clear'; setTimeout(() => { armed = false; resetBtn.textContent = 'Clear all'; }, 3000); return; }
+    armed = false; resetBtn.textContent = 'Clear all';
+    state.checked = {}; state.notes = {}; save(state);
+    boxes.forEach((b) => (b.checked = false));
+    notes.forEach((t) => { t.value = ''; (t.closest('details') as HTMLDetailsElement).open = false; });
+    refresh(); flash('Cleared');
+  });
+</script>
