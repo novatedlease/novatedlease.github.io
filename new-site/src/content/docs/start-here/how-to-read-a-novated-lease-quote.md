@@ -204,7 +204,7 @@ You could lose thousands in subsidies, particularly under an EV (FBT‑exempt) n
 
 ## A 10-minute sanity checklist
 
-For the complete version, with notes and a printable PDF, see the [final checklist before signing](/tools/checklist/). The short version:
+For the complete version, with notes and a printable PDF, see the [novated lease checklist](/tools/checklist/). The short version:
 
 Before accepting a quote, ask:
 

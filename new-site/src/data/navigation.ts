@@ -22,7 +22,7 @@ export const navigation: NavEntry[] = [
     items: [
       { label: 'Novated Lease Calculator', href: '/calculator/' },
       { label: 'Employer BYO Checker', href: '/tools/byo-employer-check/' },
-      { label: 'Final checklist', href: '/tools/checklist/' },
+      { label: 'Checklist', href: '/tools/checklist/' },
     ],
   },
   {

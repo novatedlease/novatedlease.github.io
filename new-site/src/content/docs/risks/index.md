@@ -38,4 +38,4 @@ If earlier sections ask *“Is a novated lease cheaper?”*, this section asks a
 
 > **“What happens if circumstances change — and am I comfortable with that risk?”**
 
-The risk items are also part of the [final checklist before signing](/tools/checklist/).
+The risk items are also part of the [novated lease checklist](/tools/checklist/).

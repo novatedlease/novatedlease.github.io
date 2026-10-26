@@ -214,4 +214,4 @@ While the Summary and Details tabs analyse **one scenario at a time**, the **Com
 - This calculator is designed to provide **transparent, apples‑to‑apples comparisons**.
 - Its accuracy depends on **reasonable assumptions and correct inputs**. You are solely responsible for incorrect inputs resulting in incorrect outputs.
 - Treat the output as decision support, not financial advice.
-- Consider other risks (job security, exit risk, subsidy impact, borrowing capacity) alongside the numbers. The [final checklist before signing](/tools/checklist/) gathers them in one place.
+- Consider other risks (job security, exit risk, subsidy impact, borrowing capacity) alongside the numbers. The [novated lease checklist](/tools/checklist/) gathers them in one place.

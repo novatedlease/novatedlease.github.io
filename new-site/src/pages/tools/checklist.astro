@@ -8,6 +8,10 @@ type Item = {
   car?: 'ev' | 'ice';
   /** Only relevant to used cars. */
   used?: boolean;
+  /** One-line stake shown under the title (essentials carry theirs inside `essential`). */
+  why?: string;
+  /** Shown in the pinned "Start here" block instead of its section: short imperative title, one-line stake, sort order. */
+  essential?: { short: string; why: string; order: number };
 };
 type Section = { id: string; title: string; intro?: string; items: Item[] };
 
@@ -17,33 +21,53 @@ const sections: Section[] = [
     title: '1. Eligibility and timing',
     items: [
       {
-        id: 'ev-vs-ice',
-        car: 'ice',
-        title: 'I am aware an EV novated lease usually offers far more achievable saving, because of the FBT exemption',
+        id: 'employer-offers',
+        title: 'My employer offers novated leases and I am an employee',
+        essential: {
+          short: 'Confirm your employer offers novated leases and that you are an employee',
+          why: 'A novated lease is a three-way arrangement with your employer, so it only exists if they agree to it. Sole traders and contractors generally cannot salary-package.',
+          order: 0,
+        },
         detail:
-          'A petrol, diesel or hybrid lease must pay part of the lease from post-tax salary to cover FBT, which removes much of the benefit. The two are effectively different products, so compare them before settling on a non-EV. This is purely a suggestion based on the difference in tax treatment, and naturally does not take into account what you need in a vehicle.',
+          'Ask HR or payroll whether the employer offers one, which providers they use (the panel), and whether you may bring your own finance (BYO). The terms differ between employers.',
+        links: [
+          { label: 'What is a novated lease?', href: '/start-here/what-is-novated-lease/' },
+          { label: 'Is it worth it?', href: '/start-here/is-it-worth-it/' },
+          { label: 'Employer BYO checker', href: '/tools/byo-employer-check/' },
+        ],
+      },
+      {
+        id: 'ev-vs-ice',
+        why: 'The FBT treatment changes the economics so much that the two are effectively different products.',
+        car: 'ice',
+        title: 'Compare an EV novated lease before settling on a petrol, diesel or hybrid',
+        detail:
+          'A petrol, diesel or hybrid lease must pay part of the lease from post-tax salary to cover FBT, which removes much of the benefit. Compare them before settling on a non-EV. This is purely a suggestion based on the difference in tax treatment, and naturally does not take into account what you need in a vehicle.',
         links: [{ label: 'EV vs ICE novated leases', href: '/start-here/ev-vs-ice-compared/' }],
       },
       {
         id: 'used-option',
+        why: 'A two- or three-year-old EV can keep most of the saving while skipping the steepest depreciation.',
         car: 'ev',
-        title: 'If I am leasing mainly for the FBT exemption, I am aware a used EV can qualify too',
+        title: 'If you are leasing mainly for the FBT exemption, consider a used EV, which can qualify too',
         detail:
-          'Many people assume a novated lease is only for a new EV. It is not: a used EV that was first held and used on or after 1 July 2022, and never had Luxury Car Tax payable, gets the same FBT exemption as a new one. Buying two or three years old skips the steepest depreciation while keeping most of the saving.',
+          'Many people assume a novated lease is only for a new EV. It is not: a used EV that was first held and used on or after 1 July 2022, and never had Luxury Car Tax payable, gets the same FBT exemption as a new one.',
         links: [{ label: 'Used EV on a novated lease', href: '/costs-and-savings/used-ev-novated-lease/' }],
       },
       {
         id: 'binding-date',
+        why: 'Delivery after the cut-off could, in theory, cost you the full FBT exemption on a car over $75,000.',
         car: 'ev',
-        title: 'If my EV’s FBT base value is over $75,000, I know it is safer to have it delivered before 1 April 2027, because of legislative risk',
+        title: 'If the EV’s FBT base value is over $75,000, plan for delivery before 1 April 2027',
         detail:
-          'The draft legislation tests when the lease becomes binding, which may give some relief, but it is not yet law. When the plug-in hybrid exemption ended in 2025, the car had to be delivered before the cut-off date. Having it delivered before 1 April 2027 is the safest position. In other words, if a $75,001 car is purchased today and delivered on 2 April 2027, there remains some theoretical risk that it no longer enjoys the full FBT exemption.',
+          'The draft legislation tests when the lease becomes binding, which may give some relief, but it is not yet law. When the plug-in hybrid exemption ended in 2025, the car had to be delivered before the cut-off date. Having it delivered before 1 April 2027 is the safest position. For example, a $75,001 car purchased today but delivered on 2 April 2027 carries some theoretical risk.',
         links: [{ label: 'Commitment date', href: '/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#its-the-commitment-date-that-counts' }],
       },
       {
         id: 'used-ev',
+        why: 'An ineligible used EV loses the FBT exemption, and an over-age car may not get finance.',
         car: 'ev', used: true,
-        title: 'For a used EV, I have checked its eligibility and the financier’s age limit',
+        title: 'For a used EV, check its eligibility and the financier’s age limit',
         detail:
           'For leases committed before 1 April 2027: first held and used on or after 1 July 2022, and LCT never payable. Most financiers also want the car under 10–12 years old at the end of the lease.',
         links: [{ label: 'Used EV on a novated lease', href: '/costs-and-savings/used-ev-novated-lease/' }],
@@ -57,8 +81,13 @@ const sections: Section[] = [
       {
         id: 'savings-figure',
         title: 'I understand the "savings" figure in provider quotes is typically fallacious, and I used a fuller simulation instead',
+        essential: {
+          short: 'Do not trust the provider’s “savings” figure; check it against a realistic alternative',
+          why: 'It changes how you read every quote. One example on this site: a quoted $21,320 “saving” turned out to be a $5,591 loss.',
+          order: 1,
+        },
         detail:
-          'Most providers measure "savings" against a strawman: the same lease paid with post-tax money and no GST saving, which nobody would actually do. A large "saving" can even be a net loss. This site’s calculator instead simulates your cashflow, assets and liabilities against realistic alternatives.',
+          'Most providers measure "savings" against a strawman: the same lease paid with post-tax money and no GST saving, which nobody would actually do. This site’s calculator instead simulates your cashflow, assets and liabilities against realistic alternatives.',
         links: [
           { label: 'A $21,320 "saving" that was a $5,591 loss', href: '/costs-and-savings/false-saving-example/' },
           { label: 'Why "tax saved" is the wrong metric', href: '/costs-and-savings/why-tax-saved-is-wrong/' },
@@ -68,22 +97,29 @@ const sections: Section[] = [
       {
         id: 'net-outcome',
         title: 'I compared against keeping my current car, not just against buying the same new car with cash',
+        essential: {
+          short: 'Compare against keeping your current car, not just against buying the same car with cash or a loan',
+          why: 'This is the real go or no-go question. It tells you whether to lease at all, not just which lease to pick.',
+          order: 2,
+        },
         detail:
-          'There are two different meanings of "saving". Saving against buying the same car with cash or a loan can be real value, but it does not tell you whether you are better off than simply keeping your current car, which is traditionally the cheapest option. With an FBT-exempt EV that is no longer always true, so be clear which benchmark you are using: saving $30k by bargaining a Mercedes down from $150k is real, but a $40k Toyota still costs less.',
+          'There are two different meanings of "saving". Saving against buying the same car with cash or a loan can be real value, but it does not tell you whether you are better off than simply keeping your current car, which is traditionally the cheapest option. With an FBT-exempt EV that is no longer always true, so be clear which benchmark you are using. This site’s calculator lets you make both comparisons, so you can pick the appropriate frame of reference.',
         links: [{ label: 'Two ways people define "saving"', href: '/start-here/is-it-worth-it/#two-completely-different-ways-people-define-saving' }],
       },
       {
         id: 'net-worth-mix',
-        title: 'I looked at what makes up the net result, not just the total',
+        why: 'The headline number mixes the car’s value with your cash.',
+        title: 'Look at what makes up the net result, not just the total',
         detail:
           'On this site, the overall saving or loss is net worth: the car’s value, your cashflow and your liabilities added together. An option that comes out $2,000 ahead may mean a car worth $12,000 more but $10,000 less cash in hand. That is accurate as net worth, but it may not suit your cashflow or how much cash you need to keep available.',
         links: [{ label: 'Cashflow, asset and liability', href: '/costs-and-savings/residual-values-vs-sales-price/#how-the-calculator-actually-evaluates-a-lease' }],
       },
       {
         id: 'snapshot',
-        title: 'I understand the calculator’s result is a snapshot based on my assumptions, not a guarantee',
+        why: 'Every number in the result rests on an assumption that can turn out differently.',
+        title: 'Treat the calculator’s result as a snapshot based on your assumptions, not a guarantee',
         detail:
-          'It compares your financial position at a single point, either the five-year mark or the end of your lease, using the figures and assumptions you entered: resale value, offset rate, running costs, and the lease running to term. If those turn out differently, so does the result, and it says nothing about what happens after that point.',
+          'It compares your financial position at a single point, either the five-year mark or the end of your lease, using the figures and assumptions you entered: resale value, offset rate, running costs, and the lease running to term. It says nothing about what happens after that point.',
         links: [
           { label: 'Calculator limitations', href: '/calculator/#faq-limitations' },
           { label: 'How to use the calculator', href: '/start-here/use-nl-calculator/' },
@@ -92,6 +128,11 @@ const sections: Section[] = [
       {
         id: 'effective-rate',
         title: 'I checked the effective interest rate in the calculator',
+        essential: {
+          short: 'Check the effective interest rate, not the “base” or comparison rate',
+          why: 'It is the biggest negotiable item. Readers have taken it back to their provider and negotiated several percentage points off, saving thousands.',
+          order: 3,
+        },
         detail:
           'Do not rely on a "base rate" or the quoted comparison rate. Smartleasing and MillarX quotes need the calculator’s built-in adjustment first, or the rate comes out falsely high.',
         links: [
@@ -101,29 +142,33 @@ const sections: Section[] = [
         ],
       },
       {
-        id: 'panel',
-        title: 'If my employer has a panel, I got the providers to outbid each other, comparing like for like',
+        id: 'compete',
+        title: 'If my employer has a panel, I got the providers to outbid each other; if it allows BYO, I considered BYO finance',
+        essential: {
+          short: 'Make providers compete if there is a panel, or look at BYO finance',
+          why: 'This is how you act on the interest-rate check. BYO often comes at a much lower effective rate, and it is rarely advertised.',
+          order: 4,
+        },
         detail:
-          'Show each provider the others’ quotes. Compare on the same kilometres and budgets, and compare the vehicle lease line, the amount financed and the residual, not the total fortnightly deduction.',
-        links: [{ label: 'How to read a quote', href: '/start-here/how-to-read-a-novated-lease-quote/' }],
-      },
-      {
-        id: 'byo',
-        title: 'If my employer allows BYO, I considered BYO finance',
-        detail: 'BYO finance often comes at a much lower effective interest rate. You arrange the finance; your employer’s salary packaging company keeps doing the payroll. It is rarely advertised.',
-        links: [{ label: 'Employer BYO checker', href: '/tools/byo-employer-check/' }],
+          'With a panel, show each provider the others’ quotes. Compare on the same kilometres and budgets, and compare the vehicle lease line, the amount financed and the residual, not the total fortnightly deduction. With BYO, you arrange the finance and your employer’s salary packaging company keeps doing the payroll.',
+        links: [
+          { label: 'How to read a quote', href: '/start-here/how-to-read-a-novated-lease-quote/' },
+          { label: 'Employer BYO checker', href: '/tools/byo-employer-check/' },
+        ],
       },
       {
         id: 'amount-financed',
-        title: 'The amount financed reconciles to the car',
+        why: 'Extras hidden in the amount financed attract interest for the whole lease.',
+        title: 'Check that the amount financed reconciles to the car',
         detail:
           'It should be roughly the drive-away price plus the documentation fee, minus the GST saving (up to $6,353). If it is higher, find out exactly what the difference is: it is often add-ons you did not ask for.',
         links: [{ label: 'Financed amount: is it clean?', href: '/start-here/how-to-read-a-novated-lease-quote/#financed-amount-is-it-clean' }],
       },
       {
         id: 'insurance-financed',
-        title: 'If comprehensive insurance is in the amount financed, I considered moving it to running costs',
-        detail: 'Financed, it attracts interest for the whole lease and makes an early-termination payout bigger. As a running cost it does neither.',
+        why: 'Financed insurance costs interest and makes an early-termination payout bigger.',
+        title: 'If comprehensive insurance is in the amount financed, consider moving it to running costs',
+        detail: 'As a running cost it does neither.',
         links: [
           { label: 'Insurance bundled into finance', href: '/costs-and-savings/why-nl-interest-looks-high/#some-providers-bundle-insurance-into-the-financed-amount' },
           { label: 'Early termination: worked examples', href: '/risks/how-bad-can-early-termination-get/' },
@@ -131,14 +176,16 @@ const sections: Section[] = [
       },
       {
         id: 'add-ons',
-        title: 'Every package and extra in the quote is one I truly want, at a price I am happy with',
+        why: 'Add-ons add cost, and financed ones also make early termination worse.',
+        title: 'Keep only the packages and extras you truly want, at a price you are happy with',
         detail:
-          'Dent and paint protection, dash cams, tint, small-damage repair and similar packages are often marked up with commission built in, and you may get them cheaper outside the lease, though you do pay for them with post-tax dollars. Financed, they also make early termination worse. The same goes for running-cost extras such as roadside assistance or a carbon offset.',
+          'Dent and paint protection, dash cams, tint, small-damage repair and similar packages often have commission built in, so you may get them cheaper outside the lease, though you do pay for them with post-tax dollars. The same goes for running-cost extras such as roadside assistance or a carbon offset.',
         links: [{ label: 'Bundled add-ons', href: '/start-here/how-to-read-a-novated-lease-quote/#financed-amount-is-it-clean' }],
       },
       {
         id: 'term',
-        title: 'I chose the lease length deliberately',
+        why: 'The right length differs for FBT-exempt and FBT-applicable leases.',
+        title: 'Choose the lease length deliberately',
         detail:
           'For an FBT-exempt EV, a longer lease usually saves more, but leaves you more exposed if the lease ends early. A shorter lease costs more borrowing capacity, but generally reduces the potential loss on early termination, and is traditionally the more optimal approach for FBT-applicable leases. Tip: if you expect to drive 30,000 km a year or more, ask for a lower residual at the start. It cannot be changed later.',
         links: [
@@ -154,38 +201,43 @@ const sections: Section[] = [
     items: [
       {
         id: 'budgets',
-        title: 'Every running-cost budget is a reasonable estimate, and I understand it is a piggy bank',
+        why: 'A low budget makes the quote look cheaper, but you pay the difference back in top-up deductions.',
+        title: 'Make every running-cost budget a reasonable estimate, and remember it works like a piggy bank',
         detail:
-          'The budget is your own pre-tax money set aside and claimed back, and it always trues up to what you spend: a refund if you over-budget, top-ups if you under-budget. An unrealistically low budget only makes the quote look cheaper, but will require additional top-up deductions when your budgeted deduction is insufficient for your actual expenses.',
+          'The budget is your own pre-tax money set aside and claimed back, and it always trues up to what you spend: a refund if you over-budget, top-ups if you under-budget.',
         links: [{ label: 'Running costs are a piggy bank', href: '/running-costs/running-costs-piggy-bank/' }],
       },
       {
         id: 'charging',
+        why: 'Setting it to zero is always worse financially than claiming any amount.',
         car: 'ev',
-        title: 'EV: there is a charging budget, even though I charge cheaply',
-        detail: 'Claiming the ATO rate (5.47c/km) puts extra money in your pocket even if your charging is cheap or free. Removing it is a common mistake: setting it to zero is ALWAYS worse financially compared to claiming any amount. If this sounds counter-intuitive, please read the linked article for the financial mechanism.',
+        title: 'EV: include a charging budget, even if you charge cheaply',
+        detail: 'Claiming the ATO rate (5.47c/km) puts extra money in your pocket even if your charging is cheap or free. Removing it is a common mistake. If this sounds counter-intuitive, please read the linked article for the financial mechanism.',
         links: [{ label: 'ATO home charging rate', href: '/running-costs/ev-home-charging-shortcut/' }],
       },
       {
         id: 'charging-away',
+        why: 'The wrong claiming method can leave money on the table if you often charge away from home.',
         car: 'ev',
-        title: 'EV: if I will charge away from home a lot, I chose the claiming method that pays more',
+        title: 'EV: if you will charge away from home a lot, choose the claiming method that pays more',
         detail:
           'Commercial charging invoices, or the mixed method (home km at 5.47c plus commercial invoices) if your car records the home/away split, can beat the 5.47c/km shortcut. Budget for it.',
         links: [{ label: 'The three claiming methods', href: '/running-costs/ev-home-charging-shortcut/#the-three-ways-you-can-claim-ev-charging' }],
       },
       {
         id: 'gst-passed',
-        title: 'I checked whether GST on running costs is passed on to me',
+        why: 'If your employer keeps the GST saving, every running cost is about 10% dearer.',
+        title: 'Check whether GST savings on running costs are passed on to you',
         detail:
-          'Some employers keep it, which makes every running cost about 10% dearer. It is employer policy, so there is usually little you can do, but count it in your figures.',
+          'Some employers keep it. It is employer policy, so there is usually little you can do, but count it in your figures.',
         links: [{ label: 'GST pass-through', href: '/running-costs/failure-to-pass-gst-saving/' }],
       },
       {
         id: 'insurance',
-        title: 'I compared the provider’s insurance and gap cover with arranging my own, on cost',
+        why: 'Provider policies often carry commission, and thin cover can leave you out of pocket after a write-off.',
+        title: 'Compare the provider’s insurance and gap cover with arranging your own, on cost',
         detail:
-          'Provider-affiliated policies often carry commission. Check what a write-off would leave you owing: once any new-for-old period ends (check your policy), a default agreed value can leave $10,000 or more unpaid. Gap or total-loss cover, or a higher agreed value, closes that gap at a price.',
+          'Check what a write-off would leave you owing: once any new-for-old period ends (check your policy), a default agreed value can leave $10,000 or more unpaid. Gap or total-loss cover, or a higher agreed value, closes that gap at a price.',
         links: [
           { label: 'Write-off example', href: '/risks/how-bad-can-early-termination-get/#example-2-insufficiently-insured-vehicle-write-off-at-2-year-1-month' },
           { label: 'Premium vs excess', href: '/running-costs/insurance-premium-and-excess/' },
@@ -199,21 +251,28 @@ const sections: Section[] = [
     items: [
       {
         id: 'borrowing',
-        title: 'I understand the effect on my borrowing capacity',
-        detail: 'A novated lease can lower your borrowing capacity by as much as two to three times the car’s value. You also cannot simply end the lease later to get that capacity back without a significant loss. If a home loan is in the near future, give your mortgage broker the lease quote and ask them to run your capacity with and without it.',
+        why: 'It can cut your borrowing capacity by two to three times the car’s value, which matters if a home loan is coming.',
+        title: 'Check how the lease affects your borrowing capacity',
+        detail: 'You cannot simply end the lease later to get that capacity back without a significant loss. If a home loan is in the near future, give your mortgage broker the lease quote and ask them to run your capacity with and without it.',
         links: [{ label: 'Borrowing capacity', href: '/special-and-policy/borrowing-capacity/' }],
       },
       {
         id: 'super',
         title: 'Payroll has confirmed in writing whether super is paid on my pre-lease or post-lease salary',
+        essential: {
+          short: 'Ask payroll in writing whether super is paid on your pre-lease or post-lease salary',
+          why: 'On post-lease salary you lose 12% of everything you sacrifice, which can exceed $10,000 over an EV lease.',
+          order: 5,
+        },
         detail:
-          'On post-lease salary, you lose 12% of everything you sacrifice, which can exceed $10,000 over an EV lease. Check again after any payroll change, such as Payday Super from 1 July 2026. If payroll uses the post-lease salary, consider raising it with your employer (check your award or enterprise agreement first), and/or count the lost super in your overall comparison: the calculator’s super guarantee section estimates it.',
+          'It is a simple question for payroll, and the answer is easy to miss in a quote. Check again after any payroll change, such as Payday Super from 1 July 2026. If payroll uses the post-lease salary, consider raising it with your employer (check your award or enterprise agreement first), and/or count the lost super in your overall comparison: the calculator’s super guarantee section estimates it.',
         links: [{ label: 'Super guarantee', href: '/special-and-policy/super-guarantee/' }],
       },
       {
         id: 'rfba',
+        why: 'Income tests use a figure that the lease can raise, even though your taxable income falls.',
         car: 'ev',
-        title: 'My figures include the effect on childcare subsidy, HELP, child support, Division 293 and the Medicare levy surcharge',
+        title: 'Include the effect on childcare subsidy, HELP, child support, Division 293 and the Medicare levy surcharge in your figures',
         detail:
           'An EV lease lowers taxable income but usually raises adjusted taxable income. This often means less childcare subsidy, higher HELP repayments and child support, and a higher chance of paying the Medicare levy surcharge or Division 293 tax.',
         links: [
@@ -224,10 +283,11 @@ const sections: Section[] = [
       },
       {
         id: 'help-bill',
+        why: 'Payroll can under-withhold HELP, which can leave a large, unexpected tax bill.',
         car: 'ev',
-        title: 'If I have a HELP/HECS debt, I have planned for a possible tax-time bill',
+        title: 'If you have a HELP/HECS debt, plan for a possible tax-time bill',
         detail:
-          'Payroll withholds HELP from your reduced salary, but the ATO assesses it on an income that adds your reportable fringe benefits back. Because of this gap in the PAYG withholding assumptions, an EV lease can leave you with a large, unexpected tax bill. Work out the expected effect with the adjusted taxable income section in the calculator (Details tab, section 4). To avoid the shock, ask payroll to withhold the correct amount, or set the difference aside in your own bank account.',
+          'Payroll withholds HELP from your reduced salary, but the ATO assesses it on an income that adds your reportable fringe benefits back. Because of this gap in the PAYG withholding assumptions, the difference is only collected at tax time. Work out the expected effect with the adjusted taxable income section in the calculator (Details tab, section 4). To avoid the shock, ask payroll to withhold the correct amount, or set the difference aside in your own bank account.',
         links: [
           { label: 'Novated leases and HECS/HELP', href: '/special-and-policy/hecs-help/' },
           { label: 'Calculator', href: '/calculator/' },
@@ -235,15 +295,17 @@ const sections: Section[] = [
       },
       {
         id: 'nfp-cap',
+        why: 'Counting a benefit you already had as new saving overstates what the quote is worth.',
         car: 'ice',
-        title: 'Petrol or other FBT-applicable lease at a hospital or NFP: I am not counting the FBT cap as a new perk',
+        title: 'Petrol or other FBT-applicable lease at a hospital or NFP: do not count the FBT cap as a new perk',
         detail:
-          'If you could already use the $9,010 / $15,900 cap on living expenses, packaging the car under it moves that benefit rather than adding one. Check the quote does not count it as extra saving.',
+          'If you could already use the $9,010 / $15,900 cap on living expenses, packaging the car under it moves that benefit rather than adding one.',
         links: [{ label: 'Double-counting the cap', href: '/special-and-policy/fbt-exemption-double-counting/' }],
       },
       {
         id: 'nsw-health',
-        title: 'NSW Health doctor or nurse: the employer share is in my figures',
+        why: 'Your real saving is lower than the headline figure.',
+        title: 'NSW Health doctor or nurse: include the employer share in your figures',
         detail: 'NSW Health keeps part of the tax saving on all salary packaging, including novated leases. Tip: if you also have separate employment with another organisation, strongly consider doing the novated lease through that employment instead, so you don’t lose part of the saving to the employer share. Reminder: the tax saving depends on your TOTAL taxable income, not just that job’s income, so it does not matter if the other employment only pays $30k.',
         links: [{ label: 'NSW Health employer share', href: '/special-and-policy/nsw-health-employer-share/' }],
       },
@@ -256,8 +318,13 @@ const sections: Section[] = [
       {
         id: 'run-to-term',
         title: 'I understand the savings only materialise if the lease runs to its natural end, and I know the payout I would face if it ended early',
+        essential: {
+          short: 'Know what you would owe if the lease ended early',
+          why: 'The savings only materialise if the lease runs to its natural end. If it does not, the remaining payments and the residual become due post-tax, plus GST.',
+          order: 6,
+        },
         detail:
-          'Job loss without a new employer to take the lease, illness, a write-off, a change of mind, going contractor or sole trader, or moving overseas can turn a good deal into a bad one: the remaining payments and residual become due post-tax, plus GST. Section 7 of the calculator shows what that means at each point in the lease. Under the draft, taking the lease to a new employer after 1 April 2027 is a new commitment on the new rules. Even so, it is a bet that pays off on average, with some chance of a worse outcome.',
+          'Job loss without a new employer to take the lease, illness, a write-off, a change of mind, going contractor or sole trader, or moving overseas can turn a good deal into a bad one. Section 7 of the calculator shows what that means at each point in the lease. Under the draft, taking the lease to a new employer after 1 April 2027 is a new commitment on the new rules. Even so, it is a bet that pays off on average, with some chance of a worse outcome.',
         links: [
           { label: 'Early termination', href: '/risks/early-termination/' },
           { label: 'Worked examples', href: '/risks/how-bad-can-early-termination-get/' },
@@ -266,13 +333,15 @@ const sections: Section[] = [
       },
       {
         id: 'unpaid-leave',
-        title: 'No unpaid period is coming up, or I have planned for it',
-        detail: 'Parental leave or other unpaid leave stops the salary deductions, and the lease payments still fall due.',
+        why: 'The lease payments still fall due when your pay stops.',
+        title: 'Check for an upcoming unpaid period, and plan for it if there is one',
+        detail: 'Parental leave or other unpaid leave stops the salary deductions.',
         links: [{ label: 'Early termination', href: '/risks/early-termination/' }],
       },
       {
         id: 'extension',
-        title: 'If I plan to lease for x years and extend by y, I know the extension is a new commitment',
+        why: 'The extension may not get the treatment the original lease had.',
+        title: 'If you plan to lease for x years and extend by y, treat the extension as a new commitment',
         detail:
           'Under the 2026 draft, the extension falls under whatever rules apply when you extend. The residual on an extension must also follow the original ATO table, not "65.63% of 65.63%".',
         links: [
@@ -282,15 +351,17 @@ const sections: Section[] = [
       },
       {
         id: 'lease-protection',
-        title: 'I have considered lease protection insurance',
-        detail: 'It reduces the saving to protect the downside. Compare its total cost, including interest if financed, with the risk it covers.',
+        why: 'It protects the downside but eats into the saving, so weigh its cost against the risk.',
+        title: 'Consider lease protection insurance',
+        detail: 'Compare its total cost, including interest if financed, with the risk it covers.',
         links: [{ label: 'Risk mitigation', href: '/risks/risk-mitigation/' }],
       },
       {
         id: 'end-plan',
-        title: 'I have a plan for the residual, and know what each option costs',
+        why: 'You will need the cash, or a plan, when the residual falls due.',
+        title: 'Plan for the residual, and know what each option costs',
         detail:
-          'Pay it out (GST-inclusive), sell the car, refinance, or start a new lease. Will you actually have the cash at the end? A new lease later is a new commitment and may be on less favourable FBT rules.',
+          'Pay it out (GST-inclusive), sell the car, refinance, or start a new lease. A new lease later is a new commitment and may be on less favourable FBT rules.',
         links: [{ label: 'Residual values', href: '/costs-and-savings/why-residual-values-matter/' }],
       },
     ],
@@ -301,15 +372,17 @@ const sections: Section[] = [
     items: [
       {
         id: 'final-quote',
-        title: 'The final documents match what was agreed',
-        detail: 'Price, kilometres, budgets, add-ons removed, residual and lease payment. A re-issued quote can quietly bring back something you removed.',
+        why: 'A re-issued quote can quietly bring back something you removed.',
+        title: 'Check the final documents match what was agreed',
+        detail: 'Check the price, kilometres, budgets, residual and lease payment, and that the add-ons you removed stay removed.',
       },
       {
         id: 'on-roads',
+        why: 'Stamp duty and transfer fees left out of the finance come out of your own post-tax money.',
         used: true,
-        title: 'On-road costs are accounted for, especially on a used car',
+        title: 'Account for on-road costs, especially on a used car',
         detail:
-          'A used-car invoice often leaves out stamp duty and the transfer fee. Get them into the amount financed, or you pay them yourself with post-tax money. For a private sale, a dealer middleman can recover the GST saving.',
+          'A used-car invoice often leaves out stamp duty and the transfer fee. Get them into the amount financed. For a private sale, a dealer middleman can recover the GST saving.',
         links: [
           { label: 'On-road costs', href: '/costs-and-savings/used-ev-novated-lease/#savings-on-the-on-road-cost' },
           { label: 'Used-car GST', href: '/costs-and-savings/used-car-gst-saving/' },
@@ -317,26 +390,99 @@ const sections: Section[] = [
       },
       {
         id: 'cancellation',
-        title: 'I know the cancellation terms and deposit deadlines',
+        why: 'Once finance is approved and the car is ordered, backing out can cost you.',
+        title: 'Know the cancellation terms and deposit deadlines',
         detail:
-          'Some quotes allow a cancellation charge once finance is approved and the car is ordered. Dealers may set a deposit deadline that a novated lease can struggle to meet.',
+          'Some quotes carry a cancellation charge. Dealers may set a deposit deadline that a novated lease can struggle to meet.',
       },
       {
         id: 'calculator-run',
-        title: 'I have saved my final quote in the calculator',
-        detail: 'Use "Copy link" or Quotes so you can check your payslips and statements against it later.',
+        why: 'A saved quote lets you check your payslips and statements against what was promised.',
+        title: 'Save your final quote in the calculator',
+        detail: 'Use "Copy link" or Quotes.',
         links: [{ label: 'Calculator', href: '/calculator/' }],
       },
     ],
   },
 ];
 
-const total = sections.reduce((n, s) => n + s.items.length, 0);
+type Term = { key: string; forms: string[]; def: string; href?: string };
+const terms: Term[] = [
+  { key: 'fbt-base-value', forms: ['FBT base value'], href: '/start-here/glossary/',
+    def: 'The car value used for FBT. Usually the purchase price before stamp duty, compulsory third party insurance and registration, but including GST and any Luxury Car Tax. On a quote it may be labelled “vehicle price” or “vehicle subtotal”.' },
+  { key: 'fbt', forms: ['FBT'], href: '/costs-and-savings/fbt-rfba-ati-explained/',
+    def: 'Fringe Benefits Tax. Employers normally pay it on non-cash benefits such as a car. In a novated lease it is either offset by post-tax payments from you (petrol, diesel and hybrid cars) or exempt (eligible EVs).' },
+  { key: 'lct', forms: ['Luxury Car Tax', 'LCT'], href: '/start-here/glossary/',
+    def: 'Luxury Car Tax. It applies above an ATO threshold that changes each year. An EV that has had LCT payable does not qualify for the FBT exemption.' },
+  { key: 'rfba', forms: ['RFBA'], href: '/costs-and-savings/fbt-rfba-ati-explained/',
+    def: 'Reportable Fringe Benefits Amount. The value of the car benefit reported on your income statement. It is not a tax itself, but it is added back when income tests are applied, so it can reduce means-tested benefits.' },
+  { key: 'ati', forms: ['adjusted taxable income', 'ATI'], href: '/costs-and-savings/fbt-rfba-ati-explained/',
+    def: 'Adjusted taxable income. Your taxable income with certain amounts added back, including RFBA. It is used for HELP repayments, childcare subsidy, child support, Division 293 and the Medicare levy surcharge.' },
+  { key: 'div293', forms: ['Division 293'], href: '/start-here/glossary/',
+    def: 'An extra 15% tax on concessional super contributions for people with income and contributions above $250,000. An EV lease raises ATI, which can push you over the line.' },
+  { key: 'mls', forms: ['Medicare levy surcharge'], href: '/start-here/glossary/',
+    def: 'An extra 1 to 1.5% levy on higher earners without private hospital cover, assessed on ATI. An EV lease raises ATI, so it can push you over a threshold.' },
+  { key: 'help', forms: ['HELP/HECS', 'HECS/HELP', 'HELP', 'HECS'], href: '/special-and-policy/hecs-help/',
+    def: 'The Commonwealth student loan scheme. Repayments are assessed on ATI, not taxable income, so an EV lease can raise them even though your take-home pay rises too.' },
+  { key: 'residual', forms: ['residual', 'Residual'], href: '/costs-and-savings/why-residual-values-matter/',
+    def: 'The balance left at the end of the lease (a balloon payment), set by the ATO as a percentage of the car’s original cost. You pay it out, refinance, extend or sell the car to settle it.' },
+  { key: 'byo', forms: ['BYO'], href: '/tools/byo-employer-check/',
+    def: 'Bring your own finance. You arrange the loan yourself, while your employer’s salary packaging company keeps handling the payroll deductions.' },
+  { key: 'nfp', forms: ['NFP'], href: '/special-and-policy/fbt-exemption-double-counting/',
+    def: 'Not-for-profit. Employees of public hospitals and certain charities can have fringe benefits up to a capped amount free of FBT ($9,010 or $15,900 a year).' },
+  { key: 'payg', forms: ['PAYG withholding', 'PAYG'],
+    def: 'Pay-as-you-go withholding: the tax your payroll takes out of each pay, estimated from your salary.' },
+  { key: 'eir', forms: ['effective interest rate'], href: '/costs-and-savings/why-nl-interest-looks-high/',
+    def: 'The annual interest rate you are really paying once fees, commissions and the residual are counted. There is no standard definition, so rates from different providers are not always comparable. The calculator works it out consistently from your quote.' },
+  { key: 'agreed-value', forms: ['agreed value'], href: '/risks/how-bad-can-early-termination-get/',
+    def: 'The amount your insurer agrees to pay if the car is written off. If it is less than what you still owe on the lease, you pay the difference yourself.' },
+  { key: 'gap', forms: ['Gap or total-loss cover', 'gap or total-loss cover'], href: '/risks/how-bad-can-early-termination-get/',
+    def: 'Insurance that covers the shortfall between the insurer’s payout and what you still owe on the lease if the car is written off.' },
+  { key: 'panel', forms: ['panel'],
+    def: 'The list of providers your employer has approved to offer novated leases to its staff.' },
+];
+const formToTerm = new Map<string, Term>();
+for (const t of terms) for (const f of t.forms) formToTerm.set(f, t);
+const reEscape = (x: string) => x.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&');
+const termPattern = [...formToTerm.keys()].sort((a, b) => b.length - a.length).map(reEscape).join('|');
+const esc = (x: string) => x.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+// Underline the first occurrence of each glossary term across an item's title, why and detail.
+function termify(segments: string[]): string[] {
+  const seen = new Set<string>();
+  return segments.map((seg) => {
+    let out = '', last = 0;
+    for (const m of seg.matchAll(new RegExp(`\\b(?:${termPattern})\\b`, 'g'))) {
+      const t = formToTerm.get(m[0])!;
+      if (seen.has(t.key)) continue;
+      seen.add(t.key);
+      out += esc(seg.slice(last, m.index)) + `<span class="ck-term" role="button" tabindex="0" aria-expanded="false" data-term="${t.key}">${esc(m[0])}</span>`;
+      last = m.index! + m[0].length;
+    }
+    return out + esc(seg.slice(last));
+  });
+}
+const withHtml = (it: Item) => {
+  const [title, why, detail] = termify([it.essential?.short ?? it.title, it.essential?.why ?? it.why ?? '', it.detail]);
+  return { ...it, html: { title, why, detail } };
+};
+const termDefs = JSON.stringify(Object.fromEntries(terms.map((t) => [t.key, { def: t.def, href: t.href }])));
+
+const essentials = sections.flatMap((s) => s.items).filter((i) => i.essential).sort((a, b) => a.essential!.order - b.essential!.order);
+const groups = [
+  {
+    id: 'start',
+    title: `Start here: ${essentials.length} checks that decide most outcomes`,
+    intro: 'If you only do a few checks, do these. Each one is quick, and each can be worth thousands of dollars. The full list follows below.',
+    items: essentials.map(withHtml),
+  },
+  ...sections.map((s) => ({ ...s, items: s.items.filter((i) => !i.essential).map(withHtml) })).filter((s) => s.items.length > 0),
+];
+const total = groups.reduce((n, s) => n + s.items.length, 0);
 const description =
-  'A final novated lease checklist to go through before you sign: eligibility, competing quotes, the effective interest rate, add-ons, running costs, super, HECS and other income tests, and the exit. Tick items off and keep notes; nothing leaves your browser.';
+  'A novated lease checklist to use while you compare quotes and before you sign: eligibility, competing quotes, the effective interest rate, add-ons, running costs, super, HECS and other income tests, and the exit. Tick items off and keep notes; nothing leaves your browser.';
 ---
 
-<FullPage title="Novated Lease Final Checklist" description={description}>
+<FullPage title="Novated Lease - The Checklist" description={description}>
   <div class="ck-page">
     <div class="ck-print-head" aria-hidden="true">
       <img src="/assets/images/favicon.svg" alt="" width="40" height="40" />
@@ -347,10 +493,10 @@ const description =
       <div class="ck-print-meta"><span id="ck-print-date"></span><br /><span id="ck-print-filter"></span></div>
       <img class="ck-print-qr" src="/assets/images/qr-checklist.svg" alt="" width="56" height="56" />
     </div>
-    <h1>Novated lease final checklist</h1>
+    <h1>Novated lease - the checklist</h1>
 
     <p class="ck-lede">
-      <em>Almost everything</em> this site covers, in one list, before you sign. Tick items off as you go and use the notes to record what you found.
+      <em>Almost everything</em> this site covers, in one list. Use it while you compare quotes and again before you sign. Tick items off as you go and use the notes to record what you found.
     </p>
 
     <div class="ck-disclaimer">
@@ -371,6 +517,11 @@ const description =
         <button type="button" data-filter="cond" data-value="new" aria-pressed="false">New</button>
         <button type="button" data-filter="cond" data-value="used" aria-pressed="false">Used</button>
       </div>
+      <div class="ck-filter" role="group" aria-label="How much to show">
+        <span class="ck-filter-label">Show</span>
+        <button type="button" data-filter="view" data-value="all" aria-pressed="true">Full list</button>
+        <button type="button" data-filter="view" data-value="essentials" aria-pressed="false">Essentials only</button>
+      </div>
     </div>
 
     <div class="ck-toolbar" data-pagefind-ignore>
@@ -383,15 +534,16 @@ const description =
       <span class="ck-status" id="ck-status" role="status" aria-live="polite"></span>
     </div>
 
-    {sections.map((s) => (
-      <section class="ck-section" id={s.id}>
+    {groups.map((s) => (
+      <section class:list={['ck-section', { 'ck-section--start': s.id === 'start' }]} id={s.id}>
         <h2>{s.title} <span class="ck-section-count" data-section={s.id}></span></h2>
+        {s.intro && <p class="ck-intro">{s.intro}</p>}
         <ul class="ck-list">
           {s.items.map((it) => (
-            <li class="ck-item" data-id={it.id} data-car={it.car ?? 'all'} data-used={it.used ? 'yes' : 'all'}>
+            <li class="ck-item" data-id={it.id} data-car={it.car ?? 'all'} data-used={it.used ? 'yes' : 'all'} data-essential={it.essential ? 'yes' : 'no'}>
               <label class="ck-row">
                 <input type="checkbox" class="ck-box" data-id={it.id} />
-                <span class="ck-title">{it.title}</span>
+                <span class="ck-title" set:html={it.html.title} />
               </label>
               {(it.car || it.used) && (
                 <p class="ck-tags">
@@ -400,7 +552,8 @@ const description =
                   {it.used && <span class="ck-tag ck-tag--used">Used car</span>}
                 </p>
               )}
-              <p class="ck-detail">{it.detail}</p>
+              {it.html.why && <p class="ck-why" set:html={it.html.why} />}
+              <p class="ck-detail" set:html={it.html.detail} />
               {it.links && (
                 <p class="ck-links">
                   {it.links.map((l, i) => (
@@ -432,6 +585,8 @@ const description =
       <SupportBox />
     </div>
   </div>
+
+  <script type="application/json" id="ck-terms" is:inline set:html={termDefs} />
 
   <div id="ck-coffee" hidden data-pagefind-ignore>
     <div class="ck-coffee-dim" data-close></div>
@@ -496,6 +651,13 @@ const description =
   .ck-item[hidden], .ck-section[hidden] { display: none; }
   .ck-section { margin-top: 28px; }
   .ck-section h2 { font-size: 1.2rem; margin-bottom: 8px; }
+  .ck-intro { margin: 0 0 4px; font-size: 0.95rem; color: var(--color-text-soft); }
+  .ck-section--start {
+    border: 1px solid var(--nl-blue-mid); border-left: 4px solid var(--nl-blue); border-radius: var(--radius-lg);
+    background: var(--color-bg-subtle); padding: 12px 14px 4px;
+  }
+  .ck-section--start h2 { margin-top: 0; }
+  .ck-why { margin: 6px 0 0 28px; font-size: 0.92rem; font-weight: 500; color: var(--color-text); }
   .ck-section-count { font-size: 0.85rem; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--color-text-muted); }
   .ck-list { list-style: none; padding: 0; margin: 0; }
   .ck-item { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px 14px; margin: 10px 0; background: var(--color-surface); }
@@ -550,6 +712,9 @@ const description =
     /* Always print in light mode: dark-theme colours would otherwise carry onto paper. */
     :global(:root), :global(:root[data-theme="dark"]) { color-scheme: light !important; --nl-blue: #0b5cab !important; --nl-blue-dark: #084a8c !important; --nl-blue-light: rgba(11, 92, 171, 0.08) !important; --nl-blue-mid: rgba(11, 92, 171, 0.18) !important; --nl-blue-solid: #0b5cab !important; --nl-blue-solid-hover: #084a8c !important; --color-bg: #ffffff !important; --color-bg-subtle: #f8f9fa !important; --color-surface: #ffffff !important; --color-surface-raised: #ffffff !important; --color-border: #e5e7eb !important; --color-border-mid: #d1d5db !important; --color-text: #111827 !important; --color-text-soft: #374151 !important; --color-text-muted: #6b7280 !important; --color-text-faint: #9ca3af !important; --adm-note-bg: #f9fafb !important; --adm-note-text: #374151 !important; --status-good: #047857 !important; }
     :global(body) { color: #111827 !important; }
+    .ck-section--start { padding: 6px 8px 2px; background: none; }
+    .ck-intro { font-size: 11px; }
+    .ck-why { font-size: 11px; }
     .ck-disclaimer { font-size: 10.5px; padding: 6px 10px; margin: 8px 0 12px; }
     .ck-tags { margin-top: 2px; }
     .ck-tag { font-size: 9.5px; padding: 0 6px; }
@@ -591,6 +756,22 @@ const description =
   }
 </style>
 
+<style is:global>
+  .ck-term { text-decoration: underline dotted; text-decoration-thickness: 1px; text-underline-offset: 3px; cursor: pointer; }
+  .ck-term:hover, .ck-term[aria-expanded='true'] { color: var(--nl-blue); }
+  .ck-term:focus-visible { outline: 2px solid var(--nl-blue); outline-offset: 2px; border-radius: 2px; }
+  .ck-tip {
+    position: fixed; z-index: 2147483647; box-sizing: border-box; width: 380px; max-width: min(86vw, 520px);
+    padding: 14px; border-radius: var(--radius-lg); border: 1px solid rgba(11, 92, 171, 0.35);
+    background: var(--color-surface-raised); box-shadow: var(--shadow-lg);
+    font-size: 13.5px; font-weight: 400; line-height: 1.45; color: var(--color-text-soft);
+  }
+  .ck-tip p { margin: 0 0 8px; }
+  .ck-tip p:last-child { margin: 0; }
+  .ck-tip a { color: var(--nl-blue); font-weight: 700; text-decoration: underline; }
+  @media print { .ck-term { text-decoration: none; } .ck-tip { display: none; } }
+</style>
+
 <script>
   const KEY = 'nl-checklist-v1';
   type State = { checked: Record<string, boolean>; notes: Record<string, string> };
@@ -622,14 +803,15 @@ const description =
   // Car-type / condition filters. An item is shown unless it is tagged for a category the
   // reader has filtered out. Counts, Copy and Print only cover the items shown.
   const FILTER_KEY = 'nl-checklist-filter-v1';
-  let filter: { car: string; cond: string } = { car: 'all', cond: 'all' };
+  let filter: { car: string; cond: string; view: string } = { car: 'all', cond: 'all', view: 'all' };
   try { filter = { ...filter, ...JSON.parse(localStorage.getItem(FILTER_KEY) || '{}') }; } catch {}
   const isShown = (li: HTMLElement) =>
     (filter.car === 'all' || li.dataset.car === 'all' || li.dataset.car === filter.car) &&
-    (filter.cond !== 'new' || li.dataset.used !== 'yes');
+    (filter.cond !== 'new' || li.dataset.used !== 'yes') &&
+    (filter.view !== 'essentials' || li.dataset.essential === 'yes');
   function applyFilter() {
     document.querySelectorAll<HTMLButtonElement>('.ck-filter button').forEach((btn) => {
-      btn.setAttribute('aria-pressed', String(filter[btn.dataset.filter as 'car' | 'cond'] === btn.dataset.value));
+      btn.setAttribute('aria-pressed', String(filter[btn.dataset.filter as 'car' | 'cond' | 'view'] === btn.dataset.value));
     });
     document.querySelectorAll<HTMLElement>('.ck-item').forEach((li) => { li.hidden = !isShown(li); });
     document.querySelectorAll<HTMLElement>('.ck-section').forEach((sec) => {
@@ -639,7 +821,7 @@ const description =
   }
   document.querySelectorAll<HTMLButtonElement>('.ck-filter button').forEach((btn) => {
     btn.addEventListener('click', () => {
-      filter[btn.dataset.filter as 'car' | 'cond'] = btn.dataset.value!;
+      filter[btn.dataset.filter as 'car' | 'cond' | 'view'] = btn.dataset.value!;
       try { localStorage.setItem(FILTER_KEY, JSON.stringify(filter)); } catch {}
       applyFilter();
     });
@@ -721,8 +903,61 @@ const description =
   }
   applyFilter();
 
+  // Glossary popups: tap or click a dotted term. Escape, or a click elsewhere, closes it.
+  const termDefs: Record<string, { def: string; href?: string }> = JSON.parse(document.getElementById('ck-terms')?.textContent || '{}');
+  let tip: HTMLDivElement | null = null;
+  let tipFor: HTMLElement | null = null;
+  function closeTip(refocus = false) {
+    tip?.remove(); tip = null;
+    if (tipFor) { tipFor.setAttribute('aria-expanded', 'false'); if (refocus) tipFor.focus(); tipFor = null; }
+  }
+  function placeTip() {
+    if (!tip || !tipFor) return;
+    const rects = tipFor.getClientRects();
+    const r = rects[rects.length - 1] ?? tipFor.getBoundingClientRect();
+    const margin = 10;
+    const left = Math.max(margin, Math.min(r.left, window.innerWidth - tip.offsetWidth - margin));
+    let top = r.bottom + 8;
+    if (top + tip.offsetHeight > window.innerHeight - margin) top = Math.max(margin, r.top - 8 - tip.offsetHeight);
+    tip.style.left = left + 'px'; tip.style.top = top + 'px';
+  }
+  function openTip(el: HTMLElement) {
+    closeTip();
+    const d = termDefs[el.dataset.term!];
+    if (!d) return;
+    tip = document.createElement('div');
+    tip.className = 'ck-tip'; tip.setAttribute('role', 'tooltip');
+    const p = document.createElement('p'); p.textContent = d.def; tip.appendChild(p);
+    if (d.href) {
+      const more = document.createElement('p'); const a = document.createElement('a');
+      a.href = d.href; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'Read more';
+      more.appendChild(a); tip.appendChild(more);
+    }
+    document.body.appendChild(tip);
+    tipFor = el; el.setAttribute('aria-expanded', 'true');
+    placeTip();
+  }
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const term = target.closest<HTMLElement>('.ck-term');
+    if (term) {
+      e.preventDefault(); // the term sits inside a label; do not tick the box
+      if (tipFor === term) closeTip(); else openTip(term);
+    } else if (tip && !tip.contains(target)) closeTip();
+  });
+  document.addEventListener('keydown', (e) => {
+    const t = e.target as HTMLElement;
+    if (e.key === 'Escape' && tip) { closeTip(true); return; }
+    if ((e.key === 'Enter' || e.key === ' ') && t.classList?.contains('ck-term')) {
+      e.preventDefault();
+      if (tipFor === t) closeTip(); else openTip(t);
+    }
+  });
+  window.addEventListener('scroll', placeTip, true);
+  window.addEventListener('resize', placeTip);
+
   function asText(): string {
-    const lines: string[] = ['Novated lease final checklist: https://novatedlease.guide/tools/checklist/', ''];
+    const lines: string[] = ['Novated lease - the checklist: https://novatedlease.guide/tools/checklist/', ''];
     document.querySelectorAll<HTMLElement>('.ck-section:not([hidden])').forEach((sec) => {
       lines.push(sec.querySelector('h2')!.firstChild!.textContent!.trim());
       sec.querySelectorAll<HTMLElement>('.ck-item:not([hidden])').forEach((it) => {
@@ -744,7 +979,8 @@ const description =
     const carLabel: Record<string, string> = { all: 'All cars', ev: 'Electric', ice: 'Petrol / hybrid' };
     const condLabel: Record<string, string> = { all: 'new or used', new: 'New', used: 'Used' };
     const done = document.getElementById('ck-done')!.textContent, total = document.getElementById('ck-total')!.textContent;
-    document.getElementById('ck-print-filter')!.textContent = `${carLabel[filter.car]} · ${condLabel[filter.cond]} · ${done} of ${total} checked`;
+    const viewLabel = filter.view === 'essentials' ? ' · Essentials only' : '';
+    document.getElementById('ck-print-filter')!.textContent = `${carLabel[filter.car]} · ${condLabel[filter.cond]}${viewLabel} · ${done} of ${total} checked`;
   }
   // Also covers the browser's own Print menu, not just our button.
   window.addEventListener('beforeprint', fillPrintHeader);
