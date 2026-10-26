@@ -221,6 +221,12 @@ This is explored in detail in the **[Risks & exit strategies](/risks/)** section
 
 ---
 
+:::tip[Decided to go ahead?]
+Before you sign, work through the [final checklist](/tools/checklist/): competing quotes, add-ons, insurance, super, income tests and your exit plan, in one list you can tick off.
+:::
+
+---
+
 ## Key takeaway
 
 If you remember nothing else:

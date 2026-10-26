@@ -1,5 +1,6 @@
 ---
 import FullPage from '../../layouts/FullPage.astro';
+import SupportBox from '../../components/SupportBox.astro';
 
 type Item = {
   id: string; title: string; detail: string; links?: { label: string; href: string }[];
@@ -400,6 +401,10 @@ const description =
     <p class="ck-footer">
       Spotted something missing? <a href="/about/contact/">Let me know</a>. This checklist was suggested by a reader.
     </p>
+
+    <div class="ck-support">
+      <SupportBox />
+    </div>
   </div>
 
   <div id="ck-coffee" hidden data-pagefind-ignore>
@@ -476,6 +481,7 @@ const description =
     width: 100%; margin-top: 6px; font: inherit; font-size: 0.9rem; padding: 8px; box-sizing: border-box;
     border: 1px solid var(--color-border-mid); border-radius: var(--radius-sm); background: var(--color-bg); color: var(--color-text);
   }
+  .ck-support { margin-top: 24px; }
   .ck-footer { margin-top: 32px; font-size: 0.9rem; color: var(--color-text-muted); }
 
   .ck-coffee-dim { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); z-index: 2147482000; }
@@ -538,7 +544,7 @@ const description =
     .ck-title { font-size: 12.5px; }
     .ck-detail { font-size: 11px; }
     .ck-item.is-done { background: none; }
-    .ck-toolbar, .ck-filters, .ck-notes:not(.has-note), .ck-links, .ck-footer { display: none !important; }
+    .ck-toolbar, .ck-filters, .ck-notes:not(.has-note), .ck-links, .ck-footer, .ck-support { display: none !important; }
     .ck-disclaimer a { color: inherit; text-decoration: none; }
     .ck-page { padding: 0; }
     .ck-item { break-inside: avoid; border-color: #999; }
@@ -707,9 +713,26 @@ const description =
     notes.forEach((t) => { if (t.value.trim()) (t.closest('details') as HTMLDetailsElement).open = true; });
     window.print();
   });
+  // navigator.clipboard needs a secure context (HTTPS) and is blocked in some in-app
+  // browsers, so fall back to a hidden textarea + execCommand('copy').
+  function legacyCopy(text: string): boolean {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '0'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select(); ta.setSelectionRange(0, text.length);
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch {}
+    document.body.removeChild(ta);
+    return ok;
+  }
   document.getElementById('ck-copy')!.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(asText()); flash('Copied'); }
-    catch { flash('Copy failed; try Print instead'); }
+    const text = asText();
+    try {
+      if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); flash('Copied'); return; }
+    } catch {}
+    flash(legacyCopy(text) ? 'Copied' : 'Copy failed; try Print instead');
   });
   let armed = false;
   const resetBtn = document.getElementById('ck-reset') as HTMLButtonElement;

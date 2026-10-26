@@ -37,3 +37,5 @@ This section is **not an exhaustive list** of all caveats of novated lease; othe
 If earlier sections ask *“Is a novated lease cheaper?”*, this section asks another important question:
 
 > **“What happens if circumstances change — and am I comfortable with that risk?”**
+
+The risk items are also part of the [final checklist before signing](/tools/checklist/).

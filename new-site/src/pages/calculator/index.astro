@@ -83,6 +83,11 @@ const faqSchema = {
     <link rel="stylesheet" href={`/assets/calculator/style.css?v=${v}`} />
     <script type="module" src={`/assets/calculator/main.js?v=${v}`}></script>
 
+    <div class="admonition admonition--tip" style="margin-top:1.5rem;">
+      <div class="admonition__title">Got your final quote? Check it before you sign</div>
+      <p>The calculator handles the numbers. The <a href="/tools/checklist/">final checklist before signing</a> covers everything else people commonly miss: competing quotes and BYO, add-ons in the amount financed, insurance, super, HECS and other income tests, and what happens if the lease ends early. Tick it off, add notes, and save it as a PDF.</p>
+    </div>
+
     <hr style="border:none;border-top:1px solid var(--color-border);margin:2rem 0;" />
 
     <div class="calc-prose">
@@ -96,56 +101,100 @@ const faqSchema = {
 
     <h2>Frequently asked questions</h2>
 
-    <h3>Does this calculator support the EV FBT phase-out from 2027 (the 25% FBT discount)?</h3>
-    <p>Yes. The calculator applies <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">the wind-back rules</a> as set out in the September 2026 exposure draft legislation, which is not yet law. It works out the FBT treatment from the lease start date, which it treats as the date you commit to the lease, and the vehicle value:</p>
-    <ul>
-      <li><strong>Leases starting before 1 April 2027</strong> — existing rules apply (full FBT exemption up to the LCT threshold).</li>
-      <li><strong>Leases starting 1 April 2027 – 31 March 2029 (transitional period)</strong> — vehicles at or below $75,000 get a 100% FBT discount (no FBT); vehicles above $75,000 but at or below the LCT threshold attract 75% of full FBT (a 25% discount) and a reduced reportable fringe benefits amount; vehicles above the LCT threshold attract full FBT.</li>
-      <li><strong>Leases starting from 1 April 2029</strong> — the 25% FBT discount applies to all eligible EVs at or below the LCT threshold.</li>
-    </ul>
-    <p>No manual adjustment is needed — simply enter your lease start date and vehicle base value and the calculator will apply the appropriate rules automatically. For a used EV on a lease starting from 1 April 2027, the draft drops the 1 July 2022 and LCT-history tests, and the calculator stops asking for them.</p>
+    <details class="faq-item">
+      <summary><h3>Does this calculator support the EV FBT phase-out from 2027 (the 25% FBT discount)?</h3></summary>
+      <div class="faq-answer">
+      <p>Yes. The calculator applies <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">the wind-back rules</a> as set out in the September 2026 exposure draft legislation, which is not yet law. It works out the FBT treatment from the lease start date, which it treats as the date you commit to the lease, and the vehicle value:</p>
+      <ul>
+        <li><strong>Leases starting before 1 April 2027</strong> — existing rules apply (full FBT exemption up to the LCT threshold).</li>
+        <li><strong>Leases starting 1 April 2027 – 31 March 2029 (transitional period)</strong> — vehicles at or below $75,000 get a 100% FBT discount (no FBT); vehicles above $75,000 but at or below the LCT threshold attract 75% of full FBT (a 25% discount) and a reduced reportable fringe benefits amount; vehicles above the LCT threshold attract full FBT.</li>
+        <li><strong>Leases starting from 1 April 2029</strong> — the 25% FBT discount applies to all eligible EVs at or below the LCT threshold.</li>
+      </ul>
+      <p>No manual adjustment is needed — simply enter your lease start date and vehicle base value and the calculator will apply the appropriate rules automatically. For a used EV on a lease starting from 1 April 2027, the draft drops the 1 July 2022 and LCT-history tests, and the calculator stops asking for them.</p>
+      </div>
+    </details>
 
-    <h3>How accurate is this calculator?</h3>
-    <p>This calculator is the direct evolution of <a href="https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/" target="_blank" rel="noopener">a spreadsheet</a> that has been in continuous public use for over two years. It has been widely shared, scrutinised, and informally peer-reviewed by financially literate users, with numerous edge cases tested and minor issues corrected over time.</p>
-    <p>This web-based version was not a direct port of the spreadsheet; instead it was rebuilt from first principles. Core components were independently re-derived and implemented in a new calculation engine, then systematically verified against the original spreadsheet across a broad range of test scenarios. The two implementations match to the cent for all test cases.</p>
+    <details class="faq-item">
+      <summary><h3>I'm about to sign. Is there anything else I should check?</h3></summary>
+      <div class="faq-answer">
+      <p>Yes. The calculator covers the financial comparison, but a lease also depends on things it can't see in your quote: whether the add-ons and insurance are ones you want, how payroll calculates your super, HELP and other income tests, and your exit plan. The <a href="/tools/checklist/">final checklist before signing</a> puts all of these in one list you can tick off and save as a PDF.</p>
+      </div>
+    </details>
 
-    <h3>Does this calculator support fractional lease terms like 13 months or 25 months?</h3>
-    <p>No. The calculator supports whole-year lease durations only (1–5 years), and this is a deliberate design choice. Fractional lease durations introduce ambiguities around residual values, annual running costs, and fortnight counts that are handled inconsistently between providers. Modelling them with false precision would likely produce misleading results.</p>
+    <details class="faq-item">
+      <summary><h3>How accurate is this calculator?</h3></summary>
+      <div class="faq-answer">
+      <p>This calculator is the direct evolution of <a href="https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/" target="_blank" rel="noopener">a spreadsheet</a> that has been in continuous public use for over two years. It has been widely shared, scrutinised, and informally peer-reviewed by financially literate users, with numerous edge cases tested and minor issues corrected over time.</p>
+      <p>This web-based version was not a direct port of the spreadsheet; instead it was rebuilt from first principles. Core components were independently re-derived and implemented in a new calculation engine, then systematically verified against the original spreadsheet across a broad range of test scenarios. The two implementations match to the cent for all test cases.</p>
+      </div>
+    </details>
 
-    <h3>Does this calculator work for a used or second-hand car?</h3>
-    <p>Yes. In the Advanced inputs, set the vehicle condition to <em>used, dealer sale</em> or <em>used, private sale</em>. A dealer sale still attracts the GST saving on the purchase price, while a private sale has no GST in the price and therefore no GST credit, which changes the financed amount. For a used EV on a lease starting before 1 April 2027, the FBT exemption applies only if the car was first held and used on or after 1 July 2022 and Luxury Car Tax was never payable on it; the calculator asks you to confirm both. Under the September 2026 exposure draft, those two tests no longer apply to leases starting from 1 April 2027. See <a href="/costs-and-savings/used-ev-novated-lease/">used EV on a novated lease instead of buying new?</a> for the full comparison, and <a href="/costs-and-savings/used-car-gst-saving/">how the used-car GST saving works</a> for the GST detail.</p>
+    <details class="faq-item">
+      <summary><h3>Does this calculator support fractional lease terms like 13 months or 25 months?</h3></summary>
+      <div class="faq-answer">
+      <p>No. The calculator supports whole-year lease durations only (1–5 years), and this is a deliberate design choice. Fractional lease durations introduce ambiguities around residual values, annual running costs, and fortnight counts that are handled inconsistently between providers. Modelling them with false precision would likely produce misleading results.</p>
+      </div>
+    </details>
 
-    <h3>Why doesn't this calculator display a "tax saving" figure?</h3>
-    <p>You may notice that this calculator does not prominently display a single "tax saved" number — and that is deliberate. Novated lease providers often emphasise tax savings because it is psychologically compelling. However, tax reduction is only one component of the overall financial equation. A novated lease may also involve higher effective interest rates, management fees, brokerage, GST interactions, and early‑termination risks. Focusing solely on "tax saved" can therefore be misleading as explained in <a href="/costs-and-savings/why-tax-saved-is-wrong/">this explanatory article</a> and <a href="/costs-and-savings/false-saving-example/">a fully worked example</a>.</p>
+    <details class="faq-item">
+      <summary><h3>Does this calculator work for a used or second-hand car?</h3></summary>
+      <div class="faq-answer">
+      <p>Yes. In the Advanced inputs, set the vehicle condition to <em>used, dealer sale</em> or <em>used, private sale</em>. A dealer sale still attracts the GST saving on the purchase price, while a private sale has no GST in the price and therefore no GST credit, which changes the financed amount. For a used EV on a lease starting before 1 April 2027, the FBT exemption applies only if the car was first held and used on or after 1 July 2022 and Luxury Car Tax was never payable on it; the calculator asks you to confirm both. Under the September 2026 exposure draft, those two tests no longer apply to leases starting from 1 April 2027. See <a href="/costs-and-savings/used-ev-novated-lease/">used EV on a novated lease instead of buying new?</a> for the full comparison, and <a href="/costs-and-savings/used-car-gst-saving/">how the used-car GST saving works</a> for the GST detail.</p>
+      </div>
+    </details>
 
-    <h3>Does it consider childcare subsidy, HECS, or Div 293 impacts?</h3>
-    <p>Yes. For EV novated leases, the calculator estimates <a href="/special-and-policy/childcare-subsidy/">the effect of the reportable fringe benefit amount (RFBA)</a> on adjusted taxable income, which can affect HECS repayments, childcare subsidy, and Division 293 tax.</p>
+    <details class="faq-item">
+      <summary><h3>Why doesn't this calculator display a "tax saving" figure?</h3></summary>
+      <div class="faq-answer">
+      <p>You may notice that this calculator does not prominently display a single "tax saved" number — and that is deliberate. Novated lease providers often emphasise tax savings because it is psychologically compelling. However, tax reduction is only one component of the overall financial equation. A novated lease may also involve higher effective interest rates, management fees, brokerage, GST interactions, and early‑termination risks. Focusing solely on "tax saved" can therefore be misleading as explained in <a href="/costs-and-savings/why-tax-saved-is-wrong/">this explanatory article</a> and <a href="/costs-and-savings/false-saving-example/">a fully worked example</a>.</p>
+      </div>
+    </details>
 
-    <h3>Is this calculator affiliated with any novated lease provider?</h3>
-    <p>No. This tool is independent and is not affiliated with any novated lease company, financier, or employer salary‑packaging provider. While I have gotten to know some industry insiders through my online participation, I do not receive referral fees or kickbacks from any provider.</p>
+    <details class="faq-item">
+      <summary><h3>Does it consider childcare subsidy, HECS, or Div 293 impacts?</h3></summary>
+      <div class="faq-answer">
+      <p>Yes. For EV novated leases, the calculator estimates <a href="/special-and-policy/childcare-subsidy/">the effect of the reportable fringe benefit amount (RFBA)</a> on adjusted taxable income, which can affect HECS repayments, childcare subsidy, and Division 293 tax.</p>
+      </div>
+    </details>
 
-    <h3>What are the limitations of this calculator?</h3>
-    <p>Like all financial models, this calculator is a simulation based on explicit assumptions. Key limitations include:</p>
-    <ul>
-      <li><strong>Primary endpoint is financial position at 5 years.</strong> The model assumes that, under a novated lease, the residual value is paid out at the end of the lease.</li>
-      <li><strong>Home loan interest rate is assumed to be constant</strong> throughout the lease duration.</li>
-      <li><strong>Offset account impact is calculated on a fortnightly basis.</strong> In reality, home loan interest is typically calculated daily and charged monthly — in simulation testing, this divergence introduces a discrepancy of well under 0.1%.</li>
-      <li><strong>Insurance premiums, registration, and maintenance costs are assumed to remain constant</strong> over the lease term.</li>
-      <li><strong>Residual value methodologies vary between leasing companies.</strong></li>
-      <li><strong>Market value depreciation is interpolated for 1–4 year lease terms.</strong></li>
-    </ul>
-    <p>These limitations do not invalidate the calculator, but they do highlight why the outputs should be interpreted as <em>decision support</em>, not precise predictions.</p>
+    <details class="faq-item">
+      <summary><h3>Is this calculator affiliated with any novated lease provider?</h3></summary>
+      <div class="faq-answer">
+      <p>No. This tool is independent and is not affiliated with any novated lease company, financier, or employer salary‑packaging provider. While I have gotten to know some industry insiders through my online participation, I do not receive referral fees or kickbacks from any provider.</p>
+      </div>
+    </details>
 
-    <h3>Who is this calculator less suitable for?</h3>
-    <p>While this calculator is designed to cover the most common novated lease scenarios faced by Australian employees, it may be less suitable or require extra interpretation for the following groups:</p>
-    <ul>
-      <li><strong>Very low‑income earners.</strong> At lower income levels, the interaction between income tax, Medicare levy (including partial reductions), and means‑tested benefits can be more complex and less reliably captured by a generalised model.</li>
-      <li><strong>People who frequently roll over novated leases.</strong> This calculator models a <em>single lease cycle</em> and assumes the residual value is paid out at the end of the lease. If you routinely roll residuals into subsequent leases, your long‑term outcomes may differ materially from those shown here.</li>
-      <li><strong>People who could otherwise claim work‑related vehicle use outside a novated lease.</strong> If you are able to claim deductions for work use of a vehicle under a cash‑purchase or car‑loan pathway (for example via logbook or cents‑per‑kilometre methods), those alternatives may warrant separate modelling and comparison.</li>
-      <li><strong>People considering associate leases.</strong> Associate leases have distinct financial consequences that are not modelled here, and outcomes can differ significantly from standard novated leasing arrangements (and may be more advantageous for certain personal circumstances).</li>
-      <li><strong>Company directors or business owners with access to alternative structures.</strong> If you operate through your own company or trust and may be eligible for FBT‑exempt vehicle benefits or other business‑specific arrangements, this calculator may not fully capture the options available to you.</li>
-    </ul>
-    <p>In these situations, the calculator can still provide useful context, but the results should be interpreted with additional caution and, where appropriate, supplemented with tailored advice.</p>
+    <details class="faq-item">
+      <summary><h3>What are the limitations of this calculator?</h3></summary>
+      <div class="faq-answer">
+      <p>Like all financial models, this calculator is a simulation based on explicit assumptions. Key limitations include:</p>
+      <ul>
+        <li><strong>Primary endpoint is financial position at 5 years.</strong> The model assumes that, under a novated lease, the residual value is paid out at the end of the lease.</li>
+        <li><strong>Home loan interest rate is assumed to be constant</strong> throughout the lease duration.</li>
+        <li><strong>Offset account impact is calculated on a fortnightly basis.</strong> In reality, home loan interest is typically calculated daily and charged monthly — in simulation testing, this divergence introduces a discrepancy of well under 0.1%.</li>
+        <li><strong>Insurance premiums, registration, and maintenance costs are assumed to remain constant</strong> over the lease term.</li>
+        <li><strong>Residual value methodologies vary between leasing companies.</strong></li>
+        <li><strong>Market value depreciation is interpolated for 1–4 year lease terms.</strong></li>
+      </ul>
+      <p>These limitations do not invalidate the calculator, but they do highlight why the outputs should be interpreted as <em>decision support</em>, not precise predictions.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary><h3>Who is this calculator less suitable for?</h3></summary>
+      <div class="faq-answer">
+      <p>While this calculator is designed to cover the most common novated lease scenarios faced by Australian employees, it may be less suitable or require extra interpretation for the following groups:</p>
+      <ul>
+        <li><strong>Very low‑income earners.</strong> At lower income levels, the interaction between income tax, Medicare levy (including partial reductions), and means‑tested benefits can be more complex and less reliably captured by a generalised model.</li>
+        <li><strong>People who frequently roll over novated leases.</strong> This calculator models a <em>single lease cycle</em> and assumes the residual value is paid out at the end of the lease. If you routinely roll residuals into subsequent leases, your long‑term outcomes may differ materially from those shown here.</li>
+        <li><strong>People who could otherwise claim work‑related vehicle use outside a novated lease.</strong> If you are able to claim deductions for work use of a vehicle under a cash‑purchase or car‑loan pathway (for example via logbook or cents‑per‑kilometre methods), those alternatives may warrant separate modelling and comparison.</li>
+        <li><strong>People considering associate leases.</strong> Associate leases have distinct financial consequences that are not modelled here, and outcomes can differ significantly from standard novated leasing arrangements (and may be more advantageous for certain personal circumstances).</li>
+        <li><strong>Company directors or business owners with access to alternative structures.</strong> If you operate through your own company or trust and may be eligible for FBT‑exempt vehicle benefits or other business‑specific arrangements, this calculator may not fully capture the options available to you.</li>
+      </ul>
+      <p>In these situations, the calculator can still provide useful context, but the results should be interpreted with additional caution and, where appropriate, supplemented with tailored advice.</p>
+      </div>
+    </details>
+
     </div><!-- /.calc-prose -->
 
     <hr style="border:none;border-top:1px solid var(--color-border);margin:2rem 0;" />
@@ -174,6 +223,24 @@ const faqSchema = {
 </FullPage>
 
 <style>
+  .faq-item { border-bottom: 1px solid var(--color-border); }
+  .faq-item:first-of-type { border-top: 1px solid var(--color-border); }
+  .faq-item summary {
+    list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 2px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary h3 { margin: 0; font-size: 1.02rem; line-height: 1.4; }
+  .faq-item summary::after {
+    content: ''; flex: 0 0 auto; width: 9px; height: 9px; margin-right: 4px;
+    border-right: 2px solid var(--color-text-muted); border-bottom: 2px solid var(--color-text-muted);
+    transform: rotate(45deg) translateY(-3px); transition: transform 0.2s ease;
+  }
+  .faq-item[open] summary::after { transform: rotate(-135deg) translateY(-3px); }
+  .faq-item summary:hover h3 { color: var(--nl-blue); }
+  .faq-answer { padding: 0 2px 14px; }
+  .faq-answer > :first-child { margin-top: 0; }
+
   .calc2-page {
     max-width: 1300px;
     margin: 0 auto;
