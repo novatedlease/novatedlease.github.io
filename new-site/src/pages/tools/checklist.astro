@@ -681,7 +681,7 @@ const description =
   applyFilter();
 
   function asText(): string {
-    const lines: string[] = ['Novated lease final checklist (novatedlease.guide/tools/checklist/)', ''];
+    const lines: string[] = ['Novated lease final checklist: https://novatedlease.guide/tools/checklist/', ''];
     document.querySelectorAll<HTMLElement>('.ck-section:not([hidden])').forEach((sec) => {
       lines.push(sec.querySelector('h2')!.firstChild!.textContent!.trim());
       sec.querySelectorAll<HTMLElement>('.ck-item:not([hidden])').forEach((it) => {
