@@ -101,7 +101,7 @@ const faqSchema = {
 
     <h2>Frequently asked questions</h2>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-fbt-phase-out">
       <summary><h3>Does this calculator support the EV FBT phase-out from 2027 (the 25% FBT discount)?</h3></summary>
       <div class="faq-answer">
       <p>Yes. The calculator applies <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">the wind-back rules</a> as set out in the September 2026 exposure draft legislation, which is not yet law. It works out the FBT treatment from the lease start date, which it treats as the date you commit to the lease, and the vehicle value:</p>
@@ -114,14 +114,14 @@ const faqSchema = {
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-about-to-sign">
       <summary><h3>I'm about to sign. Is there anything else I should check?</h3></summary>
       <div class="faq-answer">
       <p>Yes. The calculator covers the financial comparison, but a lease also depends on things it can't see in your quote: whether the add-ons and insurance are ones you want, how payroll calculates your super, HELP and other income tests, and your exit plan. The <a href="/tools/checklist/">final checklist before signing</a> puts all of these in one list you can tick off and save as a PDF.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-accuracy">
       <summary><h3>How accurate is this calculator?</h3></summary>
       <div class="faq-answer">
       <p>This calculator is the direct evolution of <a href="https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/" target="_blank" rel="noopener">a spreadsheet</a> that has been in continuous public use for over two years. It has been widely shared, scrutinised, and informally peer-reviewed by financially literate users, with numerous edge cases tested and minor issues corrected over time.</p>
@@ -129,42 +129,42 @@ const faqSchema = {
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-fractional-terms">
       <summary><h3>Does this calculator support fractional lease terms like 13 months or 25 months?</h3></summary>
       <div class="faq-answer">
       <p>No. The calculator supports whole-year lease durations only (1–5 years), and this is a deliberate design choice. Fractional lease durations introduce ambiguities around residual values, annual running costs, and fortnight counts that are handled inconsistently between providers. Modelling them with false precision would likely produce misleading results.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-used-car">
       <summary><h3>Does this calculator work for a used or second-hand car?</h3></summary>
       <div class="faq-answer">
       <p>Yes. In the Advanced inputs, set the vehicle condition to <em>used, dealer sale</em> or <em>used, private sale</em>. A dealer sale still attracts the GST saving on the purchase price, while a private sale has no GST in the price and therefore no GST credit, which changes the financed amount. For a used EV on a lease starting before 1 April 2027, the FBT exemption applies only if the car was first held and used on or after 1 July 2022 and Luxury Car Tax was never payable on it; the calculator asks you to confirm both. Under the September 2026 exposure draft, those two tests no longer apply to leases starting from 1 April 2027. See <a href="/costs-and-savings/used-ev-novated-lease/">used EV on a novated lease instead of buying new?</a> for the full comparison, and <a href="/costs-and-savings/used-car-gst-saving/">how the used-car GST saving works</a> for the GST detail.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-tax-saving">
       <summary><h3>Why doesn't this calculator display a "tax saving" figure?</h3></summary>
       <div class="faq-answer">
       <p>You may notice that this calculator does not prominently display a single "tax saved" number — and that is deliberate. Novated lease providers often emphasise tax savings because it is psychologically compelling. However, tax reduction is only one component of the overall financial equation. A novated lease may also involve higher effective interest rates, management fees, brokerage, GST interactions, and early‑termination risks. Focusing solely on "tax saved" can therefore be misleading as explained in <a href="/costs-and-savings/why-tax-saved-is-wrong/">this explanatory article</a> and <a href="/costs-and-savings/false-saving-example/">a fully worked example</a>.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-means-tested">
       <summary><h3>Does it consider childcare subsidy, HECS, or Div 293 impacts?</h3></summary>
       <div class="faq-answer">
       <p>Yes. For EV novated leases, the calculator estimates <a href="/special-and-policy/childcare-subsidy/">the effect of the reportable fringe benefit amount (RFBA)</a> on adjusted taxable income, which can affect HECS repayments, childcare subsidy, and Division 293 tax.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-affiliation">
       <summary><h3>Is this calculator affiliated with any novated lease provider?</h3></summary>
       <div class="faq-answer">
       <p>No. This tool is independent and is not affiliated with any novated lease company, financier, or employer salary‑packaging provider. While I have gotten to know some industry insiders through my online participation, I do not receive referral fees or kickbacks from any provider.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-limitations">
       <summary><h3>What are the limitations of this calculator?</h3></summary>
       <div class="faq-answer">
       <p>Like all financial models, this calculator is a simulation based on explicit assumptions. Key limitations include:</p>
@@ -180,7 +180,7 @@ const faqSchema = {
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="faq-item" id="faq-less-suitable">
       <summary><h3>Who is this calculator less suitable for?</h3></summary>
       <div class="faq-answer">
       <p>While this calculator is designed to cover the most common novated lease scenarios faced by Australian employees, it may be less suitable or require extra interpretation for the following groups:</p>
@@ -222,8 +222,30 @@ const faqSchema = {
   </div>
 </FullPage>
 
+<script>
+  // Open a collapsed FAQ when the page is reached via its #anchor (e.g. from the checklist).
+  // The calculator app above mounts after this runs and changes the page height, so
+  // open straight away but scroll only once the page (and app) has loaded.
+  function faqFromHash(): HTMLDetailsElement | null {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const el = id ? document.getElementById(id) : null;
+    return el instanceof HTMLDetailsElement ? el : null;
+  }
+  function scrollToFaq() {
+    const el = faqFromHash();
+    if (el) { el.open = true; el.scrollIntoView({ block: 'start' }); }
+  }
+  const initial = faqFromHash();
+  if (initial) {
+    initial.open = true;
+    const later = () => { scrollToFaq(); setTimeout(scrollToFaq, 400); };
+    if (document.readyState === 'complete') later(); else window.addEventListener('load', later, { once: true });
+  }
+  window.addEventListener('hashchange', scrollToFaq);
+</script>
+
 <style>
-  .faq-item { border-bottom: 1px solid var(--color-border); }
+  .faq-item { border-bottom: 1px solid var(--color-border); scroll-margin-top: calc(var(--nav-height) + 12px); }
   .faq-item:first-of-type { border-top: 1px solid var(--color-border); }
   .faq-item summary {
     list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;

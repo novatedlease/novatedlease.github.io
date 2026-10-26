@@ -69,17 +69,31 @@ const sections: Section[] = [
         id: 'net-outcome',
         title: 'I compared against keeping my current car, not just against buying the same new car with cash',
         detail:
-          '"Compare with keeping current car" in the calculator is the realistic reference point for most people. "New car by lease vs new car by cash" flatters the lease, and the quote’s "tax saved" figure flatters it more.',
+          'There are two different meanings of "saving". Saving against buying the same car with cash or a loan can be real value, but it does not tell you whether you are better off than simply keeping your current car, which is traditionally the cheapest option. With an FBT-exempt EV that is no longer always true, so be clear which benchmark you are using: saving $30k by bargaining a Mercedes down from $150k is real, but a $40k Toyota still costs less.',
+        links: [{ label: 'Two ways people define "saving"', href: '/start-here/is-it-worth-it/#two-completely-different-ways-people-define-saving' }],
+      },
+      {
+        id: 'net-worth-mix',
+        title: 'I looked at what makes up the net result, not just the total',
+        detail:
+          'On this site, the overall saving or loss is net worth: the car’s value, your cashflow and your liabilities added together. An option that comes out $2,000 ahead may mean a car worth $12,000 more but $10,000 less cash in hand. That is accurate as net worth, but it may not suit your cashflow or how much cash you need to keep available.',
+        links: [{ label: 'Cashflow, asset and liability', href: '/costs-and-savings/residual-values-vs-sales-price/#how-the-calculator-actually-evaluates-a-lease' }],
+      },
+      {
+        id: 'snapshot',
+        title: 'I understand the calculator’s result is a snapshot based on my assumptions, not a guarantee',
+        detail:
+          'It compares your financial position at a single point, either the five-year mark or the end of your lease, using the figures and assumptions you entered: resale value, offset rate, running costs, and the lease running to term. If those turn out differently, so does the result, and it says nothing about what happens after that point.',
         links: [
-          { label: 'Keeping the current car', href: '/costs-and-savings/ev-nl-vs-keeping-petrol-car/' },
-          { label: 'Calculator', href: '/calculator/' },
+          { label: 'Calculator limitations', href: '/calculator/#faq-limitations' },
+          { label: 'How to use the calculator', href: '/start-here/use-nl-calculator/' },
         ],
       },
       {
         id: 'effective-rate',
         title: 'I checked the effective interest rate in the calculator',
         detail:
-          'Do not rely on a "base rate" or the quoted comparison rate. Smartleasing and MillarX quotes need the calculator’s built-in adjustment first, or the rate comes out about a point too high.',
+          'Do not rely on a "base rate" or the quoted comparison rate. Smartleasing and MillarX quotes need the calculator’s built-in adjustment first, or the rate comes out falsely high.',
         links: [
           { label: 'Calculator', href: '/calculator/' },
           { label: 'Why rates look high', href: '/costs-and-savings/why-nl-interest-looks-high/' },
@@ -126,7 +140,7 @@ const sections: Section[] = [
         id: 'term',
         title: 'I chose the lease length deliberately',
         detail:
-          'Longer usually saves more but leaves more exposed if the lease ends early, and shorter costs more borrowing capacity. Tip: if you expect to drive 30,000 km a year or more, ask for a lower residual at the start. It cannot be changed later.',
+          'For an FBT-exempt EV, a longer lease usually saves more, but leaves you more exposed if the lease ends early. A shorter lease costs more borrowing capacity, but generally reduces the potential loss on early termination, and is traditionally the more optimal approach for FBT-applicable leases. Tip: if you expect to drive 30,000 km a year or more, ask for a lower residual at the start. It cannot be changed later.',
         links: [
           { label: 'Choosing the lease length', href: '/risks/lease-length-and-risk/' },
           { label: 'Asking for a lower residual', href: '/costs-and-savings/why-residual-values-matter/#asking-for-a-lower-residual-value' },
@@ -186,7 +200,7 @@ const sections: Section[] = [
       {
         id: 'borrowing',
         title: 'I understand the effect on my borrowing capacity',
-        detail: 'If a home loan is in the near future, give your mortgage broker the lease quote and ask them to run your capacity with and without it.',
+        detail: 'A novated lease can lower your borrowing capacity by as much as two to three times the car’s value. You also cannot simply end the lease later to get that capacity back without a significant loss. If a home loan is in the near future, give your mortgage broker the lease quote and ask them to run your capacity with and without it.',
         links: [{ label: 'Borrowing capacity', href: '/special-and-policy/borrowing-capacity/' }],
       },
       {
@@ -201,7 +215,7 @@ const sections: Section[] = [
         car: 'ev',
         title: 'My figures include the effect on childcare subsidy, HELP, child support, Division 293 and the Medicare levy surcharge',
         detail:
-          'An EV lease lowers taxable income but usually raises adjusted taxable income.',
+          'An EV lease lowers taxable income but usually raises adjusted taxable income. This often means less childcare subsidy, higher HELP repayments and child support, and a higher chance of paying the Medicare levy surcharge or Division 293 tax.',
         links: [
           { label: 'RFBA explained', href: '/costs-and-savings/fbt-rfba-ati-explained/' },
           { label: 'HECS/HELP', href: '/special-and-policy/hecs-help/' },
@@ -398,6 +412,7 @@ const description =
                 <summary>Notes</summary>
                 <textarea class="ck-note" data-id={it.id} rows="2" placeholder="e.g. what you checked, the figure, who confirmed it"></textarea>
               </details>
+              <div class="ck-note-print" data-id={it.id} hidden></div>
             </li>
           ))}
         </ul>
@@ -521,7 +536,7 @@ const description =
     .ck-coffee-btn { flex: 1 1 auto; }
   }
 
-  .ck-print-head, .ck-print-foot { display: none; }
+  .ck-print-head, .ck-print-foot, .ck-note-print { display: none; }
 
   @media print {
     @page { margin: 14mm 12mm; }
@@ -559,8 +574,15 @@ const description =
     .ck-disclaimer a { color: inherit; text-decoration: none; }
     .ck-page { padding: 0; }
     .ck-item { break-inside: avoid; border-color: #999; }
-    .ck-notes.has-note summary { display: none; }
-    .ck-note { border: none; padding: 0; resize: none; }
+    .ck-notes { display: none !important; }
+    .ck-note-print:not([hidden]) {
+      display: block; margin: 6px 0 0 28px; padding: 2px 0 2px 8px;
+      border-left: 3px solid #0b5cab; font-size: 11px; font-style: italic; color: #111827; white-space: pre-wrap;
+    }
+    .ck-note-print:not([hidden])::before {
+      content: 'My note'; display: block; font-style: normal; font-weight: 700; font-size: 9.5px;
+      text-transform: uppercase; letter-spacing: 0.04em; color: #0b5cab; margin-bottom: 1px;
+    }
   }
 </style>
 
@@ -636,7 +658,10 @@ const description =
       if (el) el.textContent = `${n}/${bs.length}`;
     });
     for (const t of notes) {
-      t.closest('.ck-notes')!.classList.toggle('has-note', t.value.trim() !== '');
+      const v = t.value.trim();
+      t.closest('.ck-notes')!.classList.toggle('has-note', v !== '');
+      const mirror = t.closest('.ck-item')!.querySelector<HTMLElement>('.ck-note-print');
+      if (mirror) { mirror.textContent = v; mirror.hidden = v === ''; }
     }
   }
 
