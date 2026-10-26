@@ -55,6 +55,27 @@ const sections: Section[] = [
     title: '2. The quote and the finance',
     items: [
       {
+        id: 'savings-figure',
+        title: 'I understand the "savings" figure in provider quotes is typically fallacious, and I used a fuller simulation instead',
+        detail:
+          'Most providers measure "savings" against a strawman: the same lease paid with post-tax money and no GST saving, which nobody would actually do. A large "saving" can even be a net loss. This site’s calculator instead simulates your cashflow, assets and liabilities against realistic alternatives.',
+        links: [
+          { label: 'A $21,320 "saving" that was a $5,591 loss', href: '/costs-and-savings/false-saving-example/' },
+          { label: 'Why "tax saved" is the wrong metric', href: '/costs-and-savings/why-tax-saved-is-wrong/' },
+          { label: '20 calculators reviewed', href: '/start-here/calculator-comparison/' },
+        ],
+      },
+      {
+        id: 'net-outcome',
+        title: 'I compared against keeping my current car, not just against buying the same new car with cash',
+        detail:
+          '"Compare with keeping current car" in the calculator is the realistic reference point for most people. "New car by lease vs new car by cash" flatters the lease, and the quote’s "tax saved" figure flatters it more.',
+        links: [
+          { label: 'Keeping the current car', href: '/costs-and-savings/ev-nl-vs-keeping-petrol-car/' },
+          { label: 'Calculator', href: '/calculator/' },
+        ],
+      },
+      {
         id: 'effective-rate',
         title: 'I checked the effective interest rate in the calculator',
         detail:
@@ -172,7 +193,7 @@ const sections: Section[] = [
         id: 'super',
         title: 'Payroll has confirmed in writing whether super is paid on my pre-lease or post-lease salary',
         detail:
-          'On post-lease salary, you lose 12% of everything you sacrifice, which can exceed $10,000 over an EV lease. Check again after any payroll change, such as Payday Super from 1 July 2026.',
+          'On post-lease salary, you lose 12% of everything you sacrifice, which can exceed $10,000 over an EV lease. Check again after any payroll change, such as Payday Super from 1 July 2026. If payroll uses the post-lease salary, consider raising it with your employer (check your award or enterprise agreement first), and/or count the lost super in your overall comparison: the calculator’s super guarantee section estimates it.',
         links: [{ label: 'Super guarantee', href: '/special-and-policy/super-guarantee/' }],
       },
       {
@@ -211,16 +232,6 @@ const sections: Section[] = [
         title: 'NSW Health doctor or nurse: the employer share is in my figures',
         detail: 'NSW Health keeps part of the tax saving on all salary packaging, including novated leases. Tip: if you also have separate employment with another organisation, strongly consider doing the novated lease through that employment instead, so you don’t lose part of the saving to the employer share. Reminder: the tax saving depends on your TOTAL taxable income, not just that job’s income, so it does not matter if the other employment only pays $30k.',
         links: [{ label: 'NSW Health employer share', href: '/special-and-policy/nsw-health-employer-share/' }],
-      },
-      {
-        id: 'net-outcome',
-        title: 'I compared against keeping my current car, not just against buying the same new car with cash',
-        detail:
-          '"Compare with keeping current car" in the calculator is the realistic reference point for most people. "New car by lease vs new car by cash" flatters the lease, and the quote’s "tax saved" figure flatters it more.',
-        links: [
-          { label: 'Keeping the current car', href: '/costs-and-savings/ev-nl-vs-keeping-petrol-car/' },
-          { label: 'Why "tax saved" is the wrong metric', href: '/costs-and-savings/why-tax-saved-is-wrong/' },
-        ],
       },
     ],
   },
