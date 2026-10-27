@@ -13,7 +13,7 @@ While many calculators compete by slickness and user-friendliness, the main aim 
 
 :::warning[What we found]
 - **All of the top 20** calculators returned by Google are run by companies that sell novated leases.
-- **18 of 20** show only a "tax saving" — a figure that can overstate your true benefit by tens of thousands of dollars. One further site shows both, but buries the net saving in an expandable section.
+- **18 of 20** show only a :tip["tax saving"]{id=taxSaved} — a figure that can overstate your true benefit by tens of thousands of dollars. One further site shows both, but buries the net saving in an expandable section.
 - **5 of 20** won't show you a single number until you hand over your phone number and email to a salesperson.
 - **None of the 20** compare a novated lease against the most realistic alternative: keeping the car you already have.
 - **Two independent calculators provide honest outputs** — and neither appears in the first two pages of search results. They are included here for completeness.
@@ -133,7 +133,7 @@ Of the 22 calculators reviewed:
 
 - **3** (Toyota Fleet Management, Leasecheck.au and this site) correctly benchmark against a genuine net saving
 - **1** (Leaselab) shows a tax saving headline with a net saving tucked in an expandable section
-- **18** show only a tax saving — or a "saving" defined as the cost of the lease paid post-tax without a GST exemption, which is not a realistic alternative. 
+- **18** show only a :tip[tax saving]{id=taxSaved} — or a "saving" defined as the cost of the lease paid post-tax without a GST exemption, which is not a realistic alternative. 
 
 The tax saving figure [consistently overstates the true benefit](/costs-and-savings/false-saving-example/), such that it's entirely possible for a claimed $21,000 tax savings to translate to $5,000 loss when compared to a cash purchase alternative. 
 

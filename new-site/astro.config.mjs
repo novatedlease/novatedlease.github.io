@@ -6,6 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
 import { remarkAdmonitions } from './src/plugins/remark-admonitions.mjs';
+import { remarkTip } from './src/plugins/remark-tip.mjs';
 import { rehypeByline } from './src/plugins/rehype-byline.mjs';
 
 export default defineConfig({
@@ -28,6 +29,7 @@ export default defineConfig({
       remarkDirective,
       [remarkMath, { singleDollarTextMath: false }],
       remarkAdmonitions,
+      remarkTip,
     ],
     rehypePlugins: [
       rehypeRaw,

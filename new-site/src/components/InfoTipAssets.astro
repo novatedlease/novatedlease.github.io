@@ -1,0 +1,71 @@
+---
+// Popup styles and click handler for .nl-term triggers (InfoTip component or the :tip[] markdown directive).
+---
+<style is:global>
+  .nl-term { text-decoration: underline dotted; text-decoration-thickness: 1px; text-underline-offset: 4px; cursor: pointer; }
+  .nl-term:hover, .nl-term[aria-expanded='true'] { color: var(--nl-blue); }
+  .nl-term:focus-visible { outline: 2px solid var(--nl-blue); outline-offset: 2px; border-radius: 2px; }
+  .nl-tip {
+    position: fixed; z-index: 2147483647; box-sizing: border-box; width: 380px; max-width: min(86vw, 520px);
+    padding: 14px; border-radius: var(--radius-lg); border: 1px solid rgba(11, 92, 171, 0.35);
+    background: var(--color-surface-raised); box-shadow: var(--shadow-lg);
+    font-size: 13.5px; font-weight: 400; line-height: 1.45; color: var(--color-text-soft);
+  }
+  .nl-tip--wide { width: 520px; }
+  .nl-tip img { display: block; width: 100%; height: auto; margin: 0 0 10px; border-radius: var(--radius-md); }
+  .nl-tip p { margin: 0 0 8px; font-size: inherit; line-height: inherit; color: inherit; }
+  .nl-tip p:last-child { margin: 0; }
+  .nl-tip strong { color: var(--color-text); }
+  .nl-tip a { color: var(--nl-blue); font-weight: 700; text-decoration: underline; }
+  @media print { .nl-term { text-decoration: none; } .nl-tip { display: none; } }
+</style>
+
+<script>
+  let tip: HTMLDivElement | null = null;
+  let tipFor: HTMLElement | null = null;
+  function closeTip(refocus = false) {
+    tip?.remove(); tip = null;
+    if (tipFor) { tipFor.setAttribute('aria-expanded', 'false'); if (refocus) tipFor.focus(); tipFor = null; }
+  }
+  function placeTip() {
+    if (!tip || !tipFor) return;
+    const rects = tipFor.getClientRects();
+    const r = rects[rects.length - 1] ?? tipFor.getBoundingClientRect();
+    const margin = 10;
+    const left = Math.max(margin, Math.min(r.left, window.innerWidth - tip.offsetWidth - margin));
+    let top = r.bottom + 8;
+    if (top + tip.offsetHeight > window.innerHeight - margin) top = Math.max(margin, r.top - 8 - tip.offsetHeight);
+    tip.style.left = left + 'px'; tip.style.top = top + 'px';
+  }
+  function openTip(el: HTMLElement) {
+    closeTip();
+    const html = el.dataset.tipHtml;
+    if (!html) return;
+    tip = document.createElement('div');
+    tip.className = el.dataset.tipWide ? 'nl-tip nl-tip--wide' : 'nl-tip'; tip.setAttribute('role', 'tooltip');
+    tip.innerHTML = html;
+    tip.querySelectorAll('a').forEach((a) => { a.target = '_blank'; a.rel = 'noopener noreferrer'; });
+    tip.querySelectorAll('img').forEach((i) => i.addEventListener('load', placeTip));
+    document.body.appendChild(tip);
+    tipFor = el; el.setAttribute('aria-expanded', 'true');
+    placeTip();
+  }
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const term = target.closest<HTMLElement>('.nl-term');
+    if (term) {
+      e.preventDefault();
+      if (tipFor === term) closeTip(); else openTip(term);
+    } else if (tip && !tip.contains(target)) closeTip();
+  });
+  document.addEventListener('keydown', (e) => {
+    const t = e.target as HTMLElement;
+    if (e.key === 'Escape' && tip) { closeTip(true); return; }
+    if ((e.key === 'Enter' || e.key === ' ') && t.classList?.contains('nl-term')) {
+      e.preventDefault();
+      if (tipFor === t) closeTip(); else openTip(t);
+    }
+  });
+  window.addEventListener('scroll', placeTip, true);
+  window.addEventListener('resize', placeTip);
+</script>

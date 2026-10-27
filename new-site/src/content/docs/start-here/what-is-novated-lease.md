@@ -148,7 +148,7 @@ This does **not** mean every novated lease is a good deal.
 
 Most novated lease calculators emphasise:
 
-- “tax saved” figures
+- :tip[“tax saved”]{id=taxSaved} figures
 
 while quietly minimising your attention on:
 

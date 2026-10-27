@@ -136,7 +136,7 @@ In these cases, **downside risks are more likely to outweigh headline savings**.
 
 ## The most common mistake: using the wrong savings benchmark
 
-As [elaborated elsewhere](/costs-and-savings/why-tax-saved-is-wrong/), most novated lease quotes' "savings" figures are based on the benchmark of:
+As [elaborated elsewhere](/costs-and-savings/why-tax-saved-is-wrong/), most novated lease quotes' :tip["savings" figures]{id=taxSaved} are based on the benchmark of:
 
 > “Funding the same car using the same high-interest lease but with post-tax income.”
 

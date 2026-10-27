@@ -1,5 +1,7 @@
 ---
 import FullPage from '../../layouts/FullPage.astro';
+import InfoTip from '../../components/InfoTip.astro';
+import { tips } from '../../data/tips.mjs';
 
 // Build stamp appended to the calculator bundle URLs. The bundle keeps stable
 // filenames (main.js / style.css), so without this a browser can keep serving a
@@ -70,7 +72,7 @@ const faqSchema = {
     <h1>Novated Lease Calculator (Australia)</h1>
     <p>
       Independent <strong>Australian novated lease calculator</strong> to compare novated lease vs cash purchase vs car loan vs keeping your current car, focused on your <strong>real net financial outcome</strong> —
-      not just headline <a href="/costs-and-savings/false-saving-example/">"tax saved" figures that can be misleading</a>.
+      not just headline <InfoTip html={tips.taxSaved} wide>"tax saved" figures that can be misleading</InfoTip>.
     </p>
     <p>
       <strong>Built and maintained</strong> by an <a href="/about/about-me/">independent Australian specialist doctor</a> with formal training in statistics and a competitive mathematics background — not affiliated with any financier or novated lease / salary packaging company.
@@ -146,7 +148,7 @@ const faqSchema = {
     <details class="faq-item" id="faq-tax-saving">
       <summary><h3>Why doesn't this calculator display a "tax saving" figure?</h3></summary>
       <div class="faq-answer">
-      <p>You may notice that this calculator does not prominently display a single "tax saved" number — and that is deliberate. Novated lease providers often emphasise tax savings because it is psychologically compelling. However, tax reduction is only one component of the overall financial equation. A novated lease may also involve higher effective interest rates, management fees, brokerage, GST interactions, and early‑termination risks. Focusing solely on "tax saved" can therefore be misleading as explained in <a href="/costs-and-savings/why-tax-saved-is-wrong/">this explanatory article</a> and <a href="/costs-and-savings/false-saving-example/">a fully worked example</a>.</p>
+      <p>You may notice that this calculator does not prominently display a single <InfoTip html={tips.taxSaved} wide>"tax saved"</InfoTip> number — and that is deliberate. Novated lease providers often emphasise tax savings because it is psychologically compelling. However, tax reduction is only one component of the overall financial equation. A novated lease may also involve higher effective interest rates, management fees, brokerage, GST interactions, and early‑termination risks. Focusing solely on "tax saved" can therefore be misleading as explained in <a href="/costs-and-savings/why-tax-saved-is-wrong/">this explanatory article</a> and <a href="/costs-and-savings/false-saving-example/">a fully worked example</a>.</p>
       </div>
     </details>
 

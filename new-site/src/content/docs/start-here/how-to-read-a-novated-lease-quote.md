@@ -33,7 +33,7 @@ If these assumptions fail, outcomes can change significantly.
 
 ### “Tax saved”
 
-Quotes often headline a large "tax saving" figure.
+Quotes often headline a large :tip["tax saving"]{id=taxSaved} figure.
 
 This number:
 

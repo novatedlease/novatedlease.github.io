@@ -7,81 +7,44 @@ description: Why "tax saved" is the wrong way to evaluate a novated lease, and w
 
 # Why “tax saved” is the wrong way to evaluate a novated lease
 
-One of the most common ways novated leases are marketed is via a single headline number:
-
-> **“Tax saved”**
-
-Or sometimes, more insidiously:
-
-> **“Savings”**
+One of the most common ways novated leases are marketed is via a single headline number, usually labelled **“Tax saved”** or, more insidiously, **“Savings”**.
 
 This figure is often presented as if it directly answers the question people actually care about — *“Will I be better off?”*
 
-At face value, this sounds sensible. Tax is a cost, so the amount saved feels like the amount you are better off. The problem is that **“tax saved” is not a complete measure of one's net outcome**. Considering tax savings in isolation is incomplete and hugely misleading.
+At face value, this sounds sensible. Tax is a cost, so the amount saved feels like the amount you are better off. The problem is that **“tax saved” is not a complete measure of one's net outcome**.
 
 :::info[Worked example]
-A concrete numerical example of this problem is worked through in detail using a real novated lease quote that advertised a large “saving” figure but resulted in a worse net outcome (compared to cash purchase) once all cashflows and opportunity costs were considered:
-
-- [How the marketed “$21,320 savings” is in fact a $5,591 net loss](/costs-and-savings/false-saving-example/)
+A real quote that advertised a large “saving” but left the customer worse off than a cash purchase: [How the marketed “$21,320 savings” is in fact a $5,591 net loss](/costs-and-savings/false-saving-example/)
 :::
 
 ---
 
-## The printer analogy
+## The chocolate bar analogy
 
-Consider the following scenario.
+This is my favourite way to explain the problem.
 
-A person on the top marginal tax rate walks into Officeworks to buy a printer for work use.
+<img src="/assets/images/chocolate-bar-analogy.webp" width="2000" height="1125" alt="Two shops sell the same 250g dark chocolate block. Shop A: everyday price $10. Shop B: was $15, now $8, save $7." style="max-width: 100%; height: auto; border-radius: 8px;">
 
-- There is a $300 printer that meets their needs. They know that if they buy it outright, they can claim it as a tax deduction, and at a 45% marginal tax rate plus 2% Medicare levy, they will receive 47% × $300 = $141 back as a tax refund.
-- The salesperson instead recommends a **leasing arrangement**, where they pay $12 per month over three years and own the printer outright at the end.
-- Their argument is:
-  > “You’re on the top marginal tax rate.  
-  >
-  > When you claim all your leasing costs on tax, you will save  
-  > 47% × 3 years × 12 months × $12 = **$203.04** in tax!  
-  >
-  > Wouldn’t you want to save over $200 in tax?”
+A block of chocolate normally sells for $10 at Shop A. Shop B assumes a high base price of $15, then discounts it to $8 and announces **“SAVE $7”**.
 
-That statement is *technically true*.
+That statement is *technically true* against the $15 sticker. But the shopper never intended to pay $15. Compared with the $10 they would have paid anyway, the real saving is **$2**.
 
-However:
-
-- In the cash purchase scenario, the total post-tax cost is  
-  $300 − $141 = **$159**.
-- In the printer-leasing scenario, the total post-tax cost is  
-  3 × 12 × $12 − $203.04 = **$228.96**.
-
-You did not save money.
-
-You saved more tax, but you paid more and are poorer.[^1]
-
-This is exactly the error that occurs when novated leases are evaluated only on “tax saved”.
-
-[^1]: A more complete comparison would also incorporate the opportunity cost of not paying cash upfront in the leasing scenario. This is omitted here for simplicity.
+A “tax saved” figure works the same way. It is measured against a reference point you may never have intended to take, so it tells you how big the discount is, not whether you are better off.
 
 ---
 
 ## Tax saved is a discount
 
-It is more accurate to think of tax saved from spending pre-tax income as:
+Tax saved from spending pre-tax income is best thought of as **an effective discount applied to spending**. At a 30% marginal tax rate plus 2% Medicare levy, spending $1,000 of pre-tax income costs you **$680** after tax, a **32% discount**. At 37% or 45%, the effective discount is **39% or 47%**, which is why higher tax-bracket earners generally derive greater savings from novated leases.
 
-> **an effective discount applied to spending**
-
-For example, if you spend $1,000 of pre-tax income and your marginal tax rate is 30% plus 2% Medicare levy, the reduction in income tax means the net financial effect is equivalent to spending **$680** after tax. In other words, it is as if you have received a **32% discount**.
-
-Similarly, at marginal tax rates of 37% or 45%, spending pre-tax dollars is equivalent to receiving an effective **39% or 47% discount**, respectively. This is why higher tax-bracket earners generally derive greater savings from novated leases.
-
-However, a discount is only beneficial if the discounted price is lower than the best alternative.
-
-A 32%, 39%, or 47% discount does not automatically make something good value, especially if:
+But a discount is only beneficial if the discounted price is lower than the best alternative. In the chocolate example, Shop B's sign advertises a 47% discount ($15 down to $8), yet the real saving against the $10 you would have paid anyway is only 20%. A large discount does not make something good value if:
 
 - the base price is excessively inflated, or
 - the bundled package includes things you would not otherwise buy.
 
 ---
 
-## Paying more to save tax is not necessarily a win even when the number works
+## Paying more to save tax is not a win
 
 If a novated lease arrangement results in:
 
@@ -102,11 +65,7 @@ The relevant question is **net financial position *and* non-financial costs**, n
 
 ## How novated lease quotes exaggerate “savings”
 
-Many novated lease quotes and calculators present impressive-looking “savings” figures.  
-
-These figures are often *technically defensible*, but analytically weak.
-
-The core issue is not arithmetic; it is the **choice of benchmark**.
+Many quotes and calculators present “savings” figures that are *technically defensible* but analytically weak. The core issue is not arithmetic; it is the **choice of benchmark**.
 
 ### The baseline problem
 
@@ -114,7 +73,7 @@ Many novated lease quotes implicitly assume the following comparison when presen
 
 > “If you didn’t novate, you would have leased the car using the same fee structure, funded with post-tax income.”
 
-This is a poor and unrealistic baseline.
+This is a poor and unrealistic baseline. It is like suggesting you would otherwise have paid $15 for the chocolate in the analogy above.
 
 For most people, realistic alternatives include:
 
@@ -123,9 +82,7 @@ For most people, realistic alternatives include:
 - buying a cheaper or used vehicle
 - keeping their existing car
 
-Comparing a novated lease against a deliberately inferior alternative will almost always make it appear attractive — but that does not answer the question most people actually care about: *Am I better off compared to what I would realistically do otherwise?*
-
-A comparison against a strawman benchmark is analytically meaningless.
+Comparing a novated lease against a deliberately inferior alternative will almost always make it appear attractive, but that does not answer the question most people actually care about: *Am I better off compared to what I would realistically do otherwise?*
 
 ### How calculators turn weak benchmarks into big “savings”
 
@@ -142,28 +99,14 @@ None of this is illegal. Taken together, however, it biases the comparison towar
 
 ## What you should compare instead
 
-The correct question is **not**:
-
-> “How much tax do I save?”
-
-The correct question is:
+Not “How much tax do I save?”, but:
 
 > **“Compared to my best realistic alternative, am I financially better off overall?”**
 
-That requires comparing:
-
-- the same car,
-- over the same time period,
-- under the same usage assumptions,
-- against realistic alternatives,
-- across cashflow, assets, and liabilities.
-
-This is what the [novated lease calculator](/calculator/) aims to achieve — comparing realistic alternatives on a like-for-like basis. 
+That means comparing the same car, over the same period, under the same usage assumptions, against realistic alternatives, across cashflow, assets, and liabilities. This is what the [novated lease calculator](/calculator/) aims to do.
 
 ---
 
 ## Key takeaway
-
-If you remember nothing else:
 
 > **Tax saved is only one small part of the overall financial outcome. Compare total net financial outcomes instead of relying solely on a tax-saved figure.**

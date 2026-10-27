@@ -1,9 +1,12 @@
 ---
 import FullPage from '../layouts/FullPage.astro';
+import InfoTip from '../components/InfoTip.astro';
+import { tips } from '../data/tips.mjs';
 import { testimonials } from '../data/testimonials';
 
 // Eight rendered at build time (no-JS fallback + indexable); the inline script below
 // swaps in a random eight from the full pool on each load.
+const taxSavedTip = tips.taxSaved;
 const initialTestimonials = testimonials.slice(0, 8);
 ---
 
@@ -20,7 +23,8 @@ const initialTestimonials = testimonials.slice(0, 8);
       <div class="home-hero-left">
         <div class="home-hero">
           <h1>Novated Lease Guide & Calculator</h1>
-          <p class="home-hero-sub">Your <strong>true net cost</strong> — not the "tax saved" figure providers advertise.</p>
+          <p class="home-hero-sub">Your <strong>true net cost</strong> — not the <InfoTip html={taxSavedTip} wide>misleading "tax saved" figure</InfoTip>.
+          </p>
 
           <div class="home-cta-block">
             <div class="home-cta-row">

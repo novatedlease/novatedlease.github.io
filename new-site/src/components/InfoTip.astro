@@ -1,0 +1,8 @@
+---
+// Dotted-underline term that opens a calculator-style popup on click or tap.
+// Default slot = the visible term; `html` = trusted, author-written popup markup.
+const { html, wide = false } = Astro.props;
+import InfoTipAssets from './InfoTipAssets.astro';
+---
+<span class="nl-term" role="button" tabindex="0" aria-expanded="false" data-tip-html={html} data-tip-wide={wide ? '1' : undefined}><slot /></span>
+<InfoTipAssets />

@@ -146,5 +146,5 @@ The legislated minimum employer superannuation contribution — currently 12%. S
 
 ---
 
-**Tax saving**
+**:tip[Tax saving]{id=taxSaved}**
 The reduction in income tax and Medicare levy resulting from the pre-tax salary deductions in a novated lease, plus the GST avoided on the car purchase. This figure is widely marketed by novated lease providers as *the* measure of value — but it consistently overstates the true financial benefit because it ignores the other cost of the lease (interest, fees, commissions) compared with alternatives. Contrast with *net saving*. See [Why "tax saved" is the wrong metric](/costs-and-savings/why-tax-saved-is-wrong/).

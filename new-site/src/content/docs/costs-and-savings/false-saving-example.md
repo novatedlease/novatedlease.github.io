@@ -132,7 +132,7 @@ Bringing all components together:
 
 This indicates that, despite the advertised "$21,320.53 savings," the novated lease produces a net **$5,591 loss** compared to purchasing the vehicle with cash from the offset account after 5 years.
 
-> **Why "Tax Saved" ≠ "Money Saved":**  
+> **Why :tip["Tax Saved"]{id=taxSaved} ≠ "Money Saved":**  
 > The quoted "total savings" often reflect tax reductions but omit management fees, higher effective interest rates, luxury vehicle adjustments, and residual value obligations. These factors significantly affect the net financial outcome.
 
 ---
