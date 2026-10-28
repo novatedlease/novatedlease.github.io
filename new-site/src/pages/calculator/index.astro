@@ -31,6 +31,11 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
+      name: 'Can I upload my quote as a PDF and have the calculator fill in the figures automatically?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No, and this is deliberate. AI-assisted PDF parsing costs money for every quote, which is not feasible for a largely free site funded by modest donations. It also still makes mistakes on the confusing layouts some lease providers use, and wrong figures that look authoritative can give false confidence. Entering the figures yourself also helps you understand what you are signing up for, such as the difference between the finance component and the running cost component, and how pre-tax figures translate to post-tax. Most fields have a tooltip or hint, and a guided tour walks through Advanced mode. If you are unsure what to enter, ask in an online forum so a real person can go through your numbers. If you still want AI help, you can point ChatGPT, Claude or a similar assistant at the calculator page, attach your own quote and ask how to enter the figures, with the same caveats.' },
+    },
+    {
+      '@type': 'Question',
       name: 'Does this calculator work for a used or second-hand car?',
       acceptedAnswer: { '@type': 'Answer', text: 'Yes. Set the vehicle condition to used (dealer sale) or used (private sale). A dealer sale attracts the GST saving on the purchase price; a private sale has no GST in the price, so there is no GST credit. For a used EV on a lease starting before 1 April 2027, the FBT exemption only applies if the car was first held and used on or after 1 July 2022 and Luxury Car Tax was never payable on it, and the calculator asks you to confirm both. Under the September 2026 exposure draft, those two tests do not apply to leases starting from 1 April 2027.' },
     },
@@ -135,6 +140,19 @@ const faqSchema = {
       <summary><h3>Does this calculator support fractional lease terms like 13 months or 25 months?</h3></summary>
       <div class="faq-answer">
       <p>No. The calculator supports whole-year lease durations only (1–5 years), and this is a deliberate design choice. Fractional lease durations introduce ambiguities around residual values, annual running costs, and fortnight counts that are handled inconsistently between providers. Modelling them with false precision would likely produce misleading results.</p>
+      </div>
+    </details>
+
+    <details class="faq-item" id="faq-pdf-upload">
+      <summary><h3>Can I upload my quote as a PDF and have it fill in the figures automatically?</h3></summary>
+      <div class="faq-answer">
+      <p>No. This is a known limitation and one I have chosen not to change, for three reasons:</p>
+      <ul>
+        <li><strong>Cost.</strong> AI-assisted PDF parsing, which is what some other sites offer, consumes paid tokens on every quote, and free tiers only stretch so far. With close to 1,000 distinct visitors a day, more than half of whom actively use the calculator, it is not financially feasible on a largely free website funded by modest donations.</li>
+        <li><strong>Accuracy.</strong> AI parsing still makes mistakes. In my testing of those other sites it usually handles simple quotes well, but often stumbles on the confusing layouts a few lease providers use and produces wrong figures. I don't want people gaining false confidence from output that looks authoritative but may be wrong. If you're unsure, I'd rather you post in an online forum so a real person can go through your numbers. I chip in from time to time too, especially on questions about this website and the calculator.</li>
+        <li><strong>Understanding.</strong> Working through the figures yourself builds a mental picture of what you are signing up for. For example, it's worth understanding the difference between the finance component and the running cost component, and how pre-tax figures translate to post-tax. For such a large financial commitment and such a complex structure, I strongly encourage you to understand it yourself rather than hand it off to a fallible machine.</li>
+      </ul>
+      <p>To help with the fields, most inputs have an info tooltip or a hint underneath, and the guided tour (start it from the calculator) walks through Advanced mode step by step. The <a href="/start-here/use-nl-calculator/">calculator guide</a> explains each field, and <a href="/start-here/how-to-read-a-novated-lease-quote/">how to read a novated lease quote</a> shows where the figures sit in a typical quote. If you still want AI help, you can point ChatGPT, Claude or a similar assistant at this page, attach your own quote and ask how to enter the figures. All the caveats above still apply.</p>
       </div>
     </details>
 
