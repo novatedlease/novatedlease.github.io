@@ -76,16 +76,20 @@ export function CoffeeNudgeModal(props: { onClose: (reason: "dismissed" | "suppo
             <a href="/about/history/" target="_blank" rel="noopener">
               original financial model
             </a>
-            , built from scratch and maintained over hundreds of hours. Yet everything is free. That is deliberate: I want as many people as
-            possible to see through the industry's sales maths. I would rather help many more people than squeeze a few extra bucks out of it by
-            charging admission at the door.
+            , built from scratch and improved over hundreds of hours. I keep it free on purpose: I want as many people as possible to see through
+            the industry's sales maths, not only those willing to pay.
           </p>
           <p>
-            That said, I believe in its value. With motivated readers, we have helped keep novated lease companies honest and pushed back on
-            dishonest practices. Many have taken the effective interest rate back to their provider, negotiated several percentage points off, and
-            saved thousands. Others gained clarity, mitigated risks, or talked themselves out of an expensive mistake.
+            It is working. Readers tell me they took the effective interest rate back to their provider, negotiated several percentage points off,
+            and saved thousands. Others understood a quote better, spotted a risk, or talked themselves out of an expensive mistake.{" "}
+            <a href="/about/what-readers-say/" target="_blank" rel="noopener">
+              Read what they say.
+            </a>
           </p>
-          <p>If it has done any of that for you, a coffee is genuinely appreciated and helps keep it going.</p>
+          <p>
+            If it has done any of that for you, a coffee is genuinely appreciated. It helps cover the time and effort it takes to produce new
+            content and keep it fresh.
+          </p>
           <p className="nlc-coffee-fineprint">No pressure, and nothing changes if you say no. This shows once and won't appear again in this browser.</p>
         </div>
 
