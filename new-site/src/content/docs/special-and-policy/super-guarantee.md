@@ -25,8 +25,7 @@ This page explains why, with direct reference to the ATO’s own guidance.
 
 A commonly cited argument goes like this:
 
-> “Since 1 January 2020, employers must calculate super on pre-salary-sacrifice income.  
-> Therefore novated leases can’t reduce super.”
+> “I remember the government closing a loophole so that super has to be calculated on pre-salary-sacrifice income. I read something along those lines. So surely they have to pay super on the figure before the novated lease!”
 
 This belief is **only partially correct**.
 
@@ -79,7 +78,7 @@ GN 2020/1 then gives an *explicit worked example* that removes any ambiguity.
 Sharon’s OTE base becomes:
 
 - $1,500 (post-sacrifice wage)  
-- + $300 (super sacrifice)  
+- plus $300 (super sacrifice)  
 - = **$1,800**
 
 SG obligation:
