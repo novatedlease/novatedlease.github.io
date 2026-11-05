@@ -1,13 +1,13 @@
 ---
 title: "Super guarantee and payroll risks"
 datePublished: "2026-01-06"
-dateModified: "2026-07-15"
+dateModified: "2026-11-05"
 description: Super guarantee and payroll risks in a novated lease — how some employers calculate SG on your reduced salary instead of your original ordinary time earnings, what changed (and didn't) with Payday Super from July 2026, and what to check.
 ---
 
 # Super guarantee and payroll risks
 
-One of the least discussed — and most poorly understood — risks of novated leasing is **how your employer calculates super guarantee (SG)** i.e. the minimum employer superannuation contribution, currently 12% of your ordinary time earnings.
+One of the least discussed — and most poorly understood — risks of novated leasing is **how your employer calculates super guarantee (SG)** i.e. the minimum employer superannuation contribution, currently 12% of your ordinary time earnings (renamed **qualifying earnings** from 1 July 2026 under Payday Super).
 
 ---
 
@@ -97,11 +97,43 @@ Source: GN 2020/1
 
 ---
 
+## What the legislation says: s15A, now s10A(1)(h)
+
+GN 2020/1 is guidance. The rule itself sits in the *Superannuation Guarantee (Administration) Act 1992*, and it rests on a narrow, defined meaning of "salary sacrifice".
+
+### 1 January 2020 to 30 June 2026: section 15A
+
+The 2020 change inserted **section 15A**, which defined a *salary sacrifice arrangement* for SG purposes:
+
+> **15A(1)** An arrangement under which a contribution is, or is to be, made to a complying superannuation fund or an RSA by an employer for the benefit of an employee is a ***salary sacrifice arrangement*** if the employee agreed:  
+> (a) for the contribution to be made; and  
+> (b) in return, for either or both of the following amounts to be reduced (including to nil):  
+> (i) the ordinary time earnings of the employee;  
+> (ii) the salary or wages of the employee.
+
+In everyday language, "salary sacrifice" covers any pre-tax deduction, including a novated lease. **In the SG Act it only means giving up salary in return for a super contribution.** Only those amounts had to be added back to the OTE base. A novated lease deduction was never a "salary sacrifice arrangement" in this sense, which is why the Sharon example leaves the $200 out.
+
+### From 1 July 2026: section 10A(1)(h)
+
+Payday Super (*Treasury Laws Amendment (Payday Superannuation) Act 2025*) **repealed section 15A** and replaced the OTE base with **qualifying earnings**, defined in section 10A. The salary sacrifice rule moved into paragraph 10A(1)(h), which counts:
+
+> **10A(1)(h)** if under an arrangement the person agreed for:  
+> (i) a contribution to be made to a complying superannuation fund or an RSA for the benefit of the person by the person's employer; and  
+> (ii) in return, for the reduction (including to nil) of one or more amounts of a kind described in paragraphs (a) to (g) of this subsection but not in subsection (3) of this section;
+>
+> an amount equal to the total of those reductions.
+
+The Act no longer has a stand-alone definition of "salary sacrifice arrangement", but **the essence is unchanged**: salary given up only counts towards the SG base if it was given up *in return for a super contribution*. Salary sacrificed into a novated lease is not paid to you, so it falls outside paragraphs (a) to (g), and it is not exchanged for a super contribution, so paragraph (h) does not add it back.
+
+Sources: [SG Act as in force from 1 July 2026 (legislation.gov.au)](https://www.legislation.gov.au/C2004A04402/2026-07-01/2026-07-01/text/original/epub/OEBPS/document_1/document_1.html); [ATO: What payments are qualifying earnings](https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/what-payments-are-qualifying-earnings)
+
+---
+
 ## What this means in practice
 
-Legally, under current ATO guidance:
+Legally, both before and after Payday Super:
 
-- Employers **must** calculate SG on pre-sacrifice income **for super sacrifice**
+- Employers **must** calculate SG on pre-sacrifice income **for salary sacrificed into super**
 - Employers **may** calculate SG on **post-novated-lease income** for novated leases
 
 There is **no requirement** for them to add novated lease amounts back.
@@ -176,7 +208,7 @@ That makes this a **real, if uncommon, risk** worth understanding before you sig
 :::warning[Alert: check your super after 1 July 2026 — the Payday Super changeover]
 **Payday Super** — the new regime requiring employers to remit super contributions within days of each payday rather than quarterly — took effect from **1 July 2026**. It came to my attention that this new policy has led to some employers switching their calculation to **post-novated-lease income**, even when it was previously calculated on pre-NL income. If this happened to you, you permanently lose 12% of your sacrificed amount — which can add up to **$10,000+ over the life of an EV novated lease**.
 
-**Has Payday Super actually forced this? No.** The new “qualifying earnings” base that underpins Payday Super treats salary sacrifice exactly as before: non-super sacrifice (novated leases, laptops, and similar arrangements) is still excluded from the SG minimum — the same GN 2020/1 rule explained above, completely unchanged. Employers *could* always calculate SG on your post-NL figure; most simply chose to keep the pre-NL figure and “do the right thing.” Nothing about Payday Super changed that choice either way.
+**Has Payday Super actually forced this? No.** Payday Super repealed section 15A, but moved the same rule into the new “qualifying earnings” definition at section 10A(1)(h) ([explained above](#what-the-legislation-says-s15a-now-s10a1h)). Only salary given up in return for a super contribution is added back; non-super sacrifice (novated leases, laptops, and similar arrangements) is still excluded from the SG minimum — the same GN 2020/1 rule, in substance unchanged. Employers *could* always calculate SG on your post-NL figure; most simply chose to keep the pre-NL figure and “do the right thing.” Nothing about Payday Super changed that choice either way.
 
 **So if your super has dropped since 1 July 2026, it's most likely one of two things:** (1) payroll was reconfigured for Payday Super and the new software defaulted to excluding the novated lease portion — an implementation issue rather than a deliberate policy change, or (2) your employer used the changeover as cover to quietly drop to the legal minimum — exactly the risk this page has always described, just newly triggered by an unrelated administrative change.
 
