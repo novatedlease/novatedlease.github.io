@@ -2,7 +2,7 @@
 datePublished: "2026-01-06"
 dateModified: "2026-07-05"
 title: "Is a Novated Lease Worth It? An Independent 2026 Answer"
-description: "Short answer: often yes for an FBT-exempt EV on a higher income, often no for a petrol car or a short lease. An independent 2026 guide to the real numbers, the traps in \"tax saved\" figures, residuals and early exit, and when to walk away."
+description: "Often yes for an FBT-exempt EV on a higher income, often no for a petrol car or short lease. Independent 2026 numbers and the traps in \"tax saved\" figures."
 ---
 
 # Is a novated lease worth it in Australia? (2026 guide)

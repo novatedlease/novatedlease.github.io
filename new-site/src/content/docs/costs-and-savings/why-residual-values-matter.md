@@ -2,7 +2,7 @@
 title: "ATO Residual Value Table for Novated Leases (28.13% Explained)"
 datePublished: "2026-01-06"
 dateModified: "2026-10-21"
-description: ATO minimum residual values for novated leases, from 65.63% at 1 year to 28.13% at 5 years, with the full table, why the ATO sets them (TD 93/142), how to ask for a lower residual under paragraph 4, why a residual is deferred payment rather than saving, and what happens when you extend or pay out early.
+description: "ATO minimum residual values for novated leases: 65.63% at 1 year down to 28.13% at 5 years. Full table, why the ATO sets them, and what a residual really is."
 ---
 
 # ATO residual value table for novated leases (28.13% explained)
