@@ -100,7 +100,12 @@ So “above the cap” is accurate for the ECM route, but not if your provider u
 
 The post-tax ECM contribution is treated as payment for a taxable supply, so one eleventh of it is paid as GST, and that GST is [taken from your pre-tax salary](https://qld.smartsalary.com.au/globalassets/queensland-smartsalary/pdfs/employee-novated-lease-info-book---march-2024.pdf). Using the cap on the car means there is no ECM, and so no ECM GST. That is the entire difference between the two routes.
 
-### Worked example, line by line
+In a typical example (public hospital employee on $100,000, ICE car with a $45,050 base value, 5-year lease, already packaging the full $9,010), the after-tax cost of the car is about **$13,554 a year** with the cap on the car and about **$14,111 a year** with ECM. The gap is roughly **$557 a year** (about $21 a fortnight), which is the after-tax cost of the ECM GST ($819 at 32% marginal tax). Slightly higher reportable income on the cap route can claw a little of that back through HELP repayments or the childcare subsidy, so treat $557 as an upper limit.
+
+Note that neither route is “free”. You still pay $13,500 to $14,100 a year after tax to run the car, and the cap is spent either way.
+
+<details>
+<summary>Show the full working</summary>
 
 I used [this site’s calculator](/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJOb24tRVYiLCJ2ZWhpY2xlQ29uZGl0aW9uIjoiTmV3IiwidXNlZENhckZpcnN0SGVsZEFmdGVySnVsMjAyMiI6ZmFsc2UsInVzZWRDYXJMY3ROZXZlclBheWFibGUiOmZhbHNlLCJ2ZWhpY2xlQmFzZVZhbHVlIjo0NTA1MCwiZHJpdmVhd2F5Q29zdCI6NDkwMDAsImVzdGltYXRlZE1hcmtldFZhbHVlQXRFbmQiOjIwMDAwLCJhbm51YWxNaWxlYWdlS20iOjE1MDAwLCJsZWFzZURvY0ZlZSI6NDUwLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMTItMDUiLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsIm1vbnRoc0RlZmVycmVkIjoyLCJ0b3RhbFRheGFibGVJbmNvbWUiOjEwMDAwMCwiaG9tZUxvYW5PZmZzZXRJbnRlcmVzdFJhdGUiOjYuMSwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJzdXBlckZyb21QcmVObEluY29tZSI6IlllcyIsImdzdFNhdmluZ1Bhc3NlZE9uIjoiWWVzIiwic2VydmljZU1haW50VHlyZXNBbm51YWwiOjczMCwic2F2ZVNoYXJlQW5udWFsIjowLCJyZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiZWxlY3RyaWNpdHlBbm51YWwiOjgyMC41LCJmdWVsQW5udWFsIjoxNjIwLCJpbnN1cmFuY2VBbm51YWwiOjIzMzAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo1MDAsImF2Z0F1ZFBlckt3aCI6MC4zLCJhdmdXaFBlckttIjoxNzAsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMCwiY29tcGFyZVdpdGhDYXJMb2FuIjpmYWxzZSwiY2FyTG9hbkluaXRpYWxEZXBvc2l0IjoxMDAwMCwiY2FyTG9hbkludGVyZXN0UmF0ZVBjdCI6OCwiY2FyTG9hbk1vbnRobHlGZWUiOjI1LCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo0NTM1NC41NDU0NTQ1NDU0NTYsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTI2MzEuNjQ4NjM2MzYzNjM2LCJ2ZWhpY2xlTGVhc2VQZXJGbiI6MzY5LjcyNDA0MDQ5MjMzfX0) (see section 1.1, the Summary) and these assumptions:
 
@@ -153,15 +158,15 @@ The car’s statutory taxable value is $45,050 × 20% = $9,010, which grosses up
 
 The $557 is real, but it is not the $9,010 cap “paying for the car”. In both routes you still pay about $13,500 to $14,100 a year after tax to run the car, and the cap is spent either way.
 
-### HECS and childcare subsidy
+**HECS and childcare subsidy**
 
 RFBA is $17,000 in all three columns, so the reportable amounts barely move between B and C. HECS repayment income (taxable income plus the full RFBA) is $107,990 in A, $101,307 in B and $100,488 in C. For childcare subsidy, hospital and PBI employees count only 53% of RFBA, which is $9,010, so the adjusted taxable income is $100,000 in A, $93,317 in B and $92,498 in C. The difference between B and C is just the $819.09 less pre-tax deduction in B.
 
+</details>
+
 ### Limits of the cap route
 
-- **It only fits if the car’s taxable value fits under the cap.** A base value much above $45,050 uses more than $17,000 grossed up, and the excess is taxed (or needs ECM).
-- **The cap is per employee per FBT year (April to March).** The Driversnote guide notes that [a salary-packaged or novated-lease car counts against it](https://www.driversnote.com.au/ndis-and-care-provider-guide/salary-packaging-cars-and-fbt).
-- **PBIs and health promotion charities have a larger cap** ($15,900, or $30,000 grossed up), so a car fits more easily, but the same logic applies.
+- **The car has to fit under the cap.** A base value much above $45,050 uses more than $17,000 grossed up, and the excess is taxed (or needs ECM). The cap is per employee per FBT year (April to March), and the Driversnote guide notes that [a salary-packaged or novated-lease car counts against it](https://www.driversnote.com.au/ndis-and-care-provider-guide/salary-packaging-cars-and-fbt). PBIs and health promotion charities have a larger cap ($15,900, or $30,000 grossed up), so a car fits more easily.
 - **Your employer or provider must allow it.** Many offer ECM only.
 
 ---
