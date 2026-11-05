@@ -186,4 +186,6 @@ If you remember nothing else:
 
 > **If you were already able to use the $9,010 / $15,900 cap for living expenses, then using it for an ICE novated lease is usually not “extra saving” — it’s mainly a reallocation of the same capped benefit.**
 
+That said, if your employer lets you use the cap on the car, doing so is usually slightly better than ECM, because it avoids the ECM GST (about $557 a year in the example above). It is a small extra, not a reason to count the cap itself as a saving.
+
 Make sure that any quote generated uses the correct assumption if you are a hospital / NFP employee, have already used the $9,010, and are looking at an ICE NL.
