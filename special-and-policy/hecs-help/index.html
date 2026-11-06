@@ -1,0 +1,403 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="color-scheme" content="light dark"><script>
+      // Theme: stored choice wins; otherwise follow the system. Runs before first paint to avoid a flash.
+      (function () {
+        var root = document.documentElement;
+        var stored = null;
+        try { stored = localStorage.getItem('theme'); } catch (e) {}
+        var fromUrl = new URLSearchParams(location.search).get('theme');
+        if (fromUrl === 'dark' || fromUrl === 'light') stored = fromUrl;
+        var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        function apply(t) { if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.setAttribute('data-theme', 'light'); }
+        apply(stored === 'dark' || stored === 'light' ? stored : (mq && mq.matches ? 'dark' : 'light'));
+        if (mq && mq.addEventListener) mq.addEventListener('change', function (e) {
+          var s = null; try { s = localStorage.getItem('theme'); } catch (err) {}
+          if (s !== 'dark' && s !== 'light') apply(e.matches ? 'dark' : 'light');
+        });
+        window.toggleTheme = function () {
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          apply(next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          try { if (typeof gtag === 'function') gtag('event', 'theme_toggled', { theme: next }); } catch (e) {}
+        };
+      })();
+    </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Novated leases and HECS/HELP: why your payslip looks better than your quote — Novated Lease Guide</title><meta name="description" content="Why an EV novated lease can leave you with more take-home pay than quoted, and a HECS bill at tax time. How payroll withholds HELP on your reduced salary while the ATO assesses it on repayment income including RFBA, with a worked example and what to do about it."><link rel="canonical" href="https://novatedlease.guide/special-and-policy/hecs-help/"><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><!-- Open Graph --><meta property="og:type" content="article"><meta property="og:title" content="Novated leases and HECS/HELP: why your payslip looks better than your quote — Novated Lease Guide"><meta property="og:description" content="Why an EV novated lease can leave you with more take-home pay than quoted, and a HECS bill at tax time. How payroll withholds HELP on your reduced salary while the ATO assesses it on repayment income including RFBA, with a worked example and what to do about it."><meta property="og:url" content="https://novatedlease.guide/special-and-policy/hecs-help/"><meta property="og:image" content="https://novatedlease.guide/og/special-and-policy/hecs-help.png?v=2"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Novated leases and HECS/HELP: why your payslip looks better than your quote — Novated Lease Guide"><meta name="twitter:description" content="Why an EV novated lease can leave you with more take-home pay than quoted, and a HECS bill at tax time. How payroll withholds HELP on your reduced salary while the ATO assesses it on repayment income including RFBA, with a worked example and what to do about it."><meta name="twitter:image" content="https://novatedlease.guide/og/special-and-policy/hecs-help.png?v=2"><!-- Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://novatedlease.guide/#website","name":"Novated Lease Guide","url":"https://novatedlease.guide","description":"Independent, evidence-based guide and calculator for understanding novated leases in Australia.","publisher":{"@id":"https://novatedlease.guide/#org"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://novatedlease.guide/"},{"@type":"ListItem","position":2,"name":"Special And Policy","item":"https://novatedlease.guide/special-and-policy/"},{"@type":"ListItem","position":3,"name":"Novated leases and HECS/HELP: why your payslip looks better than your quote","item":"https://novatedlease.guide/special-and-policy/hecs-help/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Novated leases and HECS/HELP: why your payslip looks better than your quote","description":"Why an EV novated lease can leave you with more take-home pay than quoted, and a HECS bill at tax time. How payroll withholds HELP on your reduced salary while the ATO assesses it on repayment income including RFBA, with a worked example and what to do about it.","url":"https://novatedlease.guide/special-and-policy/hecs-help/","image":"https://novatedlease.guide/og/special-and-policy/hecs-help.png?v=2","author":{"@type":"Person","@id":"https://novatedlease.guide/about/about-me/#person","name":"changyang1230","url":"https://novatedlease.guide/about/about-me/","jobTitle":"Anaesthetist, biostatistician, and novated lease consumer advocate","description":"Australian anaesthetist, qualified biostatistician, and former mathematical olympiad national representative. Independent author of novatedlease.guide — a free evidence-based guide and calculator for understanding novated leases in Australia.","knowsAbout":["Novated leasing","Salary packaging","Fringe Benefits Tax","Electric vehicle FBT exemption","Australian personal finance","Australian tax","Biostatistics","Probability and statistics"],"sameAs":["https://www.reddit.com/user/changyang1230","https://buymeacoffee.com/changyang1230"]},"publisher":{"@type":"Organization","@id":"https://novatedlease.guide/#org","name":"Novated Lease Guide","url":"https://novatedlease.guide","logo":{"@type":"ImageObject","url":"https://novatedlease.guide/assets/images/logo.png"},"founder":{"@id":"https://novatedlease.guide/about/about-me/#person"}},"isPartOf":{"@id":"https://novatedlease.guide/#website"},"mainEntityOfPage":"https://novatedlease.guide/special-and-policy/hecs-help/","datePublished":"2026-10-13","dateModified":"2026-10-13"}</script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-52RWVTCGLP"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-52RWVTCGLP', { anonymize_ip: true });
+    </script><link rel="stylesheet" href="/_astro/_slug_.B-GyK2Wv.css">
+<style>.nl-term{text-decoration:underline dotted;text-decoration-thickness:1px;text-underline-offset:4px;cursor:pointer}.nl-term:hover,.nl-term[aria-expanded=true]{color:var(--nl-blue)}.nl-term:focus-visible{outline:2px solid var(--nl-blue);outline-offset:2px;border-radius:2px}.nl-tip{position:fixed;z-index:2147483647;box-sizing:border-box;width:380px;max-width:min(86vw,520px);padding:14px;border-radius:var(--radius-lg);border:1px solid rgba(11,92,171,.35);background:var(--color-surface-raised);box-shadow:var(--shadow-lg);font-size:13.5px;font-weight:400;line-height:1.45;color:var(--color-text-soft)}.nl-tip--wide{width:520px}.nl-tip img{display:block;width:100%;height:auto;margin:0 0 10px;border-radius:var(--radius-md)}.nl-tip p{margin:0 0 8px;font-size:inherit;line-height:inherit;color:inherit}.nl-tip p:last-child{margin:0}.nl-tip strong{color:var(--color-text)}.nl-tip a{color:var(--nl-blue);font-weight:700;text-decoration:underline}@media print{.nl-term{text-decoration:none}.nl-tip{display:none}}
+</style></head> <body> <nav class="site-nav" role="navigation" aria-label="Main navigation"> <div class="site-nav__inner"> <!-- Brand --> <a class="site-nav__brand" href="/"> <img class="site-nav__logo" src="/assets/images/logo.svg" alt="" aria-hidden="true">
+Novated Lease Guide
+</a> <!-- Desktop links --> <ul class="site-nav__links" role="list"> <li> <a href="/" class="site-nav__link"> Home </a> </li><li> <a href="/calculator/" class="site-nav__link site-nav__link--cta"> Calculator <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </a> <div class="nav-dropdown" role="menu"> <a href="/calculator/" class="nav-dropdown__item" role="menuitem"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-dropdown__item" role="menuitem"> Employer BYO Checker </a> <a href="/tools/checklist/" class="nav-dropdown__item" role="menuitem"> Checklist </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Fundamentals <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <div class="nav-dropdown__heading">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-dropdown__item" role="menuitem"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-dropdown__item" role="menuitem"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-dropdown__item" role="menuitem"> Is a novated lease worth it? </a> <div class="nav-dropdown__heading">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-dropdown__item" role="menuitem"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-dropdown__item" role="menuitem"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-dropdown__item" role="menuitem"> 20 novated lease calculators reviewed </a> <div class="nav-dropdown__heading">Reference</div><a href="/start-here/glossary/" class="nav-dropdown__item" role="menuitem"> Glossary of terms </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Mechanisms <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/costs-and-savings/" class="nav-dropdown__item" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-dropdown__item" role="menuitem"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-dropdown__item" role="menuitem"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-dropdown__item" role="menuitem"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-dropdown__item" role="menuitem"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-dropdown__heading">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-dropdown__item" role="menuitem"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-dropdown__item" role="menuitem"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-dropdown__heading">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-dropdown__item" role="menuitem"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-ev-novated-lease/" class="nav-dropdown__item" role="menuitem"> Used EV instead of new? </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-dropdown__item" role="menuitem"> Used-car GST secret (Division 66) </a> <div class="nav-dropdown__heading">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-dropdown__item" role="menuitem"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-dropdown__item" role="menuitem"> You don&#39;t have to sell above residual </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Running Costs <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/running-costs/" class="nav-dropdown__item" role="menuitem"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-dropdown__item" role="menuitem"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-dropdown__item" role="menuitem"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-dropdown__item" role="menuitem"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-dropdown__item" role="menuitem"> Insurance premium vs excess </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Risks <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/risks/" class="nav-dropdown__item" role="menuitem"> Overview of risks &amp; exit strategies </a> <div class="nav-dropdown__heading">Early Termination</div><a href="/risks/early-termination/" class="nav-dropdown__item" role="menuitem"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-dropdown__item" role="menuitem"> How bad can early termination get </a> <div class="nav-dropdown__heading">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-dropdown__item" role="menuitem"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-dropdown__item" role="menuitem"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-dropdown__item" role="menuitem"> Think like a gambler </a>  </div> </li><li> <button class="site-nav__link active" aria-haspopup="true" aria-expanded="false" type="button"> Special Cases <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/special-and-policy/" class="nav-dropdown__item active" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-dropdown__item" role="menuitem"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-dropdown__item" role="menuitem"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-dropdown__item" role="menuitem"> LCT threshold &amp; FBT exemption </a> <div class="nav-dropdown__heading">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-dropdown__item" role="menuitem"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-dropdown__item" role="menuitem"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-dropdown__heading">Downstream Impact</div><a href="/special-and-policy/borrowing-capacity/" class="nav-dropdown__item" role="menuitem"> Home loan borrowing capacity </a> <a href="/special-and-policy/hecs-help/" class="nav-dropdown__item active" role="menuitem"> HECS / HELP repayments </a> <a href="/special-and-policy/childcare-subsidy/" class="nav-dropdown__item" role="menuitem"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-dropdown__item" role="menuitem"> Super guarantee &amp; payroll risks </a> <div class="nav-dropdown__heading">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-dropdown__item" role="menuitem"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-dropdown__item" role="menuitem"> Why novated leasing is poorly regulated </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> About <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/about/about-me/" class="nav-dropdown__item" role="menuitem"> Who I am </a> <a href="/about/history/" class="nav-dropdown__item" role="menuitem"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-dropdown__item" role="menuitem"> What readers say </a> <a href="/about/privacy/" class="nav-dropdown__item" role="menuitem"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-dropdown__item" role="menuitem"> Disclaimer </a> <a href="/about/contact/" class="nav-dropdown__item" role="menuitem"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-dropdown__item" role="menuitem" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </li> </ul> <!-- Right actions --> <div class="site-nav__actions"> <button class="nav-theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode" onclick="window.toggleTheme && window.toggleTheme()"> <svg class="nav-theme-btn__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg> <svg class="nav-theme-btn__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg> </button> <button class="nav-search-btn" onclick="window.openSearch && window.openSearch()" aria-label="Search site"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span class="nav-search-btn__text">Search</span> <span class="nav-search-btn__kbd">⌘K</span> </button> <button class="nav-hamburger" aria-label="Open navigation menu" onclick="window.openDrawer && window.openDrawer()"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"></path> </svg> </button> </div> </div> </nav> <!-- Mobile drawer --> <div class="nav-mobile-overlay" id="nav-overlay" onclick="window.closeDrawer && window.closeDrawer()"></div> <div class="nav-mobile-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu"> <div class="nav-drawer__header"> <span>Novated Lease Guide</span> <button class="nav-drawer__close" onclick="window.closeDrawer && window.closeDrawer()" aria-label="Close menu"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"></path> </svg> </button> </div> <!-- Drawer search --> <div style="padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.08);"> <button class="nav-search-btn" style="width:100%; justify-content:flex-start; background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: var(--color-text-muted);" onclick="window.closeDrawer(); setTimeout(() => window.openSearch && window.openSearch(), 200);" aria-label="Search"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:14px;height:14px;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span>Search</span> </button> </div> <div class="nav-drawer__section"> <a href="/" class="nav-drawer__link nav-drawer__link--top"> Home </a> </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Calculator</div> <a href="/calculator/" class="nav-drawer__link"> Novated Lease Calculator </a> <a href="/tools/byo-employer-check/" class="nav-drawer__link"> Employer BYO Checker </a> <a href="/tools/checklist/" class="nav-drawer__link"> Checklist </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Fundamentals</div> <div class="nav-drawer__group-title">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-drawer__link"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-drawer__link"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-drawer__link"> Is a novated lease worth it? </a> <div class="nav-drawer__group-title">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-drawer__link"> How to read a novated lease quote </a> <a href="/start-here/use-nl-calculator/" class="nav-drawer__link"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-drawer__link"> 20 novated lease calculators reviewed </a> <div class="nav-drawer__group-title">Reference</div><a href="/start-here/glossary/" class="nav-drawer__link"> Glossary of terms </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Mechanisms</div> <a href="/costs-and-savings/" class="nav-drawer__link"> Overview </a> <div class="nav-drawer__group-title">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-drawer__link"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-drawer__link"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-drawer__link"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-drawer__link"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-drawer__group-title">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-drawer__link"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-drawer__link"> Effective rates on short leases &amp; cheap cars </a> <div class="nav-drawer__group-title">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-drawer__link"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-ev-novated-lease/" class="nav-drawer__link"> Used EV instead of new? </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-drawer__link"> Used-car GST secret (Division 66) </a> <div class="nav-drawer__group-title">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-drawer__link"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-drawer__link"> You don&#39;t have to sell above residual </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Running Costs</div> <a href="/running-costs/" class="nav-drawer__link"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-drawer__link"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-drawer__link"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-drawer__link"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-drawer__link"> Insurance premium vs excess </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Risks</div> <a href="/risks/" class="nav-drawer__link"> Overview of risks &amp; exit strategies </a> <div class="nav-drawer__group-title">Early Termination</div><a href="/risks/early-termination/" class="nav-drawer__link"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-drawer__link"> How bad can early termination get </a> <div class="nav-drawer__group-title">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-drawer__link"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-drawer__link"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-drawer__link"> Think like a gambler </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Special Cases</div> <a href="/special-and-policy/" class="nav-drawer__link active"> Overview </a> <div class="nav-drawer__group-title">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-drawer__link"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-drawer__link"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-drawer__link"> LCT threshold &amp; FBT exemption </a> <div class="nav-drawer__group-title">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-drawer__link"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-drawer__link"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-drawer__group-title">Downstream Impact</div><a href="/special-and-policy/borrowing-capacity/" class="nav-drawer__link"> Home loan borrowing capacity </a> <a href="/special-and-policy/hecs-help/" class="nav-drawer__link active"> HECS / HELP repayments </a> <a href="/special-and-policy/childcare-subsidy/" class="nav-drawer__link"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-drawer__link"> Super guarantee &amp; payroll risks </a> <div class="nav-drawer__group-title">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-drawer__link"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-drawer__link"> Why novated leasing is poorly regulated </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">About</div> <a href="/about/about-me/" class="nav-drawer__link"> Who I am </a> <a href="/about/history/" class="nav-drawer__link"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-drawer__link"> What readers say </a> <a href="/about/privacy/" class="nav-drawer__link"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-drawer__link"> Disclaimer </a> <a href="/about/contact/" class="nav-drawer__link"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-drawer__link" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </div> <script>
+  var _drawerScrollY = 0;
+  window.openDrawer = function() {
+    _drawerScrollY = window.scrollY;
+    document.body.style.top = '-' + _drawerScrollY + 'px';
+    document.body.classList.add('drawer-open');
+    document.getElementById('nav-drawer').classList.add('open');
+    document.getElementById('nav-overlay').classList.add('open');
+  };
+  window.closeDrawer = function() {
+    document.body.classList.remove('drawer-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _drawerScrollY);
+    document.getElementById('nav-drawer').classList.remove('open');
+    document.getElementById('nav-overlay').classList.remove('open');
+  };
+</script> <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search"> <div class="search-modal"> <div id="search-container"> <div style="padding: 16px 20px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 12px;"> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0; opacity:0.5;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <input id="search-input" type="search" placeholder="Search articles…" autocomplete="off" spellcheck="false" style="flex:1; border:none; outline:none; font-size:1rem; font-family:inherit; background:transparent; color:var(--color-text);" aria-label="Search"> <button onclick="window.closeSearch()" aria-label="Close search" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--color-text-muted);font-size:0.78rem;display:flex;align-items:center;gap:4px;"> <kbd style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:4px;padding:2px 6px;font-family:inherit;font-size:0.7rem;">Esc</kbd> </button> </div> <div id="search-results" class="search-results-wrap"></div> </div> </div> </div> <script>
+  (function() {
+    var overlay = document.getElementById('search-overlay');
+    var input = document.getElementById('search-input');
+    var resultsEl = document.getElementById('search-results');
+    var pagefind = null;
+    var searchTimeout = null;
+
+    window.openSearch = function() {
+      overlay.classList.add('open');
+      setTimeout(function() { input && input.focus(); }, 50);
+      initPagefind();
+    };
+
+    window.closeSearch = function() {
+      overlay.classList.remove('open');
+      if (input) { input.value = ''; }
+      if (resultsEl) { resultsEl.innerHTML = ''; }
+    };
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) window.closeSearch();
+    });
+
+    async function initPagefind() {
+      if (pagefind) return;
+      try {
+        pagefind = await import('/pagefind/pagefind.js');
+        await pagefind.options({ excerptLength: 20 });
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search index is being built. Run <code>npm run build</code> first to enable search.</div>';
+        pagefind = null;
+      }
+    }
+
+    async function doSearch(query) {
+      if (!pagefind || !query.trim()) {
+        resultsEl.innerHTML = '';
+        return;
+      }
+      try {
+        var results = await pagefind.search(query);
+        if (!results || results.results.length === 0) {
+          resultsEl.innerHTML = '<div class="search-no-results">No results for "<strong>' + escapeHtml(query) + '</strong>"</div>';
+          return;
+        }
+        var html = '';
+        var sliced = results.results.slice(0, 8);
+        for (var i = 0; i < sliced.length; i++) {
+          var data = await sliced[i].data();
+          html += '<a href="' + data.url + '" class="search-result-item" onclick="window.closeSearch()">';
+          html += '<div class="search-result-item__title">' + escapeHtml(data.meta?.title || '') + '</div>';
+          if (data.excerpt) {
+            html += '<div class="search-result-item__excerpt">' + data.excerpt + '</div>';
+          }
+          html += '</a>';
+        }
+        resultsEl.innerHTML = html;
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search error. Please try again.</div>';
+      }
+    }
+
+    input && input.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function() {
+        doSearch(input.value);
+      }, 200);
+    });
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  })();
+</script>  <div data-pagefind-body>  <div class="page-layout"> <main class="page-content" id="main-content"> <nav class="breadcrumbs" aria-label="Breadcrumb"> <a href="/">Home</a> <span class="breadcrumbs__sep">›</span> <span>Special Cases</span> <span class="breadcrumbs__sep">›</span> <span>Novated leases and HECS/HELP: why your payslip looks better than your quote</span> </nav> <article class="article-content">  <h1 id="novated-leases-and-hecshelp">Novated leases and HECS/HELP</h1><p class="article-byline">By <a href="/about/about-me/">changyang1230</a> · Published 13 October 2026</p>
+<p>If you have a HELP (HECS) debt and take out an <strong>FBT-exempt EV novated lease</strong>, two things tend to happen, in this order:</p>
+<ol>
+<li>Your first payslip looks <strong>better than the quote</strong>: take-home pay drops by noticeably less than you were told.</li>
+<li>At tax time, you get a <strong>HELP bill</strong> you were not expecting.</li>
+</ol>
+<p>Both have the same cause. Your payroll and the ATO use <strong>two different income figures</strong> to work out your HELP repayment, and an EV novated lease pushes them in opposite directions.</p>
+<div class="admonition admonition--info"><div class="admonition__title">The short version</div><ul>
+<li>Payroll withholds HELP on your <strong>taxable income</strong>, which the lease reduces. So less HELP is withheld each payday.</li>
+<li>The ATO assesses HELP on your <strong>repayment income</strong>, which adds back your <a href="/costs-and-savings/fbt-rfba-ati-explained/">reportable fringe benefits amount (RFBA)</a>. For an EV lease, that is usually <strong>higher</strong> than your income before the lease.</li>
+<li>At tax time you pay the difference: roughly <strong>your HELP rate × your RFBA</strong>, for example about <strong>$3,800 a year</strong> for a $67,600 EV.</li>
+<li>It is not money lost: it all goes towards your HELP debt. But budget for it.</li>
+</ul></div>
+<hr>
+<h2 id="how-help-repayments-work">How HELP repayments work</h2>
+<p>Compulsory HELP repayments are worked out on your <strong>repayment income</strong>, not your taxable income. Repayment income is:</p>
+<blockquote>
+<p>taxable income + <strong>reportable fringe benefits amount</strong> + total net investment loss + reportable super contributions + exempt foreign employment income</p>
+</blockquote>
+<p>Elsewhere on this site we call this figure <a href="/special-and-policy/childcare-subsidy/">adjusted taxable income (ATI)</a>, because it is built the same way. For a novated lease, the only component that matters is the RFBA.</p>
+<p>Since 1 July 2025, repayments use a <strong>marginal</strong> system: you repay a percentage of the income <em>above</em> the threshold, not of your whole income. For 2026–27:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Repayment income</th><th>Compulsory repayment</th></tr></thead><tbody><tr><td>$69,528 or less</td><td>Nil</td></tr><tr><td>$69,529 – $129,717</td><td>15c for each $1 over $69,528</td></tr><tr><td>$129,718 – $186,050</td><td>$9,028 + 17c for each $1 over $129,717</td></tr><tr><td>$186,051 and over</td><td>10% of total repayment income</td></tr></tbody></table>
+<p>The thresholds are indexed every July. Check the <a href="https://www.ato.gov.au/tax-rates-and-codes/study-and-training-support-loans-rates-and-repayment-thresholds">ATO’s current rates</a> for the year you are working on.</p>
+<p>The key number is the <strong>marginal rate</strong>: most salaried borrowers sit in the <strong>15%</strong> band, and higher earners in the <strong>17%</strong> band.</p>
+<hr>
+<h2 id="surprise-1-why-your-payslip-looks-better-than-your-quote">Surprise 1: why your payslip looks better than your quote</h2>
+<p>Your employer withholds HELP each payday from the <strong>same taxable earnings</strong> it uses for income tax, i.e. your salary <strong>after</strong> the pre-tax novated lease deduction. Reportable fringe benefits play no part in payroll withholding.</p>
+<p>Take someone on a <strong>$100,000</strong> salary with a HELP debt, who sacrifices <strong>$17,000 a year</strong> pre-tax for an EV novated lease. Using 2026–27 rates, here is what their employer withholds over a full year:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Before the lease</th><th>After the lease</th></tr></thead><tbody><tr><td>Taxable income</td><td>$100,000</td><td>$83,000</td></tr><tr><td>Income tax</td><td>$20,520</td><td>$15,420</td></tr><tr><td>Medicare levy</td><td>$2,000</td><td>$1,660</td></tr><tr><td>HELP withheld</td><td>$4,570.80</td><td>$2,020.80</td></tr><tr><td><strong>Take-home pay</strong></td><td><strong>$72,909.20</strong></td><td><strong>$63,899.20</strong></td></tr></tbody></table>
+<p>Take-home pay falls by <strong>$9,010</strong> a year, or about <strong>$347 a fortnight</strong>.</p>
+<p>The quote tells a different story. Novated lease quotes generally <strong>leave HELP out</strong> (as does <a href="/calculator/">the calculator</a>, by default). They only count the income tax and Medicare saving:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Per year</th><th>Per fortnight</th></tr></thead><tbody><tr><td>Pre-tax deduction</td><td>$17,000</td><td>$653.85</td></tr><tr><td>Less income tax and Medicare saved</td><td>−$5,440</td><td>−$209.23</td></tr><tr><td><strong>Take-home impact on the quote</strong></td><td><strong>$11,560</strong></td><td><strong>$444.62</strong></td></tr><tr><td><strong>Take-home impact on the payslip</strong></td><td><strong>$9,010</strong></td><td><strong>$346.54</strong></td></tr><tr><td><strong>Difference: HELP no longer withheld</strong></td><td><strong>$2,550</strong></td><td><strong>$98.08</strong></td></tr></tbody></table>
+<p>The ~$98 a fortnight that “appears” on the payslip is simply HELP that payroll has stopped withholding: its formula now sees taxable income of $83,000 instead of $100,000.</p>
+<p>In this example the whole $17,000 sits inside the 30% tax bracket and the 15% HELP band, so every dollar sacrificed saves exactly 30% + 2% + 15% = 47c. If your sacrifice crosses a tax bracket or a HELP threshold, the per-dollar figure changes partway through, and the <a href="/calculator/">calculator’s</a> year-by-year taxable income is the easier way to work it out.</p>
+<p>That extra take-home pay is real cash this payday. It is not a real saving, as the next section shows.</p>
+<hr>
+<h2 id="surprise-2-the-help-bill-at-tax-time">Surprise 2: the HELP bill at tax time</h2>
+<p>When you lodge your tax return, the ATO works out what you should have repaid using <strong>repayment income</strong>, which adds your RFBA back on top of your reduced taxable income.</p>
+<p>For an FBT-exempt EV, the RFBA is the grossed-up value of the car benefit:</p>
+<blockquote>
+<p><strong>RFBA ≈ base value × 20% × 1.8868 ≈ 37.7% of the car’s base value per full FBT year</strong></p>
+</blockquote>
+<p>(See <a href="/costs-and-savings/fbt-rfba-ati-explained/">how RFBA is calculated</a> for the details.) The RFBA is usually <strong>larger</strong> than the amount you sacrifice from your salary each year, so your repayment income ends up <strong>above</strong> what it was before the lease, even though your taxable income went down.</p>
+<p>Payroll withheld HELP as if your income had gone <strong>down</strong>. The ATO assesses it as if your income went <strong>up</strong>. You pay the gap at tax time.</p>
+<hr>
+<h2 id="worked-example">Worked example</h2>
+<p>This example is based on a real question from a reader.</p>
+<ul>
+<li>Salary (taxable income before the lease): <strong>$111,815</strong></li>
+<li>Pre-tax novated lease deduction: <strong><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjY3NjA0Ljk1LCJkcml2ZWF3YXlDb3N0Ijo3MDI3NSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjgwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjo2MDUsImxlYXNlU3RhcnREYXRlIjoiMjAyNi0wOC0yOCIsImxlYXNlRHVyYXRpb25ZZWFycyI6NSwibW9udGhzRGVmZXJyZWQiOjIsInRvdGFsVGF4YWJsZUluY29tZSI6MTExODE1LCJob21lTG9hbk9mZnNldEludGVyZXN0UmF0ZSI6Ni4yMiwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJzdXBlckZyb21QcmVObEluY29tZSI6IlllcyIsImdzdFNhdmluZ1Bhc3NlZE9uIjoiWWVzIiwic2VydmljZU1haW50VHlyZXNBbm51YWwiOjEwMjEuOCwic2F2ZVNoYXJlQW5udWFsIjowLCJyZWdpc3RyYXRpb25Bbm51YWwiOjgwMC4wMiwiZWxlY3RyaWNpdHlBbm51YWwiOjgyMC41NiwiZnVlbEFubnVhbCI6MCwiaW5zdXJhbmNlQW5udWFsIjoxNzU1LjcyLCJtYW5hZ2VtZW50RmVlc0FubnVhbCI6MjYuMDQsImF2Z0F1ZFBlckt3aCI6MC4wOCwiYXZnV2hQZXJLbSI6MTcwLCJjb21wYXJlV2l0aEN1cnJlbnRDYXIiOmZhbHNlLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVOb3ciOjI1MDAwLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVBdEVuZCI6MTQwMDAsImN1cnJlbnRTZXJ2aWNlTWFpbnRUeXJlc0FubnVhbCI6ODAwLCJjdXJyZW50UmVnaXN0cmF0aW9uQW5udWFsIjo5MDAsImN1cnJlbnRGdWVsQW5udWFsIjoyMzYyLjUsImN1cnJlbnRJbnN1cmFuY2VBbm51YWwiOjEwMDAsImNvbXBhcmVXaXRoQ2FyTG9hbiI6ZmFsc2UsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MTAwMDAsImNhckxvYW5JbnRlcmVzdFJhdGVQY3QiOjgsImNhckxvYW5Nb250aGx5RmVlIjoyNSwiZmluYW5jZWRBbW91bnRGb3JJbnRlcmVzdENhbGNFeEdzdCI6NjU1NzUuOTUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTc5MzAuMSwidmVoaWNsZUxlYXNlUGVyRm4iOjQ4OS4wOH19">$659.24 per fortnight</a></strong> ($17,140 a year)</li>
+<li>EV with a base value of <strong>$67,605</strong>, so RFBA = $67,605 × 20% × 1.8868 ≈ <strong>$25,511</strong> a year</li>
+<li>A full year of 26 pay fortnights, 2026–27 HELP thresholds</li>
+</ul>
+<p>The same person has three different HELP figures:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Income used</th><th>HELP for the year</th><th>Per fortnight</th></tr></thead><tbody><tr><td><strong>Before the lease</strong></td><td>Taxable income $111,815</td><td>($111,815 − $69,528) × 15% = <strong>$6,343</strong></td><td>$243.96</td></tr><tr><td><strong>Payroll’s view after the lease</strong></td><td>Taxable income $94,675</td><td>($94,675 − $69,528) × 15% = <strong>$3,772</strong></td><td>$145.08</td></tr><tr><td><strong>ATO’s assessment after the lease</strong></td><td>Repayment income $94,675 + $25,511 = $120,186</td><td>($120,186 − $69,528) × 15% = <strong>$7,599</strong></td><td>–</td></tr></tbody></table>
+<p>Reading the table:</p>
+<ul>
+<li><strong>On the payslip</strong>, HELP withholding drops by about <strong>$99 a fortnight</strong> ($243.96 → $145.08). That is the “extra” take-home pay compared with the quote: the quote said take-home would fall by $448.28 a fortnight, and it actually falls by about $349.</li>
+<li><strong>At tax time</strong>, the ATO wants $7,599 but payroll only withheld $3,772. The shortfall is about <strong>$3,827</strong>, or <strong>$147 a fortnight</strong>.</li>
+<li><strong>The real extra cost</strong> of the lease, compared with not having it, is $7,599 − $6,343 = about <strong>$1,256 a year</strong> in additional HELP repaid. That is about $48 a fortnight on top of the quoted $448.28.</li>
+</ul>
+<div class="admonition admonition--tip"><div class="admonition__title">Two rules of thumb</div><ul>
+<li><strong>Tax-time shortfall</strong> ≈ your HELP marginal rate × your RFBA. Here: 15% × $25,511 = $3,827.</li>
+<li><strong>Extra HELP compared with no lease</strong> ≈ your HELP marginal rate × (RFBA − annual pre-tax deduction). Here: 15% × ($25,511 − $17,140) = $1,256.</li>
+</ul><p>Both assume your income stays in the same HELP band before and after.</p></div>
+<p>You can <a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjY3NjA0Ljk1LCJkcml2ZWF3YXlDb3N0Ijo3MDI3NSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjgwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjo2MDUsImxlYXNlU3RhcnREYXRlIjoiMjAyNi0wOC0yOCIsImxlYXNlRHVyYXRpb25ZZWFycyI6NSwibW9udGhzRGVmZXJyZWQiOjIsInRvdGFsVGF4YWJsZUluY29tZSI6MTExODE1LCJob21lTG9hbk9mZnNldEludGVyZXN0UmF0ZSI6Ni4yMiwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJzdXBlckZyb21QcmVObEluY29tZSI6IlllcyIsImdzdFNhdmluZ1Bhc3NlZE9uIjoiWWVzIiwic2VydmljZU1haW50VHlyZXNBbm51YWwiOjEwMjEuOCwic2F2ZVNoYXJlQW5udWFsIjowLCJyZWdpc3RyYXRpb25Bbm51YWwiOjgwMC4wMiwiZWxlY3RyaWNpdHlBbm51YWwiOjgyMC41NiwiZnVlbEFubnVhbCI6MCwiaW5zdXJhbmNlQW5udWFsIjoxNzU1LjcyLCJtYW5hZ2VtZW50RmVlc0FubnVhbCI6MjYuMDQsImF2Z0F1ZFBlckt3aCI6MC4wOCwiYXZnV2hQZXJLbSI6MTcwLCJjb21wYXJlV2l0aEN1cnJlbnRDYXIiOmZhbHNlLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVOb3ciOjI1MDAwLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVBdEVuZCI6MTQwMDAsImN1cnJlbnRTZXJ2aWNlTWFpbnRUeXJlc0FubnVhbCI6ODAwLCJjdXJyZW50UmVnaXN0cmF0aW9uQW5udWFsIjo5MDAsImN1cnJlbnRGdWVsQW5udWFsIjoyMzYyLjUsImN1cnJlbnRJbnN1cmFuY2VBbm51YWwiOjEwMDAsImNvbXBhcmVXaXRoQ2FyTG9hbiI6ZmFsc2UsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MTAwMDAsImNhckxvYW5JbnRlcmVzdFJhdGVQY3QiOjgsImNhckxvYW5Nb250aGx5RmVlIjoyNSwiZmluYW5jZWRBbW91bnRGb3JJbnRlcmVzdENhbGNFeEdzdCI6NjU1NzUuOTUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTc5MzAuMSwidmVoaWNsZUxlYXNlUGVyRm4iOjQ4OS4wOH19">open this example in the calculator</a> and see the year-by-year taxable income and adjusted taxable income in the Details tab (sections 1.2 and 4).</p>
+<p>Real withholding uses the ATO’s tables rather than this exact arithmetic, so your payslip will not match to the cent, but it should be close.</p>
+<hr>
+<h2 id="the-first-and-last-year-are-different">The first and last year are different</h2>
+<p>RFBA is worked out per <strong>FBT year (1 April – 31 March)</strong> and reported on the income statement for the financial year that <strong>ends the following 30 June</strong>. Your salary sacrifice, on the other hand, follows the financial year.</p>
+<p>So if your lease starts partway through the year, the first tax return only carries the RFBA for the part of the FBT year up to 31 March. In the example above, a lease starting on 28 August means the first income statement includes only about <strong>seven months</strong> of RFBA (28 August to 31 March), so the first year’s RFBA is about $15,100 and the shortfall is about <strong>$2,265</strong> instead of $3,827. The full effect shows up from the second year. The final year is uneven in the same way.</p>
+<p>The <a href="/calculator/">calculator’s</a> <strong>adjusted taxable income</strong> table (Section 4 of the Details tab) works through these year-by-year differences for you, including the number of pay fortnights in each financial year.</p>
+<hr>
+<h2 id="what-to-do-about-it">What to do about it</h2>
+<ol>
+<li><strong>Don’t treat the extra take-home pay as spare cash.</strong> Set aside roughly your HELP rate × RFBA each year (about $147 a fortnight in the example), or simply the extra amount your payslip shows compared with the quote, plus a margin.</li>
+<li><strong>Or ask payroll to withhold more.</strong> You can ask your employer to withhold extra tax from each pay (the ATO calls this an <em>upwards variation</em>), so there is no bill at tax time.</li>
+<li><strong>Include the extra HELP in your decision.</strong> The quote and the calculator’s take-home figures exclude HELP. Before you sign, estimate the extra HELP (rule of thumb above) and count it as a cost of the lease.</li>
+<li><strong>Check your remaining balance.</strong> Compulsory repayments are capped at what you still owe. If your HELP debt is small, the shortfall is capped too, and the lease may simply clear the debt sooner.</li>
+</ol>
+<div class="admonition admonition--note"><div class="admonition__title">It is a repayment, not a tax</div><p>Every extra dollar goes towards your HELP balance. You are paying the debt off faster, not losing the money. Whether that is good or bad depends on your plans: HELP debts are indexed but charge no interest, so many people prefer to repay them slowly. Either way, the cash still has to come from somewhere at tax time.</p></div>
+<hr>
+<h2 id="who-this-affects-and-who-it-doesnt">Who this affects, and who it doesn’t</h2>
+<ul>
+<li><strong>EV (FBT-exempt) leases:</strong> the effects described here apply. The more expensive the car relative to your salary sacrifice, the larger the RFBA and the bigger the gap.</li>
+<li><strong>ICE (non-exempt) leases:</strong> usually structured with the <a href="/costs-and-savings/fbt-rfba-ati-explained/">employee contribution method</a>, so the RFBA is <strong>zero</strong>. Repayment income then falls along with taxable income, payroll withholding stays roughly right, and your HELP repayment genuinely goes <strong>down</strong>. No surprise bill.</li>
+<li><strong>Incomes near the threshold:</strong> if the lease takes your taxable income below the repayment threshold, payroll may stop withholding HELP altogether, while your repayment income (with RFBA) is still above it. Then the whole HELP amount arrives as a bill at tax time.</li>
+<li><strong>The same RFBA affects other income tests:</strong> <a href="/special-and-policy/childcare-subsidy/">childcare subsidy</a>, child support, Division 293 tax, and the Medicare levy surcharge. Unlike HELP, none of these are withheld through payroll, so there is no “surprise 1”, but the extra cost or lost subsidy is just as real.</li>
+</ul>
+<hr>
+<h2 id="key-takeaway">Key takeaway</h2>
+<blockquote>
+<p><strong>With an FBT-exempt EV lease, payroll withholds HELP on your reduced salary, but the ATO assesses it on repayment income including RFBA. Expect a tax-time bill of roughly your HELP rate × RFBA, and budget for it from the first payslip.</strong></p>
+</blockquote>
+<hr>
+<h2 id="related-reading">Related reading</h2>
+<ul>
+<li><a href="/costs-and-savings/fbt-rfba-ati-explained/">FBT, RFBA and adjusted taxable income explained</a></li>
+<li><a href="/special-and-policy/childcare-subsidy/">Novated leases and the childcare subsidy</a></li>
+<li><a href="/start-here/how-to-read-a-novated-lease-quote/">How to read a novated lease quote</a></li>
+<li><a href="/calculator/">Novated Lease Calculator</a></li>
+</ul>
+<hr>
+<h2 id="not-advice">Not advice</h2>
+<p>This page is general information about how HELP repayments interact with novated leases. It is not financial or tax advice and does not take your circumstances into account. Repayment thresholds change every year; confirm your figures with the ATO or your accountant.</p>  <script type="module">let e=null,r=null;function l(t=!1){e?.remove(),e=null,r&&(r.setAttribute("aria-expanded","false"),t&&r.focus(),r=null)}function o(){if(!e||!r)return;const t=r.getClientRects(),n=t[t.length-1]??r.getBoundingClientRect(),i=10,c=Math.max(i,Math.min(n.left,window.innerWidth-e.offsetWidth-i));let s=n.bottom+8;s+e.offsetHeight>window.innerHeight-i&&(s=Math.max(i,n.top-8-e.offsetHeight)),e.style.left=c+"px",e.style.top=s+"px"}function a(t){l();const n=t.dataset.tipHtml;n&&(e=document.createElement("div"),e.className=t.dataset.tipWide?"nl-tip nl-tip--wide":"nl-tip",e.setAttribute("role","tooltip"),e.innerHTML=n,e.querySelectorAll("a").forEach(i=>{i.target="_blank",i.rel="noopener noreferrer"}),e.querySelectorAll("img").forEach(i=>i.addEventListener("load",o)),document.body.appendChild(e),r=t,t.setAttribute("aria-expanded","true"),o())}document.addEventListener("click",t=>{const n=t.target,i=n.closest(".nl-term");i?(t.preventDefault(),r===i?l():a(i)):e&&!e.contains(n)&&l()});document.addEventListener("keydown",t=>{const n=t.target;if(t.key==="Escape"&&e){l(!0);return}(t.key==="Enter"||t.key===" ")&&n.classList?.contains("nl-term")&&(t.preventDefault(),r===n?l():a(n))});window.addEventListener("scroll",o,!0);window.addEventListener("resize",o);</script> </article> <div class="admonition admonition--info"><div class="admonition__title">Support this independent calculator & guide</div><p>This calculator and guide are built and continuously maintained as an independent project.</p><p>If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:</p><ul><li><a href="https://buymeacoffee.com/changyang1230">Buying me a cuppa</a> ☕ to help cover hosting, development time, and future improvements, or</li><li><a href="https://ts.la/david51680">Using this Tesla referral link</a> for a $350 discount if you're ordering a Tesla.</li></ul></div><details class="admonition admonition--note admonition--collapsible"><summary class="admonition__title">I'm backing Dr Michael Keane's fight for salary packaging transparency</summary><p>Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.</p><p>Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on <a href="https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0">alleged sign-on fees</a> associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.</p><p>To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his <a href="https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging"><img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe</a>.</p></details> </main> <aside class="page-toc" aria-label="Table of contents"> <div class="toc" id="article-toc"><div class="toc__title">On this page</div><ul class="toc__list" role="list"><li class="toc__item"><a href="#how-help-repayments-work" class="toc__link">How HELP repayments work</a></li><li class="toc__item"><a href="#surprise-1-why-your-payslip-looks-better-than-your-quote" class="toc__link">Surprise 1: why your payslip looks better than your quote</a></li><li class="toc__item"><a href="#surprise-2-the-help-bill-at-tax-time" class="toc__link">Surprise 2: the HELP bill at tax time</a></li><li class="toc__item"><a href="#worked-example" class="toc__link">Worked example</a></li><li class="toc__item"><a href="#the-first-and-last-year-are-different" class="toc__link">The first and last year are different</a></li><li class="toc__item"><a href="#what-to-do-about-it" class="toc__link">What to do about it</a></li><li class="toc__item"><a href="#who-this-affects-and-who-it-doesnt" class="toc__link">Who this affects, and who it doesn’t</a></li><li class="toc__item"><a href="#key-takeaway" class="toc__link">Key takeaway</a></li><li class="toc__item"><a href="#related-reading" class="toc__link">Related reading</a></li><li class="toc__item"><a href="#not-advice" class="toc__link">Not advice</a></li></ul></div><script type="module">(function(){var l=document.querySelectorAll("#article-toc .toc__link");if(l.length===0)return;var c=Array.from(l).map(function(e){var t=e.getAttribute("href")||"",r=t.replace("#","");return{el:document.getElementById(r),link:e}}).filter(function(e){return e.el});function o(){for(var e=72,t=window.scrollY,r=null,n=c.length-1;n>=0;n--)if(c[n].el.getBoundingClientRect().top+t<=t+e+4){r=c[n];break}l.forEach(function(a){a.classList.remove("active")}),r&&r.link.classList.add("active")}window.addEventListener("scroll",o,{passive:!0}),o()})();</script> </aside> </div>  </div> <footer class="site-footer"> <div class="site-footer__inner"> <div class="site-footer__col"> <div class="site-footer__brand"> <img class="site-footer__logo" src="/assets/images/logo.svg" alt="" aria-hidden="true">
+Novated Lease Guide
+</div> <p style="max-width:280px; line-height:1.6; margin:0; font-size:0.78rem;">
+Independent, evidence-based Australian novated lease guide and calculator.
+        Not affiliated with any financier or provider.
+</p> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Tools</div> <ul class="site-footer__links"> <li><a href="/calculator/" class="site-footer__link">Novated lease calculator</a></li> <li><a href="/tools/checklist/" class="site-footer__link">Checklist</a></li> <li><a href="/tools/byo-employer-check/" class="site-footer__link">Employer BYO checker</a></li> <li><a href="/start-here/use-nl-calculator/" class="site-footer__link">How to use the calculator</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Key Articles</div> <ul class="site-footer__links"> <li><a href="/start-here/what-is-novated-lease/" class="site-footer__link">What is a novated lease?</a></li> <li><a href="/start-here/is-it-worth-it/" class="site-footer__link">Is it worth it?</a></li> <li><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="site-footer__link">Why "tax saved" is wrong</a></li> <li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="site-footer__link">EV FBT wind-back 2026</a></li> <li><a href="/start-here/calculator-comparison/" class="site-footer__link">20 calculators reviewed</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">About</div> <ul class="site-footer__links"> <li><a href="/about/about-me/" class="site-footer__link">About me</a></li> <li><a href="/about/history/" class="site-footer__link">Calculator history</a></li> <li><a href="/about/what-readers-say/" class="site-footer__link">What readers say</a></li> <li><a href="/about/contact/" class="site-footer__link">Contact</a></li> <li><a href="/about/privacy/" class="site-footer__link">Privacy policy</a></li> <li><a href="/about/disclaimer/" class="site-footer__link">Disclaimer</a></li> <li><a href="https://buymeacoffee.com/changyang1230" class="site-footer__link" target="_blank" rel="noopener">Buy me a coffee ☕</a></li> </ul> </div> </div> <div class="site-footer__meta"> <div class="site-footer__meta-links"> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/privacy/">Privacy</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/disclaimer/">Disclaimer</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/contact/">Contact</a>
+&nbsp;&middot;&nbsp;
+      &copy; 2026
+</div> <div class="site-footer__meta-disclaimer">
+This site provides general information and educational commentary only. It does not constitute personal financial advice.
+</div> </div> </footer> <!-- GA4 link tracking & search keyboard shortcut --> <script>
+      // Track Buy Me a Coffee & Tesla referral link clicks
+      (function() {
+        function fireGa4(name, params) {
+          try { if (typeof gtag === 'function') gtag('event', name, params); } catch(e) {}
+        }
+        function trackLinks() {
+          document.querySelectorAll('a[href^="https://buymeacoffee.com/"],a[href^="https://www.buymeacoffee.com/"],a[href^="https://ts.la/"]').forEach(function(a) {
+            a.addEventListener('click', function() {
+              var href = a.getAttribute('href') || '';
+              fireGa4('support_link_click', {
+                link_label: href.includes('buymeacoffee') ? 'buymeacoffee' : 'tesla_referral',
+                link_url: href,
+                page_path: window.location.pathname,
+                page_title: document.title
+              });
+            }, { capture: true });
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', trackLinks);
+        } else {
+          trackLinks();
+        }
+      })();
+
+      // Keyboard shortcut: / or Ctrl+K to open search
+      document.addEventListener('keydown', function(e) {
+        if ((e.key === '/' || (e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) && !e.target.matches('input,textarea')) {
+          e.preventDefault();
+          window.openSearch && window.openSearch();
+        }
+        if (e.key === 'Escape') {
+          window.closeSearch && window.closeSearch();
+          window.closeDrawer && window.closeDrawer();
+        }
+      });
+    </script> </body> </html> <script type="module">(function(){var f=document.querySelectorAll(".compact-table table");f.forEach(function(r){var l=r.closest(".compact-table");if(!l)return;var e=r.querySelector("thead"),o=Array.from(r.querySelectorAll("tr th:first-child, tr td:first-child")),c=Array.from(r.querySelectorAll("tr th:nth-child(2), tr td:nth-child(2)"));o.concat(c).forEach(function(t){t.style.position="relative",t.style.backgroundColor="var(--color-bg)"}),o.forEach(function(t){t.style.whiteSpace="nowrap",t.style.zIndex="2"}),c.forEach(function(t){t.style.zIndex="2"}),r.querySelectorAll("thead th:first-child, thead th:nth-child(2)").forEach(function(t){t.style.zIndex="4"});function n(){var t=l.scrollLeft;o.forEach(function(a){a.style.transform="translateX("+t+"px)"}),c.forEach(function(a){a.style.transform="translateX("+t+"px)"})}if(l.addEventListener("scroll",n,{passive:!0}),n(),!e)return;function i(){var t=document.querySelector(".site-nav");return t?t.offsetHeight:56}function s(){var t=l.getBoundingClientRect(),a=i(),u=e.offsetHeight,d=a-t.top;d>0&&t.bottom>a+u?(e.style.transform="translateY("+d+"px)",e.style.position="relative",e.style.zIndex="3"):(e.style.transform="",e.style.position="",e.style.zIndex="")}window.addEventListener("scroll",s,{passive:!0}),s()}),document.querySelectorAll(".article-content table").forEach(function(r){var l=Array.from(r.querySelectorAll("tbody > tr")),e=null,o=null;l.forEach(function(c){var n=c.querySelector("td:first-child");if(!n){e=null,o=null;return}var i=n.textContent.trim();e&&i===o?(e.rowSpan=(e.rowSpan||1)+1,e.style.verticalAlign="middle",n.remove()):(e=n,o=i)})}),document.querySelectorAll("[data-dismiss]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-dismiss"));l&&(l.style.display="none")})}),document.querySelectorAll("[data-toggle]").forEach(function(r){r.addEventListener("click",function(){var l=document.getElementById(r.getAttribute("data-toggle"));if(l){var e=l.classList.toggle("open");r.textContent=e?"close ▴":"details ▾"}})})})();</script>
