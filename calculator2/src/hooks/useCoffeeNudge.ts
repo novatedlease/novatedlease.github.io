@@ -26,7 +26,9 @@ export function useCoffeeNudge(opts: { paused?: boolean; context?: CoffeeNudgeCo
   const { paused = false } = opts;
   // Read at fire time without re-running the evaluation effect when it changes.
   const contextRef = useRef(opts.context);
-  contextRef.current = opts.context;
+  useEffect(() => {
+    contextRef.current = opts.context;
+  });
   const [open, setOpen] = useState(false);
   const activeMsRef = useRef(0);
   const firedRef = useRef<boolean>(hasCoffeeNudgeBeenShown());
