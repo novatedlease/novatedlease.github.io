@@ -1181,8 +1181,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         value={d.paymentBasis}
         onChange={(v) => set("paymentBasis", v)}
         options={[
-          { value: "exGst", label: "Excluding GST", sub: "ex GST, + GST" },
-          { value: "incGst", label: "Including GST", sub: "inc GST" },
+          { value: "exGst", label: "Excluding GST" },
+          { value: "incGst", label: "Including GST" },
           {
             value: "unknown",
             label: "It doesn't say",
@@ -1190,7 +1190,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           },
         ]}
         columns={3}
-        hint="Look for the word GST next to the payment. We take the GST out for you if it's included."
+        hint="Look for the word GST next to the payment."
       />
       {d.smartMillarx && d.leaseYears && (
         <NoteBox color="var(--nlc-warn)" mb={16}>
