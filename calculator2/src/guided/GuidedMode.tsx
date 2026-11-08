@@ -2097,10 +2097,6 @@ function ReviewStep({
 
       {inputs && (
         <>
-          {results}
-          {exploring && (
-            <RefineEstimate d={d} set={set} inputs={inputs} />
-          )}
           {assumptions && (
             <Section
               title="Assumptions we made for you"
@@ -2117,6 +2113,10 @@ function ReviewStep({
                 />
               ))}
             </Section>
+          )}
+          {results}
+          {exploring && (
+            <RefineEstimate d={d} set={set} inputs={inputs} />
           )}
           <ResultTools
             inputs={inputs}
