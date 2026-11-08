@@ -4,7 +4,7 @@ import { act, cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { fortnightlyLeaseFromEffectiveAnnualRate } from "@engine/effectiveinterest";
 import { getLeaseFbtCategory } from "@engine/types";
 import App from "../src/App";
-import { COFFEE_NUDGE_MIN_ACTIVE_MS, _resetInputChangeCountForTests, getInputChangeCount, noteInputChange } from "../src/state/engagement";
+import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, COFFEE_NUDGE_MIN_ACTIVE_MS, _resetInputChangeCountForTests, getInputChangeCount, noteInputChange } from "../src/state/engagement";
 import {
   PHASE_OUT_START,
   atoMinimumResidualExGst,
@@ -341,7 +341,7 @@ describe("coffee nudge in Guided mode", () => {
     expect(screen.queryByRole("dialog")).toBeNull();
   });
 
-  test("waits until the results page, then shows once the time threshold is met", () => {
+  test("waits until 30 seconds on the results page, then shows and records mode and path", () => {
     const d = quoteDraft();
     window.localStorage.setItem(
       "nlc2-guided-draft-v3",
@@ -351,10 +351,26 @@ describe("coffee nudge in Guided mode", () => {
     for (const f of ["a", "b", "c", "d", "e"]) noteInputChange(f);
     passTime();
     expect(screen.queryByRole("dialog")).toBeNull();
+    const events: [string, Record<string, unknown>][] = [];
+    window.gtag = (_kind: string, name: string, params: Record<string, unknown>) => {
+      events.push([name, params]);
+    };
     fireEvent.click(screen.getByRole("button", { name: "See my results" }));
+    // Not straight away: the reader gets time to take in their result first
     act(() => {
-      vi.advanceTimersByTime(6000);
+      vi.advanceTimersByTime(COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS - 5000);
+    });
+    expect(screen.queryByRole("dialog")).toBeNull();
+    act(() => {
+      vi.advanceTimersByTime(6_000);
+    });
+    // React applies the unpause after that jump; the nudge's next 5-second check then fires
+    act(() => {
+      vi.advanceTimersByTime(6_000);
     });
     expect(screen.getByRole("dialog")).toBeTruthy();
+    const shown = events.find(([n]) => n === "coffee_nudge_shown")![1];
+    expect(shown).toMatchObject({ mode: "guided", guided_path: "quote" });
+    delete window.gtag;
   });
 });

@@ -3,7 +3,8 @@
  *
  * Tracks the number of DISTINCT fields the user has touched (Guided-mode answers,
  * Advanced-mode fields, the lease-rate guard's commit path). In Guided mode the nudge
- * additionally waits until the reader has reached their results (App.tsx). Distinct fields rather
+ * additionally waits until the reader has spent COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS on
+ * their results (GuidedMode.tsx reports it; App.tsx holds the nudge until then). Distinct fields rather
  * than raw change events because numeric fields commit on every keystroke — typing
  * "65000" would otherwise count as ~6 changes. Programmatic updates — the auto-fill
  * effects in AdvancedMode, saved-quote loads, share-link hydration — deliberately do
@@ -13,6 +14,11 @@
 export const COFFEE_NUDGE_MIN_ACTIVE_MS = 4 * 60 * 1000;
 export const COFFEE_NUDGE_MIN_CHANGES = 4;
 export const COFFEE_NUDGE_SHOWN_KEY = "nlc2-coffee-nudge-shown";
+/** Guided mode: visible time on the results page before the nudge may show, so the reader takes in their result first. */
+export const COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS = 30 * 1000;
+
+/** Where the reader was when the nudge fired, sent with its analytics events so conversion can be split by group. */
+export type CoffeeNudgeContext = { mode: "guided" | "advanced"; guided_path: "quote" | "exploring" | "" };
 
 type Listener = (count: number) => void;
 

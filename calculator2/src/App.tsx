@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Inputs } from "@engine/types";
 import { financedAmountExGstFromInputs } from "@engine/effectiveinterest";
 import { residualFractionForYears } from "@engine/ato";
@@ -498,9 +498,12 @@ export default function App() {
   }
   // One-time "buy me a coffee" message after sustained use (>= 4 min visible + >= 4 distinct
   // fields edited; see src/state/engagement.ts). Held back while the tour owns the screen.
-  // In Guided mode it also waits until the reader has seen a result at least once this visit.
+  // In Guided mode it also waits until the reader has spent a little time on their results this visit.
   const [guidedResultsSeen, setGuidedResultsSeen] = useState(false);
-  const coffeeNudge = useCoffeeNudge({ paused: tourOpen || (mode === "guided" && !guidedResultsSeen) });
+  const [guidedPath, setGuidedPath] = useState<"quote" | "exploring" | null>(null);
+  const onGuidedResultsSeen = useCallback(() => setGuidedResultsSeen(true), []);
+  const nudgeContext = { mode, guided_path: mode === "guided" ? (guidedPath ?? "") : "" } as const;
+  const coffeeNudge = useCoffeeNudge({ paused: tourOpen || (mode === "guided" && !guidedResultsSeen), context: nudgeContext });
 
   function exitTour(reason: "completed" | "skipped", stepIndex: number) {
     setTourOpen(false);
@@ -539,7 +542,8 @@ export default function App() {
           onInputsChange={(i) => {
             guidedInputsRef.current = i;
           }}
-          onResultsShown={() => setGuidedResultsSeen(true)}
+          onResultsSeen={onGuidedResultsSeen}
+          onPathChange={setGuidedPath}
           savedQuotes={savedQuotes}
           onQuotesChange={setSavedQuotes}
         />
@@ -562,7 +566,7 @@ export default function App() {
       )}
       <Footer showTourLink={tourHidden} onStartTour={startTour} />
 
-      {coffeeNudge.open && !tourOpen && <CoffeeNudgeModal onClose={() => coffeeNudge.close()} />}
+      {coffeeNudge.open && !tourOpen && <CoffeeNudgeModal onClose={() => coffeeNudge.close()} context={nudgeContext} />}
 
       {tourOpen && (
         <Tour

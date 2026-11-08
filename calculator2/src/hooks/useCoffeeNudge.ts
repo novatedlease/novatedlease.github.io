@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  type CoffeeNudgeContext,
   getInputChangeCount,
   hasCoffeeNudgeBeenShown,
   markCoffeeNudgeShown,
@@ -18,8 +19,14 @@ const TICK_MS = 5000;
  * `paused` defers the nudge while something else owns the screen (the quick tour);
  * it re-evaluates as soon as the pause lifts.
  */
-export function useCoffeeNudge(opts: { paused?: boolean } = {}): { open: boolean; close: () => void } {
+export function useCoffeeNudge(opts: { paused?: boolean; context?: CoffeeNudgeContext } = {}): {
+  open: boolean;
+  close: () => void;
+} {
   const { paused = false } = opts;
+  // Read at fire time without re-running the evaluation effect when it changes.
+  const contextRef = useRef(opts.context);
+  contextRef.current = opts.context;
   const [open, setOpen] = useState(false);
   const activeMsRef = useRef(0);
   const firedRef = useRef<boolean>(hasCoffeeNudgeBeenShown());
@@ -44,7 +51,11 @@ export function useCoffeeNudge(opts: { paused?: boolean } = {}): { open: boolean
       if (!shouldShowCoffeeNudge({ activeMs: activeMsRef.current, changes, alreadyShown: false })) return;
       firedRef.current = true;
       markCoffeeNudgeShown();
-      trackEvent("coffee_nudge_shown", { changes, active_minutes: Math.round(activeMsRef.current / 60000) });
+      trackEvent("coffee_nudge_shown", {
+        changes,
+        active_minutes: Math.round(activeMsRef.current / 60000),
+        ...contextRef.current,
+      });
       setOpen(true);
     };
 

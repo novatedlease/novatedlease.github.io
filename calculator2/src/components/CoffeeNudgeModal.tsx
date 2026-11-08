@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "./ui/Button";
 import { trackEvent } from "../utils/analytics";
+import type { CoffeeNudgeContext } from "../state/engagement";
 
 export const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/changyang1230";
 
@@ -10,7 +11,10 @@ export const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/changyang1230";
  * (see src/state/engagement.ts for the thresholds). Deliberately soft in tone: it's an
  * encouragement, never a paywall — every feature stays free regardless.
  */
-export function CoffeeNudgeModal(props: { onClose: (reason: "dismissed" | "support_clicked") => void }) {
+export function CoffeeNudgeModal(props: {
+  onClose: (reason: "dismissed" | "support_clicked") => void;
+  context?: CoffeeNudgeContext;
+}) {
   const { onClose } = props;
   const cardRef = useRef<HTMLDivElement | null>(null);
 
@@ -28,12 +32,12 @@ export function CoffeeNudgeModal(props: { onClose: (reason: "dismissed" | "suppo
   }, []);
 
   function dismiss() {
-    trackEvent("coffee_nudge_dismissed");
+    trackEvent("coffee_nudge_dismissed", { ...props.context });
     onClose("dismissed");
   }
 
   function supportClicked() {
-    trackEvent("coffee_nudge_clicked");
+    trackEvent("coffee_nudge_clicked", { ...props.context });
     // Same event shape as the site-wide link tracker in new-site/src/layouts/Base.astro,
     // which only binds to anchors present at page load and so misses this dynamic one.
     trackEvent("support_link_click", {

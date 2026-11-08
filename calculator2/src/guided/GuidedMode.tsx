@@ -8,7 +8,7 @@ import { LeaseAdjustModal } from "../components/LeaseAdjustModal";
 import { SummaryView } from "../components/SummaryView";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
-import { noteInputChange } from "../state/engagement";
+import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
 import {
   CAR_LIMIT_FY2027,
@@ -232,8 +232,13 @@ export type GuidedModeProps = {
   advancedEdited?: boolean;
   /** Reports the finished inputs (or null) so the header toggle can carry them across. */
   onInputsChange?: (inputs: Inputs | null) => void;
-  /** The reader has reached their results (the coffee nudge waits for this in Guided mode). */
-  onResultsShown?: () => void;
+  /**
+   * The reader has spent COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS of visible time on a complete result
+   * (the coffee nudge waits for this in Guided mode). Called once.
+   */
+  onResultsSeen?: (path: "quote" | "exploring") => void;
+  /** Which path the reader is on, as soon as they choose it. */
+  onPathChange?: (path: "quote" | "exploring" | null) => void;
   savedQuotes?: SavedQuoteV1[];
   onQuotesChange?: (quotes: SavedQuoteV1[]) => void;
 };
@@ -243,7 +248,8 @@ export function GuidedMode({
   onSwitchToAdvanced,
   advancedEdited = false,
   onInputsChange,
-  onResultsShown,
+  onResultsSeen,
+  onPathChange,
   savedQuotes,
   onQuotesChange,
 }: GuidedModeProps) {
@@ -327,12 +333,33 @@ export function GuidedMode({
     onInputsChange?.(inputs);
   }, [inputs, onInputsChange]);
 
+  const onResults = step === "review" && !!inputs;
+  const path = draft.hasQuote === null ? null : draft.hasQuote ? "quote" : "exploring";
+
   useEffect(() => {
-    if (step === "review" && inputs) {
-      trackOncePerSession("guided_completed", "guided_completed");
-      onResultsShown?.();
-    }
-  }, [step, inputs, onResultsShown]);
+    if (onResults) trackOncePerSession("guided_completed", "guided_completed");
+  }, [onResults]);
+
+  useEffect(() => {
+    onPathChange?.(path);
+  }, [path, onPathChange]);
+
+  // Visible time on the results page, kept across visits to other steps.
+  const resultsMsRef = useRef(0);
+  const resultsSeenRef = useRef(false);
+  useEffect(() => {
+    if (!onResults || resultsSeenRef.current || !onResultsSeen || !path) return;
+    const TICK = 1000;
+    const timer = window.setInterval(() => {
+      if (document.visibilityState === "visible") resultsMsRef.current += TICK;
+      if (resultsMsRef.current >= COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS) {
+        resultsSeenRef.current = true;
+        window.clearInterval(timer);
+        onResultsSeen(path);
+      }
+    }, TICK);
+    return () => window.clearInterval(timer);
+  }, [onResults, onResultsSeen, path]);
 
   function startOver() {
     setDraft(emptyDraft());
