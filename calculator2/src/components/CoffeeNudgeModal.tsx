@@ -107,9 +107,9 @@ export function CoffeeNudgeModal(props: {
           </p>
           <p>
             If it has done any of that for you, a coffee is genuinely appreciated. It helps cover the time and effort it takes to produce new
-            content and keep it fresh.
+            content and keep it fresh. Or if you're ordering a Tesla, my referral link gets you a $350 discount and supports the site at no
+            cost to you.
           </p>
-          <p>Ordering a Tesla? Using my referral link gets you a $350 discount, and supports the site at no cost to you.</p>
           <p className="nlc-coffee-fineprint">No pressure, and nothing changes if you say no. This shows once and won't appear again in this browser.</p>
         </div>
 
