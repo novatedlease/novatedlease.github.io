@@ -1576,7 +1576,11 @@ function CashQuestion({ d, set, f }: StepPropsF) {
             label: "Investment property offset",
             sub: "Against an investment property loan",
           },
-          { value: "savings", label: "Savings account" },
+          {
+            value: "savings",
+            label: "Savings account",
+            sub: "e.g. a high-interest savings account (HISA)",
+          },
           {
             value: "invested",
             label: "Invested",
