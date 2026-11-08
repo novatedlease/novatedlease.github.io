@@ -2,8 +2,6 @@ import { describe, expect, test } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { computeDerived } from "@engine/derived";
 import App from "../src/App";
-import { SimpleMode } from "../src/SimpleMode";
-import { defaultSimpleModeAnswers } from "../src/assumptions";
 import { LeaseReport } from "../src/components/reports/LeaseReport";
 import { BasicInformationReport } from "../src/components/reports/BasicInformationReport";
 import { EffectiveInterestReport } from "../src/components/reports/EffectiveInterestReport";
@@ -24,22 +22,10 @@ import { baseEvInputs, withOverrides } from "./fixtures";
 // render collapsed by default inside <Section>, so exercise them directly rather
 // than through App/AdvancedMode (which wouldn't actually mount their bodies).
 describe("render smoke test", () => {
-  test("App renders without throwing (defaults to Simple mode)", () => {
+  test("App renders without throwing (defaults to Guided mode)", () => {
     const html = renderToStaticMarkup(<App />);
-    expect(html).toContain("Tell us about the car");
+    expect(html).toContain("Do you have a novated lease quote yet?");
     expect(html.length).toBeGreaterThan(500);
-  });
-
-  test("SimpleMode renders without throwing and shows a verdict", () => {
-    const html = renderToStaticMarkup(
-      <SimpleMode
-        answers={defaultSimpleModeAnswers()}
-        setAnswers={() => {}}
-        onGoAdvanced={() => {}}
-        onNavigateToDetails={() => {}}
-      />,
-    );
-    expect(html).toMatch(/cheaper than buying outright|more expensive than buying outright/);
   });
 
   const inputs = baseEvInputs();

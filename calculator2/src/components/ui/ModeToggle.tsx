@@ -1,4 +1,4 @@
-export type CalcMode = "simple" | "advanced";
+export type CalcMode = "guided" | "advanced";
 
 export function ModeToggle({ mode, onChange }: { mode: CalcMode; onChange: (m: CalcMode) => void }) {
   return (
@@ -6,10 +6,10 @@ export function ModeToggle({ mode, onChange }: { mode: CalcMode; onChange: (m: C
       <button
         type="button"
         className="nlc-mode-toggle__btn"
-        aria-pressed={mode === "simple"}
-        onClick={() => onChange("simple")}
+        aria-pressed={mode === "guided"}
+        onClick={() => onChange("guided")}
       >
-        Simple
+        Guided
       </button>
       <button
         type="button"

@@ -500,7 +500,6 @@
   color: var(--nlc-text-soft);
   margin-top: var(--nlc-space-3);
   border: 1px solid;
-  border-left-width: 3px;
 }
 
 .nlc-table-wrap {

@@ -121,7 +121,7 @@ const electricityTooltip =
 
 function NoteBox(p: { title: string; children: React.ReactNode }) {
   return (
-    <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", padding: "10px 12px", borderLeft: "3px solid var(--nlc-blue-mid)", background: "var(--nlc-blue-light)", borderRadius: "0 8px 8px 0" }}>
+    <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", padding: "10px 12px", border: "1px solid var(--nlc-blue-mid)", background: "var(--nlc-blue-light)", borderRadius: 8 }}>
       <strong>{p.title}</strong> {p.children}
     </div>
   );

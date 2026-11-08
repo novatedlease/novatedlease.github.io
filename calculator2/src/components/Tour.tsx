@@ -33,64 +33,49 @@ const TOUR_STEPS: TourStep[] = [
   },
   {
     key: "modes",
-    title: "Simple or Advanced — pick your depth.",
+    title: "Guided or Advanced — pick your depth.",
     body: (
       <>
-        <strong>Simple mode</strong> gives you a quick, rough answer from just the 7 inputs that matter most —
-        perfect if you don't have an actual lease quote yet and just want a feel for the numbers.{" "}
+        <strong>Guided mode</strong> asks one thing at a time, shows where each figure sits on a typical quote, and flags
+        common entry slips. If you don't have a quote yet, it fills in typical figures so you can still get a rough answer.{" "}
         <strong>Advanced mode</strong> models everything in detail once you have real figures.
       </>
     ),
     target: { kind: "selector", value: "mode-toggle" },
-    mode: "simple",
+    mode: "guided",
   },
   {
-    key: "simple-inputs",
-    title: "Tell us about the car — and about you.",
+    key: "guided-steps",
+    title: "Guided mode goes step by step.",
     body: (
       <>
-        Just a handful of questions: the car's price and type, how far you drive, your income, the lease term, and
-        whether you have a home-loan offset account. That's all Simple mode needs.
+        Along this list we ask about the <strong>type of comparison</strong> you're making, then <strong>your car</strong>,
+        the <strong>lease and finance details</strong> from your quote, the <strong>running costs</strong> and{" "}
+        <strong>your own tax situation</strong>, before showing your results.
       </>
     ),
-    target: { kind: "selector", value: "simple-inputs" },
-    mode: "simple",
+    target: { kind: "selector", value: "guided-steps" },
+    mode: "guided",
   },
   {
-    key: "simple-assumptions",
-    title: "We filled in the rest for you.",
+    key: "guided-card",
+    title: "One screen, a few questions.",
     body: (
       <>
-        Since you haven't entered a real quote, everything else — running costs, finance rate, fees — uses these
-        standard assumptions. Hover or tap the tooltips to see each one, and switch to Advanced mode any time to override
-        them.
+        Each screen asks only a few things, with an example quote showing where to find each figure and a warning if a
+        number looks off. We won't tour every screen: they're hopefully self-explanatory, and you can always go back and edit.
       </>
     ),
-    target: { kind: "selector", value: "simple-assumptions" },
-    mode: "simple",
-  },
-  {
-    key: "simple-outcome",
-    title: "Your bottom line, five years out.",
-    body: (
-      <>
-        This is the headline result: your overall financial position after 5 years with a novated lease, compared
-        with buying the same car outright with cash. Unlike a typical novated lease company's own calculator, this
-        one combines both the <strong>net cashflow difference</strong> and the{" "}
-        <strong>effect on your home-loan offset account interest</strong> to arrive at your true global net worth
-        comparison.
-      </>
-    ),
-    target: { kind: "selector", value: "simple-outcome" },
-    mode: "simple",
+    target: { kind: "selector", value: "guided-card" },
+    mode: "guided",
   },
   {
     key: "switch-advanced",
     title: "Now let's look at Advanced mode.",
     body: (
       <>
-        Everything you entered in Simple mode comes with you — Advanced just lets you replace the assumptions with
-        your real numbers.
+        Anything you entered in Guided mode comes with you — Advanced just lets you adjust every assumption and
+        use your real numbers.
       </>
     ),
     target: { kind: "selector", value: "mode-toggle" },
@@ -102,7 +87,8 @@ const TOUR_STEPS: TourStep[] = [
     body: (
       <>
         This panel takes your full situation: the exact figures from your lease quote, your personal finances and
-        tax details, and all the running costs — rego, insurance, servicing, tyres, fuel or charging.
+        tax details, and all the running costs — rego, insurance, servicing, tyres, fuel or charging. Every figure
+        can be fine-tuned here, whether you arrived from Guided mode or came straight into Advanced mode.
       </>
     ),
     target: { kind: "selector", value: "advanced-inputs" },

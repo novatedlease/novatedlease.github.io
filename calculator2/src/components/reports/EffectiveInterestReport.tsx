@@ -240,7 +240,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
         </div>
 
         {Number.isFinite(rateDef1) && rateDef1 > 0.1 && (
-          <div style={{ marginBottom: 12, padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(217,119,6,0.35)", borderLeft: "3px solid #d97706", background: "rgba(217,119,6,0.06)", fontSize: 12, lineHeight: 1.45, color: "var(--nlc-text)" }}>
+          <div style={{ marginBottom: 12, padding: "9px 12px", borderRadius: 10, border: "1px solid rgba(217,119,6,0.35)", background: "rgba(217,119,6,0.06)", fontSize: 12, lineHeight: 1.45, color: "var(--nlc-text)" }}>
             <div style={{ fontWeight: 800, marginBottom: 3, color: "var(--nlc-acc-brown)" }}>High rate — is a BYO lease available?</div>
             <div>
               Your effective rate exceeds 10%. It may be worth checking whether your employer supports a{" "}

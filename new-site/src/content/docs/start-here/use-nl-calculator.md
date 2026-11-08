@@ -11,11 +11,13 @@ The [novated lease calculator](/calculator/) helps you **compare the real-world 
 
 It is a fully web-based, interactive calculator. Results update automatically as you change inputs. Most fields include an information tooltip ⓘ — hover or tap for explanations, definitions, and common pitfalls.
 
-### Simple mode vs Advanced mode
+### Guided mode vs Advanced mode
 
-The calculator opens in **Simple mode** by default. You're asked just a handful of questions — vehicle type, approximate drive‑away price, your taxable income, lease term, and annual kilometres — and the calculator fills in the rest (running costs, lease rate, residual value, and more) using reasonable market assumptions. Every one of these assumptions is listed transparently under **"Assumptions we made for you,"** each with a tooltip explaining exactly how it was derived, so nothing is hidden.
+The calculator opens in **Guided mode** by default. It walks you through one screen at a time, showing an example quote so you can see where each figure lives, and warning you when a number looks off (for example a monthly payment typed under "per fortnight", or a residual value that includes GST).
 
-Once you have a real quote, or want full control over every input and access to the deeper analysis (effective interest rate, take‑home pay impact, super guarantee effects, worst‑case early‑termination scenarios), switch to **Advanced mode** using the toggle at the top of the calculator. You can jump into Advanced mode at any point from Simple mode to refine or override any assumption with your own figures — the steps below describe Advanced mode's full set of inputs.
+If you don't have a quote yet, answer **"No, I'm just exploring"** at the start. You're then asked just a handful of questions: vehicle type, approximate drive‑away price, lease term, annual kilometres and your taxable income. The calculator fills in the rest (running costs, lease rate, residual value, and more) using reasonable market assumptions. Every one of these assumptions is listed transparently under **"Assumptions we made for you,"** each with a note explaining how it was derived, so nothing is hidden. A "Refine this estimate" panel on the results page lets you add details such as super treatment, where your cash would otherwise sit and NSW Health employer share.
+
+If you have a real quote, Guided mode asks for it screen by screen and checks each figure as you go. For full control over every input on one page, plus the deeper analysis (effective interest rate, take‑home pay impact, super guarantee effects, worst‑case early‑termination scenarios), switch to **Advanced mode** using the toggle at the top of the calculator. You can open your Guided answers in Advanced mode from the results screen to refine or override any assumption with your own figures. The steps below describe Advanced mode's full set of inputs.
 
 First time here? Click **"✨ New here? Take the quick tour"** for a short guided walkthrough of both modes. You can dismiss it permanently once you're comfortable with the calculator — it stays reachable afterwards from a link in the footer.
 
@@ -190,7 +192,7 @@ While the Summary and Details tabs analyse **one scenario at a time**, the **Com
 ## Other Features
 
 - **Reset button**  
-  Resets all Advanced‑mode inputs back to the same starting point Simple mode uses by default (a representative ~$65,000 EV, 15,000km/year, 5‑year lease).
+  Resets all Advanced‑mode inputs back to the same starting point the exploring path uses by default (a representative ~$65,000 EV, 15,000km/year, 5‑year lease).
 
 - **Copy link**  
   Generates a URL containing your current inputs, useful for sharing with a partner or online forum.

@@ -135,7 +135,6 @@ export function NoteBox({
       style={{
         background: tint(color, 0.055),
         borderColor: tint(color, 0.22),
-        borderLeftColor: tint(color, 0.65),
         marginTop: mt,
         marginBottom: mb,
       }}

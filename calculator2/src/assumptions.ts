@@ -98,6 +98,10 @@ export type SimpleModeAnswers = {
   annualMileageKm: number;
   hasHomeLoanOffset: boolean;
   homeLoanOffsetInterestRate: number;
+  /** Optional: the guided estimate path asks these; the defaults keep the old "assume new" behaviour. */
+  vehicleCondition?: Inputs["vehicleCondition"];
+  usedCarFirstHeldAfterJul2022?: boolean;
+  usedCarLctNeverPayable?: boolean;
 };
 
 export function defaultSimpleModeAnswers(): SimpleModeAnswers {
@@ -195,9 +199,9 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
 
   const partialInputs: Omit<Inputs, "financedAmountForInterestCalcExGst" | "residualValueExGst" | "vehicleLeasePerFn"> = {
     vehicleType: answers.vehicleType,
-    vehicleCondition: "New",
-    usedCarFirstHeldAfterJul2022: false,
-    usedCarLctNeverPayable: false,
+    vehicleCondition: answers.vehicleCondition ?? "New",
+    usedCarFirstHeldAfterJul2022: answers.usedCarFirstHeldAfterJul2022 ?? false,
+    usedCarLctNeverPayable: answers.usedCarLctNeverPayable ?? false,
     vehicleBaseValue,
     driveawayCost: answers.driveawayCost,
     estimatedMarketValueAtEnd,

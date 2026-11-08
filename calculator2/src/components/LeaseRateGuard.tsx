@@ -277,7 +277,7 @@ export function LeaseRateGuard(props: {
           marginBottom: 16,
           padding: "8px 10px",
           borderRadius: "var(--nlc-radius-md)",
-          borderLeft: guardMsg ? "3px solid var(--nlc-bad)" : "3px solid var(--nlc-blue-mid)",
+          border: guardMsg ? "1px solid var(--nlc-bad)" : "1px solid var(--nlc-border-mid)",
           background: guardMsg ? "var(--nlc-bad-light)" : "var(--nlc-bg-sunken)",
           fontSize: 12,
           lineHeight: 1.5,

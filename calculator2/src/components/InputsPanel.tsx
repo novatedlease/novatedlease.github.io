@@ -18,6 +18,14 @@ import { noteInputChange } from "../state/engagement";
  * comparator). Not ported: the effective-rate nudge (±0.1%) buttons — a
  * secondary convenience around a field that already works without it.
  */
+function leaseEndValueNote(i: { leaseDurationYears: number; driveawayCost: number; estimatedMarketValueAtEnd: number }) {
+  const y = i.leaseDurationYears;
+  if (!(y > 0 && y < 5) || i.driveawayCost <= 0 || i.estimatedMarketValueAtEnd <= 0) return null;
+  const atEnd = i.driveawayCost * Math.pow(i.estimatedMarketValueAtEnd / i.driveawayCost, y / 5);
+  const rounded = Math.round(atEnd / 100) * 100;
+  return ` For your ${y}-year lease this implies about $${rounded.toLocaleString("en-AU")} at the end of the lease.`;
+}
+
 export function InputsPanel(props: {
   inputs: Inputs;
   setInputs: React.Dispatch<React.SetStateAction<Inputs>>;
@@ -223,7 +231,12 @@ export function InputsPanel(props: {
           label="Estimated market value after 5 years"
           value={inputs.estimatedMarketValueAtEnd}
           onChange={(v) => set("estimatedMarketValueAtEnd", v)}
-          hint="Suggestion: ~40% of drive-away cost (auto-filled). Enter the 5-year value even for shorter leases — the calculator interpolates."
+          hint={
+            <>
+              Suggestion: ~40% of drive-away cost (auto-filled). Enter the 5-year value even for shorter leases — the calculator interpolates.
+              {leaseEndValueNote(inputs)}
+            </>
+          }
         />
         <NumberField label="Annual mileage" value={inputs.annualMileageKm} onChange={(v) => set("annualMileageKm", v)} suffix="km/yr" step={500} decimals={0} />
       </Section>
