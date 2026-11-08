@@ -2423,8 +2423,8 @@ function TryNumbers({
         <Slider
           label="Effective interest rate"
           value={ratePct}
-          min={4}
-          max={15}
+          min={6}
+          max={20}
           step={0.25}
           format={(v) => `${v.toFixed(2)}%`}
           onChange={(v) => {
