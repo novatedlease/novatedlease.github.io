@@ -1158,7 +1158,16 @@ function PaymentStep({ d, set, f }: StepPropsF) {
       <Choices
         label="Is your quote's payment shown fortnightly or monthly?"
         value={d.paymentPeriod}
-        onChange={(v) => set("paymentPeriod", v)}
+        onChange={(v) => {
+          // A corrected payment is our own figure, so keep it meaning the same amount in the new period.
+          const typed = moneyValue(d.payment);
+          if (d.paymentCorrected && typed && d.paymentPeriod && v !== d.paymentPeriod)
+            set("payment", {
+              ...d.payment,
+              text: (v === "perMonth" ? (typed * 26) / 12 : (typed * 12) / 26).toFixed(2),
+            });
+          set("paymentPeriod", v);
+        }}
         options={[
           { value: "perFn", label: "Per fortnight" },
           { value: "perMonth", label: "Per month" },
@@ -2056,7 +2065,7 @@ function ReviewStep({
           [
             "Lease payment",
             paymentPerFn(d)
-              ? `${money(moneyValue(d.payment) ?? 0)} per ${d.paymentPeriod === "perMonth" ? "month" : "fortnight"}${d.paymentBasis === "incGst" ? " inc GST" : " ex GST"}`
+              ? `${money(moneyValue(d.payment) ?? 0)} per ${d.paymentPeriod === "perMonth" ? "month" : "fortnight"}${d.paymentBasis === "incGst" ? " inc GST" : d.paymentBasis === "exGst" ? " ex GST" : " (GST not stated, taken as ex GST)"}`
               : "?",
             "payment",
           ],

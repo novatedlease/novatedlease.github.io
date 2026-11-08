@@ -487,12 +487,15 @@ export function typicalFigures(d: GuidedDraft) {
     hasHomeLoanOffset: false,
     homeLoanOffsetInterestRate: 0,
   });
+  // These are ex GST. A quote that shows running costs inc GST needs them grossed up to compare.
+  const g = d.gstPassedOn === "No" ? 1 + GST_RATE : 1;
+  const r = (n: number) => Math.round(n * g);
   return {
-    service: inputs.serviceMaintTyresAnnual,
-    rego: inputs.registrationAnnual,
-    insurance: inputs.insuranceAnnual,
-    mgmt: inputs.managementFeesAnnual,
-    fuel: inputs.fuelAnnual,
+    service: r(inputs.serviceMaintTyresAnnual),
+    rego: r(inputs.registrationAnnual),
+    insurance: r(inputs.insuranceAnnual),
+    mgmt: r(inputs.managementFeesAnnual),
+    fuel: r(inputs.fuelAnnual),
   };
 }
 

@@ -10,6 +10,7 @@ import {
   atoMinimumResidualExGst,
   buildInputs,
   emptyDraft,
+  typicalFigures,
   fbtCategoryOf,
   fbtLabel,
   financedExGst,
@@ -460,5 +461,66 @@ describe("results cards point to Advanced mode", () => {
     fireEvent.click(buttons[1]);
     expect(num(/Drive-away cost/)).toBe(52400);
     expect(screen.getByText(/Section 2: Financial summary/)).toBeTruthy();
+  });
+});
+
+describe("final review pass", () => {
+  function exploringSeed(type: "EV" | "Non-EV") {
+    const d = exploringEv();
+    d.vehicleType = type;
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "review"] }),
+    );
+  }
+
+  test("a Guided EV changed to petrol in Advanced gets its fuel auto-filled (its $0 fuel wasn't an answer)", () => {
+    exploringSeed("EV");
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /Open full workings/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Petrol / diesel / hybrid" }));
+    expect(num(/^Fuel/)).toBeGreaterThan(0);
+  });
+
+  test("a Guided petrol car changed to EV in Advanced gets its electricity auto-filled", () => {
+    exploringSeed("Non-EV");
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /Open full workings/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Electric" }));
+    expect(num(/^Electricity/)).toBeGreaterThan(0);
+  });
+
+  test("a deliberate $0 fuel ends if the vehicle type is changed away and back", () => {
+    seedGuided(quoteDraft());
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /Open full workings/ }));
+    expect(num(/^Fuel/)).toBe(0);
+    fireEvent.click(screen.getByRole("button", { name: "Electric" }));
+    fireEvent.click(screen.getByRole("button", { name: "Petrol / diesel / hybrid" }));
+    expect(num(/^Fuel/)).toBeGreaterThan(0);
+  });
+
+  test("typical running costs are grossed up when the quote shows them inc GST", () => {
+    const d = quoteDraft();
+    d.gstPassedOn = "Yes";
+    const ex = typicalFigures(d)!;
+    d.gstPassedOn = "No";
+    const inc = typicalFigures(d)!;
+    expect(inc.insurance).toBe(Math.round(ex.insurance * 1.1));
+    expect(inc.rego).toBe(Math.round(ex.rego * 1.1));
+  });
+
+  test("a corrected payment keeps its value when the period is switched", () => {
+    const d = quoteDraft();
+    d.smartMillarx = true;
+    d.paymentCorrected = true;
+    d.payment = m("600.00");
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "payment", visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
+    );
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /Per month/ }));
+    expect(field(/Finance \(lease\) payment/).value).toBe("1300.00");
   });
 });
