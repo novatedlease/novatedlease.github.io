@@ -582,7 +582,9 @@ export function missingForStep(step: StepId, d: GuidedDraft): string[] {
       if (!answered(d.rego)) out.push("Registration");
       if (!answered(d.insurance)) out.push("Insurance");
       if (!answered(d.mgmt)) out.push("Management fees");
-      if (d.vehicleType === "Non-EV" && !answered(d.fuel)) out.push("Fuel");
+      // Never $0: a petrol car always costs something to run, and a $0 here would skew the
+      // comparison with keeping the current car, whose fuel is counted.
+      if (d.vehicleType === "Non-EV" && !positive(d.fuel)) out.push("Fuel");
       if (d.vehicleType === "EV" && !answered(d.chargingRate))
         out.push("Electricity price per kWh (0 if solar)");
       break;

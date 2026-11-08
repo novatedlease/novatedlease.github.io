@@ -1528,7 +1528,6 @@ function RunningStep({ d, set, f }: StepPropsF) {
           suggestion={typicalIn(typical?.fuel)}
           findings={f.fuel}
           where="As shown for fuel in the running-costs section."
-          noneLabel="Fuel is not packaged"
         />
       )}
       {isEv && (

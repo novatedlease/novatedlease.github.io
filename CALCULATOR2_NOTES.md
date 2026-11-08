@@ -299,9 +299,8 @@ findings), `GuidedMode.tsx` (screens), `QuoteDiagram.tsx`, `parts.tsx`.
 - **One-way hand-off.** Opening Advanced copies Guided's finished `Inputs` across. App tracks
   `advancedEdited` (user edits, quote loads, resets, or arriving by share link); while it's true,
   Guided never overwrites Advanced without an explicit "Replace with my guided answers".
-- **Deliberate zeros.** Inputs seeded from Guided set `zeroIsDeliberate` on AdvancedMode, so a $0
-  fuel ("not packaged") isn't treated as the auto-fill sentinel. Loading a quote or resetting
-  clears it.
+- **No $0 petrol.** Guided requires a fuel figure above $0 for a petrol car (there is no "not
+  packaged" tick), so Advanced's fuel auto-fill never meets a deliberate zero.
 - **Estimate path.** EVs are asked "before / on or after 1 April 2027" (placeholder start date
   then +30 days or 1 Apr 2027); used EVs get the history questions; the cash question is
   required; super isn't asked (always "not reduced", listed among the assumptions).

@@ -59,18 +59,12 @@ function AdvancedMode(props: {
   setOutputTab: React.Dispatch<React.SetStateAction<OutputTab>>;
   navigateToDetails: (anchorId?: string) => void;
   sectionForceOpenNonce: (anchorId: string) => number | undefined;
-  /**
-   * True when these inputs came from Guided mode, where $0 fuel is a deliberate answer ("fuel is
-   * not packaged"), not the "not yet computed" sentinel that share links and old saved quotes use.
-   * Read once on mount: the fuel auto-fill then leaves that 0 alone until the vehicle type changes.
-   */
-  zeroIsDeliberate: boolean;
   /** The reader changed something here themselves (typed, loaded a saved quote, or reset). */
-  onUserEdit: (kind: "edit" | "load" | "reset") => void;
+  onUserEdit: () => void;
 }) {
-  const { inputs, setInputs, savedQuotes, setSavedQuotes, outputTab, setOutputTab, navigateToDetails, sectionForceOpenNonce, zeroIsDeliberate, onUserEdit } = props;
+  const { inputs, setInputs, savedQuotes, setSavedQuotes, outputTab, setOutputTab, navigateToDetails, sectionForceOpenNonce, onUserEdit } = props;
   const setInputsByUser: React.Dispatch<React.SetStateAction<Inputs>> = (u) => {
-    onUserEdit("edit");
+    onUserEdit();
     setInputs(u);
   };
   const lastAutoResidualRef = useRef<number | null>(null);
@@ -78,11 +72,6 @@ function AdvancedMode(props: {
   const lastAutoEstMarketValueRef = useRef<number | null>(null);
   const lastAutoElectricityRef = useRef<number | null>(null);
   const lastAutoFuelRef = useRef<number | null>(null);
-  // Only the petrol car Guided described has a deliberate $0 fuel. Changing the vehicle type here
-  // ends that (a Guided EV also sends $0 fuel, which must auto-fill if switched to petrol). Guided
-  // never sends a deliberate $0 electricity, so that auto-fill ignores zeroIsDeliberate.
-  const deliberateZeroFuelRef = useRef(zeroIsDeliberate && inputs.vehicleType !== "EV" && inputs.fuelAnnual === 0);
-  const seededVehicleTypeRef = useRef(inputs.vehicleType);
   const [copiedLink, setCopiedLink] = useState(false);
 
   // Auto-sync residualValueExGst from the ATO-derived formula until the user overrides it —
@@ -172,22 +161,20 @@ function AdvancedMode(props: {
   // leaves lastAutoFuelRef frozen (not reset to null) while inactive, for the same reason
   // documented on the electricity effect above.
   useEffect(() => {
-    // Ends on a change of vehicle type, or when App clears zeroIsDeliberate (a quote load or reset).
-    if (!zeroIsDeliberate || inputs.vehicleType !== seededVehicleTypeRef.current) deliberateZeroFuelRef.current = false;
     if (inputs.vehicleType === "EV") return;
     const auto = nonEvFuelAnnual(inputs.annualMileageKm);
     const cur = inputs.fuelAnnual;
     const lastAuto = lastAutoFuelRef.current;
     const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;
 
-    const shouldSync = (cur === 0 && !deliberateZeroFuelRef.current) || (lastAuto !== null && withinCent(cur, lastAuto)) || (lastAuto === null && withinCent(cur, auto));
+    const shouldSync = cur === 0 || (lastAuto !== null && withinCent(cur, lastAuto)) || (lastAuto === null && withinCent(cur, auto));
 
     if (shouldSync && !withinCent(cur, auto)) {
       setInputs((p) => ({ ...p, fuelAnnual: auto }));
     }
     lastAutoFuelRef.current = auto;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs.vehicleType, inputs.annualMileageKm, inputs.fuelAnnual, zeroIsDeliberate]);
+  }, [inputs.vehicleType, inputs.annualMileageKm, inputs.fuelAnnual]);
 
   const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("five_year");
   const leaseYearsRounded = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
@@ -212,7 +199,7 @@ function AdvancedMode(props: {
           {copiedLink ? "Link copied!" : "Copy share link"}
         </Button>
         <QuotesPanel inputs={inputs} defaultInputs={sentinelDefaultInputs} onLoadQuote={(q) => {
-            onUserEdit("load");
+            onUserEdit();
             setInputs(q);
           }} quotes={savedQuotes} onQuotesChange={setSavedQuotes} />
       </div>
@@ -225,7 +212,7 @@ function AdvancedMode(props: {
             vehicleLeasePeriodMode={vehicleLeasePeriodMode}
             onVehicleLeasePeriodModeChange={setVehicleLeasePeriodMode}
             onResetDefaults={() => {
-              onUserEdit("reset");
+              onUserEdit();
               setInputs(advancedDefaultInputs);
               setOutputTab("summary");
               setCopiedLink(false);
@@ -407,7 +394,6 @@ export default function App() {
     if (typeof window === "undefined") return false;
     return !!new URLSearchParams(window.location.search).get(URL_STATE_PARAM);
   });
-  const [seededFromGuided, setSeededFromGuided] = useState(false);
   const guidedInputsRef = useRef<Inputs | null>(null);
   const [pendingDetailsNav, setPendingDetailsNav] = useState<{ anchorId?: string; nonce: number } | null>(null);
 
@@ -467,7 +453,6 @@ export default function App() {
   function openGuidedInAdvanced(guidedInputs: Inputs, anchorId?: string) {
     setInputs(guidedInputs);
     setAdvancedEdited(false);
-    setSeededFromGuided(true);
     changeMode("advanced");
     if (anchorId) setPendingDetailsNav((prev) => ({ anchorId, nonce: (prev?.nonce ?? 0) + 1 }));
   }
@@ -587,11 +572,7 @@ export default function App() {
           setOutputTab={setOutputTab}
           navigateToDetails={navigateToDetails}
           sectionForceOpenNonce={sectionForceOpenNonce}
-          zeroIsDeliberate={seededFromGuided}
-          onUserEdit={(kind) => {
-            setAdvancedEdited(true);
-            if (kind !== "edit") setSeededFromGuided(false);
-          }}
+          onUserEdit={() => setAdvancedEdited(true)}
         />
       )}
       <Footer showTourLink={tourHidden} onStartTour={startTour} />

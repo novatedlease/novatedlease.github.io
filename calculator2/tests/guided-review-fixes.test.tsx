@@ -69,7 +69,7 @@ function quoteDraft(): GuidedDraft {
   d.rego = m("900");
   d.insurance = m("1600");
   d.mgmt = m("250");
-  d.fuel = none; // "Fuel is not packaged"
+  d.fuel = m("2400");
   d.income = m("110000");
   d.superPreNl = "Yes";
   d.cashHome = "none";
@@ -238,12 +238,29 @@ function field(label: string | RegExp): HTMLInputElement {
 const num = (label: string | RegExp) => Number(field(label).value.replace(/[,$]/g, ""));
 
 describe("Guided → Advanced hand-off", () => {
-  test("a deliberate $0 fuel survives Advanced mode's auto-fill", () => {
+  test("the petrol cost entered in Guided reaches Advanced unchanged", () => {
     seedGuided(quoteDraft());
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: /Open full workings in Advanced mode/ }));
-    expect(num("Fuel")).toBe(0);
+    expect(num("Fuel")).toBe(2400);
     expect(num(/Drive-away cost/)).toBe(52400);
+  });
+
+  test("petrol cost can never be $0 in Guided: no 'not packaged' tick, and $0 isn't accepted", () => {
+    const d = quoteDraft();
+    d.fuel = none; // a draft saved before the tick was removed
+    expect(missingForStep("running", d)).toContain("Fuel");
+    expect(buildInputs(d)).toBeNull();
+    d.fuel = m("0");
+    expect(missingForStep("running", d)).toContain("Fuel");
+    d.fuel = m("2400");
+    expect(missingForStep("running", d)).not.toContain("Fuel");
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: quoteDraft(), step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+    render(<App />);
+    expect(screen.queryByText(/Fuel is not packaged/)).toBeNull();
   });
 
   test("the header toggle carries finished answers across too", () => {
@@ -490,15 +507,6 @@ describe("final review pass", () => {
     expect(num(/^Electricity/)).toBeGreaterThan(0);
   });
 
-  test("a deliberate $0 fuel ends if the vehicle type is changed away and back", () => {
-    seedGuided(quoteDraft());
-    render(<App />);
-    fireEvent.click(screen.getByRole("button", { name: /Open full workings/ }));
-    expect(num(/^Fuel/)).toBe(0);
-    fireEvent.click(screen.getByRole("button", { name: "Electric" }));
-    fireEvent.click(screen.getByRole("button", { name: "Petrol / diesel / hybrid" }));
-    expect(num(/^Fuel/)).toBeGreaterThan(0);
-  });
 
   test("typical running costs are grossed up when the quote shows them inc GST", () => {
     const d = quoteDraft();
