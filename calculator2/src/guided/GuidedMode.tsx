@@ -1112,11 +1112,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           label={`Residual value (${d.residualBasis === "incGst" ? "including GST" : "excluding GST"})`}
           value={d.residual}
           onChange={(m) => set("residual", m)}
-          where={
-            d.residualBasis === "incGst"
-              ? "Type the figure exactly as printed. We'll take the GST out for you."
-              : "Type the figure exactly as printed."
-          }
+          where="Type the figure exactly as printed."
           findings={f.residual}
         />
       )}
