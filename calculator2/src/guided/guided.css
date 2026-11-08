@@ -173,7 +173,7 @@
 .gd-callout--done { border: 1.5px solid var(--nlc-good); background: var(--nlc-good-light); }
 
 /* Exploring results: "Try different numbers" */
-.gd-try { border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-md); padding: 14px 16px; margin: 0 0 16px; background: var(--nlc-bg-subtle); }
+.gd-try { border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-md); padding: 14px 16px; margin: 16px 0; background: var(--nlc-bg-subtle); }
 .gd-try__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .gd-try .gd-small { margin: 2px 0 12px; }
 .gd-try__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; }

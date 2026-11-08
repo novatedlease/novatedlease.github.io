@@ -2225,6 +2225,7 @@ function ReviewStep({
               ))}
             </Section>
           )}
+          {results}
           {exploring && (
             <TryNumbers
               d={d}
@@ -2233,7 +2234,6 @@ function ReviewStep({
               horizon={effectiveHorizon}
             />
           )}
-          {results}
           <ResultTools
             inputs={inputs}
             exploring={exploring}
@@ -2393,7 +2393,7 @@ function TryNumbers({
         )}
       </div>
       <p className="gd-small">
-        Drag to see how the result changes. The full results below update too.
+        Drag to see how the result changes. The full results above update too.
       </p>
       <div className="gd-try__grid">
         <Slider
