@@ -27,6 +27,7 @@ import { InputsPanel } from "./components/InputsPanel";
 import { Tour } from "./components/Tour";
 import { CoffeeNudgeModal } from "./components/CoffeeNudgeModal";
 import { useCoffeeNudge } from "./hooks/useCoffeeNudge";
+import { COFFEE_NUDGE_AFTER_MODE_SWITCH_MS } from "./state/engagement";
 import { type SavedQuoteV1, safeLoadQuotes } from "./state/savedQuotes";
 import { trackEvent, trackOncePerSession } from "./utils/analytics";
 import { copyShareLink } from "./utils/shareLink";
@@ -449,6 +450,7 @@ export default function App() {
   }
 
   function changeMode(next: CalcMode) {
+    if (next !== mode) setModeSettled(false);
     setMode(next);
     window.localStorage.setItem(MODE_STORAGE_KEY, next);
     trackEvent("mode_switched", { mode: next });
@@ -502,8 +504,29 @@ export default function App() {
   const [guidedResultsSeen, setGuidedResultsSeen] = useState(false);
   const [guidedPath, setGuidedPath] = useState<"quote" | "exploring" | null>(null);
   const onGuidedResultsSeen = useCallback(() => setGuidedResultsSeen(true), []);
+
+  // Hold the nudge for a little visible time after any switch between modes (changeMode starts
+  // the hold; nothing on first load). A further switch restarts the count.
+  const [modeSettled, setModeSettled] = useState(true);
+  useEffect(() => {
+    if (modeSettled) return;
+    let visibleMs = 0;
+    const TICK = 1000;
+    const timer = window.setInterval(() => {
+      if (document.visibilityState === "visible") visibleMs += TICK;
+      if (visibleMs >= COFFEE_NUDGE_AFTER_MODE_SWITCH_MS) {
+        window.clearInterval(timer);
+        setModeSettled(true);
+      }
+    }, TICK);
+    return () => window.clearInterval(timer);
+  }, [modeSettled, mode]);
+
   const nudgeContext = { mode, guided_path: mode === "guided" ? (guidedPath ?? "") : "" } as const;
-  const coffeeNudge = useCoffeeNudge({ paused: tourOpen || (mode === "guided" && !guidedResultsSeen), context: nudgeContext });
+  const coffeeNudge = useCoffeeNudge({
+    paused: tourOpen || !modeSettled || (mode === "guided" && !guidedResultsSeen),
+    context: nudgeContext,
+  });
 
   function exitTour(reason: "completed" | "skipped", stepIndex: number) {
     setTourOpen(false);

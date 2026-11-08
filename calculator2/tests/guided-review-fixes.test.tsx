@@ -4,7 +4,7 @@ import { act, cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { fortnightlyLeaseFromEffectiveAnnualRate } from "@engine/effectiveinterest";
 import { getLeaseFbtCategory } from "@engine/types";
 import App from "../src/App";
-import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, COFFEE_NUDGE_MIN_ACTIVE_MS, _resetInputChangeCountForTests, getInputChangeCount, noteInputChange } from "../src/state/engagement";
+import { COFFEE_NUDGE_AFTER_MODE_SWITCH_MS, COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, COFFEE_NUDGE_MIN_ACTIVE_MS, _resetInputChangeCountForTests, getInputChangeCount, noteInputChange } from "../src/state/engagement";
 import {
   PHASE_OUT_START,
   atoMinimumResidualExGst,
@@ -372,5 +372,34 @@ describe("coffee nudge in Guided mode", () => {
     const shown = events.find(([n]) => n === "coffee_nudge_shown")![1];
     expect(shown).toMatchObject({ mode: "guided", guided_path: "quote" });
     delete window.gtag;
+  });
+
+  test("20 seconds on Guided results then straight to Advanced: held for 30 seconds after the switch, then shown", () => {
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: quoteDraft(), step: "you", visited: ["intro", "car", "compare", "price", "lease", "payment", "running", "you"] }),
+    );
+    render(<App />);
+    for (const f of ["a", "b", "c", "d", "e"]) noteInputChange(f);
+    act(() => {
+      vi.advanceTimersByTime(COFFEE_NUDGE_MIN_ACTIVE_MS - 20_000);
+    });
+    fireEvent.click(screen.getByRole("button", { name: "See my results" }));
+    act(() => {
+      vi.advanceTimersByTime(20_000); // on the results page, past the 4 minutes, but under 30s there
+    });
+    expect(screen.queryByRole("dialog")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Advanced" }));
+    act(() => {
+      vi.advanceTimersByTime(COFFEE_NUDGE_AFTER_MODE_SWITCH_MS - 5000);
+    });
+    expect(screen.queryByRole("dialog")).toBeNull();
+    act(() => {
+      vi.advanceTimersByTime(6000);
+    });
+    act(() => {
+      vi.advanceTimersByTime(6000);
+    });
+    expect(screen.getByRole("dialog")).toBeTruthy();
   });
 });

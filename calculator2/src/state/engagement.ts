@@ -16,6 +16,8 @@ export const COFFEE_NUDGE_MIN_CHANGES = 4;
 export const COFFEE_NUDGE_SHOWN_KEY = "nlc2-coffee-nudge-shown";
 /** Guided mode: visible time on the results page before the nudge may show, so the reader takes in their result first. */
 export const COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS = 30 * 1000;
+/** After switching between Guided and Advanced, visible time before the nudge may show, so it doesn't greet the new screen. */
+export const COFFEE_NUDGE_AFTER_MODE_SWITCH_MS = 30 * 1000;
 
 /** Where the reader was when the nudge fired, sent with its analytics events so conversion can be split by group. */
 export type CoffeeNudgeContext = { mode: "guided" | "advanced"; guided_path: "quote" | "exploring" | "" };
