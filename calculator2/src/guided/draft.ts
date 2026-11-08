@@ -74,6 +74,8 @@ export type GuidedDraft = {
   leaseStartDate: string;
   /** Estimate path only: roughly when an EV lease would start, either side of the phase-out date. */
   exploreStart: "before" | "after" | null;
+  /** Estimate path only: the "Try different numbers" rate slider, in % a year. Null means our default. */
+  estimateRatePct: number | null;
 
   baseValue: Money;
   driveaway: Money;
@@ -143,6 +145,7 @@ export function emptyDraft(): GuidedDraft {
     usedLctNever: null,
     leaseStartDate: "",
     exploreStart: null,
+    estimateRatePct: null,
     baseValue: emptyMoney(),
     driveaway: emptyMoney(),
     leaseYears: null,
@@ -670,6 +673,8 @@ function estimateAnswers(d: GuidedDraft): SimpleModeAnswers {
     usedCarFirstHeldAfterJul2022: d.usedAfter2022 === true,
     usedCarLctNeverPayable: d.usedLctNever === true,
     leaseStartDate: effectiveStartDate(d) ?? undefined,
+    effectiveAnnualRate:
+      d.estimateRatePct != null ? d.estimateRatePct / 100 : undefined,
   };
 }
 

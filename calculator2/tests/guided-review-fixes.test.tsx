@@ -532,3 +532,43 @@ describe("final review pass", () => {
     expect(field(/Finance \(lease\) payment/).value).toBe("1300.00");
   });
 });
+
+describe("exploring results: Try different numbers", () => {
+  function exploreReview() {
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: exploringEv(), step: "review", visited: ["intro", "car", "compare", "quick", "you", "review"] }),
+    );
+    render(<App />);
+  }
+  const headline = () => screen.getByText(/Novated lease vs buying with cash over/).textContent!;
+
+  test("sliders change the answers and the result, and can be reset", () => {
+    exploreReview();
+    const before = headline();
+    expect(screen.queryByRole("button", { name: "Back to my answers" })).toBeNull();
+    fireEvent.change(screen.getByRole("slider", { name: "Taxable income" }), { target: { value: "250000" } });
+    expect(headline()).not.toBe(before);
+    // on the slider and in Your answers
+    expect(screen.getAllByText("$250,000")).toHaveLength(2);
+    fireEvent.click(screen.getByRole("button", { name: "Back to my answers" }));
+    expect(headline()).toBe(before);
+    expect(screen.queryByRole("button", { name: "Back to my answers" })).toBeNull();
+  });
+
+  test("the rate slider feeds the assumed lease payment, and Advanced gets the new figures", () => {
+    const d = exploringEv();
+    const base = buildInputs(d)!.vehicleLeasePerFn;
+    expect(buildInputs({ ...d, estimateRatePct: 12 })!.vehicleLeasePerFn).toBeGreaterThan(base);
+    exploreReview();
+    fireEvent.change(screen.getByRole("slider", { name: "Drive-away price" }), { target: { value: "70000" } });
+    fireEvent.click(screen.getByRole("button", { name: /Open full workings/ }));
+    expect(num(/Drive-away cost/)).toBe(70000);
+  });
+
+  test("is only on the exploring path", () => {
+    seedGuided(quoteDraft());
+    render(<App />);
+    expect(screen.queryByText("Try different numbers")).toBeNull();
+  });
+});

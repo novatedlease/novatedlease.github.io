@@ -111,6 +111,8 @@ export type SimpleModeAnswers = {
   usedCarLctNeverPayable?: boolean;
   /** Optional: the guided estimate path sets this from the reader's "before / after 1 April 2027" answer. */
   leaseStartDate?: string;
+  /** Optional: the guided estimate path's "Try different numbers" rate slider. Defaults to ASSUMED_EFFECTIVE_RATE. */
+  effectiveAnnualRate?: number;
 };
 
 export function defaultSimpleModeAnswers(): SimpleModeAnswers {
@@ -140,6 +142,11 @@ export type SimpleModeResult = {
   leaseStartDate: string;
 };
 
+/** 0.095 → "9.5", 0.0925 → "9.25", 0.1 → "10". */
+function pctLabel(rate: number): string {
+  return String(Number((rate * 100).toFixed(2)));
+}
+
 function fmtMoney(n: number): string {
   return `$${Math.round(n).toLocaleString("en-AU")}`;
 }
@@ -158,6 +165,7 @@ function isoDatePlusDays(days: number): string {
  */
 export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): SimpleModeResult {
   const leaseStartDate = answers.leaseStartDate ?? isoDatePlusDays(30);
+  const rate = answers.effectiveAnnualRate ?? ASSUMED_EFFECTIVE_RATE;
   const isEv = answers.vehicleType === "EV";
   const leaseYears = Math.max(1, Math.min(5, Math.round(answers.leaseDurationYears)));
 
@@ -269,7 +277,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     residualValueExGst,
     leaseYears,
     deferMonths: 2,
-    effectiveAnnualRate: ASSUMED_EFFECTIVE_RATE,
+    effectiveAnnualRate: rate,
   });
 
   const inputs: Inputs = {
@@ -308,9 +316,12 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     },
     {
       field: "vehicleLeasePerFn",
-      label: `Fortnightly lease payment @ ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}%`,
+      label: `Fortnightly lease payment @ ${pctLabel(rate)}%`,
       value: `$${vehicleLeasePerFn.toFixed(2)}/fortnight`,
       tooltip:
+        (rate !== ASSUMED_EFFECTIVE_RATE
+          ? `You set the effective interest rate to ${pctLabel(rate)}% with the slider. Our default is ${pctLabel(ASSUMED_EFFECTIVE_RATE)}%. `
+          : "") +
         `Since you don't have a real quote yet, we have assumed a mid-market effective interest rate of ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}% p.a. for this simulation — the midpoint of the roughly 8-12% p.a. range that's typical in the current novated lease market. Real quotes can differ meaningfully from this; get an actual quote and enter it (choose 'I have a quote' in Guided mode) to see your true effective rate.`,
     },
     {

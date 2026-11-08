@@ -171,3 +171,17 @@
 .gd-callout--must { border: 2px solid var(--nlc-bad); background: var(--nlc-bad-light); }
 .gd-callout--must .gd-callout__title { color: var(--nlc-bad); }
 .gd-callout--done { border: 1.5px solid var(--nlc-good); background: var(--nlc-good-light); }
+
+/* Exploring results: "Try different numbers" */
+.gd-try { border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-md); padding: 14px 16px; margin: 0 0 16px; background: var(--nlc-bg-subtle); }
+.gd-try__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.gd-try .gd-small { margin: 2px 0 12px; }
+.gd-try__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; }
+@media (max-width: 640px) { .gd-try__grid { grid-template-columns: 1fr; } }
+.gd-slider__head { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; margin-bottom: 4px; }
+.gd-slider__head label { font-weight: 600; color: var(--nlc-text); }
+.gd-slider__head output { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--nlc-blue); }
+.gd-slider input[type="range"] { width: 100%; accent-color: var(--nlc-blue); height: 28px; margin: 0; }
+.gd-try__result { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--nlc-border); font-size: 15px; }
+.gd-pos { color: var(--nlc-acc-green, var(--nlc-good)); }
+.gd-neg { color: var(--nlc-neg, var(--nlc-bad)); }

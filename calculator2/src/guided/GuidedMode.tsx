@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import {
+  useDeferredValue,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import type { Inputs } from "@engine/types";
 import { Button } from "../components/ui/Button";
 import { KV, NoteBox } from "../components/ui/shared";
@@ -8,6 +16,8 @@ import { LeaseAdjustModal } from "../components/LeaseAdjustModal";
 import { SummaryView } from "../components/SummaryView";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
+import { computeFinancialSummary, computeTotalSaving } from "../engineAdapter";
+import { ASSUMED_EFFECTIVE_RATE } from "../assumptions";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
 import {
@@ -461,6 +471,7 @@ export function GuidedMode({
             advancedEdited={advancedEdited}
             savedQuotes={savedQuotes}
             onQuotesChange={onQuotesChange}
+            set={set}
             onHaveQuote={() => {
               set("hasQuote", true);
               go("car");
@@ -1916,7 +1927,9 @@ function ReviewStep({
   savedQuotes,
   onQuotesChange,
   onHaveQuote,
+  set,
 }: {
+  set: StepProps["set"];
   d: GuidedDraft;
   inputs: Inputs | null;
   f: FindingMap;
@@ -2079,6 +2092,9 @@ function ReviewStep({
         ]
   ).filter(Boolean) as [string, string, StepId][];
 
+  // Dragging a "Try different numbers" slider recomputes everything; let the cards lag a frame
+  // behind the thumb rather than make the drag stutter.
+  const shownInputs = useDeferredValue(inputs);
   const results = inputs && (
     <>
       {leaseYears < 5 && (
@@ -2106,7 +2122,7 @@ function ReviewStep({
       )}
       <div className="gd-results">
         <SummaryView
-          inputs={inputs}
+          inputs={shownInputs ?? inputs}
           horizon={effectiveHorizon}
           onNavigateToDetails={(anchorId) => openAdvanced(anchorId)}
           onMoreDetails={(anchorId) => {
@@ -2195,6 +2211,14 @@ function ReviewStep({
               ))}
             </Section>
           )}
+          {exploring && (
+            <TryNumbers
+              d={d}
+              set={set}
+              inputs={shownInputs ?? inputs}
+              horizon={effectiveHorizon}
+            />
+          )}
           {results}
           <ResultTools
             inputs={inputs}
@@ -2247,6 +2271,178 @@ function ReviewStep({
         </>
       )}
     </>
+  );
+}
+
+/** Headline "novated lease vs cash" figure, as the first Summary card computes it. */
+function netVsCash(inputs: Inputs, horizon: "five_year" | "lease_end"): number {
+  return computeTotalSaving({
+    summary: computeFinancialSummary({ inputs }),
+    horizon: horizon === "five_year" ? "at5" : "atLeaseEnd",
+  }).totalSaving;
+}
+
+function Slider({
+  label,
+  value,
+  min,
+  max,
+  step,
+  format,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  format: (v: number) => string;
+  onChange: (v: number) => void;
+}) {
+  const id = useId();
+  return (
+    <div className="gd-slider">
+      <div className="gd-slider__head">
+        <label htmlFor={id}>{label}</label>
+        <output htmlFor={id}>{format(value)}</output>
+      </div>
+      <input
+        id={id}
+        type="range"
+        min={Math.min(min, value)}
+        max={Math.max(max, value)}
+        step={step}
+        value={value}
+        aria-valuetext={format(value)}
+        onChange={(e) => onChange(Number(e.target.value))}
+      />
+    </div>
+  );
+}
+
+const TRY_KEYS = [
+  "driveaway",
+  "mileage",
+  "income",
+  "leaseYears",
+  "estimateRatePct",
+] as const;
+
+/**
+ * Exploring only: sliders over the rough figures, so "what if I bought a cheaper car / drove less /
+ * earned more?" doesn't mean clicking back through the screens. They change the reader's actual
+ * answers, so Your answers, the cards below and Advanced mode all stay in step.
+ */
+function TryNumbers({
+  d,
+  set,
+  inputs,
+  horizon,
+}: StepProps & { inputs: Inputs; horizon: "five_year" | "lease_end" }) {
+  const [original] = useState(() =>
+    Object.fromEntries(TRY_KEYS.map((k) => [k, d[k]])),
+  );
+  const usedRef = useRef(false);
+  const used = () => {
+    if (usedRef.current) return;
+    usedRef.current = true;
+    trackEvent("guided_try_numbers_used");
+  };
+  const setMoney = (k: "driveaway" | "mileage" | "income", v: number) => {
+    used();
+    set(k, { text: String(v), none: false, estimated: false });
+  };
+  const changed = TRY_KEYS.some(
+    (k) => JSON.stringify(d[k]) !== JSON.stringify(original[k]),
+  );
+  const net = netVsCash(inputs, horizon);
+  const years = horizon === "five_year" ? 5 : (d.leaseYears ?? 5);
+  const ratePct = d.estimateRatePct ?? ASSUMED_EFFECTIVE_RATE * 100;
+  const km = (v: number) => `${v.toLocaleString("en-AU")} km`;
+
+  return (
+    <section className="gd-try" aria-label="Try different numbers">
+      <div className="gd-try__head">
+        <h3 className="gd-sub__title">Try different numbers</h3>
+        {changed && (
+          <button
+            type="button"
+            className="gd-linkbtn"
+            onClick={() => {
+              for (const k of TRY_KEYS)
+                set(k, original[k] as never);
+            }}
+          >
+            Back to my answers
+          </button>
+        )}
+      </div>
+      <p className="gd-small">
+        Drag to see how the result changes. The full results below update too.
+      </p>
+      <div className="gd-try__grid">
+        <Slider
+          label="Drive-away price"
+          value={moneyValue(d.driveaway) ?? 0}
+          min={20000}
+          max={150000}
+          step={500}
+          format={money}
+          onChange={(v) => setMoney("driveaway", v)}
+        />
+        <Slider
+          label="Kilometres per year"
+          value={moneyValue(d.mileage) ?? 0}
+          min={2000}
+          max={40000}
+          step={500}
+          format={km}
+          onChange={(v) => setMoney("mileage", v)}
+        />
+        <Slider
+          label="Taxable income"
+          value={moneyValue(d.income) ?? 0}
+          min={30000}
+          max={300000}
+          step={1000}
+          format={money}
+          onChange={(v) => setMoney("income", v)}
+        />
+        <Slider
+          label="Lease term"
+          value={d.leaseYears ?? 5}
+          min={1}
+          max={5}
+          step={1}
+          format={(v) => `${v} year${v > 1 ? "s" : ""}`}
+          onChange={(v) => {
+            used();
+            set("leaseYears", v);
+          }}
+        />
+        <Slider
+          label="Effective interest rate"
+          value={ratePct}
+          min={4}
+          max={15}
+          step={0.25}
+          format={(v) => `${v.toFixed(2)}%`}
+          onChange={(v) => {
+            used();
+            set(
+              "estimateRatePct",
+              Math.abs(v - ASSUMED_EFFECTIVE_RATE * 100) < 1e-9 ? null : v,
+            );
+          }}
+        />
+      </div>
+      <div className="gd-try__result" role="status">
+        Novated lease vs buying with cash over {years} years:{" "}
+        <strong className={net >= 0 ? "gd-pos" : "gd-neg"}>
+          {money(Math.abs(net))} {net >= 0 ? "better off" : "worse off"}
+        </strong>
+      </div>
+    </section>
   );
 }
 
