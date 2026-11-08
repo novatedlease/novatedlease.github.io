@@ -304,6 +304,21 @@ findings), `GuidedMode.tsx` (screens), `QuoteDiagram.tsx`, `parts.tsx`.
 - **Estimate path.** EVs are asked "before / on or after 1 April 2027" (placeholder start date
   then +30 days or 1 Apr 2027); used EVs get the history questions; the cash question is
   required; super isn't asked (always "not reduced", listed among the assumptions).
+- **Try different numbers** (estimate results only): sliders for drive-away, km, income, term and
+  the assumed rate (6–20%, via `SimpleModeAnswers.effectiveAnnualRate`). They edit the draft, so
+  every view stays in step. The cash / loan / keep lines use `components/summaryFigures.ts`, the
+  same function the Summary cards use.
+- **Current car fuel.** A typed figure records the km answered at the time
+  (`curFuelBasisKm`) and scales in proportion if km changes; typical figures already follow km.
+- **Smart Leasing / MillarX.** Asked after the payment's GST question; Yes shows a must-do callout
+  to the correction tool, which fills in the ex-GST figure and marks it corrected.
+- **Results → Advanced.** Each Summary card in Guided results has "See full details in Advanced
+  mode" (`SummaryView`'s optional `onMoreDetails`); Advanced's own Summary doesn't show it.
+- **Coffee nudge.** Guided answers count as edited fields. In Guided mode it also waits for 30 s of
+  visible time on a complete result, and after any mode switch it waits 30 s
+  (`COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS`, `COFFEE_NUDGE_AFTER_MODE_SWITCH_MS` in
+  `state/engagement.ts`). Its GA4 events carry `mode` and `guided_path`. The modal also offers the
+  Tesla referral (`TESLA_REFERRAL_URL`, same offer as `SupportBox.astro`).
 - **Draft storage.** `localStorage` key `nlc2-guided-draft-v3` (draft, step, visited steps), with
-  a "Welcome back / Start fresh" banner.
+  a "Welcome back / Start fresh" banner. The privacy page mentions it.
 - Regression tests for the Nov 2026 review: `tests/guided-review-fixes.test.tsx`.

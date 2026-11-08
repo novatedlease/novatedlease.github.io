@@ -15,8 +15,7 @@ import { noteInputChange } from "../state/engagement";
  * ported from calculator/src/components/InputsPanel.tsx (2,326 lines). Field
  * grouping matches v1's sections (FBT eligibility, vehicle details, financials,
  * lease details, running costs, electricity, car loan comparator, keep-current-car
- * comparator). Not ported: the effective-rate nudge (±0.1%) buttons — a
- * secondary convenience around a field that already works without it.
+ * comparator). The effective-rate nudge (±0.1%) steppers live in LeaseRateGuard.
  */
 function leaseEndValueNote(i: { leaseDurationYears: number; driveawayCost: number; estimatedMarketValueAtEnd: number }) {
   const y = i.leaseDurationYears;

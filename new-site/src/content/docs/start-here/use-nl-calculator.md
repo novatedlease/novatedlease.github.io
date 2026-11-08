@@ -1,7 +1,7 @@
 ---
 title: "How to use the novated lease calculator"
 datePublished: "2026-02-06"
-dateModified: "2026-07-05"
+dateModified: "2026-11-09"
 description: Step-by-step guide on how to use the independent novated lease calculator — input fields, key assumptions, common pitfalls, and how to interpret the results.
 ---
 
@@ -19,7 +19,7 @@ If you don't have a quote yet, answer **"No, I'm just exploring"** at the start.
 
 If you have a real quote, Guided mode asks for it screen by screen and checks each figure as you go. The results screen lets you copy a share link or save the result, and your answers stay on your device so you can come back later.
 
-For every input on one page, plus the deeper analysis (effective interest rate, take‑home pay impact, super guarantee effects, worst‑case early‑termination scenarios), open **Advanced mode**: use **"Open full workings in Advanced mode"** on the results screen, or the **Guided | Advanced** toggle at the top of the calculator. Your Guided answers are copied across, so you can refine or override any assumption with your own figures. It's a one-way copy: changes you make in Advanced mode don't flow back to Guided mode, and the calculator asks before replacing figures you've changed there. Share links and saved quotes open in Advanced mode. The steps below describe Advanced mode's full set of inputs.
+For every input on one page, plus the deeper analysis (effective interest rate, take‑home pay impact, super guarantee effects, worst‑case early‑termination scenarios), open **Advanced mode**: use **"See full details in Advanced mode"** under any result, **"Open full workings in Advanced mode"** at the bottom of the results screen, or the **Guided | Advanced** toggle at the top of the calculator. Your Guided answers are copied across, so you can refine or override any assumption with your own figures. It's a one-way copy: changes you make in Advanced mode don't flow back to Guided mode, and the calculator asks before replacing figures you've changed there. Share links and saved quotes open in Advanced mode. The steps below describe Advanced mode's full set of inputs.
 
 First time here? Click **"✨ New here? Take the quick tour"** for a short guided walkthrough of both modes. You can dismiss it permanently once you're comfortable with the calculator — it stays reachable afterwards from a link in the footer.
 

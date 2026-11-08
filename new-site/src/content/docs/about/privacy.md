@@ -1,7 +1,7 @@
 ---
 title: "Privacy Policy"
 datePublished: "2026-03-04"
-dateModified: "2026-06-05"
+dateModified: "2026-11-09"
 description: Privacy policy for novatedlease.guide. What anonymous usage data is collected via Google Analytics 4, why, and how to opt out.
 hide:
   - support
@@ -26,6 +26,8 @@ When you visit this site, GA4 automatically records:
 **IP addresses are anonymised** before being processed. No personally identifiable information is collected.
 
 This site has no accounts, no login, and no contact forms. The novated lease calculator runs entirely in your browser — no inputs you enter into the calculator are transmitted to this site or to Google.
+
+So you can come back to them later, your Guided-mode answers and any quotes you save are kept in your own browser's local storage, on your device only. **Start over** in Guided mode, deleting a saved quote, or clearing this site's data in your browser removes them.
 
 ---
 

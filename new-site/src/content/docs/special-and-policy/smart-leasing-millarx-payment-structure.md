@@ -1,6 +1,6 @@
 ---
 datePublished: "2026-06-21"
-dateModified: "2026-06-21"
+dateModified: "2026-11-09"
 title: "Smart Leasing & MillarX — why their quoted figure needs adjusting"
 description: Smart Leasing and MillarX quote a regular payment derived from the full lease term, but only a subset of those periods are actual finance payments to the financier. Entering the quoted figure directly inflates the effective interest rate. Here is why, and how to correct it.
 ---
@@ -75,11 +75,16 @@ These percentages represent the overstatement of the **payment figure**, not the
 
 ## The adjustment tool in the calculator
 
-The calculator includes a built-in adjustment tool specifically for these providers. It appears as **"Smart / MillarX?"** inline with the per-fortnight / per-month toggle on the vehicle finance input field. Clicking it opens a panel where you can:
+The calculator includes a built-in adjustment tool specifically for these providers.
+
+- **Guided mode:** on the payment screen, answer **Yes** to "Is your lease with Smart Leasing or MillarX?" and use the **Open the correction tool** button that appears.
+- **Advanced mode:** click **"Smart Leasing / MillarX customer?"** above the vehicle lease payment field.
+
+The tool opens a panel where you:
 
 1. Select your provider (Smart Leasing or MillarX)
 2. Enter your quoted figure (per fortnight or per month — both are supported)
-3. Read off the adjusted figure to enter into the calculator
+3. Click **Use this value**, which puts the adjusted, finance-only figure into the calculator for you
 
 The panel shows the scaling factor, the adjusted result, and an explanation of the buffer being applied.
 
