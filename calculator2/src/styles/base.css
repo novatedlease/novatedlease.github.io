@@ -12,6 +12,9 @@
   font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  /* Stop iOS Safari enlarging ("autosizing") text in blocks it thinks are too wide. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 .nlc-root button {

@@ -472,12 +472,19 @@
   font-size: 13px;
   opacity: 0.75;
   line-height: 1.3;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
+/* Short figures stay on one line; long text values ("Not reduced by the lease (assumed …)")
+   wrap within the row instead of running off the screen. */
 .nlc-kv__value {
   font-size: 13px;
   font-weight: 500;
-  white-space: nowrap;
+  flex: 0 1 auto;
+  max-width: 60%;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 
 .nlc-kv--bold .nlc-kv__label {
