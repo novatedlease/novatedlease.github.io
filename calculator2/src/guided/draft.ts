@@ -109,7 +109,12 @@ export type GuidedDraft = {
 
   income: Money;
   superPreNl: YesNoUnsure | null;
-  cashHome: "offset" | "savings" | "invested" | "none" | null;
+  /**
+   * "ipOffset" is an offset against an investment property loan: the interest avoided would have
+   * been tax-deductible, so like savings interest it is worth the rate after tax. Both use
+   * savingsRatePreTax.
+   */
+  cashHome: "offset" | "ipOffset" | "savings" | "invested" | "none" | null;
   offsetRate: Money;
   investedRate: Money;
   savingsRatePreTax: Money;
@@ -579,6 +584,8 @@ export function missingForStep(step: StepId, d: GuidedDraft): string[] {
         out.push("Offset interest rate");
       else if (d.cashHome === "savings" && !positive(d.savingsRatePreTax))
         out.push("Savings interest rate");
+      else if (d.cashHome === "ipOffset" && !positive(d.savingsRatePreTax))
+        out.push("Investment loan interest rate");
       else if (d.cashHome === "invested" && !answered(d.investedRate))
         out.push("Assumed return (or tick none)");
       if (d.hasQuote === false) break;
@@ -621,10 +628,15 @@ const ESTIMATE_STEPS: StepId[] = [
   "alternatives",
 ];
 
+/** Cash whose return is taxed (savings interest, or deductible interest avoided on an investment loan). */
+function isTaxedRate(d: GuidedDraft): boolean {
+  return d.cashHome === "savings" || d.cashHome === "ipOffset";
+}
+
 function offsetRateFor(d: GuidedDraft, income: number): number {
   return d.cashHome === "offset"
     ? (moneyValue(d.offsetRate) ?? 0)
-    : d.cashHome === "savings"
+    : isTaxedRate(d)
       ? afterTaxSavingsRatePct(moneyValue(d.savingsRatePreTax) ?? 0, income)
       : d.cashHome === "invested"
         ? (moneyValue(d.investedRate) ?? 0)
@@ -759,7 +771,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
   const offsetRate =
     d.cashHome === "offset"
       ? moneyValue(d.offsetRate)!
-      : d.cashHome === "savings"
+      : isTaxedRate(d)
         ? afterTaxSavingsRatePct(moneyValue(d.savingsRatePreTax)!, income)
         : d.cashHome === "invested"
           ? moneyValue(d.investedRate)!

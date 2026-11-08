@@ -284,3 +284,30 @@ describe("Guided → Advanced hand-off", () => {
     expect(screen.getByText("Do you have a novated lease quote yet?")).toBeTruthy();
   });
 });
+
+describe("cash in an investment property offset", () => {
+  test("is taxed like savings interest, with its own missing-answer wording", () => {
+    const d = quoteDraft();
+    d.cashHome = "ipOffset";
+    expect(missingForStep("you", d)).toContain("Investment loan interest rate");
+    d.savingsRatePreTax = m("6.5");
+    const ip = buildInputs(d)!.homeLoanOffsetInterestRate;
+    d.cashHome = "savings";
+    expect(buildInputs(d)!.homeLoanOffsetInterestRate).toBeCloseTo(ip, 10);
+    expect(ip).toBeLessThan(6.5);
+    expect(ip).toBeGreaterThan(0);
+    d.cashHome = "offset";
+    d.offsetRate = m("6.5");
+    expect(buildInputs(d)!.homeLoanOffsetInterestRate).toBe(6.5);
+  });
+
+  test("switching from savings clears the rate rather than reusing it as a loan rate", () => {
+    seedGuided(quoteDraft());
+    render(<App />);
+    fireEvent.click(screen.getAllByRole("button", { name: "Edit" }).find((b) => b.closest("div")?.textContent?.includes("Taxable income"))!);
+    fireEvent.click(screen.getByRole("button", { name: /^Savings account/ }));
+    fireEvent.change(field(/Savings account interest rate/), { target: { value: "4.5" } });
+    fireEvent.click(screen.getByRole("button", { name: /Investment property offset/ }));
+    expect(field(/Investment property loan interest rate/).value).toBe("");
+  });
+});

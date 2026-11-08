@@ -21,6 +21,7 @@ import {
   currentCarValueEnd,
   effectiveStartDate,
   emptyDraft,
+  emptyMoney,
   estimateAssumptions,
   fbtCategoryOf,
   fbtLabel,
@@ -1554,9 +1555,27 @@ function CashQuestion({ d, set, f }: StepPropsF) {
       <Choices
         label="If you paid cash for the car instead, where is that money now?"
         value={d.cashHome}
-        onChange={(v) => set("cashHome", v)}
+        onChange={(v) => {
+          // Savings and investment-offset share one rate box, but a savings rate isn't a loan rate.
+          if (
+            d.cashHome !== v &&
+            (v === "savings" || v === "ipOffset") &&
+            (d.cashHome === "savings" || d.cashHome === "ipOffset")
+          )
+            set("savingsRatePreTax", emptyMoney());
+          set("cashHome", v);
+        }}
         options={[
-          { value: "offset", label: "Home loan offset" },
+          {
+            value: "offset",
+            label: "Home loan offset",
+            sub: "Against the loan on the home you live in",
+          },
+          {
+            value: "ipOffset",
+            label: "Investment property offset",
+            sub: "Against an investment property loan",
+          },
           { value: "savings", label: "Savings account" },
           {
             value: "invested",
@@ -1565,7 +1584,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
           },
           { value: "none", label: "It doesn't earn anything" },
         ]}
-        columns={4}
+        columns={5}
         hint={
           <>
             The comparison against buying the car with cash needs to know what
@@ -1573,8 +1592,8 @@ function CashQuestion({ d, set, f }: StepPropsF) {
             property, shares, crypto and the like, we recommend{" "}
             <strong>not</strong> using an expected return, because investment
             returns are uncertain and fluctuate. Choose the next best safe
-            return instead, for example your savings account or home loan
-            offset. If you still insist, choose "Invested" and enter a post-tax
+            return instead, for example your savings account or a home or
+            investment property loan offset. If you still insist, choose "Invested" and enter a post-tax
             figure, and understand the issue with that assumption. See{" "}
             <a href={HOW_TO_USE} target="_blank" rel="noreferrer">
               how to use the calculator
@@ -1590,8 +1609,19 @@ function CashQuestion({ d, set, f }: StepPropsF) {
           suffix="% a year"
           value={d.offsetRate}
           onChange={(m) => set("offsetRate", m)}
-          where="The rate on the loan the offset account sits against, for example 6.2. Use that rate directly: the interest you avoid isn't taxable, so no adjustment is needed."
+          where="The rate on your home loan, for example 6.2. Use that rate directly: interest on the home you live in isn't tax-deductible, so no adjustment is needed. If the offset is against an investment property loan, choose that option instead."
           findings={f.offset}
+        />
+      )}
+      {d.cashHome === "ipOffset" && (
+        <MoneyInput
+          label="Investment property loan interest rate"
+          prefix=""
+          suffix="% a year"
+          value={d.savingsRatePreTax}
+          onChange={(m) => set("savingsRatePreTax", m)}
+          where="The rate on the investment loan the offset account sits against, for example 6.5. The interest you avoid would otherwise be a tax deduction, so it's worth less to you than the headline rate. We take your tax off it for you."
+          findings={f.savings}
         />
       )}
       {d.cashHome === "savings" && (
@@ -1856,7 +1886,9 @@ function ReviewStep({
     "Cash you'd otherwise use",
     d.cashHome === "offset"
       ? `In a home loan offset at ${moneyValue(d.offsetRate) ?? "?"}%`
-      : d.cashHome === "savings"
+      : d.cashHome === "ipOffset"
+        ? `In an investment property offset at ${moneyValue(d.savingsRatePreTax) ?? "?"}% before tax`
+        : d.cashHome === "savings"
         ? `In savings at ${moneyValue(d.savingsRatePreTax) ?? "?"}% before tax`
         : d.cashHome === "invested"
           ? `Invested, ${moneyValue(d.investedRate) ?? 0}% after tax`
