@@ -664,15 +664,13 @@ function estimateAnswers(d: GuidedDraft): SimpleModeAnswers {
 /** Everything typical figures stand in for when there is no quote. Null until the estimate screens are answered. */
 export function estimateAssumptions(d: GuidedDraft): Assumption[] | null {
   if (ESTIMATE_STEPS.some((s) => missingForStep(s, d).length > 0)) return null;
-  const superAnswered = d.superPreNl === "Yes" || d.superPreNl === "No";
   // Fields the reader answered are not assumptions; the optional refinements below are, until answered.
   const start = effectiveStartDate(d);
   const base = deriveInputsFromSimpleAnswers(estimateAnswers(d))
     .assumptions.filter(
       (a) =>
         a.field !== "vehicleCondition" &&
-        a.field !== "homeLoanOffsetInterestRate" &&
-        !(superAnswered && a.field === "superFromPreNlIncome"),
+        a.field !== "homeLoanOffsetInterestRate",
     )
     .map((a) =>
       a.field === "leaseStartDate" && start
@@ -717,7 +715,8 @@ function buildEstimateInputs(d: GuidedDraft): Inputs | null {
   const seed = deriveInputsFromSimpleAnswers(estimateAnswers(d)).inputs;
   return {
     ...seed,
-    superFromPreNlIncome: d.superPreNl === "No" ? "No" : "Yes",
+    // Not asked when exploring: always the listed assumption, even if a quote-path answer lingers.
+    superFromPreNlIncome: "Yes",
     saveShareAnnual: 0,
     compareWithCarLoan: d.compareLoan === true,
     ...(d.compareLoan

@@ -458,9 +458,10 @@ describe("guided: estimate path (no quote yet)", () => {
         "saveShareAnnual",
       ]),
     );
+    // A "No" left over from the quote path doesn't leak into the estimate
     d.superPreNl = "No";
-    expect(buildInputs(d)!.superFromPreNlIncome).toBe("No");
-    expect(estimateAssumptions(d)!.map((a) => a.field)).not.toContain(
+    expect(buildInputs(d)!.superFromPreNlIncome).toBe("Yes");
+    expect(estimateAssumptions(d)!.map((a) => a.field)).toContain(
       "superFromPreNlIncome",
     );
   });

@@ -176,11 +176,11 @@ describe("Guided flow (real interaction)", () => {
       screen.getByText(/This is an estimate, not your quote/),
     ).toBeTruthy();
     expect(screen.getByText("Assumptions we made for you")).toBeTruthy();
-    expect(screen.getByText("Refine this estimate")).toBeTruthy();
-    click(/No Super falls with the lease/);
-    expect(screen.getByText(/super contributions would fall by about/)).toBeTruthy();
-    click(/Yes Super is unaffected/);
-    expect(screen.queryByText(/super contributions would fall/)).toBeNull();
+    // Super isn't asked when exploring; it's a listed assumption instead
+    expect(screen.queryByText("Refine this estimate")).toBeNull();
+    expect(screen.queryByText(/calculate super on your pre-lease salary/)).toBeNull();
+    fireEvent.click(screen.getByText("Assumptions we made for you"));
+    expect(screen.getByText(/Not reduced by the lease/)).toBeTruthy();
     click(/I have a quote now/);
     // lands on the car screen first, which now needs a real start date
     expect(document.getElementById("gd-start")).toBeTruthy();

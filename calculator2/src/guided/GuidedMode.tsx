@@ -8,7 +8,6 @@ import { LeaseAdjustModal } from "../components/LeaseAdjustModal";
 import { SummaryView } from "../components/SummaryView";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
-import { computeDerived } from "@engine/derived";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
 import {
   CAR_LIMIT_FY2027,
@@ -426,7 +425,6 @@ export function GuidedMode({
             advancedEdited={advancedEdited}
             savedQuotes={savedQuotes}
             onQuotesChange={onQuotesChange}
-            set={set}
             onHaveQuote={() => {
               set("hasQuote", true);
               go("car");
@@ -1517,7 +1515,7 @@ function YouStep({ d, set, f }: StepPropsF) {
   );
 }
 
-/** Asked on the full path; offered under "Refine this estimate" when exploring. */
+/** Asked on the full path only; the estimate assumes super is unaffected and lists that assumption. */
 function SuperQuestion({ d, set }: StepProps) {
   return (
     <Choices<YesNoUnsure>
@@ -1842,9 +1840,7 @@ function ReviewStep({
   savedQuotes,
   onQuotesChange,
   onHaveQuote,
-  set,
 }: {
-  set: StepProps["set"];
   d: GuidedDraft;
   inputs: Inputs | null;
   f: FindingMap;
@@ -2115,9 +2111,6 @@ function ReviewStep({
             </Section>
           )}
           {results}
-          {exploring && (
-            <RefineEstimate d={d} set={set} inputs={inputs} />
-          )}
           <ResultTools
             inputs={inputs}
             exploring={exploring}
@@ -2169,42 +2162,6 @@ function ReviewStep({
         </>
       )}
     </>
-  );
-}
-
-/** Lost super guarantee over the lease, as Advanced mode's Section 5 works it out (12% SG on the sacrificed salary). */
-function superLossOverLease(inputs: Inputs): number {
-  const folded = {
-    ...inputs,
-    vehicleLeasePerFn: inputs.vehicleLeasePerFn + inputs.luxuryVehicleAdjPerFn,
-  };
-  return computeDerived(folded).sgRows.reduce(
-    (sum, r) => sum + r.reducedPretaxIncome * 0.12,
-    0,
-  );
-}
-
-/**
- * Exploring only: the one remaining optional question. The headline doesn't count lost super
- * (the Summary flags it separately), so the panel shows that figure itself rather than a change.
- */
-function RefineEstimate({ d, set, inputs }: StepProps & { inputs: Inputs }) {
-  const loss = d.superPreNl === "No" ? superLossOverLease(inputs) : 0;
-  return (
-    <Section
-      title="Refine this estimate"
-      defaultOpen
-      description="Optional, but worth checking with payroll."
-    >
-      <SuperQuestion d={d} set={set} />
-      {loss > 0 && (
-        <div className="gd-delta" role="status">
-          Your employer's super contributions would fall by about{" "}
-          <strong>{money(loss)}</strong> over the lease. The result above
-          doesn't subtract this, so weigh it against the saving.
-        </div>
-      )}
-    </Section>
   );
 }
 

@@ -304,8 +304,7 @@ findings), `GuidedMode.tsx` (screens), `QuoteDiagram.tsx`, `parts.tsx`.
   clears it.
 - **Estimate path.** EVs are asked "before / on or after 1 April 2027" (placeholder start date
   then +30 days or 1 Apr 2027); used EVs get the history questions; the cash question is
-  required; super is the only "Refine" question and shows the lost-super figure, because the
-  Summary headline doesn't include it.
+  required; super isn't asked (always "not reduced", listed among the assumptions).
 - **Draft storage.** `localStorage` key `nlc2-guided-draft-v3` (draft, step, visited steps), with
   a "Welcome back / Start fresh" banner.
 - Regression tests for the Nov 2026 review: `tests/guided-review-fixes.test.tsx`.
