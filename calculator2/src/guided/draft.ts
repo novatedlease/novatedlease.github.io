@@ -372,6 +372,13 @@ export function paymentPerFn(d: GuidedDraft): number | null {
   return d.paymentBasis === "incGst" ? perFn / (1 + GST_RATE) : perFn;
 }
 
+/** The luxury vehicle adjustment per fortnight. It's entered in the same period as the payment. */
+export function luxAdjPerFn(d: GuidedDraft): number {
+  if (!isLuxuryRange(d)) return 0;
+  const v = moneyValue(d.luxAdj) ?? 0;
+  return d.paymentPeriod === "perMonth" ? (v * 12) / 26 : v;
+}
+
 export function fbtCategoryOf(d: GuidedDraft): LeaseFbtCategory | null {
   const base = baseValueUsed(d);
   const start = effectiveStartDate(d);
@@ -798,7 +805,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     totalTaxableIncome: income,
     homeLoanOffsetInterestRate: offsetRate,
 
-    luxuryVehicleAdjPerFn: isLuxuryRange(d) ? (moneyValue(d.luxAdj) ?? 0) : 0,
+    luxuryVehicleAdjPerFn: luxAdjPerFn(d),
     superFromPreNlIncome: d.superPreNl === "No" ? "No" : "Yes",
     gstSavingPassedOn: d.gstPassedOn === "No" ? "No" : "Yes",
 

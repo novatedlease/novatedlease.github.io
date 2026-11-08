@@ -1293,7 +1293,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
       )}
       {luxury && (
         <MoneyInput
-          label="Luxury vehicle adjustment (per fortnight)"
+          label={`Luxury vehicle adjustment (${d.paymentPeriod === "perMonth" ? "per month" : "per fortnight"})`}
           tooltip={
             <InfoTooltip
               text={
@@ -1306,7 +1306,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           onChange={(m) => set("luxAdj", m)}
           where="A separate line on quotes for cars above the ATO car limit."
           noneLabel="No luxury vehicle adjustment on my quote"
-          hint="It's an extra cost on top of the finance payment. Enter it per fortnight."
+          suffix={d.paymentPeriod === "perMonth" ? "per month" : "per fortnight"}
+          hint={`It's an extra cost on top of the finance payment. Enter it per ${d.paymentPeriod === "perMonth" ? "month, like the payment above; we convert it to fortnightly for you" : "fortnight, like the payment above"}.`}
         />
       )}
     </Side>

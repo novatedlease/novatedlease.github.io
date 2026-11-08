@@ -432,3 +432,16 @@ describe("Smart Leasing / MillarX on the payment screen", () => {
     expect(screen.getByText(/Corrected payment entered below/)).toBeTruthy();
   });
 });
+
+describe("luxury vehicle adjustment", () => {
+  test("is entered in the payment's period and converted to fortnightly", () => {
+    const d = quoteDraft();
+    d.baseValue = m("80000");
+    d.driveaway = m("86000");
+    d.luxAdj = m("130");
+    d.paymentPeriod = "perFn";
+    expect(buildInputs({ ...d, payment: m("900") })!.luxuryVehicleAdjPerFn).toBe(130);
+    d.paymentPeriod = "perMonth";
+    expect(buildInputs({ ...d, payment: m("1950") })!.luxuryVehicleAdjPerFn).toBeCloseTo(60, 6);
+  });
+});
