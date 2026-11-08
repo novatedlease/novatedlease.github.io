@@ -1,8 +1,9 @@
 /**
  * Lightweight engagement tracking for the "buy me a coffee" nudge.
  *
- * Tracks the number of DISTINCT fields the user has touched (Simple-mode answers,
- * Advanced-mode fields, the lease-rate guard's commit path). Distinct fields rather
+ * Tracks the number of DISTINCT fields the user has touched (Guided-mode answers,
+ * Advanced-mode fields, the lease-rate guard's commit path). In Guided mode the nudge
+ * additionally waits until the reader has reached their results (App.tsx). Distinct fields rather
  * than raw change events because numeric fields commit on every keystroke — typing
  * "65000" would otherwise count as ~6 changes. Programmatic updates — the auto-fill
  * effects in AdvancedMode, saved-quote loads, share-link hydration — deliberately do

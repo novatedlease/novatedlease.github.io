@@ -498,7 +498,9 @@ export default function App() {
   }
   // One-time "buy me a coffee" message after sustained use (>= 4 min visible + >= 4 distinct
   // fields edited; see src/state/engagement.ts). Held back while the tour owns the screen.
-  const coffeeNudge = useCoffeeNudge({ paused: tourOpen });
+  // In Guided mode it also waits until the reader has seen a result at least once this visit.
+  const [guidedResultsSeen, setGuidedResultsSeen] = useState(false);
+  const coffeeNudge = useCoffeeNudge({ paused: tourOpen || (mode === "guided" && !guidedResultsSeen) });
 
   function exitTour(reason: "completed" | "skipped", stepIndex: number) {
     setTourOpen(false);
@@ -537,6 +539,7 @@ export default function App() {
           onInputsChange={(i) => {
             guidedInputsRef.current = i;
           }}
+          onResultsShown={() => setGuidedResultsSeen(true)}
           savedQuotes={savedQuotes}
           onQuotesChange={setSavedQuotes}
         />

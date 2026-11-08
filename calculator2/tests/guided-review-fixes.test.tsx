@@ -1,9 +1,10 @@
 // @vitest-environment jsdom
-import { afterEach, beforeEach, describe, expect, test } from "vitest";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { fortnightlyLeaseFromEffectiveAnnualRate } from "@engine/effectiveinterest";
 import { getLeaseFbtCategory } from "@engine/types";
 import App from "../src/App";
+import { COFFEE_NUDGE_MIN_ACTIVE_MS, _resetInputChangeCountForTests, getInputChangeCount, noteInputChange } from "../src/state/engagement";
 import {
   PHASE_OUT_START,
   atoMinimumResidualExGst,
@@ -309,5 +310,51 @@ describe("cash in an investment property offset", () => {
     fireEvent.change(field(/Savings account interest rate/), { target: { value: "4.5" } });
     fireEvent.click(screen.getByRole("button", { name: /Investment property offset/ }));
     expect(field(/Investment property loan interest rate/).value).toBe("");
+  });
+});
+
+describe("coffee nudge in Guided mode", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    _resetInputChangeCountForTests();
+    // jsdom has no scrollIntoView; the wizard scrolls to the top on each step
+    Element.prototype.scrollIntoView = () => {};
+  });
+  afterEach(() => vi.useRealTimers());
+
+  const passTime = () =>
+    act(() => {
+      vi.advanceTimersByTime(COFFEE_NUDGE_MIN_ACTIVE_MS + 10_000);
+    });
+
+  test("guided answers count as edited fields", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /Yes, I have a quote/ }));
+    fireEvent.click(screen.getByRole("button", { name: /Petrol, diesel or any hybrid/ }));
+    fireEvent.click(screen.getByRole("button", { name: /^New$/ }));
+    // hasQuote, vehicleType, vehicleCondition
+    expect(getInputChangeCount()).toBe(3);
+    fireEvent.click(screen.getByRole("button", { name: /Use one month from now/ }));
+    expect(getInputChangeCount()).toBe(4);
+    // enough fields and time, but no results yet
+    passTime();
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  test("waits until the results page, then shows once the time threshold is met", () => {
+    const d = quoteDraft();
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "you", visited: ["intro", "car", "compare", "price", "lease", "payment", "running", "you"] }),
+    );
+    render(<App />);
+    for (const f of ["a", "b", "c", "d", "e"]) noteInputChange(f);
+    passTime();
+    expect(screen.queryByRole("dialog")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "See my results" }));
+    act(() => {
+      vi.advanceTimersByTime(6000);
+    });
+    expect(screen.getByRole("dialog")).toBeTruthy();
   });
 });

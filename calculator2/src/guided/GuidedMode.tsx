@@ -8,6 +8,7 @@ import { LeaseAdjustModal } from "../components/LeaseAdjustModal";
 import { SummaryView } from "../components/SummaryView";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
+import { noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
 import {
   CAR_LIMIT_FY2027,
@@ -231,6 +232,8 @@ export type GuidedModeProps = {
   advancedEdited?: boolean;
   /** Reports the finished inputs (or null) so the header toggle can carry them across. */
   onInputsChange?: (inputs: Inputs | null) => void;
+  /** The reader has reached their results (the coffee nudge waits for this in Guided mode). */
+  onResultsShown?: () => void;
   savedQuotes?: SavedQuoteV1[];
   onQuotesChange?: (quotes: SavedQuoteV1[]) => void;
 };
@@ -240,6 +243,7 @@ export function GuidedMode({
   onSwitchToAdvanced,
   advancedEdited = false,
   onInputsChange,
+  onResultsShown,
   savedQuotes,
   onQuotesChange,
 }: GuidedModeProps) {
@@ -259,8 +263,11 @@ export function GuidedMode({
   const [acked, setAcked] = useState<Partial<Record<StepId, string>>>({});
   const topRef = useRef<HTMLDivElement>(null);
 
-  const set = <K extends keyof GuidedDraft>(key: K, value: GuidedDraft[K]) =>
+  // Every answer goes through here, so it also counts towards the coffee nudge's "distinct fields edited".
+  const set = <K extends keyof GuidedDraft>(key: K, value: GuidedDraft[K]) => {
+    noteInputChange(`guided.${String(key)}`);
     setDraft((p) => ({ ...p, [key]: value }));
+  };
 
   useEffect(() => {
     try {
@@ -321,9 +328,11 @@ export function GuidedMode({
   }, [inputs, onInputsChange]);
 
   useEffect(() => {
-    if (step === "review" && inputs)
+    if (step === "review" && inputs) {
       trackOncePerSession("guided_completed", "guided_completed");
-  }, [step, inputs]);
+      onResultsShown?.();
+    }
+  }, [step, inputs, onResultsShown]);
 
   function startOver() {
     setDraft(emptyDraft());
