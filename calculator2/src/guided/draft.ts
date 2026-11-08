@@ -67,6 +67,12 @@ export type GuidedDraft = {
   curService: Money;
   curRego: Money;
   curFuel: Money;
+  /**
+   * The km per year answered when the reader typed their own current-car fuel. Their figure is
+   * scaled from it if the km changes later (e.g. the "Try different numbers" slider), so both cars
+   * pay for the same driving. Null when not typed, or for drafts saved before this existed.
+   */
+  curFuelBasisKm: number | null;
   curInsurance: Money;
 
   usedAfter2022: boolean | null;
@@ -140,6 +146,7 @@ export function emptyDraft(): GuidedDraft {
     curService: emptyMoney(),
     curRego: emptyMoney(),
     curFuel: emptyMoney(),
+    curFuelBasisKm: null,
     curInsurance: emptyMoney(),
     usedAfter2022: null,
     usedLctNever: null,
@@ -470,6 +477,19 @@ export function currentCarValueAt5Years(d: GuidedDraft): number | null {
   return Math.round(now * Math.pow(end / now, 5 / d.leaseYears));
 }
 
+/**
+ * The current car's yearly fuel at the km currently answered: the typical figure (already per km),
+ * or the reader's own figure scaled from the km it was entered at.
+ */
+export function currentCarFuelAnnual(d: GuidedDraft): number | null {
+  if (d.curFuel.estimated) return typicalCurrentCar(d).fuel;
+  const typed = moneyValue(d.curFuel);
+  if (typed === null) return null;
+  const km = moneyValue(d.mileage);
+  if (!d.curFuelBasisKm || !km || km === d.curFuelBasisKm) return typed;
+  return Math.round(typed * (km / d.curFuelBasisKm));
+}
+
 /** A current-car running cost, using the typical figure when the reader accepted one. */
 function currentCost(m: Money, typical: number | null): number {
   if (m.estimated && typical) return typical;
@@ -722,7 +742,7 @@ function currentCarInputs(d: GuidedDraft): Partial<Inputs> {
     currentCarMarketValueAtEnd: currentCarValueAt5Years(d)!,
     currentServiceMaintTyresAnnual: currentCost(d.curService, t.service),
     currentRegistrationAnnual: currentCost(d.curRego, t.rego),
-    currentFuelAnnual: currentCost(d.curFuel, t.fuel),
+    currentFuelAnnual: currentCarFuelAnnual(d) ?? 0,
     currentInsuranceAnnual: currentCost(d.curInsurance, t.insurance),
   };
 }

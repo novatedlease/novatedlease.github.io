@@ -28,6 +28,7 @@ import {
   asksMarketValueEnd,
   atoMinimumResidualExGst,
   buildInputs,
+  currentCarFuelAnnual,
   currentCarValueEnd,
   effectiveStartDate,
   emptyDraft,
@@ -1841,6 +1842,15 @@ function AlternativesStep({ d, set, f }: StepPropsF) {
   );
 }
 
+/** Shown under the current car's fuel once the km answer has moved away from the one it was typed at. */
+function curFuelScaledNote(d: GuidedDraft): string | undefined {
+  const typed = moneyValue(d.curFuel);
+  const km = moneyValue(d.mileage);
+  if (d.curFuel.estimated || !typed || !d.curFuelBasisKm || !km || km === d.curFuelBasisKm)
+    return undefined;
+  return `You entered this for ${d.curFuelBasisKm.toLocaleString("en-AU")} km a year. At your current ${km.toLocaleString("en-AU")} km we count ${money(currentCarFuelAnnual(d) ?? typed)} a year.`;
+}
+
 const CUR_TYPICAL =
   "Typical estimate. Replace it if you know what this car actually costs you.";
 
@@ -1894,7 +1904,11 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
         <MoneyInput
           label="Fuel or electricity"
           value={d.curFuel}
-          onChange={(m) => set("curFuel", m)}
+          onChange={(m) => {
+            set("curFuel", m);
+            set("curFuelBasisKm", m.estimated || m.none ? null : moneyValue(d.mileage));
+          }}
+          hint={curFuelScaledNote(d)}
           suffix="per year"
           noneLabel="None"
           suggestion={t.fuel}

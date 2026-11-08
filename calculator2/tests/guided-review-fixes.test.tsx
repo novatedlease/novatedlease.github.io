@@ -10,6 +10,7 @@ import {
   atoMinimumResidualExGst,
   buildInputs,
   emptyDraft,
+  currentCarFuelAnnual,
   typicalFigures,
   fbtCategoryOf,
   fbtLabel,
@@ -611,5 +612,52 @@ describe("Try different numbers: every chosen comparison", () => {
     );
     render(<App />);
     expect(document.querySelectorAll(".gd-try__line")).toHaveLength(1);
+  });
+});
+
+describe("current car fuel follows the km answer", () => {
+  function withCurrentCarTyped() {
+    const d = exploringEv();
+    d.compareCurrent = true;
+    d.curValueNow = m("20000");
+    d.curValueEnd = m("13000");
+    d.curService = m("800");
+    d.curRego = m("900");
+    d.curFuel = m("2000");
+    d.curFuelBasisKm = 15000;
+    d.curInsurance = m("1000");
+    return d;
+  }
+
+  test("a typed figure scales with km from the km it was entered at", () => {
+    const d = withCurrentCarTyped();
+    expect(currentCarFuelAnnual(d)).toBe(2000);
+    d.mileage = m("30000");
+    expect(currentCarFuelAnnual(d)).toBe(4000);
+    expect(buildInputs(d)!.currentFuelAnnual).toBe(4000);
+    // a draft saved before the km was recorded keeps the figure as typed
+    d.curFuelBasisKm = null;
+    expect(currentCarFuelAnnual(d)).toBe(2000);
+  });
+
+  test("typing the fuel records the km, and dragging the km slider moves the keep-current-car line", () => {
+    const d = withCurrentCarTyped();
+    d.curFuel = emptyDraft().curFuel;
+    d.curFuelBasisKm = null;
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "alternatives", visited: ["intro", "car", "compare", "quick", "you", "alternatives"] }),
+    );
+    render(<App />);
+    fireEvent.change(field(/Fuel or electricity/), { target: { value: "2000" } });
+    fireEvent.click(screen.getByRole("button", { name: "See my results" }));
+    const keepLine = () => [...document.querySelectorAll(".gd-try__line")].find((l) => /current car/.test(l.textContent!))!.textContent;
+    const before = keepLine();
+    fireEvent.change(screen.getByRole("slider", { name: "Kilometres per year" }), { target: { value: "30000" } });
+    expect(keepLine()).not.toBe(before);
+    fireEvent.click(screen.getByRole("button", { name: /Open full workings/ }));
+    const fuels = screen.getAllByLabelText("Fuel").filter((e): e is HTMLInputElement => e.tagName === "INPUT");
+    // The keep-current-car fuel box in Advanced gets the scaled figure
+    expect(fuels.map((e) => Number(e.value.replace(/[,$]/g, "")))).toContain(4000);
   });
 });
