@@ -5,6 +5,8 @@ import { trackEvent } from "../utils/analytics";
 import type { CoffeeNudgeContext } from "../state/engagement";
 
 export const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/changyang1230";
+/** Same referral link and offer as the site's support boxes (new-site/src/components/SupportBox.astro). */
+export const TESLA_REFERRAL_URL = "https://ts.la/david51680";
 
 /**
  * One-time "buy me a coffee" message, surfaced by useCoffeeNudge after sustained use
@@ -12,7 +14,7 @@ export const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/changyang1230";
  * encouragement, never a paywall — every feature stays free regardless.
  */
 export function CoffeeNudgeModal(props: {
-  onClose: (reason: "dismissed" | "support_clicked") => void;
+  onClose: (reason: "dismissed" | "support_clicked" | "tesla_clicked") => void;
   context?: CoffeeNudgeContext;
 }) {
   const { onClose } = props;
@@ -48,6 +50,19 @@ export function CoffeeNudgeModal(props: {
       source: "coffee_nudge",
     });
     onClose("support_clicked");
+  }
+
+  function teslaClicked() {
+    trackEvent("coffee_nudge_tesla_clicked", { ...props.context });
+    // Same shape as Base.astro's site-wide tracker, which can't see this dynamically added link.
+    trackEvent("support_link_click", {
+      link_label: "tesla_referral",
+      link_url: TESLA_REFERRAL_URL,
+      page_path: window.location.pathname,
+      page_title: document.title,
+      source: "coffee_nudge",
+    });
+    onClose("tesla_clicked");
   }
 
   return createPortal(
@@ -94,6 +109,7 @@ export function CoffeeNudgeModal(props: {
             If it has done any of that for you, a coffee is genuinely appreciated. It helps cover the time and effort it takes to produce new
             content and keep it fresh.
           </p>
+          <p>Ordering a Tesla? Using my referral link gets you a $350 discount, and supports the site at no cost to you.</p>
           <p className="nlc-coffee-fineprint">No pressure, and nothing changes if you say no. This shows once and won't appear again in this browser.</p>
         </div>
 
@@ -107,7 +123,10 @@ export function CoffeeNudgeModal(props: {
           >
             Buy me a coffee ☕
           </a>
-          <Button variant="secondary" onClick={dismiss}>
+          <a className="nlc-btn nlc-btn--secondary" href={TESLA_REFERRAL_URL} target="_blank" rel="noopener noreferrer" onClick={teslaClicked}>
+            Use my Tesla referral
+          </a>
+          <Button variant="ghost" onClick={dismiss}>
             No thanks
           </Button>
         </div>

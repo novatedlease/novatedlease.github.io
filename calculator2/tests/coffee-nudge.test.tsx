@@ -125,3 +125,25 @@ describe("useCoffeeNudge + CoffeeNudgeModal", () => {
     expect(screen.getByRole("dialog")).toBeTruthy();
   });
 });
+
+describe("CoffeeNudgeModal: Tesla referral", () => {
+  afterEach(cleanup);
+
+  test("offers the Tesla referral alongside the coffee, and tracks the click", () => {
+    const events: [string, Record<string, unknown>][] = [];
+    window.gtag = (_kind: string, name: string, params: Record<string, unknown>) => {
+      events.push([name, params]);
+    };
+    let reason = "";
+    render(<CoffeeNudgeModal onClose={(r) => (reason = r)} context={{ mode: "guided", guided_path: "quote" }} />);
+    const link = screen.getByRole("link", { name: "Use my Tesla referral" });
+    expect(link.getAttribute("href")).toBe("https://ts.la/david51680");
+    expect(screen.getByText(/\$350 discount/)).toBeTruthy();
+    fireEvent.click(link);
+    expect(reason).toBe("tesla_clicked");
+    expect(events.map(([n]) => n)).toEqual(["coffee_nudge_tesla_clicked", "support_link_click"]);
+    expect(events[0][1]).toMatchObject({ mode: "guided", guided_path: "quote" });
+    expect(events[1][1]).toMatchObject({ link_label: "tesla_referral", source: "coffee_nudge" });
+    delete window.gtag;
+  });
+});
