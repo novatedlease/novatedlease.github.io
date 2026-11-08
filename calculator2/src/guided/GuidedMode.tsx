@@ -1440,8 +1440,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
         hint={
           <>
             We ask because some employers (Victorian hospitals in particular)
-            don't pass the GST saving on to you, so the quote's figures may
-            already have GST taken out or left in.{" "}
+            don't pass the GST saving on to you.{" "}
             <a href={GST_ARTICLE} target="_blank" rel="noreferrer">
               Read more about the GST saving
             </a>
