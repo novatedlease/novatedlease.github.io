@@ -1156,17 +1156,6 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         insurance, rego and fees are separate lines that we ask about next.
       </Lead>
       <Choices
-        label="Is your lease with Smart Leasing or MillarX?"
-        value={d.smartMillarx}
-        onChange={(v) => set("smartMillarx", v)}
-        options={[
-          { value: true, label: "Yes", sub: "Smart Leasing or MillarX" },
-          { value: false, label: "No", sub: "Any other provider" },
-        ]}
-        columns={2}
-        hint="These two providers quote a payment that includes a budget-reserve buffer, so their figure needs a correction before it is entered here."
-      />
-      <Choices
         label="Is your quote's payment shown fortnightly or monthly?"
         value={d.paymentPeriod}
         onChange={(v) => set("paymentPeriod", v)}
@@ -1192,20 +1181,63 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         columns={3}
         hint="Look for the word GST next to the payment."
       />
-      {d.smartMillarx && d.leaseYears && (
-        <NoteBox color="var(--nlc-warn)" mb={16}>
-          <strong>Use our correction tool first.</strong> It converts the figure
-          on your quote into the finance-only payment this calculator expects.{" "}
-          <button
-            type="button"
-            className="gd-linkbtn"
-            onClick={() => setAdjustOpen(true)}
-          >
-            Open the Smart Leasing / MillarX correction
-          </button>
-          .
-        </NoteBox>
-      )}
+      <Choices
+        label="Is your lease with Smart Leasing or MillarX?"
+        value={d.smartMillarx}
+        onChange={(v) => set("smartMillarx", v)}
+        options={[
+          { value: true, label: "Yes", sub: "Smart Leasing or MillarX" },
+          { value: false, label: "No", sub: "Any other provider" },
+        ]}
+        columns={2}
+        hint="These two providers quote a payment that includes a budget-reserve buffer, so their figure needs a correction before it is entered here."
+      />
+      {d.smartMillarx &&
+        (d.paymentCorrected ? (
+          <div className="gd-callout gd-callout--done" role="status">
+            <div className="gd-callout__title">
+              ✓ Corrected payment entered below
+            </div>
+            <p>
+              This is the finance-only figure from the correction tool, not the
+              one printed on your quote.{" "}
+              <button
+                type="button"
+                className="gd-linkbtn"
+                onClick={() => setAdjustOpen(true)}
+              >
+                Run the correction again
+              </button>
+            </p>
+          </div>
+        ) : (
+          <div className="gd-callout gd-callout--must" role="alert">
+            <div className="gd-callout__title">
+              You need to correct your Smart Leasing / MillarX payment first
+            </div>
+            <p>
+              The payment printed on these quotes includes a budget-reserve
+              buffer, so typing it in as is makes the lease look more expensive
+              than it is. The correction tool turns it into the finance-only
+              payment this calculator needs and fills it in below.
+            </p>
+            {d.leaseYears ? (
+              <Button
+                variant="primary"
+                onClick={() => {
+                  trackEvent("guided_smart_correction_opened");
+                  setAdjustOpen(true);
+                }}
+              >
+                Open the correction tool
+              </Button>
+            ) : (
+              <p>
+                <strong>Choose the lease term on the previous screen first.</strong>
+              </p>
+            )}
+          </div>
+        ))}
       {adjustOpen && d.leaseYears && (
         <LeaseAdjustModal
           leaseDurationYears={d.leaseYears}
@@ -1232,7 +1264,11 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           set("payment", m);
           set("paymentCorrected", false);
         }}
-        where="The pre-tax payment for the car itself, before the running-costs line. Type it exactly as printed."
+        where={
+          d.smartMillarx
+            ? "Filled in by the correction tool above. Don't type the figure printed on your Smart Leasing or MillarX quote."
+            : "The pre-tax payment for the car itself, before the running-costs line. Type it exactly as printed."
+        }
         suffix={
           d.paymentPeriod === "perMonth"
             ? "per month"

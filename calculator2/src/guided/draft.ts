@@ -556,10 +556,10 @@ export function missingForStep(step: StepId, d: GuidedDraft): string[] {
         out.push("Estimated market value at the end of the lease");
       break;
     case "payment":
-      if (d.smartMillarx === null)
-        out.push("Whether your lease is with Smart Leasing or MillarX");
       if (!d.paymentPeriod) out.push("Fortnightly or monthly");
       if (!d.paymentBasis) out.push("Payment: inc or ex GST");
+      if (d.smartMillarx === null)
+        out.push("Whether your lease is with Smart Leasing or MillarX");
       if (!positive(d.payment)) out.push("Lease payment");
       if (isLuxuryRange(d) && !answered(d.luxAdj))
         out.push("Luxury vehicle adjustment (or tick none)");

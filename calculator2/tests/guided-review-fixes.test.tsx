@@ -403,3 +403,32 @@ describe("coffee nudge in Guided mode", () => {
     expect(screen.getByRole("dialog")).toBeTruthy();
   });
 });
+
+describe("Smart Leasing / MillarX on the payment screen", () => {
+  function onPayment(d: GuidedDraft) {
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "payment", visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
+    );
+    render(<App />);
+  }
+
+  test("is asked after the GST question", () => {
+    onPayment(quoteDraft());
+    const text = document.querySelector(".gd-card")!.textContent!;
+    expect(text.indexOf("including or excluding GST")).toBeLessThan(text.indexOf("Smart Leasing or MillarX?"));
+  });
+
+  test("Yes shows an unmissable prompt to use the correction tool, which turns into a confirmation once applied", () => {
+    const d = quoteDraft();
+    d.smartMillarx = true;
+    onPayment(d);
+    expect(screen.getByText(/You need to correct your Smart Leasing \/ MillarX payment first/)).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Open the correction tool" })).toBeTruthy();
+    cleanup();
+    window.localStorage.clear();
+    onPayment({ ...d, paymentCorrected: true });
+    expect(screen.queryByText(/You need to correct/)).toBeNull();
+    expect(screen.getByText(/Corrected payment entered below/)).toBeTruthy();
+  });
+});

@@ -162,3 +162,12 @@
 .gd-delta { margin-top: 4px; font-size: 14px; }
 .gd-fbt { margin: 0 0 18px; }
 .gd-skip { margin-top: 18px; font-size: 13px; color: var(--nlc-text-muted); }
+
+/* Must-do callout (Smart Leasing / MillarX correction) */
+.gd-callout { border-radius: var(--nlc-radius-md); padding: 14px 16px; margin: -4px 0 20px; font-size: 14px; line-height: 1.5; }
+.gd-callout p { margin: 6px 0 12px; }
+.gd-callout p:last-child { margin-bottom: 0; }
+.gd-callout__title { font-weight: 800; font-size: 15px; }
+.gd-callout--must { border: 2px solid var(--nlc-bad); background: var(--nlc-bad-light); }
+.gd-callout--must .gd-callout__title { color: var(--nlc-bad); }
+.gd-callout--done { border: 1.5px solid var(--nlc-good); background: var(--nlc-good-light); }
