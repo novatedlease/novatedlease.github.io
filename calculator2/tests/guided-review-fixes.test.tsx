@@ -244,10 +244,10 @@ describe("Guided → Advanced hand-off", () => {
     expect(num(/Drive-away cost/)).toBe(52400);
   });
 
-  test("the header link carries finished answers across too", () => {
+  test("the header toggle carries finished answers across too", () => {
     seedGuided(quoteDraft());
     render(<App />);
-    fireEvent.click(screen.getByRole("button", { name: /Advanced mode: every input/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Advanced" }));
     expect(num(/Drive-away cost/)).toBe(52400);
   });
 
@@ -259,18 +259,18 @@ describe("Guided → Advanced hand-off", () => {
     fireEvent.blur(field("Annual mileage"));
     expect(num("Annual mileage")).toBe(30000);
 
-    fireEvent.click(screen.getByRole("button", { name: /Back to Guided mode/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Guided" }));
     expect(screen.getByText(/Advanced mode has its own figures/)).toBeTruthy();
-    // The header link now just switches, keeping the edit
-    fireEvent.click(screen.getByRole("button", { name: /Advanced mode: every input/ }));
+    // The header toggle now just switches, keeping the edit
+    fireEvent.click(screen.getByRole("button", { name: "Advanced" }));
     expect(num("Annual mileage")).toBe(30000);
 
-    fireEvent.click(screen.getByRole("button", { name: /Back to Guided mode/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Guided" }));
     fireEvent.click(screen.getByRole("button", { name: /Open full workings in Advanced mode/ }));
     fireEvent.click(screen.getByRole("button", { name: /Keep my Advanced figures/ }));
     expect(num("Annual mileage")).toBe(30000);
 
-    fireEvent.click(screen.getByRole("button", { name: /Back to Guided mode/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Guided" }));
     fireEvent.click(screen.getByRole("button", { name: /Open full workings in Advanced mode/ }));
     fireEvent.click(screen.getByRole("button", { name: /Replace with my guided answers/ }));
     expect(num("Annual mileage")).toBe(12000);

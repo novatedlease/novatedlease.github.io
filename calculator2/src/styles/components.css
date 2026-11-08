@@ -29,19 +29,30 @@
 /* ============================================================
    Mode toggle (Simple / Advanced)
    ============================================================ */
-.nlc-mode-switch__btn {
-  border: 1px solid var(--nlc-border);
-  background: var(--nlc-bg);
-  color: var(--nlc-blue);
-  padding: 7px 14px;
+.nlc-mode-toggle {
+  display: inline-flex;
+  padding: 3px;
   border-radius: var(--nlc-radius-pill);
-  font: inherit;
+  background: var(--nlc-bg-sunken);
+  border: 1px solid var(--nlc-border);
+  gap: 2px;
+}
+
+.nlc-mode-toggle__btn {
+  border: none;
+  background: transparent;
+  padding: 7px 16px;
+  border-radius: var(--nlc-radius-pill);
   font-size: 13px;
   font-weight: 600;
-  cursor: pointer;
+  color: var(--nlc-text-muted);
+  transition: background var(--nlc-duration-fast) var(--nlc-ease), color var(--nlc-duration-fast) var(--nlc-ease);
 }
-.nlc-mode-switch__btn:hover {
-  border-color: var(--nlc-blue);
+
+.nlc-mode-toggle__btn[aria-pressed="true"] {
+  background: var(--nlc-bg);
+  color: var(--nlc-blue);
+  box-shadow: var(--nlc-shadow-sm);
 }
 
 /* ============================================================

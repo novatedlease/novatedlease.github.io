@@ -464,7 +464,7 @@ export default function App() {
   }
 
   /**
-   * The header link. From Guided it carries a finished set of answers across, unless Advanced
+   * The header toggle. From Guided it carries a finished set of answers across, unless Advanced
    * holds figures of its own: then it just switches, and the "open in Advanced" button on the
    * results screen is where the reader can choose to replace them.
    */

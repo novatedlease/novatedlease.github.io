@@ -229,7 +229,7 @@ export type GuidedModeProps = {
   onSwitchToAdvanced?: () => void;
   /** Advanced mode holds figures of its own that copying would replace. */
   advancedEdited?: boolean;
-  /** Reports the finished inputs (or null) so the header link can carry them across. */
+  /** Reports the finished inputs (or null) so the header toggle can carry them across. */
   onInputsChange?: (inputs: Inputs | null) => void;
   savedQuotes?: SavedQuoteV1[];
   onQuotesChange?: (quotes: SavedQuoteV1[]) => void;

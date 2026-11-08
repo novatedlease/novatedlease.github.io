@@ -294,7 +294,7 @@ constraints and §4's working rules without restating them.
 findings), `GuidedMode.tsx` (screens), `QuoteDiagram.tsx`, `parts.tsx`.
 
 - **Front door.** Guided is the default; Advanced is reached from the Guided results screen, the
-  intro's "Skip to Advanced mode" link, or the header link. `?c=` share links and a stored
+  intro's "Skip to Advanced mode" link, or the Guided | Advanced header toggle. `?c=` share links and a stored
   `nlc2-mode=advanced` still open Advanced directly.
 - **One-way hand-off.** Opening Advanced copies Guided's finished `Inputs` across. App tracks
   `advancedEdited` (user edits, quote loads, resets, or arriving by share link); while it's true,

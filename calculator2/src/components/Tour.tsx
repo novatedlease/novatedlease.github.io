@@ -38,7 +38,7 @@ const TOUR_STEPS: TourStep[] = [
       <>
         The calculator starts in <strong>Guided mode</strong>: it asks one thing at a time, shows where each figure sits
         on a typical quote, and flags common entry slips. If you don't have a quote yet, it fills in typical figures so you
-        can still get a rough answer. This link opens <strong>Advanced mode</strong>, with every input on one page and the
+        can still get a rough answer. Switch to <strong>Advanced mode</strong> here for every input on one page and the
         full workings.
       </>
     ),

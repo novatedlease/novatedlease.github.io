@@ -26,7 +26,7 @@ function numberFromField(label: string | RegExp): number {
 }
 
 function switchToAdvanced() {
-  fireEvent.click(screen.getByRole("button", { name: /Advanced mode: every input/ }));
+  fireEvent.click(screen.getByRole("button", { name: "Advanced" }));
 }
 
 describe("Advanced mode auto-fill effects (real interaction, not just the underlying formula)", () => {
