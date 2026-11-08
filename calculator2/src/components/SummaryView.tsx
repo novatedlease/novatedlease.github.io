@@ -30,7 +30,8 @@ function MoreDetails(props: { onClick?: (anchorId: string) => void }) {
     <div className="nlc-more-details">
       <span>
         This is the snapshot. Advanced mode has the full workings: year-by-year lease payments and take-home pay, the effective
-        interest rate, tax and super effects, and the early-termination risk.
+        interest rate, the effect on your adjusted taxable income (HECS repayments, childcare subsidy, Medicare levy surcharge),
+        super, and the early-termination risk.
       </span>
       <button type="button" className="nlc-btn nlc-btn--primary nlc-btn--sm" onClick={() => onClick(FULL_BREAKDOWN_ANCHOR)}>
         See full details in Advanced mode →
