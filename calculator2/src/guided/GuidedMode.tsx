@@ -1584,7 +1584,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
           {
             value: "invested",
             label: "Invested",
-            sub: "Property, shares, crypto etc",
+            sub: "Shares, crypto etc",
           },
           { value: "none", label: "It doesn't earn anything" },
         ]}
