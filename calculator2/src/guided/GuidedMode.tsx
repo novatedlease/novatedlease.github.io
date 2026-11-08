@@ -2227,7 +2227,7 @@ function ResultTools({
           <input
             className="nlc-input"
             aria-label="Name for this saved result"
-            placeholder={exploring ? "e.g. EV estimate" : "e.g. Dealer A quote"}
+            placeholder={exploring ? "e.g. EV estimate" : "e.g. Provider A quote"}
             value={name}
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => {
