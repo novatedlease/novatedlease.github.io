@@ -3,7 +3,7 @@ import type { Inputs } from "@engine/types";
 import { financedAmountExGstFromInputs } from "@engine/effectiveinterest";
 import { residualFractionForYears } from "@engine/ato";
 import { computeDerived } from "@engine/derived";
-import { URL_STATE_PARAM, getInputsFromLocationSearch, setUrlParamForInputs } from "@engine/urlState";
+import { URL_STATE_PARAM, getInputsFromLocationSearch } from "@engine/urlState";
 import { advancedDefaultInputs, sentinelDefaultInputs } from "./state/defaultInputs";
 import { estMarketValueFromDriveaway, evElectricityClaimAnnual, nonEvFuelAnnual } from "./assumptions";
 import { ModeToggle, type CalcMode } from "./components/ui/ModeToggle";
@@ -29,6 +29,7 @@ import { CoffeeNudgeModal } from "./components/CoffeeNudgeModal";
 import { useCoffeeNudge } from "./hooks/useCoffeeNudge";
 import { type SavedQuoteV1, safeLoadQuotes } from "./state/savedQuotes";
 import { trackEvent, trackOncePerSession } from "./utils/analytics";
+import { copyShareLink } from "./utils/shareLink";
 
 const MODE_STORAGE_KEY = "nlc2-mode";
 const TOUR_HIDDEN_KEY = "nlc2-tour-hidden";
@@ -57,8 +58,20 @@ function AdvancedMode(props: {
   setOutputTab: React.Dispatch<React.SetStateAction<OutputTab>>;
   navigateToDetails: (anchorId?: string) => void;
   sectionForceOpenNonce: (anchorId: string) => number | undefined;
+  /**
+   * True when these inputs came from Guided mode, where $0 fuel or electricity is a deliberate
+   * answer ("fuel is not packaged"), not the "not yet computed" sentinel that share links and old
+   * saved quotes use. While true, the fuel and electricity auto-fills leave a 0 alone.
+   */
+  zeroIsDeliberate: boolean;
+  /** The reader changed something here themselves (typed, loaded a saved quote, or reset). */
+  onUserEdit: (kind: "edit" | "load" | "reset") => void;
 }) {
-  const { inputs, setInputs, savedQuotes, setSavedQuotes, outputTab, setOutputTab, navigateToDetails, sectionForceOpenNonce } = props;
+  const { inputs, setInputs, savedQuotes, setSavedQuotes, outputTab, setOutputTab, navigateToDetails, sectionForceOpenNonce, zeroIsDeliberate, onUserEdit } = props;
+  const setInputsByUser: React.Dispatch<React.SetStateAction<Inputs>> = (u) => {
+    onUserEdit("edit");
+    setInputs(u);
+  };
   const lastAutoResidualRef = useRef<number | null>(null);
   const lastAutoFinancedRef = useRef<number | null>(null);
   const lastAutoEstMarketValueRef = useRef<number | null>(null);
@@ -138,14 +151,14 @@ function AdvancedMode(props: {
     const lastAuto = lastAutoElectricityRef.current;
     const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;
 
-    const shouldSync = cur === 0 || (lastAuto !== null && withinCent(cur, lastAuto)) || (lastAuto === null && withinCent(cur, auto));
+    const shouldSync = (cur === 0 && !zeroIsDeliberate) || (lastAuto !== null && withinCent(cur, lastAuto)) || (lastAuto === null && withinCent(cur, auto));
 
     if (shouldSync && !withinCent(cur, auto)) {
       setInputs((p) => ({ ...p, electricityAnnual: auto }));
     }
     lastAutoElectricityRef.current = auto;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs.vehicleType, inputs.annualMileageKm, inputs.electricityAnnual]);
+  }, [inputs.vehicleType, inputs.annualMileageKm, inputs.electricityAnnual, zeroIsDeliberate]);
 
   // Auto-fill fuelAnnual from annualMileageKm using the same estimate Simple mode uses until
   // the user overrides it — mirrors the electricity effect above, but for the Non-EV side.
@@ -159,14 +172,14 @@ function AdvancedMode(props: {
     const lastAuto = lastAutoFuelRef.current;
     const withinCent = (a: number, b: number) => Math.abs(a - b) < 0.01;
 
-    const shouldSync = cur === 0 || (lastAuto !== null && withinCent(cur, lastAuto)) || (lastAuto === null && withinCent(cur, auto));
+    const shouldSync = (cur === 0 && !zeroIsDeliberate) || (lastAuto !== null && withinCent(cur, lastAuto)) || (lastAuto === null && withinCent(cur, auto));
 
     if (shouldSync && !withinCent(cur, auto)) {
       setInputs((p) => ({ ...p, fuelAnnual: auto }));
     }
     lastAutoFuelRef.current = auto;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs.vehicleType, inputs.annualMileageKm, inputs.fuelAnnual]);
+  }, [inputs.vehicleType, inputs.annualMileageKm, inputs.fuelAnnual, zeroIsDeliberate]);
 
   const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("five_year");
   const leaseYearsRounded = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
@@ -175,56 +188,36 @@ function AdvancedMode(props: {
 
   const [vehicleLeasePeriodMode, setVehicleLeasePeriodMode] = useState<"perFn" | "perMonth">("perFn");
 
-  async function copyShareLink() {
+  async function onCopyShareLink() {
     trackEvent("copy_link_clicked");
     trackOncePerSession("copy_link_clicked", "copy_link_clicked");
-    const url = `${window.location.origin}${window.location.pathname}${setUrlParamForInputs(window.location.search, inputs)}`;
-
-    // Rich clipboard: paste as a clickable sentence in apps that support HTML clipboard
-    // (email, Slack, docs, forums) — mirrors calculator/src/App.tsx's copy-link behaviour.
-    // The text/plain fallback is deliberately just the bare URL, not the sentence — plain-text
-    // targets include single-line inputs like a browser's address bar, which can't hold the
-    // newline separating sentence from URL; pasting there would squash them into one
-    // ungarbled, unnavigable string instead of a clean URL.
-    const linkText = "Check out my novated lease calculation output from novatedlease.guide";
-    const html = `<a href="${url}">${linkText}</a>`;
-
-    const ClipboardItemCtor = (window as unknown as { ClipboardItem?: new (items: Record<string, Blob>) => ClipboardItem }).ClipboardItem;
-
-    try {
-      if (navigator.clipboard?.write && ClipboardItemCtor) {
-        const blobHtml = new Blob([html], { type: "text/html" });
-        const blobText = new Blob([url], { type: "text/plain" });
-        await navigator.clipboard.write([new ClipboardItemCtor({ "text/html": blobHtml, "text/plain": blobText })]);
-      } else if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(url);
-      } else {
-        throw new Error("Clipboard API unavailable");
-      }
+    if (await copyShareLink(inputs)) {
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2000);
-    } catch {
-      window.prompt("Copy this link:", url);
     }
   }
 
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 16, gap: 8, flexWrap: "wrap" }}>
-        <Button variant="secondary" size="sm" onClick={copyShareLink}>
+        <Button variant="secondary" size="sm" onClick={onCopyShareLink}>
           {copiedLink ? "Link copied!" : "Copy share link"}
         </Button>
-        <QuotesPanel inputs={inputs} defaultInputs={sentinelDefaultInputs} onLoadQuote={setInputs} quotes={savedQuotes} onQuotesChange={setSavedQuotes} />
+        <QuotesPanel inputs={inputs} defaultInputs={sentinelDefaultInputs} onLoadQuote={(q) => {
+            onUserEdit("load");
+            setInputs(q);
+          }} quotes={savedQuotes} onQuotesChange={setSavedQuotes} />
       </div>
 
       <div className="nlc-layout">
         <div className="nlc-input-col" data-tour-id="advanced-inputs">
           <InputsPanel
             inputs={inputs}
-            setInputs={setInputs}
+            setInputs={setInputsByUser}
             vehicleLeasePeriodMode={vehicleLeasePeriodMode}
             onVehicleLeasePeriodModeChange={setVehicleLeasePeriodMode}
             onResetDefaults={() => {
+              onUserEdit("reset");
               setInputs(advancedDefaultInputs);
               setOutputTab("summary");
               setCopiedLink(false);
@@ -399,6 +392,15 @@ export default function App() {
     return getInputsFromLocationSearch(window.location.search, sentinelDefaultInputs);
   });
   const [savedQuotes, setSavedQuotes] = useState<SavedQuoteV1[]>(() => (typeof window === "undefined" ? [] : safeLoadQuotes()));
+  // Guided → Advanced is a one-way copy. advancedEdited records that Advanced now holds figures
+  // the reader would lose if Guided's answers were copied over them: their own edits, a loaded
+  // quote, or a scenario that arrived by share link.
+  const [advancedEdited, setAdvancedEdited] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return !!new URLSearchParams(window.location.search).get(URL_STATE_PARAM);
+  });
+  const [seededFromGuided, setSeededFromGuided] = useState(false);
+  const guidedInputsRef = useRef<Inputs | null>(null);
   const [pendingDetailsNav, setPendingDetailsNav] = useState<{ anchorId?: string; nonce: number } | null>(null);
 
   // Advanced-mode output tab and cross-navigation-to-Details state — lifted from AdvancedMode
@@ -426,7 +428,7 @@ export default function App() {
     });
   }, [navTarget]);
 
-  // Arriving from Simple mode's "Go to Details" links (see pendingDetailsNav below) —
+  // Arriving from Guided mode's "Go to Details" links (see pendingDetailsNav below) —
   // jump straight to the requested Details section once Advanced mode has mounted.
   useEffect(() => {
     if (!pendingDetailsNav) return;
@@ -450,6 +452,28 @@ export default function App() {
     setMode(next);
     window.localStorage.setItem(MODE_STORAGE_KEY, next);
     trackEvent("mode_switched", { mode: next });
+  }
+
+  /** Copies Guided's answers into Advanced (replacing what was there) and switches across. */
+  function openGuidedInAdvanced(guidedInputs: Inputs, anchorId?: string) {
+    setInputs(guidedInputs);
+    setAdvancedEdited(false);
+    setSeededFromGuided(true);
+    changeMode("advanced");
+    if (anchorId) setPendingDetailsNav((prev) => ({ anchorId, nonce: (prev?.nonce ?? 0) + 1 }));
+  }
+
+  /**
+   * The header link. From Guided it carries a finished set of answers across, unless Advanced
+   * holds figures of its own: then it just switches, and the "open in Advanced" button on the
+   * results screen is where the reader can choose to replace them.
+   */
+  function switchMode(next: CalcMode) {
+    if (next === "advanced" && guidedInputsRef.current && !advancedEdited) {
+      openGuidedInAdvanced(guidedInputsRef.current);
+      return;
+    }
+    changeMode(next);
   }
 
   // Quick tour — entry button + guided walkthrough. tourHidden persists forever once dismissed;
@@ -502,16 +526,19 @@ export default function App() {
             </div>
           )}
         </div>
-        <ModeToggle mode={mode} onChange={changeMode} />
+        <ModeToggle mode={mode} onChange={switchMode} />
       </div>
 
       {mode === "guided" ? (
         <GuidedMode
-          onOpenAdvanced={(guidedInputs, anchorId) => {
-            setInputs(guidedInputs);
-            changeMode("advanced");
-            if (anchorId) setPendingDetailsNav((prev) => ({ anchorId, nonce: (prev?.nonce ?? 0) + 1 }));
+          onOpenAdvanced={openGuidedInAdvanced}
+          onSwitchToAdvanced={() => changeMode("advanced")}
+          advancedEdited={advancedEdited}
+          onInputsChange={(i) => {
+            guidedInputsRef.current = i;
           }}
+          savedQuotes={savedQuotes}
+          onQuotesChange={setSavedQuotes}
         />
       ) : (
         <AdvancedMode
@@ -523,6 +550,11 @@ export default function App() {
           setOutputTab={setOutputTab}
           navigateToDetails={navigateToDetails}
           sectionForceOpenNonce={sectionForceOpenNonce}
+          zeroIsDeliberate={seededFromGuided}
+          onUserEdit={(kind) => {
+            setAdvancedEdited(true);
+            if (kind !== "edit") setSeededFromGuided(false);
+          }}
         />
       )}
       <Footer showTourLink={tourHidden} onStartTour={startTour} />

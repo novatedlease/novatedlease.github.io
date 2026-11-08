@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { evElectricityClaimAnnual, nonEvFuelAnnual } from "../src/assumptions";
@@ -12,6 +12,8 @@ import { evElectricityClaimAnnual, nonEvFuelAnnual } from "../src/assumptions";
  * mount-and-interact test like this would have caught it.
  */
 afterEach(cleanup);
+// The chosen mode and the guided draft persist in localStorage; start each test fresh.
+beforeEach(() => window.localStorage.clear());
 
 function numberFromField(label: string | RegExp): number {
   // Some field labels wrap extra interactive elements (e.g. the Residual value
@@ -24,7 +26,7 @@ function numberFromField(label: string | RegExp): number {
 }
 
 function switchToAdvanced() {
-  fireEvent.click(screen.getByRole("button", { name: "Advanced" }));
+  fireEvent.click(screen.getByRole("button", { name: /Advanced mode: every input/ }));
 }
 
 describe("Advanced mode auto-fill effects (real interaction, not just the underlying formula)", () => {

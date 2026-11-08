@@ -58,6 +58,13 @@
 .gd-quote__note { font-weight: 400; font-size: 11px; color: var(--nlc-blue); }
 .gd-quote__value { white-space: nowrap; font-variant-numeric: tabular-nums; text-align: right; }
 .gd-quote__foot { margin-top: 6px; font-size: 11px; color: var(--nlc-text-muted); }
+.gd-quote__more { display: none; margin-top: 6px; font-size: 12px; }
+@media (max-width: 820px) {
+  .gd-quote__more { display: inline; }
+  .gd-quote:not([data-expanded]) .gd-quote__row:not(.gd-quote__row--on),
+  .gd-quote:not([data-expanded]) .gd-quote__group--off { display: none; }
+  .gd-quote:not([data-expanded]) .gd-quote__group + .gd-quote__group { margin-top: 0; padding-top: 0; border-top: none; }
+}
 
 /* Fields */
 .gd-where { font-size: 13px; color: var(--nlc-text-muted); margin-bottom: 6px; line-height: 1.4; }
@@ -143,3 +150,15 @@
 .gd-sub { border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-md); padding: 12px 14px; margin-bottom: 14px; }
 .gd-sub__title { margin: 0 0 4px; font-size: 16px; }
 .gd-gsttag { margin-left: 6px; font-size: 11px; font-weight: 500; color: var(--nlc-text-faint); }
+
+/* Banners, inline confirm, results tools */
+.gd-banner { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; justify-content: space-between; padding: 10px 14px; margin-bottom: 14px; border-radius: var(--nlc-radius-md); border: 1px solid var(--nlc-border-mid); background: var(--nlc-bg-subtle); font-size: 14px; }
+.gd-confirm { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 14px; border-radius: var(--nlc-radius-md); border: 1px solid var(--nlc-warn); background: var(--nlc-warn-light); font-size: 14px; }
+.gd-confirm > span { flex: 1 1 100%; }
+.gd-horizon { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
+.gd-horizon__label { font-size: 12px; color: var(--nlc-text-muted); font-weight: 600; }
+.gd-save { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.gd-save .nlc-input { max-width: 220px; }
+.gd-delta { margin-top: 4px; font-size: 14px; }
+.gd-fbt { margin: 0 0 18px; }
+.gd-skip { margin-top: 18px; font-size: 13px; color: var(--nlc-text-muted); }

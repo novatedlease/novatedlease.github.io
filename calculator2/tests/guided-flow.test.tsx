@@ -5,7 +5,7 @@ import { fortnightlyLeaseFromEffectiveAnnualRate } from "@engine/effectiveintere
 import { GuidedMode } from "../src/guided/GuidedMode";
 
 afterEach(cleanup);
-beforeEach(() => window.sessionStorage.clear());
+beforeEach(() => window.localStorage.clear());
 
 const click = (name: string | RegExp) =>
   fireEvent.click(screen.getByRole("button", { name }));
@@ -26,16 +26,8 @@ describe("Guided flow (real interaction)", () => {
     expect(screen.getByRole("alert").textContent).toMatch(
       /Whether you have a quote/,
     );
+    // Choosing an answer moves straight on to the car
     click(/Yes, I have a quote/);
-    click("Continue");
-    // Framing first: loan and keep-current-car comparisons
-    click("Next");
-    expect(screen.getByRole("alert").textContent).toMatch(
-      /Car loan comparison/,
-    );
-    click(/Yes, compare with a car loan/);
-    click(/No, I'd replace it either way/);
-    click("Next");
     // Cannot advance with nothing answered
     click("Next");
     expect(screen.getByRole("alert").textContent).toMatch(/Still to answer/);
@@ -45,6 +37,15 @@ describe("Guided flow (real interaction)", () => {
     fireEvent.change(document.getElementById("gd-start")!, {
       target: { value: "2026-11-20" },
     });
+    click("Next");
+
+    // Then the framing: loan and keep-current-car comparisons
+    click("Next");
+    expect(screen.getByRole("alert").textContent).toMatch(
+      /Car loan comparison/,
+    );
+    click(/Yes, compare with a car loan/);
+    click(/No, I'd replace it either way/);
     click("Next");
 
     // Prices, swapped by mistake
@@ -85,15 +86,14 @@ describe("Guided flow (real interaction)", () => {
     click(/Including GST/);
     type(/Residual value/, String(Math.round(exGst * 1.1)));
     expect(screen.queryByText(/much closer to the ATO figure/)).toBeNull();
-    // Market value at lease end is required; accept the typical figure
-    click("Next");
-    expect(screen.getByRole("alert").textContent).toMatch(/market value/);
-    click(/Use a typical figure/);
+    // Not comparing with the current car, so the lease-end market value isn't asked
+    expect(screen.queryByText(/market value of the car at the end/)).toBeNull();
     click("Next");
 
     // Payment: monthly figure entered under "per fortnight"
-    click(/Per fortnight/);
     click(/Any other provider/);
+    click(/Per fortnight/);
+    click(/^Excluding GST/);
     type(/Finance \(lease\) payment/, "1250");
     expect(screen.getByRole("alert").textContent).toMatch(
       /too high|outside any plausible|monthly amount/,
@@ -126,7 +126,7 @@ describe("Guided flow (real interaction)", () => {
     // About you
     type(/annual taxable income/i, "110000");
     click(/Yes Super is unaffected/);
-    click(/It wouldn't earn anything/);
+    click(/It doesn't earn anything/);
     click(/^No$/);
     click("Next");
 
@@ -151,33 +151,45 @@ describe("Guided flow (real interaction)", () => {
   test("exploring path: no quote, typical figures, estimate banner, switch to quote keeps answers", () => {
     render(<GuidedMode onOpenAdvanced={() => {}} />);
     click(/No, I'm just exploring/);
-    click("Continue");
-    click(/^No, I would otherwise be paying cash/);
-    click(/No, I'd replace it either way/);
-    click("Next");
     click(/Electric \(EV\)/);
     click(/^New$/);
-    // no lease-start date is asked on the estimate path
+    // no exact lease-start date on the estimate path, just which side of the phase-out
     expect(document.getElementById("gd-start")).toBeNull();
+    if (new Date() < new Date("2027-03-01")) click(/Before 1 April 2027/);
+    click("Next");
+    click(/^No, I would otherwise be paying cash/);
+    click(/No, I'd replace it either way/);
     click("Next");
     type(/Approximate drive-away price/, "65000");
     click(/5 years/);
     type(/Kilometres per year/, "15000");
     click("Next");
     type(/annual taxable income/i, "110000");
-    // super, cash and NSW Health are not asked up front
+    // super and NSW Health are not asked up front; the cash question is
     expect(
       screen.queryByText(/calculate super on your pre-lease salary/),
     ).toBeNull();
+    click(/Home loan offset/);
+    type(/Home loan interest rate/, "6.1");
     click("See my results");
     expect(
       screen.getByText(/This is an estimate, not your quote/),
     ).toBeTruthy();
     expect(screen.getByText("Assumptions we made for you")).toBeTruthy();
     expect(screen.getByText("Refine this estimate")).toBeTruthy();
+    click(/No Super falls with the lease/);
+    expect(screen.getByText(/super contributions would fall by about/)).toBeTruthy();
     click(/Yes Super is unaffected/);
+    expect(screen.queryByText(/super contributions would fall/)).toBeNull();
     click(/I have a quote now/);
-    // lands on the price screen with the drive-away price kept
+    // lands on the car screen first, which now needs a real start date
+    expect(document.getElementById("gd-start")).toBeTruthy();
+    fireEvent.change(document.getElementById("gd-start")!, {
+      target: { value: "2026-12-20" },
+    });
+    click("Next");
+    click("Next");
+    // then the price screen, with the drive-away price kept
     expect(
       (screen.getByLabelText(/Drive-away price/) as HTMLInputElement).value,
     ).toBe("65000");
@@ -187,10 +199,6 @@ describe("Guided flow (real interaction)", () => {
     render(<GuidedMode onOpenAdvanced={() => {}} />);
     expect(screen.queryByRole("button", { name: "Start over" })).toBeNull();
     click(/Yes, I have a quote/);
-    click("Continue");
-    click(/Yes, compare with a car loan/);
-    click(/No, I'd replace it either way/);
-    click("Next");
     click(/Petrol, diesel or any hybrid/);
 
     click("Start over");

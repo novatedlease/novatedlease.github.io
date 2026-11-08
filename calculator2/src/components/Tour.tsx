@@ -33,12 +33,13 @@ const TOUR_STEPS: TourStep[] = [
   },
   {
     key: "modes",
-    title: "Guided or Advanced — pick your depth.",
+    title: "Start guided, go deeper when you want.",
     body: (
       <>
-        <strong>Guided mode</strong> asks one thing at a time, shows where each figure sits on a typical quote, and flags
-        common entry slips. If you don't have a quote yet, it fills in typical figures so you can still get a rough answer.{" "}
-        <strong>Advanced mode</strong> models everything in detail once you have real figures.
+        The calculator starts in <strong>Guided mode</strong>: it asks one thing at a time, shows where each figure sits
+        on a typical quote, and flags common entry slips. If you don't have a quote yet, it fills in typical figures so you
+        can still get a rough answer. This link opens <strong>Advanced mode</strong>, with every input on one page and the
+        full workings.
       </>
     ),
     target: { kind: "selector", value: "mode-toggle" },
@@ -49,8 +50,8 @@ const TOUR_STEPS: TourStep[] = [
     title: "Guided mode goes step by step.",
     body: (
       <>
-        Along this list we ask about the <strong>type of comparison</strong> you're making, then <strong>your car</strong>,
-        the <strong>lease and finance details</strong> from your quote, the <strong>running costs</strong> and{" "}
+        Along this list we ask about <strong>your car</strong>, then the <strong>type of comparison</strong> you're
+        making, the <strong>lease and finance details</strong> from your quote, the <strong>running costs</strong> and{" "}
         <strong>your own tax situation</strong>, before showing your results.
       </>
     ),
@@ -74,8 +75,8 @@ const TOUR_STEPS: TourStep[] = [
     title: "Now let's look at Advanced mode.",
     body: (
       <>
-        Anything you entered in Guided mode comes with you — Advanced just lets you adjust every assumption and
-        use your real numbers.
+        Once you've finished Guided mode, your answers come with you when you open Advanced mode, where you can adjust
+        every assumption. It's a one-way copy: changes you make in Advanced don't flow back to Guided.
       </>
     ),
     target: { kind: "selector", value: "mode-toggle" },

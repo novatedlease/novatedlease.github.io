@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export type QuoteKey =
   | "baseValue"
   | "driveaway"
@@ -54,8 +56,8 @@ const ROWS: { heading: string; rows: Row[] }[] = [
       {
         key: "payment",
         label: "Finance / lease payment",
-        value: "$612.40 per fortnight",
-        note: "the vehicle finance line only, not the whole package",
+        value: "$612.40 per fortnight ex GST",
+        note: "finance line only; check inc or ex GST",
       },
       {
         key: "luxAdj",
@@ -72,7 +74,10 @@ const ROWS: { heading: string; rows: Row[] }[] = [
   },
 ];
 
-/** A cartoon of a typical quote with the row we're asking about highlighted. Values are illustrative only. */
+/**
+ * A cartoon of a typical quote with the row we're asking about highlighted. Values are illustrative only.
+ * On narrow screens it sits above the questions, so it shows only the highlighted rows until expanded.
+ */
 export function QuoteDiagram({
   highlight,
   values,
@@ -80,9 +85,11 @@ export function QuoteDiagram({
   highlight: QuoteKey[];
   values?: Partial<Record<QuoteKey, string>>;
 }) {
+  const [expanded, setExpanded] = useState(false);
   return (
     <figure
       className="gd-quote"
+      data-expanded={expanded ? "true" : undefined}
       aria-label="Example of where to find this on a novated lease quote"
     >
       <figcaption className="gd-quote__cap">
@@ -91,7 +98,10 @@ export function QuoteDiagram({
       </figcaption>
       <div className="gd-quote__paper">
         {ROWS.map((g) => (
-          <div key={g.heading} className="gd-quote__group">
+          <div
+            key={g.heading}
+            className={`gd-quote__group${g.rows.some((r) => highlight.includes(r.key)) ? "" : " gd-quote__group--off"}`}
+          >
             <div className="gd-quote__heading">{g.heading}</div>
             {g.rows.map((r) => {
               const on = highlight.includes(r.key);
@@ -114,6 +124,14 @@ export function QuoteDiagram({
           </div>
         ))}
       </div>
+      <button
+        type="button"
+        className="gd-linkbtn gd-quote__more"
+        aria-expanded={expanded}
+        onClick={() => setExpanded((v) => !v)}
+      >
+        {expanded ? "Show only the relevant lines" : "Show the whole example quote"}
+      </button>
       <div className="gd-quote__foot">
         Layouts differ between providers. The labels above are the usual names.
         Amounts in blue are the ones you entered.

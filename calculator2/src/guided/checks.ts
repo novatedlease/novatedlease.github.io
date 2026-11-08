@@ -195,10 +195,14 @@ export function diagnosePayment(
   a: PaymentArgs,
   typed: number | null,
   period: "perFn" | "perMonth" | null,
+  basis: "exGst" | "incGst" | "unknown" | null = "exGst",
 ): PaymentDiagnosis {
   if (!typed || typed <= 0 || !period)
     return { rate: null, status: "empty", findings: [] };
-  const perFn = period === "perMonth" ? (typed * 12) / 26 : typed;
+  const incGst = basis === "incGst";
+  // Per fortnight, ex GST, as the reader has labelled it.
+  const perFn =
+    (period === "perMonth" ? (typed * 12) / 26 : typed) / (incGst ? GST : 1);
   const main = rateFor(a, perFn);
   const findings: Finding[] = [];
 
@@ -206,21 +210,31 @@ export function diagnosePayment(
     main.status !== "ok" ||
     (main.rate !== null && (main.rate < TYPICAL_LOW || main.rate > 0.15));
   if (implausible) {
-    // What the typed figure would be per fortnight if the reader picked the wrong period.
-    const asOtherPeriod = period === "perFn" ? (typed * 12) / 26 : typed;
+    // What the typed figure would be per fortnight (ex GST) if the reader picked the wrong period.
+    const asOtherPeriod =
+      (period === "perFn" ? (typed * 12) / 26 : typed) / (incGst ? GST : 1);
     const otherPeriodLabel =
       period === "perFn" ? "a monthly amount" : "a fortnightly amount";
+    // The other GST reading: inc GST typed as ex (or unlabelled), or ex GST typed as inc.
+    const gstFlip = incGst ? GST : 1 / GST;
+    const otherGst = incGst ? "ex GST" : "inc GST";
     const tries: { label: string; code: string; perFn: number }[] = [
       {
         label: otherPeriodLabel,
         code: "payment_wrong_period",
         perFn: asOtherPeriod,
       },
-      { label: "inc GST", code: "payment_looks_inc_gst", perFn: perFn / GST },
       {
-        label: `${otherPeriodLabel} and inc GST`,
-        code: "payment_wrong_period_inc_gst",
-        perFn: asOtherPeriod / GST,
+        label: otherGst,
+        code: incGst ? "payment_looks_ex_gst" : "payment_looks_inc_gst",
+        perFn: perFn * gstFlip,
+      },
+      {
+        label: `${otherPeriodLabel} and ${otherGst}`,
+        code: incGst
+          ? "payment_wrong_period_ex_gst"
+          : "payment_wrong_period_inc_gst",
+        perFn: asOtherPeriod * gstFlip,
       },
     ];
     for (const t of tries) {
@@ -236,7 +250,7 @@ export function diagnosePayment(
           message:
             main.status === "ok"
               ? `Entered as you've told us, this implies a ${pct(main.rate!)} effective rate, which is unusual. If your quote figure is actually ${t.label}, the rate would be a more typical ${pct(alt.rate)}. Please check the label on your quote.`
-              : `This payment is outside any plausible range for this car. If the figure on your quote is actually ${t.label}, the rate would be a typical ${pct(alt.rate)}. Please check the label and the fortnightly/monthly selection above.`,
+              : `This payment is outside any plausible range for this car. If the figure on your quote is actually ${t.label}, the rate would be a typical ${pct(alt.rate)}. Please check the label and the fortnightly/monthly and GST selections above.`,
         });
         break;
       }
@@ -396,6 +410,60 @@ export function checkChargingRate(perKwh: number | null): Finding[] {
         code: "charging_rate_cents",
         level: "warn",
         message: `$${perKwh} per kWh is unrealistic: charging costs well under $1 per kWh. Enter dollars, not cents, for example 0.30 for 30c per kWh.`,
+      },
+    ];
+  }
+  return [];
+}
+
+// ─── Estimate path, Smart Leasing / MillarX, current car ────────────────────
+
+export function checkEvThresholdEstimate(
+  near: { base: number; threshold: number; kind: "lct" | "cap" } | null,
+): Finding[] {
+  if (!near) return [];
+  const what =
+    near.kind === "lct"
+      ? `the ${fmt(near.threshold)} Luxury Car Tax threshold for electric cars, above which the FBT exemption doesn't apply`
+      : `the ${fmt(near.threshold)} cap for a full FBT exemption on leases starting from 1 April 2027`;
+  return [
+    {
+      code: "ev_threshold_estimate",
+      level: "warn",
+      message: `We estimate the car's FBT base value at about ${fmt(near.base)} (drive-away ÷ 1.08), which is close to ${what}. Which side the real figure lands on changes the result a lot, so check the car's actual price before relying on this estimate.`,
+    },
+  ];
+}
+
+export function checkPaymentCorrected(opts: {
+  smartMillarx: boolean | null;
+  corrected: boolean;
+  typed: number | null;
+}): Finding[] {
+  if (!opts.smartMillarx || opts.corrected || !opts.typed) return [];
+  return [
+    {
+      code: "payment_not_corrected",
+      level: "warn",
+      message:
+        "You said your lease is with Smart Leasing or MillarX, but this figure was typed rather than run through the correction tool above. Their quoted payment includes a budget buffer, so used as is it overstates the finance cost. Open the correction tool, unless you have already corrected it yourself.",
+    },
+  ];
+}
+
+export function checkCurrentCarValueEnd(opts: {
+  now: number | null;
+  end: number | null;
+  years: number | null;
+}): Finding[] {
+  const { now, end, years } = opts;
+  if (!now || !end || !years) return [];
+  if (end >= now) {
+    return [
+      {
+        code: "current_value_end_not_lower",
+        level: "error",
+        message: `${fmt(end)} isn't below today's value of ${fmt(now)}. Cars lose value over time, so check the two boxes haven't been swapped.`,
       },
     ];
   }

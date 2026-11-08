@@ -41,6 +41,18 @@ function pricedDraft(): GuidedDraft {
   return d;
 }
 
+/** Adds a complete keep-current-car comparison, the only case where the lease-end market value is asked. */
+function withCurrentCar(d: GuidedDraft): GuidedDraft {
+  d.compareCurrent = true;
+  d.curValueNow = m("18000");
+  d.curValueEnd = m("9000");
+  d.curService = m("1100");
+  d.curRego = m("800");
+  d.curFuel = m("2200");
+  d.curInsurance = m("1500");
+  return d;
+}
+
 function completeDraft(rate = 0.08): GuidedDraft {
   const d = pricedDraft();
   const residual = atoMinimumResidualExGst(d)!;
@@ -55,6 +67,7 @@ function completeDraft(rate = 0.08): GuidedDraft {
   d.marketValueEnd = m("20000");
   d.smartMillarx = false;
   d.paymentPeriod = "perFn";
+  d.paymentBasis = "exGst";
   d.payment = m(fn.toFixed(2));
   d.gstPassedOn = "Yes";
   d.compareLoan = false;
@@ -292,14 +305,26 @@ describe("guided: comparison, period and charging", () => {
 });
 
 describe("guided: market value at the end of the lease", () => {
-  test("a 5-year value passes straight through to the engine field", () => {
+  test("is only asked against keeping the current car; otherwise the typical figure is used", () => {
     const d = completeDraft();
+    d.marketValueEnd = emptyDraft().marketValueEnd;
+    expect(missingForStep("lease", d).join()).not.toMatch(/market value/);
+    expect(buildInputs(d)!.estimatedMarketValueAtEnd).toBe(
+      Math.round((52400 * 0.4) / 1000) * 1000,
+    );
+    // An answer left over from an earlier comparison choice is ignored
+    d.marketValueEnd = m("5000");
+    expect(buildInputs(d)!.estimatedMarketValueAtEnd).not.toBe(5000);
+  });
+
+  test("a 5-year value passes straight through to the engine field", () => {
+    const d = withCurrentCar(completeDraft());
     d.marketValueEnd = m("27000");
     expect(buildInputs(d)!.estimatedMarketValueAtEnd).toBe(27000);
   });
 
   test("a shorter-term value is converted back to the 5-year figure along the engine's own curve", () => {
-    const d = completeDraft();
+    const d = withCurrentCar(completeDraft());
     d.leaseYears = 3;
     const p = moneyValue(d.driveaway)!;
     d.marketValueEnd = m(String(Math.round(p * 0.6)));
@@ -308,8 +333,8 @@ describe("guided: market value at the end of the lease", () => {
     expect(p * Math.pow(at5 / p, 3 / 5)).toBeCloseTo(p * 0.6, -2);
   });
 
-  test("is required, and the typical suggestion tracks the term", () => {
-    const d = completeDraft();
+  test("is required against the current car, and the typical suggestion tracks the term", () => {
+    const d = withCurrentCar(completeDraft());
     d.marketValueEnd = emptyDraft().marketValueEnd;
     expect(missingForStep("lease", d).join()).toMatch(/market value/);
     d.marketValueEnd = { text: "1", none: false, estimated: true };
@@ -369,6 +394,7 @@ describe("guided: estimate path (no quote yet)", () => {
     d.mileage = m("15000");
     d.compareLoan = false;
     d.compareCurrent = false;
+    d.exploreStart = "before";
     d.income = m("110000");
     d.superPreNl = "Yes";
     d.cashHome = "offset";
@@ -399,17 +425,23 @@ describe("guided: estimate path (no quote yet)", () => {
     const d = exploringDraft();
     const base = buildInputs(d)!.financedAmountForInterestCalcExGst;
     d.vehicleCondition = "Used – private sale (no GST)";
+    // A used EV before April 2027 now has to answer the history tests
+    expect(buildInputs(d)).toBeNull();
+    d.usedAfter2022 = true;
+    d.usedLctNever = true;
     expect(buildInputs(d)!.financedAmountForInterestCalcExGst).toBeGreaterThan(
       base,
     );
   });
 
-  test("super, cash and NSW Health are optional on this path and default with a listed assumption", () => {
+  test("super and NSW Health are optional on this path and default with a listed assumption; cash is asked", () => {
     const d = exploringDraft();
     d.superPreNl = null;
     d.cashHome = null;
     d.offsetRate = emptyDraft().offsetRate;
     d.nswHealth = null;
+    expect(missingForStep("you", d)).toEqual(["Where your cash would sit"]);
+    d.cashHome = "none";
     expect(missingForStep("you", d)).toEqual([]);
     d.nswHealth = true;
     d.nswAmount = m("100");
@@ -423,7 +455,6 @@ describe("guided: estimate path (no quote yet)", () => {
     expect(labels).toEqual(
       expect.arrayContaining([
         "superFromPreNlIncome",
-        "homeLoanOffsetInterestRate",
         "saveShareAnnual",
       ]),
     );

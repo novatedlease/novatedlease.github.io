@@ -285,3 +285,27 @@ constraints and §4's working rules without restating them.
 >
 > Both changes touch the engine, so the full §1.4 verification loop applies, including a
 > `docs/assets/calculator/` rebuild if v1 source changes.
+
+---
+
+## Guided mode (replaced Simple mode, Nov 2026)
+
+`calculator2/src/guided/` — `draft.ts` (answers → engine `Inputs`), `checks.ts` (entry-slip
+findings), `GuidedMode.tsx` (screens), `QuoteDiagram.tsx`, `parts.tsx`.
+
+- **Front door.** Guided is the default; Advanced is reached from the Guided results screen, the
+  intro's "Skip to Advanced mode" link, or the header link. `?c=` share links and a stored
+  `nlc2-mode=advanced` still open Advanced directly.
+- **One-way hand-off.** Opening Advanced copies Guided's finished `Inputs` across. App tracks
+  `advancedEdited` (user edits, quote loads, resets, or arriving by share link); while it's true,
+  Guided never overwrites Advanced without an explicit "Replace with my guided answers".
+- **Deliberate zeros.** Inputs seeded from Guided set `zeroIsDeliberate` on AdvancedMode, so a $0
+  fuel ("not packaged") isn't treated as the auto-fill sentinel. Loading a quote or resetting
+  clears it.
+- **Estimate path.** EVs are asked "before / on or after 1 April 2027" (placeholder start date
+  then +30 days or 1 Apr 2027); used EVs get the history questions; the cash question is
+  required; super is the only "Refine" question and shows the lost-super figure, because the
+  Summary headline doesn't include it.
+- **Draft storage.** `localStorage` key `nlc2-guided-draft-v3` (draft, step, visited steps), with
+  a "Welcome back / Start fresh" banner.
+- Regression tests for the Nov 2026 review: `tests/guided-review-fixes.test.tsx`.

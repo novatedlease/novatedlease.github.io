@@ -35,6 +35,13 @@ export function nonEvFuelAnnual(annualMileageKm: number): number {
   return Math.round(annualMileageKm * 0.06 * 1.8);
 }
 
+// Vehicle dutiable/FBT base value from drive-away price: drive-away typically
+// includes ~8% on top of the dutiable/base value (stamp duty, registration,
+// dealer/CTP fees). A rough heuristic, rounded to the nearest $100.
+export function estBaseValueFromDriveaway(driveawayCost: number): number {
+  return Math.round(driveawayCost / 1.08 / 100) * 100;
+}
+
 // 5-year market value estimate, same rule-of-thumb the engine interpolates down
 // for shorter terms: ~40% of drive-away price. Shared with App.tsx's Advanced-mode
 // auto-fill effect for the same reason as the two functions above.
@@ -102,6 +109,8 @@ export type SimpleModeAnswers = {
   vehicleCondition?: Inputs["vehicleCondition"];
   usedCarFirstHeldAfterJul2022?: boolean;
   usedCarLctNeverPayable?: boolean;
+  /** Optional: the guided estimate path sets this from the reader's "before / after 1 April 2027" answer. */
+  leaseStartDate?: string;
 };
 
 export function defaultSimpleModeAnswers(): SimpleModeAnswers {
@@ -148,7 +157,7 @@ function isoDatePlusDays(days: number): string {
  * separate simplified calculation path.
  */
 export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): SimpleModeResult {
-  const leaseStartDate = isoDatePlusDays(30);
+  const leaseStartDate = answers.leaseStartDate ?? isoDatePlusDays(30);
   const isEv = answers.vehicleType === "EV";
   const leaseYears = Math.max(1, Math.min(5, Math.round(answers.leaseDurationYears)));
 
@@ -156,7 +165,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
   // includes ~8% on top of the dutiable/base value (stamp duty, rego, dealer/CTP
   // fees). This is a rough heuristic — Advanced mode lets the user enter the
   // real figure from a quote.
-  const vehicleBaseValue = Math.round((answers.driveawayCost / 1.08) / 100) * 100;
+  const vehicleBaseValue = estBaseValueFromDriveaway(answers.driveawayCost);
 
   // 5-year market value estimate — the engine interpolates this down for shorter terms.
   const estimatedMarketValueAtEnd = estMarketValueFromDriveaway(answers.driveawayCost);
@@ -276,20 +285,20 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
       label: "Lease start date",
       value: `${leaseStartDate} (30 days from today)`,
       tooltip:
-        "A placeholder date, used only to determine which FBT tier/EV phase-out rules apply and how the lease term splits across financial years. Switch to Advanced mode to set your real expected start date.",
+        "A placeholder date, used only to determine which FBT tier/EV phase-out rules apply and how the lease term splits across financial years. When you have a quote, choose 'I have a quote' at the start of Guided mode to enter your real expected start date.",
     },
     {
       field: "vehicleCondition",
       label: "Vehicle condition",
       value: "Assumed New",
       tooltip:
-        "Simple mode assumes you're buying a brand new car. This matters: a used car bought in a private sale isn't GST-registered, so there's no GST credit on the purchase, changing the financed amount; and a used EV only qualifies for the FBT exemption if it was first held and used after 1 July 2022 AND Luxury Car Tax was never payable on it. If you're buying used, switch to Advanced mode and set the real vehicle condition to get an accurate result.",
+        "This estimate assumes you're buying a brand new car. This matters: a used car bought in a private sale isn't GST-registered, so there's no GST credit on the purchase, changing the financed amount; and a used EV only qualifies for the FBT exemption if it was first held and used after 1 July 2022 AND Luxury Car Tax was never payable on it. If you're buying used, set the real vehicle condition to get an accurate result.",
     },
     {
       field: "vehicleBaseValue",
       label: "Vehicle dutiable / FBT base value",
       value: fmtMoney(vehicleBaseValue),
-      tooltip: `Estimated as drive-away price ÷ 1.08: ${fmtMoney(answers.driveawayCost)} ÷ 1.08 ≈ ${fmtMoney(vehicleBaseValue)}, rounded to the nearest $100. Drive-away pricing typically includes about 8% on top of the dutiable/FBT base value for stamp duty, registration, and dealer/CTP fees. This is a rough heuristic — enter the real figure from your quote/invoice in Advanced mode for an exact result.`,
+      tooltip: `Estimated as drive-away price ÷ 1.08: ${fmtMoney(answers.driveawayCost)} ÷ 1.08 ≈ ${fmtMoney(vehicleBaseValue)}, rounded to the nearest $100. Drive-away pricing typically includes about 8% on top of the dutiable/FBT base value for stamp duty, registration, and dealer/CTP fees. This is a rough heuristic — enter the real figure from your quote or invoice (choose 'I have a quote' in Guided mode) for an exact result.`,
     },
     {
       field: "estimatedMarketValueAtEnd",
@@ -302,14 +311,14 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
       label: `Fortnightly lease payment @ ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}%`,
       value: `$${vehicleLeasePerFn.toFixed(2)}/fortnight`,
       tooltip:
-        `Since you don't have a real quote yet, we have assumed a mid-market effective interest rate of ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}% p.a. for this simulation — the midpoint of the roughly 8-12% p.a. range that's typical in the current novated lease market. Real quotes can differ meaningfully from this; get an actual quote and enter it in Advanced mode to see your true effective rate.`,
+        `Since you don't have a real quote yet, we have assumed a mid-market effective interest rate of ${(ASSUMED_EFFECTIVE_RATE * 100).toFixed(1)}% p.a. for this simulation — the midpoint of the roughly 8-12% p.a. range that's typical in the current novated lease market. Real quotes can differ meaningfully from this; get an actual quote and enter it (choose 'I have a quote' in Guided mode) to see your true effective rate.`,
     },
     {
       field: "monthsDeferred",
       label: "Finance payment months deferred",
       value: "2 months",
       tooltip:
-        "Novated lease financing is typically structured so your fortnightly salary deductions accumulate for about 2 months before the first monthly remittance is made to the financier, ensuring enough funds have built up to cover it. Interest accrues on the full financed amount during this deferral period before any repayments begin, which increases the fortnightly lease payment above compared to no deferral. Advanced mode lets you change this (e.g. to 0 or 1 month) to match your quote's structure.",
+        "Novated lease financing is typically structured so your fortnightly salary deductions accumulate for about 2 months before the first monthly remittance is made to the financier, ensuring enough funds have built up to cover it. Interest accrues on the full financed amount during this deferral period before any repayments begin, which increases the fortnightly lease payment above compared to no deferral. Entering your quote lets you change this (e.g. to 0 or 1 month) to match its structure.",
     },
     {
       field: "residualValueExGst",
@@ -322,7 +331,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
       label: "Luxury vehicle adjustment",
       value: "$0/fortnight (assumed not applicable)",
       tooltip:
-        `Assumed $0. This is a separate pre-tax charge some providers add to quotes for vehicles costing more than the ATO car limit ($69,883 for FY2026-27, indexed each July), for complex employer-accounting reasons — it's a different concept from Luxury Car Tax (LCT) and is listed separately on some quotes when it applies. ${vehicleBaseValue > 69883 ? "Your estimated vehicle value is above this limit, so check your real quote for whether this applies to you. " : ""}Advanced mode lets you enter the real per-fortnight figure from your quote.\n\n[Read sgfleet's explainer on the luxury vehicle adjustment](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf)`,
+        `Assumed $0. This is a separate pre-tax charge some providers add to quotes for vehicles costing more than the ATO car limit ($69,883 for FY2026-27, indexed each July), for complex employer-accounting reasons — it's a different concept from Luxury Car Tax (LCT) and is listed separately on some quotes when it applies. ${vehicleBaseValue > 69883 ? "Your estimated vehicle value is above this limit, so check your real quote for whether this applies to you. " : ""}Entering your quote lets you add the real per-fortnight figure.\n\n[Read sgfleet's explainer on the luxury vehicle adjustment](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf)`,
     },
     {
       field: "leaseDocFee",
@@ -365,7 +374,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
             field: "electricityAnnual" as const,
             label: "Electricity (packaged)",
             value: `${fmtMoney(electricityAnnual)}/year`,
-            tooltip: `Uses the ATO's EV home-charging shortcut rate (5.47c/km): ${answers.annualMileageKm.toLocaleString()} km × $0.0547/km = ${fmtMoney(electricityAnnual)}/year — the amount you're allowed to claim as a packaged running cost regardless of your actual electricity price. Your actual electricity cost (estimated separately at an assumed ${avgWhPerKm} Wh/km and $${avgAudPerKwh.toFixed(2)}/kWh) may differ from this claimable amount — Advanced mode lets you compare the two.\n\n[Read more about the ATO EV home-charging shortcut](https://novatedlease.guide/running-costs/ev-home-charging-shortcut/)`,
+            tooltip: `Uses the ATO's EV home-charging shortcut rate (5.47c/km): ${answers.annualMileageKm.toLocaleString()} km × $0.0547/km = ${fmtMoney(electricityAnnual)}/year — the amount you're allowed to claim as a packaged running cost regardless of your actual electricity price. Your actual electricity cost (estimated separately at an assumed ${avgWhPerKm} Wh/km and $${avgAudPerKwh.toFixed(2)}/kWh) may differ from this claimable amount — Advanced mode lets you set both.\n\n[Read more about the ATO EV home-charging shortcut](https://novatedlease.guide/running-costs/ev-home-charging-shortcut/)`,
           },
           {
             field: "avgWhPerKm" as const,
