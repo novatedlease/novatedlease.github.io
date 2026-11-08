@@ -183,5 +183,8 @@
 .gd-slider__head output { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--nlc-blue); }
 .gd-slider input[type="range"] { width: 100%; accent-color: var(--nlc-blue); height: 28px; margin: 0; }
 .gd-try__result { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--nlc-border); font-size: 15px; }
+.gd-try__result-title { font-size: 13px; color: var(--nlc-text-muted); margin-bottom: 6px; }
+.gd-try__line { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; }
+.gd-try__line strong { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .gd-pos { color: var(--nlc-acc-green, var(--nlc-good)); }
 .gd-neg { color: var(--nlc-neg, var(--nlc-bad)); }

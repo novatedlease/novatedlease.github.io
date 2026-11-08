@@ -16,7 +16,7 @@ import { LeaseAdjustModal } from "../components/LeaseAdjustModal";
 import { SummaryView } from "../components/SummaryView";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
-import { computeFinancialSummary, computeTotalSaving } from "../engineAdapter";
+import { summaryFigures } from "../components/summaryFigures";
 import { ASSUMED_EFFECTIVE_RATE } from "../assumptions";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
@@ -2274,14 +2274,6 @@ function ReviewStep({
   );
 }
 
-/** Headline "novated lease vs cash" figure, as the first Summary card computes it. */
-function netVsCash(inputs: Inputs, horizon: "five_year" | "lease_end"): number {
-  return computeTotalSaving({
-    summary: computeFinancialSummary({ inputs }),
-    horizon: horizon === "five_year" ? "at5" : "atLeaseEnd",
-  }).totalSaving;
-}
-
 function Slider({
   label,
   value,
@@ -2355,8 +2347,17 @@ function TryNumbers({
   const changed = TRY_KEYS.some(
     (k) => JSON.stringify(d[k]) !== JSON.stringify(original[k]),
   );
-  const net = netVsCash(inputs, horizon);
-  const years = horizon === "five_year" ? 5 : (d.leaseYears ?? 5);
+  // The same totals the result cards show, one line per comparison the reader chose.
+  const fig = summaryFigures(inputs, horizon);
+  const lines: [string, number][] = [
+    ["buying with cash", fig.totalSaving],
+    ...(inputs.compareWithCarLoan
+      ? [["a car loan", fig.totalSavingVsLoan] as [string, number]]
+      : []),
+    ...(inputs.compareWithCurrentCar
+      ? [["keeping your current car", fig.nlVsKeepSaving] as [string, number]]
+      : []),
+  ];
   const ratePct = d.estimateRatePct ?? ASSUMED_EFFECTIVE_RATE * 100;
   const km = (v: number) => `${v.toLocaleString("en-AU")} km`;
 
@@ -2437,10 +2438,17 @@ function TryNumbers({
         />
       </div>
       <div className="gd-try__result" role="status">
-        Novated lease vs buying with cash over {years} years:{" "}
-        <strong className={net >= 0 ? "gd-pos" : "gd-neg"}>
-          {money(Math.abs(net))} {net >= 0 ? "better off" : "worse off"}
-        </strong>
+        <div className="gd-try__result-title">
+          Novated lease over {fig.years} years, compared with:
+        </div>
+        {lines.map(([what, net]) => (
+          <div key={what} className="gd-try__line">
+            <span>{what}</span>
+            <strong className={net >= 0 ? "gd-pos" : "gd-neg"}>
+              {money(Math.abs(net))} {net >= 0 ? "better off" : "worse off"}
+            </strong>
+          </div>
+        ))}
       </div>
     </section>
   );

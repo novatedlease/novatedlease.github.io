@@ -541,7 +541,7 @@ describe("exploring results: Try different numbers", () => {
     );
     render(<App />);
   }
-  const headline = () => screen.getByText(/Novated lease vs buying with cash over/).textContent!;
+  const headline = () => document.querySelector(".gd-try__result")!.textContent!;
 
   test("sliders change the answers and the result, and can be reset", () => {
     exploreReview();
@@ -570,5 +570,46 @@ describe("exploring results: Try different numbers", () => {
     seedGuided(quoteDraft());
     render(<App />);
     expect(screen.queryByText("Try different numbers")).toBeNull();
+  });
+});
+
+describe("Try different numbers: every chosen comparison", () => {
+  test("shows loan and keep-current-car lines when chosen, matching the result cards", () => {
+    const d = exploringEv();
+    d.compareLoan = true;
+    d.loanDeposit = none;
+    d.loanRate = m("8");
+    d.loanFee = none;
+    d.compareCurrent = true;
+    d.curValueNow = m("20000");
+    d.curValueEnd = m("13000");
+    d.curService = m("800");
+    d.curRego = m("900");
+    d.curFuel = m("2000");
+    d.curInsurance = m("1000");
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "alternatives", "review"] }),
+    );
+    render(<App />);
+    const lines = [...document.querySelectorAll(".gd-try__line")].map((l) => l.textContent!);
+    expect(lines).toHaveLength(3);
+    expect(lines[0]).toMatch(/^buying with cash/);
+    expect(lines[1]).toMatch(/^a car loan/);
+    expect(lines[2]).toMatch(/^keeping your current car/);
+    // Each line's figure is the hero figure of the matching card
+    const heroes = [...document.querySelectorAll(".gd-results")].flatMap((r) =>
+      [...r.querySelectorAll("div")].filter((el) => /^\$[\d,]+$/.test(el.textContent ?? "") && el.children.length === 0).map((el) => el.textContent),
+    );
+    for (const l of lines) expect(heroes).toContain(l.match(/\$[\d,]+/)![0]);
+  });
+
+  test("only the cash line when no other comparison was chosen", () => {
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: exploringEv(), step: "review", visited: ["intro", "car", "compare", "quick", "you", "review"] }),
+    );
+    render(<App />);
+    expect(document.querySelectorAll(".gd-try__line")).toHaveLength(1);
   });
 });
