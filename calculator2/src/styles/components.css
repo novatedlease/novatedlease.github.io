@@ -962,3 +962,20 @@
   color: var(--nlc-warn-dark);
   white-space: nowrap;
 }
+
+/* Guided results: per-card pointer to Advanced mode's full workings */
+.nlc-more-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: var(--nlc-radius-md);
+  background: var(--nlc-blue-light);
+  border: 1px solid var(--nlc-blue-mid);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.nlc-more-details > span { flex: 1 1 320px; }

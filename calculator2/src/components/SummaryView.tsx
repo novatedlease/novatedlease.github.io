@@ -12,7 +12,32 @@ import { InfoTooltip } from "./ui/InfoTooltip";
  * intentionally unchanged, since that's what makes it legible at a glance.
  */
 
-type Props = { inputs: Inputs; horizon: "five_year" | "lease_end"; onNavigateToDetails: (anchorId?: string) => void };
+type Props = {
+  inputs: Inputs;
+  horizon: "five_year" | "lease_end";
+  onNavigateToDetails: (anchorId?: string) => void;
+  /** Guided mode: adds a button to each card that opens the full breakdown in Advanced mode. */
+  onMoreDetails?: (anchorId: string) => void;
+};
+
+const FULL_BREAKDOWN_ANCHOR = "details-section-2-financial-summary";
+
+/** Guided mode only: tells readers the Summary is a snapshot and Advanced has the full workings. */
+function MoreDetails(props: { onClick?: (anchorId: string) => void }) {
+  if (!props.onClick) return null;
+  const onClick = props.onClick;
+  return (
+    <div className="nlc-more-details">
+      <span>
+        This is the snapshot. Advanced mode has the full workings: year-by-year lease payments and take-home pay, the effective
+        interest rate, tax and super effects, and the early-termination risk.
+      </span>
+      <button type="button" className="nlc-btn nlc-btn--primary nlc-btn--sm" onClick={() => onClick(FULL_BREAKDOWN_ANCHOR)}>
+        See full details in Advanced mode →
+      </button>
+    </div>
+  );
+}
 
 function fmtAud0(n: number): string {
   return `$${Math.round(n).toLocaleString("en-AU")}`;
@@ -127,7 +152,7 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
   );
 }
 
-export function SummaryView({ inputs, horizon, onNavigateToDetails }: Props) {
+export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails }: Props) {
   const s = computeFinancialSummary({ inputs });
 
   const isLeaseEnd = horizon === "lease_end";
@@ -202,6 +227,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails }: Props) {
           <BreakdownRow label={totalSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(totalSaving))} bold color={totalSaving >= 0 ? POS : NEG} />
         </div>
         <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />
+          <MoreDetails onClick={onMoreDetails} />
       </div>
 
       {showLoan && (
@@ -237,6 +263,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails }: Props) {
             <BreakdownRow label={totalSavingVsLoan >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(totalSavingVsLoan))} bold color={totalSavingVsLoan >= 0 ? POS : NEG} />
           </div>
           <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />
+          <MoreDetails onClick={onMoreDetails} />
         </div>
       )}
 
@@ -259,6 +286,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails }: Props) {
             <BreakdownRow label={nlVsKeepSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(nlVsKeepSaving))} bold color={nlVsKeepSaving >= 0 ? POS : NEG} />
           </div>
           <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />
+          <MoreDetails onClick={onMoreDetails} />
         </div>
       )}
 

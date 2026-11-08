@@ -445,3 +445,20 @@ describe("luxury vehicle adjustment", () => {
     expect(buildInputs({ ...d, payment: m("1950") })!.luxuryVehicleAdjPerFn).toBeCloseTo(60, 6);
   });
 });
+
+describe("results cards point to Advanced mode", () => {
+  test("each card has a button that opens the full breakdown in Advanced", () => {
+    const d = quoteDraft();
+    d.compareLoan = true;
+    d.loanDeposit = none;
+    d.loanRate = m("7.5");
+    d.loanFee = none;
+    seedGuided(d);
+    render(<App />);
+    const buttons = screen.getAllByRole("button", { name: /See full details in Advanced mode/ });
+    expect(buttons).toHaveLength(2); // vs cash, vs loan
+    fireEvent.click(buttons[1]);
+    expect(num(/Drive-away cost/)).toBe(52400);
+    expect(screen.getByText(/Section 2: Financial summary/)).toBeTruthy();
+  });
+});

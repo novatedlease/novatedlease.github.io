@@ -1940,10 +1940,15 @@ function ReviewStep({
   const leaseYears = d.leaseYears ?? 5;
   const effectiveHorizon = leaseYears < 5 ? horizon : "five_year";
 
+  const confirmRef = useRef<HTMLDivElement>(null);
   function openAdvanced(anchorId?: string) {
     if (!inputs) return;
     if (advancedEdited) {
       setConfirming({ anchorId });
+      // The choice sits below the results; bring it into view from whichever card was clicked.
+      requestAnimationFrame(() =>
+        confirmRef.current?.scrollIntoView?.({ behavior: "smooth", block: "center" }),
+      );
       return;
     }
     trackEvent(anchorId ? "guided_open_details" : "guided_open_advanced");
@@ -2096,6 +2101,10 @@ function ReviewStep({
           inputs={inputs}
           horizon={effectiveHorizon}
           onNavigateToDetails={(anchorId) => openAdvanced(anchorId)}
+          onMoreDetails={(anchorId) => {
+            trackEvent("guided_more_details_clicked");
+            openAdvanced(anchorId);
+          }}
         />
       </div>
     </>
@@ -2187,7 +2196,7 @@ function ReviewStep({
           />
           <div className="gd-actions">
             {confirming ? (
-              <div className="gd-confirm" role="group" aria-label="Confirm replacing Advanced mode figures">
+              <div ref={confirmRef} className="gd-confirm" role="group" aria-label="Confirm replacing Advanced mode figures">
                 <span>
                   Advanced mode already has figures of its own (from your edits
                   there, a saved quote or a shared link). Replace them with
