@@ -1593,7 +1593,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
           <>
             The comparison against buying the car with cash needs to know what
             that cash would otherwise earn. If it would otherwise be invested in
-            property, shares, crypto and the like, we recommend{" "}
+            shares, crypto and the like, we recommend{" "}
             <strong>not</strong> using an expected return, because investment
             returns are uncertain and fluctuate. Choose the next best safe
             return instead, for example your savings account or a home or
