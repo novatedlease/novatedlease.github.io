@@ -239,6 +239,15 @@ const faqSchema = {
         <p>To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his <a href="https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging" target="_blank" rel="noopener">GoFundMe</a>.</p>
       </div>
     </details>
+
+    <div class="calc2-legal">
+      <p class="calc2-legal__licence">CC BY-NC-SA 4.0 — © CY YEW 2026</p>
+      <ul>
+        <li>This calculator provides factual information only, based on publicly available data as of November 2026.</li>
+        <li>Consult a qualified financial adviser before making any financial decisions.</li>
+        <li>Novated leasing may affect your borrowing capacity, debt obligations, government subsidies, and superannuation contributions.</li>
+      </ul>
+    </div>
   </div>
 </FullPage>
 
@@ -315,6 +324,17 @@ const faqSchema = {
     color: var(--color-text-muted);
     margin-bottom: 1.5em;
   }
+  /* Licence and disclaimers: small print at the end of the page, not under the tool. */
+  .calc2-legal {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+  .calc2-legal__licence { margin: 0 0 0.4em; font-weight: 700; }
+  .calc2-legal ul { margin: 0; padding-left: 1.2em; }
   .nl-calculator2-placeholder {
     min-height: 400px;
   }

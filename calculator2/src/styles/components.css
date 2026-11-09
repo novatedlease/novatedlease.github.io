@@ -339,14 +339,14 @@
 
 .nlc-field__hint {
   margin-top: 5px;
-  font-size: 11.5px;
+  font-size: 12.5px;
   color: var(--nlc-text-muted);
   line-height: 1.4;
 }
 
 .nlc-field__error {
   margin-top: 5px;
-  font-size: 11.5px;
+  font-size: 12.5px;
   color: var(--nlc-bad-dark);
   line-height: 1.4;
   font-weight: 600;
@@ -415,7 +415,7 @@
 }
 
 .nlc-tab__desc {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--nlc-text-muted);
   margin-top: 2px;
@@ -453,7 +453,7 @@
 }
 
 .nlc-stat__note {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--nlc-text-muted);
   margin-top: 5px;
   line-height: 1.35;
@@ -670,7 +670,7 @@
   border: none;
   background: none;
   color: var(--nlc-blue);
-  font-size: 11.5px;
+  font-size: 12.5px;
   font-weight: 700;
   padding: 2px 6px;
   border-radius: var(--nlc-radius-sm);
@@ -729,7 +729,7 @@
   border: none;
   background: none;
   color: var(--nlc-text-muted);
-  font-size: 11.5px;
+  font-size: 12.5px;
   font-weight: 600;
   padding: 0;
   text-decoration: underline;
