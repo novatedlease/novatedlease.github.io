@@ -21,7 +21,7 @@ export const navigation: NavEntry[] = [
     href: '/calculator/',
     items: [
       { label: 'Novated Lease Calculator', href: '/calculator/' },
-      { label: 'Employer BYO Checker', href: '/tools/byo-employer-check/' },
+      { label: 'Employer BYO Checker', href: '/tools/byo-employer-check/', heading: 'Other Tools' },
       { label: 'Checklist', href: '/tools/checklist/' },
     ],
   },
