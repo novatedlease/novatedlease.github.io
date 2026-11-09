@@ -26,9 +26,8 @@
   min-width: 0;
 }
 
-/* Keep the Summary beside the long inputs column while you scroll and edit.
-   Only Summary: Details is long enough that a pinned column would need its
-   own scrollbar. If the window is too short, the Summary scrolls inside. */
+/* Keep the results beside the long inputs column while you scroll and edit.
+   A tab taller than the window (Details, usually) scrolls inside the pane. */
 @media (min-width: 901px) {
   .nlc-output-col--sticky {
     position: sticky;

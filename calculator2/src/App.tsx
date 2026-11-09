@@ -68,6 +68,11 @@ function AdvancedMode(props: {
     setInputs(u);
   };
   const lastAutoResidualRef = useRef<number | null>(null);
+  const outputColRef = useRef<HTMLDivElement | null>(null);
+  // The output column scrolls on its own on desktop (sticky pane), so start each tab at its top.
+  useEffect(() => {
+    if (outputColRef.current) outputColRef.current.scrollTop = 0;
+  }, [outputTab]);
   const lastAutoFinancedRef = useRef<number | null>(null);
   const lastAutoEstMarketValueRef = useRef<number | null>(null);
   const lastAutoElectricityRef = useRef<number | null>(null);
@@ -222,7 +227,7 @@ function AdvancedMode(props: {
           />
         </div>
 
-        <div className={`nlc-output-col${outputTab === "summary" ? " nlc-output-col--sticky" : ""}`}>
+        <div ref={outputColRef} className="nlc-output-col nlc-output-col--sticky">
           <Tabs
             tabs={[
               { id: "summary", title: "Summary", desc: "The bottom line, explained" },
@@ -416,6 +421,33 @@ export default function App() {
       requestAnimationFrame(() => {
         const el = document.getElementById(navTarget.anchorId);
         if (!el) return;
+        // Desktop: the output column is a sticky pane with its own scrollbar. Bring the
+        // pane up to its pinned position, then scroll inside it to the section.
+        const pane = el.closest<HTMLElement>(".nlc-output-col");
+        if (pane && pane.scrollHeight > pane.clientHeight && getComputedStyle(pane).overflowY !== "visible") {
+          const layout = pane.parentElement!;
+          const pinnedTop = parseFloat(getComputedStyle(pane).top) || 0;
+          const layoutTop = layout.getBoundingClientRect().top + window.scrollY;
+          // Instant: a smooth page scroll running alongside the pane's smooth scroll
+          // cuts the pane's scroll short in Chrome.
+          if (window.scrollY < layoutTop - pinnedTop) {
+            window.scrollTo({ top: layoutTop - pinnedTop, behavior: "instant" });
+          }
+          const aim = () => {
+            const within = el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop - 12;
+            pane.scrollTo({ top: Math.max(0, within), behavior: "smooth" });
+          };
+          aim();
+          // The target section is often still expanding, so the pane can't yet scroll far
+          // enough. Re-aim whenever the pane's content changes size, for a short while.
+          const content = pane.lastElementChild;
+          if (content && typeof ResizeObserver !== "undefined") {
+            const ro = new ResizeObserver(aim);
+            ro.observe(content);
+            window.setTimeout(() => ro.disconnect(), 800);
+          }
+          return;
+        }
         const top = el.getBoundingClientRect().top + window.scrollY - 12;
         window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
       });
