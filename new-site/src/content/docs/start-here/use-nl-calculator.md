@@ -85,8 +85,8 @@ Before starting, gather the following information about the vehicle and your per
 - **Vehicle finance**  
   Enter the figure from your quote (toggle between per‑fortnight and per‑month display).  
   If you do not yet have a quote, a placeholder corresponding to an effective interest rate of **~8–12%** is a reasonable approximation for most mainstream providers.  
-  Small ▲▼ arrows next to this field let you nudge the implied effective interest rate up or down by 0.1% at a time, recalculating the fortnightly figure live — handy for exploring "what if my rate were X%" without doing the maths yourself.  
-  **Smart Leasing / MillarX customer?** These two providers quote a figure derived from the full lease term, but only a subset of those periods are actual finance payments — entering it directly inflates the effective interest rate the calculator computes. Use the **"Smart Leasing / MillarX customer?"** adjustment tool above this field to convert your quoted figure to the finance-only amount the calculator expects. See [why this adjustment is needed and how it works](/special-and-policy/smart-leasing-millarx-payment-structure/) for the full explanation.
+  The **− / +** buttons beside the effective interest rate, just below this field, nudge the rate down or up by 0.1% at a time (hold to repeat), recalculating the fortnightly figure live — handy for exploring "what if my rate were X%" without doing the maths yourself.  
+  **Smart Leasing / MillarX customer?** These two providers quote a figure derived from the full lease term, but only a subset of those periods are actual finance payments — entering it directly inflates the effective interest rate the calculator computes. Use the **"Smart Leasing / MillarX customer?"** adjustment link just below this field to convert your quoted figure to the finance-only amount the calculator expects. See [why this adjustment is needed and how it works](/special-and-policy/smart-leasing-millarx-payment-structure/) for the full explanation.
 
 - **Luxury Vehicle Adjustment (per fortnight)**  
   Only relevant for vehicles above the vehicle cost limit ($69,883 for FY2026–27).  
