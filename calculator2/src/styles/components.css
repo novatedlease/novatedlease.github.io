@@ -1031,3 +1031,11 @@
 @media (pointer: coarse) {
   .nlc-rate-step { width: 40px; height: 32px; font-size: 17px; }
 }
+
+/* Phones: a short tour label so the tour button and the Guided/Advanced
+   toggle share one row. */
+.nlc-tour-cta__short { display: none; }
+@media (max-width: 520px) {
+  .nlc-tour-cta__long { display: none; }
+  .nlc-tour-cta__short { display: inline; }
+}

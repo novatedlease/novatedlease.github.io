@@ -538,7 +538,8 @@ export default function App() {
           {!tourHidden && (
             <div className="nlc-tour-cta-wrap">
               <button type="button" className="nlc-tour-cta" onClick={startTour}>
-                New here? Take the quick tour
+                <span className="nlc-tour-cta__long">New here? Take the quick tour</span>
+                <span className="nlc-tour-cta__short">Quick tour</span>
               </button>
               <button type="button" className="nlc-tour-cta__hide" aria-label="Hide the quick tour button" title="Don't show this again" onClick={hideTourForever}>
                 ×

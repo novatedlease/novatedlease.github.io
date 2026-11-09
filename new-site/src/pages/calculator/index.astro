@@ -79,8 +79,8 @@ const faqSchema = {
       Independent <strong>Australian novated lease calculator</strong> to compare novated lease vs cash purchase vs car loan vs keeping your current car, focused on your <strong>real net financial outcome</strong> —
       not just headline <InfoTip html={tips.taxSaved} wide>"tax saved" figures that can be misleading</InfoTip>.
     </p>
-    <p>
-      <strong>Built and maintained</strong> by an <a href="/about/about-me/">independent Australian specialist doctor</a> with formal training in statistics and a competitive mathematics background — not affiliated with any financier or novated lease / salary packaging company.
+    <p class="calc2-byline">
+      Built and maintained by an <a href="/about/about-me/">independent Australian specialist doctor</a> with formal training in statistics and a competitive mathematics background, to strip a lease quote back to its underlying accounting. Not affiliated with any financier or novated lease / salary packaging company.
     </p>
 
     <div id="nl-calculator-root" data-loading="true" aria-busy="true">
@@ -308,12 +308,28 @@ const faqSchema = {
     max-width: 820px;
     line-height: 1.8;
   }
+  /* Credentials read as a byline under the purpose line, not a second lead. */
+  .calc2-page > p.calc2-byline {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5em;
+  }
   .nl-calculator2-placeholder {
     min-height: 400px;
   }
   @media (max-width: 640px) {
     .calc2-page {
       padding: 1rem 0.75rem 2rem;
+    }
+    /* Tool page, not an article: tighter intro so the calculator starts sooner. */
+    .calc2-page > p {
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+    .calc2-page > p.calc2-byline {
+      font-size: 0.8125rem;
+      line-height: 1.5;
     }
   }
 </style>
