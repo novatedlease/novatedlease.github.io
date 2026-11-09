@@ -903,18 +903,25 @@ button {
 }
 
 .admonition > *:not(.admonition__title):not(summary):not(ul):not(ol) {
-  padding: 0 16px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 .admonition > ul, .admonition > ol {
   padding: 0 16px 0 calc(16px + 1.5em);
+  /* Same reading density as .article-content, including boxes placed outside
+     it (the support box under every article, the calculator page). */
+  line-height: 1.6;
 }
+.admonition p { margin: 0 0 0.9em; }
 /* Top breathing room after the title or summary bar */
 .admonition > .admonition__title + *,
 .admonition > summary + * {
-  padding-top: 12px;
+  padding-top: 14px;
 }
 .admonition > *:last-child { padding-bottom: 14px; }
-.admonition p:last-child { margin-bottom: 0; }
+.admonition p:last-child,
+.admonition > ul:last-child,
+.admonition > ol:last-child { margin-bottom: 0; }
 
 /* Note */
 .admonition--note { background: var(--adm-note-bg); border-color: #9ca3af; }
