@@ -125,6 +125,15 @@
    ------------------------------------------------------------ */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* iOS Safari zooms the page when a focused field's text is under 16px, and
+   leaves it zoomed after. Keep fields at 16px on touch screens (calculator
+   included, whose own CSS sets 14px). */
+@media (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea { font-size: 16px !important; }
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
