@@ -75,6 +75,7 @@ import {
 } from "./checks";
 import { Choices, FindingList, Help, MoneyInput } from "./parts";
 import { QuoteDiagram, type QuoteKey } from "./QuoteDiagram";
+import { DriveawayHelper } from "./DriveawayHelper";
 
 const HOW_TO_USE = "/start-here/use-nl-calculator/#your-financial-details";
 const FAQ_TERMS = "/calculator/#faq-fractional-terms";
@@ -1013,8 +1014,10 @@ function PriceStep({ d, set, f }: StepPropsF) {
         onChange={(m) => set("driveaway", m)}
         where="Everything above plus CTP, stamp duty and rego."
         hint="Always at least as high as the FBT base value, usually 3% to 10% higher."
+        estimatedNote="Worked out from your residual. Usually within about 1%; replace it if you find the actual figure."
         findings={f.prices.filter((x) => x.code !== "base_exceeds_driveaway")}
       />
+      <DriveawayHelper d={d} set={set} />
       {d.vehicleType === "EV" && fbtCategoryOf(d) && (
         <FbtNote d={d} cat={fbtCategoryOf(d)!} />
       )}

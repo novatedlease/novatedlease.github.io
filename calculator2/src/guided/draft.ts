@@ -367,6 +367,26 @@ export function atoMinimumResidualExGst(d: GuidedDraft): number | null {
   return base * residualFractionForYears(d.leaseYears);
 }
 
+/** The GST saving the calculator applies to this car (FBT base value ÷ 11, capped), or null until the base value and condition are known. */
+export function gstSavedFromDraft(d: GuidedDraft): number | null {
+  const base = moneyValue(d.baseValue);
+  if (!base || !d.vehicleCondition) return null;
+  return gstSaved({ vehicleCondition: d.vehicleCondition, vehicleBaseValue: base });
+}
+
+/**
+ * Drive-away price backed out of a quote that doesn't print it. The residual is a percentage of
+ * the amount financed for the car, which is the drive-away price less the GST saving:
+ *   residual ex GST = (drive-away − GST saving) × residual %
+ *   so drive-away   = residual ex GST ÷ residual % + GST saving.
+ * Exact for providers that set the residual on that base (e.g. NLA); others use a slightly
+ * different base and land within about 1%.
+ */
+export function driveawayFromResidual(residualExGst: number, residualPct: number, gstSaving: number): number | null {
+  if (!(residualExGst > 0) || !(residualPct > 0) || residualPct >= 100 || !(gstSaving >= 0)) return null;
+  return residualExGst / (residualPct / 100) + gstSaving;
+}
+
 export function residualExGstEntered(d: GuidedDraft): number | null {
   if (d.residualBasis === "unknown") return atoMinimumResidualExGst(d);
   const v = moneyValue(d.residual);
