@@ -892,7 +892,11 @@ button {
   border: 1px solid transparent;
   border-left-width: 4px;
   margin: 1.4em 0;
+  /* Same reading density as .article-content, including boxes placed outside
+     it (the support box under every article, the calculator page). */
+  line-height: 1.6;
 }
+.admonition p { margin: 0 0 0.9em; }
 
 .admonition__title {
   font-weight: 700;
@@ -908,11 +912,7 @@ button {
 }
 .admonition > ul, .admonition > ol {
   padding: 0 16px 0 calc(16px + 1.5em);
-  /* Same reading density as .article-content, including boxes placed outside
-     it (the support box under every article, the calculator page). */
-  line-height: 1.6;
 }
-.admonition p { margin: 0 0 0.9em; }
 /* Top breathing room after the title or summary bar */
 .admonition > .admonition__title + *,
 .admonition > summary + * {
