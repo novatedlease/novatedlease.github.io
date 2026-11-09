@@ -144,7 +144,7 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   font-size: 1.0625rem; /* 17px */
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--color-text);
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
@@ -1351,11 +1351,11 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 
 .home-body {
   font-size: 1.0625rem; /* 17px */
-  line-height: 1.8;
+  line-height: 1.6;
   color: var(--color-text-soft);
 }
 
-.home-body p { margin: 0 0 1em; }
+.home-body p { margin: 0 0 0.9em; }
 
 .home-body a {
   color: var(--nl-blue);
@@ -1455,7 +1455,7 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   margin: 0;
   padding: 0;
   font-size: 0.9375rem;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .home-card ul li { margin-bottom: 5px; }
@@ -1539,8 +1539,11 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   margin: 0;
   padding-left: 1.1em;
   font-size: 0.8125rem;
-  line-height: 1.85;
+  line-height: 1.6;
 }
+
+/* Link lists: the line height came down from 1.85, so keep a little gap for taps. */
+.article-browser__col ul li { margin-bottom: 3px; }
 
 .article-browser__col ul li a {
   color: var(--color-text-soft);
@@ -1731,9 +1734,9 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 .calc-page > p {
   font-size: 1.0625rem;
   color: var(--color-text-soft);
-  margin: 0 0 1.1em;
+  margin: 0 0 0.9em;
   max-width: 820px;
-  line-height: 1.8;
+  line-height: 1.6;
 }
 
 .calc-prose {
@@ -1756,8 +1759,8 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
   color: var(--color-text);
 }
 
-.calc-prose p { font-size: 1.0625rem; line-height: 1.8; color: var(--color-text-soft); }
-.calc-prose ul, .calc-prose ol { font-size: 1.0625rem; line-height: 1.8; color: var(--color-text-soft); padding-left: 1.5em; }
+.calc-prose p { font-size: 1.0625rem; line-height: 1.6; color: var(--color-text-soft); }
+.calc-prose ul, .calc-prose ol { font-size: 1.0625rem; line-height: 1.6; color: var(--color-text-soft); padding-left: 1.5em; }
 .calc-prose li { margin-bottom: 0.4em; }
 .calc-prose a { color: var(--nl-blue); border-bottom: 1px solid rgba(11,92,171,0.28); }
 .calc-prose a:hover { border-bottom-color: rgba(11,92,171,0.65); }
@@ -1824,9 +1827,9 @@ details.admonition--collapsible > *:last-child { padding-bottom: 20px !important
 
 .byo-page p {
   font-size: 1.0625rem;
-  line-height: 1.8;
+  line-height: 1.6;
   color: var(--color-text-soft);
-  margin: 0 0 1em;
+  margin: 0 0 0.9em;
 }
 
 .byo-page h1 {
@@ -2181,9 +2184,9 @@ body.drawer-open {
 }
 .readers-page > p {
   font-size: 1.0625rem;
-  line-height: 1.75;
+  line-height: 1.6;
   color: var(--color-text-soft);
-  margin: 0 0 1em;
+  margin: 0 0 0.9em;
 }
 .readers-toc {
   display: flex;
