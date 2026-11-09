@@ -602,12 +602,13 @@ const description =
         <p>
           It is working. Readers tell me they took the effective interest rate back to their provider, negotiated several percentage points off, and saved thousands. Others understood a quote better, spotted a risk, or talked themselves out of an expensive mistake. <a href="/about/what-readers-say/" target="_blank" rel="noopener">Read what they say.</a>
         </p>
-        <p>If it has done any of that for you, a coffee is genuinely appreciated. It helps cover the time and effort it takes to produce new content and keep it fresh.</p>
-        <p class="ck-coffee-fineprint">No pressure, and nothing changes if you say no. This will only appear once on this page.</p>
+        <p>If it has done any of that for you, a coffee is genuinely appreciated. It helps cover the time and effort it takes to produce new content and keep it fresh. Or if you're ordering a Tesla, this referral link gets you a $350 discount.</p>
+        <p class="ck-coffee-fineprint">No pressure, and nothing changes if you say no. This shows once and won't appear again in this browser.</p>
       </div>
       <div class="ck-coffee-actions">
         <a class="ck-coffee-btn ck-coffee-btn--primary" id="ck-coffee-go" href="https://buymeacoffee.com/changyang1230" target="_blank" rel="noopener noreferrer">Buy me a coffee ☕</a>
-        <button type="button" class="ck-coffee-btn" data-close>No thanks</button>
+        <a class="ck-coffee-btn ck-coffee-btn--secondary" id="ck-coffee-tesla" href="https://ts.la/david51680" target="_blank" rel="noopener noreferrer">Use the Tesla referral link</a>
+        <button type="button" class="ck-coffee-btn ck-coffee-btn--ghost" data-close>No thanks</button>
       </div>
     </div>
   </div>
@@ -677,12 +678,16 @@ const description =
   .ck-support { margin-top: 24px; }
   .ck-footer { margin-top: 32px; font-size: 0.9rem; color: var(--color-text-muted); }
 
+  /* Mirrors the calculator's coffee nudge (calculator2 .nlc-coffee-*, .nlc-btn) so the
+     two look identical; the calculator's own tokens aren't loaded on this page. */
+  #ck-coffee { --ck-sunken: #f1f3f5; --ck-sunken-hover: #e5e7eb; }
+  :root[data-theme="dark"] #ck-coffee { --ck-sunken: #1b2331; --ck-sunken-hover: #283142; }
   .ck-coffee-dim { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.55); z-index: 2147482000; }
   .ck-coffee-card {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2147482001;
     width: 520px; max-width: calc(100vw - 32px); max-height: calc(100vh - 32px);
-    display: flex; flex-direction: column; background: var(--color-surface-raised); color: var(--color-text);
-    border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 28px 30px 24px; outline: none;
+    display: flex; flex-direction: column; background: var(--color-surface); color: var(--color-text);
+    border-radius: 14px; box-shadow: var(--shadow-lg); padding: 28px 30px 24px; outline: none;
   }
   .ck-coffee-close { position: absolute; top: 14px; right: 16px; padding: 0; border: none; background: transparent; cursor: pointer; font-size: 20px; line-height: 1; color: var(--color-text-muted); }
   .ck-coffee-emoji { font-size: 34px; line-height: 1; margin-bottom: 10px; }
@@ -693,12 +698,18 @@ const description =
   .ck-coffee-fineprint { font-size: 12px; color: var(--color-text-muted); }
   .ck-coffee-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; flex: 0 0 auto; }
   .ck-coffee-btn {
-    font: inherit; font-size: 14px; font-weight: 600; padding: 9px 16px; border-radius: var(--radius-md); cursor: pointer;
-    border: 1px solid var(--color-border-mid); background: var(--color-surface); color: var(--color-text); text-decoration: none; text-align: center;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    font: inherit; font-size: 13.5px; font-weight: 600; line-height: 1.5; padding: 9px 16px; border-radius: 10px;
+    border: 1px solid transparent; cursor: pointer; text-decoration: none; white-space: nowrap;
+    transition: background 120ms, border-color 120ms, color 120ms;
   }
-  .ck-coffee-btn--primary { background: var(--nl-blue-solid); border-color: var(--nl-blue-solid); color: #fff; }
-  .ck-coffee-btn--primary:hover { background: var(--nl-blue-solid-hover); }
-  @media (max-width: 600px) {
+  .ck-coffee-btn--primary { background: var(--nl-blue-solid); color: #fff; }
+  .ck-coffee-btn--primary:hover { background: var(--nl-blue-solid-hover); color: #fff; }
+  .ck-coffee-btn--secondary { background: var(--ck-sunken); color: var(--color-text); border-color: var(--color-border-mid); }
+  .ck-coffee-btn--secondary:hover { background: var(--ck-sunken-hover); color: var(--color-text); }
+  .ck-coffee-btn--ghost { background: transparent; color: var(--nl-blue); }
+  .ck-coffee-btn--ghost:hover { background: var(--nl-blue-light); }
+  @media (max-width: 480px) {
     .ck-coffee-card { padding: 22px 18px 18px; }
     .ck-coffee-btn { flex: 1 1 auto; }
   }
@@ -863,7 +874,7 @@ const description =
     try { return localStorage.getItem(NUDGE_KEY) === '1'; } catch { return true; }
   }
   const nudge = document.getElementById('ck-coffee')!;
-  function closeNudge(reason: 'dismissed' | 'support_clicked') {
+  function closeNudge(reason: 'dismissed' | 'support_clicked' | 'tesla_clicked') {
     nudge.hidden = true;
     document.removeEventListener('keydown', onNudgeKey);
     if (reason === 'dismissed') track('coffee_nudge_dismissed', { source: 'final_checklist' });
@@ -877,6 +888,14 @@ const description =
       page_path: location.pathname, page_title: document.title, source: 'coffee_nudge_checklist',
     });
     closeNudge('support_clicked');
+  });
+  document.getElementById('ck-coffee-tesla')!.addEventListener('click', () => {
+    track('coffee_nudge_tesla_clicked', { source: 'final_checklist' });
+    track('support_link_click', {
+      link_label: 'tesla_referral', link_url: 'https://ts.la/david51680',
+      page_path: location.pathname, page_title: document.title, source: 'coffee_nudge_checklist',
+    });
+    closeNudge('tesla_clicked');
   });
   function maybeNudge() {
     const ticked = boxes.filter((b) => b.checked).length;
