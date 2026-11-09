@@ -107,8 +107,7 @@ export function CoffeeNudgeModal(props: {
           </p>
           <p>
             If it has done any of that for you, a coffee is genuinely appreciated. It helps cover the time and effort it takes to produce new
-            content and keep it fresh. Or if you're ordering a Tesla, my referral link gets you a $350 discount and supports the site at no
-            cost to you.
+            content and keep it fresh. Or if you're ordering a Tesla, this referral link gets you a $350 discount.
           </p>
           <p className="nlc-coffee-fineprint">No pressure, and nothing changes if you say no. This shows once and won't appear again in this browser.</p>
         </div>
@@ -124,7 +123,7 @@ export function CoffeeNudgeModal(props: {
             Buy me a coffee ☕
           </a>
           <a className="nlc-btn nlc-btn--secondary" href={TESLA_REFERRAL_URL} target="_blank" rel="noopener noreferrer" onClick={teslaClicked}>
-            Use my Tesla referral
+            Use the Tesla referral link
           </a>
           <Button variant="ghost" onClick={dismiss}>
             No thanks

@@ -136,7 +136,7 @@ describe("CoffeeNudgeModal: Tesla referral", () => {
     };
     let reason = "";
     render(<CoffeeNudgeModal onClose={(r) => (reason = r)} context={{ mode: "guided", guided_path: "quote" }} />);
-    const link = screen.getByRole("link", { name: "Use my Tesla referral" });
+    const link = screen.getByRole("link", { name: "Use the Tesla referral link" });
     expect(link.getAttribute("href")).toBe("https://ts.la/david51680");
     expect(screen.getByText(/\$350 discount/)).toBeTruthy();
     fireEvent.click(link);
