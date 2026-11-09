@@ -188,3 +188,15 @@
 .gd-try__line strong { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .gd-pos { color: var(--nlc-acc-green, var(--nlc-good)); }
 .gd-neg { color: var(--nlc-neg, var(--nlc-bad)); }
+
+/* Results screen: numbered parts */
+.gd-part { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--nlc-border); }
+.gd-part:first-of-type { margin-top: 8px; padding-top: 0; border-top: none; }
+.gd-part__head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+.gd-part__num { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--nlc-blue); color: #fff; font-size: 13px; font-weight: 800; margin-top: 1px; }
+.gd-part__title { margin: 0; font-size: 18px; line-height: 1.3; color: var(--nlc-text); }
+.gd-part__sub { margin: 2px 0 0; font-size: 13.5px; color: var(--nlc-text-muted); line-height: 1.45; }
+.gd-part .gd-answers { margin-bottom: 12px; }
+.gd-part .gd-actions:first-of-type { margin-top: 0; }
+.gd-try__head { display: flex; justify-content: flex-end; }
+.gd-try__head:empty { display: none; }

@@ -661,3 +661,28 @@ describe("current car fuel follows the km answer", () => {
     expect(fuels.map((e) => Number(e.value.replace(/[,$]/g, "")))).toContain(4000);
   });
 });
+
+describe("results screen is divided into signposted parts", () => {
+  const titles = () => [...document.querySelectorAll(".gd-part__title")].map((h) => h.textContent);
+
+  test("exploring: what we used, results, try numbers, then save/share", () => {
+    const d = exploringEv();
+    d.compareLoan = true;
+    d.loanDeposit = none;
+    d.loanRate = m("8");
+    d.loanFee = none;
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "alternatives", "review"] }),
+    );
+    render(<App />);
+    expect(titles()).toEqual(["What we used", "Your results", "Try different numbers", "Save, share or see the full workings"]);
+    expect(screen.getByText("How a novated lease compares with buying with cash and a car loan.")).toBeTruthy();
+  });
+
+  test("quote path: no Try different numbers part", () => {
+    seedGuided(quoteDraft());
+    render(<App />);
+    expect(titles()).toEqual(["What we used", "Your results", "Save, share or see the full workings"]);
+  });
+});

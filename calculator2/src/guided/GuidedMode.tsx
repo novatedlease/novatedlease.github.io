@@ -1972,6 +1972,15 @@ function ReviewStep({
   const flagged = visibleFindings(d, f).filter(
     (x) => x.level === "error" || x.level === "warn",
   );
+  const alternatives = [
+    "buying with cash",
+    ...(d.compareLoan ? ["a car loan"] : []),
+    ...(d.compareCurrent ? ["keeping your current car"] : []),
+  ];
+  const comparedWith =
+    alternatives.length === 1
+      ? alternatives[0]
+      : `${alternatives.slice(0, -1).join(", ")} and ${alternatives[alternatives.length - 1]}`;
   const leaseYears = d.leaseYears ?? 5;
   const effectiveHorizon = leaseYears < 5 ? horizon : "five_year";
 
@@ -2187,6 +2196,15 @@ function ReviewStep({
         </div>
       )}
 
+      <Part
+        n={1}
+        title="What we used"
+        sub={
+          exploring
+            ? "Your answers, plus the typical figures we filled in. Open either to check them; Edit takes you back to that screen."
+            : "Your answers. Open to check them; Edit takes you back to that screen."
+        }
+      >
       <details className="gd-answers" open={!inputs}>
         <summary>Your answers</summary>
         <dl className="gd-answers__list">
@@ -2205,10 +2223,7 @@ function ReviewStep({
           ))}
         </dl>
       </details>
-
-      {inputs && (
-        <>
-          {assumptions && (
+      {inputs && assumptions && (
             <Section
               title="Assumptions we made for you"
               description="Since you don't have a quote yet, these typical figures were used. Enter a real quote to replace them."
@@ -2225,15 +2240,35 @@ function ReviewStep({
               ))}
             </Section>
           )}
-          {results}
+      </Part>
+
+      {inputs && (
+        <>
+          <Part
+            n={2}
+            title="Your results"
+            sub={`How a novated lease compares with ${comparedWith}.`}
+          >
+            {results}
+          </Part>
           {exploring && (
-            <TryNumbers
-              d={d}
-              set={set}
-              inputs={shownInputs ?? inputs}
-              horizon={effectiveHorizon}
-            />
+            <Part
+              n={3}
+              title="Try different numbers"
+              sub="Drag the rough figures to see how the result changes. Your results above update too."
+            >
+              <TryNumbers
+                d={d}
+                set={set}
+                inputs={shownInputs ?? inputs}
+                horizon={effectiveHorizon}
+              />
+            </Part>
           )}
+          <Part
+            n={exploring ? 4 : 3}
+            title="Save, share or see the full workings"
+          >
           <ResultTools
             inputs={inputs}
             exploring={exploring}
@@ -2282,9 +2317,38 @@ function ReviewStep({
             Advanced mode gets a copy of these answers. Changes you make there
             don't flow back here.
           </p>
+          </Part>
         </>
       )}
     </>
+  );
+}
+
+/** A numbered, titled part of the results screen, so answers, results and next steps read as separate stages. */
+function Part({
+  n,
+  title,
+  sub,
+  children,
+}: {
+  n: number;
+  title: string;
+  sub?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className="gd-part" aria-label={title}>
+      <header className="gd-part__head">
+        <span className="gd-part__num" aria-hidden="true">
+          {n}
+        </span>
+        <div>
+          <h3 className="gd-part__title">{title}</h3>
+          {sub && <p className="gd-part__sub">{sub}</p>}
+        </div>
+      </header>
+      {children}
+    </section>
   );
 }
 
@@ -2378,7 +2442,6 @@ function TryNumbers({
   return (
     <section className="gd-try" aria-label="Try different numbers">
       <div className="gd-try__head">
-        <h3 className="gd-sub__title">Try different numbers</h3>
         {changed && (
           <button
             type="button"
@@ -2392,9 +2455,6 @@ function TryNumbers({
           </button>
         )}
       </div>
-      <p className="gd-small">
-        Drag to see how the result changes. The full results above update too.
-      </p>
       <div className="gd-try__grid">
         <Slider
           label="Drive-away price"
