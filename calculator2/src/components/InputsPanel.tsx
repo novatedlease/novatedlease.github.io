@@ -93,7 +93,7 @@ export function InputsPanel(props: {
             props.onResetDefaults?.();
           }}
         >
-          🔄 Reset
+          Reset
         </Button>
       </div>
 

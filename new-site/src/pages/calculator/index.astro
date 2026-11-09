@@ -287,7 +287,9 @@ const faqSchema = {
     max-width: 1300px;
     margin: 0 auto;
     padding: 1.5rem 1rem 3rem;
-    overflow-x: hidden;
+    /* clip, not hidden: hidden makes this a scroll container, which breaks
+       the calculator's sticky Summary column. */
+    overflow-x: clip;
   }
   /* Matches .calc-page h1 / > p in global.css so this page doesn't look
      oversized on mobile relative to legacy pages using that class. */

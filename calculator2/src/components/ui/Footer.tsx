@@ -20,7 +20,7 @@ export function Footer(props: { showTourLink?: boolean; onStartTour?: () => void
       </ul>
       {props.showTourLink && (
         <button type="button" className="nlc-tour-footer-link--muted" style={{ marginTop: 10 }} onClick={props.onStartTour}>
-          ✨ Quick tour
+          Quick tour
         </button>
       )}
     </div>

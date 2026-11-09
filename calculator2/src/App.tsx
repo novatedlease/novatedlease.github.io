@@ -222,7 +222,7 @@ function AdvancedMode(props: {
           />
         </div>
 
-        <div className="nlc-output-col">
+        <div className={`nlc-output-col${outputTab === "summary" ? " nlc-output-col--sticky" : ""}`}>
           <Tabs
             tabs={[
               { id: "summary", title: "Summary", desc: "The bottom line, explained" },
@@ -538,7 +538,7 @@ export default function App() {
           {!tourHidden && (
             <div className="nlc-tour-cta-wrap">
               <button type="button" className="nlc-tour-cta" onClick={startTour}>
-                ✨ New here? Take the quick tour
+                New here? Take the quick tour
               </button>
               <button type="button" className="nlc-tour-cta__hide" aria-label="Hide the quick tour button" title="Don't show this again" onClick={hideTourForever}>
                 ×

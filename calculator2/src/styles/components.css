@@ -26,6 +26,19 @@
   min-width: 0;
 }
 
+/* Keep the Summary beside the long inputs column while you scroll and edit.
+   Only Summary: Details is long enough that a pinned column would need its
+   own scrollbar. If the window is too short, the Summary scrolls inside. */
+@media (min-width: 901px) {
+  .nlc-output-col--sticky {
+    position: sticky;
+    top: calc(var(--nav-height, 0px) + 16px);
+    max-height: calc(100vh - var(--nav-height, 0px) - 32px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
 /* ============================================================
    Mode toggle (Simple / Advanced)
    ============================================================ */
@@ -986,3 +999,35 @@
   line-height: 1.45;
 }
 .nlc-more-details > span { flex: 1 1 320px; }
+
+/* Effective interest rate nudge: − / + steppers beside the live rate. */
+.nlc-rate-stepper {
+  display: inline-flex;
+  margin-left: auto;
+  border: 1px solid var(--nlc-border-mid);
+  border-radius: var(--nlc-radius-sm);
+  background: var(--nlc-bg);
+  overflow: hidden;
+}
+.nlc-rate-step {
+  width: 26px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--nlc-text-soft);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+.nlc-rate-step + .nlc-rate-step { border-left: 1px solid var(--nlc-border-mid); }
+.nlc-rate-step:hover,
+.nlc-rate-step[data-active] { background: var(--nlc-blue-light); color: var(--nlc-blue); }
+@media (pointer: coarse) {
+  .nlc-rate-step { width: 40px; height: 32px; font-size: 17px; }
+}
