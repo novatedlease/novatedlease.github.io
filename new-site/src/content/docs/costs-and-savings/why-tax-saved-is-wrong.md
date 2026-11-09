@@ -27,7 +27,7 @@ This is my favourite way to explain the problem.
 
 A block of chocolate normally sells for $10 at Shop A. Shop B assumes a high base price of $15, then discounts it to $8 and announces **“SAVE $7”**.
 
-That statement is *technically true* against the $15 sticker. But the shopper never intended to pay $15. Compared with the $10 they would have paid anyway, the real saving is **$2**.
+That statement is *technically true* against the $15 sticker. But the shopper never intended to pay $15. Compared with the $10 they would have paid anyway, the real saving is **$2**. With a chocolate bar that is easy to see through, but the complex financial structure of a novated lease makes it much easier to sell a misleading “you save $X” figure and pass it off as your true net saving.
 
 A “tax saved” figure works the same way. It is measured against a reference point you may never have intended to take, so it tells you how big the discount is, not whether you are better off.
 
