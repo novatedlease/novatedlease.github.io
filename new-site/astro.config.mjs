@@ -8,26 +8,39 @@ import rehypeKatex from 'rehype-katex';
 import { remarkAdmonitions } from './src/plugins/remark-admonitions.mjs';
 import { remarkTip } from './src/plugins/remark-tip.mjs';
 import { rehypeByline } from './src/plugins/rehype-byline.mjs';
-import { readFileSync, readdirSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { readdirSync } from 'node:fs';
+import { join, relative, resolve } from 'node:path';
+import { getLastModified } from './src/plugins/git-dates.mjs';
 
-// Sitemap <lastmod> per article: its frontmatter dateModified (or datePublished).
-// Pages without a date (home, calculator, tools) get no lastmod rather than the
-// build date, which would tell Google every page changed on every deploy.
+// Sitemap <lastmod>: the same git-derived "last real content edit" date the
+// article bylines show (plugins/git-dates.mjs), not the build date, which would
+// tell Google every page changed on every deploy. Frontmatter dateModified is
+// inert by design. Standalone pages use their .astro source; the calculator also
+// counts its built bundle.
 const DOCS = 'src/content/docs';
+const latest = (...ds) => ds.filter(Boolean).sort().at(-1);
 function articleDates(dir = DOCS, out = new Map()) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
     const f = join(dir, e.name);
     if (e.isDirectory()) { articleDates(f, out); continue; }
     if (!e.name.endsWith('.md')) continue;
-    const fm = readFileSync(f, 'utf8').match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
-    const date = (fm.match(/^dateModified:\s*"?(\d{4}-\d{2}-\d{2})/m) ?? fm.match(/^datePublished:\s*"?(\d{4}-\d{2}-\d{2})/m))?.[1];
     const slug = '/' + relative(DOCS, f).replace(/(\/index)?\.md$/, '/').replace(/^index\/$/, '');
+    const date = getLastModified(resolve(f));
     if (date) out.set(slug, date);
   }
   return out;
 }
 const LASTMOD = articleDates();
+for (const [slug, ...files] of [
+  ['/', 'src/pages/index.astro'],
+  ['/calculator/', 'src/pages/calculator/index.astro', '../docs/assets/calculator/main.js'],
+  ['/tools/checklist/', 'src/pages/tools/checklist.astro'],
+  ['/tools/byo-employer-check/', 'src/pages/tools/byo-employer-check.astro'],
+  ['/about/what-readers-say/', 'src/pages/about/what-readers-say.astro'],
+]) {
+  const d = latest(...files.map((f) => getLastModified(resolve(f))));
+  if (d) LASTMOD.set(slug, d);
+}
 
 export default defineConfig({
   site: 'https://novatedlease.guide',
