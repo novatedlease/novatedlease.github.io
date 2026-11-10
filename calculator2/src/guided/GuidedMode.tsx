@@ -690,7 +690,6 @@ function Intro({
 }) {
   return (
     <>
-      <Lead>One question at a time. We flag common slips as you go.</Lead>
       <Choices
         label="Do you have a novated lease quote yet?"
         value={d.hasQuote}
