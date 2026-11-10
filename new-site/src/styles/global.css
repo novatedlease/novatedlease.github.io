@@ -2359,3 +2359,101 @@ body.drawer-open {
   .car-cards { grid-template-columns: 1fr; gap: 12px; }
   .car-card svg { max-width: 190px; }
 }
+
+/* Timeline of phases (history page): a dot per phase on a connecting line. */
+.article-content .nl-timeline { margin: 2em 0 1em; }
+.article-content .tl-phase {
+  position: relative;
+  padding: 0 0 2.25em 1.75rem;
+}
+.article-content .tl-phase:last-child { padding-bottom: 0.5em; }
+.article-content .tl-phase::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 0.75em;
+  bottom: -0.75em;
+  width: 2px;
+  background: var(--color-border);
+}
+.article-content .tl-phase:last-child::before { display: none; }
+.article-content .tl-phase::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.3em;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--nl-blue);
+  box-shadow: 0 0 0 4px var(--color-bg);
+}
+.article-content .tl-phase h2 {
+  margin-top: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.article-content .tl-date {
+  display: block;
+  margin-bottom: 0.3em;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--nl-blue);
+}
+.article-content .tl-shot { margin: 1em 0 1.25em; }
+.article-content .tl-shot img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+.article-content .tl-shot figcaption {
+  margin-top: 0.5em;
+  font-size: 0.825rem;
+  color: var(--color-text-muted);
+}
+.article-content .tl-shot img { cursor: zoom-in; }
+
+/* Full-screen image viewer (opened from .tl-shot screenshots). */
+.img-viewer {
+  max-width: none;
+  max-height: none;
+  width: 100vw;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-out;
+}
+.img-viewer::backdrop { background: rgba(10, 14, 20, 0.92); }
+.img-viewer[open] { display: flex; align-items: center; justify-content: center; }
+.img-viewer img {
+  max-width: 96vw;
+  max-height: 92dvh;
+  object-fit: contain;
+  background: #fff;
+  border-radius: var(--radius-sm);
+}
+.img-viewer__close {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .article-content .tl-phase { padding-left: 1.4rem; }
+}

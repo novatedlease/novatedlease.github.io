@@ -152,6 +152,28 @@ for (const entry of navigation) {
       });
     });
 
+    // Screenshots in figure.tl-shot open full screen on click; tap, Escape or × closes.
+    var shots = document.querySelectorAll('.article-content figure.tl-shot img');
+    if (shots.length && typeof HTMLDialogElement === 'function') {
+      var viewer = document.createElement('dialog');
+      viewer.className = 'img-viewer';
+      viewer.innerHTML = '<button type="button" class="img-viewer__close" aria-label="Close">×</button><img alt="">';
+      document.body.appendChild(viewer);
+      var big = viewer.querySelector('img');
+      viewer.addEventListener('click', function() { viewer.close(); });
+      viewer.addEventListener('close', function() { big.removeAttribute('src'); });
+      shots.forEach(function(img) {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        img.setAttribute('aria-label', 'View full screen: ' + img.alt);
+        function open() { big.src = img.currentSrc || img.src; big.alt = img.alt; viewer.showModal(); }
+        img.addEventListener('click', open);
+        img.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+        });
+      });
+    }
+
     // data-dismiss buttons
     document.querySelectorAll('[data-dismiss]').forEach(function(btn) {
       btn.addEventListener('click', function() {
