@@ -74,7 +74,7 @@ import {
   diagnosePayment,
   type Finding,
 } from "./checks";
-import { Choices, FindingList, Help, MoneyInput } from "./parts";
+import { Choices, FindingList, Help, MoneyInput, Tip } from "./parts";
 import { QuoteDiagram, type QuoteKey } from "./QuoteDiagram";
 import { DriveawayHelper } from "./DriveawayHelper";
 
@@ -86,6 +86,8 @@ import "./guided.css";
 
 /** Kept in localStorage so a reader can come back to a half-entered quote later; "Start over" clears it. */
 const STORAGE_KEY = "nlc2-guided-draft-v3";
+/** Passed as the anchor to open Advanced mode on the Details tab, at its top. */
+export const ADVANCED_DETAILS_TOP = "details-top";
 const money = (n: number) => `$${Math.round(n).toLocaleString("en-AU")}`;
 
 type Stored = { draft: GuidedDraft; step: StepId; visited: StepId[] };
@@ -629,14 +631,41 @@ function Side({
   d: GuidedDraft;
   children: ReactNode;
 }) {
+  // Phones: the example quote is reference material, so it starts collapsed above the
+  // questions instead of taking half the screen. Desktop keeps it open beside them.
+  const narrow = useNarrowScreen();
+  const diagram = <QuoteDiagram highlight={highlight} values={quoteValues(d)} />;
   return (
     <div className="gd-split">
       <div className="gd-split__main">{children}</div>
       <aside className="gd-split__side">
-        <QuoteDiagram highlight={highlight} values={quoteValues(d)} />
+        {narrow ? (
+          <details className="gd-help gd-quote-toggle">
+            <summary>Where is this on my quote?</summary>
+            <div className="gd-help__body">{diagram}</div>
+          </details>
+        ) : (
+          diagram
+        )}
       </aside>
     </div>
   );
+}
+
+/** True on single-column layouts (matches the .gd-split breakpoint in guided.css). */
+function useNarrowScreen(): boolean {
+  const query = "(max-width: 820px)";
+  const [narrow, setNarrow] = useState(
+    () => typeof window !== "undefined" && !!window.matchMedia && window.matchMedia(query).matches,
+  );
+  useEffect(() => {
+    if (!window.matchMedia) return;
+    const mq = window.matchMedia(query);
+    const on = () => setNarrow(mq.matches);
+    mq.addEventListener?.("change", on);
+    return () => mq.removeEventListener?.("change", on);
+  }, []);
+  return narrow;
 }
 
 /** Today plus n calendar months, as yyyy-mm-dd in local time. */
@@ -661,10 +690,7 @@ function Intro({
 }) {
   return (
     <>
-      <Lead>
-        We ask for one thing at a time, show you where each figure sits on a
-        typical quote, and flag the slips that are easy to make.
-      </Lead>
+      <Lead>One question at a time. We flag common slips as you go.</Lead>
       <Choices
         label="Do you have a novated lease quote yet?"
         value={d.hasQuote}
@@ -673,34 +699,28 @@ function Intro({
           {
             value: true,
             label: "Yes, I have a quote",
-            sub: "About five minutes. The most accurate result",
+            sub: "About 5 minutes. Most accurate",
           },
           {
             value: false,
             label: "No, I'm just exploring",
-            sub: "About two minutes. Far fewer questions, with the rest filled in with common, standard assumptions",
+            sub: "About 2 minutes. We fill in typical figures",
           },
         ]}
         columns={2}
-        hint="You can start with an estimate and enter your quote later without losing your answers."
+        hint="You can add your quote later without losing your answers."
       />
       <div className="gd-checklist">
         <strong>If you have a quote, have these ready</strong>
         <ul>
-          <li>
-            Your <strong>novated lease quote</strong> (PDF or email). It has the
-            drive-away price, residual, lease payment and fees.
-          </li>
-          <li>Your annual taxable income (a recent payslip or tax return).</li>
-          <li>
-            Rough servicing, registration and insurance costs, or we can
-            suggest typical ones.
-          </li>
+          <li>Your <strong>novated lease quote</strong> (PDF or email)</li>
+          <li>Your taxable income (payslip or tax return)</li>
+          <li>Rough servicing, rego and insurance costs (optional)</li>
         </ul>
       </div>
       {onSwitchToAdvanced && (
         <div className="gd-skip">
-          Been here before, or prefer every input on one page?{" "}
+          Prefer every input on one page?{" "}
           <button
             type="button"
             className="gd-linkbtn"
@@ -723,16 +743,15 @@ function QuickStep({ d, set, f }: StepPropsF) {
     <>
       <Lead>Three rough figures are enough for an estimate.</Lead>
       <NoteBox mb={18}>
-        We fill in the rest (finance rate, fees, running costs) with typical
-        figures, which we list on the results page. The result is an estimate,
-        so get a real quote before you decide anything.
+        We fill in the rest with typical figures and list them on the results
+        page.
       </NoteBox>
       <MoneyInput
         label="Approximate drive-away price"
         value={d.driveaway}
         onChange={(m) => set("driveaway", m)}
-        where="The total on-road price: the car plus CTP, stamp duty and rego."
-        hint="Look it up on the dealer or manufacturer's website if you don't have a quote yet."
+        where="The car plus CTP, stamp duty and rego."
+        tooltip={<Tip>No quote yet? Use the drive-away price on the dealer or manufacturer's website.</Tip>}
         findings={f.evThreshold}
       />
       <Choices
@@ -744,14 +763,14 @@ function QuickStep({ d, set, f }: StepPropsF) {
           label: `${y} year${y > 1 ? "s" : ""}`,
         }))}
         columns={5}
-        hint={
-          <>
-            Whole years only: we do not support partial years.{" "}
+        hint="Whole years only."
+        tooltip={
+          <Tip>
+            Partial-year leases (such as 13 months) aren't supported.{" "}
             <a href={FAQ_TERMS} target="_blank" rel="noreferrer">
-              Read more about the rationale
+              Why
             </a>
-            .
-          </>
+          </Tip>
         }
       />
       <MoneyInput
@@ -770,16 +789,10 @@ function QuickStep({ d, set, f }: StepPropsF) {
 function CompareStep({ d, set }: StepProps) {
   return (
     <>
-      <Lead>
-        A lease is only better or worse than something else. What would you
-        realistically do instead?
-      </Lead>
+      <Lead>What would you realistically do instead of leasing?</Lead>
       <NoteBox color="var(--nlc-warn)" mb={20}>
-        <strong>This framing is very important.</strong> The same lease can look
-        like a big saving against a car loan and a net cost against keeping a
-        paid-off car. Answer for what you would realistically do if you did not
-        take the lease. Buying the car outright with cash is always shown as
-        well.
+        <strong>This choice matters most.</strong> The same lease can beat a car
+        loan yet lose to keeping a paid-off car. Paying cash is always shown too.
       </NoteBox>
       <Choices
         label="If you didn't lease, would you buy this car with a car loan?"
@@ -789,12 +802,11 @@ function CompareStep({ d, set }: StepProps) {
           {
             value: true,
             label: "Yes, compare with a car loan",
-            sub: "We'll ask for the loan details later",
+            sub: "Loan details come later",
           },
           { value: false, label: "No, I would otherwise be paying cash" },
         ]}
         columns={2}
-        hint="Pick this when you'd borrow to buy a similar car anyway."
       />
       <Choices
         label="Could you keep driving the car you own now instead?"
@@ -804,12 +816,12 @@ function CompareStep({ d, set }: StepProps) {
           {
             value: true,
             label: "Yes, compare with keeping it",
-            sub: "We'll ask for its value and running costs later",
+            sub: "Its value and costs come later",
           },
           { value: false, label: "No, I'd replace it either way" },
         ]}
         columns={2}
-        hint="Pick this when staying put is a real option, not when the car is about to die or is already gone."
+        hint="Only if keeping it is a real option, not if it's dying or already gone."
       />
     </>
   );
@@ -820,10 +832,6 @@ function CarStep({ d, set }: StepProps) {
   const fbt = fbtCategoryOf(d);
   return (
     <>
-      <Lead>
-        These answers decide which tax rules apply, so they matter even before
-        any dollar figures.
-      </Lead>
       <Choices
         label="What type of car is it?"
         value={d.vehicleType}
@@ -836,7 +844,7 @@ function CarStep({ d, set }: StepProps) {
             sub: "Including plug-in hybrids (PHEVs)",
           },
         ]}
-        hint="Since 1 April 2025 no hybrid qualifies for the EV FBT exemption, plug-in hybrids included. Only fully electric cars do."
+        hint="Plug-in hybrids no longer qualify for the EV FBT exemption."
       />
       <Choices
         label="Is it new or used?"
@@ -861,26 +869,22 @@ function CarStep({ d, set }: StepProps) {
         <div className="nlc-field">
           <label className="nlc-field__label" htmlFor="gd-start">
             When does the lease start?
+            <Tip>
+              It sets which{" "}
+              <a
+                href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                EV FBT phase-out tier
+              </a>{" "}
+              applies, splits the lease into FBT years (1 April to 31 March) and
+              financial years, and decides whether the used-EV questions apply.
+              Sourcing a car and finishing the paperwork usually takes one to two
+              months.
+            </Tip>
           </label>
-          <div className="gd-where">
-            It sets which{" "}
-            <a
-              href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              EV FBT phase-out tier
-            </a>{" "}
-            applies, and it's also used to work out the precise FBT-year (1
-            April to 31 March) and financial-year (1 July to 30 June) breakdown
-            of income, tax and the rest.
-          </div>
-          <div className="gd-where">
-            We ask it on this screen because, for a used electric car, it
-            decides whether the history questions below apply. We suggest at
-            least one or two months from now, as that's practically the time
-            required for sourcing a car, finalising the paperwork and shipping.
-          </div>
+          <div className="gd-where">Usually one to two months from now.</div>
           <div className="gd-inline">
             <input
               id="gd-start"
@@ -920,10 +924,10 @@ function CarStep({ d, set }: StepProps) {
             },
           ]}
           columns={2}
-          hint={
-            <>
-              The EV FBT exemption starts phasing out for leases from 1 April
-              2027, so this can change the result a lot.{" "}
+          hint="The EV FBT exemption starts phasing out from 1 April 2027."
+          tooltip={
+            <Tip>
+              This can change the result a lot.{" "}
               <a
                 href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/"
                 target="_blank"
@@ -931,8 +935,7 @@ function CarStep({ d, set }: StepProps) {
               >
                 Read about the phase-out
               </a>
-              .
-            </>
+            </Tip>
           }
         />
       )}
@@ -946,7 +949,7 @@ function CarStep({ d, set }: StepProps) {
               { value: true, label: "Yes" },
               { value: false, label: "No" },
             ]}
-            hint="For a used EV to be FBT-exempt, nobody can have held and used it before this date."
+            hint="To be FBT-exempt, nobody can have used it before this date."
           />
           <Choices
             label="Has Luxury Car Tax ever been payable on it?"
@@ -956,7 +959,7 @@ function CarStep({ d, set }: StepProps) {
               { value: true, label: "Yes, or not sure" },
               { value: false, label: "No, never" },
             ]}
-            hint="If you're unsure, ask the dealer. A used car that has attracted LCT doesn't qualify."
+            hint="Unsure? Ask the dealer. A car that attracted LCT doesn't qualify."
           />
         </>
       )}
@@ -988,10 +991,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
   const luxury = isLuxuryRange(d);
   return (
     <Side highlight={["baseValue", "driveaway"]} d={d}>
-      <Lead>
-        Two prices from the vehicle section of your quote. They're often
-        confused, and they're not the same number.
-      </Lead>
+      <Lead>Two different prices from your quote. They're easy to mix up.</Lead>
       <MoneyInput
         label="FBT base value (including GST)"
         tooltip={
@@ -1005,16 +1005,15 @@ function PriceStep({ d, set, f }: StepPropsF) {
         }
         value={d.baseValue}
         onChange={(m) => set("baseValue", m)}
-        where="Before stamp duty, rego and on-road costs. This is the figure the FBT rules use."
-        hint="Also known as: vehicle subtotal, vehicle cost, RRP etc. It includes GST."
+        where="Before stamp duty, rego and CTP."
+        hint="Also called vehicle subtotal or vehicle cost. Includes GST."
         findings={f.prices.filter((x) => x.code === "base_exceeds_driveaway")}
       />
       <MoneyInput
         label="Drive-away price"
         value={d.driveaway}
         onChange={(m) => set("driveaway", m)}
-        where="Everything above plus CTP, stamp duty and rego."
-        hint="Always at least as high as the FBT base value, usually 3% to 10% higher."
+        where="The base value plus CTP, stamp duty and rego."
         estimatedNote="Worked out from your residual. Usually within about 1%; replace it if you find the actual figure."
         findings={f.prices.filter((x) => x.code !== "base_exceeds_driveaway")}
       />
@@ -1052,14 +1051,14 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           label: `${y} year${y > 1 ? "s" : ""}`,
         }))}
         columns={5}
-        hint={
-          <>
-            Whole years only: we do not support partial years.{" "}
+        hint="Whole years only."
+        tooltip={
+          <Tip>
+            Partial-year leases (such as 13 months) aren't supported.{" "}
             <a href={FAQ_TERMS} target="_blank" rel="noreferrer">
-              Read more about the rationale
+              Why
             </a>
-            .
-          </>
+          </Tip>
         }
       />
       <Choices<string>
@@ -1081,15 +1080,15 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         columns={4}
         hint={
           d.monthsDeferredUnsure
-            ? "We'll assume 2 months, the most common arrangement."
-            : "Quotes often say 'first payment due after 2 months'."
+            ? "We'll assume 2 months, the most common."
+            : undefined
         }
       />
       <MoneyInput
         label="Documentation fee"
         value={d.docFee}
         onChange={(m) => set("docFee", m)}
-        where="Sometimes called an establishment or lease set-up fee. On some quotes it is mentioned only in the small print of the terms and conditions, so check there too."
+        where="Also called an establishment or set-up fee. Check the small print too."
         noneLabel="My quote has no documentation fee ($0)"
         findings={f.docFee}
       />
@@ -1111,7 +1110,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           },
         ]}
         columns={3}
-        hint="Look for the word GST next to the figure. This is the most common entry mistake, so please check."
+        hint="Look for “GST” next to the figure. This is the most common slip."
       />
       {d.residualBasis === "unknown" && (
         <NoteBox mb={20}>
@@ -1119,8 +1118,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           {atoMin
             ? `, about ${money(atoMin)} excluding GST (${money(atoMin * 1.1)} including GST)`
             : ""}
-          . Almost every lease uses this figure. Check your quote when you can,
-          because it should be printed there.
+          . Almost every lease uses it.
         </NoteBox>
       )}
       {(d.residualBasis === "exGst" || d.residualBasis === "incGst") && (
@@ -1144,8 +1142,8 @@ function LeaseStep({ d, set, f }: StepPropsF) {
               : d.marketValueEnd
           }
           onChange={(m) => set("marketValueEnd", m)}
-          where="What you could sell it for at that point. Used-car listings for the same model and age are a good guide."
-          hint="This is not on your quote. We ask because you're comparing with keeping your current car, where the value of each car at the end is part of the comparison."
+          where="What you could sell it for then. Used-car listings are a good guide."
+          tooltip={<Tip>Not on your quote. We ask because you're comparing with keeping your current car, and what each car is worth at the end is part of that comparison.</Tip>}
           suggestion={typicalMarketValueAtLeaseEnd(d)}
           estimatedNote="A typical estimate. Replace it if used-car listings for your model suggest a different figure."
           findings={f.marketValue}
@@ -1168,8 +1166,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
   return (
     <Side highlight={["payment", "luxAdj", "running"]} d={d}>
       <Lead>
-        Use only the <strong>vehicle finance</strong> payment. Servicing,
-        insurance, rego and fees are separate lines that we ask about next.
+        Enter only the <strong>vehicle finance</strong> payment. Running costs
+        come next.
       </Lead>
       <Choices
         label="Is your quote's payment shown fortnightly or monthly?"
@@ -1215,7 +1213,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           { value: false, label: "No", sub: "Any other provider" },
         ]}
         columns={2}
-        hint="These two providers quote a payment that includes a budget-reserve buffer, so their figure needs a correction before it is entered here."
+        hint="Their quoted payment needs a quick correction first."
+        tooltip={<Tip>Smart Leasing and MillarX quote a payment that includes a budget-reserve buffer. Entered as printed, it makes the lease look dearer than it is.</Tip>}
       />
       {d.smartMillarx &&
         (d.paymentCorrected ? (
@@ -1241,10 +1240,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
               You need to correct your Smart Leasing / MillarX payment first
             </div>
             <p>
-              The payment printed on these quotes includes a budget-reserve
-              buffer, so typing it in as is makes the lease look more expensive
-              than it is. The correction tool turns it into the finance-only
-              payment this calculator needs and fills it in below.
+              The printed payment includes a budget reserve. The tool works out
+              the finance-only payment and fills it in below.
             </p>
             {d.leaseYears ? (
               <Button
@@ -1291,8 +1288,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         }}
         where={
           d.smartMillarx
-            ? "Filled in by the correction tool above. Don't type the figure printed on your Smart Leasing or MillarX quote."
-            : "The pre-tax payment for the car itself, before the running-costs line. Type it exactly as printed."
+            ? "Filled in by the correction tool above, not the printed figure."
+            : "The car's pre-tax payment, before running costs. Type it as printed."
         }
         suffix={
           d.paymentPeriod === "perMonth"
@@ -1332,7 +1329,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           where="A separate line on quotes for cars above the ATO car limit."
           noneLabel="No luxury vehicle adjustment on my quote"
           suffix={d.paymentPeriod === "perMonth" ? "per month" : "per fortnight"}
-          hint={`It's an extra cost on top of the finance payment. Enter it per ${d.paymentPeriod === "perMonth" ? "month, like the payment above; we convert it to fortnightly for you" : "fortnight, like the payment above"}.`}
+          hint={`An extra cost on top of the finance payment, per ${d.paymentPeriod === "perMonth" ? "month" : "fortnight"} like the payment above.`}
         />
       )}
     </Side>
@@ -1435,11 +1432,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
 
   return (
     <>
-      <Lead>
-        Running costs from your quote's budget section, plus how far you expect
-        to drive.
-      </Lead>
-      <GstMock />
+      <Lead>From your quote's running-cost budget.</Lead>
       <Choices<YesNoUnsure>
         label="Does your quote's running-cost breakdown say inc GST or ex GST?"
         value={d.gstPassedOn}
@@ -1448,12 +1441,12 @@ function RunningStep({ d, set, f }: StepPropsF) {
           {
             value: "Yes",
             label: "Excluding GST",
-            sub: "Table heading says amount exc GST",
+            sub: "Heading says ex GST",
           },
           {
             value: "No",
             label: "Including GST",
-            sub: "Table heading says amount inc GST, with no obvious additional lines of GST / ITC being subtracted later",
+            sub: "Heading says inc GST, and no GST credit is taken off later",
           },
           {
             value: "Unsure",
@@ -1462,17 +1455,19 @@ function RunningStep({ d, set, f }: StepPropsF) {
           },
         ]}
         columns={3}
-        hint={
-          <>
-            We ask because some employers (Victorian hospitals in particular)
-            don't pass the GST saving on to you.{" "}
+        tooltip={
+          <Tip>
+            Some employers (Victorian hospitals in particular) don't pass the
+            GST saving on to you.{" "}
             <a href={GST_ARTICLE} target="_blank" rel="noreferrer">
               Read more about the GST saving
             </a>
-            .
-          </>
+          </Tip>
         }
       />
+      <Help title="See how the two look on a quote">
+        <GstMock />
+      </Help>
       <MoneyInput
         label="Kilometres per year"
         prefix=""
@@ -1497,7 +1492,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           { value: "perYear", label: "Yearly figure" },
         ]}
         columns={3}
-        hint="Use whichever your quote shows, so there's no multiplying to do. All the boxes below use this period."
+        hint="Use whichever your quote shows. All the boxes below use it."
       />
       <div className="gd-grid2">
         <MoneyInput
@@ -1522,7 +1517,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           onChange={(m) => set("insurance", m)}
           suffix={suffix}
           suggestion={typicalIn(typical?.insurance)}
-          hint="Comprehensive insurance. Shop around and compare with your own provider's quote."
+          hint="Comprehensive cover. Compare with your own insurer's quote."
           findings={f.insurance}
         />
         <MoneyInput
@@ -1532,7 +1527,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           suffix={suffix}
           suggestion={typicalIn(typical?.mgmt)}
           findings={f.mgmt}
-          where="Often called an admin or management fee. Add up all the membership and management fees on the quote."
+          where="Admin, membership and management fees, added together."
         />
       </div>
       {!isEv && (
@@ -1553,9 +1548,9 @@ function RunningStep({ d, set, f }: StepPropsF) {
             suffix="per kWh"
             value={d.chargingRate}
             onChange={(m) => set("chargingRate", m)}
-            where="Your blended price across home and public charging. Type any figure, down to 0.01."
+            where="Your blended home and public charging price."
             noneLabel="Fully solar or free charging ($0)"
-            hint="Only used to estimate your real electricity cost. The tax claim itself uses the ATO's 5.47c/km shortcut rate."
+            tooltip={<Tip>Only used to estimate your real charging cost. The tax claim itself uses the ATO's 5.47c/km shortcut rate.</Tip>}
             findings={f.charging}
           />
           <div className="gd-presets" aria-label="Typical charging prices">
@@ -1591,13 +1586,12 @@ function YouStep({ d, set, f }: StepPropsF) {
   const quote = d.hasQuote !== false;
   return (
     <>
-      <Lead>Your tax position decides how much a lease saves you.</Lead>
       <MoneyInput
-        label="Your annual taxable income (e.g. refer to recent tax return or payslip)"
+        label="Your annual taxable income"
         value={d.income}
         onChange={(m) => set("income", m)}
-        where="Add up ALL your jobs and other taxable income, not just the workplace this novated lease is organised through. Then subtract your deductions. It's the yearly figure, before tax."
-        hint="This is the 'taxable income' line on your tax return, before the lease."
+        where="From ALL your jobs and income, after deductions: the ‘taxable income’ line on your tax return."
+        tooltip={<Tip>Not just the employer arranging this lease. Use the yearly figure before tax, as it is before the lease. A recent tax return or payslip helps.</Tip>}
         findings={f.income}
       />
       {quote && <SuperQuestion d={d} set={set} />}
@@ -1620,11 +1614,11 @@ function SuperQuestion({ d, set }: StepProps) {
         { value: "Unsure", label: "Not sure", sub: "We'll assume yes" },
       ]}
       columns={3}
-      hint={
-        <>
-          Usually yes, but in roughly 10% of cases the employer calculates
-          super on the lower post-lease salary. It affects thousands of dollars
-          over a lease, so it's worth checking with payroll.{" "}
+      hint="Usually yes, but worth checking with payroll."
+      tooltip={
+        <Tip>
+          In roughly 10% of cases the employer calculates super on the lower
+          post-lease salary, which can cost thousands over a lease.{" "}
           <a
             href="/costs-and-savings/super-guarantee-and-payroll-risks/"
             target="_blank"
@@ -1632,8 +1626,7 @@ function SuperQuestion({ d, set }: StepProps) {
           >
             Why it matters
           </a>
-          .
-        </>
+        </Tip>
       }
     />
   );
@@ -1659,41 +1652,42 @@ function CashQuestion({ d, set, f }: StepPropsF) {
           {
             value: "offset",
             label: "Home loan offset",
-            sub: "Against the loan on the home you live in",
+            sub: "On the home you live in",
           },
           {
             value: "ipOffset",
             label: "Investment property offset",
-            sub: "Against an investment property loan",
+            sub: "Against an investment loan",
           },
           {
             value: "savings",
             label: "Savings account",
-            sub: "e.g. a high-interest savings account (HISA)",
+            sub: "e.g. a high-interest account",
           },
           {
             value: "invested",
             label: "Invested",
             sub: "Shares, crypto etc",
           },
-          { value: "none", label: "It doesn't earn anything" },
+          {
+            value: "none",
+            label: "It doesn't earn anything",
+            sub: "or I don't have the cash to pay outright",
+          },
         ]}
         columns={5}
-        hint={
-          <>
-            The comparison against buying the car with cash needs to know what
-            that cash would otherwise earn. If it would otherwise be invested in
-            shares, crypto and the like, we recommend{" "}
-            <strong>not</strong> using an expected return, because investment
-            returns are uncertain and fluctuate. Choose the next best safe
-            return instead, for example your savings account or a home or
-            investment property loan offset. If you still insist, choose "Invested" and enter a post-tax
-            figure, and understand the issue with that assumption. See{" "}
+        hint="If it's invested, pick the safe place it would otherwise sit instead."
+        tooltip={
+          <Tip>
+            The cash comparison needs to know what that money would otherwise
+            earn. Investment returns are uncertain, so we recommend the next
+            best safe return (a savings account or a loan offset) rather than an
+            expected share or crypto return. If you still choose “Invested”,
+            enter a cautious post-tax figure.{" "}
             <a href={HOW_TO_USE} target="_blank" rel="noreferrer">
-              how to use the calculator
+              How to use the calculator
             </a>
-            .
-          </>
+          </Tip>
         }
       />
       {d.cashHome === "offset" && (
@@ -1703,7 +1697,8 @@ function CashQuestion({ d, set, f }: StepPropsF) {
           suffix="% a year"
           value={d.offsetRate}
           onChange={(m) => set("offsetRate", m)}
-          where="The rate on your home loan, for example 6.2. Use that rate directly: interest on the home you live in isn't tax-deductible, so no adjustment is needed. If the offset is against an investment property loan, choose that option instead."
+          where="Your home loan rate, for example 6.2."
+          tooltip={<Tip>Use it as is: interest on the home you live in isn't tax-deductible. If the offset sits against an investment loan, choose that option instead.</Tip>}
           findings={f.offset}
         />
       )}
@@ -1714,7 +1709,8 @@ function CashQuestion({ d, set, f }: StepPropsF) {
           suffix="% a year"
           value={d.savingsRatePreTax}
           onChange={(m) => set("savingsRatePreTax", m)}
-          where="The rate on the investment loan the offset account sits against, for example 6.5. The interest you avoid would otherwise be a tax deduction, so it's worth less to you than the headline rate. We take your tax off it for you."
+          where="The investment loan's rate, for example 6.5. We adjust it for tax."
+          tooltip={<Tip>The interest you avoid would otherwise be tax-deductible, so it's worth less to you than the headline rate. We take your tax off it.</Tip>}
           findings={f.savings}
         />
       )}
@@ -1736,7 +1732,8 @@ function CashQuestion({ d, set, f }: StepPropsF) {
           suffix="% a year"
           value={d.investedRate}
           onChange={(m) => set("investedRate", m)}
-          where="A cautious post-tax figure, for example 3. Returns on these assets are not guaranteed and can be negative."
+          where="A cautious post-tax figure, for example 3."
+          tooltip={<Tip>Returns on these assets aren't guaranteed and can be negative.</Tip>}
           findings={f.invested}
         />
       )}
@@ -1756,15 +1753,15 @@ function NswQuestions({ d, set }: StepProps) {
           { value: true, label: "Yes" },
         ]}
         columns={2}
-        hint={
-          <>
-            NSW Health doctors and nurses are required to share some of their
-            tax savings with their employer. If that's not you, answer No.{" "}
+        hint="If that's not you, answer No."
+        tooltip={
+          <Tip>
+            NSW Health doctors and nurses must share some of their tax savings
+            with their employer.{" "}
             <a href={NSW_ARTICLE} target="_blank" rel="noreferrer">
               Read more
             </a>
-            .
-          </>
+          </Tip>
         }
       />
       {d.nswHealth && (
@@ -1786,7 +1783,7 @@ function NswQuestions({ d, set }: StepProps) {
             onChange={(m) => set("nswAmount", m)}
             suffix={d.nswPeriod ? PERIOD_WORD[d.nswPeriod] : undefined}
             where="Your NSW Health salary-packaging statement shows this."
-            hint="In theory this could be worked out from your role and hours. We've chosen not to derive it automatically: the rules are applied inconsistently, and we don't want to present a confident projection we can't stand behind. Please enter the figure your employer gives you."
+            tooltip={<Tip>We don't work this out from your role and hours: the rules are applied inconsistently, and we'd rather not guess. Use the figure your employer gives you.</Tip>}
           />
         </>
       )}
@@ -1804,9 +1801,7 @@ function AlternativesStep({ d, set, f }: StepPropsF) {
           : d.compareLoan
             ? "a car loan"
             : "keeping your current car"}
-        . These figures decide how that comparison turns out, so use real
-        figures where you have them. Typical figures are offered as a starting
-        point.
+        . Use real figures where you have them; typical ones are offered.
       </Lead>
       {d.compareLoan && (
         <section className="gd-sub">
@@ -1830,7 +1825,7 @@ function AlternativesStep({ d, set, f }: StepPropsF) {
             suffix="% a year"
             value={d.loanRate}
             onChange={(m) => set("loanRate", m)}
-            where="From a loan offer or pre-approval, for example 7.5. Use the actual interest rate, not the comparison rate."
+            where="From a loan offer, for example 7.5. The interest rate, not the comparison rate."
             findings={f.loan}
           />
           <MoneyInput
@@ -1872,7 +1867,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           label="Market value today"
           value={d.curValueNow}
           onChange={(m) => set("curValueNow", m)}
-          where="What you could sell it for. Look it up on carsales.com.au or a similar site."
+          where="What you could sell it for (carsales.com.au or similar)."
         />
         <MoneyInput
           label={`Market value at the end of the lease${years ? ` (after ${years} year${years > 1 ? "s" : ""})` : ""}`}
@@ -1960,6 +1955,7 @@ function ReviewStep({
   onHaveQuote: () => void;
 }) {
   const exploring = d.hasQuote === false;
+  const narrow = useNarrowScreen();
   const [horizon, setHorizon] = useState<"five_year" | "lease_end">(
     "five_year",
   );
@@ -2000,7 +1996,8 @@ function ReviewStep({
       return;
     }
     trackEvent(anchorId ? "guided_open_details" : "guided_open_advanced");
-    onOpenAdvanced(inputs, anchorId);
+    // The "full workings" buttons open the Details tab: the Summary would repeat these results.
+    onOpenAdvanced(inputs, anchorId ?? ADVANCED_DETAILS_TOP);
   }
 
   const cashRow: [string, string, StepId] = [
@@ -2147,17 +2144,31 @@ function ReviewStep({
           </div>
         </div>
       )}
-      <div className="gd-results">
-        <SummaryView
-          inputs={shownInputs ?? inputs}
-          horizon={effectiveHorizon}
-          onNavigateToDetails={(anchorId) => openAdvanced(anchorId)}
-          onMoreDetails={(anchorId) => {
-            trackEvent("guided_more_details_clicked");
-            openAdvanced(anchorId);
-          }}
-        />
-      </div>
+      <ResultHeadline
+        inputs={shownInputs ?? inputs}
+        horizon={effectiveHorizon}
+        onOpenAdvanced={() => openAdvanced()}
+      />
+      <Section
+        title="Show how we got this"
+        description="The breakdown behind each figure."
+        defaultOpen={!narrow}
+        analyticsId="guided_breakdown"
+      >
+        <div className="gd-results">
+          <SummaryView
+            inputs={shownInputs ?? inputs}
+            horizon={effectiveHorizon}
+            onNavigateToDetails={(anchorId) => openAdvanced(anchorId)}
+            hideDisclaimers
+            compactMoreDetails
+            onMoreDetails={(anchorId) => {
+              trackEvent("guided_more_details_clicked");
+              openAdvanced(anchorId);
+            }}
+          />
+        </div>
+      </Section>
     </>
   );
 
@@ -2165,12 +2176,11 @@ function ReviewStep({
     <>
       {exploring && (
         <NoteBox color="var(--nlc-warn)" mb={16}>
-          <strong>This is an estimate, not your quote.</strong> The finance
-          rate, fees and running costs below are typical figures.{" "}
+          <strong>An estimate using typical figures.</strong> Have a quote?{" "}
           <button type="button" className="gd-linkbtn" onClick={onHaveQuote}>
-            I have a quote now: enter it
-          </button>
-          , and your answers so far are kept.
+            Enter it
+          </button>{" "}
+          (your answers are kept).
         </NoteBox>
       )}
 
@@ -2200,14 +2210,95 @@ function ReviewStep({
         </div>
       )}
 
+      {inputs && (
+        <>
+          <Part
+            n={1}
+            title="Your result"
+            sub={`Compared with ${comparedWith}.`}
+          >
+            {results}
+          </Part>
+          {exploring && (
+            <Part
+              n={2}
+              title="Try different numbers"
+              sub="Drag the rough figures. Your result updates as you go."
+            >
+              <TryNumbers
+                d={d}
+                set={set}
+                inputs={shownInputs ?? inputs}
+                horizon={effectiveHorizon}
+              />
+            </Part>
+          )}
+          <Part
+            n={exploring ? 3 : 2}
+            title="What to do next"
+            sub="Each opens in a new tab, so your results stay here."
+          >
+            <NextSteps mode="guided" />
+          </Part>
+          <Part
+            n={exploring ? 4 : 3}
+            title="Save, share or see the full workings"
+          >
+          <ResultTools
+            inputs={inputs}
+            exploring={exploring}
+            savedQuotes={savedQuotes}
+            onQuotesChange={onQuotesChange}
+          />
+          <div className="gd-actions">
+            {confirming ? (
+              <div ref={confirmRef} className="gd-confirm" role="group" aria-label="Confirm replacing Advanced mode figures">
+                <span>
+                  Advanced mode already has figures of its own (from your edits
+                  there, a saved quote or a shared link). Replace them with
+                  these guided answers?
+                </span>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    trackEvent("guided_open_advanced", { replaced: true });
+                    onOpenAdvanced(inputs, confirming.anchorId ?? ADVANCED_DETAILS_TOP);
+                  }}
+                >
+                  Replace with my guided answers
+                </Button>
+                {onSwitchToAdvanced && (
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      trackEvent("guided_open_advanced", { replaced: false });
+                      onSwitchToAdvanced();
+                    }}
+                  >
+                    Keep my Advanced figures
+                  </Button>
+                )}
+                <Button variant="ghost" onClick={() => setConfirming(null)}>
+                  Cancel
+                </Button>
+              </div>
+            ) : (
+              <Button variant="primary" onClick={() => openAdvanced()}>
+                Open full workings in Advanced mode
+              </Button>
+            )}
+          </div>
+          <p className="gd-small">
+            Advanced mode gets a copy of these answers. Changes you make there
+            don't flow back here.
+          </p>
+          </Part>
+        </>
+      )}
       <Part
-        n={1}
+        n={inputs ? (exploring ? 5 : 4) : 1}
         title="What we used"
-        sub={
-          exploring
-            ? "Your answers, plus the typical figures we filled in. Open either to check them; Edit takes you back to that screen."
-            : "Your answers. Open to check them; Edit takes you back to that screen."
-        }
+        sub="Check your answers; Edit takes you back to that screen."
       >
       <Section
         title="Your answers"
@@ -2249,91 +2340,6 @@ function ReviewStep({
           )}
       </Part>
 
-      {inputs && (
-        <>
-          <Part
-            n={2}
-            title="Your results"
-            sub={`How a novated lease compares with ${comparedWith}.`}
-          >
-            {results}
-          </Part>
-          {exploring && (
-            <Part
-              n={3}
-              title="Try different numbers"
-              sub="Drag the rough figures to see how the result changes. Your results above update too."
-            >
-              <TryNumbers
-                d={d}
-                set={set}
-                inputs={shownInputs ?? inputs}
-                horizon={effectiveHorizon}
-              />
-            </Part>
-          )}
-          <Part
-            n={exploring ? 4 : 3}
-            title="Save, share or see the full workings"
-          >
-          <ResultTools
-            inputs={inputs}
-            exploring={exploring}
-            savedQuotes={savedQuotes}
-            onQuotesChange={onQuotesChange}
-          />
-          <div className="gd-actions">
-            {confirming ? (
-              <div ref={confirmRef} className="gd-confirm" role="group" aria-label="Confirm replacing Advanced mode figures">
-                <span>
-                  Advanced mode already has figures of its own (from your edits
-                  there, a saved quote or a shared link). Replace them with
-                  these guided answers?
-                </span>
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    trackEvent("guided_open_advanced", { replaced: true });
-                    onOpenAdvanced(inputs, confirming.anchorId);
-                  }}
-                >
-                  Replace with my guided answers
-                </Button>
-                {onSwitchToAdvanced && (
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      trackEvent("guided_open_advanced", { replaced: false });
-                      onSwitchToAdvanced();
-                    }}
-                  >
-                    Keep my Advanced figures
-                  </Button>
-                )}
-                <Button variant="ghost" onClick={() => setConfirming(null)}>
-                  Cancel
-                </Button>
-              </div>
-            ) : (
-              <Button variant="primary" onClick={() => openAdvanced()}>
-                Open full workings in Advanced mode
-              </Button>
-            )}
-          </div>
-          <p className="gd-small">
-            Advanced mode gets a copy of these answers. Changes you make there
-            don't flow back here.
-          </p>
-          </Part>
-          <Part
-            n={exploring ? 5 : 4}
-            title="What to do next"
-            sub="Each opens in a new tab, so your results stay here."
-          >
-            <NextSteps mode="guided" />
-          </Part>
-        </>
-      )}
     </>
   );
 }
@@ -2411,6 +2417,60 @@ const TRY_KEYS = [
   "leaseYears",
   "estimateRatePct",
 ] as const;
+
+/**
+ * The answer first: one line per comparison, then the caveats once (not on every card).
+ * The full breakdown sits in "Show how we got this" below.
+ */
+function ResultHeadline({
+  inputs,
+  horizon,
+  onOpenAdvanced,
+}: {
+  inputs: Inputs;
+  horizon: "five_year" | "lease_end";
+  /** Opens Advanced mode at the top, like the "Open full workings" button. */
+  onOpenAdvanced: () => void;
+}) {
+  const fig = summaryFigures(inputs, horizon);
+  const lines: [string, number][] = [
+    ["paying cash", fig.totalSaving],
+    ...(inputs.compareWithCarLoan ? [["a car loan", fig.totalSavingVsLoan] as [string, number]] : []),
+    ...(inputs.compareWithCurrentCar
+      ? [["keeping your current car", fig.nlVsKeepSaving] as [string, number]]
+      : []),
+  ];
+  return (
+    <div className="gd-headline" role="status">
+      <div className="gd-headline__lead">Over {fig.years} years, a novated lease leaves you:</div>
+      {lines.map(([what, net]) => (
+        <div key={what} className="gd-headline__line">
+          <strong className={net >= 0 ? "gd-pos" : "gd-neg"}>
+            {money(Math.abs(net))} {net >= 0 ? "better off" : "worse off"}
+          </strong>{" "}
+          <span>than {what}</span>
+        </div>
+      ))}
+      <p className="gd-headline__caveat">
+        ⚠️ Not included: effects on HECS, childcare subsidy and the Medicare levy
+        surcharge.{" "}
+        {inputs.superFromPreNlIncome === "No" && <>Your super may also be reduced under this setup. </>}
+        <button type="button" className="gd-linkbtn" onClick={onOpenAdvanced}>
+          See the full workings
+        </button>
+        , and{" "}
+        <a
+          href="/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure"
+          target="_blank"
+          rel="noreferrer"
+        >
+          check the risks
+        </a>{" "}
+        before deciding.
+      </p>
+    </div>
+  );
+}
 
 /**
  * Exploring only: sliders over the rough figures, so "what if I bought a cheaper car / drove less /

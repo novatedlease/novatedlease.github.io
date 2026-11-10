@@ -136,6 +136,11 @@
 
 html {
   font-size: 16px;
+  /* Stop iOS Safari enlarging ("autosizing") text it judges too small for a wide block,
+     e.g. the calculator's sideways-scrolling Details tables. It only reliably obeys this on
+     the root element; the calculator's own .nlc-root setting wasn't enough. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-height) + 20px);
 }

@@ -75,9 +75,7 @@ export function DriveawayHelper({
   return (
     <Help title="Not on your quote? Work it out from the residual">
       <p style={{ margin: "0 0 12px" }}>
-        Many novated lease quotes leave the drive-away price out. If yours shows the residual (balloon)
-        and its percentage, the price can be worked out from those: the residual is that percentage of
-        the drive-away price less the GST saving.
+        Many quotes leave it out. It can be worked out from the residual (balloon) and its percentage.
       </p>
 
       {gst == null ? (
@@ -109,7 +107,24 @@ export function DriveawayHelper({
             prefix=""
             suffix="%"
             placeholder="e.g. 28.13"
-            hint="The ATO minimums: 65.63% (1 year), 56.25% (2), 46.88% (3), 37.5% (4), 28.13% (5). Most quotes use these exactly."
+            hint={
+              <>
+                Usually the ATO minimum. Tap to fill in:
+                <span className="gd-chips">
+                  {Object.entries(ATO_RESIDUAL_PCT).map(([years, p]) => (
+                    <button
+                      key={years}
+                      type="button"
+                      className="gd-chip"
+                      aria-pressed={moneyValue(pct) === p}
+                      onClick={() => setPct({ ...emptyMoney(), text: String(p) })}
+                    >
+                      {p}% <span className="gd-chip__sub">{years} yr</span>
+                    </button>
+                  ))}
+                </span>
+              </>
+            }
           />
 
           {derived != null && (
@@ -141,8 +156,7 @@ export function DriveawayHelper({
                 Use this figure
               </Button>
               <p className="gd-derive__fine">
-                An estimate: exact for some providers, within about 1% for others. If you have the dealer's
-                invoice, its drive-away price is better.
+                An estimate. If you have the dealer's invoice, use its drive-away price instead.
               </p>
             </div>
           )}

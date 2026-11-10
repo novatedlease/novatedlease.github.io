@@ -93,8 +93,7 @@ export function QuoteDiagram({
       aria-label="Example of where to find this on a novated lease quote"
     >
       <figcaption className="gd-quote__cap">
-        Where to look on your quote (example, with your figures where you have
-        entered them)
+        Where to look on a typical quote
       </figcaption>
       <div className="gd-quote__paper">
         {ROWS.map((g) => (
@@ -133,8 +132,7 @@ export function QuoteDiagram({
         {expanded ? "Show only the relevant lines" : "Show the whole example quote"}
       </button>
       <div className="gd-quote__foot">
-        Layouts differ between providers. The labels above are the usual names.
-        Amounts in blue are the ones you entered.
+        Layouts vary by provider. Blue amounts are the ones you entered.
       </div>
     </figure>
   );

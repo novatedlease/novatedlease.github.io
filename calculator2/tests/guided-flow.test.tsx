@@ -173,7 +173,7 @@ describe("Guided flow (real interaction)", () => {
     type(/Home loan interest rate/, "6.1");
     click("See my results");
     expect(
-      screen.getByText(/This is an estimate, not your quote/),
+      screen.getByText(/An estimate using typical figures/),
     ).toBeTruthy();
     expect(screen.getByText("Assumptions we made for you")).toBeTruthy();
     // Super isn't asked when exploring; it's a listed assumption instead
@@ -181,7 +181,7 @@ describe("Guided flow (real interaction)", () => {
     expect(screen.queryByText(/calculate super on your pre-lease salary/)).toBeNull();
     fireEvent.click(screen.getByText("Assumptions we made for you"));
     expect(screen.getByText(/Not reduced by the lease/)).toBeTruthy();
-    click(/I have a quote now/);
+    click(/^Enter it$/);
     // lands on the car screen first, which now needs a real start date
     expect(document.getElementById("gd-start")).toBeTruthy();
     fireEvent.change(document.getElementById("gd-start")!, {

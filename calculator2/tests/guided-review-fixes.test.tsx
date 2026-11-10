@@ -502,6 +502,16 @@ describe("final review pass", () => {
     expect(num(/^Fuel/)).toBeGreaterThan(0);
   });
 
+  for (const name of [/Open full workings/, /^See the full workings$/]) {
+    test(`'${name.source}' opens Advanced on the Details tab (the Summary would repeat the Guided result)`, () => {
+      exploringSeed("EV");
+      render(<App />);
+      fireEvent.click(screen.getByRole("button", { name }));
+      expect(screen.getByText(/Section 2: Financial summary/)).toBeTruthy();
+      expect(screen.getByRole("tab", { name: /Details/ }).getAttribute("aria-selected")).toBe("true");
+    });
+  }
+
   test("a Guided petrol car changed to EV in Advanced gets its electricity auto-filled", () => {
     exploringSeed("Non-EV");
     render(<App />);
@@ -679,14 +689,14 @@ describe("results screen is divided into signposted parts", () => {
       JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "alternatives", "review"] }),
     );
     render(<App />);
-    expect(titles()).toEqual(["What we used", "Your results", "Try different numbers", "Save, share or see the full workings", "What to do next"]);
-    expect(screen.getByText("How a novated lease compares with buying with cash and a car loan.")).toBeTruthy();
+    expect(titles()).toEqual(["Your result", "Try different numbers", "What to do next", "Save, share or see the full workings", "What we used"]);
+    expect(screen.getByText("Compared with buying with cash and a car loan.")).toBeTruthy();
   });
 
   test("quote path: no Try different numbers part", () => {
     seedGuided(quoteDraft());
     render(<App />);
-    expect(titles()).toEqual(["What we used", "Your results", "Save, share or see the full workings", "What to do next"]);
+    expect(titles()).toEqual(["Your result", "What to do next", "Save, share or see the full workings", "What we used"]);
     const next = screen.getByRole("navigation", { name: "What to do next" });
     const hrefs = [...next.querySelectorAll("a")].map((a) => a.getAttribute("href"));
     expect(hrefs).toEqual(["/tools/checklist/", "/tools/byo-employer-check/", "/start-here/is-it-worth-it/"]);

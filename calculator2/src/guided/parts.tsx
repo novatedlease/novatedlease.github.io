@@ -1,5 +1,6 @@
 import { useId, type ReactNode } from "react";
 import { FieldWrapper } from "../components/ui/Field";
+import { InfoTooltip } from "../components/ui/InfoTooltip";
 import type { Finding } from "./checks";
 import { moneyValue, type Money } from "./draft";
 
@@ -113,6 +114,7 @@ export function Choices<T extends string | number | boolean>({
   hint,
   where,
   columns,
+  tooltip,
 }: {
   label: ReactNode;
   value: T | null;
@@ -121,10 +123,12 @@ export function Choices<T extends string | number | boolean>({
   hint?: ReactNode;
   where?: ReactNode;
   columns?: number;
+  /** Background behind an ⓘ next to the label: anything not needed to answer correctly. */
+  tooltip?: ReactNode;
 }) {
   const id = useId();
   return (
-    <FieldWrapper label={label} htmlFor={id} hint={hint}>
+    <FieldWrapper label={label} tooltip={tooltip} htmlFor={id} hint={hint}>
       {where && <div className="gd-where">{where}</div>}
       <div
         id={id}
@@ -196,4 +200,9 @@ export function Help({
       <div className="gd-help__body">{children}</div>
     </details>
   );
+}
+
+/** An ⓘ with background text: progressive disclosure for anything not needed to answer correctly. */
+export function Tip({ children, width }: { children: ReactNode; width?: number }) {
+  return <InfoTooltip text={children} width={width} />;
 }

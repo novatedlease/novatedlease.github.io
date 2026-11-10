@@ -20,14 +20,24 @@ type Props = {
   onMoreDetails?: (anchorId: string) => void;
   /** Shown straight after the result cards, before the assumption notes (Advanced's "What to do next"). */
   afterResults?: React.ReactNode;
+  /** Guided: the caveats are shown once above the cards, so skip each card's own. */
+  hideDisclaimers?: boolean;
+  /** Guided: each card's link to Advanced is a single small button, not the explanatory box. */
+  compactMoreDetails?: boolean;
 };
 
 const FULL_BREAKDOWN_ANCHOR = "details-section-2-financial-summary";
 
 /** Guided mode only: tells readers the Summary is a snapshot and Advanced has the full workings. */
-function MoreDetails(props: { onClick?: (anchorId: string) => void }) {
+function MoreDetails(props: { onClick?: (anchorId: string) => void; compact?: boolean }) {
   if (!props.onClick) return null;
   const onClick = props.onClick;
+  if (props.compact)
+    return (
+      <button type="button" className="nlc-more-details__link" onClick={() => onClick(FULL_BREAKDOWN_ANCHOR)}>
+        See full details in Advanced mode →
+      </button>
+    );
   return (
     <div className="nlc-more-details">
       <span>
@@ -155,7 +165,7 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
   );
 }
 
-export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults }: Props) {
+export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails }: Props) {
   const {
     s,
     years,
@@ -216,8 +226,8 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
           <DoubleSep />
           <BreakdownRow label={totalSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(totalSaving))} bold color={totalSaving >= 0 ? POS : NEG} />
         </div>
-        <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />
-          <MoreDetails onClick={onMoreDetails} />
+        {!hideDisclaimers && <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />}
+          <MoreDetails onClick={onMoreDetails} compact={compactMoreDetails} />
       </div>
 
       {showLoan && (
@@ -252,8 +262,8 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
             <DoubleSep />
             <BreakdownRow label={totalSavingVsLoan >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(totalSavingVsLoan))} bold color={totalSavingVsLoan >= 0 ? POS : NEG} />
           </div>
-          <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />
-          <MoreDetails onClick={onMoreDetails} />
+          {!hideDisclaimers && <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />}
+          <MoreDetails onClick={onMoreDetails} compact={compactMoreDetails} />
         </div>
       )}
 
@@ -275,8 +285,8 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
             <DoubleSep />
             <BreakdownRow label={nlVsKeepSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(nlVsKeepSaving))} bold color={nlVsKeepSaving >= 0 ? POS : NEG} />
           </div>
-          <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />
-          <MoreDetails onClick={onMoreDetails} />
+          {!hideDisclaimers && <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />}
+          <MoreDetails onClick={onMoreDetails} compact={compactMoreDetails} />
         </div>
       )}
 

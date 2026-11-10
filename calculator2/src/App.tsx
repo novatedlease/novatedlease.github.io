@@ -11,7 +11,7 @@ import { Section } from "./components/ui/Section";
 import { Tabs } from "./components/ui/Tabs";
 import { Button } from "./components/ui/Button";
 import { Footer } from "./components/ui/Footer";
-import { GuidedMode } from "./guided/GuidedMode";
+import { GuidedMode, ADVANCED_DETAILS_TOP } from "./guided/GuidedMode";
 import { SummaryView } from "./components/SummaryView";
 import { NextSteps } from "./components/NextSteps";
 import { LeaseReport } from "./components/reports/LeaseReport";
@@ -428,9 +428,12 @@ export default function App() {
         const el = document.getElementById(navTarget.anchorId);
         if (!el) return;
         // Desktop: the output column is a sticky pane with its own scrollbar. Bring the
-        // pane up to its pinned position, then scroll inside it to the section.
+        // pane up to its pinned position, then scroll inside it to the section. Phones and
+        // narrow windows scroll the page itself.
         const pane = el.closest<HTMLElement>(".nlc-output-col");
-        if (pane && pane.scrollHeight > pane.clientHeight && getComputedStyle(pane).overflowY !== "visible") {
+        const inPane =
+          !!pane && pane.scrollHeight > pane.clientHeight && getComputedStyle(pane).overflowY !== "visible";
+        if (inPane) {
           const layout = pane.parentElement!;
           const pinnedTop = parseFloat(getComputedStyle(pane).top) || 0;
           const layoutTop = layout.getBoundingClientRect().top + window.scrollY;
@@ -439,23 +442,44 @@ export default function App() {
           if (window.scrollY < layoutTop - pinnedTop) {
             window.scrollTo({ top: layoutTop - pinnedTop, behavior: "instant" });
           }
-          const aim = () => {
-            const within = el.getBoundingClientRect().top - pane.getBoundingClientRect().top + pane.scrollTop - 12;
-            pane.scrollTo({ top: Math.max(0, within), behavior: "smooth" });
-          };
-          aim();
-          // The target section is often still expanding, so the pane can't yet scroll far
-          // enough. Re-aim whenever the pane's content changes size, for a short while.
-          const content = pane.lastElementChild;
-          if (content && typeof ResizeObserver !== "undefined") {
-            const ro = new ResizeObserver(aim);
-            ro.observe(content);
-            window.setTimeout(() => ro.disconnect(), 800);
-          }
-          return;
         }
-        const top = el.getBoundingClientRect().top + window.scrollY - 12;
-        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+        const offset = () =>
+          inPane
+            ? el.getBoundingClientRect().top - pane!.getBoundingClientRect().top - 12
+            : // The site's sticky menu bar covers the top of the page; its CSS scroll-padding-top
+              // (menu height + a gap) says how much room to leave.
+              el.getBoundingClientRect().top -
+              (parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 12);
+        const scrollBy = (delta: number, behavior: ScrollBehavior) =>
+          inPane
+            ? pane!.scrollTo({ top: Math.max(0, pane!.scrollTop + delta), behavior })
+            : window.scrollTo({ top: Math.max(0, window.scrollY + delta), behavior });
+        // Stop re-aiming as soon as the reader scrolls or types, so we never yank them back.
+        let ro: ResizeObserver | null = null;
+        let cancelled = false;
+        const cancel = () => {
+          cancelled = true;
+          ro?.disconnect();
+          for (const ev of ["wheel", "touchstart", "keydown"]) window.removeEventListener(ev, cancel);
+        };
+        for (const ev of ["wheel", "touchstart", "keydown"]) window.addEventListener(ev, cancel, { passive: true });
+        const aim = () => {
+          if (!cancelled) scrollBy(offset(), "smooth");
+        };
+        aim();
+        // Arriving from Guided, Advanced is still building and opening its sections, so the
+        // target keeps moving (slower machines and Safari take longer). Re-aim while content
+        // resizes, then snap into place if a smooth scroll still stopped short.
+        const content = inPane ? pane!.lastElementChild : document.body;
+        ro = content && typeof ResizeObserver !== "undefined" ? new ResizeObserver(aim) : null;
+        if (ro && content) ro.observe(content);
+        for (const ms of [1200, 2500])
+          window.setTimeout(() => {
+            if (cancelled) return;
+            const off = offset();
+            if (Math.abs(off) > 24) scrollBy(off, "instant");
+            if (ms === 2500) cancel();
+          }, ms);
       });
     });
   }, [navTarget]);
@@ -492,7 +516,26 @@ export default function App() {
     setInputs(guidedInputs);
     setAdvancedEdited(false);
     changeMode("advanced");
-    if (anchorId) setPendingDetailsNav((prev) => ({ anchorId, nonce: (prev?.nonce ?? 0) + 1 }));
+    const detailsTop = anchorId === ADVANCED_DETAILS_TOP;
+    if (detailsTop) setOutputTab("details");
+    if (anchorId && !detailsTop) {
+      setPendingDetailsNav((prev) => ({ anchorId, nonce: (prev?.nonce ?? 0) + 1 }));
+      return;
+    }
+    // No section asked for (or the top of Details). Desktop: the top of Advanced mode, where inputs and results sit
+    // side by side. Phones stack the results below every input, so go to the results (the
+    // Summary/Details/Compare tabs) instead of the first input.
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const output = document.querySelector<HTMLElement>(".nlc-output-col");
+        const stacked = !!output && getComputedStyle(output).position !== "sticky";
+        const target = stacked ? output : document.querySelector<HTMLElement>(".nlc-app");
+        if (!target) return;
+        const gap = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+        const top = target.getBoundingClientRect().top + window.scrollY - gap;
+        if (stacked || window.scrollY > top) window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+      }),
+    );
   }
 
   /**
