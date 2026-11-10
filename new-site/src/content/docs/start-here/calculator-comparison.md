@@ -19,6 +19,10 @@ While many calculators compete by slickness and user-friendliness, the main aim 
 - **Two independent calculators provide honest outputs** — and neither appears in the first two pages of search results. They are included here for completeness.
 :::
 
+:::note[Update, November 2026]
+That last point has since changed for this site. Since late October 2026, this calculator has appeared on the first page of Google for "novated lease calculator", usually among the top three ordinary (unpaid) results, according to Google Search Console. Paid ads can still appear above it. The review below is otherwise unchanged: it is a snapshot of the top 20 results as at March 2026.
+:::
+
 ---
 
 ## Criteria explained
@@ -125,7 +129,7 @@ While many calculators compete by slickness and user-friendliness, the main aim 
 
 ### Commercial affiliation
 
-All 20 calculators returned by Google are affiliated with novated lease providers. Neither independent calculator appears in organic search results without specifically searching for it by name.
+All 20 calculators returned by Google are affiliated with novated lease providers. Neither independent calculator appears in organic search results without specifically searching for it by name. *(As at March 2026. Since late October 2026, this site has ranked on the first page; see the update at the top.)*
 
 ### Net saving vs tax saving
 
