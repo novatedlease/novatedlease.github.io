@@ -23,7 +23,7 @@ When GST savings are not passed on, **every running cost becomes about 10% more 
 
 ---
 
-## How GST savings normally work in a novated lease
+## Can your employer claim the GST? How GST savings normally work
 
 Under most novated lease arrangements:
 

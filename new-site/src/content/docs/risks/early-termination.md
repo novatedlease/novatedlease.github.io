@@ -33,7 +33,9 @@ Many of these are normal life events that happen to a significant proportion of 
 
 ---
 
-## What “early termination” involves
+## Can you pay out a novated lease early?
+
+Yes, but you can't walk away from the debt. Ending a lease early means paying out the remaining balance and residual, refinancing them, or continuing the lease without salary packaging.
 
 Early termination usually requires one of the following:
 

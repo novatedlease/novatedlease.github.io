@@ -27,9 +27,9 @@ Regardless of which path you take, the residual is a **real financial liability*
 
 ---
 
-## ATO residual value table
+## How much is the residual on a novated lease? (ATO table)
 
-<img src="/images/RV.png" alt="" style="max-width: 50%; height: auto;">
+<img src="/images/RV.png" alt="ATO minimum residual values by lease term: 65.63% (1 year), 56.25% (2 years), 46.88% (3 years), 37.5% (4 years), 28.13% (5 years)" style="max-width: 50%; height: auto;">
 
 Residual values are not set at random.
 

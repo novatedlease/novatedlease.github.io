@@ -15,9 +15,9 @@ Novated leases are highly **context‑dependent**. They can be very favourable i
 
 ---
 
-### How does a novated lease potentially help save money
+### How much can you save with a novated lease, and where does it come from?
 
-Before weighing the risks and benchmarks, it helps to understand *where* the potential savings actually come from, which is especially pronounced in the context of EVs.
+It varies widely with your income, the car and what you compare it against, so the only reliable figure is your own: [run your numbers in the calculator](/calculator/). Here is where the savings come from:
 
 1. **Pre‑tax funding for the vehicle**  
 
