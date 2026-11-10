@@ -602,7 +602,7 @@ const description =
         <p>
           It is working. Readers tell me they took the effective interest rate back to their provider, negotiated several percentage points off, and saved thousands. Others understood a quote better, spotted a risk, or talked themselves out of an expensive mistake. <a href="/about/what-readers-say/" target="_blank" rel="noopener">Read what they say.</a>
         </p>
-        <p>If it has done any of that for you, a coffee is genuinely appreciated. It helps cover the time and effort it takes to produce new content and keep it fresh. Or if you're ordering a Tesla, this referral link gets you a $350 discount.</p>
+        <p>If it has done any of that for you, a coffee is genuinely appreciated. <span id="ck-coffee-proof" hidden>More than 120 readers have already bought one to keep it free. </span>It helps cover the time and effort it takes to produce new content and keep it fresh. Or if you're ordering a Tesla, this referral link gets you a $350 discount.</p>
         <p class="ck-coffee-fineprint">No pressure, and nothing changes if you say no. This shows once and won't appear again in this browser.</p>
       </div>
       <div class="ck-coffee-actions">
@@ -886,7 +886,8 @@ const description =
   function onNudgeKey(e: KeyboardEvent) { if (e.key === 'Escape') closeNudge('dismissed'); }
   nudge.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', () => closeNudge('dismissed')));
   document.getElementById('ck-coffee-go')!.addEventListener('click', () => {
-    track('coffee_nudge_clicked', { source: 'final_checklist' });
+    track('coffee_nudge_clicked', { source: 'final_checklist', variant: nudgeVariant() });
+    track(`coffee_nudge_clicked_${nudgeVariant()}`, { source: 'final_checklist' });
     track('support_link_click', {
       link_label: 'buymeacoffee', link_url: 'https://buymeacoffee.com/changyang1230',
       page_path: location.pathname, page_title: document.title, source: 'coffee_nudge_checklist',
@@ -901,14 +902,31 @@ const description =
     });
     closeNudge('tesla_clicked');
   });
+  // Wording test shared with the calculator (calculator2 state/engagement.ts): same
+  // localStorage key, so a browser sees the same version in both tools. "b" adds the
+  // social-proof line. Compare coffee_nudge_clicked_a/_b against coffee_nudge_shown_a/_b.
+  const VARIANT_KEY = 'nlc2-coffee-nudge-variant';
+  let variantCache: 'a' | 'b' | null = null;
+  function nudgeVariant(): 'a' | 'b' {
+    if (variantCache) return variantCache;
+    try {
+      const v = localStorage.getItem(VARIANT_KEY);
+      if (v === 'a' || v === 'b') return (variantCache = v);
+    } catch {}
+    variantCache = Math.random() < 0.5 ? 'a' : 'b';
+    try { localStorage.setItem(VARIANT_KEY, variantCache); } catch {}
+    return variantCache;
+  }
   function maybeNudge() {
     const ticked = boxes.filter((b) => b.checked).length;
     if (ticked <= NUDGE_AFTER || nudgeAlreadyShown()) return;
     try { localStorage.setItem(NUDGE_KEY, '1'); } catch {}
+    (document.getElementById('ck-coffee-proof') as HTMLElement).hidden = nudgeVariant() !== 'b';
     nudge.hidden = false;
     document.addEventListener('keydown', onNudgeKey);
     requestAnimationFrame(() => (nudge.querySelector('.ck-coffee-card') as HTMLElement).focus());
-    track('coffee_nudge_shown', { source: 'final_checklist', ticked });
+    track('coffee_nudge_shown', { source: 'final_checklist', ticked, variant: nudgeVariant() });
+    track(`coffee_nudge_shown_${nudgeVariant()}`, { source: 'final_checklist' });
   }
 
   for (const b of boxes) {
