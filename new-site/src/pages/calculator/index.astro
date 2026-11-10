@@ -41,7 +41,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'How accurate is this novated lease calculator?',
-      acceptedAnswer: { '@type': 'Answer', text: 'This calculator evolved from a spreadsheet in continuous public use for over two years, scrutinised and informally peer-reviewed by financially literate users. The web version was rebuilt from first principles and verified against the original spreadsheet across a broad range of test scenarios, matching to the cent for all test cases.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'This calculator evolved from a spreadsheet in continuous public use for nearly three years, scrutinised and informally peer-reviewed by financially literate users. The web version was rebuilt from first principles and verified against the original spreadsheet until the two matched to the cent; it has since been updated with the 2026-27 GST cap and tax brackets, so they now differ slightly. It also simulates the effect on your home loan offset fortnight by fortnight, which most calculators leave out.' },
     },
     {
       '@type': 'Question',
@@ -99,7 +99,7 @@ const faqSchema = {
       not just headline <InfoTip html={tips.taxSaved} wide>"tax saved" figures that mislead</InfoTip>.
     </p>
     <p class="calc2-byline">
-      Built and maintained by an <a href="/about/about-me/">independent Australian specialist doctor</a> with formal training in statistics and a competitive mathematics background, to strip a lease quote back to its underlying accounting. Not affiliated with any financier or novated lease / salary packaging company.
+      Built and maintained by an <a href="/about/about-me/">independent Australian specialist doctor</a> with formal training in statistics and a competitive mathematics background, to strip a lease quote back to its underlying accounting (<a href="/about/history/#how-the-maths-is-checked">how the maths is checked</a>). Not affiliated with any financier or novated lease / salary packaging company.
     </p>
 
     <div id="nl-calculator-root" data-loading="true" aria-busy="true">
@@ -150,8 +150,10 @@ const faqSchema = {
     <details class="faq-item" id="faq-accuracy">
       <summary><h3>How accurate is this calculator?</h3></summary>
       <div class="faq-answer">
-      <p>This calculator is the direct evolution of <a href="https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/" target="_blank" rel="noopener">a spreadsheet</a> that has been in continuous public use for over two years. It has been widely shared, scrutinised, and informally peer-reviewed by financially literate users, with numerous edge cases tested and minor issues corrected over time.</p>
-      <p>This web-based version was not a direct port of the spreadsheet; instead it was rebuilt from first principles. Core components were independently re-derived and implemented in a new calculation engine, then systematically verified against the original spreadsheet across a broad range of test scenarios. The two implementations match to the cent for all test cases.</p>
+      <p>This calculator is the direct evolution of <a href="https://docs.google.com/spreadsheets/d/1CtpBXmuhRW3HrBjqJqnPeFhOfqCbPK-wXA17oz_1fuA/" target="_blank" rel="noopener">a spreadsheet</a> that has been in continuous public use for nearly three years. It has been widely shared, scrutinised, and informally peer-reviewed by financially literate users, with numerous edge cases tested and minor issues corrected over time.</p>
+      <p>This web-based version was not a direct port of the spreadsheet; instead it was rebuilt from first principles, then verified against the original spreadsheet across a broad range of test scenarios until the two matched to the cent. The web version has since been updated with the 2026-27 GST cap and tax brackets, which the spreadsheet does not carry, so the two now differ slightly.</p>
+      <p>One thing it models that most calculators leave out is the effect on your home loan offset: a lease leaves cash in your offset that buying outright would take away. The calculator simulates this fortnight by fortnight, compounding each fortnight's cash flow at your home loan rate, rather than estimating it.</p>
+      <p>More detail: <a href="/about/history/#how-the-maths-is-checked">how the maths is checked</a>.</p>
       </div>
     </details>
 
