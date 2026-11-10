@@ -30,6 +30,7 @@ const NON_CONTENT_COMMITS = new Set([
   '461ccb99e79905bcccd370bae4c8e8f952372aa2', // quotation mark unhappy by FB
   'e6cf644ef7d2764ad3a77690684ebcea6372724a', // removed warning as too messy (support-box add)
   '4a911f97ee16cde0162f9824eb49a65c4263fb37', // Test (trivial grammar)
+  '614d514fd3d8d29c8363ce6569a778b604511914', // is-it-worth-it: meta description only (search snippet), no article change
 ]);
 
 const cache = new Map();
