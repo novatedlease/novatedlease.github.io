@@ -73,7 +73,7 @@ export function hasCoffeeNudgeBeenShown(): boolean {
 
 /**
  * Wording test (started 2026-11-10): "a" is the original nudge; "b" adds a social-proof line
- * ("More than 130 readers have already bought one to keep it free."). Assigned 50/50 per browser and kept, so a
+ * ("More than 120 readers have already bought one to keep it free."). Assigned 50/50 per browser and kept, so a
  * reader always sees the same version. Compare coffee_nudge_clicked_a / _b against
  * coffee_nudge_shown_a / _b in GA4.
  */

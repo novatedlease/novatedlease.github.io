@@ -109,7 +109,7 @@ export function CoffeeNudgeModal(props: {
           </p>
           <p>
             If it has done any of that for you, a coffee is genuinely appreciated.{" "}
-            {variant === "b" && "More than 130 readers have already bought one to keep it free. "}
+            {variant === "b" && "More than 120 readers have already bought one to keep it free. "}
             It helps cover the time and effort it takes to produce new content and keep it fresh. Or if you're ordering a Tesla, this referral link gets you a $350 discount.
           </p>
           <p className="nlc-coffee-fineprint">No pressure, and nothing changes if you say no. This shows once and won't appear again in this browser.</p>

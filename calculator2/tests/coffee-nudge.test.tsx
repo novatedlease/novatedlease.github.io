@@ -172,12 +172,12 @@ describe("CoffeeNudgeModal: wording test (a/b)", () => {
 
   test("version a is the original wording", () => {
     renderWith("a");
-    expect(screen.queryByText(/More than 130 readers/)).toBeNull();
+    expect(screen.queryByText(/More than 120 readers/)).toBeNull();
   });
 
   test("version b adds the social-proof line, and clicks are counted per version", () => {
     const events = renderWith("b");
-    expect(screen.getByText(/More than 130 readers have already bought one to keep it free\./)).toBeTruthy();
+    expect(screen.getByText(/More than 120 readers have already bought one to keep it free\./)).toBeTruthy();
     fireEvent.click(screen.getByRole("link", { name: /Buy me a coffee/ }));
     const names = events.map(([n]) => n);
     expect(names).toContain("coffee_nudge_clicked_b");
