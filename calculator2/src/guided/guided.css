@@ -117,7 +117,11 @@
 .gd-checklist ul { margin: 8px 0 0; padding-left: 20px; line-height: 1.6; }
 
 .gd-help { margin: -6px 0 18px; font-size: 13px; color: var(--nlc-text-soft); }
-.gd-help summary { cursor: pointer; color: var(--nlc-blue); }
+.gd-help summary { cursor: pointer; color: var(--nlc-blue); list-style: none; display: inline-flex; align-items: center; gap: 8px; }
+.gd-help summary::-webkit-details-marker { display: none; }
+/* Same disclosure chevron as the section cards: right when closed, down when open. */
+.gd-help summary::after { content: ''; width: 6px; height: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform 150ms; }
+.gd-help[open] summary::after { transform: rotate(45deg); }
 .gd-help__body { margin-top: 6px; line-height: 1.5; }
 
 /* Navigation */

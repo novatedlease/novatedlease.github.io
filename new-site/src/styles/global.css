@@ -1011,15 +1011,22 @@ details.admonition--collapsible summary {
 
 details.admonition--collapsible summary::-webkit-details-marker { display: none; }
 
-details.admonition--collapsible summary::before {
-  content: '▸';
-  font-size: 0.72em;
-  opacity: 0.65;
-  transition: transform 150ms;
+/* Site-wide disclosure style (matches the calculator's sections): a chevron on
+   the right that points right when closed and down when open. */
+details.admonition--collapsible summary::after {
+  content: '';
   flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  margin: 0 4px 0 auto;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.55;
+  transform: rotate(-45deg);
+  transition: transform 150ms;
 }
 
-details.admonition--collapsible[open] summary::before { transform: rotate(90deg); }
+details.admonition--collapsible[open] summary::after { transform: rotate(45deg); }
 details.admonition--collapsible[open] summary { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
 details.admonition--collapsible > *:not(summary) { padding: 0 16px; }
 details.admonition--collapsible > *:last-child { padding-bottom: 20px !important; }
