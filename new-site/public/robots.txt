@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /assets/pdf/
 
-Sitemap: https://novatedlease.guide/sitemap.xml
+Sitemap: https://novatedlease.guide/sitemap-index.xml
