@@ -13,3 +13,7 @@ private/
 
 # Astro build cache
 new-site/.astro/
+
+# Google Cloud service account keys (live in private/, never commit a copy)
+novatedlease-analytics-*.json
+*service-account*.json
