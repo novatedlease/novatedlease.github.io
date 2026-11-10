@@ -2208,8 +2208,11 @@ function ReviewStep({
             : "Your answers. Open to check them; Edit takes you back to that screen."
         }
       >
-      <details className="gd-answers" open={!inputs}>
-        <summary>Your answers</summary>
+      <Section
+        title="Your answers"
+        description="What you told us on each screen."
+        defaultOpen={!inputs}
+      >
         <dl className="gd-answers__list">
           {rows.map(([k, v, s]) => (
             <div key={k} className="gd-answers__row">
@@ -2225,7 +2228,7 @@ function ReviewStep({
             </div>
           ))}
         </dl>
-      </details>
+      </Section>
       {inputs && assumptions && (
             <Section
               title="Assumptions we made for you"

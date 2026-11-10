@@ -130,7 +130,7 @@
 .gd-review-flags { margin-bottom: 18px; }
 .gd-answers { margin: 0 0 20px; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-md); padding: 10px 14px; background: var(--nlc-bg-subtle); }
 .gd-answers summary { cursor: pointer; font-weight: 600; }
-.gd-answers__list { margin: 10px 0 0; }
+.gd-answers__list { margin: 0; }
 .gd-answers__row { display: grid; grid-template-columns: 170px 1fr auto; gap: 10px; padding: 5px 0; border-top: 1px solid var(--nlc-border); font-size: 14px; }
 .gd-answers__row dt { color: var(--nlc-text-muted); }
 .gd-answers__row dd { margin: 0; font-weight: 600; }

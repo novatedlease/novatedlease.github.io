@@ -324,6 +324,8 @@ describe("cash in an investment property offset", () => {
   test("switching from savings clears the rate rather than reusing it as a loan rate", () => {
     seedGuided(quoteDraft());
     render(<App />);
+    // "Your answers" is a collapsible section card on the results screen.
+    fireEvent.click(screen.getByRole("button", { name: /^Your answers/ }));
     fireEvent.click(screen.getAllByRole("button", { name: "Edit" }).find((b) => b.closest("div")?.textContent?.includes("Taxable income"))!);
     fireEvent.click(screen.getByRole("button", { name: /^Savings account/ }));
     fireEvent.change(field(/Savings account interest rate/), { target: { value: "4.5" } });
@@ -550,6 +552,7 @@ describe("exploring results: Try different numbers", () => {
     expect(screen.queryByRole("button", { name: "Back to my answers" })).toBeNull();
     fireEvent.change(screen.getByRole("slider", { name: "Taxable income" }), { target: { value: "250000" } });
     expect(headline()).not.toBe(before);
+    fireEvent.click(screen.getByRole("button", { name: /^Your answers/ }));
     // on the slider and in Your answers
     expect(screen.getAllByText("$250,000")).toHaveLength(2);
     fireEvent.click(screen.getByRole("button", { name: "Back to my answers" }));
