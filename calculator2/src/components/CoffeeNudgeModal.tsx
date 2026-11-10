@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "./ui/Button";
 import { trackEvent } from "../utils/analytics";
-import type { CoffeeNudgeContext } from "../state/engagement";
+import { coffeeNudgeVariant, type CoffeeNudgeContext } from "../state/engagement";
 
 export const BUY_ME_A_COFFEE_URL = "https://buymeacoffee.com/changyang1230";
 /** Same referral link and offer as the site's support boxes (new-site/src/components/SupportBox.astro). */
@@ -18,6 +18,7 @@ export function CoffeeNudgeModal(props: {
   context?: CoffeeNudgeContext;
 }) {
   const { onClose } = props;
+  const variant = coffeeNudgeVariant();
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -39,7 +40,8 @@ export function CoffeeNudgeModal(props: {
   }
 
   function supportClicked() {
-    trackEvent("coffee_nudge_clicked", { ...props.context });
+    trackEvent("coffee_nudge_clicked", { ...props.context, variant });
+    trackEvent(`coffee_nudge_clicked_${variant}`, { ...props.context });
     // Same event shape as the site-wide link tracker in new-site/src/layouts/Base.astro,
     // which only binds to anchors present at page load and so misses this dynamic one.
     trackEvent("support_link_click", {
@@ -106,8 +108,9 @@ export function CoffeeNudgeModal(props: {
             </a>
           </p>
           <p>
-            If it has done any of that for you, a coffee is genuinely appreciated. It helps cover the time and effort it takes to produce new
-            content and keep it fresh. Or if you're ordering a Tesla, this referral link gets you a $350 discount.
+            If it has done any of that for you, a coffee is genuinely appreciated.{" "}
+            {variant === "b" && "More than 130 readers have already bought one to keep it free. "}
+            It helps cover the time and effort it takes to produce new content and keep it fresh. Or if you're ordering a Tesla, this referral link gets you a $350 discount.
           </p>
           <p className="nlc-coffee-fineprint">No pressure, and nothing changes if you say no. This shows once and won't appear again in this browser.</p>
         </div>

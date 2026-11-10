@@ -4,7 +4,10 @@ import {
   COFFEE_NUDGE_MIN_ACTIVE_MS,
   COFFEE_NUDGE_MIN_CHANGES,
   COFFEE_NUDGE_SHOWN_KEY,
+  COFFEE_NUDGE_VARIANT_KEY,
   _resetInputChangeCountForTests,
+  coffeeNudgeVariant,
+  resetCoffeeNudgeVariantForTests,
   getInputChangeCount,
   noteInputChange,
   shouldShowCoffeeNudge,
@@ -145,5 +148,48 @@ describe("CoffeeNudgeModal: Tesla referral", () => {
     expect(events[0][1]).toMatchObject({ mode: "guided", guided_path: "quote" });
     expect(events[1][1]).toMatchObject({ link_label: "tesla_referral", source: "coffee_nudge" });
     delete window.gtag;
+  });
+});
+
+describe("CoffeeNudgeModal: wording test (a/b)", () => {
+  afterEach(() => {
+    cleanup();
+    window.localStorage.removeItem(COFFEE_NUDGE_VARIANT_KEY);
+    resetCoffeeNudgeVariantForTests();
+    delete window.gtag;
+  });
+
+  function renderWith(variant: "a" | "b") {
+    window.localStorage.setItem(COFFEE_NUDGE_VARIANT_KEY, variant);
+    resetCoffeeNudgeVariantForTests();
+    const events: [string, Record<string, unknown>][] = [];
+    window.gtag = (_kind: string, name: string, params: Record<string, unknown>) => {
+      events.push([name, params]);
+    };
+    render(<CoffeeNudgeModal onClose={() => {}} context={{ mode: "advanced", guided_path: "" }} />);
+    return events;
+  }
+
+  test("version a is the original wording", () => {
+    renderWith("a");
+    expect(screen.queryByText(/More than 130 readers/)).toBeNull();
+  });
+
+  test("version b adds the social-proof line, and clicks are counted per version", () => {
+    const events = renderWith("b");
+    expect(screen.getByText(/More than 130 readers have already bought one to keep it free\./)).toBeTruthy();
+    fireEvent.click(screen.getByRole("link", { name: /Buy me a coffee/ }));
+    const names = events.map(([n]) => n);
+    expect(names).toContain("coffee_nudge_clicked_b");
+    expect(events.find(([n]) => n === "coffee_nudge_clicked")![1]).toMatchObject({ variant: "b" });
+  });
+
+  test("a browser keeps its assigned version", () => {
+    resetCoffeeNudgeVariantForTests();
+    window.localStorage.removeItem(COFFEE_NUDGE_VARIANT_KEY);
+    const first = coffeeNudgeVariant();
+    resetCoffeeNudgeVariantForTests();
+    expect(coffeeNudgeVariant()).toBe(first);
+    expect(window.localStorage.getItem(COFFEE_NUDGE_VARIANT_KEY)).toBe(first);
   });
 });

@@ -71,6 +71,36 @@ export function hasCoffeeNudgeBeenShown(): boolean {
   }
 }
 
+/**
+ * Wording test (started 2026-11-10): "a" is the original nudge; "b" adds a social-proof line
+ * ("More than 130 readers have already bought one to keep it free."). Assigned 50/50 per browser and kept, so a
+ * reader always sees the same version. Compare coffee_nudge_clicked_a / _b against
+ * coffee_nudge_shown_a / _b in GA4.
+ */
+export type CoffeeNudgeVariant = "a" | "b";
+export const COFFEE_NUDGE_VARIANT_KEY = "nlc2-coffee-nudge-variant";
+let variantCache: CoffeeNudgeVariant | null = null;
+export function coffeeNudgeVariant(): CoffeeNudgeVariant {
+  if (variantCache) return variantCache;
+  try {
+    const stored = window.localStorage.getItem(COFFEE_NUDGE_VARIANT_KEY);
+    if (stored === "a" || stored === "b") return (variantCache = stored);
+  } catch {
+    // storage unavailable — fall through to a per-page-load assignment
+  }
+  variantCache = Math.random() < 0.5 ? "a" : "b";
+  try {
+    window.localStorage.setItem(COFFEE_NUDGE_VARIANT_KEY, variantCache);
+  } catch {
+    // ignore
+  }
+  return variantCache;
+}
+/** Tests only. */
+export function resetCoffeeNudgeVariantForTests(): void {
+  variantCache = null;
+}
+
 export function markCoffeeNudgeShown(): void {
   try {
     window.localStorage.setItem(COFFEE_NUDGE_SHOWN_KEY, "1");

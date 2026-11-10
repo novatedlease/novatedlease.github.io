@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   type CoffeeNudgeContext,
+  coffeeNudgeVariant,
   getInputChangeCount,
   hasCoffeeNudgeBeenShown,
   markCoffeeNudgeShown,
@@ -53,11 +54,15 @@ export function useCoffeeNudge(opts: { paused?: boolean; context?: CoffeeNudgeCo
       if (!shouldShowCoffeeNudge({ activeMs: activeMsRef.current, changes, alreadyShown: false })) return;
       firedRef.current = true;
       markCoffeeNudgeShown();
+      const variant = coffeeNudgeVariant();
       trackEvent("coffee_nudge_shown", {
         changes,
         active_minutes: Math.round(activeMsRef.current / 60000),
+        variant,
         ...contextRef.current,
       });
+      // Per-variant event names so GA4 can compare the wording test without a custom dimension.
+      trackEvent(`coffee_nudge_shown_${variant}`, { ...contextRef.current });
       setOpen(true);
     };
 
