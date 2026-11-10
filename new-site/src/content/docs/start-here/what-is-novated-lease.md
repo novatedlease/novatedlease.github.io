@@ -38,7 +38,7 @@ A novated lease introduces a three-party arrangement between:
 
 1. **you (the employee)**  
 2. **your employer**  
-3. **a financier**, usually arranged through a novated lease provider (salary packaging company) acting as the intermediary
+3. **a financier**, usually arranged through a novated lease provider (often your employer's salary packaging company) acting as the intermediary
 
 This arrangement changes *when* the car expense is spent.
 
