@@ -679,13 +679,17 @@ describe("results screen is divided into signposted parts", () => {
       JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "alternatives", "review"] }),
     );
     render(<App />);
-    expect(titles()).toEqual(["What we used", "Your results", "Try different numbers", "Save, share or see the full workings"]);
+    expect(titles()).toEqual(["What we used", "Your results", "Try different numbers", "Save, share or see the full workings", "What to do next"]);
     expect(screen.getByText("How a novated lease compares with buying with cash and a car loan.")).toBeTruthy();
   });
 
   test("quote path: no Try different numbers part", () => {
     seedGuided(quoteDraft());
     render(<App />);
-    expect(titles()).toEqual(["What we used", "Your results", "Save, share or see the full workings"]);
+    expect(titles()).toEqual(["What we used", "Your results", "Save, share or see the full workings", "What to do next"]);
+    const next = screen.getByRole("navigation", { name: "What to do next" });
+    const hrefs = [...next.querySelectorAll("a")].map((a) => a.getAttribute("href"));
+    expect(hrefs).toEqual(["/tools/checklist/", "/tools/byo-employer-check/", "/start-here/is-it-worth-it/"]);
+    for (const a of next.querySelectorAll("a")) expect(a.getAttribute("target")).toBe("_blank");
   });
 });

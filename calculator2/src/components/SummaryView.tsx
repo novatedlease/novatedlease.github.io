@@ -18,6 +18,8 @@ type Props = {
   onNavigateToDetails: (anchorId?: string) => void;
   /** Guided mode: adds a button to each card that opens the full breakdown in Advanced mode. */
   onMoreDetails?: (anchorId: string) => void;
+  /** Shown straight after the result cards, before the assumption notes (Advanced's "What to do next"). */
+  afterResults?: React.ReactNode;
 };
 
 const FULL_BREAKDOWN_ANCHOR = "details-section-2-financial-summary";
@@ -153,7 +155,7 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
   );
 }
 
-export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails }: Props) {
+export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults }: Props) {
   const {
     s,
     years,
@@ -277,6 +279,8 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
           <MoreDetails onClick={onMoreDetails} />
         </div>
       )}
+
+      {afterResults}
 
       <NoteBox title="Residual assumption:">
         all scenarios include the final residual payout, so the model assumes you own the car outright at the end of the lease. This addresses the common misconception that novated leasing is expensive because you "don't own the car."

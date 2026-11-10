@@ -14,6 +14,7 @@ import { Section } from "../components/ui/Section";
 import { InfoTooltip } from "../components/ui/InfoTooltip";
 import { LeaseAdjustModal } from "../components/LeaseAdjustModal";
 import { SummaryView } from "../components/SummaryView";
+import { NextSteps } from "../components/NextSteps";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
 import { summaryFigures } from "../components/summaryFigures";
@@ -2323,6 +2324,13 @@ function ReviewStep({
             Advanced mode gets a copy of these answers. Changes you make there
             don't flow back here.
           </p>
+          </Part>
+          <Part
+            n={exploring ? 5 : 4}
+            title="What to do next"
+            sub="Each opens in a new tab, so your results stay here."
+          >
+            <NextSteps mode="guided" />
           </Part>
         </>
       )}

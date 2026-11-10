@@ -13,6 +13,7 @@ import { Button } from "./components/ui/Button";
 import { Footer } from "./components/ui/Footer";
 import { GuidedMode } from "./guided/GuidedMode";
 import { SummaryView } from "./components/SummaryView";
+import { NextSteps } from "./components/NextSteps";
 import { LeaseReport } from "./components/reports/LeaseReport";
 import { BasicInformationReport } from "./components/reports/BasicInformationReport";
 import { EffectiveInterestReport } from "./components/reports/EffectiveInterestReport";
@@ -259,7 +260,12 @@ function AdvancedMode(props: {
           <div style={{ marginTop: 16 }}>
             {outputTab === "summary" && (
               <div data-tour-id="advanced-summary">
-                <SummaryView inputs={inputs} horizon={effectiveHorizon} onNavigateToDetails={navigateToDetails} />
+                <SummaryView
+                  inputs={inputs}
+                  horizon={effectiveHorizon}
+                  onNavigateToDetails={navigateToDetails}
+                  afterResults={<NextSteps mode="advanced" />}
+                />
               </div>
             )}
 
