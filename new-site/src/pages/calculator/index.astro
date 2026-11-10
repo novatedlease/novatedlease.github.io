@@ -10,6 +10,25 @@ const v = Date.now().toString(36);
 
 // Ported verbatim from ../calculator-old/index.astro's FAQPage schema — kept in sync so
 // cut-over doesn't lose the structured-data SEO work already done for v1.
+// Describes the calculator itself as a free web app. Deliberately no aggregateRating:
+// Google only shows rating stars from genuine on-page reviews, and we have none to mark up.
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Novated Lease Calculator (Australia)',
+  url: 'https://novatedlease.guide/calculator/',
+  description: 'Free, independent Australian novated lease calculator. Compares a novated lease with paying cash, a car loan or keeping your car, on the real net outcome rather than "tax saved".',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any (runs in the browser)',
+  browserRequirements: 'Requires JavaScript',
+  inLanguage: 'en-AU',
+  areaServed: { '@type': 'Country', name: 'Australia' },
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'AUD' },
+  creator: { '@id': 'https://novatedlease.guide/#org' },
+  publisher: { '@id': 'https://novatedlease.guide/#org' },
+};
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -71,7 +90,7 @@ const faqSchema = {
 <FullPage
   title="Novated Lease Calculator – Real Net Cost, Free, No Sign-up"
   description="Free Australian novated lease calculator with no email or sign-up. Shows your real net cost for an EV or petrol lease vs cash, a car loan or keeping your car."
-  extraSchemas={[faqSchema]}
+  extraSchemas={[appSchema, faqSchema]}
 >
   <div class="calc2-page">
     <h1>Novated Lease Calculator (Australia)</h1>
