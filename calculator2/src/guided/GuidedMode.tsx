@@ -55,7 +55,7 @@ import {
   residualExGstEntered,
   runningFactor,
   PERIOD_UNIT,
-  PERIODS_PER_YEAR,
+  paymentToEngineFn,
   typicalCurrentCar,
   typicalFigures,
   typicalMarketValueAtLeaseEnd,
@@ -178,6 +178,7 @@ function findingsFor(d: GuidedDraft) {
       smartMillarx: d.smartMillarx,
       corrected: d.paymentCorrected,
       typed: moneyValue(d.payment),
+      period: d.paymentPeriod,
     }),
     curValueEnd: d.compareCurrent
       ? checkCurrentCarValueEnd({
@@ -1283,6 +1284,9 @@ function PaymentStep({ d, set, f }: StepPropsF) {
   const perFn = paymentPerFn(d);
   const luxury = isLuxuryRange(d);
   const luxUnit = PERIOD_UNIT[d.paymentPeriod ?? "perFn"];
+  // Smart Leasing / MillarX: only a per-pay figure carries the budget reserve. A monthly figure is
+  // the financier's own payment, which Guided spreads over the term itself.
+  const needsCorrection = !!d.smartMillarx && d.paymentPeriod !== "perMonth";
   return (
     <Side highlight={["payment", "luxAdj", "running"]} d={d}>
       <Lead>
@@ -1294,13 +1298,15 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         label="How does your quote show the payment?"
         value={d.paymentPeriod}
         onChange={(v) => {
-          // A corrected payment is our own figure, so keep it meaning the same amount in the new period.
+          // A corrected payment is our own figure, so keep it costing the same in the new period.
           const typed = moneyValue(d.payment);
-          if (d.paymentCorrected && typed && d.paymentPeriod && v !== d.paymentPeriod)
+          if (d.paymentCorrected && typed && d.paymentPeriod && v !== d.paymentPeriod) {
+            const engineFn = paymentToEngineFn(typed, d.paymentPeriod, d.leaseYears, d.monthsDeferred);
             set("payment", {
               ...d.payment,
-              text: ((typed * PERIODS_PER_YEAR[d.paymentPeriod]) / PERIODS_PER_YEAR[v]).toFixed(2),
+              text: (engineFn / paymentToEngineFn(1, v, d.leaseYears, d.monthsDeferred)).toFixed(2),
             });
+          }
           set("paymentPeriod", v);
         }}
         options={[
@@ -1310,6 +1316,13 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           { value: "perYear", label: "Per year (total)" },
         ]}
         columns={4}
+        tooltip={
+          <Tip>
+            If your quote shows the finance payment both per pay and per month, either works. We
+            treat a monthly figure as the payment to the financier and spread it over the lease for
+            you.
+          </Tip>
+        }
       />
       <Choices<"exGst" | "incGst" | "unknown">
         field="paymentBasis"
@@ -1356,8 +1369,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           { value: false, label: "No", sub: "Any other provider" },
         ]}
         columns={2}
-        hint="Their quoted payment needs a quick correction first."
-        tooltip={<Tip>Smart Leasing and MillarX quote a payment that includes a budget-reserve buffer. Entered as printed, it makes the lease look dearer than it is.</Tip>}
+        hint="Their per-pay figure needs a quick correction. A monthly one doesn't."
+        tooltip={<Tip>Smart Leasing and MillarX work out the per-pay figure as if every month of the lease had a finance payment, and hold the extra as a budget reserve. Entered as printed, it makes the lease look dearer than it is. Their monthly figure is the actual payment, so it can go in as printed.</Tip>}
       />
       {d.smartMillarx &&
         (d.paymentCorrected ? (
@@ -1377,7 +1390,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
               </button>
             </p>
           </div>
-        ) : (
+        ) : needsCorrection ? (
           <div className="gd-callout gd-callout--must" role="status">
             <div className="gd-callout__title">
               You need to correct your Smart Leasing / MillarX payment first
@@ -1402,6 +1415,13 @@ function PaymentStep({ d, set, f }: StepPropsF) {
               </p>
             )}
           </div>
+        ) : (
+          <div className="gd-callout gd-callout--done" role="status">
+            <div className="gd-callout__title">
+              ✓ No correction needed for a monthly figure
+            </div>
+            <p>Type the monthly finance payment below, as printed.</p>
+          </div>
         ))}
       {adjustOpen && d.leaseYears && (
         <LeaseAdjustModal
@@ -1409,6 +1429,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           initialPeriod={d.paymentPeriod === "perFn" || d.paymentPeriod === "perMonth" ? d.paymentPeriod : null}
           initialGst={d.paymentBasis}
           initialDeferMonths={d.monthsDeferred}
+          monthlyIsFinancierPayment
           onClose={() => setAdjustOpen(false)}
           onApply={(_perFn, shown) => {
             // Keep the figure in the period and GST basis the reader's quote uses, so the answers
@@ -1416,7 +1437,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             set("paymentPeriod", shown.period);
             set("paymentBasis", shown.gst);
             set("payment", { text: shown.amount.toFixed(2), none: false, estimated: false });
-            set("paymentCorrected", true);
+            // A monthly figure goes through unchanged, so there's nothing to call "corrected".
+            set("paymentCorrected", shown.period !== "perMonth");
             setAdjustOpen(false);
           }}
         />
@@ -1430,7 +1452,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           set("paymentCorrected", false);
         }}
         where={
-          d.smartMillarx
+          needsCorrection
             ? "Filled in by the correction tool above, not the printed figure."
             : "The car's pre-tax payment, before running costs. Type it as printed."
         }

@@ -2,7 +2,7 @@ import {
   effectiveAnnualRateFromFortnightlyLease,
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
-import type { Period } from "./draft";
+import { paymentToEngineFn, type Period } from "./draft";
 
 export type Level = "error" | "warn" | "info" | "ok";
 export type Finding = {
@@ -183,9 +183,6 @@ function rateFor(
   }
 }
 
-// Kept here rather than imported from draft.ts, which imports this file.
-const PER_YEAR: Record<Period, number> = { perWeek: 52, perFn: 26, perMonth: 12, perYear: 1 };
-const toPerFn = (v: number, p: Period) => (v * PER_YEAR[p]) / 26;
 const PERIOD_ADJ: Record<Period, string> = { perWeek: "a weekly", perFn: "a fortnightly", perMonth: "a monthly", perYear: "a yearly" };
 /** The periods a figure is most often mistaken for, most likely first. A yearly figure is hard to mistake. */
 const LIKELY_PERIOD_SLIPS: Record<Period, Period[]> = {
@@ -214,7 +211,7 @@ export function diagnosePayment(
     return { rate: null, status: "empty", findings: [] };
   const incGst = basis === "incGst";
   // Per fortnight, ex GST, as the reader has labelled it.
-  const perFn = toPerFn(typed, period) / (incGst ? GST : 1);
+  const perFn = paymentToEngineFn(typed, period, a.leaseYears, a.deferMonths) / (incGst ? GST : 1);
   const main = rateFor(a, perFn);
   const findings: Finding[] = [];
 
@@ -225,7 +222,7 @@ export function diagnosePayment(
     // What the typed figure would be per fortnight (ex GST) if the reader picked the wrong period.
     const others = LIKELY_PERIOD_SLIPS[period].map((p) => ({
       label: `${PERIOD_ADJ[p]} amount`,
-      perFn: toPerFn(typed, p) / (incGst ? GST : 1),
+      perFn: paymentToEngineFn(typed, p, a.leaseYears, a.deferMonths) / (incGst ? GST : 1),
     }));
     // The other GST reading: inc GST typed as ex (or unlabelled), or ex GST typed as inc.
     const gstFlip = incGst ? GST : 1 / GST;
@@ -466,8 +463,10 @@ export function checkPaymentCorrected(opts: {
   smartMillarx: boolean | null;
   corrected: boolean;
   typed: number | null;
+  /** A monthly figure is the financier's payment, so it needs no correction. */
+  period?: Period | null;
 }): Finding[] {
-  if (!opts.smartMillarx || opts.corrected || !opts.typed) return [];
+  if (!opts.smartMillarx || opts.corrected || !opts.typed || opts.period === "perMonth") return [];
   return [
     {
       code: "payment_not_corrected",
