@@ -1678,6 +1678,26 @@ function RunningStep({ d, set, f }: StepPropsF) {
           )}
         </>
       )}
+      <Help title="Where do other lines on my quote go?">
+        <ul className="gd-otherlines">
+          <li>
+            <strong>Other fees</strong> (salary packaging, licence, admin): add
+            them to Lease management fees.
+          </li>
+          <li>
+            <strong>Roadside, incidentals, car wash</strong> and similar: add
+            them to Servicing.
+          </li>
+          <li>
+            <strong>Optional cover</strong> (lease protection, GAP, minor damage
+            repair): include it only if you're keeping it.
+          </li>
+          <li>
+            <strong>A contingency or reserve budget</strong>: leave it out.
+            It's a buffer, and unspent money normally comes back to you.
+          </li>
+        </ul>
+      </Help>
       <div className="gd-rows">
         {!period && (
           <div className="nlc-field__hint">
@@ -1716,6 +1736,14 @@ function RunningStep({ d, set, f }: StepPropsF) {
           suffix={suffix}
           suggestion={typicalIn(typical?.insurance)}
           hint="Comprehensive cover. Compare with your own insurer's quote."
+          tooltip={
+            <Tip>
+              Some quotes pay the first year's insurance upfront, inside the
+              amount financed, and only budget for renewals. Enter the full
+              yearly premium here anyway: the calculator counts insurance in
+              every year of the lease.
+            </Tip>
+          }
           findings={f.insurance}
           estimatedNote="Typical estimate"
         />
