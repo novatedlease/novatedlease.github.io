@@ -99,6 +99,20 @@ I deliberately did *not* copy the spreadsheet cell by cell into the browser, whi
 
 </section>
 
+<section class="tl-phase">
+
+## <span class="tl-date">Late 2026</span> Guided mode — one question at a time
+
+<figure class="tl-shot"><img src="/images/guided-mode.png" alt="Guided mode's payment step: questions on the left, a typical quote on the right with the relevant lines highlighted, and a green check that the payment implies a 9.0% effective interest rate" width="1300" height="1081" loading="lazy"><figcaption>Guided mode: each answer is checked as you type, with a typical quote alongside showing where to look.</figcaption></figure>
+
+The web app put every input on one page. That suited readers who already knew how novated leases work, but first-timers with a quote in hand found it daunting. And when readers sent me their figures, the same few slips kept turning up: a residual typed including GST where the box wanted it excluded, a monthly payment entered as fortnightly, or the whole package typed in where only the finance payment belonged.
+
+Guided mode, the calculator's default since November 2026, walks through the quote one question at a time. A sketch of a typical quote shows where each figure usually sits, and answers are checked as you go: the payment is turned into an effective interest rate and compared with real quotes, the residual with the ATO minimum for the term, and running costs with typical figures. When something looks like one of the common slips, it says so and suggests the likely fix. Readers without a quote can still get an estimate from three rough figures, with the assumed ones listed on the results page. Advanced mode, with every input on one page and the full workings, is one click away.
+
+Much of Guided mode's wording and layout was refined after a detailed, screenshot-by-screenshot review from Reddit user [u/ezymoneysniper29](https://www.reddit.com/user/ezymoneysniper29), to whom I am very grateful.
+
+</section>
+
 </div>
 
 ---
@@ -128,4 +142,4 @@ Rather than advertising tax saving, the calculator aims to show users:
 - what assets and liabilities they hold 
 - how sensitive outcomes are to assumptions such as interest rates, income levels, and impact on subsidy, super etc. 
 
-The web-based version is not an endpoint, but the latest iteration of an ongoing attempt to make novated leasing analysis more transparent and grounded in real financial outcomes. Since launch it has added a step-by-step Guided mode for first-timers, alongside the [pre-signing checklist](/tools/checklist/) and the [BYO employer checker](/tools/byo-employer-check/).
+The web-based version is not an endpoint, but the latest iteration of an ongoing attempt to make novated leasing analysis more transparent and grounded in real financial outcomes. Alongside the calculator, the site now also offers a [pre-signing checklist](/tools/checklist/) and a [BYO employer checker](/tools/byo-employer-check/).
