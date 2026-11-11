@@ -47,6 +47,8 @@ export function MoneyInput({
 }) {
   const id = useId();
   const v = moneyValue(value);
+  // A "none" saved before its tickbox was removed shows as an editable 0.
+  const lockedNone = value.none && !!noneLabel;
   const worst =
     findings?.find((f) => f.level === "error") ??
     findings?.find((f) => f.level === "warn");
@@ -59,10 +61,10 @@ export function MoneyInput({
           className="nlc-input"
           inputMode="decimal"
           autoComplete="off"
-          placeholder={value.none ? "0" : (placeholder ?? "Type the amount")}
-          disabled={value.none}
+          placeholder={lockedNone ? "0" : (placeholder ?? "Type the amount")}
+          disabled={lockedNone}
           aria-invalid={worst?.level === "error" ? true : undefined}
-          value={value.none ? "" : value.text}
+          value={value.none ? (lockedNone ? "" : "0") : value.text}
           onChange={(e) =>
             onChange({ text: e.target.value, none: false, estimated: false })
           }

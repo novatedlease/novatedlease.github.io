@@ -1934,7 +1934,6 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           value={d.curService}
           onChange={(m) => set("curService", m)}
           suffix="per year"
-          noneLabel="None"
           suggestion={t.service}
           findings={f.curService}
           estimatedNote={CUR_TYPICAL}
@@ -1945,7 +1944,6 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           value={d.curRego}
           onChange={(m) => set("curRego", m)}
           suffix="per year"
-          noneLabel="None"
           suggestion={t.rego}
           findings={f.curRego}
           estimatedNote={CUR_TYPICAL}
@@ -1960,7 +1958,6 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           }}
           hint={curFuelScaledNote(d)}
           suffix="per year"
-          noneLabel="None"
           suggestion={t.fuel}
           findings={f.curFuel}
           estimatedNote={CUR_TYPICAL}
@@ -1971,7 +1968,6 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           value={d.curInsurance}
           onChange={(m) => set("curInsurance", m)}
           suffix="per year"
-          noneLabel="None"
           suggestion={t.insurance}
           findings={f.curInsurance}
           estimatedNote={CUR_TYPICAL}

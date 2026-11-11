@@ -520,3 +520,11 @@ describe("guided: current car figure checks", () => {
     expect(checkCurrentCarValueNow(18000, 52400)).toEqual([]);
   });
 });
+
+describe("guided: current car costs without a None tickbox", () => {
+  test("a typed 0 counts as answered", () => {
+    const d = withCurrentCar(completeDraft());
+    d.curRego = m("0");
+    expect(missingForStep("alternatives", d)).not.toContain("Current car registration");
+  });
+});
