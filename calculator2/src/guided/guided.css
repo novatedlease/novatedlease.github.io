@@ -73,6 +73,18 @@
 /* Fields */
 .gd-where { font-size: 13px; color: var(--nlc-text-muted); margin-bottom: 6px; line-height: 1.4; }
 .gd-money { max-width: 300px; }
+/* Row layout: label left, box right, so a list of amounts reads like a table. */
+.gd-rows { margin-bottom: 18px; }
+.gd-card .gd-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 260px); gap: 6px 20px; align-items: start; margin-bottom: 0; padding: 12px 0; border-top: 1px solid var(--nlc-border); }
+.gd-row:last-child { border-bottom: 1px solid var(--nlc-border); }
+.gd-row .nlc-field__label { margin: 9px 0 2px; }
+.gd-row .gd-where { margin-bottom: 0; }
+.gd-row .gd-money { max-width: none; }
+.gd-row .gd-suggest { text-align: left; }
+.gd-row .gd-presets { margin: 8px 0 0; gap: 4px 12px; }
+.gd-row .gd-presets .gd-suggest { margin-top: 0; }
+.gd-row .gd-help { margin: 6px 0 0; }
+@media (max-width: 560px) { .gd-card .gd-row { grid-template-columns: 1fr; } .gd-row .nlc-field__label { margin-top: 0; } }
 .gd-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
 @media (max-width: 640px) { .gd-grid2 { grid-template-columns: 1fr; } }
 .gd-inline { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }

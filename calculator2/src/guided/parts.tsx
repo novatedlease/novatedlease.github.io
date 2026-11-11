@@ -19,6 +19,8 @@ export function MoneyInput({
   estimatedNote,
   placeholder,
   findings,
+  row,
+  extra,
 }: {
   label: ReactNode;
   value: Money;
@@ -38,15 +40,18 @@ export function MoneyInput({
   estimatedNote?: ReactNode;
   placeholder?: string;
   findings?: Finding[];
+  /** Label on the left, box on the right: for lists of like amounts, so they scan as a table. */
+  row?: boolean;
+  /** Shown under the box, before any findings: preset buttons and the like. */
+  extra?: ReactNode;
 }) {
   const id = useId();
   const v = moneyValue(value);
   const worst =
     findings?.find((f) => f.level === "error") ??
     findings?.find((f) => f.level === "warn");
-  return (
-    <FieldWrapper label={label} tooltip={tooltip} htmlFor={id} hint={hint}>
-      {where && <div className="gd-where">{where}</div>}
+  const control = (
+    <>
       <div className="nlc-field__control gd-money">
         {prefix && <span className="nlc-field__prefix">{prefix}</span>}
         <input
@@ -98,7 +103,30 @@ export function MoneyInput({
             "Typical estimate, not from your quote. Replace it if you have the real figure."}
         </div>
       )}
+      {extra}
       <FindingList findings={findings} />
+    </>
+  );
+  if (row)
+    return (
+      <div className="nlc-field gd-row">
+        <div className="gd-row__head">
+          <label className="nlc-field__label" htmlFor={id}>
+            {label}
+            {tooltip}
+          </label>
+          {where && <div className="gd-where">{where}</div>}
+        </div>
+        <div className="gd-row__body">
+          {control}
+          {hint && <div className="nlc-field__hint">{hint}</div>}
+        </div>
+      </div>
+    );
+  return (
+    <FieldWrapper label={label} tooltip={tooltip} htmlFor={id} hint={hint}>
+      {where && <div className="gd-where">{where}</div>}
+      {control}
     </FieldWrapper>
   );
 }

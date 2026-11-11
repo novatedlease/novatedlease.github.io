@@ -114,7 +114,7 @@ describe("Guided flow (real interaction)", () => {
 
     // Running costs: ex GST, entered monthly
     click(/Excluding GST/);
-    click(/Monthly figure/);
+    click(/^Per month/);
     type(/Kilometres per year/, "12000");
     type(/Servicing/, "100");
     type(/Registration/, "75");
@@ -125,8 +125,8 @@ describe("Guided flow (real interaction)", () => {
 
     // About you
     type(/annual taxable income/i, "110000");
-    click(/Yes Super is unaffected/);
-    click(/It doesn't earn anything/);
+    click(/Before lease salary/);
+    click(/I don't have the cash to pay outright/);
     click(/^No$/);
     click("Next");
 
@@ -167,7 +167,7 @@ describe("Guided flow (real interaction)", () => {
     type(/annual taxable income/i, "110000");
     // super and NSW Health are not asked up front; the cash question is
     expect(
-      screen.queryByText(/calculate super on your pre-lease salary/),
+      screen.queryByText(/How does your employer calculate super/),
     ).toBeNull();
     click(/Home loan offset/);
     type(/Home loan interest rate/, "6.1");
@@ -178,7 +178,7 @@ describe("Guided flow (real interaction)", () => {
     expect(screen.getByText("Assumptions we made for you")).toBeTruthy();
     // Super isn't asked when exploring; it's a listed assumption instead
     expect(screen.queryByText("Refine this estimate")).toBeNull();
-    expect(screen.queryByText(/calculate super on your pre-lease salary/)).toBeNull();
+    expect(screen.queryByText(/How does your employer calculate super/)).toBeNull();
     fireEvent.click(screen.getByText("Assumptions we made for you"));
     expect(screen.getByText(/Not reduced by the lease/)).toBeTruthy();
     click(/^Enter it$/);

@@ -1431,7 +1431,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
     <>
       <Lead>From your quote's running-cost budget.</Lead>
       <Choices<YesNoUnsure>
-        label="Does your quote's running-cost breakdown say inc GST or ex GST?"
+        label="Is your quote's running-cost budget inc GST or ex GST?"
         value={d.gstPassedOn}
         onChange={(v) => set("gstPassedOn", v)}
         options={[
@@ -1447,7 +1447,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           },
           {
             value: "Unsure",
-            label: "Not sure",
+            label: "I'm not sure",
             sub: "We'll assume excluding GST",
           },
         ]}
@@ -1465,34 +1465,21 @@ function RunningStep({ d, set, f }: StepPropsF) {
       <Help title="See how the two look on a quote">
         <GstMock />
       </Help>
-      <MoneyInput
-        label="Kilometres per year"
-        prefix=""
-        suffix="km"
-        value={d.mileage}
-        onChange={(m) => set("mileage", m)}
-        where="Your best estimate. The average Australian drives about 12,000 km."
-        findings={f.mileage}
-      />
-      <Help title="How do I use my current driving to estimate this?">
-        Check your last two service records for the odometer reading, subtract,
-        and divide by the years between. Or multiply a typical weekly total by
-        52.
-      </Help>
       <Choices<RunningPeriod>
-        label="I want to enter the running costs as a"
+        label="How are costs shown on your quote?"
         value={period}
         onChange={changePeriod}
         options={[
-          { value: "perFn", label: "Fortnightly figure" },
-          { value: "perMonth", label: "Monthly figure" },
-          { value: "perYear", label: "Yearly figure" },
+          { value: "perFn", label: "Per fortnight" },
+          { value: "perMonth", label: "Per month" },
+          { value: "perYear", label: "Per year" },
         ]}
         columns={3}
         hint="Use whichever your quote shows. All the boxes below use it."
       />
-      <div className="gd-grid2">
+      <div className="gd-rows">
         <MoneyInput
+          row
           label={<>Servicing, maintenance and tyres{gstTag}</>}
           value={d.service}
           onChange={(m) => set("service", m)}
@@ -1501,6 +1488,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           findings={f.service}
         />
         <MoneyInput
+          row
           label={<>Registration and CTP{gstTag}</>}
           value={d.rego}
           onChange={(m) => set("rego", m)}
@@ -1509,6 +1497,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           findings={f.rego}
         />
         <MoneyInput
+          row
           label={<>Insurance{gstTag}</>}
           value={d.insurance}
           onChange={(m) => set("insurance", m)}
@@ -1518,6 +1507,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           findings={f.insurance}
         />
         <MoneyInput
+          row
           label={<>Lease management fees{gstTag}</>}
           value={d.mgmt}
           onChange={(m) => set("mgmt", m)}
@@ -1526,21 +1516,40 @@ function RunningStep({ d, set, f }: StepPropsF) {
           findings={f.mgmt}
           where="Admin, membership and management fees, added together."
         />
-      </div>
-      {!isEv && (
         <MoneyInput
-          label={<>Fuel{gstTag}</>}
-          value={d.fuel}
-          onChange={(m) => set("fuel", m)}
-          suffix={suffix}
-          suggestion={typicalIn(typical?.fuel)}
-          findings={f.fuel}
-          where="As shown for fuel in the running-costs section."
+          row
+          label="Kilometres per year"
+          prefix=""
+          suffix="km"
+          value={d.mileage}
+          onChange={(m) => set("mileage", m)}
+          where={
+            <>
+              Your best estimate. The average Australian drives about 12,000 km.
+              <Help title="Estimate it from your current driving">
+                Check your last two service records for the odometer reading,
+                subtract, and divide by the years between. Or multiply a typical
+                weekly total by 52.
+              </Help>
+            </>
+          }
+          findings={f.mileage}
         />
-      )}
-      {isEv && (
-        <>
+        {!isEv && (
           <MoneyInput
+            row
+            label={<>Fuel{gstTag}</>}
+            value={d.fuel}
+            onChange={(m) => set("fuel", m)}
+            suffix={suffix}
+            suggestion={typicalIn(typical?.fuel)}
+            findings={f.fuel}
+            where="As shown for fuel in the running-costs section."
+          />
+        )}
+        {isEv && (
+          <MoneyInput
+            row
             label="Electricity price you pay to charge, per kWh"
             suffix="per kWh"
             value={d.chargingRate}
@@ -1549,32 +1558,34 @@ function RunningStep({ d, set, f }: StepPropsF) {
             noneLabel="Fully solar or free charging ($0)"
             tooltip={<Tip>Only used to estimate your real charging cost. The tax claim itself uses the ATO's 5.47c/km shortcut rate.</Tip>}
             findings={f.charging}
+            extra={
+              <div className="gd-presets" aria-label="Typical charging prices">
+                {[
+                  { v: 0.01, l: "Mostly solar, about 1c" },
+                  { v: 0.08, l: "Home off-peak, about 8c" },
+                  { v: 0.3, l: "Home standard, about 30c" },
+                  { v: 0.5, l: "Public chargers, about 50c" },
+                ].map((p) => (
+                  <button
+                    key={p.v}
+                    type="button"
+                    className="gd-suggest"
+                    onClick={() =>
+                      set("chargingRate", {
+                        text: String(p.v),
+                        none: false,
+                        estimated: true,
+                      })
+                    }
+                  >
+                    {p.l}
+                  </button>
+                ))}
+              </div>
+            }
           />
-          <div className="gd-presets" aria-label="Typical charging prices">
-            {[
-              { v: 0.01, l: "Mostly solar, about 1c" },
-              { v: 0.08, l: "Home off-peak, about 8c" },
-              { v: 0.3, l: "Home standard, about 30c" },
-              { v: 0.5, l: "Public chargers, about 50c" },
-            ].map((p) => (
-              <button
-                key={p.v}
-                type="button"
-                className="gd-suggest"
-                onClick={() =>
-                  set("chargingRate", {
-                    text: String(p.v),
-                    none: false,
-                    estimated: true,
-                  })
-                }
-              >
-                {p.l}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
+        )}
+      </div>
     </>
   );
 }
@@ -1602,16 +1613,16 @@ function YouStep({ d, set, f }: StepPropsF) {
 function SuperQuestion({ d, set }: StepProps) {
   return (
     <Choices<YesNoUnsure>
-      label="Does your employer calculate super on your pre-lease salary?"
+      label="How does your employer calculate super?"
       value={d.superPreNl}
       onChange={(v) => set("superPreNl", v)}
       options={[
-        { value: "Yes", label: "Yes", sub: "Super is unaffected" },
-        { value: "No", label: "No", sub: "Super falls with the lease" },
-        { value: "Unsure", label: "Not sure", sub: "We'll assume yes" },
+        { value: "Yes", label: "Before lease salary", sub: "Super is unaffected" },
+        { value: "No", label: "After lease salary", sub: "Super falls with the lease" },
+        { value: "Unsure", label: "I'm not sure", sub: "We'll assume before lease salary" },
       ]}
       columns={3}
-      hint="Usually yes, but worth checking with payroll."
+      hint="Usually before lease salary, but worth checking with payroll."
       tooltip={
         <Tip>
           In roughly 10% of cases the employer calculates super on the lower
@@ -1633,7 +1644,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
   return (
     <>
       <Choices
-        label="If you paid cash for the car instead, where is that money now?"
+        label="If you bought the car outright, where would the money come from?"
         value={d.cashHome}
         onChange={(v) => {
           // Savings and investment-offset share one rate box, but a savings rate isn't a loan rate.
@@ -1663,13 +1674,12 @@ function CashQuestion({ d, set, f }: StepPropsF) {
           },
           {
             value: "invested",
-            label: "Invested",
+            label: "Investments",
             sub: "Shares, crypto etc",
           },
           {
             value: "none",
-            label: "It doesn't earn anything",
-            sub: "or I don't have the cash to pay outright",
+            label: "I don't have the cash to pay outright",
           },
         ]}
         columns={5}
@@ -1679,7 +1689,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
             The cash comparison needs to know what that money would otherwise
             earn. Investment returns are uncertain, so we recommend the next
             best safe return (a savings account or a loan offset) rather than an
-            expected share or crypto return. If you still choose “Invested”,
+            expected share or crypto return. If you still choose “Investments”,
             enter a cautious post-tax figure.{" "}
             <a href={HOW_TO_USE} target="_blank" rel="noreferrer">
               How to use the calculator
@@ -1859,14 +1869,16 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
       <p className="gd-small">
         Yearly running costs of the car you own now, including GST.
       </p>
-      <div className="gd-grid2">
+      <div className="gd-rows">
         <MoneyInput
+          row
           label="Market value today"
           value={d.curValueNow}
           onChange={(m) => set("curValueNow", m)}
           where="What you could sell it for (carsales.com.au or similar)."
         />
         <MoneyInput
+          row
           label={`Market value at the end of the lease${years ? ` (after ${years} year${years > 1 ? "s" : ""})` : ""}`}
           value={
             d.curValueEnd.estimated
@@ -1880,6 +1892,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           findings={f.curValueEnd}
         />
         <MoneyInput
+          row
           label="Servicing, maintenance and tyres"
           value={d.curService}
           onChange={(m) => set("curService", m)}
@@ -1889,6 +1902,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           estimatedNote={CUR_TYPICAL}
         />
         <MoneyInput
+          row
           label="Registration and CTP"
           value={d.curRego}
           onChange={(m) => set("curRego", m)}
@@ -1898,6 +1912,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           estimatedNote={CUR_TYPICAL}
         />
         <MoneyInput
+          row
           label="Fuel or electricity"
           value={d.curFuel}
           onChange={(m) => {
@@ -1911,6 +1926,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           estimatedNote={CUR_TYPICAL}
         />
         <MoneyInput
+          row
           label="Insurance"
           value={d.curInsurance}
           onChange={(m) => set("curInsurance", m)}
@@ -2008,7 +2024,7 @@ function ReviewStep({
         : d.cashHome === "invested"
           ? `Invested, ${moneyValue(d.investedRate) ?? 0}% after tax`
           : d.cashHome === "none"
-            ? "Earns nothing"
+            ? "No cash to pay outright"
             : "?",
     "you",
   ];
