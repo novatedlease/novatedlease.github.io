@@ -64,6 +64,7 @@ import {
   checkAnnualCost,
   checkChargingRate,
   checkCurrentCarValueEnd,
+  checkCurrentCarValueNow,
   checkDocFee,
   checkEvThresholdEstimate,
   checkIncome,
@@ -176,6 +177,8 @@ function findingsFor(d: GuidedDraft) {
           years: d.leaseYears,
         })
       : [],
+    curValueNow: d.compareCurrent ? checkCurrentCarValueNow(moneyValue(d.curValueNow), drive) : [],
+    ...currentCarCostFindings(d),
     mileage: checkMileage(moneyValue(d.mileage)),
     service: checkAnnualCost(
       "service",
@@ -211,6 +214,21 @@ function findingsFor(d: GuidedDraft) {
   };
 }
 
+/** The current car's yearly costs, checked like the lease's own. Fuel isn't flagged low: an EV charged at home or on solar costs little. */
+function currentCarCostFindings(d: GuidedDraft) {
+  const t = typicalCurrentCar(d);
+  const check = (code: string, m: Money, typical: number | null, skipLow = false) =>
+    d.compareCurrent && !m.estimated
+      ? checkAnnualCost(code, moneyValue(m), typical, { yearlyBox: true, skipLow })
+      : [];
+  return {
+    curService: check("cur_service", d.curService, t.service),
+    curRego: check("cur_rego", d.curRego, t.rego),
+    curFuel: check("cur_fuel", d.curFuel, t.fuel, true),
+    curInsurance: check("cur_insurance", d.curInsurance, t.insurance),
+  };
+}
+
 type FindingMap = ReturnType<typeof findingsFor>;
 
 const STEP_FIELDS: Partial<Record<StepId, (keyof FindingMap)[]>> = {
@@ -228,7 +246,7 @@ const STEP_FIELDS: Partial<Record<StepId, (keyof FindingMap)[]>> = {
     "charging",
   ],
   you: ["income", "offset", "savings", "invested"],
-  alternatives: ["loan", "curValueEnd"],
+  alternatives: ["loan", "curValueNow", "curValueEnd", "curService", "curRego", "curFuel", "curInsurance"],
 };
 
 /** Findings that only make sense on the screens the reader actually sees. */
@@ -1632,7 +1650,15 @@ function SuperQuestion({ d, set }: StepProps) {
         { value: "Unsure", label: "I'm not sure", sub: "We'll assume before lease salary" },
       ]}
       columns={3}
-      hint="Usually before lease salary, but worth checking with payroll."
+      hint={
+        <>
+          Usually before lease salary, but worth checking with payroll.{" "}
+          <strong>
+            If it's after lease salary, the lost super can add up to many
+            thousands of dollars over the lease.
+          </strong>
+        </>
+      }
       tooltip={
         <Tip>
           In roughly 10% of cases the employer calculates super on the lower
@@ -1885,6 +1911,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           label="Market value today"
           value={d.curValueNow}
           onChange={(m) => set("curValueNow", m)}
+          findings={f.curValueNow}
           where="What you could sell it for (carsales.com.au or similar)."
         />
         <MoneyInput
@@ -1909,6 +1936,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           suffix="per year"
           noneLabel="None"
           suggestion={t.service}
+          findings={f.curService}
           estimatedNote={CUR_TYPICAL}
         />
         <MoneyInput
@@ -1919,6 +1947,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           suffix="per year"
           noneLabel="None"
           suggestion={t.rego}
+          findings={f.curRego}
           estimatedNote={CUR_TYPICAL}
         />
         <MoneyInput
@@ -1933,6 +1962,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           suffix="per year"
           noneLabel="None"
           suggestion={t.fuel}
+          findings={f.curFuel}
           estimatedNote={CUR_TYPICAL}
         />
         <MoneyInput
@@ -1943,6 +1973,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           suffix="per year"
           noneLabel="None"
           suggestion={t.insurance}
+          findings={f.curInsurance}
           estimatedNote={CUR_TYPICAL}
         />
       </div>

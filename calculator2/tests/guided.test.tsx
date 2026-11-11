@@ -19,6 +19,8 @@ import {
   type Money,
 } from "../src/guided/draft";
 import {
+  checkAnnualCost,
+  checkCurrentCarValueNow,
   checkMarketValueEnd,
   checkPrices,
   checkResidual,
@@ -498,5 +500,23 @@ describe("guided: residual typed, GST basis unsure", () => {
     expect(guessedResidualBasis(d)).toBeNull();
     expect(residualExGstEntered(d)).toBe(atoMinimumResidualExGst(d));
     expect(missingForStep("lease", d)).not.toContain("Residual amount");
+  });
+});
+
+describe("guided: current car figure checks", () => {
+  test("a monthly figure in a yearly box is flagged low; a multi-year total high", () => {
+    expect(checkAnnualCost("cur_insurance", 80, 1000, { yearlyBox: true })[0]?.code).toBe("cur_insurance_low");
+    expect(checkAnnualCost("cur_insurance", 5000, 1000, { yearlyBox: true })[0]?.code).toBe("cur_insurance_high");
+    expect(checkAnnualCost("cur_insurance", 1400, 1000, { yearlyBox: true })).toEqual([]);
+  });
+
+  test("low fuel isn't flagged: a home-charged EV costs little", () => {
+    expect(checkAnnualCost("cur_fuel", 150, 1300, { yearlyBox: true, skipLow: true })).toEqual([]);
+  });
+
+  test("today's value catches a dropped or extra zero", () => {
+    expect(checkCurrentCarValueNow(800, 52400)[0]?.code).toBe("current_value_now_low");
+    expect(checkCurrentCarValueNow(180000, 52400)[0]?.code).toBe("current_value_now_high");
+    expect(checkCurrentCarValueNow(18000, 52400)).toEqual([]);
   });
 });

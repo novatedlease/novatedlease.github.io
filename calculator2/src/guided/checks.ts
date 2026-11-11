@@ -315,8 +315,29 @@ export function checkAnnualCost(
   label: string,
   value: number | null,
   typical: number | null,
+  /** The box only takes a yearly figure (the current car), so the slip is a monthly or fortnightly amount. */
+  opts: { yearlyBox?: boolean; skipLow?: boolean } = {},
 ): Finding[] {
   if (value === null || value === 0 || !typical) return [];
+  if (opts.yearlyBox) {
+    if (!opts.skipLow && value < typical * 0.25)
+      return [
+        {
+          code: `${label}_low`,
+          level: "warn",
+          message: `${fmt(value)} a year looks low (typical is around ${fmt(typical)}). This box takes a yearly figure, so check it isn't a monthly or fortnightly amount.`,
+        },
+      ];
+    if (value > typical * 3)
+      return [
+        {
+          code: `${label}_high`,
+          level: "warn",
+          message: `${fmt(value)} a year looks high (typical is around ${fmt(typical)}). Check the amount and that it isn't a total over several years.`,
+        },
+      ];
+    return [];
+  }
   if (value < typical * 0.25) {
     return [
       {
@@ -449,6 +470,28 @@ export function checkPaymentCorrected(opts: {
         "You said your lease is with Smart Leasing or MillarX, but this figure was typed rather than run through the correction tool above. Their quoted payment includes a budget buffer, so used as is it overstates the finance cost. Open the correction tool, unless you have already corrected it yourself.",
     },
   ];
+}
+
+/** Catches a dropped or extra zero in today's value of the reader's current car. */
+export function checkCurrentCarValueNow(now: number | null, newCarDriveaway: number | null): Finding[] {
+  if (!now) return [];
+  if (now < 1000)
+    return [
+      {
+        code: "current_value_now_low",
+        level: "warn",
+        message: `${fmt(now)} is very low for a car's resale value. Check for a missing zero. If the car really is worth that little, that's fine.`,
+      },
+    ];
+  if (newCarDriveaway && now > newCarDriveaway * 1.5)
+    return [
+      {
+        code: "current_value_now_high",
+        level: "warn",
+        message: `${fmt(now)} is well above the new car's drive-away price of ${fmt(newCarDriveaway)}. Check for an extra zero.`,
+      },
+    ];
+  return [];
 }
 
 export function checkCurrentCarValueEnd(opts: {
