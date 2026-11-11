@@ -75,7 +75,7 @@
 .gd-money { max-width: 300px; }
 /* Row layout: label left, box right, so a list of amounts reads like a table. */
 .gd-rows { margin-bottom: 18px; }
-.gd-card .gd-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 260px); gap: 6px 20px; align-items: start; margin-bottom: 0; padding: 12px 0; border-top: 1px solid var(--nlc-border); }
+.gd-card .gd-row { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 300px); justify-content: start; gap: 6px 24px; align-items: start; margin-bottom: 0; padding: 12px 0; border-top: 1px solid var(--nlc-border); }
 .gd-row:last-child { border-bottom: 1px solid var(--nlc-border); }
 .gd-row .nlc-field__label { margin: 9px 0 2px; }
 .gd-row .gd-where { margin-bottom: 0; }
