@@ -1,6 +1,6 @@
 ---
 datePublished: "2026-06-21"
-dateModified: "2026-11-09"
+dateModified: "2026-11-11"
 title: "Smart Leasing & MillarX — why their quoted figure needs adjusting"
 description: Smart Leasing and MillarX quote a regular payment derived from the full lease term, but only a subset of those periods are actual finance payments to the financier. Entering the quoted figure directly inflates the effective interest rate. Here is why, and how to correct it.
 ---
@@ -32,10 +32,12 @@ Both Smart Leasing and MillarX use a structure in which they collect finance pay
 - However, Smart Leasing collects $1,000 × 60 = $60,000 total from the employee.
 - The $2,000 difference is not a true finance cost — it is held as a budget reserve.
 
-**MillarX** typically withholds 1 month. Using an analogous example:
+**MillarX** withholds the same number of months as the deferral: 1 or 2 on the quotes we have seen. With a 1-month deferral:
 - The bank expects $1,000 × 59 = $59,000 in total finance payments.
 - However, MillarX collects $1,000 × 60 = $60,000 total from the employee.
 - The $1,000 difference is not a true finance cost — it is held as a budget reserve.
+
+With a 2-month deferral, MillarX's numbers work the same way as the Smart Leasing example above.
 
 The budget reserve is used to cover any shortfall in the budgeted running costs. Any surplus at the end of the term is refunded to you.
 
@@ -62,6 +64,8 @@ For a shorter lease the effect is larger, because the buffer months represent a 
 | 3 years (36 months) | 2 months | ~5.88% |
 | 2 years (24 months) | 2 months | ~9.09% |
 
+MillarX with a 1-month deferral (with 2 months, use the table above):
+
 | Lease term | MillarX buffer | Payment overstatement |
 |---|---|---|
 | 5 years (60 months) | 1 month | ~1.69% |
@@ -82,15 +86,21 @@ The calculator includes a built-in adjustment tool specifically for these provid
 
 The tool opens a panel where you:
 
-1. Select your provider (Smart Leasing or MillarX)
+1. Select your provider (Smart Leasing or MillarX). For MillarX, also choose your deferral, 1 or 2 months
 2. Enter your quoted figure (per fortnight or per month — both are supported)
 3. Click **Use this value**, which puts the adjusted, finance-only figure into the calculator for you
 
 The panel shows the scaling factor, the adjusted result, and an explanation of the buffer being applied.
 
 :::note[Confirm your provider's specific buffer]
-The buffer months used in this tool — 2 for Smart Leasing, 1 for MillarX — reflect the most commonly reported structure. Individual quotes may vary.
+The tool uses 2 months for Smart Leasing, the most commonly reported structure, and your deferral for MillarX. Individual quotes may vary.
 :::
+
+### Reading a MillarX quote (November 2026)
+
+- **Deferral:** newer MillarX quotes show a line such as "$819/mth × 58". The number of payments tells you the deferral: 58 payments on a 60-month lease means 2 months, 59 means 1.
+- **Which figure to enter:** the fortnightly payment is that monthly figure × 12 ÷ 26. Either one goes into the tool, per fortnight or per month, and both give the same result.
+- **"Finance + fee":** some MillarX quotes show the fortnightly payment as "Finance + fee". That figure includes the management fee. Take the fee out first (a monthly fee × 12 ÷ 26 per fortnight) and enter the fee with your running costs.
 
 ---
 

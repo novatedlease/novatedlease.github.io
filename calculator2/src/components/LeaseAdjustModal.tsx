@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { GST_RATE, parseAmount } from "../guided/draft";
+import { bufferMonthsFor, initialMillarxDefer, type Provider } from "./leaseAdjust";
 
 /**
  * Ported from calculator/src/components/InputsPanel.tsx's LeaseAdjustModal
@@ -10,7 +11,8 @@ import { GST_RATE, parseAmount } from "../guided/draft";
  * launcher (see LeaseRateGuard).
  */
 export type QuotePeriod = "perFn" | "perMonth";
-export type QuoteGst = "exGst" | "incGst";
+/** "unknown": the quote doesn't say, so the figure is treated as ex GST (as most quotes print it). */
+export type QuoteGst = "exGst" | "incGst" | "unknown";
 
 /** The corrected payment, in the period and GST basis the reader's quote uses. */
 export type CorrectedPayment = { amount: number; period: QuotePeriod; gst: QuoteGst };
@@ -24,8 +26,11 @@ export function LeaseAdjustModal(props: {
   initialPeriod?: QuotePeriod | null;
   /** null = not known yet: the reader must choose before the figure can be used. Omitted = ex GST. */
   initialGst?: QuoteGst | null;
+  /** Months until the first finance payment, as answered elsewhere; sets MillarX's reserve. */
+  initialDeferMonths?: number | null;
 }) {
-  const [provider, setProvider] = useState<"smart" | "millarx">("smart");
+  const [provider, setProvider] = useState<Provider>("smart");
+  const [millarxDefer, setMillarxDefer] = useState<1 | 2>(initialMillarxDefer(props.initialDeferMonths));
   const [quotedText, setQuotedText] = useState<string>("");
   const [quotePeriodMode, setQuotePeriodMode] = useState<QuotePeriod>(props.initialPeriod ?? "perFn");
   const [gst, setGst] = useState<QuoteGst | null>(props.initialGst === undefined ? "exGst" : props.initialGst);
@@ -38,7 +43,7 @@ export function LeaseAdjustModal(props: {
   }, []);
 
   const totalMonths = props.leaseDurationYears * 12;
-  const bufferMonths = provider === "smart" ? 2 : 1;
+  const bufferMonths = bufferMonthsFor(provider, millarxDefer);
   const quotedNum = parseAmount(quotedText) ?? NaN;
   const hasQuoted = Number.isFinite(quotedNum) && quotedNum > 0;
   const factor = totalMonths > 0 ? (totalMonths - bufferMonths) / totalMonths : null;
@@ -51,7 +56,7 @@ export function LeaseAdjustModal(props: {
       : null;
   const fmtResult = (n: number) => n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const periodWord = quotePeriodMode === "perFn" ? "per fortnight" : "per month";
-  const gstWord = gst === "incGst" ? "inc GST" : gst === "exGst" ? "ex GST" : null;
+  const gstWord = gst === "incGst" ? "inc GST" : gst === null ? null : "ex GST";
 
   return (
     <>
@@ -124,6 +129,18 @@ export function LeaseAdjustModal(props: {
         </div>
 
         <div style={{ display: "grid", gap: 12, marginBottom: 16 }}>
+          {provider === "millarx" && (
+            <QuoteChoice
+              label="Months until your first payment (deferral)"
+              value={String(millarxDefer) as "1" | "2"}
+              onChange={(v) => setMillarxDefer(v === "1" ? 1 : 2)}
+              options={[
+                ["1", "1 month"],
+                ["2", "2 months"],
+              ]}
+              note="MillarX holds back the same number of months. On the quote, “$819/mth × 58” on a 60-month lease means 2. A “Finance + fee” figure includes the management fee: take it out first."
+            />
+          )}
           <QuoteChoice
             label="Your quote shows the payment"
             value={quotePeriodMode}
@@ -134,14 +151,16 @@ export function LeaseAdjustModal(props: {
             ]}
           />
           <QuoteChoice
-            label="Next to the payment, it says"
+            label="Does the payment include GST?"
             value={gst}
             onChange={setGst}
             options={[
-              ["exGst", "Excluding GST"],
-              ["incGst", "Including GST"],
+              ["exGst", "Ex GST"],
+              ["incGst", "Inc GST"],
+              ["unknown", "Not sure"],
             ]}
-            hint={gst === null ? "Look for “GST” next to the figure on your quote." : undefined}
+            hint={gst === null ? "Check next to the payment, its table heading and the footnotes." : undefined}
+            note={gst === "unknown" ? "We'll treat it as excluding GST, as most quotes print it." : undefined}
           />
         </div>
 
@@ -252,12 +271,16 @@ function QuoteChoice<T extends string>({
   onChange,
   options,
   hint,
+  note,
 }: {
   label: string;
   value: T | null;
   onChange: (v: T) => void;
   options: [T, string][];
+  /** A warning shown under the buttons. */
   hint?: string;
+  /** A neutral explanation shown under the buttons. */
+  note?: string;
 }) {
   return (
     <div role="group" aria-label={label}>
@@ -276,6 +299,7 @@ function QuoteChoice<T extends string>({
           </button>
         ))}
       </div>
+      {note && <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginTop: 6, lineHeight: 1.45 }}>{note}</div>}
       {hint && <div style={{ fontSize: 12, color: "var(--nlc-warn-dark)", marginTop: 6 }}>{hint}</div>}
     </div>
   );

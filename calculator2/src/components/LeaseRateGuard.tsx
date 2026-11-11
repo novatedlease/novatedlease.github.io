@@ -255,6 +255,7 @@ export function LeaseRateGuard(props: {
       {leaseAdjModalOpen && (
         <LeaseAdjustModal
           leaseDurationYears={inputs.leaseDurationYears}
+          initialDeferMonths={inputs.monthsDeferred}
           onClose={() => setLeaseAdjModalOpen(false)}
           onApply={(adjustedFn) => {
             commitPerFn(adjustedFn);

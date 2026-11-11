@@ -1296,7 +1296,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           },
         ]}
         columns={3}
-        hint="Look for the word GST next to the payment."
+        hint="Check next to the payment, its table heading and the footnotes."
       />
       <Choices
         field="smartMillarx"
@@ -1342,8 +1342,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
               You need to correct your Smart Leasing / MillarX payment first
             </div>
             <p>
-              The printed payment includes a budget reserve. The tool works out
-              the finance-only payment and fills it in below.
+              The printed payment usually includes a budget reserve. The tool works
+              out the finance-only payment and fills it in below.
             </p>
             {d.leaseYears ? (
               <Button
@@ -1366,7 +1366,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         <LeaseAdjustModal
           leaseDurationYears={d.leaseYears}
           initialPeriod={d.paymentPeriod}
-          initialGst={d.paymentBasis === "exGst" || d.paymentBasis === "incGst" ? d.paymentBasis : null}
+          initialGst={d.paymentBasis}
+          initialDeferMonths={d.monthsDeferred}
           onClose={() => setAdjustOpen(false)}
           onApply={(_perFn, shown) => {
             // Keep the figure in the period and GST basis the reader's quote uses, so the answers
