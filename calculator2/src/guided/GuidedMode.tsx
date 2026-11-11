@@ -28,6 +28,8 @@ import {
   annualOf,
   asksMarketValueEnd,
   atoMinimumResidualExGst,
+  guessedResidualBasis,
+  residualBasisUsed,
   buildInputs,
   currentCarFuelAnnual,
   currentCarValueEnd,
@@ -148,7 +150,7 @@ function findingsFor(d: GuidedDraft) {
     docFee: checkDocFee(moneyValue(d.docFee)),
     residual: checkResidual({
       entered: moneyValue(d.residual),
-      basis: d.residualBasis,
+      basis: residualBasisUsed(d),
       expectedExGst: atoMinimumResidualExGst(d),
     }),
     marketValue: asksMarketValueEnd(d)
@@ -611,12 +613,13 @@ function quoteValues(d: GuidedDraft): Partial<Record<QuoteKey, string>> {
         ? "from the start"
         : `after ${d.monthsDeferred} month${d.monthsDeferred > 1 ? "s" : ""}`;
   if (doc !== null) out.docFee = money(doc);
-  if (d.residualBasis === "unknown") {
+  const residualBasis = residualBasisUsed(d);
+  if (residual && residualBasis)
+    out.residual = `${money(residual)} ${residualBasis === "incGst" ? "inc" : "ex"} GST`;
+  else if (d.residualBasis === "unknown") {
     const ato = atoMinimumResidualExGst(d);
     if (ato) out.residual = `${money(ato)} ex GST`;
   }
-  if (residual && (d.residualBasis === "incGst" || d.residualBasis === "exGst"))
-    out.residual = `${money(residual)} ${d.residualBasis === "incGst" ? "inc" : "ex"} GST`;
   if (payment && d.paymentPeriod)
     out.payment = `${money(payment)} per ${d.paymentPeriod === "perMonth" ? "month" : "fortnight"}${d.paymentBasis === "incGst" ? " inc GST" : d.paymentBasis === "exGst" ? " ex GST" : ""}`;
   return out;
@@ -1031,6 +1034,8 @@ function PriceStep({ d, set, f }: StepPropsF) {
 
 function LeaseStep({ d, set, f }: StepPropsF) {
   const atoMin = atoMinimumResidualExGst(d);
+  const guessed = guessedResidualBasis(d);
+  const typedResidual = moneyValue(d.residual);
   const deferValue = d.monthsDeferredUnsure
     ? "unsure"
     : d.monthsDeferred === null
@@ -1089,6 +1094,13 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         noneLabel="My quote has no documentation fee ($0)"
         findings={f.docFee}
       />
+      <MoneyInput
+        label="Residual (balloon) value"
+        value={d.residual}
+        onChange={(m) => set("residual", m)}
+        where="Type the figure exactly as printed."
+        findings={f.residual}
+      />
       <Choices
         label="On your quote, is the residual (balloon) value"
         value={d.residualBasis}
@@ -1103,7 +1115,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           {
             value: "unknown",
             label: "I'm not sure",
-            sub: "Use the ATO minimum",
+            sub: "We'll work it out",
           },
         ]}
         columns={3}
@@ -1111,21 +1123,24 @@ function LeaseStep({ d, set, f }: StepPropsF) {
       />
       {d.residualBasis === "unknown" && (
         <NoteBox mb={20}>
-          We'll use the ATO minimum for a {d.leaseYears ?? "?"}-year lease
-          {atoMin
-            ? `, about ${money(atoMin)} excluding GST (${money(atoMin * 1.1)} including GST)`
-            : ""}
-          . Almost every lease uses it.
+          {guessed && typedResidual && atoMin ? (
+            <>
+              {money(typedResidual)} is closest to the ATO minimum for a{" "}
+              {d.leaseYears}-year lease{" "}
+              {guessed === "incGst" ? "including" : "excluding"} GST (about{" "}
+              {money(guessed === "incGst" ? atoMin * 1.1 : atoMin)}), so we'll
+              treat it as {guessed === "incGst" ? "including" : "excluding"} GST.
+            </>
+          ) : (
+            <>
+              We'll use the ATO minimum for a {d.leaseYears ?? "?"}-year lease
+              {atoMin
+                ? `, about ${money(atoMin)} excluding GST (${money(atoMin * 1.1)} including GST)`
+                : ""}
+              . Almost every lease uses it.
+            </>
+          )}
         </NoteBox>
-      )}
-      {(d.residualBasis === "exGst" || d.residualBasis === "incGst") && (
-        <MoneyInput
-          label="Residual (balloon) value"
-          value={d.residual}
-          onChange={(m) => set("residual", m)}
-          where="Type the figure exactly as printed."
-          findings={f.residual}
-        />
       )}
       {asksMarketValueEnd(d) && d.leaseYears && moneyValue(d.driveaway) ? (
         <MoneyInput
@@ -2098,7 +2113,7 @@ function ReviewStep({
           [
             "Residual (ex GST)",
             residualExGstEntered(d)
-              ? `${money(residualExGstEntered(d)!)}${d.residualBasis === "unknown" ? " (ATO minimum)" : ""}`
+              ? `${money(residualExGstEntered(d)!)}${d.residualBasis === "unknown" ? (guessedResidualBasis(d) ? ` (read as ${guessedResidualBasis(d) === "incGst" ? "inc" : "ex"} GST)` : " (ATO minimum)") : ""}`
               : "?",
             "lease",
           ],

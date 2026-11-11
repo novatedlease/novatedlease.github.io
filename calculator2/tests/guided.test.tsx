@@ -7,6 +7,8 @@ import {
   buildInputs,
   emptyDraft,
   financedExGst,
+  guessedResidualBasis,
+  residualExGstEntered,
   missingForStep,
   moneyValue,
   parseAmount,
@@ -474,5 +476,27 @@ describe("guided: estimate path (no quote yet)", () => {
     expect(missingForStep("intro", emptyDraft())).toContain(
       "Whether you have a quote yet",
     );
+  });
+});
+
+describe("guided: residual typed, GST basis unsure", () => {
+  test("reads the figure as inc or ex GST, whichever is nearer the ATO minimum", () => {
+    const d = pricedDraft();
+    d.residualBasis = "unknown";
+    const ato = atoMinimumResidualExGst(d)!;
+    d.residual = m(String(Math.round(ato * 1.1)));
+    expect(guessedResidualBasis(d)).toBe("incGst");
+    expect(residualExGstEntered(d)).toBeCloseTo(Math.round(ato * 1.1) / 1.1, 2);
+    d.residual = m(String(Math.round(ato)));
+    expect(guessedResidualBasis(d)).toBe("exGst");
+    expect(residualExGstEntered(d)).toBe(Math.round(ato));
+  });
+
+  test("falls back to the ATO minimum when no figure is typed", () => {
+    const d = pricedDraft();
+    d.residualBasis = "unknown";
+    expect(guessedResidualBasis(d)).toBeNull();
+    expect(residualExGstEntered(d)).toBe(atoMinimumResidualExGst(d));
+    expect(missingForStep("lease", d)).not.toContain("Residual amount");
   });
 });

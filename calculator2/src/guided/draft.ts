@@ -387,11 +387,31 @@ export function driveawayFromResidual(residualExGst: number, residualPct: number
   return residualExGst / (residualPct / 100) + gstSaving;
 }
 
-export function residualExGstEntered(d: GuidedDraft): number | null {
-  if (d.residualBasis === "unknown") return atoMinimumResidualExGst(d);
+/**
+ * For a residual typed in but marked "not sure" on GST: whichever reading lands closer (as a ratio)
+ * to the ATO minimum. Quotes almost always use that minimum, so this settles it in practice.
+ */
+export function guessedResidualBasis(d: GuidedDraft): "exGst" | "incGst" | null {
   const v = moneyValue(d.residual);
-  if (v === null || !d.residualBasis) return null;
-  return d.residualBasis === "incGst" ? v / (1 + GST_RATE) : v;
+  const ato = atoMinimumResidualExGst(d);
+  if (d.residualBasis !== "unknown" || !v || !ato) return null;
+  const asEx = Math.abs(Math.log(v / ato));
+  const asInc = Math.abs(Math.log(v / (1 + GST_RATE) / ato));
+  return asInc < asEx ? "incGst" : "exGst";
+}
+
+/** The residual's GST basis as used: the reader's answer, or our reading of their figure when unsure. */
+export function residualBasisUsed(d: GuidedDraft): "exGst" | "incGst" | null {
+  if (d.residualBasis === "exGst" || d.residualBasis === "incGst") return d.residualBasis;
+  return guessedResidualBasis(d);
+}
+
+export function residualExGstEntered(d: GuidedDraft): number | null {
+  const v = moneyValue(d.residual);
+  const basis = residualBasisUsed(d);
+  if (v !== null && basis) return basis === "incGst" ? v / (1 + GST_RATE) : v;
+  if (d.residualBasis === "unknown") return atoMinimumResidualExGst(d);
+  return null;
 }
 
 /** The finance payment per fortnight, ex GST, as the engine takes it. */
