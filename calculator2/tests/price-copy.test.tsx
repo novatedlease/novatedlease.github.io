@@ -17,7 +17,7 @@ test("the price screen steers away from GST-removed prices and misleading aliase
     JSON.stringify({ draft: d, step: "price", visited: ["intro", "car", "compare", "price"] }),
   );
   render(<App />);
-  expect(screen.getByText(/full price including GST, not a lower “novated” price/)).toBeTruthy();
+  expect(screen.getByText("Drive-away price (including GST)")).toBeTruthy();
   expect(screen.getByText("Also called FBT value or vehicle base value. Includes GST.")).toBeTruthy();
   expect(document.body.textContent).not.toMatch(/vehicle cost/i);
 });
