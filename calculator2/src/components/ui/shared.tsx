@@ -100,8 +100,8 @@ export function KV({
     <div className={cls}>
       <div className="nlc-kv__label">{label}</div>
       <div className="nlc-kv__value nlc-num" style={color ? { color } : undefined}>
-        {value}
-        {tooltip && <span style={{ marginLeft: 6 }}>{tooltip}</span>}
+        <span className="nlc-kv__text">{value}</span>
+        {tooltip && <span className="nlc-kv__tip">{tooltip}</span>}
       </div>
     </div>
   );

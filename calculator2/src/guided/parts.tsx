@@ -1,8 +1,14 @@
-import { useId, type ReactNode } from "react";
+import { useContext, useId, type ReactNode } from "react";
+import { MissingFields } from "./missing";
 import { FieldWrapper } from "../components/ui/Field";
 import { InfoTooltip } from "../components/ui/InfoTooltip";
 import type { Finding } from "./checks";
-import { moneyValue, type Money } from "./draft";
+import { amountProblem, moneyValue, type Money } from "./draft";
+
+function NotAnswered() {
+  // Text as well as the red outline, so it doesn't rely on colour alone.
+  return <div className="gd-missing-note">Not answered yet</div>;
+}
 
 /** Text input for a dollar amount. Starts empty; an optional "none" tick records an explicit zero. */
 export function MoneyInput({
@@ -21,7 +27,10 @@ export function MoneyInput({
   findings,
   row,
   extra,
+  field,
 }: {
+  /** The answer this box fills in (a GuidedDraft key), so it can be marked when left unanswered. */
+  field?: string;
   label: ReactNode;
   value: Money;
   onChange: (m: Money) => void;
@@ -46,12 +55,18 @@ export function MoneyInput({
   extra?: ReactNode;
 }) {
   const id = useId();
+  const missing = useContext(MissingFields).has(field ?? "");
   const v = moneyValue(value);
   // A "none" saved before its tickbox was removed shows as an editable 0.
   const lockedNone = value.none && !!noneLabel;
+  // Typed but unreadable ("85k a year"): say so here, not just "Still to answer" at the bottom.
+  const problem = value.none ? null : amountProblem(value.text);
+  const shown: Finding[] = problem
+    ? [{ code: "unreadable", level: "error", message: problem }, ...(findings ?? [])]
+    : (findings ?? []);
   const worst =
-    findings?.find((f) => f.level === "error") ??
-    findings?.find((f) => f.level === "warn");
+    shown.find((f) => f.level === "error") ??
+    shown.find((f) => f.level === "warn");
   const control = (
     <>
       <div className="nlc-field__control gd-money">
@@ -63,7 +78,7 @@ export function MoneyInput({
           autoComplete="off"
           placeholder={lockedNone ? "0" : (placeholder ?? "Type the amount")}
           disabled={lockedNone}
-          aria-invalid={worst?.level === "error" ? true : undefined}
+          aria-invalid={worst?.level === "error" || missing ? true : undefined}
           value={value.none ? (lockedNone ? "" : "0") : value.text}
           onChange={(e) =>
             onChange({ text: e.target.value, none: false, estimated: false })
@@ -105,13 +120,14 @@ export function MoneyInput({
             "Typical estimate, not from your quote. Replace it if you have the real figure."}
         </div>
       )}
+      {missing && <NotAnswered />}
       {extra}
-      <FindingList findings={findings} />
+      <FindingList findings={shown} />
     </>
   );
   if (row)
     return (
-      <div className="nlc-field gd-row">
+      <div className={`nlc-field gd-row${missing ? " gd-field--missing" : ""}`} data-field={field}>
         <div className="gd-row__head">
           <label className="nlc-field__label" htmlFor={id}>
             {label}
@@ -126,7 +142,14 @@ export function MoneyInput({
       </div>
     );
   return (
-    <FieldWrapper label={label} tooltip={tooltip} htmlFor={id} hint={hint}>
+    <FieldWrapper
+      label={label}
+      tooltip={tooltip}
+      htmlFor={id}
+      hint={hint}
+      dataField={field}
+      className={missing ? "gd-field--missing" : undefined}
+    >
       {where && <div className="gd-where">{where}</div>}
       {control}
     </FieldWrapper>
@@ -145,7 +168,10 @@ export function Choices<T extends string | number | boolean>({
   where,
   columns,
   tooltip,
+  field,
 }: {
+  /** The answer this question fills in (a GuidedDraft key), so it can be marked when left unanswered. */
+  field?: string;
   label: ReactNode;
   value: T | null;
   onChange: (v: T) => void;
@@ -157,8 +183,16 @@ export function Choices<T extends string | number | boolean>({
   tooltip?: ReactNode;
 }) {
   const id = useId();
+  const missing = useContext(MissingFields).has(field ?? "");
   return (
-    <FieldWrapper label={label} tooltip={tooltip} htmlFor={id} hint={hint}>
+    <FieldWrapper
+      label={label}
+      tooltip={tooltip}
+      htmlFor={id}
+      hint={hint}
+      dataField={field}
+      className={missing ? "gd-field--missing" : undefined}
+    >
       {where && <div className="gd-where">{where}</div>}
       <div
         id={id}
@@ -183,6 +217,7 @@ export function Choices<T extends string | number | boolean>({
           </button>
         ))}
       </div>
+      {missing && <NotAnswered />}
     </FieldWrapper>
   );
 }

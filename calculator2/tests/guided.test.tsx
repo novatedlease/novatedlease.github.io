@@ -12,6 +12,7 @@ import {
   missingForStep,
   moneyValue,
   parseAmount,
+  amountProblem,
   estimateAssumptions,
   typicalMarketValueAtLeaseEnd,
   visibleSteps,
@@ -95,7 +96,7 @@ describe("guided draft", () => {
     const d = emptyDraft();
     expect(moneyValue(d.docFee)).toBeNull();
     expect(missingForStep("lease", d)).toContain(
-      "Documentation fee (or tick none)",
+      "Documentation fee (or tick “no documentation fee”)",
     );
     expect(buildInputs(d)).toBeNull();
   });
@@ -104,6 +105,29 @@ describe("guided draft", () => {
     expect(parseAmount("$48,990")).toBe(48990);
     expect(parseAmount("  ")).toBeNull();
     expect(parseAmount("abc")).toBeNull();
+  });
+
+  test("reads shorthand like 52.4k and 7.5%, and explains what it can't read", () => {
+    expect(parseAmount("52.4k")).toBe(52400);
+    expect(parseAmount("$85K")).toBe(85000);
+    expect(parseAmount("7.5%")).toBe(7.5);
+    expect(parseAmount("85k a year")).toBeNull();
+    expect(parseAmount("-500")).toBeNull();
+    expect(amountProblem("")).toBeNull();
+    expect(amountProblem("$")).toBeNull();
+    expect(amountProblem("52.4k")).toBeNull();
+    expect(amountProblem("85k a year")).toMatch(/couldn't read “85k a year”/);
+    expect(amountProblem("-500")).toMatch(/can't be negative/);
+  });
+
+  test("an unreadable amount is listed as unreadable, not as unanswered", () => {
+    const d: GuidedDraft = {
+      ...emptyDraft(),
+      hasQuote: true,
+      baseValue: { text: "48990", none: false, estimated: false },
+      driveaway: { text: "52 thousand", none: false, estimated: false },
+    };
+    expect(missingForStep("price", d)).toEqual(["Drive-away price (we couldn't read it)"]);
   });
 
   test("a documentation fee must be entered or explicitly ticked as none", () => {
@@ -298,7 +322,7 @@ describe("guided: comparison, period and charging", () => {
     d.vehicleType = "EV";
     d.chargingRate = emptyDraft().chargingRate;
     expect(missingForStep("running", d)).toContain(
-      "Electricity price per kWh (0 if solar)",
+      "Electricity price you pay to charge (0 if solar)",
     );
     d.chargingRate = none;
     expect(missingForStep("running", d)).toEqual([]);
@@ -444,7 +468,7 @@ describe("guided: estimate path (no quote yet)", () => {
     d.cashHome = null;
     d.offsetRate = emptyDraft().offsetRate;
     d.nswHealth = null;
-    expect(missingForStep("you", d)).toEqual(["Where your cash would sit"]);
+    expect(missingForStep("you", d)).toEqual(["If you were to pay cash for the car, where would the money come from?"]);
     d.cashHome = "none";
     expect(missingForStep("you", d)).toEqual([]);
     d.nswHealth = true;
@@ -473,10 +497,10 @@ describe("guided: estimate path (no quote yet)", () => {
   test("still needs the three basics", () => {
     const d = exploringDraft();
     d.mileage = emptyDraft().mileage;
-    expect(missingForStep("quick", d)).toContain("Annual kilometres");
+    expect(missingForStep("quick", d)).toContain("Kilometres per year");
     expect(buildInputs(d)).toBeNull();
     expect(missingForStep("intro", emptyDraft())).toContain(
-      "Whether you have a quote yet",
+      "Do you have a novated lease quote?",
     );
   });
 });

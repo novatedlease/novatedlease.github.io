@@ -496,7 +496,19 @@
   flex: 0 1 auto;
   max-width: 60%;
   text-align: right;
+  /* Text and ⓘ side by side: the text may wrap, but the icon never drops onto a line of its own
+     (some browsers measured the trailing icon short and wrapped it alone). */
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 6px;
+}
+.nlc-kv__text {
+  min-width: 0;
   overflow-wrap: anywhere;
+}
+.nlc-kv__tip {
+  flex: none;
 }
 
 .nlc-kv--bold .nlc-kv__label {

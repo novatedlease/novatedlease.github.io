@@ -1,4 +1,5 @@
 import {
+  useContext,
   useDeferredValue,
   useEffect,
   useId,
@@ -23,6 +24,7 @@ import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
 import {
   CAR_LIMIT_FY2027,
+  GST_RATE,
   STEP_IDS,
   STEP_TITLES,
   annualOf,
@@ -43,10 +45,12 @@ import {
   isLuxuryRange,
   marketValueEndEntered,
   missingForStep,
+  missingItems,
   moneyValue,
   nearEvThreshold,
   needsExploreStart,
   needsUsedEvChecks,
+  parseAmount,
   paymentPerFn,
   residualExGstEntered,
   runningFactor,
@@ -78,6 +82,7 @@ import {
   type Finding,
 } from "./checks";
 import { Choices, FindingList, Help, MoneyInput, Tip } from "./parts";
+import { MissingFields } from "./missing";
 import { QuoteDiagram, type QuoteKey } from "./QuoteDiagram";
 import { DriveawayHelper } from "./DriveawayHelper";
 
@@ -91,6 +96,8 @@ import "./guided.css";
 const STORAGE_KEY = "nlc2-guided-draft-v3";
 /** Passed as the anchor to open Advanced mode on the Details tab, at its top. */
 export const ADVANCED_DETAILS_TOP = "details-top";
+/** Anchor for "Assumptions we made for you", opened from the note at the top of an estimate. */
+const ASSUMPTIONS_ID = "gd-assumptions";
 const money = (n: number) => `$${Math.round(n).toLocaleString("en-AU")}`;
 
 type Stored = { draft: GuidedDraft; step: StepId; visited: StepId[] };
@@ -324,7 +331,10 @@ export function GuidedMode({
   const findings = useMemo(() => findingsFor(draft), [draft]);
   const steps = visibleSteps(draft);
   const stepIndex = Math.max(0, steps.indexOf(step));
-  const missing = missingForStep(step, draft);
+  const missingList = missingItems(step, draft);
+  const missing = missingList.map((m) => m.label);
+  /** Questions to mark on screen: only once the reader has pressed Next with some left. */
+  const missingFields = new Set<string>(tried ? missingList.map((m) => m.field) : []);
   const current = stepFindings(step, findings);
   const errors = current.filter((f) => f.level === "error");
   const errorSig = errors.map((e) => e.message).join("|");
@@ -351,9 +361,22 @@ export function GuidedMode({
     );
   }
 
+  /** Scrolls to a question on this screen and puts the cursor in it. */
+  function jumpTo(field: string) {
+    const el = topRef.current?.querySelector<HTMLElement>(`[data-field="${field}"]`);
+    if (!el) return;
+    el.scrollIntoView?.({ behavior: "smooth", block: "center" });
+    el.querySelector<HTMLElement>("input:not([disabled]), button")?.focus({ preventScroll: true });
+  }
+
   function next() {
     if (missing.length > 0 || blocked) {
       setTried(true);
+      // Take the reader to the first unanswered question, not just a list at the bottom.
+      if (missingList.length > 0) {
+        const first = missingList[0].field;
+        requestAnimationFrame(() => jumpTo(first));
+      }
       return;
     }
     go(steps[Math.min(steps.length - 1, stepIndex + 1)]);
@@ -463,6 +486,7 @@ export function GuidedMode({
       <div className="gd-card" data-tour-id="guided-card">
         <h2 className="gd-title">{STEP_TITLES[step]}</h2>
 
+        <MissingFields.Provider value={missingFields}>
         {step === "intro" && (
           <Intro
             d={draft}
@@ -503,6 +527,7 @@ export function GuidedMode({
             }}
           />
         )}
+        </MissingFields.Provider>
 
         {errors.length > 0 && (
           <label className="gd-ack">
@@ -525,13 +550,28 @@ export function GuidedMode({
 
         {tried && missing.length > 0 && (
           <div className="gd-missing" role="alert">
-            <strong>Still to answer:</strong> {missing.join(", ")}.
+            <strong>Still to answer:</strong>
+            <ul className="gd-missing__list">
+              {missingList.map((m) => (
+                <li key={m.field}>
+                  <button type="button" className="gd-linkbtn" onClick={() => jumpTo(m.field)}>
+                    {m.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
         {tried && missing.length === 0 && blocked && (
           <div className="gd-missing" role="alert">
             Please fix the highlighted figure, or tick the box to continue
             anyway.
+          </div>
+        )}
+        {/* Stays in place once everything is answered, so the Next button doesn't jump under the pointer. */}
+        {tried && missing.length === 0 && !blocked && (
+          <div className="gd-missing gd-missing--done" role="status">
+            ✓ All answered. Press {steps[stepIndex + 1] === "review" ? "See my results" : "Next"} to continue.
           </div>
         )}
 
@@ -712,6 +752,7 @@ function Intro({
   return (
     <>
       <Choices
+        field="hasQuote"
         label="Do you have a novated lease quote?"
         value={d.hasQuote}
         onChange={onChoose}
@@ -767,6 +808,7 @@ function QuickStep({ d, set, f }: StepPropsF) {
         page.
       </NoteBox>
       <MoneyInput
+        field="driveaway"
         label="Approximate drive-away price"
         value={d.driveaway}
         onChange={(m) => set("driveaway", m)}
@@ -775,6 +817,7 @@ function QuickStep({ d, set, f }: StepPropsF) {
         findings={f.evThreshold}
       />
       <Choices
+        field="leaseYears"
         label="Lease term"
         value={d.leaseYears}
         onChange={(v) => set("leaseYears", v)}
@@ -794,6 +837,7 @@ function QuickStep({ d, set, f }: StepPropsF) {
         }
       />
       <MoneyInput
+        field="mileage"
         label="Kilometres per year"
         prefix=""
         suffix="km"
@@ -815,6 +859,7 @@ function CompareStep({ d, set }: StepProps) {
         loan yet lose to keeping a paid-off car. Paying cash is always shown too.
       </NoteBox>
       <Choices
+        field="compareLoan"
         label="If you didn't lease, what would you do?"
         value={d.compareLoan}
         onChange={(v) => set("compareLoan", v)}
@@ -828,6 +873,7 @@ function CompareStep({ d, set }: StepProps) {
         columns={2}
       />
       <Choices
+        field="compareCurrent"
         label="And your current car?"
         value={d.compareCurrent}
         onChange={(v) => set("compareCurrent", v)}
@@ -846,11 +892,13 @@ function CompareStep({ d, set }: StepProps) {
 }
 
 function CarStep({ d, set }: StepProps) {
+  const missingNow = useContext(MissingFields);
   const showUsedEv = needsUsedEvChecks(d);
   const fbt = fbtCategoryOf(d);
   return (
     <>
       <Choices
+        field="vehicleType"
         label="Vehicle type"
         value={d.vehicleType}
         onChange={(v) => set("vehicleType", v)}
@@ -865,6 +913,7 @@ function CarStep({ d, set }: StepProps) {
         hint="Plug-in hybrids no longer qualify for the EV FBT exemption."
       />
       <Choices
+        field="vehicleCondition"
         label="Condition"
         value={d.vehicleCondition}
         onChange={(v) => set("vehicleCondition", v)}
@@ -884,7 +933,10 @@ function CarStep({ d, set }: StepProps) {
         columns={3}
       />
       {d.hasQuote !== false && (
-        <div className="nlc-field">
+        <div
+          className={`nlc-field${missingNow.has("leaseStartDate") ? " gd-field--missing" : ""}`}
+          data-field="leaseStartDate"
+        >
           <label className="nlc-field__label" htmlFor="gd-start">
             Lease start date
             <Tip>
@@ -922,10 +974,12 @@ function CarStep({ d, set }: StepProps) {
               </button>
             ))}
           </div>
+          {missingNow.has("leaseStartDate") && <div className="gd-missing-note">Not answered yet</div>}
         </div>
       )}
       {needsExploreStart(d) && (
         <Choices<"before" | "after">
+        field="exploreStart"
           label="When would the lease roughly start?"
           value={d.exploreStart}
           onChange={(v) => set("exploreStart", v)}
@@ -960,6 +1014,7 @@ function CarStep({ d, set }: StepProps) {
       {showUsedEv && (
         <>
           <Choices
+        field="usedAfter2022"
             label="Was the car first held and used on or after 1 July 2022?"
             value={d.usedAfter2022}
             onChange={(v) => set("usedAfter2022", v)}
@@ -970,6 +1025,7 @@ function CarStep({ d, set }: StepProps) {
             hint="To be FBT-exempt, nobody can have used it before this date."
           />
           <Choices
+        field="usedLctNever"
             label="Has Luxury Car Tax ever been payable on it?"
             value={d.usedLctNever === null ? null : !d.usedLctNever}
             onChange={(v) => set("usedLctNever", !v)}
@@ -1011,6 +1067,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
     <Side highlight={["baseValue", "driveaway"]} d={d}>
       <Lead>Two different prices from your quote. They're easy to mix up.</Lead>
       <MoneyInput
+        field="baseValue"
         label="FBT base value (including GST)"
         tooltip={
           <InfoTooltip
@@ -1028,6 +1085,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
         findings={f.prices.filter((x) => x.code === "base_exceeds_driveaway")}
       />
       <MoneyInput
+        field="driveaway"
         label="Drive-away price"
         value={d.driveaway}
         onChange={(m) => set("driveaway", m)}
@@ -1063,6 +1121,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
     <Side highlight={["term", "defer", "docFee", "residual"]} d={d}>
       <Lead>The finance terms from your quote.</Lead>
       <Choices
+        field="leaseYears"
         label="Lease term"
         value={d.leaseYears}
         onChange={(v) => set("leaseYears", v)}
@@ -1082,6 +1141,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         }
       />
       <Choices<string>
+        field="monthsDeferred"
         label="When does the first payment start? (deferred)"
         value={deferValue}
         onChange={(v) => {
@@ -1105,6 +1165,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         }
       />
       <MoneyInput
+        field="docFee"
         label="Documentation fee"
         value={d.docFee}
         onChange={(m) => set("docFee", m)}
@@ -1113,6 +1174,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         findings={f.docFee}
       />
       <MoneyInput
+        field="residual"
         label="Residual (balloon) value"
         value={d.residual}
         onChange={(m) => set("residual", m)}
@@ -1120,6 +1182,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         findings={f.residual}
       />
       <Choices
+        field="residualBasis"
         label="On your quote, is the residual (balloon) value"
         value={d.residualBasis}
         onChange={(v) => set("residualBasis", v)}
@@ -1162,6 +1225,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
       )}
       {asksMarketValueEnd(d) && d.leaseYears && moneyValue(d.driveaway) ? (
         <MoneyInput
+        field="marketValueEnd"
           label={`Estimated market value at lease end (after ${d.leaseYears} year${d.leaseYears > 1 ? "s" : ""})`}
           value={
             d.marketValueEnd.estimated
@@ -1200,6 +1264,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         come next.
       </Lead>
       <Choices
+        field="paymentPeriod"
         label="Is the payment per"
         value={d.paymentPeriod}
         onChange={(v) => {
@@ -1219,9 +1284,20 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         columns={2}
       />
       <Choices<"exGst" | "incGst" | "unknown">
+        field="paymentBasis"
         label="Does the payment include or exclude GST?"
         value={d.paymentBasis}
-        onChange={(v) => set("paymentBasis", v)}
+        onChange={(v) => {
+          // As with the period above: a corrected payment is our own figure, so keep it the same amount.
+          const typed = moneyValue(d.payment);
+          const from = d.paymentBasis;
+          if (d.paymentCorrected && typed && from !== "unknown" && from && v !== "unknown" && v !== from)
+            set("payment", {
+              ...d.payment,
+              text: (v === "incGst" ? typed * (1 + GST_RATE) : typed / (1 + GST_RATE)).toFixed(2),
+            });
+          set("paymentBasis", v);
+        }}
         options={[
           { value: "exGst", label: "Excluding GST" },
           { value: "incGst", label: "Including GST" },
@@ -1235,9 +1311,17 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         hint="Look for the word GST next to the payment."
       />
       <Choices
+        field="smartMillarx"
         label="Is your lease with Smart Leasing or MillarX?"
         value={d.smartMillarx}
-        onChange={(v) => set("smartMillarx", v)}
+        onChange={(v) => {
+          // A corrected figure only makes sense for those two providers; don't leave it behind.
+          if (!v && d.paymentCorrected) {
+            set("payment", emptyMoney());
+            set("paymentCorrected", false);
+          }
+          set("smartMillarx", v);
+        }}
         options={[
           { value: true, label: "Yes", sub: "Smart Leasing or MillarX" },
           { value: false, label: "No", sub: "Any other provider" },
@@ -1293,23 +1377,22 @@ function PaymentStep({ d, set, f }: StepPropsF) {
       {adjustOpen && d.leaseYears && (
         <LeaseAdjustModal
           leaseDurationYears={d.leaseYears}
+          initialPeriod={d.paymentPeriod}
+          initialGst={d.paymentBasis === "exGst" || d.paymentBasis === "incGst" ? d.paymentBasis : null}
           onClose={() => setAdjustOpen(false)}
-          onApply={(perFn) => {
-            const inMonths = d.paymentPeriod === "perMonth";
-            if (!d.paymentPeriod) set("paymentPeriod", "perFn");
-            set("payment", {
-              text: (inMonths ? (perFn * 26) / 12 : perFn).toFixed(2),
-              none: false,
-              estimated: false,
-            });
-            // The tool's output is the finance-only, ex GST figure the engine takes.
-            set("paymentBasis", "exGst");
+          onApply={(_perFn, shown) => {
+            // Keep the figure in the period and GST basis the reader's quote uses, so the answers
+            // above still describe what's in the box. Choosing in the tool counts as answering.
+            set("paymentPeriod", shown.period);
+            set("paymentBasis", shown.gst);
+            set("payment", { text: shown.amount.toFixed(2), none: false, estimated: false });
             set("paymentCorrected", true);
             setAdjustOpen(false);
           }}
         />
       )}
       <MoneyInput
+        field="payment"
         label="Finance (lease) payment"
         value={d.payment}
         onChange={(m) => {
@@ -1345,6 +1428,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
       )}
       {luxury && (
         <MoneyInput
+        field="luxAdj"
           label={`Luxury vehicle adjustment (${d.paymentPeriod === "perMonth" ? "per month" : "per fortnight"})`}
           tooltip={
             <InfoTooltip
@@ -1441,8 +1525,8 @@ function RunningStep({ d, set, f }: StepPropsF) {
     if (period && from !== to) {
       for (const k of RUNNING_FIELDS) {
         const m: Money = d[k];
-        const v = m.none ? null : Number(m.text.replace(/[$,\s]/g, ""));
-        if (v !== null && m.text.trim() !== "" && Number.isFinite(v)) {
+        const v = m.none ? null : parseAmount(m.text);
+        if (v !== null) {
           set(k, {
             ...m,
             text: String(Math.round(((v * from) / to) * 100) / 100),
@@ -1464,6 +1548,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
     <>
       <Lead>From your quote's running-cost budget.</Lead>
       <MoneyInput
+        field="mileage"
         label="Kilometres per year"
         prefix=""
         suffix="km"
@@ -1478,6 +1563,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
         52.
       </Help>
       <Choices<YesNoUnsure>
+        field="gstPassedOn"
         label="Is your quote's running-cost budget inc GST or ex GST?"
         value={d.gstPassedOn}
         onChange={(v) => set("gstPassedOn", v)}
@@ -1513,6 +1599,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
         <GstMock />
       </Help>
       <Choices<RunningPeriod>
+        field="runningPeriod"
         label="How are costs shown on your quote?"
         value={period}
         onChange={changePeriod}
@@ -1526,6 +1613,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
       />
       <div className="gd-rows">
         <MoneyInput
+        field="service"
           row
           label={<>Servicing, maintenance and tyres{gstTag}</>}
           value={d.service}
@@ -1535,6 +1623,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           findings={f.service}
         />
         <MoneyInput
+        field="rego"
           row
           label={<>Registration and CTP{gstTag}</>}
           value={d.rego}
@@ -1544,6 +1633,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           findings={f.rego}
         />
         <MoneyInput
+        field="insurance"
           row
           label={<>Insurance{gstTag}</>}
           value={d.insurance}
@@ -1554,6 +1644,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           findings={f.insurance}
         />
         <MoneyInput
+        field="mgmt"
           row
           label={<>Lease management fees{gstTag}</>}
           value={d.mgmt}
@@ -1565,6 +1656,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
         />
         {!isEv && (
           <MoneyInput
+        field="fuel"
             row
             label={<>Fuel{gstTag}</>}
             value={d.fuel}
@@ -1577,6 +1669,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
         )}
         {isEv && (
           <MoneyInput
+        field="chargingRate"
             row
             label="Electricity price you pay to charge, per kWh"
             suffix="per kWh"
@@ -1623,6 +1716,7 @@ function YouStep({ d, set, f }: StepPropsF) {
   return (
     <>
       <MoneyInput
+        field="income"
         label="Your annual taxable income"
         value={d.income}
         onChange={(m) => set("income", m)}
@@ -1641,6 +1735,7 @@ function YouStep({ d, set, f }: StepPropsF) {
 function SuperQuestion({ d, set }: StepProps) {
   return (
     <Choices<YesNoUnsure>
+        field="superPreNl"
       label="How does your employer calculate super?"
       value={d.superPreNl}
       onChange={(v) => set("superPreNl", v)}
@@ -1680,6 +1775,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
   return (
     <>
       <Choices
+        field="cashHome"
         label="If you were to pay cash for the car, where would the money come from?"
         value={d.cashHome}
         onChange={(v) => {
@@ -1735,6 +1831,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
       />
       {d.cashHome === "offset" && (
         <MoneyInput
+        field="offsetRate"
           label="Home loan interest rate"
           prefix=""
           suffix="% a year"
@@ -1747,6 +1844,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
       )}
       {d.cashHome === "ipOffset" && (
         <MoneyInput
+        field="savingsRatePreTax"
           label="Investment property loan interest rate"
           prefix=""
           suffix="% a year"
@@ -1759,6 +1857,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
       )}
       {d.cashHome === "savings" && (
         <MoneyInput
+        field="savingsRatePreTax"
           label="Savings account interest rate (before tax)"
           prefix=""
           suffix="% a year"
@@ -1770,6 +1869,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
       )}
       {d.cashHome === "invested" && (
         <MoneyInput
+        field="investedRate"
           label="Assumed return after tax"
           prefix=""
           suffix="% a year"
@@ -1788,6 +1888,7 @@ function NswQuestions({ d, set }: StepProps) {
   return (
     <>
       <Choices
+        field="nswHealth"
         label="Are you a doctor or nurse employed by NSW Health?"
         value={d.nswHealth}
         onChange={(v) => set("nswHealth", v)}
@@ -1810,6 +1911,7 @@ function NswQuestions({ d, set }: StepProps) {
       {d.nswHealth && (
         <>
           <Choices<RunningPeriod>
+        field="nswPeriod"
             label="I want to enter the employer share as a"
             value={d.nswPeriod}
             onChange={(v) => set("nswPeriod", v)}
@@ -1821,6 +1923,7 @@ function NswQuestions({ d, set }: StepProps) {
             columns={3}
           />
           <MoneyInput
+        field="nswAmount"
             label="Employer share of your tax savings"
             value={d.nswAmount}
             onChange={(m) => set("nswAmount", m)}
@@ -1857,12 +1960,14 @@ function AlternativesStep({ d, set, f }: StepPropsF) {
             .
           </p>
           <MoneyInput
+        field="loanDeposit"
             label="Deposit paid up front"
             value={d.loanDeposit}
             onChange={(m) => set("loanDeposit", m)}
             noneLabel="No deposit ($0)"
           />
           <MoneyInput
+        field="loanRate"
             label="Loan interest rate"
             prefix=""
             suffix="% a year"
@@ -1872,6 +1977,7 @@ function AlternativesStep({ d, set, f }: StepPropsF) {
             findings={f.loan}
           />
           <MoneyInput
+        field="loanFee"
             label="Loan monthly account fee"
             value={d.loanFee}
             onChange={(m) => set("loanFee", m)}
@@ -1907,6 +2013,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
       </p>
       <div className="gd-rows">
         <MoneyInput
+        field="curValueNow"
           row
           label="Market value today"
           value={d.curValueNow}
@@ -1915,6 +2022,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           where="What you could sell it for (carsales.com.au or similar)."
         />
         <MoneyInput
+        field="curValueEnd"
           row
           label={`Market value at the end of the lease${years ? ` (after ${years} year${years > 1 ? "s" : ""})` : ""}`}
           value={
@@ -1929,6 +2037,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           findings={f.curValueEnd}
         />
         <MoneyInput
+        field="curService"
           row
           label="Servicing, maintenance and tyres"
           value={d.curService}
@@ -1939,6 +2048,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           estimatedNote={CUR_TYPICAL}
         />
         <MoneyInput
+        field="curRego"
           row
           label="Registration and CTP"
           value={d.curRego}
@@ -1949,6 +2059,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           estimatedNote={CUR_TYPICAL}
         />
         <MoneyInput
+        field="curFuel"
           row
           label="Fuel or electricity"
           value={d.curFuel}
@@ -1963,6 +2074,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           estimatedNote={CUR_TYPICAL}
         />
         <MoneyInput
+        field="curInsurance"
           row
           label="Insurance"
           value={d.curInsurance}
@@ -2014,6 +2126,15 @@ function ReviewStep({
     null,
   );
   const assumptions = exploring ? estimateAssumptions(d) : null;
+  /** Bumped to open "Assumptions we made for you" from the note at the top. */
+  const [assumptionsNonce, setAssumptionsNonce] = useState<number>();
+  function showAssumptions() {
+    setAssumptionsNonce(Date.now());
+    requestAnimationFrame(() =>
+      document.getElementById(ASSUMPTIONS_ID)?.scrollIntoView?.({ behavior: "smooth", block: "start" }),
+    );
+  }
+  const assumedRate = (d.estimateRatePct ?? ASSUMED_EFFECTIVE_RATE * 100).toFixed(2).replace(/\.?0+$/, "");
   const incomplete = visibleSteps(d).filter(
     (s) => s !== "intro" && s !== "review" && missingForStep(s, d).length > 0,
   );
@@ -2166,6 +2287,60 @@ function ReviewStep({
         ]
   ).filter(Boolean) as [string, string, StepId][];
 
+  /** Your answers and, on an estimate, what we filled in: everything the result rests on, in one place. */
+  const basedOn = (n: number) => (
+    <Part
+      n={n}
+      title="What this is based on"
+      sub={
+        assumptions
+          ? "What you told us, and the typical figures we filled in for the rest."
+          : "What you told us. Edit takes you back to that screen."
+      }
+    >
+      <Section
+        title={`Your answers (${rows.length})`}
+        description="What you told us on each screen. Edit takes you back to it."
+        defaultOpen={!inputs}
+      >
+        <dl className="gd-answers__list">
+          {rows.map(([k, v, s]) => (
+            <div key={k} className="gd-answers__row">
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+              <button
+                type="button"
+                className="gd-linkbtn"
+                onClick={() => onEdit(s)}
+              >
+                Edit
+              </button>
+            </div>
+          ))}
+        </dl>
+      </Section>
+      {inputs && assumptions && (
+        <Section
+          title={`What we assumed (${assumptions.length})`}
+          description="Typical figures, since you don't have a quote yet. Enter a real quote to replace them."
+          anchorId={ASSUMPTIONS_ID}
+          forceOpenNonce={assumptionsNonce}
+        >
+          <div className="gd-kvlist">
+            {assumptions.map((a) => (
+              <KV
+                key={a.field}
+                label={a.label}
+                value={a.value}
+                tooltip={a.tooltip ? <InfoTooltip text={a.tooltip} /> : undefined}
+              />
+            ))}
+          </div>
+        </Section>
+      )}
+    </Part>
+  );
+
   // Dragging a "Try different numbers" slider recomputes everything; let the cards lag a frame
   // behind the thumb rather than make the drag stutter.
   const shownInputs = useDeferredValue(inputs);
@@ -2197,6 +2372,7 @@ function ReviewStep({
       <ResultHeadline
         inputs={shownInputs ?? inputs}
         horizon={effectiveHorizon}
+        approx={exploring}
         onOpenAdvanced={() => openAdvanced()}
       />
       <Section
@@ -2226,9 +2402,21 @@ function ReviewStep({
     <>
       {exploring && (
         <NoteBox color="var(--nlc-warn)" mb={16}>
-          <strong>An estimate using typical figures.</strong> Have a quote?{" "}
+          <strong>Rough estimate.</strong>{" "}
+          {assumptions ? `We filled in ${assumptions.length} figures for you. ` : ""}
+          The ones that matter most: a {assumedRate}% lease interest rate,
+          typical running costs for this car, and super that isn't reduced by
+          the lease. Any of these can move the result by thousands.{" "}
+          {assumptions && (
+            <>
+              <button type="button" className="gd-linkbtn" onClick={showAssumptions}>
+                See all assumptions
+              </button>
+              {" · "}
+            </>
+          )}
           <button type="button" className="gd-linkbtn" onClick={onHaveQuote}>
-            Enter it
+            Enter a quote
           </button>{" "}
           (your answers are kept).
         </NoteBox>
@@ -2269,9 +2457,10 @@ function ReviewStep({
           >
             {results}
           </Part>
+          {basedOn(2)}
           {exploring && (
             <Part
-              n={2}
+              n={3}
               title="Try different numbers"
               sub="Drag the rough figures. Your result updates as you go."
             >
@@ -2284,14 +2473,14 @@ function ReviewStep({
             </Part>
           )}
           <Part
-            n={exploring ? 3 : 2}
+            n={exploring ? 4 : 3}
             title="What to do next"
             sub="Each opens in a new tab, so your results stay here."
           >
             <NextSteps mode="guided" />
           </Part>
           <Part
-            n={exploring ? 4 : 3}
+            n={exploring ? 5 : 4}
             title="Save, share or see the full workings"
           >
           <ResultTools
@@ -2345,50 +2534,7 @@ function ReviewStep({
           </Part>
         </>
       )}
-      <Part
-        n={inputs ? (exploring ? 5 : 4) : 1}
-        title="What we used"
-        sub="Check your answers; Edit takes you back to that screen."
-      >
-      <Section
-        title="Your answers"
-        description="What you told us on each screen."
-        defaultOpen={!inputs}
-      >
-        <dl className="gd-answers__list">
-          {rows.map(([k, v, s]) => (
-            <div key={k} className="gd-answers__row">
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-              <button
-                type="button"
-                className="gd-linkbtn"
-                onClick={() => onEdit(s)}
-              >
-                Edit
-              </button>
-            </div>
-          ))}
-        </dl>
-      </Section>
-      {inputs && assumptions && (
-            <Section
-              title="Assumptions we made for you"
-              description="Since you don't have a quote yet, these typical figures were used. Enter a real quote to replace them."
-            >
-              {assumptions.map((a) => (
-                <KV
-                  key={a.field}
-                  label={a.label}
-                  value={a.value}
-                  tooltip={
-                    a.tooltip ? <InfoTooltip text={a.tooltip} /> : undefined
-                  }
-                />
-              ))}
-            </Section>
-          )}
-      </Part>
+      {!inputs && basedOn(1)}
 
     </>
   );
@@ -2468,6 +2614,27 @@ const TRY_KEYS = [
   "estimateRatePct",
 ] as const;
 
+/** "$36,000 better off", rounded to the nearest $1,000 when approx; followed by "than …" when given. */
+function Outcome({ net, approx, what }: { net: number; approx: boolean; what?: string }) {
+  const shown = approx ? Math.round(Math.abs(net) / 1000) * 1000 : Math.abs(net);
+  if (approx && shown === 0)
+    return (
+      <>
+        <strong>about the same</strong>
+        {what && <span> as {what} (within $1,000)</span>}
+      </>
+    );
+  return (
+    <>
+      <strong className={net >= 0 ? "gd-pos" : "gd-neg"}>
+        {approx ? "about " : ""}
+        {money(shown)} {net >= 0 ? "better off" : "worse off"}
+      </strong>
+      {what && <span> than {what}</span>}
+    </>
+  );
+}
+
 /**
  * The answer first: one line per comparison, then the caveats once (not on every card).
  * The full breakdown sits in "Show how we got this" below.
@@ -2475,10 +2642,13 @@ const TRY_KEYS = [
 function ResultHeadline({
   inputs,
   horizon,
+  approx = false,
   onOpenAdvanced,
 }: {
   inputs: Inputs;
   horizon: "five_year" | "lease_end";
+  /** Round to the nearest $1,000: an estimate from typical figures shouldn't look exact to the dollar. */
+  approx?: boolean;
   /** Opens Advanced mode at the top, like the "Open full workings" button. */
   onOpenAdvanced: () => void;
 }) {
@@ -2495,15 +2665,13 @@ function ResultHeadline({
       <div className="gd-headline__lead">Over {fig.years} years, a novated lease leaves you:</div>
       {lines.map(([what, net]) => (
         <div key={what} className="gd-headline__line">
-          <strong className={net >= 0 ? "gd-pos" : "gd-neg"}>
-            {money(Math.abs(net))} {net >= 0 ? "better off" : "worse off"}
-          </strong>{" "}
-          <span>than {what}</span>
+          <Outcome net={net} approx={approx} what={what} />
         </div>
       ))}
       <p className="gd-headline__caveat">
-        ⚠️ Not included: effects on HECS, childcare subsidy and the Medicare levy
-        surcharge.{" "}
+        Not counted in these figures: changes to HECS repayments, childcare
+        subsidy, the Medicare levy surcharge or Division 293 tax. Advanced mode
+        works out the adjusted taxable income they're based on.{" "}
         {inputs.superFromPreNlIncome === "No" && <>Your super may also be reduced under this setup. </>}
         <button type="button" className="gd-linkbtn" onClick={onOpenAdvanced}>
           See the full workings
@@ -2642,9 +2810,7 @@ function TryNumbers({
         {lines.map(([what, net]) => (
           <div key={what} className="gd-try__line">
             <span>{what}</span>
-            <strong className={net >= 0 ? "gd-pos" : "gd-neg"}>
-              {money(Math.abs(net))} {net >= 0 ? "better off" : "worse off"}
-            </strong>
+            <Outcome net={net} approx />
           </div>
         ))}
       </div>

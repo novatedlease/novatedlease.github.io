@@ -37,11 +37,35 @@ export const emptyMoney = (): Money => ({
   estimated: false,
 });
 
+/**
+ * A typed amount as a number. Accepts what people naturally type: "$48,990", "52.4k", "7.5%".
+ * Anything else (words, units, a negative) is null; amountProblem says why.
+ */
 export function parseAmount(text: string): number | null {
-  const cleaned = text.replace(/[$,\s]/g, "");
+  let cleaned = text.replace(/[$,\s]/g, "").replace(/%$/, "");
+  let scale = 1;
+  if (/^[\d.]+k$/i.test(cleaned)) {
+    cleaned = cleaned.slice(0, -1);
+    scale = 1000;
+  }
   if (cleaned === "") return null;
-  const n = Number(cleaned);
+  const n = Number(cleaned) * scale;
   return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
+/** Why a box's text can't be used, in words for the reader; null when it's empty or readable. */
+export function amountProblem(text: string): string | null {
+  const t = text.trim();
+  // A lone "$" or "-" is someone part-way through typing, not a mistake yet.
+  if (/^[$\s-]*$/.test(t) || parseAmount(t) !== null) return null;
+  if (/^-/.test(t.replace(/^\$/, "")))
+    return "This can't be negative. Type the amount without a minus sign.";
+  return `We couldn't read “${t}”. Type just the number, without words or units.`;
+}
+
+/** A missing-answer label, noting when something was typed but couldn't be read. */
+function needs(m: Money, label: string): string {
+  return !m.none && amountProblem(m.text) ? `${label} (we couldn't read it)` : label;
 }
 
 export function moneyValue(m: Money): number | null {
@@ -50,6 +74,8 @@ export function moneyValue(m: Money): number | null {
 }
 
 export type RunningPeriod = "perYear" | "perMonth" | "perFn";
+/** The answers that are typed amounts. */
+type MoneyKey = { [K in keyof GuidedDraft]: GuidedDraft[K] extends Money ? K : never }[keyof GuidedDraft];
 export type YesNoUnsure = "Yes" | "No" | "Unsure";
 
 export type GuidedDraft = {
@@ -583,114 +609,121 @@ function answered(m: Money): boolean {
   return moneyValue(m) !== null;
 }
 
-/** Plain-English list of what still needs answering on a step (empty means the step is complete). */
-export function missingForStep(step: StepId, d: GuidedDraft): string[] {
-  const out: string[] = [];
+/** One unanswered question: its wording as the reader sees it, and the answer it fills in. */
+export type MissingItem = { field: keyof GuidedDraft; label: string };
+
+/**
+ * What still needs answering on a step (empty means the step is complete). Labels use the
+ * question's own wording, so the reader can find it on screen; field lets the screen point to it.
+ */
+export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
+  const out: MissingItem[] = [];
+  const ask = (field: keyof GuidedDraft, label: string) => out.push({ field, label });
+  /** A money box: notes when something was typed but couldn't be read. */
+  const askMoney = (field: keyof GuidedDraft & MoneyKey, label: string) => ask(field, needs(d[field], label));
   switch (step) {
     case "intro":
-      if (d.hasQuote === null) out.push("Whether you have a quote yet");
+      if (d.hasQuote === null) ask("hasQuote", "Do you have a novated lease quote?");
       break;
     case "quick":
-      if (!positive(d.driveaway)) out.push("Approximate drive-away price");
-      if (!d.leaseYears) out.push("Lease term");
-      if (!positive(d.mileage)) out.push("Annual kilometres");
+      if (!positive(d.driveaway)) askMoney("driveaway", "Approximate drive-away price");
+      if (!d.leaseYears) ask("leaseYears", "Lease term");
+      if (!positive(d.mileage)) askMoney("mileage", "Kilometres per year");
       break;
     case "compare":
-      if (d.compareLoan === null) out.push("Car loan comparison (yes or no)");
-      if (d.compareCurrent === null)
-        out.push("Keep-current-car comparison (yes or no)");
+      if (d.compareLoan === null) ask("compareLoan", "If you didn't lease, what would you do?");
+      if (d.compareCurrent === null) ask("compareCurrent", "And your current car?");
       break;
     case "car":
-      if (!d.vehicleType) out.push("Vehicle type");
-      if (!d.vehicleCondition) out.push("New or used");
-      if (d.hasQuote !== false && !isIsoDate(d.leaseStartDate))
-        out.push("Lease start date");
-      if (needsExploreStart(d) && !d.exploreStart)
-        out.push("Whether the lease would start before 1 April 2027");
+      if (!d.vehicleType) ask("vehicleType", "Vehicle type");
+      if (!d.vehicleCondition) ask("vehicleCondition", "Condition");
+      if (d.hasQuote !== false && !isIsoDate(d.leaseStartDate)) ask("leaseStartDate", "Lease start date");
+      if (needsExploreStart(d) && !d.exploreStart) ask("exploreStart", "When would the lease roughly start?");
       if (needsUsedEvChecks(d)) {
         if (d.usedAfter2022 === null)
-          out.push("Used EV: first held after 1 July 2022?");
-        if (d.usedLctNever === null)
-          out.push("Used EV: Luxury Car Tax ever payable?");
+          ask("usedAfter2022", "Was the car first held and used on or after 1 July 2022?");
+        if (d.usedLctNever === null) ask("usedLctNever", "Has Luxury Car Tax ever been payable on it?");
       }
       break;
     case "price":
-      if (!positive(d.baseValue)) out.push("FBT base value");
-      if (!positive(d.driveaway)) out.push("Drive-away price");
+      if (!positive(d.baseValue)) askMoney("baseValue", "FBT base value");
+      if (!positive(d.driveaway)) askMoney("driveaway", "Drive-away price");
       break;
     case "lease":
-      if (!d.leaseYears) out.push("Lease term");
-      if (d.monthsDeferred === null) out.push("Deferred months");
-      if (!answered(d.docFee)) out.push("Documentation fee (or tick none)");
-      if (!d.residualBasis) out.push("Residual: inc or ex GST");
-      else if (d.residualBasis !== "unknown" && !positive(d.residual))
-        out.push("Residual amount");
+      if (!d.leaseYears) ask("leaseYears", "Lease term");
+      if (d.monthsDeferred === null) ask("monthsDeferred", "When does the first payment start?");
+      if (!answered(d.docFee)) askMoney("docFee", "Documentation fee (or tick “no documentation fee”)");
+      if (!positive(d.residual) && d.residualBasis !== "unknown")
+        askMoney("residual", "Residual (balloon) value");
+      if (!d.residualBasis) ask("residualBasis", "Is the residual including or excluding GST?");
       if (asksMarketValueEnd(d) && !marketValueEndEntered(d))
-        out.push("Estimated market value at lease end");
+        askMoney("marketValueEnd", "Estimated market value at lease end");
       break;
     case "payment":
-      if (!d.paymentPeriod) out.push("Fortnightly or monthly");
-      if (!d.paymentBasis) out.push("Payment: inc or ex GST");
-      if (d.smartMillarx === null)
-        out.push("Whether your lease is with Smart Leasing or MillarX");
-      if (!positive(d.payment)) out.push("Lease payment");
+      if (!d.paymentPeriod) ask("paymentPeriod", "Is the payment per fortnight or month?");
+      if (!d.paymentBasis) ask("paymentBasis", "Does the payment include or exclude GST?");
+      if (d.smartMillarx === null) ask("smartMillarx", "Is your lease with Smart Leasing or MillarX?");
+      if (!positive(d.payment)) askMoney("payment", "Finance (lease) payment");
       if (isLuxuryRange(d) && !answered(d.luxAdj))
-        out.push("Luxury vehicle adjustment (or tick none)");
+        askMoney("luxAdj", "Luxury vehicle adjustment (or tick “no adjustment”)");
       break;
     case "running":
-      if (!d.gstPassedOn) out.push("GST on running costs");
-      if (!positive(d.mileage)) out.push("Annual kilometres");
-      if (!d.runningPeriod) out.push("Fortnightly, monthly or yearly figures");
-      if (!answered(d.service)) out.push("Servicing");
-      if (!answered(d.rego)) out.push("Registration");
-      if (!answered(d.insurance)) out.push("Insurance");
-      if (!answered(d.mgmt)) out.push("Management fees");
+      if (!positive(d.mileage)) askMoney("mileage", "Kilometres per year");
+      if (!d.gstPassedOn) ask("gstPassedOn", "Is your quote's running-cost budget inc GST or ex GST?");
+      if (!d.runningPeriod) ask("runningPeriod", "How are costs shown on your quote?");
+      if (!answered(d.service)) askMoney("service", "Servicing, maintenance and tyres");
+      if (!answered(d.rego)) askMoney("rego", "Registration and CTP");
+      if (!answered(d.insurance)) askMoney("insurance", "Insurance");
+      if (!answered(d.mgmt)) askMoney("mgmt", "Lease management fees");
       // Never $0: a petrol car always costs something to run, and a $0 here would skew the
       // comparison with keeping the current car, whose fuel is counted.
-      if (d.vehicleType === "Non-EV" && !positive(d.fuel)) out.push("Fuel");
+      if (d.vehicleType === "Non-EV" && !positive(d.fuel)) askMoney("fuel", "Fuel");
       if (d.vehicleType === "EV" && !answered(d.chargingRate))
-        out.push("Electricity price per kWh (0 if solar)");
+        askMoney("chargingRate", "Electricity price you pay to charge (0 if solar)");
       break;
     case "you":
-      if (!positive(d.income)) out.push("Taxable income");
-      if (d.hasQuote !== false && !d.superPreNl) out.push("Super calculation");
-      if (!d.cashHome) out.push("Where your cash would sit");
+      if (!positive(d.income)) askMoney("income", "Your annual taxable income");
+      if (d.hasQuote !== false && !d.superPreNl) ask("superPreNl", "How does your employer calculate super?");
+      if (!d.cashHome) ask("cashHome", "If you were to pay cash for the car, where would the money come from?");
       else if (d.cashHome === "offset" && !answered(d.offsetRate))
-        out.push("Offset interest rate");
+        askMoney("offsetRate", "Home loan interest rate");
       else if (d.cashHome === "savings" && !positive(d.savingsRatePreTax))
-        out.push("Savings interest rate");
+        askMoney("savingsRatePreTax", "Savings account interest rate");
       else if (d.cashHome === "ipOffset" && !positive(d.savingsRatePreTax))
-        out.push("Investment loan interest rate");
+        askMoney("savingsRatePreTax", "Investment property loan interest rate");
       else if (d.cashHome === "invested" && !answered(d.investedRate))
-        out.push("Assumed return (or tick none)");
+        askMoney("investedRate", "Assumed return after tax");
       if (d.hasQuote === false) break;
-      if (d.nswHealth === null) out.push("NSW Health doctor or nurse?");
+      if (d.nswHealth === null) ask("nswHealth", "Are you a doctor or nurse employed by NSW Health?");
       else if (d.nswHealth) {
-        if (!positive(d.nswAmount)) out.push("NSW Health employer share");
-        if (!d.nswPeriod)
-          out.push("NSW Health employer share: fortnightly, monthly or yearly");
+        if (!d.nswPeriod) ask("nswPeriod", "Employer share: fortnightly, monthly or yearly figure?");
+        if (!positive(d.nswAmount)) askMoney("nswAmount", "Employer share of your tax savings");
       }
       break;
     case "alternatives":
       if (d.compareLoan) {
-        if (!answered(d.loanDeposit)) out.push("Loan deposit (or tick none)");
-        if (!positive(d.loanRate)) out.push("Loan interest rate");
-        if (!answered(d.loanFee)) out.push("Loan monthly fee (or tick none)");
+        if (!answered(d.loanDeposit)) askMoney("loanDeposit", "Deposit paid up front (or tick “no deposit”)");
+        if (!positive(d.loanRate)) askMoney("loanRate", "Loan interest rate");
+        if (!answered(d.loanFee)) askMoney("loanFee", "Loan monthly account fee (or tick “no monthly fee”)");
       }
       if (d.compareCurrent) {
-        if (!positive(d.curValueNow)) out.push("Current car value today");
-        if (!currentCarValueEnd(d))
-          out.push("Current car value at the end of the lease");
-        if (!answered(d.curService)) out.push("Current car servicing");
-        if (!answered(d.curRego)) out.push("Current car registration");
-        if (!answered(d.curFuel)) out.push("Current car fuel");
-        if (!answered(d.curInsurance)) out.push("Current car insurance");
+        if (!positive(d.curValueNow)) askMoney("curValueNow", "Market value today");
+        if (!currentCarValueEnd(d)) askMoney("curValueEnd", "Market value at the end of the lease");
+        if (!answered(d.curService)) askMoney("curService", "Current car: servicing, maintenance and tyres");
+        if (!answered(d.curRego)) askMoney("curRego", "Current car: registration and CTP");
+        if (!answered(d.curFuel)) askMoney("curFuel", "Current car: fuel or electricity");
+        if (!answered(d.curInsurance)) askMoney("curInsurance", "Current car: insurance");
       }
       break;
     default:
       break;
   }
   return out;
+}
+
+/** The labels alone, for places that only need to say what's left. */
+export function missingForStep(step: StepId, d: GuidedDraft): string[] {
+  return missingItems(step, d).map((m) => m.label);
 }
 
 // ─── Estimate path (no quote yet) ───────────────────────────────────────────

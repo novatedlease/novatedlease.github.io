@@ -24,7 +24,7 @@ describe("Guided flow (real interaction)", () => {
 
     click("Continue");
     expect(screen.getByRole("alert").textContent).toMatch(
-      /Whether you have a quote/,
+      /Do you have a novated lease quote/,
     );
     // Choosing an answer moves straight on to the car
     click(/Yes, I have a quote/);
@@ -42,7 +42,7 @@ describe("Guided flow (real interaction)", () => {
     // Then the framing: loan and keep-current-car comparisons
     click("Next");
     expect(screen.getByRole("alert").textContent).toMatch(
-      /Car loan comparison/,
+      /If you didn.t lease, what would you do/,
     );
     click(/Buy this car with a loan/);
     click(/Replace my car either way/);
@@ -136,7 +136,7 @@ describe("Guided flow (real interaction)", () => {
     fireEvent.click(screen.getByLabelText(/No monthly fee/));
     click("See my results");
 
-    expect(screen.getByText("Your answers")).toBeTruthy();
+    expect(screen.getByText(/^Your answers \(\d+\)$/)).toBeTruthy();
     click(/Open full workings in Advanced mode/);
     expect((opened as { driveawayCost: number }).driveawayCost).toBe(52400);
     expect((opened as { leaseDocFee: number }).leaseDocFee).toBe(0);
@@ -173,15 +173,18 @@ describe("Guided flow (real interaction)", () => {
     type(/Home loan interest rate/, "6.1");
     click("See my results");
     expect(
-      screen.getByText(/An estimate using typical figures/),
+      screen.getByText(/Rough estimate/),
     ).toBeTruthy();
-    expect(screen.getByText("Assumptions we made for you")).toBeTruthy();
+    // The headline is rounded: an estimate shouldn't look exact to the dollar
+    expect(document.querySelector(".gd-headline__line")!.textContent).toMatch(/^about \$[\d,]+,000 (better|worse) off/);
+    expect(screen.getByText(/^What we assumed \(\d+\)$/)).toBeTruthy();
     // Super isn't asked when exploring; it's a listed assumption instead
     expect(screen.queryByText("Refine this estimate")).toBeNull();
     expect(screen.queryByText(/How does your employer calculate super/)).toBeNull();
-    fireEvent.click(screen.getByText("Assumptions we made for you"));
+    // "See all assumptions" in the note at the top opens the list
+    click("See all assumptions");
     expect(screen.getByText(/Not reduced by the lease/)).toBeTruthy();
-    click(/^Enter it$/);
+    click(/^Enter a quote$/);
     // lands on the car screen first, which now needs a real start date
     expect(document.getElementById("gd-start")).toBeTruthy();
     fireEvent.change(document.getElementById("gd-start")!, {
@@ -193,6 +196,30 @@ describe("Guided flow (real interaction)", () => {
     expect(
       (screen.getByLabelText(/Drive-away price/) as HTMLInputElement).value,
     ).toBe("65000");
+  });
+
+  test("unanswered questions are marked on screen, listed by their own wording, and the box stays once done", () => {
+    render(<GuidedMode onOpenAdvanced={() => {}} />);
+    click(/Yes, I have a quote/);
+    click(/Petrol, diesel or any hybrid/);
+    click(/^New$/);
+    fireEvent.change(document.getElementById("gd-start")!, { target: { value: "2026-11-20" } });
+    click("Next");
+
+    // Nothing marked before the reader tries to move on
+    expect(screen.queryByText("Not answered yet")).toBeNull();
+    click("Next");
+    expect(screen.getAllByText("Not answered yet")).toHaveLength(2);
+    const box = screen.getByRole("alert");
+    expect(box.querySelectorAll("li button")).toHaveLength(2);
+    expect(box.textContent).toMatch(/And your current car\?/);
+
+    // Answering clears that question's mark; the box turns into a done note instead of vanishing
+    click(/Buy this car with a loan/);
+    expect(screen.getAllByText("Not answered yet")).toHaveLength(1);
+    click(/Replace my car either way/);
+    expect(screen.queryByText("Not answered yet")).toBeNull();
+    expect(screen.getByRole("status").textContent).toMatch(/All answered/);
   });
 
   test("start over asks first, then clears every answer and returns to the intro", () => {
@@ -210,7 +237,7 @@ describe("Guided flow (real interaction)", () => {
     expect(screen.getByRole("button", { name: "Continue" })).toBeTruthy();
     click("Continue");
     expect(screen.getByRole("alert").textContent).toMatch(
-      /Whether you have a quote/,
+      /Do you have a novated lease quote/,
     );
   });
 });

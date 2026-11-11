@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { GST_RATE, parseAmount } from "../guided/draft";
 
 /**
  * Ported from calculator/src/components/InputsPanel.tsx's LeaseAdjustModal
@@ -8,12 +9,27 @@ import { useEffect, useRef, useState } from "react";
  * payment amount this calculator expects. Explainer article linked in the
  * launcher (see LeaseRateGuard).
  */
-export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: () => void; onApply: (adjustedPerFn: number) => void }) {
+export type QuotePeriod = "perFn" | "perMonth";
+export type QuoteGst = "exGst" | "incGst";
+
+/** The corrected payment, in the period and GST basis the reader's quote uses. */
+export type CorrectedPayment = { amount: number; period: QuotePeriod; gst: QuoteGst };
+
+export function LeaseAdjustModal(props: {
+  leaseDurationYears: number;
+  onClose: () => void;
+  /** adjustedPerFn is per fortnight ex GST (what the engine takes); shown is the same figure as the reader's quote prints it. */
+  onApply: (adjustedPerFn: number, shown: CorrectedPayment) => void;
+  /** Answers the reader has already given elsewhere, so they aren't asked twice. */
+  initialPeriod?: QuotePeriod | null;
+  /** null = not known yet: the reader must choose before the figure can be used. Omitted = ex GST. */
+  initialGst?: QuoteGst | null;
+}) {
   const [provider, setProvider] = useState<"smart" | "millarx">("smart");
   const [quotedText, setQuotedText] = useState<string>("");
-  const [quotePeriodMode, setQuotePeriodMode] = useState<"perFn" | "perMonth">("perFn");
+  const [quotePeriodMode, setQuotePeriodMode] = useState<QuotePeriod>(props.initialPeriod ?? "perFn");
+  const [gst, setGst] = useState<QuoteGst | null>(props.initialGst === undefined ? "exGst" : props.initialGst);
   const quotedInputRef = useRef<HTMLInputElement | null>(null);
-
   // Backup for the `autoFocus` prop: focuses the field on mount via a rAF so
   // it also works reliably right after the modal's open/close transition.
   useEffect(() => {
@@ -23,24 +39,19 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
 
   const totalMonths = props.leaseDurationYears * 12;
   const bufferMonths = provider === "smart" ? 2 : 1;
-  const quotedNum = parseFloat(String(quotedText).trim().replace(/[$,]/g, ""));
+  const quotedNum = parseAmount(quotedText) ?? NaN;
   const hasQuoted = Number.isFinite(quotedNum) && quotedNum > 0;
   const factor = totalMonths > 0 ? (totalMonths - bufferMonths) / totalMonths : null;
-  const quotedPerFn = hasQuoted ? (quotePeriodMode === "perMonth" ? (quotedNum * 12) / 26 : quotedNum) : null;
-  const adjustedFn = quotedPerFn !== null && factor !== null ? quotedPerFn * factor : null;
-  const adjustedDisplay = adjustedFn !== null ? (quotePeriodMode === "perMonth" ? (adjustedFn * 26) / 12 : adjustedFn) : null;
-
+  // Period and GST describe how the quote prints the figure, so changing them re-reads the
+  // typed number rather than converting it. The correction is a straight scale either way.
+  const adjustedDisplay = hasQuoted && factor !== null ? quotedNum * factor : null;
+  const adjustedFn =
+    adjustedDisplay !== null && gst !== null
+      ? (quotePeriodMode === "perMonth" ? (adjustedDisplay * 12) / 26 : adjustedDisplay) / (gst === "incGst" ? 1 + GST_RATE : 1)
+      : null;
   const fmtResult = (n: number) => n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-  function handleQuotePeriodModeChange(mode: "perFn" | "perMonth") {
-    if (mode === quotePeriodMode) return;
-    const n = parseFloat(String(quotedText).trim().replace(/[$,]/g, ""));
-    if (Number.isFinite(n) && n > 0) {
-      const converted = mode === "perMonth" ? (n * 26) / 12 : (n * 12) / 26;
-      setQuotedText(fmtResult(converted));
-    }
-    setQuotePeriodMode(mode);
-  }
+  const periodWord = quotePeriodMode === "perFn" ? "per fortnight" : "per month";
+  const gstWord = gst === "incGst" ? "inc GST" : gst === "exGst" ? "ex GST" : null;
 
   return (
     <>
@@ -59,6 +70,10 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
           padding: "28px 30px 24px",
           maxWidth: 420,
           width: "calc(100vw - 32px)",
+          // Phones: taller than the screen, so it scrolls inside rather than hiding the buttons.
+          maxHeight: "calc(100dvh - 32px)",
+          overflowY: "auto",
+          boxSizing: "border-box",
           boxShadow: "var(--nlc-shadow-lg)",
         }}
         onClick={(e) => e.stopPropagation()}
@@ -108,38 +123,39 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
           ))}
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>
-            Your quoted finance figure (ex GST)
-          </div>
-          <div style={{ display: "flex", gap: 4, fontSize: 11 }}>
-            {(["perFn", "perMonth"] as const).map((mode, idx) => (
-              <span key={mode} style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
-                <button
-                  type="button"
-                  onClick={() => handleQuotePeriodModeChange(mode)}
-                  style={{
-                    padding: 0,
-                    border: "none",
-                    background: "transparent",
-                    cursor: "pointer",
-                    fontSize: 11,
-                    fontWeight: quotePeriodMode === mode ? 800 : 400,
-                    opacity: quotePeriodMode === mode ? 0.9 : 0.45,
-                    textDecoration: quotePeriodMode === mode ? "underline" : "none",
-                  }}
-                >
-                  {mode === "perFn" ? "per fortnight" : "per month"}
-                </button>
-              </span>
-            ))}
-          </div>
+        <div style={{ display: "grid", gap: 12, marginBottom: 16 }}>
+          <QuoteChoice
+            label="Your quote shows the payment"
+            value={quotePeriodMode}
+            onChange={setQuotePeriodMode}
+            options={[
+              ["perFn", "Per fortnight"],
+              ["perMonth", "Per month"],
+            ]}
+          />
+          <QuoteChoice
+            label="Next to the payment, it says"
+            value={gst}
+            onChange={setGst}
+            options={[
+              ["exGst", "Excluding GST"],
+              ["incGst", "Including GST"],
+            ]}
+            hint={gst === null ? "Look for “GST” next to the figure on your quote." : undefined}
+          />
         </div>
+
+        <label
+          htmlFor="lam-quoted"
+          style={{ display: "block", fontSize: 13, fontWeight: 700, color: "var(--nlc-text)", marginBottom: 6 }}
+        >
+          Finance payment, exactly as printed
+        </label>
         <div style={{ position: "relative", marginBottom: 8 }}>
           <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", fontWeight: 700, fontSize: 16, color: "var(--nlc-text-faint)", pointerEvents: "none" }}>$</div>
           <input
             ref={quotedInputRef}
+            id="lam-quoted"
             className="nlc-input"
             type="text"
             inputMode="decimal"
@@ -151,7 +167,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
               if (e.key === "Enter") (e.currentTarget as HTMLInputElement).blur();
             }}
             onBlur={() => {
-              const n = parseFloat(String(quotedText).trim().replace(/[$,]/g, ""));
+              const n = parseAmount(quotedText) ?? NaN;
               if (Number.isFinite(n) && n > 0) setQuotedText(fmtResult(n));
             }}
             style={{ boxSizing: "border-box", padding: "12px 14px 12px 32px", fontSize: 20, fontWeight: 700 }}
@@ -164,7 +180,7 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
         </div>
 
         <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-muted)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
-          Enter this into the calculator ({quotePeriodMode === "perFn" ? "per fortnight" : "per month"})
+          Finance-only payment ({periodWord}{gstWord ? `, ${gstWord}` : ""})
         </div>
         <div
           style={{
@@ -203,7 +219,12 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
             type="button"
             disabled={adjustedFn === null}
             onClick={() => {
-              if (adjustedFn !== null) props.onApply(Math.round(adjustedFn * 100) / 100);
+              if (adjustedFn !== null && adjustedDisplay !== null && gst !== null)
+                props.onApply(Math.round(adjustedFn * 100) / 100, {
+                  amount: Math.round(adjustedDisplay * 100) / 100,
+                  period: quotePeriodMode,
+                  gst,
+                });
             }}
             style={{
               padding: "10px 20px",
@@ -221,5 +242,41 @@ export function LeaseAdjustModal(props: { leaseDurationYears: number; onClose: (
         </div>
       </div>
     </>
+  );
+}
+
+/** A labelled pair of answer buttons: big enough to see which is chosen, unlike a text toggle. */
+function QuoteChoice<T extends string>({
+  label,
+  value,
+  onChange,
+  options,
+  hint,
+}: {
+  label: string;
+  value: T | null;
+  onChange: (v: T) => void;
+  options: [T, string][];
+  hint?: string;
+}) {
+  return (
+    <div role="group" aria-label={label}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: "var(--nlc-text)", marginBottom: 6 }}>{label}</div>
+      <div className="nlc-pill-group" style={{ display: "flex" }}>
+        {options.map(([v, text]) => (
+          <button
+            key={v}
+            type="button"
+            className="nlc-pill-group__btn"
+            aria-pressed={value === v}
+            onClick={() => onChange(v)}
+            style={{ flex: 1, cursor: "pointer" }}
+          >
+            {text}
+          </button>
+        ))}
+      </div>
+      {hint && <div style={{ fontSize: 12, color: "var(--nlc-warn-dark)", marginTop: 6 }}>{hint}</div>}
+    </div>
   );
 }

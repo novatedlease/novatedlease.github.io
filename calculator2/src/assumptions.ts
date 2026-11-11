@@ -405,7 +405,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     {
       field: "superFromPreNlIncome",
       label: "Super Guarantee basis",
-      value: "Not reduced by the lease (assumed calculated on your pre-lease salary, the most common case)",
+      value: "Not reduced by the lease (the usual case)",
       tooltip:
         "In the large majority of workplaces, Super Guarantee (SG) is calculated on your salary BEFORE the novated lease deduction, so your super isn't reduced by packaging a car. In roughly 1 in 10 workplaces, SG is calculated on the post-deduction amount instead, which does reduce it — check with payroll to confirm which applies to you.\n\n[Read more about how novated leases affect your Super Guarantee](https://novatedlease.guide/special-and-policy/super-guarantee/)",
     },

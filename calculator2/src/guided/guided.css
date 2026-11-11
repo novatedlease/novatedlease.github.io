@@ -143,6 +143,14 @@
 /* Navigation */
 .gd-startover { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; font-size: 13px; color: var(--nlc-text-soft); }
 .gd-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--nlc-border); }
+/* A question left unanswered after pressing Next: red outline plus a text note (not colour alone). */
+.gd-field--missing .gd-choice, .gd-field--missing .nlc-input { border-color: var(--nlc-bad); }
+.gd-field--missing > .nlc-field__label, .gd-field--missing .gd-row__head .nlc-field__label { color: var(--nlc-bad-dark); }
+.gd-missing-note { margin-top: 6px; font-size: 13px; font-weight: 600; color: var(--nlc-bad-dark); }
+.gd-missing__list { margin: 6px 0 0; padding-left: 18px; }
+.gd-missing__list li { margin: 2px 0; }
+.gd-missing__list .gd-linkbtn { text-align: left; }
+.gd-missing.gd-missing--done { background: var(--nlc-good-light); border-color: var(--nlc-good); color: var(--nlc-good-dark); }
 .gd-missing { margin-top: 14px; padding: 10px 12px; border-radius: var(--nlc-radius-md); background: var(--nlc-bad-light); border: 1px solid var(--nlc-bad); font-size: 14px; }
 .gd-ack { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; font-size: 14px; cursor: pointer; }
 
@@ -150,8 +158,10 @@
 .gd-review-flags { margin-bottom: 18px; }
 .gd-answers { margin: 0 0 20px; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-md); padding: 10px 14px; background: var(--nlc-bg-subtle); }
 .gd-answers summary { cursor: pointer; font-weight: 600; }
-.gd-answers__list { margin: 0; }
-.gd-answers__row { display: grid; grid-template-columns: 170px 1fr auto; gap: 10px; padding: 5px 0; border-top: 1px solid var(--nlc-border); font-size: 14px; }
+/* Capped so the eye doesn't travel the full width of a wide screen from a label to its value. */
+.gd-answers__list { margin: 0; max-width: 720px; }
+.gd-kvlist { max-width: 680px; }
+.gd-answers__row { display: grid; grid-template-columns: 210px 1fr auto; gap: 10px; padding: 5px 0; border-top: 1px solid var(--nlc-border); font-size: 14px; }
 .gd-answers__row dt { color: var(--nlc-text-muted); }
 .gd-answers__row dd { margin: 0; font-weight: 600; }
 @media (max-width: 640px) { .gd-answers__row { grid-template-columns: 1fr auto; } .gd-answers__row dt { grid-column: 1 / -1; } }

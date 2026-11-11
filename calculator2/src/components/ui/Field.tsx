@@ -7,11 +7,15 @@ type FieldWrapperProps = {
   error?: React.ReactNode;
   htmlFor: string;
   children: React.ReactNode;
+  /** Extra class on the field, e.g. to mark it as not yet answered. */
+  className?: string;
+  /** Names the answer this field holds, so a screen can find it (Guided's "Still to answer"). */
+  dataField?: string;
 };
 
-export function FieldWrapper({ label, tooltip, hint, error, htmlFor, children }: FieldWrapperProps) {
+export function FieldWrapper({ label, tooltip, hint, error, htmlFor, children, className, dataField }: FieldWrapperProps) {
   return (
-    <div className="nlc-field">
+    <div className={className ? `nlc-field ${className}` : "nlc-field"} data-field={dataField}>
       <label className="nlc-field__label" htmlFor={htmlFor}>
         {label}
         {tooltip}
@@ -34,6 +38,7 @@ type NumberFieldProps = {
   onChange: (v: number) => void;
   prefix?: string;
   suffix?: string;
+  /** Defaults to 0: no figure in this calculator can be negative. */
   min?: number;
   max?: number;
   step?: number;
@@ -53,7 +58,8 @@ function formatNumber(n: number, decimals: number): string {
 /**
  * Number input that shows a formatted, locale-grouped value when not focused
  * (e.g. "65,000") and a raw editable value while focused, committing via
- * onChange on blur. Clamps to [min, max] on commit if provided.
+ * onChange on blur. Clamps to [min, max] on commit (min defaults to 0), and says so
+ * under the box, so a typed figure is never changed silently.
  */
 export function NumberField({
   label,
@@ -61,7 +67,7 @@ export function NumberField({
   onChange,
   prefix,
   suffix,
-  min,
+  min = 0,
   max,
   step,
   decimals = 2,
@@ -75,6 +81,8 @@ export function NumberField({
   const fieldId = id ?? autoId;
   const [focused, setFocused] = useState(false);
   const [draft, setDraft] = useState("");
+  /** Set when the last typed figure was outside [min, max] and got pulled back in. */
+  const [clampNote, setClampNote] = useState<string | null>(null);
 
   const displayValue = focused ? draft : formatNumber(value, decimals);
 
@@ -82,13 +90,25 @@ export function NumberField({
     const cleaned = raw.replace(/[^0-9.\-]/g, "");
     let n = cleaned === "" || cleaned === "-" ? 0 : parseFloat(cleaned);
     if (!Number.isFinite(n)) n = 0;
-    if (min !== undefined) n = Math.max(min, n);
+    // "52.4k" means 52,400, not 52.4 (letters are otherwise dropped).
+    if (/^\s*\$?\s*-?[\d.,]+\s*k\s*$/i.test(raw)) n *= 1000;
+    const typed = n;
+    n = Math.max(min, n);
     if (max !== undefined) n = Math.min(max, n);
+    setClampNote(
+      typed < min
+        ? min === 0
+          ? "This can't be negative, so it's been set to 0."
+          : `The lowest allowed is ${formatNumber(min, decimals)}.`
+        : n < typed
+          ? `The highest allowed is ${formatNumber(n, decimals)}.`
+          : null,
+    );
     onChange(n);
   }
 
   return (
-    <FieldWrapper label={label} tooltip={tooltip} hint={hint} error={error} htmlFor={fieldId}>
+    <FieldWrapper label={label} tooltip={tooltip} hint={hint} error={error ?? clampNote} htmlFor={fieldId}>
       <div className="nlc-field__control">
         {prefix && <span className="nlc-field__prefix">{prefix}</span>}
         <input
@@ -98,7 +118,7 @@ export function NumberField({
           inputMode="decimal"
           value={displayValue}
           placeholder={placeholder}
-          aria-invalid={!!error}
+          aria-invalid={!!(error ?? clampNote)}
           onFocus={() => {
             setFocused(true);
             setDraft(Number.isFinite(value) ? String(round(value, decimals)) : "");
@@ -113,8 +133,14 @@ export function NumberField({
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") (e.target as HTMLInputElement).blur();
-            if (e.key === "ArrowUp" && step) onChange(round(value + step, decimals));
-            if (e.key === "ArrowDown" && step) onChange(round(value - step, decimals));
+            if ((e.key === "ArrowUp" || e.key === "ArrowDown") && step) {
+              // While focused the box shows the typed text, so update that too, not just the value.
+              e.preventDefault();
+              const next = Math.min(max ?? Infinity, Math.max(min, round(value + (e.key === "ArrowUp" ? step : -step), decimals)));
+              setDraft(String(next));
+              setClampNote(null);
+              onChange(next);
+            }
           }}
         />
         {suffix && <span className="nlc-field__suffix">{suffix}</span>}

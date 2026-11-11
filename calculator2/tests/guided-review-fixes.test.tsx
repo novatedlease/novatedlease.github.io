@@ -100,7 +100,7 @@ describe("estimate path: used EVs and the phase-out date", () => {
     d.vehicleCondition = "Used – dealer sale (GST inc)";
     if (!beforePhaseOut) return; // after April 2027 the history tests no longer apply
     expect(needsUsedEvChecks(d)).toBe(true);
-    expect(missingForStep("car", d).join()).toMatch(/first held after 1 July 2022/);
+    expect(missingForStep("car", d).join()).toMatch(/first held and used on or after 1 July 2022/);
     expect(buildInputs(d)).toBeNull();
     d.usedAfter2022 = true;
     d.usedLctNever = true;
@@ -114,7 +114,7 @@ describe("estimate path: used EVs and the phase-out date", () => {
     if (!beforePhaseOut) return;
     expect(needsExploreStart(d)).toBe(true);
     d.exploreStart = null;
-    expect(missingForStep("car", d).join()).toMatch(/before 1 April 2027/);
+    expect(missingForStep("car", d).join()).toMatch(/When would the lease roughly start/);
     d.exploreStart = "after";
     d.driveaway = m("88000"); // base ≈ $81,500: over the $75k transitional cap
     expect(buildInputs(d)!.leaseStartDate).toBe(PHASE_OUT_START);
@@ -178,7 +178,7 @@ describe("payment: GST basis and the Smart Leasing / MillarX correction", () => 
     d.payment = m("550");
     d.paymentBasis = "incGst";
     expect(paymentPerFn(d)).toBeCloseTo(500, 6);
-    expect(missingForStep("payment", { ...d, paymentBasis: null }).join()).toMatch(/inc or ex GST/);
+    expect(missingForStep("payment", { ...d, paymentBasis: null }).join()).toMatch(/include or exclude GST/);
   });
 
   test("an ex-GST payment labelled inc GST is diagnosed", () => {
@@ -309,7 +309,7 @@ describe("cash in an investment property offset", () => {
   test("is taxed like savings interest, with its own missing-answer wording", () => {
     const d = quoteDraft();
     d.cashHome = "ipOffset";
-    expect(missingForStep("you", d)).toContain("Investment loan interest rate");
+    expect(missingForStep("you", d)).toContain("Investment property loan interest rate");
     d.savingsRatePreTax = m("6.5");
     const ip = buildInputs(d)!.homeLoanOffsetInterestRate;
     d.cashHome = "savings";
@@ -611,11 +611,15 @@ describe("Try different numbers: every chosen comparison", () => {
     expect(lines[0]).toMatch(/^buying with cash/);
     expect(lines[1]).toMatch(/^a car loan/);
     expect(lines[2]).toMatch(/^keeping your current car/);
-    // Each line's figure is the hero figure of the matching card
+    // Each line's figure is the hero figure of the matching card, rounded to the nearest $1,000
+    const thousands = (t: string) => Math.round(Number(t.replace(/[$,]/g, "")) / 1000) * 1000;
     const heroes = [...document.querySelectorAll(".gd-results")].flatMap((r) =>
-      [...r.querySelectorAll("div")].filter((el) => /^\$[\d,]+$/.test(el.textContent ?? "") && el.children.length === 0).map((el) => el.textContent),
+      [...r.querySelectorAll("div")].filter((el) => /^\$[\d,]+$/.test(el.textContent ?? "") && el.children.length === 0).map((el) => thousands(el.textContent!)),
     );
-    for (const l of lines) expect(heroes).toContain(l.match(/\$[\d,]+/)![0]);
+    for (const l of lines) {
+      expect(l).toMatch(/about \$[\d,]+,000 (better|worse) off/);
+      expect(heroes).toContain(thousands(l.match(/\$[\d,]+/)![0]));
+    }
   });
 
   test("only the cash line when no other comparison was chosen", () => {
@@ -678,7 +682,7 @@ describe("current car fuel follows the km answer", () => {
 describe("results screen is divided into signposted parts", () => {
   const titles = () => [...document.querySelectorAll(".gd-part__title")].map((h) => h.textContent);
 
-  test("exploring: what we used, results, try numbers, then save/share", () => {
+  test("exploring: results, what they are based on, try numbers, then save/share", () => {
     const d = exploringEv();
     d.compareLoan = true;
     d.loanDeposit = none;
@@ -689,14 +693,14 @@ describe("results screen is divided into signposted parts", () => {
       JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "alternatives", "review"] }),
     );
     render(<App />);
-    expect(titles()).toEqual(["Your result", "Try different numbers", "What to do next", "Save, share or see the full workings", "What we used"]);
+    expect(titles()).toEqual(["Your result", "What this is based on", "Try different numbers", "What to do next", "Save, share or see the full workings"]);
     expect(screen.getByText("Compared with buying with cash and a car loan.")).toBeTruthy();
   });
 
   test("quote path: no Try different numbers part", () => {
     seedGuided(quoteDraft());
     render(<App />);
-    expect(titles()).toEqual(["Your result", "What to do next", "Save, share or see the full workings", "What we used"]);
+    expect(titles()).toEqual(["Your result", "What this is based on", "What to do next", "Save, share or see the full workings"]);
     const next = screen.getByRole("navigation", { name: "What to do next" });
     const hrefs = [...next.querySelectorAll("a")].map((a) => a.getAttribute("href"));
     expect(hrefs).toEqual(["/tools/checklist/", "/tools/byo-employer-check/", "/start-here/is-it-worth-it/"]);
