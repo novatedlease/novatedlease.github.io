@@ -1680,7 +1680,7 @@ function CashQuestion({ d, set, f }: StepPropsF) {
   return (
     <>
       <Choices
-        label="If you bought the car outright, where would the money come from?"
+        label="If you were to pay cash for the car, where would the money come from?"
         value={d.cashHome}
         onChange={(v) => {
           // Savings and investment-offset share one rate box, but a savings rate isn't a loan rate.
