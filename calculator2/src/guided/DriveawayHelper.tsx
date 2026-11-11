@@ -89,8 +89,8 @@ export function DriveawayHelper({
             value={basis}
             onChange={setBasis}
             options={[
-              { value: "incGst", label: "Including GST", sub: "Most quotes print this one" },
               { value: "exGst", label: "Excluding GST" },
+              { value: "incGst", label: "Including GST", sub: "Most quotes print this one" },
             ]}
             columns={2}
           />

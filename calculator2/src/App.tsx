@@ -11,6 +11,7 @@ import { Section } from "./components/ui/Section";
 import { Tabs } from "./components/ui/Tabs";
 import { Button } from "./components/ui/Button";
 import { Footer } from "./components/ui/Footer";
+import { NoteBox } from "./components/ui/shared";
 import { GuidedMode, ADVANCED_DETAILS_TOP } from "./guided/GuidedMode";
 import { SummaryView } from "./components/SummaryView";
 import { NextSteps } from "./components/NextSteps";
@@ -62,8 +63,12 @@ function AdvancedMode(props: {
   sectionForceOpenNonce: (anchorId: string) => number | undefined;
   /** The reader changed something here themselves (typed, loaded a saved quote, or reset). */
   onUserEdit: () => void;
+  /** The inputs are still the built-in example scenario. */
+  showingExamples: boolean;
+  onResetToExamples: () => void;
+  onSwitchToGuided: () => void;
 }) {
-  const { inputs, setInputs, savedQuotes, setSavedQuotes, outputTab, setOutputTab, navigateToDetails, sectionForceOpenNonce, onUserEdit } = props;
+  const { inputs, setInputs, savedQuotes, setSavedQuotes, outputTab, setOutputTab, navigateToDetails, sectionForceOpenNonce, onUserEdit, showingExamples, onResetToExamples, onSwitchToGuided } = props;
   const setInputsByUser: React.Dispatch<React.SetStateAction<Inputs>> = (u) => {
     onUserEdit();
     setInputs(u);
@@ -200,6 +205,16 @@ function AdvancedMode(props: {
 
   return (
     <div>
+      {showingExamples && (
+        <NoteBox color="var(--nlc-warn)" mb={16}>
+          <strong>These are example figures, not yours.</strong> Replace each one with the figures from your quote.
+          New to novated leases?{" "}
+          <button type="button" className="gd-linkbtn" onClick={onSwitchToGuided}>
+            Guided mode
+          </button>{" "}
+          walks you through it.
+        </NoteBox>
+      )}
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: 16, gap: 8, flexWrap: "wrap" }}>
         <Button variant="secondary" size="sm" onClick={onCopyShareLink}>
           {copiedLink ? "Link copied!" : "Copy share link"}
@@ -219,6 +234,7 @@ function AdvancedMode(props: {
             onVehicleLeasePeriodModeChange={setVehicleLeasePeriodMode}
             onResetDefaults={() => {
               onUserEdit();
+              onResetToExamples();
               setInputs(advancedDefaultInputs);
               setOutputTab("summary");
               setCopiedLink(false);
@@ -405,6 +421,10 @@ export default function App() {
     if (typeof window === "undefined") return false;
     return !!new URLSearchParams(window.location.search).get(URL_STATE_PARAM);
   });
+  const [showingExamples, setShowingExamples] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    return !new URLSearchParams(window.location.search).get(URL_STATE_PARAM);
+  });
   const guidedInputsRef = useRef<Inputs | null>(null);
   const [pendingDetailsNav, setPendingDetailsNav] = useState<{ anchorId?: string; nonce: number } | null>(null);
 
@@ -515,6 +535,7 @@ export default function App() {
   function openGuidedInAdvanced(guidedInputs: Inputs, anchorId?: string) {
     setInputs(guidedInputs);
     setAdvancedEdited(false);
+    setShowingExamples(false);
     changeMode("advanced");
     const detailsTop = anchorId === ADVANCED_DETAILS_TOP;
     if (detailsTop) setOutputTab("details");
@@ -654,7 +675,13 @@ export default function App() {
           setOutputTab={setOutputTab}
           navigateToDetails={navigateToDetails}
           sectionForceOpenNonce={sectionForceOpenNonce}
-          onUserEdit={() => setAdvancedEdited(true)}
+          onUserEdit={() => {
+            setAdvancedEdited(true);
+            setShowingExamples(false);
+          }}
+          showingExamples={showingExamples}
+          onResetToExamples={() => setShowingExamples(true)}
+          onSwitchToGuided={() => changeMode("guided")}
         />
       )}
       <Footer showTourLink={tourHidden} onStartTour={startTour} />

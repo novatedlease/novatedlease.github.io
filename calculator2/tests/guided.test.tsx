@@ -75,6 +75,7 @@ function completeDraft(rate = 0.08): GuidedDraft {
   d.paymentBasis = "exGst";
   d.payment = m(fn.toFixed(2));
   d.gstPassedOn = "Yes";
+  d.runningGstHeading = "exGst";
   d.compareLoan = false;
   d.compareCurrent = false;
   d.runningPeriod = "perYear";
@@ -336,7 +337,7 @@ describe("guided: market value at the end of the lease", () => {
   test("is only asked against keeping the current car; otherwise the typical figure is used", () => {
     const d = completeDraft();
     d.marketValueEnd = emptyDraft().marketValueEnd;
-    expect(missingForStep("lease", d).join()).not.toMatch(/market value/);
+    expect(missingForStep("alternatives", d).join()).not.toMatch(/market value/);
     expect(buildInputs(d)!.estimatedMarketValueAtEnd).toBe(
       Math.round((52400 * 0.4) / 1000) * 1000,
     );
@@ -364,9 +365,10 @@ describe("guided: market value at the end of the lease", () => {
   test("is required against the current car, and the typical suggestion tracks the term", () => {
     const d = withCurrentCar(completeDraft());
     d.marketValueEnd = emptyDraft().marketValueEnd;
-    expect(missingForStep("lease", d).join()).toMatch(/market value/);
-    d.marketValueEnd = { text: "1", none: false, estimated: true };
     expect(missingForStep("lease", d).join()).not.toMatch(/market value/);
+    expect(missingForStep("alternatives", d).join()).toMatch(/market value/);
+    d.marketValueEnd = { text: "1", none: false, estimated: true };
+    expect(missingForStep("alternatives", d).join()).not.toMatch(/market value/);
     const five = typicalMarketValueAtLeaseEnd(d)!;
     d.leaseYears = 3;
     expect(typicalMarketValueAtLeaseEnd(d)!).toBeGreaterThan(five);

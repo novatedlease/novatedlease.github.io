@@ -170,7 +170,7 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
             <KV label="Residual value payable (ex GST)" value={money(residualStandardExGst)} />
             <KV label="Fortnightly lease" value={money(leaseFn)} />
             <KV label={`Equivalent monthly lease over ${payableMonths} months`} value={money(monthlyEqDef1)} />
-            <KV label="Months deferred" value={`${deferMonths} months`} />
+            <KV label="Months until first finance payment" value={`${deferMonths} months`} />
             <KV label="Effective annual rate" value={pct(rateDef1)} bold highlight color="var(--nlc-acc-green)" />
           </div>
           <AmortisationTable financedAmount={financedStandardExGst} monthlyPayment={monthlyEqDef1} annualRate={rateDef1} />

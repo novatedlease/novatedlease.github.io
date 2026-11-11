@@ -5,7 +5,8 @@ type FieldWrapperProps = {
   tooltip?: React.ReactNode;
   hint?: React.ReactNode;
   error?: React.ReactNode;
-  htmlFor: string;
+  /** Omitted when the control isn't a form field (a button group labelled with aria-labelledby). */
+  htmlFor?: string;
   children: React.ReactNode;
   /** Extra class on the field, e.g. to mark it as not yet answered. */
   className?: string;

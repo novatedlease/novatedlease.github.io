@@ -28,6 +28,7 @@ describe("Guided flow (real interaction)", () => {
     );
     // Choosing an answer moves straight on to the car
     click(/Yes, I have a quote/);
+    click(/^Continue$/);
     // Cannot advance with nothing answered
     click("Next");
     expect(screen.getByRole("alert").textContent).toMatch(/Still to answer/);
@@ -151,6 +152,7 @@ describe("Guided flow (real interaction)", () => {
   test("exploring path: no quote, typical figures, estimate banner, switch to quote keeps answers", () => {
     render(<GuidedMode onOpenAdvanced={() => {}} />);
     click(/No, I'm just exploring/);
+    click(/^Continue$/);
     click(/Electric \(EV\)/);
     click(/^New$/);
     // no exact lease-start date on the estimate path, just which side of the phase-out
@@ -201,6 +203,7 @@ describe("Guided flow (real interaction)", () => {
   test("unanswered questions are marked on screen, listed by their own wording, and the box stays once done", () => {
     render(<GuidedMode onOpenAdvanced={() => {}} />);
     click(/Yes, I have a quote/);
+    click(/^Continue$/);
     click(/Petrol, diesel or any hybrid/);
     click(/^New$/);
     fireEvent.change(document.getElementById("gd-start")!, { target: { value: "2026-11-20" } });
@@ -226,6 +229,7 @@ describe("Guided flow (real interaction)", () => {
     render(<GuidedMode onOpenAdvanced={() => {}} />);
     expect(screen.queryByRole("button", { name: "Start over" })).toBeNull();
     click(/Yes, I have a quote/);
+    click(/^Continue$/);
     click(/Petrol, diesel or any hybrid/);
 
     click("Start over");

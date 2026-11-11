@@ -330,6 +330,8 @@
 }
 
 .nlc-field__suffix {
+  white-space: nowrap;
+  flex-shrink: 0;
   border-left: none;
   border-radius: 0 var(--nlc-radius-md) var(--nlc-radius-md) 0;
 }

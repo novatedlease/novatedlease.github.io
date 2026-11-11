@@ -241,7 +241,7 @@ type FindingMap = ReturnType<typeof findingsFor>;
 const STEP_FIELDS: Partial<Record<StepId, (keyof FindingMap)[]>> = {
   quick: ["evThreshold", "mileage"],
   price: ["prices"],
-  lease: ["docFee", "residual", "marketValue"],
+  lease: ["docFee", "residual"],
   payment: ["payment", "paymentCorrected"],
   running: [
     "mileage",
@@ -253,7 +253,7 @@ const STEP_FIELDS: Partial<Record<StepId, (keyof FindingMap)[]>> = {
     "charging",
   ],
   you: ["income", "offset", "savings", "invested"],
-  alternatives: ["loan", "curValueNow", "curValueEnd", "curService", "curRego", "curFuel", "curInsurance"],
+  alternatives: ["loan", "marketValue", "curValueNow", "curValueEnd", "curService", "curRego", "curFuel", "curInsurance"],
 };
 
 /** Findings that only make sense on the screens the reader actually sees. */
@@ -482,6 +482,9 @@ export function GuidedMode({
           </li>
         ))}
       </ol>
+      <div className="gd-steps__count">
+        Step {stepIndex + 1} of {steps.length}
+      </div>
 
       <div className="gd-card" data-tour-id="guided-card">
         <h2 className="gd-title">{STEP_TITLES[step]}</h2>
@@ -493,7 +496,6 @@ export function GuidedMode({
             onChoose={(hasQuote) => {
               set("hasQuote", hasQuote);
               trackEvent("guided_path", { has_quote: hasQuote });
-              go("car");
             }}
             onSwitchToAdvanced={onSwitchToAdvanced}
           />
@@ -542,8 +544,9 @@ export function GuidedMode({
               }
             />
             <span>
-              I've double-checked these figures against my quote and want to
-              continue anyway.
+              {draft.hasQuote === false
+                ? "I've double-checked these figures and want to continue anyway."
+                : "I've double-checked these figures against my quote and want to continue anyway."}
             </span>
           </label>
         )}
@@ -760,28 +763,26 @@ function Intro({
           {
             value: true,
             label: "Yes, I have a quote",
-            sub: "Most accurate, ~5 minutes",
+            sub: "Most accurate, 5–10 minutes",
           },
           {
             value: false,
             label: "No, I'm just exploring",
-            sub: "Typical figures, ~2 minutes",
+            sub: "Typical figures, about 2 minutes",
           },
         ]}
         columns={2}
         hint="You can add your quote later without losing your answers."
       />
-      <div className="gd-checklist">
-        <strong>Have these ready</strong>
-        <ul>
-          <li><strong>Novated lease quote</strong></li>
-          <li>Taxable income (payslip or tax return)</li>
-          <li>Servicing, rego and insurance costs (optional)</li>
-        </ul>
-      </div>
+      {d.hasQuote === true && (
+        <div className="gd-checklist">
+          <strong>Have your quote open.</strong> Most answers come straight
+          from it.
+        </div>
+      )}
       {onSwitchToAdvanced && (
         <div className="gd-skip">
-          Need more control?{" "}
+          Used this calculator before?{" "}
           <button
             type="button"
             className="gd-linkbtn"
@@ -790,7 +791,7 @@ function Intro({
               onSwitchToAdvanced();
             }}
           >
-            Skip to Advanced mode
+            Go to Advanced mode
           </button>
           .
         </div>
@@ -951,10 +952,19 @@ function CarStep({ d, set }: StepProps) {
               applies, splits the lease into FBT years (1 April to 31 March) and
               financial years, and decides whether the used-EV questions apply.
               Sourcing a car and finishing the paperwork usually takes one to two
-              months.
+              months. Under the exposure draft (not yet law), the EV phase-out may
+              instead follow when your lease becomes a binding financial
+              commitment, which is still a grey area. If that's near 1 April 2027,
+              ask your provider when it's binding.{" "}
+              <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#its-the-commitment-date-that-counts" target="_blank" rel="noreferrer">
+                How the commitment date works
+              </a>
             </Tip>
           </label>
-          <div className="gd-where">Usually one to two months from now.</div>
+          <div className="gd-where">
+            When the car is delivered and the lease begins, usually one to two
+            months from now.
+          </div>
           <div className="gd-inline">
             <input
               id="gd-start"
@@ -1142,7 +1152,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
       />
       <Choices<string>
         field="monthsDeferred"
-        label="When does the first payment start? (deferred)"
+        label="How many months until your first finance payment?"
         value={deferValue}
         onChange={(v) => {
           if (v === "unsure") {
@@ -1152,16 +1162,16 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           }
         }}
         options={[
-          { value: "0", label: "Now" },
-          { value: "1", label: "1 month" },
-          { value: "2", label: "2 months", sub: "Most common" },
+          { value: "0", label: "Straight away" },
+          { value: "1", label: "After 1 month" },
+          { value: "2", label: "After 2 months", sub: "Most common" },
           { value: "unsure", label: "Not sure" },
         ]}
         columns={4}
         hint={
           d.monthsDeferredUnsure
             ? "We'll assume 2 months, the most common."
-            : undefined
+            : "Quotes often say “deferred 2 months”."
         }
       />
       <MoneyInput
@@ -1187,12 +1197,12 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         value={d.residualBasis}
         onChange={(v) => set("residualBasis", v)}
         options={[
+          { value: "exGst", label: "Excluding GST" },
           {
             value: "incGst",
             label: "Including GST",
             sub: "Most quotes print this one",
           },
-          { value: "exGst", label: "Excluding GST", sub: "ex GST" },
           {
             value: "unknown",
             label: "I'm not sure",
@@ -1223,26 +1233,6 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           )}
         </NoteBox>
       )}
-      {asksMarketValueEnd(d) && d.leaseYears && moneyValue(d.driveaway) ? (
-        <MoneyInput
-        field="marketValueEnd"
-          label={`Estimated market value at lease end (after ${d.leaseYears} year${d.leaseYears > 1 ? "s" : ""})`}
-          value={
-            d.marketValueEnd.estimated
-              ? {
-                  ...d.marketValueEnd,
-                  text: String(typicalMarketValueAtLeaseEnd(d) ?? ""),
-                }
-              : d.marketValueEnd
-          }
-          onChange={(m) => set("marketValueEnd", m)}
-          where="What you could sell it for then. Used-car listings are a good guide."
-          tooltip={<Tip>Not on your quote. We ask because you're comparing with keeping your current car, and what each car is worth at the end is part of that comparison.</Tip>}
-          suggestion={typicalMarketValueAtLeaseEnd(d)}
-          estimatedNote="A typical estimate. Replace it if used-car listings for your model suggest a different figure."
-          findings={f.marketValue}
-        />
-      ) : null}
     </Side>
   );
 }
@@ -1349,7 +1339,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             </p>
           </div>
         ) : (
-          <div className="gd-callout gd-callout--must" role="alert">
+          <div className="gd-callout gd-callout--must" role="status">
             <div className="gd-callout__title">
               You need to correct your Smart Leasing / MillarX payment first
             </div>
@@ -1511,6 +1501,36 @@ function GstMock() {
   );
 }
 
+function GstCreditMock() {
+  return (
+    <div className="gd-gstmock" aria-label="Example of a quote that takes a GST credit off its running costs">
+      <div className="gd-gstmock__card">
+        <div className="gd-gstmock__title">Including GST, with a credit taken off</div>
+        <div className="gd-gstmock__head">
+          <span>Item</span>
+          <span>Amount inc GST</span>
+        </div>
+        <div className="gd-gstmock__row">
+          <span>Servicing and tyres</span>
+          <span>$1,100.00</span>
+        </div>
+        <div className="gd-gstmock__row">
+          <span>Insurance</span>
+          <span>$1,430.00</span>
+        </div>
+        <div className="gd-gstmock__row">
+          <span>Less GST credit</span>
+          <span>−$230.00</span>
+        </div>
+        <div className="gd-gstmock__row gd-gstmock__row--sum">
+          <span>Total</span>
+          <span>$2,300.00</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function RunningStep({ d, set, f }: StepPropsF) {
   const typical = typicalFigures(d);
   const isEv = d.vehicleType === "EV";
@@ -1536,9 +1556,11 @@ function RunningStep({ d, set, f }: StepPropsF) {
     }
     set("runningPeriod", next);
   }
-  const gstTag = d.gstPassedOn ? (
+  const heading = d.runningGstHeading;
+  const credit = d.runningGstCredit;
+  const gstTag = heading ? (
     <span className="gd-gsttag">
-      {d.gstPassedOn === "No" ? "inc GST" : "ex GST"}
+      {heading === "incGst" ? "inc GST" : "ex GST"}
     </span>
   ) : null;
   const typicalIn = (annual?: number | null) =>
@@ -1562,42 +1584,6 @@ function RunningStep({ d, set, f }: StepPropsF) {
         and divide by the years between. Or multiply a typical weekly total by
         52.
       </Help>
-      <Choices<YesNoUnsure>
-        field="gstPassedOn"
-        label="Is your quote's running-cost budget inc GST or ex GST?"
-        value={d.gstPassedOn}
-        onChange={(v) => set("gstPassedOn", v)}
-        options={[
-          {
-            value: "Yes",
-            label: "Excluding GST",
-            sub: "Heading says ex GST",
-          },
-          {
-            value: "No",
-            label: "Including GST",
-            sub: "Heading says inc GST, and no GST credit is taken off later",
-          },
-          {
-            value: "Unsure",
-            label: "I'm not sure",
-            sub: "We'll assume excluding GST",
-          },
-        ]}
-        columns={3}
-        tooltip={
-          <Tip>
-            Some employers (Victorian hospitals in particular) don't pass the
-            GST saving on to you.{" "}
-            <a href={GST_ARTICLE} target="_blank" rel="noreferrer">
-              Read more about the GST saving
-            </a>
-          </Tip>
-        }
-      />
-      <Help title="See how the two look on a quote">
-        <GstMock />
-      </Help>
       <Choices<RunningPeriod>
         field="runningPeriod"
         label="How are costs shown on your quote?"
@@ -1611,7 +1597,84 @@ function RunningStep({ d, set, f }: StepPropsF) {
         columns={3}
         hint="Use whichever your quote shows. All the boxes below use it."
       />
+      <Choices<"exGst" | "incGst" | "unknown">
+        field="runningGstHeading"
+        label="What does the running-cost heading on your quote say?"
+        value={heading}
+        onChange={(v) => {
+          set("runningGstHeading", v);
+          if (v === "incGst") {
+            set("gstPassedOn", credit === "No" ? "No" : credit ? "Yes" : null);
+          } else {
+            set("runningGstCredit", null);
+            set("gstPassedOn", v === "exGst" ? "Yes" : "Unsure");
+          }
+        }}
+        options={[
+          { value: "exGst", label: "Excluding GST", sub: "e.g. “Amount ex GST”" },
+          { value: "incGst", label: "Including GST", sub: "e.g. “Amount inc GST”" },
+          {
+            value: "unknown",
+            label: "I can't see it",
+            sub: "We'll assume excluding GST",
+          },
+        ]}
+        columns={3}
+      />
+      <Help title="See how the two look on a quote">
+        <GstMock />
+      </Help>
+      {heading === "incGst" && (
+        <>
+          <Choices<YesNoUnsure>
+            field="runningGstCredit"
+            label="Anywhere on the quote, is a GST credit taken off the running costs?"
+            value={credit}
+            onChange={(v) => {
+              set("runningGstCredit", v);
+              set("gstPassedOn", v === "No" ? "No" : "Yes");
+            }}
+            options={[
+              {
+                value: "Yes",
+                label: "Yes",
+                sub: "A line such as “Less GST credit”",
+              },
+              { value: "No", label: "No", sub: "The amounts stay as they are" },
+              {
+                value: "Unsure",
+                label: "I'm not sure",
+                sub: "We'll assume yes, as for most employers",
+              },
+            ]}
+            columns={3}
+            tooltip={
+              <Tip>
+                Some employers (Victorian hospitals in particular) don't pass the
+                GST saving on to you, so no credit comes off.{" "}
+                <a href={GST_ARTICLE} target="_blank" rel="noreferrer">
+                  Read more about the GST saving
+                </a>
+              </Tip>
+            }
+          />
+          <Help title="What a GST credit looks like on a quote">
+            <GstCreditMock />
+          </Help>
+          {credit && credit !== "No" && (
+            <p className="nlc-field__hint">
+              Type the amounts as printed (inc GST). We'll take the GST off.
+            </p>
+          )}
+        </>
+      )}
       <div className="gd-rows">
+        {!period && (
+          <div className="nlc-field__hint">
+            Choose how costs are shown on your quote (above) to see a typical
+            figure for each.
+          </div>
+        )}
         <MoneyInput
         field="service"
           row
@@ -1621,6 +1684,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           suffix={suffix}
           suggestion={typicalIn(typical?.service)}
           findings={f.service}
+          estimatedNote="Typical estimate"
         />
         <MoneyInput
         field="rego"
@@ -1631,6 +1695,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           suffix={suffix}
           suggestion={typicalIn(typical?.rego)}
           findings={f.rego}
+          estimatedNote="Typical estimate"
         />
         <MoneyInput
         field="insurance"
@@ -1642,6 +1707,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           suggestion={typicalIn(typical?.insurance)}
           hint="Comprehensive cover. Compare with your own insurer's quote."
           findings={f.insurance}
+          estimatedNote="Typical estimate"
         />
         <MoneyInput
         field="mgmt"
@@ -1652,6 +1718,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           suffix={suffix}
           suggestion={typicalIn(typical?.mgmt)}
           findings={f.mgmt}
+          estimatedNote="Typical estimate"
           where="Admin, membership and management fees, added together."
         />
         {!isEv && (
@@ -1664,6 +1731,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
             suffix={suffix}
             suggestion={typicalIn(typical?.fuel)}
             findings={f.fuel}
+            estimatedNote="Typical estimate"
             where="As shown for fuel in the running-costs section."
           />
         )}
@@ -1707,6 +1775,12 @@ function RunningStep({ d, set, f }: StepPropsF) {
           />
         )}
       </div>
+      {RUNNING_FIELDS.some((k) => d[k].estimated && !d[k].none) && (
+        <div className="gd-estimated">
+          Typical estimates aren't from your quote. Replace any where you have
+          the real figure.
+        </div>
+      )}
     </>
   );
 }
@@ -1974,6 +2048,7 @@ function AlternativesStep({ d, set, f }: StepPropsF) {
             value={d.loanRate}
             onChange={(m) => set("loanRate", m)}
             where="From a loan offer, for example 7.5. The interest rate, not the comparison rate."
+            placeholder="e.g. 7.5"
             findings={f.loan}
           />
           <MoneyInput
@@ -1985,6 +2060,29 @@ function AlternativesStep({ d, set, f }: StepPropsF) {
           />
         </section>
       )}
+      {d.compareCurrent && d.hasQuote !== false && d.leaseYears && moneyValue(d.driveaway) ? (
+        <section className="gd-sub">
+          <h3 className="gd-sub__title">The new car at the end</h3>
+          <MoneyInput
+          field="marketValueEnd"
+            label={`Estimated market value at lease end (after ${d.leaseYears} year${d.leaseYears > 1 ? "s" : ""})`}
+            value={
+              d.marketValueEnd.estimated
+                ? {
+                    ...d.marketValueEnd,
+                    text: String(typicalMarketValueAtLeaseEnd(d) ?? ""),
+                  }
+                : d.marketValueEnd
+            }
+            onChange={(m) => set("marketValueEnd", m)}
+            where="What you could sell it for then. Used-car listings are a good guide."
+            tooltip={<Tip>Not on your quote. Against keeping your current car, what each car is worth at the end is part of the comparison.</Tip>}
+            suggestion={typicalMarketValueAtLeaseEnd(d)}
+            estimatedNote="A typical estimate. Replace it if used-car listings for your model suggest a different figure."
+            findings={f.marketValue}
+          />
+        </section>
+      ) : null}
       {d.compareCurrent && <CurrentCarFields d={d} set={set} f={f} />}
     </>
   );
@@ -1999,8 +2097,8 @@ function curFuelScaledNote(d: GuidedDraft): string | undefined {
   return `You entered this for ${d.curFuelBasisKm.toLocaleString("en-AU")} km a year. At your current ${km.toLocaleString("en-AU")} km we count ${money(currentCarFuelAnnual(d) ?? typed)} a year.`;
 }
 
-const CUR_TYPICAL =
-  "Typical estimate. Replace it if you know what this car actually costs you.";
+const CUR_TYPICAL = "Typical estimate";
+const CUR_COSTS = ["curService", "curRego", "curFuel", "curInsurance"] as const;
 
 function CurrentCarFields({ d, set, f }: StepPropsF) {
   const t = typicalCurrentCar(d);
@@ -2085,6 +2183,11 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           estimatedNote={CUR_TYPICAL}
         />
       </div>
+      {CUR_COSTS.some((k) => d[k].estimated && !d[k].none) && (
+        <div className="gd-estimated">
+          Typical estimates aren't your car's real costs. Replace any you know.
+        </div>
+      )}
     </section>
   );
 }
@@ -2143,10 +2246,12 @@ function ReviewStep({
   const flagged = visibleFindings(d, f).filter(
     (x) => x.level === "error" || x.level === "warn",
   );
+  const cashNone = d.cashHome === "none";
   const alternatives = [
-    "buying with cash",
+    ...(cashNone ? [] : ["buying with cash"]),
     ...(d.compareLoan ? ["a car loan"] : []),
     ...(d.compareCurrent ? ["keeping your current car"] : []),
+    ...(cashNone ? ["buying with cash (for reference only)"] : []),
   ];
   const comparedWith =
     alternatives.length === 1
@@ -2266,7 +2371,7 @@ function ReviewStep({
                 marketValueEndEntered(d)
                   ? `${money(marketValueEndEntered(d)!)}${d.marketValueEnd.estimated ? " (typical estimate)" : ""}`
                   : "?",
-                "lease",
+                "alternatives",
               ]
             : null,
           [
@@ -2373,6 +2478,15 @@ function ReviewStep({
         inputs={shownInputs ?? inputs}
         horizon={effectiveHorizon}
         approx={exploring}
+        cashNone={cashNone}
+        ratePct={
+          exploring
+            ? Number(assumedRate)
+            : diag?.status === "ok" && diag.rate !== null
+              ? diag.rate * 100
+              : null
+        }
+        onEditCompare={() => onEdit("compare")}
         onOpenAdvanced={() => openAdvanced()}
       />
       <Section
@@ -2388,6 +2502,7 @@ function ReviewStep({
             onNavigateToDetails={(anchorId) => openAdvanced(anchorId)}
             hideDisclaimers
             compactMoreDetails
+            cashLast={cashNone}
             onMoreDetails={(anchorId) => {
               trackEvent("guided_more_details_clicked");
               openAdvanced(anchorId);
@@ -2467,6 +2582,7 @@ function ReviewStep({
               <TryNumbers
                 d={d}
                 set={set}
+                cashNone={cashNone}
                 inputs={shownInputs ?? inputs}
                 horizon={effectiveHorizon}
               />
@@ -2576,7 +2692,9 @@ function Slider({
   step,
   format,
   onChange,
+  hint,
 }: {
+  hint?: string;
   label: string;
   value: number;
   min: number;
@@ -2602,6 +2720,7 @@ function Slider({
         aria-valuetext={format(value)}
         onChange={(e) => onChange(Number(e.target.value))}
       />
+      {hint && <div className="nlc-field__hint">{hint}</div>}
     </div>
   );
 }
@@ -2613,6 +2732,68 @@ const TRY_KEYS = [
   "leaseYears",
   "estimateRatePct",
 ] as const;
+
+/** Above this, the lease's interest rate is high enough to explain a poor result on its own. */
+const HIGH_LEASE_RATE_PCT = 12;
+
+/**
+ * One plain sentence per "worse off" line where the figures show the cause. Nothing is said when
+ * they don't: a guess at the reason would be worse than none.
+ */
+function worseOffReasons(
+  inputs: Inputs,
+  fig: ReturnType<typeof summaryFigures>,
+  ratePct: number | null,
+  approx: boolean,
+): ReactNode[] {
+  const out: ReactNode[] = [];
+  const amount = (n: number) => (approx ? `about ${money(Math.round(n / 1000) * 1000)}` : money(n));
+  const financeWorse =
+    fig.totalSaving < 0 || (inputs.compareWithCarLoan && fig.totalSavingVsLoan < 0);
+  if (financeWorse && ratePct !== null && ratePct > HIGH_LEASE_RATE_PCT) {
+    out.push(
+      <>
+        <strong>A big reason:</strong> the lease's interest rate is about{" "}
+        {ratePct.toFixed(1).replace(/\.0$/, "")}%. Competitive leases tend to
+        be around 10% or lower.{" "}
+        <a href="/tools/byo-employer-check/" target="_blank" rel="noreferrer">
+          Check whether your employer lets you bring your own finance
+        </a>
+        .
+      </>,
+    );
+  }
+  if (inputs.compareWithCurrentCar && fig.nlVsKeepSaving < 0 && fig.cashDelta < 0 && fig.assetDelta > 0) {
+    out.push(
+      <>
+        <strong>Against keeping your current car:</strong> the lease means
+        spending {amount(-fig.cashDelta)} more over {fig.years} years, and the
+        new car is worth only {amount(fig.assetDelta)} more at the end.
+      </>,
+    );
+  }
+  return out;
+}
+
+/** One line per chosen comparison. With no cash to pay outright, paying cash is kept for reference and goes last. */
+function comparisonLines(
+  inputs: Inputs,
+  fig: ReturnType<typeof summaryFigures>,
+  cashNone: boolean,
+  cashLabel: string,
+): [string, number][] {
+  const cash: [string, number] = [
+    cashNone ? `${cashLabel} (for reference: you said you don't have the cash)` : cashLabel,
+    fig.totalSaving,
+  ];
+  const others: [string, number][] = [
+    ...(inputs.compareWithCarLoan ? [["a car loan", fig.totalSavingVsLoan] as [string, number]] : []),
+    ...(inputs.compareWithCurrentCar
+      ? [["keeping your current car", fig.nlVsKeepSaving] as [string, number]]
+      : []),
+  ];
+  return cashNone ? [...others, cash] : [cash, ...others];
+}
 
 /** "$36,000 better off", rounded to the nearest $1,000 when approx; followed by "than …" when given. */
 function Outcome({ net, approx, what }: { net: number; approx: boolean; what?: string }) {
@@ -2643,23 +2824,26 @@ function ResultHeadline({
   inputs,
   horizon,
   approx = false,
+  cashNone = false,
+  ratePct = null,
+  onEditCompare,
   onOpenAdvanced,
 }: {
+  /** The lease's effective interest rate, as a percentage, when known. */
+  ratePct?: number | null;
   inputs: Inputs;
   horizon: "five_year" | "lease_end";
+  /** "I don't have the cash to pay outright": paying cash is shown last, for reference. */
+  cashNone?: boolean;
+  onEditCompare?: () => void;
   /** Round to the nearest $1,000: an estimate from typical figures shouldn't look exact to the dollar. */
   approx?: boolean;
   /** Opens Advanced mode at the top, like the "Open full workings" button. */
   onOpenAdvanced: () => void;
 }) {
   const fig = summaryFigures(inputs, horizon);
-  const lines: [string, number][] = [
-    ["paying cash", fig.totalSaving],
-    ...(inputs.compareWithCarLoan ? [["a car loan", fig.totalSavingVsLoan] as [string, number]] : []),
-    ...(inputs.compareWithCurrentCar
-      ? [["keeping your current car", fig.nlVsKeepSaving] as [string, number]]
-      : []),
-  ];
+  const lines = comparisonLines(inputs, fig, cashNone, "paying cash");
+  const reasons = worseOffReasons(inputs, fig, ratePct, approx);
   return (
     <div className="gd-headline" role="status">
       <div className="gd-headline__lead">Over {fig.years} years, a novated lease leaves you:</div>
@@ -2668,6 +2852,26 @@ function ResultHeadline({
           <Outcome net={net} approx={approx} what={what} />
         </div>
       ))}
+      {reasons.map((r, i) => (
+        <p key={i} className="gd-headline__why">
+          {r}
+        </p>
+      ))}
+      {cashNone && !inputs.compareWithCarLoan && (
+        <p className="gd-headline__caveat">
+          You said you'd pay cash if you didn't lease, but also that you don't
+          have the cash.{" "}
+          {onEditCompare && (
+            <>
+              If you'd borrow instead,{" "}
+              <button type="button" className="gd-linkbtn" onClick={onEditCompare}>
+                change what you're comparing
+              </button>
+              .
+            </>
+          )}
+        </p>
+      )}
       <p className="gd-headline__caveat">
         Not counted in these figures: changes to HECS repayments, childcare
         subsidy, the Medicare levy surcharge or Division 293 tax. Advanced mode
@@ -2700,7 +2904,8 @@ function TryNumbers({
   set,
   inputs,
   horizon,
-}: StepProps & { inputs: Inputs; horizon: "five_year" | "lease_end" }) {
+  cashNone = false,
+}: StepProps & { inputs: Inputs; horizon: "five_year" | "lease_end"; cashNone?: boolean }) {
   const [original] = useState(() =>
     Object.fromEntries(TRY_KEYS.map((k) => [k, d[k]])),
   );
@@ -2719,15 +2924,7 @@ function TryNumbers({
   );
   // The same totals the result cards show, one line per comparison the reader chose.
   const fig = summaryFigures(inputs, horizon);
-  const lines: [string, number][] = [
-    ["buying with cash", fig.totalSaving],
-    ...(inputs.compareWithCarLoan
-      ? [["a car loan", fig.totalSavingVsLoan] as [string, number]]
-      : []),
-    ...(inputs.compareWithCurrentCar
-      ? [["keeping your current car", fig.nlVsKeepSaving] as [string, number]]
-      : []),
-  ];
+  const lines = comparisonLines(inputs, fig, cashNone, "buying with cash");
   const ratePct = d.estimateRatePct ?? ASSUMED_EFFECTIVE_RATE * 100;
   const km = (v: number) => `${v.toLocaleString("en-AU")} km`;
 
@@ -2789,6 +2986,7 @@ function TryNumbers({
         />
         <Slider
           label="Effective interest rate"
+          hint="Competitive leases tend to be around 10% or lower."
           value={ratePct}
           min={6}
           max={20}

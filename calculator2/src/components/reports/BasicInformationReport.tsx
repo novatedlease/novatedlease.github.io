@@ -141,7 +141,7 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
             <Stat label="ECM per fortnight" value={`$${aud(ecmPerFn)}`} color="var(--nlc-acc-orange)" />
             <Stat label="FBT delta per fortnight" value={`$${aud(fbtDeltaPerFn)}`} color="var(--nlc-acc-red)" note="Extra cost vs FBT-exempt EV" />
           </StatGrid>
-          <KV label="Vehicle dutiable value" value={`$${aud(vehicleDutiableValue)}`} />
+          <KV label="FBT base value" value={`$${aud(vehicleDutiableValue)}`} />
           <KV label="FBT statutory rate" value={`${Math.round(fbtStatutoryRate * 100)}%`} />
           <KV label="Annual ECM" value={`$${aud(ecmAnnual)}`} />
           <KV label="Fortnightly ECM" value={`$${aud(ecmPerFn)}`} />

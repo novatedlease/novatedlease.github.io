@@ -215,27 +215,18 @@ export function LeaseRateGuard(props: {
         label={
           <div>
             <div>Vehicle finance (ex GST)</div>
-            <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11, alignItems: "center" }}>
-              {(["perFn", "perMonth"] as const).map((mode, idx) => (
-                <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                  {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
-                  <button
-                    type="button"
-                    onClick={() => onVehicleLeasePeriodModeChange(mode)}
-                    style={{
-                      padding: 0,
-                      border: "none",
-                      background: "transparent",
-                      cursor: "pointer",
-                      fontSize: 11,
-                      fontWeight: vehicleLeasePeriodMode === mode ? 800 : 400,
-                      opacity: vehicleLeasePeriodMode === mode ? 0.9 : 0.45,
-                      textDecoration: vehicleLeasePeriodMode === mode ? "underline" : "none",
-                    }}
-                  >
-                    {mode === "perFn" ? "per fortnight" : "per month"}
-                  </button>
-                </span>
+            <div className="nlc-pill-group" role="group" aria-label="Vehicle finance period" style={{ marginTop: 6 }}>
+              {(["perFn", "perMonth"] as const).map((mode) => (
+                <button
+                  key={mode}
+                  type="button"
+                  className="nlc-pill-group__btn"
+                  aria-pressed={vehicleLeasePeriodMode === mode}
+                  onClick={() => onVehicleLeasePeriodModeChange(mode)}
+                  style={{ padding: "4px 12px", fontSize: 12 }}
+                >
+                  {mode === "perFn" ? "Per fortnight" : "Per month"}
+                </button>
               ))}
             </div>
           </div>

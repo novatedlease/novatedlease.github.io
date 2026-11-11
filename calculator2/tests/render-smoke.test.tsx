@@ -127,7 +127,7 @@ describe("render smoke test", () => {
     const html = renderToStaticMarkup(<InputsPanel inputs={inputs} setInputs={() => {}} vehicleLeasePeriodMode="perFn" onVehicleLeasePeriodModeChange={() => {}} />);
     for (const label of [
       "Vehicle type",
-      "Vehicle dutiable value",
+      "FBT base value (as on your quote)",
       "Drive-away cost",
       "Total taxable income",
       "Home loan offset interest rate",
@@ -136,10 +136,10 @@ describe("render smoke test", () => {
       "Residual value",
       "Luxury vehicle adjustment",
       "Financed amount reported",
-      "Months deferred",
+      "Months until first finance payment",
       "GST saving passed on",
       "Service / maintenance / tyres",
-      "Average AUD per kWh",
+      "Electricity price per kWh",
       "Enable car loan comparison",
       "Enable keep-current-car comparison",
     ]) {
@@ -152,7 +152,7 @@ describe("render smoke test", () => {
     const nonEv = withOverrides(inputs, { vehicleType: "Non-EV", electricityAnnual: 0, fuelAnnual: 2200 });
     const html = renderToStaticMarkup(<InputsPanel inputs={nonEv} setInputs={() => {}} vehicleLeasePeriodMode="perFn" onVehicleLeasePeriodModeChange={() => {}} />);
     expect(html).toContain(">Fuel<");
-    expect(html).not.toContain("Average AUD per kWh");
+    expect(html).not.toContain("Electricity price per kWh");
   });
 
   test("InputsPanel reveals car-loan and keep-current-car sub-fields when those comparators are enabled", () => {
@@ -164,25 +164,40 @@ describe("render smoke test", () => {
 
   test("SummaryView shows only the NL-vs-Cash card by default (no loan/keep comparators enabled)", () => {
     const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" onNavigateToDetails={() => {}} />);
-    expect(html).toContain("Novated Lease vs Offset Cash");
-    expect(html).not.toContain("Novated Lease vs Car Loan");
-    expect(html).not.toContain("Novated Lease vs Keeping Current Car");
+    expect(html).toContain("Novated lease vs paying cash");
+    expect(html).not.toContain("Novated lease vs a car loan");
+    expect(html).not.toContain("Novated lease vs keeping your current car");
     expect(html.match(/\bNaN\b|>undefined</g)).toBeNull();
   });
 
   test("SummaryView shows all three cards when both comparators are enabled", () => {
     const withComparators = withOverrides(inputs, { compareWithCarLoan: true, compareWithCurrentCar: true });
     const html = renderToStaticMarkup(<SummaryView inputs={withComparators} horizon="five_year" onNavigateToDetails={() => {}} />);
-    expect(html).toContain("Novated Lease vs Offset Cash");
-    expect(html).toContain("Novated Lease vs Car Loan");
-    expect(html).toContain("Novated Lease vs Keeping Current Car");
+    expect(html).toContain("Novated lease vs paying cash");
+    expect(html).toContain("Novated lease vs a car loan");
+    expect(html).toContain("Novated lease vs keeping your current car");
     expect(html.match(/\bNaN\b|>undefined</g)).toBeNull();
   });
 
   test("SummaryView's total saving equals cashflow advantage + interest advantage, matching computeTotalSaving", () => {
     const html = renderToStaticMarkup(<SummaryView inputs={inputs} horizon="five_year" onNavigateToDetails={() => {}} />);
-    expect(html).toContain("Cashflow advantage");
-    expect(html).toContain("Home loan interest advantage");
-    expect(html).toMatch(/Total saving \(NL\)|Total extra cost \(NL\)/);
+    expect(html).toMatch(/Less spent with the lease|More spent with the lease/);
+    expect(html).toMatch(/Home loan interest saved with the lease|Extra home loan interest with the lease/);
+    expect(html).toMatch(/Total saving with the lease|Total extra cost with the lease/);
+  });
+});
+
+describe("Advanced: 5-year value fields on a shorter lease", () => {
+  const inputs = baseEvInputs();
+  test("a 3-year lease says the value is at 5 years, for both cars", () => {
+    const three = withOverrides(inputs, { leaseDurationYears: 3, compareWithCurrentCar: true });
+    const html = renderToStaticMarkup(<InputsPanel inputs={three} setInputs={() => {}} vehicleLeasePeriodMode="perFn" onVehicleLeasePeriodModeChange={() => {}} />);
+    expect(html.match(/5 years from now, not at the end of your 3-year lease/g)).toHaveLength(2);
+    expect(html).toMatch(/That implies about \$[\d,]+ at the end of your 3-year lease/);
+  });
+
+  test("a 5-year lease shows no such note", () => {
+    const html = renderToStaticMarkup(<InputsPanel inputs={withOverrides(inputs, { leaseDurationYears: 5 })} setInputs={() => {}} vehicleLeasePeriodMode="perFn" onVehicleLeasePeriodModeChange={() => {}} />);
+    expect(html).not.toMatch(/5 years from now/);
   });
 });

@@ -1,5 +1,15 @@
 # Calculator UX fixes — handoff (started 2026-11-11)
 
+> **Status 2026-11-11 (second session): COMPLETE and pushed.** Done: fixes 1–7, 9–20, optional 2
+> (plain Advanced labels), 3 (5-year value note on shorter leases) and 5 ("Used this calculator
+> before? Go to Advanced mode"), plus an owner request: the first screen no longer auto-advances and
+> shows "Have your quote open" after "Yes". Dropped by the owner: fix 8, optional 1 (Guided sanity
+> warnings in Advanced) and optional 4 (mileage presets). Owner decisions worth keeping: lease start
+> date = delivery date (draft commitment-date nuance lives in tooltips only); running-cost GST is two
+> questions (heading, then credit; inc GST + credit divides by 1.1); keep main text short and put
+> nuance in tooltips; avoid over-assertive copy ("Competitive leases tend to be around 10% or lower").
+
+
 A UX review of the live calculator (`/calculator/`, the v2 app in `calculator2/`) for first-time,
 non-financial, possibly stressed users, then a fix-by-fix pass with the owner (Dr Yang). Fixes 1–4b
 are **done and committed locally** (commit "fix(calculator): UX review fixes for first-time users
@@ -136,7 +146,7 @@ Line numbers are approximate (as of handoff). `GuidedMode.tsx` = `calculator2/sr
 - Use one order everywhere, keeping each "most quotes print this one" sub-label.
 - Update any tests that click by position (they mostly click by name).
 
-**8. "What you're comparing" has no "Not sure" option** (small)
+**8. "What you're comparing" has no "Not sure" option** — **DROPPED by the owner (2026-11-11)**: "Show me both" would open the Your alternatives step with nine extra inputs. Don't redo.
 - `CompareStep` (~853). Add a third option, "Not sure — show me both", which sets
   `compareLoan = true` and `compareCurrent = true`. It could be one extra button under both questions,
   or a third choice on each.
@@ -201,10 +211,9 @@ Line numbers are approximate (as of handoff). `GuidedMode.tsx` = `calculator2/sr
 15. **Intro expectations** (`Intro` ~743)
     - "Most accurate, ~5 minutes" for the quote path is about 35 inputs. Say about 10 minutes with
       the quote open.
-    - "Have these ready" should add "your current car's value and running costs (if comparing with
-      keeping it)".
-    - "Servicing, rego and insurance costs (optional)" is wrong for the quote path, where they're
-      required (with typical-figure buttons).
+    - ~~"Have these ready" list~~ DONE 2026-11-11: replaced by one line, shown only after "Yes, I have a
+      quote" ("Have your quote open. Most answers come straight from it."). Choosing no longer
+      auto-advances; Continue moves on. Nothing shown for exploring (owner's call).
 16. **Move "Estimated market value at lease end"** from LeaseStep (shown when `asksMarketValueEnd(d)`)
     to AlternativesStep. It's only asked for the keep-current-car comparison and isn't on the quote.
     Update `STEP_FIELDS` (`marketValue` is under `lease`), `missingItems` (lease → alternatives) and

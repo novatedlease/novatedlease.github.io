@@ -304,7 +304,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     },
     {
       field: "vehicleBaseValue",
-      label: "Vehicle dutiable / FBT base value",
+      label: "FBT base value",
       value: fmtMoney(vehicleBaseValue),
       tooltip: `Estimated as drive-away price ÷ 1.08: ${fmtMoney(answers.driveawayCost)} ÷ 1.08 ≈ ${fmtMoney(vehicleBaseValue)}, rounded to the nearest $100. Drive-away pricing typically includes about 8% on top of the dutiable/FBT base value for stamp duty, registration, and dealer/CTP fees. This is a rough heuristic — enter the real figure from your quote or invoice (choose 'I have a quote' in Guided mode) for an exact result.`,
     },

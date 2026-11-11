@@ -64,6 +64,7 @@ function quoteDraft(): GuidedDraft {
   d.paymentBasis = "exGst";
   d.payment = m(fn.toFixed(2));
   d.gstPassedOn = "Yes";
+  d.runningGstHeading = "exGst";
   d.mileage = m("12000");
   d.runningPeriod = "perYear";
   d.service = m("1200");
@@ -351,6 +352,7 @@ describe("coffee nudge in Guided mode", () => {
   test("guided answers count as edited fields", () => {
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: /Yes, I have a quote/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
     fireEvent.click(screen.getByRole("button", { name: /Petrol, diesel or any hybrid/ }));
     fireEvent.click(screen.getByRole("button", { name: /^New$/ }));
     // hasQuote, vehicleType, vehicleCondition
@@ -523,9 +525,8 @@ describe("final review pass", () => {
 
   test("typical running costs are grossed up when the quote shows them inc GST", () => {
     const d = quoteDraft();
-    d.gstPassedOn = "Yes";
     const ex = typicalFigures(d)!;
-    d.gstPassedOn = "No";
+    d.runningGstHeading = "incGst";
     const inc = typicalFigures(d)!;
     expect(inc.insurance).toBe(Math.round(ex.insurance * 1.1));
     expect(inc.rego).toBe(Math.round(ex.rego * 1.1));
@@ -590,6 +591,8 @@ describe("exploring results: Try different numbers", () => {
 describe("Try different numbers: every chosen comparison", () => {
   test("shows loan and keep-current-car lines when chosen, matching the result cards", () => {
     const d = exploringEv();
+    d.cashHome = "offset";
+    d.offsetRate = m("6");
     d.compareLoan = true;
     d.loanDeposit = none;
     d.loanRate = m("8");
@@ -684,6 +687,8 @@ describe("results screen is divided into signposted parts", () => {
 
   test("exploring: results, what they are based on, try numbers, then save/share", () => {
     const d = exploringEv();
+    d.cashHome = "offset";
+    d.offsetRate = m("6");
     d.compareLoan = true;
     d.loanDeposit = none;
     d.loanRate = m("8");
@@ -705,5 +710,345 @@ describe("results screen is divided into signposted parts", () => {
     const hrefs = [...next.querySelectorAll("a")].map((a) => a.getAttribute("href"));
     expect(hrefs).toEqual(["/tools/checklist/", "/tools/byo-employer-check/", "/start-here/is-it-worth-it/"]);
     for (const a of next.querySelectorAll("a")) expect(a.getAttribute("target")).toBe("_blank");
+  });
+});
+
+describe("no cash to pay outright: paying cash is shown last, for reference", () => {
+  const seedExploring = (d: GuidedDraft) =>
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "alternatives", "review"] }),
+    );
+  const headlineLines = () => [...document.querySelectorAll(".gd-headline__line")].map((l) => l.textContent!);
+  const loanDraft = () => {
+    const d = exploringEv();
+    d.compareLoan = true;
+    d.loanDeposit = none;
+    d.loanRate = m("8");
+    d.loanFee = none;
+    return d;
+  };
+
+  test("loan first, keeping the current car next, cash last with a note", () => {
+    const d = loanDraft();
+    d.compareCurrent = true;
+    d.curValueNow = m("20000");
+    d.curValueEnd = m("13000");
+    d.curService = m("800");
+    d.curRego = m("900");
+    d.curFuel = m("2000");
+    d.curInsurance = m("1000");
+    seedExploring(d);
+    render(<App />);
+    const lines = headlineLines();
+    expect(lines).toHaveLength(3);
+    expect(lines[0]).toMatch(/than a car loan$/);
+    expect(lines[1]).toMatch(/than keeping your current car$/);
+    expect(lines[2]).toMatch(/than paying cash \(for reference: you said you don't have the cash\)$/);
+    const tries = [...document.querySelectorAll(".gd-try__line")].map((l) => l.textContent!);
+    expect(tries[0]).toMatch(/^a car loan/);
+    expect(tries[2]).toMatch(/^buying with cash \(for reference/);
+    expect(screen.getByText("Compared with a car loan, keeping your current car and buying with cash (for reference only).")).toBeTruthy();
+    expect(document.body.textContent).not.toMatch(/you said you'd pay cash if you didn't lease/i);
+  });
+
+  test("breakdown cards: the cash card comes after the loan card", () => {
+    seedExploring(loanDraft());
+    render(<App />);
+    const titles = [...document.querySelectorAll(".gd-results [class*=card], .gd-results div")]
+      .map((el) => el.textContent ?? "")
+      .filter((t) => /^Novated lease vs (paying cash|a car loan) — over/.test(t) && t.length < 80);
+    expect(titles[0]).toMatch(/a car loan/);
+    expect(titles[titles.length - 1]).toMatch(/paying cash/);
+  });
+
+  test("pay cash chosen but no cash: cash line is kept with a hint that the answers conflict", () => {
+    seedExploring(exploringEv());
+    render(<App />);
+    const lines = headlineLines();
+    expect(lines).toHaveLength(1);
+    expect(lines[0]).toMatch(/paying cash \(for reference/);
+    expect(document.body.textContent).toMatch(/you said you'd pay cash if you didn't lease/i);
+    fireEvent.click(screen.getByRole("button", { name: "change what you're comparing" }));
+    expect(screen.getByText("If you didn't lease, what would you do?")).toBeTruthy();
+  });
+
+  test("with cash, the order is unchanged and no note appears", () => {
+    const d = loanDraft();
+    d.cashHome = "offset";
+    d.offsetRate = m("6");
+    seedExploring(d);
+    render(<App />);
+    const lines = headlineLines();
+    expect(lines[0]).toMatch(/than paying cash$/);
+    expect(lines[1]).toMatch(/than a car loan$/);
+  });
+});
+
+
+describe("running-cost GST: heading first, then the credit question", () => {
+  const onRunning = (d: GuidedDraft) =>
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+
+  test("the credit question appears only when the heading says inc GST", () => {
+    const d = quoteDraft();
+    d.gstPassedOn = null;
+    d.runningGstHeading = null;
+    onRunning(d);
+    render(<App />);
+    const credit = () => screen.queryByText(/is a GST credit taken off the running costs/);
+    expect(credit()).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: /^Including GST/ }));
+    expect(credit()).toBeTruthy();
+    expect(missingForStep("running", JSON.parse(window.localStorage.getItem("nlc2-guided-draft-v3")!).draft)).toContain(
+      "Anywhere on the quote, is a GST credit taken off the running costs?",
+    );
+    fireEvent.click(screen.getByRole("button", { name: /^Yes/ }));
+    expect(screen.getByText(/We'll take the GST off/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: /^Excluding GST/ }));
+    expect(credit()).toBeNull();
+    const saved = JSON.parse(window.localStorage.getItem("nlc2-guided-draft-v3")!).draft as GuidedDraft;
+    expect(saved.gstPassedOn).toBe("Yes");
+    expect(saved.runningGstCredit).toBeNull();
+  });
+
+  test("inc GST with a credit taken off: GST passed on, typed figures taken back to ex GST", () => {
+    const d = quoteDraft();
+    d.runningGstHeading = "incGst";
+    d.runningGstCredit = "Yes";
+    d.gstPassedOn = "Yes";
+    d.insurance = m("1650");
+    const i = buildInputs(d)!;
+    expect(i.gstSavingPassedOn).toBe("Yes");
+    expect(i.insuranceAnnual).toBeCloseTo(1500, 6);
+    expect(missingForStep("running", d)).toEqual([]);
+  });
+
+  test("inc GST with no credit: GST not passed on, figures used as typed", () => {
+    const d = quoteDraft();
+    d.runningGstHeading = "incGst";
+    d.runningGstCredit = "No";
+    d.gstPassedOn = "No";
+    d.insurance = m("1650");
+    const i = buildInputs(d)!;
+    expect(i.gstSavingPassedOn).toBe("No");
+    expect(i.insuranceAnnual).toBe(1650);
+  });
+});
+
+describe("worse off: one plain reason when the figures show it", () => {
+  const seed = (d: GuidedDraft) =>
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "alternatives", "review"] }),
+    );
+  const why = () => [...document.querySelectorAll(".gd-headline__why")].map((p) => p.textContent!);
+  const headline = () => document.querySelector(".gd-headline")!.textContent!;
+
+  test("a high lease rate is named, with the BYO checker", () => {
+    const d = exploringEv();
+    d.vehicleType = "Non-EV";
+    d.income = m("60000");
+    d.estimateRatePct = 16;
+    seed(d);
+    render(<App />);
+    expect(headline()).toMatch(/worse off than paying cash/);
+    expect(why()[0]).toMatch(/interest rate is about 16%\. Competitive leases tend to be around 10% or lower/);
+    const a = document.querySelector(".gd-headline__why a")!;
+    expect(a.getAttribute("href")).toBe("/tools/byo-employer-check/");
+  });
+
+  test("keeping the current car: spending versus the new car's end value", () => {
+    const d = exploringEv();
+    d.compareCurrent = true;
+    d.curValueNow = m("15000");
+    d.curValueEnd = m("8000");
+    d.curService = m("500");
+    d.curRego = m("800");
+    d.curFuel = m("1500");
+    d.curInsurance = m("700");
+    seed(d);
+    render(<App />);
+    expect(headline()).toMatch(/worse off than keeping your current car/);
+    expect(why().join(" ")).toMatch(/spending about \$[\d,]+,000 more over 5 years, and the new car is worth only about \$[\d,]+,000 more at the end/);
+  });
+
+  test("better off: no reason line", () => {
+    seed(exploringEv());
+    render(<App />);
+    expect(headline()).toMatch(/better off/);
+    expect(why()).toEqual([]);
+  });
+});
+
+describe("Advanced opens with example figures: say so", () => {
+  const banner = () => screen.queryByText("These are example figures, not yours.");
+
+  test("shown on a fresh open, gone after an edit, back after Reset", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "Advanced" }));
+    expect(banner()).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Petrol / diesel / hybrid" }));
+    expect(banner()).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Reset" }));
+    expect(banner()).toBeTruthy();
+  });
+
+  test("its Guided mode link switches back to Guided", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "Advanced" }));
+    fireEvent.click(screen.getByRole("button", { name: "Guided mode" }));
+    expect(banner()).toBeNull();
+    expect(window.localStorage.getItem("nlc2-mode")).toBe("guided");
+  });
+
+  test("not shown when Guided's answers were carried across", () => {
+    seedGuided(quoteDraft());
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /Open full workings/ }));
+    expect(banner()).toBeNull();
+  });
+});
+
+describe("intro: choosing doesn't move on; the quote reminder shows first", () => {
+  test("“Have your quote open” appears only after Yes, and Continue moves on", () => {
+    render(<App />);
+    const list = () => screen.queryByText("Have your quote open.");
+    expect(list()).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: /No, I'm just exploring/ }));
+    expect(list()).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: /Yes, I have a quote/ }));
+    expect(list()).toBeTruthy();
+    expect(screen.getByText("Do you have a novated lease quote?")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    expect(screen.queryByText("Do you have a novated lease quote?")).toBeNull();
+  });
+});
+
+describe("Advanced residual: a visible GST switch", () => {
+  test("Including GST shows the same residual with GST added, and the engine keeps ex GST", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "Advanced" }));
+    const group = screen.getByRole("group", { name: "Residual GST basis" });
+    const ex = screen.getByRole("button", { name: "Excluding GST", pressed: true });
+    expect(group.contains(ex)).toBe(true);
+    const input = () =>
+      screen.getAllByLabelText(/Residual value/).find((el): el is HTMLInputElement => el.tagName === "INPUT")!;
+    const exValue = Number(input().value.replace(/,/g, ""));
+    fireEvent.click(screen.getByRole("button", { name: "Including GST" }));
+    expect(screen.getByRole("button", { name: "Including GST" }).getAttribute("aria-pressed")).toBe("true");
+    expect(Number(input().value.replace(/,/g, ""))).toBeCloseTo(exValue * 1.1, 0);
+  });
+});
+
+describe("Advanced vehicle finance: a visible period switch", () => {
+  test("Per month shows the same payment as a monthly figure", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "Advanced" }));
+    expect(screen.getByRole("group", { name: "Vehicle finance period" })).toBeTruthy();
+    const input = () =>
+      screen.getAllByLabelText(/Vehicle finance \(ex GST\)/).find((el): el is HTMLInputElement => el.tagName === "INPUT")!;
+    const perFn = Number(input().value.replace(/,/g, ""));
+    expect(screen.getByRole("button", { name: "Per fortnight" }).getAttribute("aria-pressed")).toBe("true");
+    fireEvent.click(screen.getByRole("button", { name: "Per month" }));
+    expect(screen.getByRole("button", { name: "Per month" }).getAttribute("aria-pressed")).toBe("true");
+    expect(Number(input().value.replace(/,/g, ""))).toBeCloseTo((perFn * 26) / 12, 0);
+  });
+});
+
+describe("running costs: the period comes first, so typical figures can show", () => {
+  test("period sits right after kilometres; a pointer shows until it's chosen, then the typical-figure buttons", () => {
+    const d = quoteDraft();
+    d.runningPeriod = null;
+    d.service = { text: "", none: false, estimated: false };
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+    render(<App />);
+    const text = document.body.textContent!;
+    expect(text.indexOf("Kilometres per year")).toBeLessThan(text.indexOf("How are costs shown on your quote?"));
+    expect(text.indexOf("How are costs shown on your quote?")).toBeLessThan(text.indexOf("What does the running-cost heading"));
+    expect(screen.getByText(/to see a typical figure for each/)).toBeTruthy();
+    expect(screen.queryByRole("button", { name: /Use a typical figure/ })).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Per year" }));
+    expect(screen.queryByText(/to see a typical figure for each/)).toBeNull();
+    expect(screen.getAllByRole("button", { name: /Use a typical figure/ }).length).toBeGreaterThan(0);
+    expect(missingForStep("running", { ...d, mileage: { text: "", none: false, estimated: false } }).slice(0, 2)).toEqual([
+      "Kilometres per year",
+      "How are costs shown on your quote?",
+    ]);
+  });
+});
+
+describe("the new car's end value is asked with the current car, not on the lease screen", () => {
+  test("shown on Your alternatives above the current-car questions, and Edit goes there", () => {
+    const d = quoteDraft();
+    d.compareCurrent = true;
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "alternatives", visited: ["intro", "car", "compare", "price", "lease", "payment", "running", "you", "alternatives"] }),
+    );
+    render(<App />);
+    const text = document.body.textContent!;
+    expect(text).toMatch(/The new car at the end/);
+    expect(text.indexOf("The new car at the end")).toBeLessThan(text.indexOf("Keeping your current car"));
+  });
+
+  test("not asked on the exploring path", () => {
+    const d = exploringEv();
+    d.compareCurrent = true;
+    expect(missingForStep("alternatives", d).join()).not.toMatch(/New car: estimated market value/);
+  });
+});
+
+describe("accessibility: answer groups are named by their question", () => {
+  test("each Choices group takes its question as its accessible name", () => {
+    render(<App />);
+    expect(screen.getByRole("group", { name: "Do you have a novated lease quote?" })).toBeTruthy();
+  });
+
+  test("the Smart Leasing correction callout is polite, not an alert", () => {
+    const d = quoteDraft();
+    d.smartMillarx = true;
+    d.paymentCorrected = false;
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "payment", visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
+    );
+    render(<App />);
+    const callout = screen.getByText(/You need to correct your Smart Leasing/).closest(".gd-callout")!;
+    expect(callout.getAttribute("role")).toBe("status");
+  });
+});
+
+describe("visual polish on running costs", () => {
+  test("km box has a km example; typical-estimate explanation shows once for the group", () => {
+    const d = quoteDraft();
+    for (const k of ["service", "rego", "insurance"] as const) d[k] = { text: "1000", none: false, estimated: true };
+    d.mileage = { text: "", none: false, estimated: false };
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+    render(<App />);
+    const km = screen.getAllByLabelText(/Kilometres per year/).find((el) => el.tagName === "INPUT") as HTMLInputElement;
+    expect(km.placeholder).toBe("e.g. 15000");
+    expect(screen.getAllByText("Typical estimate")).toHaveLength(3);
+    expect(screen.getAllByText(/Typical estimates aren't from your quote/)).toHaveLength(1);
+  });
+});
+
+describe("explorer wording", () => {
+  test("the interest-rate slider says what a competitive rate looks like", () => {
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: exploringEv(), step: "review", visited: ["intro", "car", "compare", "quick", "you", "review"] }),
+    );
+    render(<App />);
+    expect(screen.getByText("Competitive leases tend to be around 10% or lower.")).toBeTruthy();
   });
 });

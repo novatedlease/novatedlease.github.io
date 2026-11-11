@@ -24,6 +24,8 @@ type Props = {
   hideDisclaimers?: boolean;
   /** Guided: each card's link to Advanced is a single small button, not the explanatory box. */
   compactMoreDetails?: boolean;
+  /** Guided: the reader said they can't pay cash, so the cash card goes after the ones they might act on. */
+  cashLast?: boolean;
 };
 
 const FULL_BREAKDOWN_ANCHOR = "details-section-2-financial-summary";
@@ -165,7 +167,7 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
   );
 }
 
-export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails }: Props) {
+export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails, cashLast }: Props) {
   const {
     s,
     years,
@@ -194,55 +196,59 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
 
   const cardStyle: React.CSSProperties = { border: "1px solid var(--nlc-border)", borderRadius: "var(--nlc-radius-lg)", padding: 16 };
 
+  const cashCard = (
+    <div style={cardStyle}>
+      <CardHeader title={`Novated lease vs paying cash — over ${years} years`} />
+      <Hero amount={totalSaving} suffix={totalSaving >= 0 ? `cheaper than paying cash over ${years} years` : `more expensive than paying cash over ${years} years`} />
+      <div style={{ display: "grid", gap: 4 }}>
+        <BreakdownRow label="Lease: payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
+        <BreakdownRow label="Lease: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
+        {nlPostLeaseRunning > 0 && <BreakdownRow label="Lease: running costs after it ends" value={fmtAud0(nlPostLeaseRunning)} indent />}
+        {isEv && (
+          <BreakdownRow
+            label={
+              <span>
+                Lease: electricity gain / loss <InfoTooltip text={electricityTooltip} />
+              </span>
+            }
+            value={fmtSigned(-chargingDelta)}
+            color={chargingDelta >= 0 ? POS : NEG}
+            indent
+          />
+        )}
+        <BreakdownRow label="Novated lease total" value={fmtAud0(nlTotalSpent)} bold />
+        <Sep />
+        <BreakdownRow label="Cash: drive-away" value={fmtAud0(inputs.driveawayCost)} indent />
+        <BreakdownRow label="Cash: running costs" value={fmtAud0(Math.max(0, offsetTotalSpent - inputs.driveawayCost))} indent />
+        <BreakdownRow label="Paying cash total" value={fmtAud0(offsetTotalSpent)} bold />
+        <Sep />
+        <BreakdownRow label={cashflowSaving >= 0 ? "Less spent with the lease" : "More spent with the lease"} value={fmtSigned(cashflowSaving)} color={cashflowSaving >= 0 ? POS : NEG} />
+        <BreakdownRow label={interestSaving >= 0 ? "Home loan interest saved with the lease" : "Extra home loan interest with the lease"} value={fmtSigned(interestSaving)} color={interestSaving >= 0 ? POS : NEG} />
+        <DoubleSep />
+        <BreakdownRow label={totalSaving >= 0 ? "Total saving with the lease" : "Total extra cost with the lease"} value={fmtAud0(Math.abs(totalSaving))} bold color={totalSaving >= 0 ? POS : NEG} />
+      </div>
+      {!hideDisclaimers && <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />}
+      <MoreDetails onClick={onMoreDetails} compact={compactMoreDetails} />
+    </div>
+  );
+
   return (
     <div style={{ display: "grid", gap: 14 }}>
-      <div style={cardStyle}>
-        <CardHeader title={`Novated Lease vs Offset Cash — over ${years} years`} />
-        <Hero amount={totalSaving} suffix={totalSaving >= 0 ? `cheaper than buying outright with offset cash over ${years} years` : `more expensive than buying outright with offset cash over ${years} years`} />
-        <div style={{ display: "grid", gap: 4 }}>
-          <BreakdownRow label="NL: lease payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
-          <BreakdownRow label="NL: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
-          {nlPostLeaseRunning > 0 && <BreakdownRow label="NL: post-lease running costs" value={fmtAud0(nlPostLeaseRunning)} indent />}
-          {isEv && (
-            <BreakdownRow
-              label={
-                <span>
-                  NL: electricity gain / loss <InfoTooltip text={electricityTooltip} />
-                </span>
-              }
-              value={fmtSigned(-chargingDelta)}
-              color={chargingDelta >= 0 ? POS : NEG}
-              indent
-            />
-          )}
-          <BreakdownRow label="NL total" value={fmtAud0(nlTotalSpent)} bold />
-          <Sep />
-          <BreakdownRow label="Cash: drive-away" value={fmtAud0(inputs.driveawayCost)} indent />
-          <BreakdownRow label="Cash: running costs" value={fmtAud0(Math.max(0, offsetTotalSpent - inputs.driveawayCost))} indent />
-          <BreakdownRow label="Offset Cash total" value={fmtAud0(offsetTotalSpent)} bold />
-          <Sep />
-          <BreakdownRow label={cashflowSaving >= 0 ? "Cashflow advantage (NL)" : "Cashflow disadvantage (NL)"} value={fmtSigned(cashflowSaving)} color={cashflowSaving >= 0 ? POS : NEG} />
-          <BreakdownRow label={interestSaving >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"} value={fmtSigned(interestSaving)} color={interestSaving >= 0 ? POS : NEG} />
-          <DoubleSep />
-          <BreakdownRow label={totalSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(totalSaving))} bold color={totalSaving >= 0 ? POS : NEG} />
-        </div>
-        {!hideDisclaimers && <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />}
-          <MoreDetails onClick={onMoreDetails} compact={compactMoreDetails} />
-      </div>
+      {!cashLast && cashCard}
 
       {showLoan && (
         <div style={cardStyle}>
-          <CardHeader title={`Novated Lease vs Car Loan — over ${years} years`} />
-          <Hero amount={totalSavingVsLoan} suffix={totalSavingVsLoan >= 0 ? `cheaper than a traditional car loan over ${years} years` : `more expensive than a traditional car loan over ${years} years`} />
+          <CardHeader title={`Novated lease vs a car loan — over ${years} years`} />
+          <Hero amount={totalSavingVsLoan} suffix={totalSavingVsLoan >= 0 ? `cheaper than a car loan over ${years} years` : `more expensive than a car loan over ${years} years`} />
           <div style={{ display: "grid", gap: 4 }}>
-            <BreakdownRow label="NL: lease payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
-            <BreakdownRow label="NL: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
-            {nlPostLeaseRunning > 0 && <BreakdownRow label="NL: post-lease running costs" value={fmtAud0(nlPostLeaseRunning)} indent />}
+            <BreakdownRow label="Lease: payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
+            <BreakdownRow label="Lease: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
+            {nlPostLeaseRunning > 0 && <BreakdownRow label="Lease: running costs after it ends" value={fmtAud0(nlPostLeaseRunning)} indent />}
             {isEv && (
               <BreakdownRow
                 label={
                   <span>
-                    NL: electricity gain / loss <InfoTooltip text={electricityTooltip} />
+                    Lease: electricity gain / loss <InfoTooltip text={electricityTooltip} />
                   </span>
                 }
                 value={fmtSigned(-chargingDelta)}
@@ -250,17 +256,17 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
                 indent
               />
             )}
-            <BreakdownRow label="NL total" value={fmtAud0(nlTotalSpent)} bold />
+            <BreakdownRow label="Novated lease total" value={fmtAud0(nlTotalSpent)} bold />
             <Sep />
             <BreakdownRow label="Loan: initial deposit" value={fmtAud0(inputs.carLoanInitialDeposit)} indent />
             <BreakdownRow label="Loan: repayments + fees" value={fmtAud0(s.loanPaymentTotalInclFees)} indent />
             <BreakdownRow label="Loan: running costs" value={fmtAud0(Math.max(0, loanTotalSpent - (inputs.carLoanInitialDeposit + s.loanPaymentTotalInclFees)))} indent />
-            <BreakdownRow label="Car Loan total" value={fmtAud0(loanTotalSpent)} bold />
+            <BreakdownRow label="Car loan total" value={fmtAud0(loanTotalSpent)} bold />
             <Sep />
-            <BreakdownRow label={cashflowSavingVsLoan >= 0 ? "Cashflow advantage (NL)" : "Cashflow disadvantage (NL)"} value={fmtSigned(cashflowSavingVsLoan)} color={cashflowSavingVsLoan >= 0 ? POS : NEG} />
-            <BreakdownRow label={interestSavingVsLoan >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"} value={fmtSigned(interestSavingVsLoan)} color={interestSavingVsLoan >= 0 ? POS : NEG} />
+            <BreakdownRow label={cashflowSavingVsLoan >= 0 ? "Less spent with the lease" : "More spent with the lease"} value={fmtSigned(cashflowSavingVsLoan)} color={cashflowSavingVsLoan >= 0 ? POS : NEG} />
+            <BreakdownRow label={interestSavingVsLoan >= 0 ? "Home loan interest saved with the lease" : "Extra home loan interest with the lease"} value={fmtSigned(interestSavingVsLoan)} color={interestSavingVsLoan >= 0 ? POS : NEG} />
             <DoubleSep />
-            <BreakdownRow label={totalSavingVsLoan >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(totalSavingVsLoan))} bold color={totalSavingVsLoan >= 0 ? POS : NEG} />
+            <BreakdownRow label={totalSavingVsLoan >= 0 ? "Total saving with the lease" : "Total extra cost with the lease"} value={fmtAud0(Math.abs(totalSavingVsLoan))} bold color={totalSavingVsLoan >= 0 ? POS : NEG} />
           </div>
           {!hideDisclaimers && <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />}
           <MoreDetails onClick={onMoreDetails} compact={compactMoreDetails} />
@@ -269,26 +275,28 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
 
       {showCurrentCar && (
         <div style={cardStyle}>
-          <CardHeader title={`Novated Lease vs Keeping Current Car — over ${years} years`} />
+          <CardHeader title={`Novated lease vs keeping your current car — over ${years} years`} />
           <Hero amount={nlVsKeepSaving} suffix={nlVsKeepSaving >= 0 ? `cheaper than keeping your current car over ${years} years` : `more expensive than keeping your current car over ${years} years`} />
           <div style={{ display: "grid", gap: 4 }}>
-            <BreakdownRow label="NL: total spend" value={fmtAud0(nlTotalSpent)} indent />
-            <BreakdownRow label="NL: sale proceeds from current car" value={`−${fmtAud0(saleProceedsNow)}`} indent color={POS} />
-            <BreakdownRow label="NL: net cashflow" value={fmtAud0(nlTotalSpent - saleProceedsNow)} bold />
+            <BreakdownRow label="Lease: total spend" value={fmtAud0(nlTotalSpent)} indent />
+            <BreakdownRow label="Lease: sale of your current car" value={`−${fmtAud0(saleProceedsNow)}`} indent color={POS} />
+            <BreakdownRow label="Lease: net spend" value={fmtAud0(nlTotalSpent - saleProceedsNow)} bold />
             <Sep />
             <BreakdownRow label="Keep: running costs" value={fmtAud0(keepTotalSpent)} indent />
-            <BreakdownRow label="Keep total" value={fmtAud0(keepTotalSpent)} bold />
+            <BreakdownRow label="Keeping your car total" value={fmtAud0(keepTotalSpent)} bold />
             <Sep />
-            <BreakdownRow label={assetDelta >= 0 ? "Asset advantage (NL car vs current car end-value)" : "Asset disadvantage (NL car vs current car end-value)"} value={fmtSigned(assetDelta)} color={assetDelta >= 0 ? POS : NEG} />
-            <BreakdownRow label={cashDelta >= 0 ? "Cashflow advantage (NL)" : "Cashflow disadvantage (NL)"} value={fmtSigned(cashDelta)} color={cashDelta >= 0 ? POS : NEG} />
-            <BreakdownRow label={interestDelta >= 0 ? "Home loan interest advantage (NL)" : "Home loan interest disadvantage (NL)"} value={fmtSigned(interestDelta)} color={interestDelta >= 0 ? POS : NEG} />
+            <BreakdownRow label={assetDelta >= 0 ? "New car worth more at the end than your current car" : "New car worth less at the end than your current car"} value={fmtSigned(assetDelta)} color={assetDelta >= 0 ? POS : NEG} />
+            <BreakdownRow label={cashDelta >= 0 ? "Less spent with the lease" : "More spent with the lease"} value={fmtSigned(cashDelta)} color={cashDelta >= 0 ? POS : NEG} />
+            <BreakdownRow label={interestDelta >= 0 ? "Home loan interest saved with the lease" : "Extra home loan interest with the lease"} value={fmtSigned(interestDelta)} color={interestDelta >= 0 ? POS : NEG} />
             <DoubleSep />
-            <BreakdownRow label={nlVsKeepSaving >= 0 ? "Total saving (NL)" : "Total extra cost (NL)"} value={fmtAud0(Math.abs(nlVsKeepSaving))} bold color={nlVsKeepSaving >= 0 ? POS : NEG} />
+            <BreakdownRow label={nlVsKeepSaving >= 0 ? "Total saving with the lease" : "Total extra cost with the lease"} value={fmtAud0(Math.abs(nlVsKeepSaving))} bold color={nlVsKeepSaving >= 0 ? POS : NEG} />
           </div>
           {!hideDisclaimers && <Disclaimer inputs={inputs} onNavigateToDetails={onNavigateToDetails} />}
           <MoreDetails onClick={onMoreDetails} compact={compactMoreDetails} />
         </div>
       )}
+
+      {cashLast && cashCard}
 
       {afterResults}
 

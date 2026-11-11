@@ -76,7 +76,7 @@ export function MoneyInput({
           className="nlc-input"
           inputMode="decimal"
           autoComplete="off"
-          placeholder={lockedNone ? "0" : (placeholder ?? "Type the amount")}
+          placeholder={lockedNone ? "0" : (placeholder ?? defaultPlaceholder(suffix))}
           disabled={lockedNone}
           aria-invalid={worst?.level === "error" || missing ? true : undefined}
           value={value.none ? (lockedNone ? "" : "0") : value.text}
@@ -158,6 +158,14 @@ export function MoneyInput({
 
 export type Choice<T> = { value: T; label: ReactNode; sub?: ReactNode };
 
+/** An example in the unit the box asks for, so a km or % box doesn't ask for "the amount". */
+function defaultPlaceholder(suffix?: string): string {
+  if (suffix === "km") return "e.g. 15000";
+  if (suffix?.startsWith("%")) return "e.g. 6.2";
+  if (suffix === "per kWh") return "e.g. 0.30";
+  return "Type the amount";
+}
+
 /** Big tappable answer buttons, one tap per question. */
 export function Choices<T extends string | number | boolean>({
   label,
@@ -183,12 +191,12 @@ export function Choices<T extends string | number | boolean>({
   tooltip?: ReactNode;
 }) {
   const id = useId();
+  const labelId = `${id}-label`;
   const missing = useContext(MissingFields).has(field ?? "");
   return (
     <FieldWrapper
-      label={label}
+      label={<span id={labelId}>{label}</span>}
       tooltip={tooltip}
-      htmlFor={id}
       hint={hint}
       dataField={field}
       className={missing ? "gd-field--missing" : undefined}
@@ -198,6 +206,7 @@ export function Choices<T extends string | number | boolean>({
         id={id}
         className="gd-choices"
         role="group"
+        aria-labelledby={labelId}
         style={
           columns
             ? { gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }

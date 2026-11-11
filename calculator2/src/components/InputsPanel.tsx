@@ -22,7 +22,14 @@ function leaseEndValueNote(i: { leaseDurationYears: number; driveawayCost: numbe
   if (!(y > 0 && y < 5) || i.driveawayCost <= 0 || i.estimatedMarketValueAtEnd <= 0) return null;
   const atEnd = i.driveawayCost * Math.pow(i.estimatedMarketValueAtEnd / i.driveawayCost, y / 5);
   const rounded = Math.round(atEnd / 100) * 100;
-  return ` For your ${y}-year lease this implies about $${rounded.toLocaleString("en-AU")} at the end of the lease.`;
+  return ` That implies about $${rounded.toLocaleString("en-AU")} at the end of your ${y}-year lease.`;
+}
+
+/** Shorter leases: the value asked for is still at 5 years, the comparison horizon. */
+function fiveYearNote(years: number) {
+  return years > 0 && years < 5
+    ? `5 years from now, not at the end of your ${years}-year lease: results compare over 5 years.`
+    : null;
 }
 
 export function InputsPanel(props: {
@@ -207,7 +214,7 @@ export function InputsPanel(props: {
           </NoteBox>
         )}
         <CurrencyField
-          label="Vehicle dutiable value (FBT base value)"
+          label="FBT base value (as on your quote)"
           value={inputs.vehicleBaseValue}
           onChange={(v) => set("vehicleBaseValue", v)}
           tooltip={
@@ -232,7 +239,7 @@ export function InputsPanel(props: {
           onChange={(v) => set("estimatedMarketValueAtEnd", v)}
           hint={
             <>
-              Suggestion: ~40% of drive-away cost (auto-filled). Enter the 5-year value even for shorter leases — the calculator interpolates.
+              {fiveYearNote(inputs.leaseDurationYears) ?? "Auto-filled at about 40% of the drive-away cost."}
               {leaseEndValueNote(inputs)}
             </>
           }
@@ -265,7 +272,7 @@ export function InputsPanel(props: {
           }
         />
         <YesNoToggle
-          label="Super Guarantee calculated from pre-NL income"
+          label="Employer super based on your pre-lease salary"
           value={inputs.superFromPreNlIncome}
           onChange={(v) => set("superFromPreNlIncome", v)}
           tooltip={
@@ -285,14 +292,22 @@ export function InputsPanel(props: {
           label="Lease start date"
           value={inputs.leaseStartDate}
           onChange={(v) => set("leaseStartDate", v)}
-          hint={
-            <>
-              Matters for the{" "}
-              <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
-                EV FBT phase-out tiers
-              </a>
-              , and is treated as the date you commit to the lease. Under the exposure draft (not yet law), the rules follow the date the lease becomes binding, not the delivery date.
-            </>
+          hint="When the car is delivered and the lease begins."
+          tooltip={
+            <InfoTooltip
+              text={
+                <>
+                  Also sets the{" "}
+                  <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
+                    EV FBT phase-out tier
+                  </a>
+                  . Under the exposure draft (not yet law), the phase-out may instead follow when the lease becomes a binding financial commitment, which is still a grey area. If that's near 1 April 2027, ask your provider when it's binding.{" "}
+                  <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#its-the-commitment-date-that-counts" target="_blank" rel="noopener">
+                    How the commitment date works
+                  </a>
+                </>
+              }
+            />
           }
         />
         {isEv && leaseFbtCategory === "EV_FBT_DISCOUNTED" && (
@@ -341,34 +356,25 @@ export function InputsPanel(props: {
           label={
             <div>
               <div>Residual value</div>
-              <div style={{ display: "flex", gap: 6, marginTop: 3, fontSize: 11 }}>
-                {(["exGst", "incGst"] as const).map((mode, idx) => (
-                  <span key={mode} style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                    {idx > 0 && <span style={{ opacity: 0.3 }}>/</span>}
-                    <button
-                      type="button"
-                      onClick={() => setResidualGstMode(mode)}
-                      style={{
-                        padding: 0,
-                        border: "none",
-                        background: "transparent",
-                        cursor: "pointer",
-                        fontSize: 11,
-                        fontWeight: residualGstMode === mode ? 800 : 400,
-                        opacity: residualGstMode === mode ? 0.9 : 0.45,
-                        textDecoration: residualGstMode === mode ? "underline" : "none",
-                      }}
-                    >
-                      {mode === "exGst" ? "ex GST" : "inc GST"}
-                    </button>
-                  </span>
+              <div className="nlc-pill-group" role="group" aria-label="Residual GST basis" style={{ marginTop: 6 }}>
+                {(["exGst", "incGst"] as const).map((mode) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    className="nlc-pill-group__btn"
+                    aria-pressed={residualGstMode === mode}
+                    onClick={() => setResidualGstMode(mode)}
+                    style={{ padding: "4px 12px", fontSize: 12 }}
+                  >
+                    {mode === "exGst" ? "Excluding GST" : "Including GST"}
+                  </button>
                 ))}
               </div>
             </div>
           }
           value={residualGstMode === "incGst" ? inputs.residualValueExGst * (1 + GST_RATE) : inputs.residualValueExGst}
           onChange={(v) => set("residualValueExGst", residualGstMode === "incGst" ? v / (1 + GST_RATE) : v)}
-          hint="Auto-filled from the ATO minimum for your lease term until you override it. Real quotes usually state the residual inc GST."
+          hint="Match your quote: most print the residual including GST. Auto-filled from the ATO minimum until you change it."
         />
         <CurrencyField
           label="Luxury vehicle adjustment (per fortnight)"
@@ -385,12 +391,12 @@ export function InputsPanel(props: {
           }
         />
         <CurrencyField label="Financed amount reported in your quote" value={inputs.financedAmountForInterestCalcExGst} onChange={(v) => set("financedAmountForInterestCalcExGst", v)} hint="Only used for the effective interest rate calculation — leave as the pre-calculated figure unless you have a specific quoted amount without add-ons." />
-        <NumberField label="Months deferred" value={inputs.monthsDeferred} onChange={(v) => set("monthsDeferred", Math.max(0, Math.round(v)))} hint="Typically 2 months, occasionally 1." decimals={0} />
+        <NumberField label="Months until first finance payment" value={inputs.monthsDeferred} onChange={(v) => set("monthsDeferred", Math.max(0, Math.round(v)))} hint="Typically 2 months, occasionally 1." decimals={0} />
       </Section>
 
       <Section title={`Annual packaged running cost (${inputs.gstSavingPassedOn === "Yes" ? "ex GST" : "inc GST"})`} defaultOpen>
         <YesNoToggle
-          label="GST saving passed on in NL"
+          label="GST saving passed on to you"
           value={inputs.gstSavingPassedOn}
           onChange={(v) => set("gstSavingPassedOn", v)}
           hint={inputs.gstSavingPassedOn === "Yes" ? "Use ex-GST figures in the fields below." : "Use inc-GST figures in the fields below."}
@@ -435,8 +441,8 @@ export function InputsPanel(props: {
 
       {isEv && (
         <Section title="Electricity" defaultOpen>
-          <CurrencyField label="Average AUD per kWh" value={inputs.avgAudPerKwh} onChange={(v) => set("avgAudPerKwh", v)} decimals={2} hint="~0.08 off-peak, ~0.30 regular tariff, ~0.40–0.60 public chargers." />
-          <NumberField label="Average Wh per km" value={inputs.avgWhPerKm} onChange={(v) => set("avgWhPerKm", Math.round(v))} hint="Typically 120–200 Wh/km." decimals={0} />
+          <CurrencyField label="Electricity price per kWh" value={inputs.avgAudPerKwh} onChange={(v) => set("avgAudPerKwh", v)} decimals={2} hint="~0.08 off-peak, ~0.30 regular tariff, ~0.40–0.60 public chargers." />
+          <NumberField label="Car's energy use (Wh per km)" value={inputs.avgWhPerKm} onChange={(v) => set("avgWhPerKm", Math.round(v))} hint="Typically 120–200 Wh/km." decimals={0} />
           <CurrencyField
             label="Annual charging expense override"
             value={inputs.overrideAnnualChargingExpense ?? 0}
@@ -468,7 +474,7 @@ export function InputsPanel(props: {
           {inputs.compareWithCurrentCar && (
             <>
               <CurrencyField label="Current market value" value={inputs.currentCarMarketValueNow} onChange={(v) => set("currentCarMarketValueNow", v)} hint="Look up carsales.com.au or similar." />
-              <CurrencyField label="Estimated market value after 5 years" value={inputs.currentCarMarketValueAtEnd} onChange={(v) => set("currentCarMarketValueAtEnd", v)} />
+              <CurrencyField label="Estimated market value after 5 years" value={inputs.currentCarMarketValueAtEnd} onChange={(v) => set("currentCarMarketValueAtEnd", v)} hint={fiveYearNote(inputs.leaseDurationYears) ?? undefined} />
               <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-muted)", marginBottom: 10 }}>Annual running cost (inc GST)</div>
               <CurrencyField label="Service / maintenance / tyres" value={inputs.currentServiceMaintTyresAnnual} onChange={(v) => set("currentServiceMaintTyresAnnual", v)} />
               <CurrencyField label="Registration" value={inputs.currentRegistrationAnnual} onChange={(v) => set("currentRegistrationAnnual", v)} />

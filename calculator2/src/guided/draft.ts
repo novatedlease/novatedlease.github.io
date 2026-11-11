@@ -131,7 +131,12 @@ export type GuidedDraft = {
   paymentCorrected: boolean;
   luxAdj: Money;
 
+  /** What drives the engine: "Yes" = running costs entered ex GST, "No" = inc GST with no credit. */
   gstPassedOn: YesNoUnsure | null;
+  /** What the running-cost heading on the quote says. */
+  runningGstHeading: "exGst" | "incGst" | "unknown" | null;
+  /** Heading inc GST: does the quote take a GST credit off afterwards? */
+  runningGstCredit: YesNoUnsure | null;
   mileage: Money;
   runningPeriod: RunningPeriod | null;
   service: Money;
@@ -195,6 +200,8 @@ export function emptyDraft(): GuidedDraft {
     paymentCorrected: false,
     luxAdj: emptyMoney(),
     gstPassedOn: null,
+    runningGstHeading: null,
+    runningGstCredit: null,
     mileage: emptyMoney(),
     runningPeriod: null,
     service: emptyMoney(),
@@ -268,6 +275,11 @@ export function nswAnnual(d: GuidedDraft): number {
 }
 
 /** A running-cost figure as an annual amount, whatever period the reader entered it in. */
+/** Inc GST figures with a GST credit taken off later: the cost is really the ex GST amount. */
+export function runningCreditTaken(d: GuidedDraft): boolean {
+  return d.runningGstHeading === "incGst" && (d.runningGstCredit === "Yes" || d.runningGstCredit === "Unsure");
+}
+
 export function annualOf(d: GuidedDraft, m: Money): number | null {
   const v = moneyValue(m);
   return v === null ? null : v * runningFactor(d.runningPeriod);
@@ -577,7 +589,7 @@ export function typicalFigures(d: GuidedDraft) {
     homeLoanOffsetInterestRate: 0,
   });
   // These are ex GST. A quote that shows running costs inc GST needs them grossed up to compare.
-  const g = d.gstPassedOn === "No" ? 1 + GST_RATE : 1;
+  const g = d.runningGstHeading === "incGst" ? 1 + GST_RATE : 1;
   const r = (n: number) => Math.round(n * g);
   return {
     service: r(inputs.serviceMaintTyresAnnual),
@@ -651,13 +663,11 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       break;
     case "lease":
       if (!d.leaseYears) ask("leaseYears", "Lease term");
-      if (d.monthsDeferred === null) ask("monthsDeferred", "When does the first payment start?");
+      if (d.monthsDeferred === null) ask("monthsDeferred", "How many months until your first finance payment?");
       if (!answered(d.docFee)) askMoney("docFee", "Documentation fee (or tick “no documentation fee”)");
       if (!positive(d.residual) && d.residualBasis !== "unknown")
         askMoney("residual", "Residual (balloon) value");
       if (!d.residualBasis) ask("residualBasis", "Is the residual including or excluding GST?");
-      if (asksMarketValueEnd(d) && !marketValueEndEntered(d))
-        askMoney("marketValueEnd", "Estimated market value at lease end");
       break;
     case "payment":
       if (!d.paymentPeriod) ask("paymentPeriod", "Is the payment per fortnight or month?");
@@ -669,8 +679,10 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       break;
     case "running":
       if (!positive(d.mileage)) askMoney("mileage", "Kilometres per year");
-      if (!d.gstPassedOn) ask("gstPassedOn", "Is your quote's running-cost budget inc GST or ex GST?");
       if (!d.runningPeriod) ask("runningPeriod", "How are costs shown on your quote?");
+      if (!d.runningGstHeading) ask("runningGstHeading", "What does the running-cost heading on your quote say?");
+      else if (d.runningGstHeading === "incGst" && d.runningGstCredit === null)
+        ask("runningGstCredit", "Anywhere on the quote, is a GST credit taken off the running costs?");
       if (!answered(d.service)) askMoney("service", "Servicing, maintenance and tyres");
       if (!answered(d.rego)) askMoney("rego", "Registration and CTP");
       if (!answered(d.insurance)) askMoney("insurance", "Insurance");
@@ -701,6 +713,8 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       }
       break;
     case "alternatives":
+      if (asksMarketValueEnd(d) && d.hasQuote !== false && !marketValueEndEntered(d))
+        askMoney("marketValueEnd", "New car: estimated market value at lease end");
       if (d.compareLoan) {
         if (!answered(d.loanDeposit)) askMoney("loanDeposit", "Deposit paid up front (or tick “no deposit”)");
         if (!positive(d.loanRate)) askMoney("loanRate", "Loan interest rate");
@@ -886,6 +900,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
           ? moneyValue(d.investedRate)!
           : 0;
   const annual = (m: Money) => annualOf(d, m)!;
+  const running = (m: Money) => annual(m) / (runningCreditTaken(d) ? 1 + GST_RATE : 1);
 
   const merged: Inputs = {
     ...seed,
@@ -912,13 +927,13 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     superFromPreNlIncome: d.superPreNl === "No" ? "No" : "Yes",
     gstSavingPassedOn: d.gstPassedOn === "No" ? "No" : "Yes",
 
-    serviceMaintTyresAnnual: annual(d.service),
+    serviceMaintTyresAnnual: running(d.service),
     saveShareAnnual: nswAnnual(d),
-    registrationAnnual: annual(d.rego),
+    registrationAnnual: running(d.rego),
     electricityAnnual: isEv ? evElectricityClaimAnnual(km) : 0,
-    fuelAnnual: isEv ? 0 : annual(d.fuel),
-    insuranceAnnual: annual(d.insurance),
-    managementFeesAnnual: annual(d.mgmt),
+    fuelAnnual: isEv ? 0 : running(d.fuel),
+    insuranceAnnual: running(d.insurance),
+    managementFeesAnnual: running(d.mgmt),
     avgAudPerKwh: isEv ? moneyValue(d.chargingRate)! : seed.avgAudPerKwh,
 
     compareWithCarLoan: d.compareLoan === true,
