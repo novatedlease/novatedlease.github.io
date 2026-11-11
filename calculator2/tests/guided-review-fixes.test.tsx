@@ -542,7 +542,7 @@ describe("final review pass", () => {
       JSON.stringify({ draft: d, step: "payment", visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
     );
     render(<App />);
-    fireEvent.click(screen.getByRole("button", { name: /^Month/ }));
+    fireEvent.click(screen.getByRole("button", { name: /^Per month/ }));
     expect(field(/Finance \(lease\) payment/).value).toBe("1300.00");
   });
 });

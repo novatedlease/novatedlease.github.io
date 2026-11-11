@@ -93,7 +93,7 @@ describe("Guided flow (real interaction)", () => {
 
     // Payment: monthly figure entered under "per fortnight"
     click(/Any other provider/);
-    click(/^Fortnight/);
+    click(/^Per fortnight/);
     click(/^Excluding GST/);
     type(/Finance \(lease\) payment/, "1250");
     expect(screen.getByRole("alert").textContent).toMatch(

@@ -73,7 +73,17 @@ export function moneyValue(m: Money): number | null {
   return parseAmount(m.text);
 }
 
-export type RunningPeriod = "perYear" | "perMonth" | "perFn";
+/** How often a quote shows an amount. Weekly: SG Fleet and LeaseLab weekly-pay quotes; yearly: Remunerator. */
+export type Period = "perWeek" | "perFn" | "perMonth" | "perYear";
+export type RunningPeriod = Period;
+/** How many of each period in a year. */
+export const PERIODS_PER_YEAR: Record<Period, number> = { perWeek: 52, perFn: 26, perMonth: 12, perYear: 1 };
+/** "week", "fortnight", "month", "year": for "per …" and "a …ly amount" wording. */
+export const PERIOD_UNIT: Record<Period, string> = { perWeek: "week", perFn: "fortnight", perMonth: "month", perYear: "year" };
+/** An amount in the given period, as per fortnight. */
+export function toPerFn(v: number, p: Period): number {
+  return (v * PERIODS_PER_YEAR[p]) / 26;
+}
 /** The answers that are typed amounts. */
 type MoneyKey = { [K in keyof GuidedDraft]: GuidedDraft[K] extends Money ? K : never }[keyof GuidedDraft];
 export type YesNoUnsure = "Yes" | "No" | "Unsure";
@@ -123,7 +133,7 @@ export type GuidedDraft = {
 
   /** null until asked. Smart Leasing and MillarX quote a figure that needs the buffer-month correction. */
   smartMillarx: boolean | null;
-  paymentPeriod: "perFn" | "perMonth" | null;
+  paymentPeriod: Period | null;
   /** How the quote labels the finance payment. "unknown" is treated as ex GST and checked against the implied rate. */
   paymentBasis: "exGst" | "incGst" | "unknown" | null;
   payment: Money;
@@ -265,7 +275,7 @@ export function visibleSteps(d: GuidedDraft): StepId[] {
 }
 
 export function runningFactor(p: RunningPeriod | null): number {
-  return p === "perMonth" ? 12 : p === "perFn" ? 26 : 1;
+  return p ? PERIODS_PER_YEAR[p] : 1;
 }
 
 /** The NSW Health employer share as an annual amount, whatever period the reader entered it in. */
@@ -456,7 +466,7 @@ export function residualExGstEntered(d: GuidedDraft): number | null {
 export function paymentPerFn(d: GuidedDraft): number | null {
   const v = moneyValue(d.payment);
   if (v === null || !d.paymentPeriod) return null;
-  const perFn = d.paymentPeriod === "perMonth" ? (v * 12) / 26 : v;
+  const perFn = toPerFn(v, d.paymentPeriod);
   return d.paymentBasis === "incGst" ? perFn / (1 + GST_RATE) : perFn;
 }
 
@@ -464,7 +474,7 @@ export function paymentPerFn(d: GuidedDraft): number | null {
 export function luxAdjPerFn(d: GuidedDraft): number {
   if (!isLuxuryRange(d)) return 0;
   const v = moneyValue(d.luxAdj) ?? 0;
-  return d.paymentPeriod === "perMonth" ? (v * 12) / 26 : v;
+  return d.paymentPeriod ? toPerFn(v, d.paymentPeriod) : v;
 }
 
 export function fbtCategoryOf(d: GuidedDraft): LeaseFbtCategory | null {
@@ -670,7 +680,7 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       if (!d.residualBasis) ask("residualBasis", "Is the residual including or excluding GST?");
       break;
     case "payment":
-      if (!d.paymentPeriod) ask("paymentPeriod", "Is the payment per fortnight or month?");
+      if (!d.paymentPeriod) ask("paymentPeriod", "How does your quote show the payment: per week, fortnight, month or year?");
       if (!d.paymentBasis) ask("paymentBasis", "Does the payment include or exclude GST?");
       if (d.smartMillarx === null) ask("smartMillarx", "Is your lease with Smart Leasing or MillarX?");
       if (!positive(d.payment)) askMoney("payment", "Finance (lease) payment");

@@ -2,6 +2,7 @@ import {
   effectiveAnnualRateFromFortnightlyLease,
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
+import type { Period } from "./draft";
 
 export type Level = "error" | "warn" | "info" | "ok";
 export type Finding = {
@@ -182,27 +183,38 @@ function rateFor(
   }
 }
 
+// Kept here rather than imported from draft.ts, which imports this file.
+const PER_YEAR: Record<Period, number> = { perWeek: 52, perFn: 26, perMonth: 12, perYear: 1 };
+const toPerFn = (v: number, p: Period) => (v * PER_YEAR[p]) / 26;
+const PERIOD_ADJ: Record<Period, string> = { perWeek: "a weekly", perFn: "a fortnightly", perMonth: "a monthly", perYear: "a yearly" };
+/** The periods a figure is most often mistaken for, most likely first. A yearly figure is hard to mistake. */
+const LIKELY_PERIOD_SLIPS: Record<Period, Period[]> = {
+  perWeek: ["perFn", "perMonth"],
+  perFn: ["perMonth", "perWeek"],
+  perMonth: ["perFn", "perWeek"],
+  perYear: [],
+};
+
 const TYPICAL_LOW = 0.06;
 const TYPICAL_HIGH = 0.14;
 const pct = (r: number) => `${(r * 100).toFixed(1)}%`;
 
 /**
  * Turns the payment into an effective interest rate and, when that rate is implausible, tests the
- * usual slips (monthly typed as fortnightly or the reverse, GST-inclusive amount) to say what the
+ * usual slips (the wrong period, e.g. monthly typed as fortnightly, or a GST-inclusive amount) to say what the
  * reader probably meant.
  */
 export function diagnosePayment(
   a: PaymentArgs,
   typed: number | null,
-  period: "perFn" | "perMonth" | null,
+  period: Period | null,
   basis: "exGst" | "incGst" | "unknown" | null = "exGst",
 ): PaymentDiagnosis {
   if (!typed || typed <= 0 || !period)
     return { rate: null, status: "empty", findings: [] };
   const incGst = basis === "incGst";
   // Per fortnight, ex GST, as the reader has labelled it.
-  const perFn =
-    (period === "perMonth" ? (typed * 12) / 26 : typed) / (incGst ? GST : 1);
+  const perFn = toPerFn(typed, period) / (incGst ? GST : 1);
   const main = rateFor(a, perFn);
   const findings: Finding[] = [];
 
@@ -211,31 +223,25 @@ export function diagnosePayment(
     (main.rate !== null && (main.rate < TYPICAL_LOW || main.rate > 0.15));
   if (implausible) {
     // What the typed figure would be per fortnight (ex GST) if the reader picked the wrong period.
-    const asOtherPeriod =
-      (period === "perFn" ? (typed * 12) / 26 : typed) / (incGst ? GST : 1);
-    const otherPeriodLabel =
-      period === "perFn" ? "a monthly amount" : "a fortnightly amount";
+    const others = LIKELY_PERIOD_SLIPS[period].map((p) => ({
+      label: `${PERIOD_ADJ[p]} amount`,
+      perFn: toPerFn(typed, p) / (incGst ? GST : 1),
+    }));
     // The other GST reading: inc GST typed as ex (or unlabelled), or ex GST typed as inc.
     const gstFlip = incGst ? GST : 1 / GST;
     const otherGst = incGst ? "ex GST" : "inc GST";
     const tries: { label: string; code: string; perFn: number }[] = [
-      {
-        label: otherPeriodLabel,
-        code: "payment_wrong_period",
-        perFn: asOtherPeriod,
-      },
+      ...others.map((o) => ({ label: o.label, code: "payment_wrong_period", perFn: o.perFn })),
       {
         label: otherGst,
         code: incGst ? "payment_looks_ex_gst" : "payment_looks_inc_gst",
         perFn: perFn * gstFlip,
       },
-      {
-        label: `${otherPeriodLabel} and ${otherGst}`,
-        code: incGst
-          ? "payment_wrong_period_ex_gst"
-          : "payment_wrong_period_inc_gst",
-        perFn: asOtherPeriod * gstFlip,
-      },
+      ...others.map((o) => ({
+        label: `${o.label} and ${otherGst}`,
+        code: incGst ? "payment_wrong_period_ex_gst" : "payment_wrong_period_inc_gst",
+        perFn: o.perFn * gstFlip,
+      })),
     ];
     for (const t of tries) {
       const alt = rateFor(a, t.perFn);
@@ -250,7 +256,7 @@ export function diagnosePayment(
           message:
             main.status === "ok"
               ? `Entered as you've told us, this implies a ${pct(main.rate!)} effective rate, which is unusual. If your quote figure is actually ${t.label}, the rate would be a more typical ${pct(alt.rate)}. Please check the label on your quote.`
-              : `This payment is outside any plausible range for this car. If the figure on your quote is actually ${t.label}, the rate would be a typical ${pct(alt.rate)}. Please check the label and the fortnightly/monthly and GST selections above.`,
+              : `This payment is outside any plausible range for this car. If the figure on your quote is actually ${t.label}, the rate would be a typical ${pct(alt.rate)}. Please check the label and the period and GST selections above.`,
         });
         break;
       }

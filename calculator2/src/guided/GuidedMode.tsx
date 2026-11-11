@@ -54,6 +54,8 @@ import {
   paymentPerFn,
   residualExGstEntered,
   runningFactor,
+  PERIOD_UNIT,
+  PERIODS_PER_YEAR,
   typicalCurrentCar,
   typicalFigures,
   typicalMarketValueAtLeaseEnd,
@@ -680,7 +682,7 @@ function quoteValues(d: GuidedDraft): Partial<Record<QuoteKey, string>> {
     if (ato) out.residual = `${money(ato)} ex GST`;
   }
   if (payment && d.paymentPeriod)
-    out.payment = `${money(payment)} per ${d.paymentPeriod === "perMonth" ? "month" : "fortnight"}${d.paymentBasis === "incGst" ? " inc GST" : d.paymentBasis === "exGst" ? " ex GST" : ""}`;
+    out.payment = `${money(payment)} per ${PERIOD_UNIT[d.paymentPeriod]}${d.paymentBasis === "incGst" ? " inc GST" : d.paymentBasis === "exGst" ? " ex GST" : ""}`;
   return out;
 }
 
@@ -1245,6 +1247,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
   const diag = paymentDiagnosisFor(d);
   const perFn = paymentPerFn(d);
   const luxury = isLuxuryRange(d);
+  const luxUnit = PERIOD_UNIT[d.paymentPeriod ?? "perFn"];
   return (
     <Side highlight={["payment", "luxAdj", "running"]} d={d}>
       <Lead>
@@ -1253,7 +1256,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
       </Lead>
       <Choices
         field="paymentPeriod"
-        label="Is the payment per"
+        label="How does your quote show the payment?"
         value={d.paymentPeriod}
         onChange={(v) => {
           // A corrected payment is our own figure, so keep it meaning the same amount in the new period.
@@ -1261,15 +1264,17 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           if (d.paymentCorrected && typed && d.paymentPeriod && v !== d.paymentPeriod)
             set("payment", {
               ...d.payment,
-              text: (v === "perMonth" ? (typed * 26) / 12 : (typed * 12) / 26).toFixed(2),
+              text: ((typed * PERIODS_PER_YEAR[d.paymentPeriod]) / PERIODS_PER_YEAR[v]).toFixed(2),
             });
           set("paymentPeriod", v);
         }}
         options={[
-          { value: "perFn", label: "Fortnight" },
-          { value: "perMonth", label: "Month" },
+          { value: "perWeek", label: "Per week" },
+          { value: "perFn", label: "Per fortnight" },
+          { value: "perMonth", label: "Per month" },
+          { value: "perYear", label: "Per year (total)" },
         ]}
-        columns={2}
+        columns={4}
       />
       <Choices<"exGst" | "incGst" | "unknown">
         field="paymentBasis"
@@ -1365,7 +1370,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
       {adjustOpen && d.leaseYears && (
         <LeaseAdjustModal
           leaseDurationYears={d.leaseYears}
-          initialPeriod={d.paymentPeriod}
+          initialPeriod={d.paymentPeriod === "perFn" || d.paymentPeriod === "perMonth" ? d.paymentPeriod : null}
           initialGst={d.paymentBasis}
           initialDeferMonths={d.monthsDeferred}
           onClose={() => setAdjustOpen(false)}
@@ -1393,13 +1398,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             ? "Filled in by the correction tool above, not the printed figure."
             : "The car's pre-tax payment, before running costs. Type it as printed."
         }
-        suffix={
-          d.paymentPeriod === "perMonth"
-            ? "per month"
-            : d.paymentPeriod === "perFn"
-              ? "per fortnight"
-              : undefined
-        }
+        suffix={d.paymentPeriod ? `per ${PERIOD_UNIT[d.paymentPeriod]}` : undefined}
         findings={[...f.payment, ...f.paymentCorrected]}
       />
       {diag?.status === "ok" && diag.rate !== null && (
@@ -1408,7 +1407,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           <span className="gd-stat__value">
             {(diag.rate * 100).toFixed(2)}%
           </span>
-          {perFn && (d.paymentPeriod === "perMonth" || d.paymentBasis === "incGst") && (
+          {perFn && (d.paymentPeriod !== "perFn" || d.paymentBasis === "incGst") && (
             <span className="gd-stat__sub">
               about {money(perFn)} per fortnight ex GST
             </span>
@@ -1418,7 +1417,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
       {luxury && (
         <MoneyInput
         field="luxAdj"
-          label={`Luxury vehicle adjustment (${d.paymentPeriod === "perMonth" ? "per month" : "per fortnight"})`}
+          label={`Luxury vehicle adjustment (per ${luxUnit})`}
           tooltip={
             <InfoTooltip
               text={
@@ -1431,8 +1430,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           onChange={(m) => set("luxAdj", m)}
           where="A separate line on quotes for cars above the ATO car limit."
           noneLabel="No luxury vehicle adjustment on my quote"
-          suffix={d.paymentPeriod === "perMonth" ? "per month" : "per fortnight"}
-          hint={`An extra cost on top of the finance payment, per ${d.paymentPeriod === "perMonth" ? "month" : "fortnight"} like the payment above.`}
+          suffix={`per ${luxUnit}`}
+          hint={`An extra cost on top of the finance payment, per ${luxUnit} like the payment above.`}
         />
       )}
     </Side>
@@ -1440,6 +1439,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
 }
 
 const PERIOD_WORD: Record<RunningPeriod, string> = {
+  perWeek: "per week",
   perFn: "per fortnight",
   perMonth: "per month",
   perYear: "per year",
@@ -1589,11 +1589,12 @@ function RunningStep({ d, set, f }: StepPropsF) {
         value={period}
         onChange={changePeriod}
         options={[
+          { value: "perWeek", label: "Per week" },
           { value: "perFn", label: "Per fortnight" },
           { value: "perMonth", label: "Per month" },
           { value: "perYear", label: "Per year" },
         ]}
-        columns={3}
+        columns={4}
         hint="Use whichever your quote shows. All the boxes below use it."
       />
       <Choices<"exGst" | "incGst" | "unknown">
@@ -2376,7 +2377,7 @@ function ReviewStep({
           [
             "Lease payment",
             paymentPerFn(d)
-              ? `${money(moneyValue(d.payment) ?? 0)} per ${d.paymentPeriod === "perMonth" ? "month" : "fortnight"}${d.paymentBasis === "incGst" ? " inc GST" : d.paymentBasis === "exGst" ? " ex GST" : " (GST not stated, taken as ex GST)"}`
+              ? `${money(moneyValue(d.payment) ?? 0)} per ${d.paymentPeriod ? PERIOD_UNIT[d.paymentPeriod] : "fortnight"}${d.paymentBasis === "incGst" ? " inc GST" : d.paymentBasis === "exGst" ? " ex GST" : " (GST not stated, taken as ex GST)"}`
               : "?",
             "payment",
           ],

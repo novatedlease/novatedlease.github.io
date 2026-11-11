@@ -73,15 +73,25 @@ before writing anything provider-specific.
   users into hand conversion, and an annual-only payment has nowhere to go.
 - **Evidence:** SG Fleet weekly-pay quotes (1xoemj6: "Lease rental $341.21", "Weekly change to your
   take home pay"); LeaseLab, weekly only (1xrv7kd, 9 Nov); Fingo/ALP (shows weekly next to
-  fortnightly and monthly, so it's fine); Remunerator, "Lease Payment (excl GST)" annual only
-  (1xof9wr, 1xb8dca).
+  fortnightly and monthly, so it's fine); Remunerator, "Lease Payment (excl GST)" per year on its
+  one-page "Your Estimated Novated Lease Savings" summary. That's the only Remunerator page anyone
+  has posted (5 posts, 8 images, Sep 2025 – Nov 2026: 1nbk683, 1vmavwz, 1vr8ncr, 1xb8dca, 1xof9wr).
+  A fuller quote or lease schedule probably exists but hasn't been seen. Remunerator was bought by
+  FleetPartners in Dec 2025 (post 1pdipz3), so its format may change.
 - **Where:** `draft.ts` (`paymentPeriod`, `RunningPeriod`, `runningFactor`, the per-fortnight
   conversion ~line 458); `GuidedMode.tsx` payment period choice (~1256), running period (~1587);
   the Smart/MillarX modal's `initialPeriod`.
 - **Proposed fix:** add "Week" (and "Year" for the payment) and convert internally to per
   fortnight. Weekly = ×52/26, annual = ÷26.
-- **Owner decision:** add "Year" to the payment too, or just tell Remunerator users to divide by
-  12?
+- **Done 2026-11-11 (not committed):** one `Period` type (week/fortnight/month/year) with
+  `PERIODS_PER_YEAR`, `PERIOD_UNIT` and `toPerFn` in `draft.ts`. Payment: Week / Fortnight / Month /
+  Year (Year included, so Remunerator's annual figure goes in as printed). Running costs: Per week
+  added. The luxury adjustment follows the payment's period. The period-slip check now tries weekly
+  too (fortnight → month first, then week). The correction tool stays fortnight/month. Tests:
+  `tests/periods.test.tsx`. Browser: SG Fleet Zeekr weekly quote ($341.21/wk) → 7.89%, exactly
+  SG Fleet's printed rate.
+- **Noticed, not fixed:** the quote diagram shows example values for the luxury adjustment and
+  running costs, not the reader's own (pre-existing).
 
 ### 3. SG Fleet shows two payment figures and states deferral only as a payment count
 
