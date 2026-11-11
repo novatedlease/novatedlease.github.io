@@ -352,7 +352,7 @@ describe("coffee nudge in Guided mode", () => {
   test("guided answers count as edited fields", () => {
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: /Yes, I have a quote/ }));
-    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
     fireEvent.click(screen.getByRole("button", { name: /Petrol, diesel or any hybrid/ }));
     fireEvent.click(screen.getByRole("button", { name: /^New$/ }));
     // hasQuote, vehicleType, vehicleCondition
@@ -914,7 +914,7 @@ describe("Advanced opens with example figures: say so", () => {
 });
 
 describe("intro: choosing doesn't move on; the quote reminder shows first", () => {
-  test("“Have your quote open” appears only after Yes, and Continue moves on", () => {
+  test("“Have your quote open” appears only after Yes, and Next moves on", () => {
     render(<App />);
     const list = () => screen.queryByText("Have your quote open.");
     expect(list()).toBeNull();
@@ -923,7 +923,7 @@ describe("intro: choosing doesn't move on; the quote reminder shows first", () =
     fireEvent.click(screen.getByRole("button", { name: /Yes, I have a quote/ }));
     expect(list()).toBeTruthy();
     expect(screen.getByText("Do you have a novated lease quote?")).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
     expect(screen.queryByText("Do you have a novated lease quote?")).toBeNull();
   });
 });

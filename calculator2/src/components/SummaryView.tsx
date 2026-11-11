@@ -303,7 +303,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
       <NoteBox title="Residual assumption:">
         all scenarios include the final residual payout, so the model assumes you own the car outright at the end of the lease. This addresses the common misconception that novated leasing is expensive because you "don't own the car."
       </NoteBox>
-      <NoteBox title="Interest baseline:">home-loan interest figures are relative to a reference of having no car. This lets any two scenarios be cleanly compared against the same baseline.</NoteBox>
+      <NoteBox title="How interest is compared:">each option's home loan interest is measured against not buying a car at all, so all the options can be compared fairly.</NoteBox>
     </div>
   );
 }

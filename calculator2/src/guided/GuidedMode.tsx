@@ -588,9 +588,7 @@ export function GuidedMode({
               <span />
             )}
             <Button variant="primary" onClick={next}>
-              {step === "intro"
-                ? "Continue"
-                : steps[stepIndex + 1] === "review"
+              {steps[stepIndex + 1] === "review"
                   ? "See my results"
                   : "Next"}
             </Button>
