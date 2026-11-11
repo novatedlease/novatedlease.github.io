@@ -35,12 +35,17 @@ const ROWS: { heading: string; rows: Row[] }[] = [
     heading: "Finance",
     rows: [
       { key: "term", label: "Lease term", value: "60 months" },
-      { key: "defer", label: "First payment", value: "after 2 months" },
+      {
+        key: "defer",
+        label: "First payment",
+        value: "after 2 months",
+        note: "or count the payments: 58 on 60 months means 2",
+      },
       {
         key: "docFee",
         label: "Documentation fee",
         value: "$395",
-        note: "may be called establishment or lease set-up fee",
+        note: "may be called establishment, set-up or entry fee; add any PPSR fee",
       },
       {
         key: "residual",

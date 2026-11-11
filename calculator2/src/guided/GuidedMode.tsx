@@ -1192,7 +1192,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         hint={
           d.monthsDeferredUnsure
             ? "We'll assume 2 months, the most common."
-            : "Quotes often say “deferred 2 months”."
+            : "Quotes often say “deferred 2 months”. Or count the payments: 58 on a 60-month lease means 2."
         }
       />
       <MoneyInput
@@ -1200,7 +1200,15 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         label="Documentation fee"
         value={d.docFee}
         onChange={(m) => set("docFee", m)}
-        where="Also called an establishment or set-up fee. Check the small print too."
+        where="Also called an establishment, set-up or entry fee. Add any PPSR or security interest fee."
+        tooltip={
+          <InfoTooltip
+            text={
+              "Some quotes only show it in the small print or under “Other fees”.\n\n" +
+              "If your quote charges it per month (for example “Lease establishment fee $8.87” in a monthly list), leave this at $0 and add the monthly amount to your lease management fees on the running-costs screen. Don't enter it in both places."
+            }
+          />
+        }
         noneLabel="My quote has no documentation fee ($0)"
         findings={f.docFee}
       />
@@ -1232,6 +1240,12 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         ]}
         columns={3}
         hint="Look for “GST” next to the figure. This is the most common slip."
+        tooltip={
+          <Tip>
+            If a separate “GST on residual” line sits beside the figure, the
+            figure excludes GST.
+          </Tip>
+        }
       />
       {d.residualBasis === "unknown" && (
         <NoteBox mb={20}>
