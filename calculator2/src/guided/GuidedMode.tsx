@@ -1082,8 +1082,9 @@ function PriceStep({ d, set, f }: StepPropsF) {
         tooltip={
           <InfoTooltip
             text={
-              "Listed on the car invoice prior to stamp duty, rego, and CTP insurance. Many invoices label this vehicle subtotal.\n\n" +
-              "✅ Included: the car's RRP, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar), and any Luxury Car Tax (LCT) if payable.\n\n" +
+              "Listed before stamp duty, rego and CTP insurance. Quotes also call it FBT value, vehicle base value or value for FBT purposes. On a dealer invoice it's often the vehicle subtotal.\n\n" +
+              "Not on your quote? Add up the car, options and delivery, including GST.\n\n" +
+              "✅ Included: the car's price, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar), and any Luxury Car Tax (LCT) if payable.\n\n" +
               "❌ Not included: compulsory third party (CTP) insurance, registration, stamp duty."
             }
           />
@@ -1091,15 +1092,24 @@ function PriceStep({ d, set, f }: StepPropsF) {
         value={d.baseValue}
         onChange={(m) => set("baseValue", m)}
         where="Before stamp duty, rego and CTP."
-        hint="Also called vehicle subtotal or vehicle cost. Includes GST."
+        hint="Also called FBT value or vehicle base value. Includes GST."
         findings={f.prices.filter((x) => x.code === "base_exceeds_driveaway")}
       />
       <MoneyInput
         field="driveaway"
         label="Drive-away price"
+        tooltip={
+          <InfoTooltip
+            text={
+              "Quotes also call it on-road cost, on-road price, drive-away total, vehicle purchase price or car price.\n\n" +
+              "Some quotes also show a lower \"novated\" or \"effective\" price with the GST saving taken off. Don't use that one: the calculator takes the GST saving off for you."
+            }
+          />
+        }
         value={d.driveaway}
         onChange={(m) => set("driveaway", m)}
         where="The base value plus CTP, stamp duty and rego."
+        hint="The full price including GST, not a lower “novated” price with GST taken off."
         estimatedNote="Worked out from your residual. Usually within about 1%; replace it if you find the actual figure."
         findings={f.prices.filter((x) => x.code !== "base_exceeds_driveaway")}
       />
