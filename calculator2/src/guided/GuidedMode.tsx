@@ -1445,6 +1445,20 @@ function RunningStep({ d, set, f }: StepPropsF) {
   return (
     <>
       <Lead>From your quote's running-cost budget.</Lead>
+      <MoneyInput
+        label="Kilometres per year"
+        prefix=""
+        suffix="km"
+        value={d.mileage}
+        onChange={(m) => set("mileage", m)}
+        where="Your best estimate. The average Australian drives about 12,000 km."
+        findings={f.mileage}
+      />
+      <Help title="How do I use my current driving to estimate this?">
+        Check your last two service records for the odometer reading, subtract,
+        and divide by the years between. Or multiply a typical weekly total by
+        52.
+      </Help>
       <Choices<YesNoUnsure>
         label="Is your quote's running-cost budget inc GST or ex GST?"
         value={d.gstPassedOn}
@@ -1530,25 +1544,6 @@ function RunningStep({ d, set, f }: StepPropsF) {
           suggestion={typicalIn(typical?.mgmt)}
           findings={f.mgmt}
           where="Admin, membership and management fees, added together."
-        />
-        <MoneyInput
-          row
-          label="Kilometres per year"
-          prefix=""
-          suffix="km"
-          value={d.mileage}
-          onChange={(m) => set("mileage", m)}
-          where={
-            <>
-              Your best estimate. The average Australian drives about 12,000 km.
-              <Help title="Estimate it from your current driving">
-                Check your last two service records for the odometer reading,
-                subtract, and divide by the years between. Or multiply a typical
-                weekly total by 52.
-              </Help>
-            </>
-          }
-          findings={f.mileage}
         />
         {!isEv && (
           <MoneyInput
