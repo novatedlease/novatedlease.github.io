@@ -1182,7 +1182,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         come next.
       </Lead>
       <Choices
-        label="Is the payment per fortnight or per month?"
+        label="Is the payment per"
         value={d.paymentPeriod}
         onChange={(v) => {
           // A corrected payment is our own figure, so keep it meaning the same amount in the new period.
