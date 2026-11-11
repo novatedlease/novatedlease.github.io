@@ -73,7 +73,8 @@ export function DriveawayHelper({
   }
 
   return (
-    <Help title="Not on your quote? Work it out from the residual">
+    <>
+      <Help title="Not on your quote? Work it out from the residual">
       <p style={{ margin: "0 0 12px" }}>
         Many quotes leave it out. It can be worked out from the residual (balloon) and its percentage.
       </p>
@@ -161,6 +162,92 @@ export function DriveawayHelper({
             </div>
           )}
         </>
+      )}
+    </Help>
+    <DriveawayFromParts d={d} set={set} />
+    </>
+  );
+}
+
+/**
+ * Second route for quotes that list the parts but no total (NLA, LeasePlan): the vehicle price
+ * plus the government charges. Works without a residual, which some of those quotes leave out.
+ */
+function DriveawayFromParts({
+  d,
+  set,
+}: {
+  d: GuidedDraft;
+  set: <K extends keyof GuidedDraft>(k: K, v: GuidedDraft[K]) => void;
+}) {
+  const [price, setPrice] = useState<Money>(emptyMoney);
+  const [priceBasis, setPriceBasis] = useState<"incGst" | "exGst" | null>(null);
+  const [duty, setDuty] = useState<Money>(emptyMoney);
+  const [rego, setRego] = useState<Money>(emptyMoney);
+  const [lct, setLct] = useState<Money>(emptyMoney);
+
+  const priceTyped = moneyValue(price);
+  const priceIncGst =
+    priceTyped && priceBasis ? (priceBasis === "exGst" ? priceTyped * (1 + GST_RATE) : priceTyped) : null;
+  const extras = [duty, rego, lct].map((m) => moneyValue(m) ?? 0);
+  const total = priceIncGst != null ? priceIncGst + extras.reduce((a, b) => a + b, 0) : null;
+  const entered = moneyValue(d.driveaway);
+  const enteredIsOurs = d.driveaway.estimated;
+
+  function applyFigure() {
+    if (total == null) return;
+    set("driveaway", { text: String(Math.round(total * 100) / 100), none: false, estimated: true });
+    trackEvent("guided_driveaway_summed", {
+      had_entered: entered != null && !enteredIsOurs,
+      price_basis: priceBasis ?? undefined,
+    });
+  }
+
+  return (
+    <Help title="Or add up the parts">
+      <p style={{ margin: "0 0 12px" }}>
+        For quotes that list the vehicle price and the government charges but no total.
+      </p>
+      <Choices
+        label="Is the vehicle price including or excluding GST?"
+        value={priceBasis}
+        onChange={setPriceBasis}
+        options={[
+          { value: "exGst", label: "Excluding GST", sub: "We'll add the GST" },
+          { value: "incGst", label: "Including GST" },
+        ]}
+        columns={2}
+      />
+      <MoneyInput
+        label="Vehicle price"
+        value={price}
+        onChange={setPrice}
+        where="The car with its options and delivery, before stamp duty and rego."
+      />
+      <MoneyInput label="Stamp duty" value={duty} onChange={setDuty} />
+      <MoneyInput
+        label="Registration and CTP"
+        value={rego}
+        onChange={setRego}
+        where="Leave out anything already counted in the vehicle price."
+      />
+      <MoneyInput label="Luxury car tax, if listed" value={lct} onChange={setLct} />
+
+      {total != null && (
+        <div className="gd-derive">
+          <div className="gd-derive__result">
+            Drive-away price: about <strong>{money0(total)}</strong>
+          </div>
+          <div className="gd-derive__working">
+            {money2(priceIncGst!)} inc GST
+            {extras[0] ? ` + ${money2(extras[0])} stamp duty` : ""}
+            {extras[1] ? ` + ${money2(extras[1])} rego and CTP` : ""}
+            {extras[2] ? ` + ${money2(extras[2])} LCT` : ""}
+          </div>
+          <Button variant="secondary" size="sm" onClick={applyFigure}>
+            Use this figure
+          </Button>
+        </div>
       )}
     </Help>
   );
