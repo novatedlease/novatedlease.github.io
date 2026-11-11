@@ -1,6 +1,6 @@
 # Guided mode vs real quotes — issue list (started 2026-11-11)
 
-> **Status 2026-11-11:** list written (issues 1–20), nothing implemented. Work through it with the owner one
+> **Status 2026-11-12:** issues 1–13, 15 and 20 done on `main` (not pushed). 14, 16 and Advanced-mode monthly handling are on review branches. 17–19 wait on owner decisions. Each issue has a status line. Work through it with the owner one
 > issue at a time, as in `UX_FIXES_HANDOFF_2026-11.md` (plan in a few lines → implement → tests →
 > build → browser check → wait for "next"). That file also has the build, test and preview commands.
 
@@ -30,6 +30,8 @@ before writing anything provider-specific.
 ## Issues (suggested order)
 
 ### 1. MillarX: the buffer follows each quote's deferral (1 or 2 months), not a fixed 1
+
+**Status (2026-11-12):** ✅ Done: `f3f18880` (buffer follows the deferral, 1 or 2 months).
 
 - **Understanding: settled (2026-11-11), with the owner.** The article's mechanism holds on every
   MillarX quote that can be checked. The fortnightly figure is the monthly financier payment × 12/26,
@@ -68,6 +70,8 @@ before writing anything provider-specific.
 
 ### 2. No weekly option for the payment or running costs, and no annual option for the payment
 
+**Status (2026-11-12):** ✅ Done: `721baf85` (week/fortnight/month/year periods).
+
 - **Problem:** the payment can only be per fortnight or per month (`draft.ts` `paymentPeriod`).
   Running costs can be per fortnight, month or year (`RunningPeriod`). Weekly-pay quotes force
   users into hand conversion, and an annual-only payment has nowhere to go.
@@ -95,6 +99,8 @@ before writing anything provider-specific.
 
 ### 3. SG Fleet shows two payment figures and states deferral only as a payment count
 
+**Status (2026-11-12):** ✅ Done in Guided: `e89060df` (monthly = financier payment), article `8193645b`. Advanced mode: review branch (see summary).
+
 - **Problem:** SG Fleet prints a per-pay "Lease rental" (spread over the full term) and a "Monthly
   lease rental" "(payable as 34 payments)" on a 36-month term. The per-pay figure with a 2-month
   deferral understates the cost. The GST basis appears only in the fine print ("shown exclusive of
@@ -105,7 +111,23 @@ before writing anything provider-specific.
   means 2 months deferred."
 - **Owner decision:** fold into issue 7 / 16, or handle now?
 
+- **Update 2026-11-12: how per-pay figures are built (bigger than SG Fleet).** On every quote
+  checked against a printed rate (SG Fleet ×2, MillarX, Toyota Fleet, Alliance), the **monthly**
+  lease figure is the real financier payment. Guided reads a monthly figure as spread over the
+  whole term, so typing SG Fleet's "Monthly lease rental" gives 8.97% instead of the true 7.19%;
+  SG Fleet's per-pay "Lease rental" is the correct one to enter (it's spread: $1,195 × 34 ÷ 78).
+  Over-collection status (owner, 2026-11-12):
+  - Confirmed directly: Smart Leasing, MillarX.
+  - **May be** over-collecting: Alliance (2 of 3 quotes reconcile only after 58/60; 1xnlk94 matches
+    as printed) and Easi (per-pay = monthly × 12/26 on one layout; another Easi layout spreads it).
+    Owner is not pursuing this for now; draft emails to both are saved, unsent, in Gmail.
+  - Not over-collecting: SG Fleet. Untested: providers that print only a fortnightly figure.
+  - Proposed calculator fix (not yet agreed): read a monthly figure as the financier payment; for a
+    per-pay figure, suggest using the monthly figure if the quote has one.
+
 ### 4. "Drive-away" figures with the GST already taken off
+
+**Status (2026-11-12):** ✅ Done: `966af4f0`.
 
 - **Problem:** several quotes headline a price net of the GST saving, and it's labelled as if it
   were the drive-away price. Our `base_exceeds_driveaway` check catches it only when the base value
@@ -122,6 +144,8 @@ before writing anything provider-specific.
 
 ### 5. FBT base value: the aliases mislead, and there's no fallback when it isn't printed
 
+**Status (2026-11-12):** ✅ Done: `966af4f0`.
+
 - **Problem:** the hint says "Also called vehicle subtotal or vehicle cost"; the diagram adds
   "RRP". "Vehicle cost" means the drive-away on SPA (1xs6pa5) and excludes delivery on Alliance
   (1xocvn9). Autopia prints no base value, and its "base price" is ex GST (1xq2wcg). FleetPartners
@@ -135,6 +159,8 @@ before writing anything provider-specific.
   and CTP." Drop "vehicle cost" and "RRP".
 
 ### 6. "Look for the word GST next to the payment" is too narrow
+
+**Status (2026-11-12):** ✅ Done: `f3f18880` (Not sure option, wider hint) + `7215dcd7` (shown-twice tooltip).
 
 - **Problem:** the GST basis usually sits in the table heading, a footnote or only on the total.
   The same quote can show both: Alliance page 3 "Total Lease Payment (Finance Payment)" $440.80 is
@@ -156,6 +182,8 @@ before writing anything provider-specific.
 
 ### 7. Deferral is rarely written as "deferred N months"
 
+**Status (2026-11-12):** ✅ Done: `cb663960`.
+
 - **Problem:** the hint says "Quotes often say 'deferred 2 months'". Only about a third do.
 - **Seen:** "Months deferred: 2" (Smart Leasing, Easi, Alliance, Simplygreen); "payable as 34
   payments" (SG Fleet); "Number of Lease Payments: 59" (Remunerator); "Number of Installments 58"
@@ -167,6 +195,8 @@ before writing anything provider-specific.
   deferred." Keep "Not sure → 2".
 
 ### 8. Documentation fee: shown monthly, split into a PPSR fee, or hidden in a footnote
+
+**Status (2026-11-12):** ✅ Done: `cb663960` + `a09e7ce3` (one-off fees ex GST; monthly fees → management fees).
 
 - **Problem:** Guided takes a single upfront amount.
 - **Seen:** monthly ("Lease Establishment Fee $8.87/month" FleetPartners 1x9tvny, $3.36 in 1xlqzm8;
@@ -184,6 +214,8 @@ before writing anything provider-specific.
 
 ### 9. Luxury vehicle adjustment goes by many names
 
+**Status (2026-11-12):** ✅ Done: `7215dcd7`.
+
 - **Seen:** "Luxury vehicle adjustment" (Easi, Driva, Toyota Fleet, Lendly), "Luxury levy" (SG
   Fleet 1xoemj6), "Luxury car charge" (Alliance), "Luxury vehicle non-deductible" (ORIX), "Non-
   Deductible Depreciation" (Custom Fleet 1xp2oq9), "Luxury Depreciation Allowance" (Simplygreen
@@ -192,6 +224,8 @@ before writing anything provider-specific.
 - **Proposed fix:** "May be called luxury levy, luxury car charge or non-deductible depreciation."
 
 ### 10. Running-cost lines with no matching box
+
+**Status (2026-11-12):** ✅ Done: `aa26cd26`. Owner to confirm the contingency/optional-cover defaults.
 
 - **Problem:** Guided has five boxes (servicing/tyres, rego, insurance, management fees,
   fuel/charging). Quotes also carry roadside, incidentals, car wash, a second "salary packaging"
@@ -208,6 +242,8 @@ before writing anything provider-specific.
 
 ### 11. First-year insurance financed upfront (Maxxia, Oly)
 
+**Status (2026-11-12):** ✅ Done: `aa26cd26` (insurance tooltip). Rate effect of a financed premium: see issue 14.
+
 - **Problem:** Maxxia and Oly put the first year's comprehensive insurance into the amount financed
   ("1st year Comprehensive Insurance $2,107.82"). The running-cost line is only the renewal, so
   insurance looks cheap in year one, and the finance payment carries a year of insurance.
@@ -215,6 +251,8 @@ before writing anything provider-specific.
 - **Owner decision:** just a tooltip, or treat it in the engine? Low priority.
 
 ### 12. No drive-away printed, and sometimes no residual either
+
+**Status (2026-11-12):** ✅ Done: `1bb129a4` ("Or add up the parts").
 
 - **Problem:** the residual helper covers most quotes with no drive-away (Smart Leasing, Paywise,
   Smartsalary, LeaseExpress). LeasePlan (1n16kcg) prints neither, and NLA and LeasePlan print only
@@ -226,6 +264,8 @@ before writing anything provider-specific.
 
 ### 13. Residual with no GST label
 
+**Status (2026-11-12):** ✅ Done: `cb663960` (GST-on-residual tooltip).
+
 - **Seen:** Maxxia "Total residual value"; RemServ "Residual value"; SPA page 1; LeaseExpress
   "Residual value (28.13%)" with "GST on residual" beside it (so ex GST); Lendly (only the footnote
   says inc GST). Ex GST only: NLA, Toyota Fleet, FleetPartners, Driva, LeaseLab, ORIX, MillarX.
@@ -235,12 +275,16 @@ before writing anything provider-specific.
 
 ### 14. Payment that includes fees (Maxxia "Financed payments")
 
+**Status (2026-11-12):** 🔶 Review branch `worktree-agent-a3b8e74448be3cdd8` (`847b71c7`): optional "other amounts financed" field. Not merged.
+
 - **Problem:** Maxxia's payment line says "Includes the car on roads and Financier Fees". If the user
   also enters the $437.82 establishment fee as the doc fee, is it counted twice?
 - **Owner decision:** check the engine. If the doc fee is assumed financed into the payment, this is
   fine.
 
 ### 15. Running-cost buffers similar to Smart Leasing's reserve
+
+**Status (2026-11-12):** ✅ Covered by issue 10 (`aa26cd26`).
 
 - **Seen:** Simplygreen "Contingency Budget $300/yr"; LeaseLab "unspent funds will be returned at
   the end of the lease".
@@ -255,6 +299,8 @@ pictures of), then 16, then 18–20, then 17. Issue 1 can go any time.
 
 ### 16. Optional provider picker with provider-specific pointers
 
+**Status (2026-11-12):** 🔶 Prototype branch (see summary). Not merged. Design: `PROVIDER_PICKER_DESIGN_2026-11.md`.
+
 Replace the "Smart Leasing or MillarX?" yes/no with an optional dropdown (default "Other / not
 listed") on the first quote screen. Show a dated pointer at the affected field only where general
 wording fails: SG Fleet (issue 3), Flare/Oly (issue 4), Maxxia/Oly (issue 11), FleetPartners/
@@ -264,12 +310,16 @@ positions. Prerequisite for issue 18.
 
 ### 17. Per-provider "how to read your quote" articles
 
+**Status (2026-11-12):** ⏸ Waiting: needs consented quote images (issue 19).
+
 Top providers only (2026 posts with images: Smart Leasing, SG Fleet, Maxxia, Paywise,
 Smartsalary). Each article is the full annotated quote from issue 18 (every page, numbered boxes
 matching the Guided fields), with a short "where to find each figure" list. Guided's per-field
 crops link to the matching article. Doubles as search content ("how to read my SG Fleet quote").
 
 ### 18. Annotated "where to find it" pictures of each provider's quote
+
+**Status (2026-11-12):** ⏸ Design written (`7de4c8c2`); waiting on owner decisions and consented images.
 
 - **Idea (owner, 2026-11-11):** for each provider, show a picture of its real quote with the
   figure we're asking about boxed, instead of (or as well as) describing the label.
@@ -299,6 +349,8 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 19. Image sourcing and consent
 
+**Status (2026-11-12):** ⏸ Design written (`7de4c8c2`); owner to decide submission route and consent wording.
+
 - Publish only quotes sent to us with permission, not the Reddit screenshots. Reddit posters
   shared theirs for a quote check, not for our site. The Reddit set (`private/quote-review-2026-11/`)
   stays for learning layouts and spotting format changes.
@@ -312,6 +364,8 @@ crops link to the matching article. Doubles as search content ("how to read my S
   and the wording of the consent line.
 
 ### 20. Keeping the pictures current when formats change
+
+**Status (2026-11-12):** ✅ Built privately: `private/quote-review-2026-11/scripts/freshness_check.py`; first report in `reports/`.
 
 - Date every picture on the page: "SG Fleet quotes, as of Nov 2026".
 - A "Mine looks different? Send it to us" link beside each crop, feeding issue 19.
