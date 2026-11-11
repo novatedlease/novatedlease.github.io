@@ -63,6 +63,13 @@ before writing anything provider-specific.
   - Tests: `tests/lease-adjust-modal.test.tsx` (Mazda $378 → $365.40, $819/mth → same, XPeng
     $376.70 → $370.42). 241 tests pass; build done. Browser: XPeng quote in Guided → 8.89%
     (MillarX prints 8.94%).
+- **New, 2026-11-12: a Smart layout that may not need the correction.** Post 1x9l1fe (Oct 2026,
+  quoted by Smartsalary for SA Government staff, purple "Smart" branding, Smart Leasing logo) shows
+  only a fortnightly "Lease Payment $529.60 ex GST" and a printed "Comparison Interest Rate 11.29%".
+  As printed it gives 11.34% in our engine; after the 58/60 Smart correction, 10.30%. So on this
+  layout the per-pay figure looks already spread over the term, and Guided's forced Smart
+  correction would understate it by about a point. One quote only; a different channel from the
+  Smart Leasing quote confirmed in June. Ask Smart before changing anything.
 - **Open (not blocking):** asked MillarX what decides 1 vs 2,
   where the reserve and its refund are written down, and the amount-financed gap. If he says the
   buffer isn't always the deferral, revisit.
