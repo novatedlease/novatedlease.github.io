@@ -683,6 +683,17 @@ function quoteValues(d: GuidedDraft): Partial<Record<QuoteKey, string>> {
   }
   if (payment && d.paymentPeriod)
     out.payment = `${money(payment)} per ${PERIOD_UNIT[d.paymentPeriod]}${d.paymentBasis === "incGst" ? " inc GST" : d.paymentBasis === "exGst" ? " ex GST" : ""}`;
+  const luxAdj = d.luxAdj.none || d.luxAdj.text.trim() ? moneyValue(d.luxAdj) : null;
+  if (isLuxuryRange(d) && luxAdj !== null && d.paymentPeriod)
+    // Small amounts, so cents matter here.
+    out.luxAdj = `$${luxAdj.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per ${PERIOD_UNIT[d.paymentPeriod]}`;
+  // The reader's own running costs (not our typical estimates), in the period they chose.
+  const runningKeys = RUNNING_FIELDS.filter((k) => k !== "fuel" || d.vehicleType !== "EV");
+  const entered = runningKeys.filter((k) => !d[k].estimated && (d[k].none || d[k].text.trim()));
+  if (d.runningPeriod && entered.length) {
+    const total = entered.reduce((sum, k) => sum + (moneyValue(d[k]) ?? 0), 0);
+    out.running = `${money(total)} ${PERIOD_WORD[d.runningPeriod]}`;
+  }
   return out;
 }
 
@@ -1312,6 +1323,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         ]}
         columns={3}
         hint="Check next to the payment, its table heading and the footnotes."
+        tooltip={<Tip>If your quote shows the payment twice, once with GST and once without, the smaller figure is ex GST.</Tip>}
       />
       <Choices
         field="smartMillarx"
@@ -1432,13 +1444,14 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             <InfoTooltip
               text={
                 `Only applies to vehicles costing more than the ATO car limit ($${CAR_LIMIT_FY2027.toLocaleString("en-AU")} for FY2026-27, indexed each July), due to complex employer accounting reasons. It is a separate concept from the Luxury Car Tax (LCT) threshold. Listed separately on some quotes.\n\n` +
+                "Quotes may call it a luxury levy, luxury car charge, luxury vehicle non-deductible or non-deductible depreciation.\n\n" +
                 "[Read sgfleet's explainer on the luxury vehicle adjustment](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf)"
               }
             />
           }
           value={d.luxAdj}
           onChange={(m) => set("luxAdj", m)}
-          where="A separate line on quotes for cars above the ATO car limit."
+          where="A separate line for cars above the ATO car limit. May be called a luxury levy or non-deductible depreciation."
           noneLabel="No luxury vehicle adjustment on my quote"
           suffix={`per ${luxUnit}`}
           hint={`An extra cost on top of the finance payment, per ${luxUnit} like the payment above.`}

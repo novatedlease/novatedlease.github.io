@@ -63,7 +63,7 @@ const ROWS: { heading: string; rows: Row[] }[] = [
         key: "luxAdj",
         label: "Luxury vehicle adjustment",
         value: "$0.00",
-        note: "only on cars above the ATO car limit",
+        note: "only on cars above the ATO car limit; also: luxury levy, non-deductible depreciation",
       },
       {
         key: "running",
