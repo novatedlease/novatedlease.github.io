@@ -1,4 +1,5 @@
 import type { Inputs } from "@engine/types";
+import { isNamedProvider, type ProviderId } from "./providerGuide";
 import {
   EV_TRANSITIONAL_FULL_EXEMPT_CAP,
   getEvLctThresholdForLeaseStart,
@@ -151,7 +152,9 @@ export type GuidedDraft = {
   /** Reader's estimate of the car's market value when the lease ends (not at 5 years). Only asked when comparing with keeping the current car. */
   marketValueEnd: Money;
 
-  /** null until asked. Smart Leasing and MillarX quote a figure that needs the buffer-month correction. */
+  /** Optional "Who is your quote from?". null = not answered; it's never required. */
+  provider: ProviderId | null;
+  /** null until asked. Smart Leasing and MillarX quote a figure that needs the buffer-month correction. Set from `provider` when one is named. */
   smartMillarx: boolean | null;
   paymentPeriod: Period | null;
   /** How the quote labels the finance payment. "unknown" is treated as ex GST and checked against the implied rate. */
@@ -223,6 +226,7 @@ export function emptyDraft(): GuidedDraft {
     residualBasis: null,
     residual: emptyMoney(),
     marketValueEnd: emptyMoney(),
+    provider: null,
     smartMillarx: null,
     paymentPeriod: null,
     paymentBasis: null,
@@ -706,7 +710,8 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
     case "payment":
       if (!d.paymentPeriod) ask("paymentPeriod", "How does your quote show the payment: per week, fortnight, month or year?");
       if (!d.paymentBasis) ask("paymentBasis", "Does the payment include or exclude GST?");
-      if (d.smartMillarx === null) ask("smartMillarx", "Is your lease with Smart Leasing or MillarX?");
+      if (smartMillarxAsked(d) && d.smartMillarx === null)
+        ask("smartMillarx", "Is your lease with Smart Leasing or MillarX?");
       if (!positive(d.payment)) askMoney("payment", "Finance (lease) payment");
       if (isLuxuryRange(d) && !answered(d.luxAdj))
         askMoney("luxAdj", "Luxury vehicle adjustment (or tick “no adjustment”)");
@@ -986,4 +991,9 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
   merged.residualValueExGst = residualExGstEntered(d)!;
   merged.vehicleLeasePerFn = paymentPerFn(d)!;
   return merged;
+}
+
+/** The "Smart Leasing or MillarX?" question is only needed when the provider isn't named. */
+export function smartMillarxAsked(d: Pick<GuidedDraft, "provider">): boolean {
+  return !isNamedProvider(d.provider);
 }

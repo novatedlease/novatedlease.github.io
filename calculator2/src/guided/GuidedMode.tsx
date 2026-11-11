@@ -14,6 +14,19 @@ import { KV, NoteBox } from "../components/ui/shared";
 import { Section } from "../components/ui/Section";
 import { InfoTooltip } from "../components/ui/InfoTooltip";
 import { LeaseAdjustModal } from "../components/LeaseAdjustModal";
+import { SelectField } from "../components/ui/Field";
+import {
+  POPULAR,
+  PROVIDERS,
+  guideFor,
+  isNamedProvider,
+  isSmartOrMillarx,
+  pointersFor,
+  providerLabel,
+  seenLabel,
+  type GuideField,
+  type ProviderId,
+} from "./providerGuide";
 import { SummaryView } from "../components/SummaryView";
 import { NextSteps } from "../components/NextSteps";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
@@ -54,6 +67,7 @@ import {
   paymentPerFn,
   residualExGstEntered,
   runningFactor,
+  smartMillarxAsked,
   PERIOD_UNIT,
   paymentToEngineFn,
   typicalCurrentCar,
@@ -1107,6 +1121,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
         hint="Also called FBT value or vehicle base value. Includes GST."
         findings={f.prices.filter((x) => x.code === "base_exceeds_driveaway")}
       />
+      <ProviderPointers d={d} field="baseValue" />
       <MoneyInput
         field="driveaway"
         label="Drive-away price"
@@ -1125,6 +1140,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
         estimatedNote="Worked out from your residual. Usually within about 1%; replace it if you find the actual figure."
         findings={f.prices.filter((x) => x.code !== "base_exceeds_driveaway")}
       />
+      <ProviderPointers d={d} field="driveaway" />
       <DriveawayHelper d={d} set={set} />
       {d.vehicleType === "EV" && fbtCategoryOf(d) && (
         <FbtNote d={d} cat={fbtCategoryOf(d)!} />
@@ -1152,6 +1168,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
   return (
     <Side highlight={["term", "defer", "docFee", "residual"]} d={d}>
       <Lead>The finance terms from your quote.</Lead>
+      <ProviderSelect d={d} set={set} />
       <Choices
         field="leaseYears"
         label="Lease term"
@@ -1196,6 +1213,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
             : "Quotes often say “deferred 2 months”. Or count the payments: 58 on a 60-month lease means 2."
         }
       />
+      <ProviderPointers d={d} field="defer" />
       <MoneyInput
         field="docFee"
         label="Documentation fee"
@@ -1213,6 +1231,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         noneLabel="My quote has no documentation fee ($0)"
         findings={f.docFee}
       />
+      <ProviderPointers d={d} field="docFee" />
       <MoneyInput
         field="residual"
         label="Residual (balloon) value"
@@ -1248,6 +1267,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           </Tip>
         }
       />
+      <ProviderPointers d={d} field="residual" />
       {d.residualBasis === "unknown" && (
         <NoteBox mb={20}>
           {guessed && typedResidual && atoMin ? (
@@ -1352,7 +1372,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         hint="Check next to the payment, its table heading and the footnotes."
         tooltip={<Tip>If your quote shows the payment twice, once with GST and once without, the smaller figure is ex GST.</Tip>}
       />
-      <Choices
+      {smartMillarxAsked(d) && <Choices
         field="smartMillarx"
         label="Is your lease with Smart Leasing or MillarX?"
         value={d.smartMillarx}
@@ -1371,7 +1391,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         columns={2}
         hint="Their per-pay figure needs a quick correction. A monthly one doesn't."
         tooltip={<Tip>Smart Leasing and MillarX work out the per-pay figure as if every month of the lease had a finance payment, and hold the extra as a budget reserve. Entered as printed, it makes the lease look dearer than it is. Their monthly figure is the actual payment, so it can go in as printed.</Tip>}
-      />
+      />}
       {d.smartMillarx &&
         (d.paymentCorrected ? (
           <div className="gd-callout gd-callout--done" role="status">
@@ -1429,6 +1449,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           initialPeriod={d.paymentPeriod === "perFn" || d.paymentPeriod === "perMonth" ? d.paymentPeriod : null}
           initialGst={d.paymentBasis}
           initialDeferMonths={d.monthsDeferred}
+          initialProvider={d.provider === "millarx" ? "millarx" : undefined}
           monthlyIsFinancierPayment
           onClose={() => setAdjustOpen(false)}
           onApply={(_perFn, shown) => {
@@ -1459,6 +1480,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         suffix={d.paymentPeriod ? `per ${PERIOD_UNIT[d.paymentPeriod]}` : undefined}
         findings={[...f.payment, ...f.paymentCorrected]}
       />
+      <ProviderPointers d={d} field="payment" />
       {diag?.status === "ok" && diag.rate !== null && (
         <div className="gd-stat">
           <span className="gd-stat__label">Effective interest rate</span>
@@ -1493,7 +1515,75 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           hint={`An extra cost on top of the finance payment, per ${luxUnit} like the payment above.`}
         />
       )}
+      {luxury && <ProviderPointers d={d} field="luxAdj" />}
     </Side>
+  );
+}
+
+/** Optional "Who is your quote from?", first on the lease screen. */
+function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
+  const popular = PROVIDERS.filter((p) => POPULAR.includes(p.id));
+  const rest = PROVIDERS.filter((p) => !POPULAR.includes(p.id) && p.id !== "other")
+    .slice()
+    .sort((a, b) => a.label.localeCompare(b.label));
+  return (
+    <SelectField<ProviderId | "">
+      label="Who is your quote from? (optional)"
+      hint="Helps us point to the right lines. Your quote stays on your device."
+      value={d.provider ?? ""}
+      onChange={(v) => {
+        const next = v === "" ? null : v;
+        set("provider", next);
+        if (isNamedProvider(next)) {
+          const sm = isSmartOrMillarx(next);
+          // A corrected figure only makes sense for those two providers; don't leave it behind.
+          if (!sm && d.paymentCorrected) {
+            set("payment", emptyMoney());
+            set("paymentCorrected", false);
+          }
+          set("smartMillarx", sm);
+        } else if (isNamedProvider(d.provider)) {
+          // Back to "not named": that answer was ours, so ask the question again.
+          set("smartMillarx", null);
+        }
+        if (next) trackEvent("guided_provider", { provider: next });
+      }}
+      options={[
+        { value: "", label: "Choose, or skip" },
+        ...popular.map((p) => ({ value: p.id, label: p.label })),
+        ...rest.map((p) => ({ value: p.id, label: p.label })),
+        { value: "other", label: providerLabel("other") },
+      ]}
+    />
+  );
+}
+
+/** Dated "If you see X" pointers for the chosen provider, under the matching field. */
+function ProviderPointers({
+  d,
+  field,
+  fields,
+}: {
+  d: GuidedDraft;
+  field?: GuideField;
+  fields?: GuideField[];
+}) {
+  const guide = guideFor(d.provider);
+  if (!guide) return null;
+  const list = (fields ?? (field ? [field] : [])).flatMap((x) => pointersFor(d.provider, x));
+  if (list.length === 0) return null;
+  return (
+    <div className="gd-pointers" data-provider={guide.id}>
+      {list.map((p) => (
+        <div key={p.text} className="gd-pointer">
+          <span>{p.text}</span>
+          {p.more && <Tip>{p.more}</Tip>}
+        </div>
+      ))}
+      <div className="gd-pointer__seen">
+        As seen on {providerLabel(guide.id)} quotes, {seenLabel(guide.seen)}.
+      </div>
+    </div>
   );
 }
 
@@ -1656,6 +1746,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
         columns={4}
         hint="Use whichever your quote shows. All the boxes below use it."
       />
+      <ProviderPointers d={d} fields={["running", "insurance", "fees"]} />
       <Choices<"exGst" | "incGst" | "unknown">
         field="runningGstHeading"
         label="What does the running-cost heading on your quote say?"

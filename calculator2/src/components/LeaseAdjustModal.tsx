@@ -28,6 +28,8 @@ export function LeaseAdjustModal(props: {
   initialGst?: QuoteGst | null;
   /** Months until the first finance payment, as answered elsewhere; sets MillarX's reserve. */
   initialDeferMonths?: number | null;
+  /** The provider the reader picked elsewhere, so the toggle starts on it. Defaults to Smart Leasing. */
+  initialProvider?: Provider;
   /**
    * Guided reads a monthly figure as the financier's own payment and spreads it over the term
    * itself, so a monthly figure needs no correction here. Advanced reads it as spread, so it doesn't
@@ -35,7 +37,7 @@ export function LeaseAdjustModal(props: {
    */
   monthlyIsFinancierPayment?: boolean;
 }) {
-  const [provider, setProvider] = useState<Provider>("smart");
+  const [provider, setProvider] = useState<Provider>(props.initialProvider ?? "smart");
   const [millarxDefer, setMillarxDefer] = useState<1 | 2>(initialMillarxDefer(props.initialDeferMonths));
   const [quotedText, setQuotedText] = useState<string>("");
   const [quotePeriodMode, setQuotePeriodMode] = useState<QuotePeriod>(props.initialPeriod ?? "perFn");
