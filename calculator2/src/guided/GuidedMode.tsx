@@ -1200,11 +1200,11 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         label="Documentation fee"
         value={d.docFee}
         onChange={(m) => set("docFee", m)}
-        where="Also called an establishment, set-up or entry fee. Add any PPSR or security interest fee."
+        where="One-off fees in the amount financed, such as establishment, set-up or PPSR fees. Add them together."
         tooltip={
           <InfoTooltip
             text={
-              "Some quotes only show it in the small print or under “Other fees”.\n\n" +
+              "Also called a documentation or entry fee, or a security interest fee. Some quotes only show it in the small print or under “Other fees”. Use the ex-GST amount if both are shown.\n\n" +
               "If your quote charges it per month (for example “Lease establishment fee $8.87” in a monthly list), leave this at $0 and add the monthly amount to your lease management fees on the running-costs screen. Don't enter it in both places."
             }
           />

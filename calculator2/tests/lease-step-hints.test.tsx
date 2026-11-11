@@ -18,7 +18,7 @@ test("the lease screen explains payment counts, PPSR fees and 'GST on residual'"
   );
   render(<App />);
   expect(screen.getByText(/count the payments: 58 on a 60-month lease means 2/)).toBeTruthy();
-  expect(screen.getByText(/Add any PPSR or security interest fee/)).toBeTruthy();
+  expect(screen.getByText(/such as establishment, set-up or PPSR fees. Add them together/)).toBeTruthy();
   // The nuance sits in tooltips, which render when opened
   const tip = (field: string) => document.querySelector(`[data-field="${field}"] .nlc-info-trigger`)!;
   fireEvent.keyDown(tip("docFee"), { key: "Enter" });
