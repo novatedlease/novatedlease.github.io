@@ -240,7 +240,7 @@ describe("guided checks", () => {
 describe("GuidedMode render", () => {
   test("opens on the intro screen with nothing pre-filled", () => {
     const html = renderToStaticMarkup(<GuidedMode onOpenAdvanced={() => {}} />);
-    expect(html).toContain("Do you have a novated lease quote yet?");
+    expect(html).toContain("Do you have a novated lease quote?");
     expect(html).not.toContain('value="450"');
   });
 });

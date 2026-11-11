@@ -691,35 +691,35 @@ function Intro({
   return (
     <>
       <Choices
-        label="Do you have a novated lease quote yet?"
+        label="Do you have a novated lease quote?"
         value={d.hasQuote}
         onChange={onChoose}
         options={[
           {
             value: true,
             label: "Yes, I have a quote",
-            sub: "About 5 minutes. Most accurate",
+            sub: "Most accurate, ~5 minutes",
           },
           {
             value: false,
             label: "No, I'm just exploring",
-            sub: "About 2 minutes. We fill in typical figures",
+            sub: "Typical figures, ~2 minutes",
           },
         ]}
         columns={2}
         hint="You can add your quote later without losing your answers."
       />
       <div className="gd-checklist">
-        <strong>If you have a quote, have these ready</strong>
+        <strong>Have these ready</strong>
         <ul>
-          <li>Your <strong>novated lease quote</strong> (PDF or email)</li>
-          <li>Your taxable income (payslip or tax return)</li>
-          <li>Rough servicing, rego and insurance costs (optional)</li>
+          <li><strong>Novated lease quote</strong></li>
+          <li>Taxable income (payslip or tax return)</li>
+          <li>Servicing, rego and insurance costs (optional)</li>
         </ul>
       </div>
       {onSwitchToAdvanced && (
         <div className="gd-skip">
-          Prefer every input on one page?{" "}
+          Need more control?{" "}
           <button
             type="button"
             className="gd-linkbtn"
@@ -788,36 +788,34 @@ function QuickStep({ d, set, f }: StepPropsF) {
 function CompareStep({ d, set }: StepProps) {
   return (
     <>
-      <Lead>What would you realistically do instead of leasing?</Lead>
+      <Lead>Select the choice that's most realistic for you.</Lead>
       <NoteBox color="var(--nlc-warn)" mb={20}>
         <strong>This choice matters most.</strong> The same lease can beat a car
         loan yet lose to keeping a paid-off car. Paying cash is always shown too.
       </NoteBox>
       <Choices
-        label="If you didn't lease, would you buy this car with a car loan?"
+        label="If you didn't lease, what would you do?"
         value={d.compareLoan}
         onChange={(v) => set("compareLoan", v)}
         options={[
           {
             value: true,
-            label: "Yes, compare with a car loan",
-            sub: "Loan details come later",
+            label: "Buy this car with a loan",
           },
-          { value: false, label: "No, I would otherwise be paying cash" },
+          { value: false, label: "Pay cash for this car" },
         ]}
         columns={2}
       />
       <Choices
-        label="Could you keep driving the car you own now instead?"
+        label="And your current car?"
         value={d.compareCurrent}
         onChange={(v) => set("compareCurrent", v)}
         options={[
           {
             value: true,
-            label: "Yes, compare with keeping it",
-            sub: "Its value and costs come later",
+            label: "Keep my current car",
           },
-          { value: false, label: "No, I'd replace it either way" },
+          { value: false, label: "Replace my car either way" },
         ]}
         columns={2}
         hint="Only if keeping it is a real option, not if it's dying or already gone."
@@ -832,7 +830,7 @@ function CarStep({ d, set }: StepProps) {
   return (
     <>
       <Choices
-        label="What type of car is it?"
+        label="Vehicle type"
         value={d.vehicleType}
         onChange={(v) => set("vehicleType", v)}
         options={[
@@ -846,19 +844,19 @@ function CarStep({ d, set }: StepProps) {
         hint="Plug-in hybrids no longer qualify for the EV FBT exemption."
       />
       <Choices
-        label="Is it new or used?"
+        label="Condition"
         value={d.vehicleCondition}
         onChange={(v) => set("vehicleCondition", v)}
         options={[
           { value: "New", label: "New" },
           {
             value: "Used – dealer sale (GST inc)",
-            label: "Used, from a dealer",
+            label: "Dealer used",
             sub: "Price includes GST",
           },
           {
             value: "Used – private sale (no GST)",
-            label: "Used, private sale",
+            label: "Private sale",
             sub: "No GST in the price",
           },
         ]}
@@ -867,7 +865,7 @@ function CarStep({ d, set }: StepProps) {
       {d.hasQuote !== false && (
         <div className="nlc-field">
           <label className="nlc-field__label" htmlFor="gd-start">
-            When does the lease start?
+            Lease start date
             <Tip>
               It sets which{" "}
               <a
@@ -1061,7 +1059,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         }
       />
       <Choices<string>
-        label="Months before the first payment (deferred)"
+        label="When does the first payment start? (deferred)"
         value={deferValue}
         onChange={(v) => {
           if (v === "unsure") {
@@ -1071,7 +1069,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           }
         }}
         options={[
-          { value: "0", label: "None" },
+          { value: "0", label: "Now" },
           { value: "1", label: "1 month" },
           { value: "2", label: "2 months", sub: "Most common" },
           { value: "unsure", label: "Not sure" },
@@ -1092,7 +1090,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         findings={f.docFee}
       />
       <Choices
-        label="How does your quote show the residual (balloon) value?"
+        label="On your quote, is the residual (balloon) value"
         value={d.residualBasis}
         onChange={(v) => set("residualBasis", v)}
         options={[
@@ -1104,7 +1102,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           { value: "exGst", label: "Excluding GST", sub: "ex GST" },
           {
             value: "unknown",
-            label: "I can't find it",
+            label: "I'm not sure",
             sub: "Use the ATO minimum",
           },
         ]}
@@ -1122,7 +1120,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
       )}
       {(d.residualBasis === "exGst" || d.residualBasis === "incGst") && (
         <MoneyInput
-          label={`Residual value (${d.residualBasis === "incGst" ? "including GST" : "excluding GST"})`}
+          label="Residual (balloon) value"
           value={d.residual}
           onChange={(m) => set("residual", m)}
           where="Type the figure exactly as printed."
@@ -1131,7 +1129,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
       )}
       {asksMarketValueEnd(d) && d.leaseYears && moneyValue(d.driveaway) ? (
         <MoneyInput
-          label={`Estimated market value of the car at the end of the lease (after ${d.leaseYears} year${d.leaseYears > 1 ? "s" : ""})`}
+          label={`Estimated market value at lease end (after ${d.leaseYears} year${d.leaseYears > 1 ? "s" : ""})`}
           value={
             d.marketValueEnd.estimated
               ? {
@@ -1169,7 +1167,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         come next.
       </Lead>
       <Choices
-        label="Is your quote's payment shown fortnightly or monthly?"
+        label="Is the payment per fortnight or per month?"
         value={d.paymentPeriod}
         onChange={(v) => {
           // A corrected payment is our own figure, so keep it meaning the same amount in the new period.
@@ -1182,13 +1180,13 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           set("paymentPeriod", v);
         }}
         options={[
-          { value: "perFn", label: "Per fortnight" },
-          { value: "perMonth", label: "Per month" },
+          { value: "perFn", label: "Fortnight" },
+          { value: "perMonth", label: "Month" },
         ]}
         columns={2}
       />
       <Choices<"exGst" | "incGst" | "unknown">
-        label="Does the payment say including or excluding GST?"
+        label="Does the payment include or exclude GST?"
         value={d.paymentBasis}
         onChange={(v) => set("paymentBasis", v)}
         options={[
@@ -1196,7 +1194,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           { value: "incGst", label: "Including GST" },
           {
             value: "unknown",
-            label: "It doesn't say",
+            label: "I'm not sure",
             sub: "We'll assume ex GST and check it",
           },
         ]}

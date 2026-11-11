@@ -24,7 +24,7 @@ import { baseEvInputs, withOverrides } from "./fixtures";
 describe("render smoke test", () => {
   test("App renders without throwing (defaults to Guided mode)", () => {
     const html = renderToStaticMarkup(<App />);
-    expect(html).toContain("Do you have a novated lease quote yet?");
+    expect(html).toContain("Do you have a novated lease quote?");
     expect(html.length).toBeGreaterThan(500);
   });
 

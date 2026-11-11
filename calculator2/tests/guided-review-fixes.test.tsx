@@ -301,7 +301,7 @@ describe("Guided → Advanced hand-off", () => {
     render(<App />);
     expect(screen.getByText(/Welcome back/)).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Start fresh" }));
-    expect(screen.getByText("Do you have a novated lease quote yet?")).toBeTruthy();
+    expect(screen.getByText("Do you have a novated lease quote?")).toBeTruthy();
   });
 });
 
@@ -541,7 +541,7 @@ describe("final review pass", () => {
       JSON.stringify({ draft: d, step: "payment", visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
     );
     render(<App />);
-    fireEvent.click(screen.getByRole("button", { name: /Per month/ }));
+    fireEvent.click(screen.getByRole("button", { name: /^Month/ }));
     expect(field(/Finance \(lease\) payment/).value).toBe("1300.00");
   });
 });

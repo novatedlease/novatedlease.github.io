@@ -44,8 +44,8 @@ describe("Guided flow (real interaction)", () => {
     expect(screen.getByRole("alert").textContent).toMatch(
       /Car loan comparison/,
     );
-    click(/Yes, compare with a car loan/);
-    click(/No, I'd replace it either way/);
+    click(/Buy this car with a loan/);
+    click(/Replace my car either way/);
     click("Next");
 
     // Prices, swapped by mistake
@@ -79,12 +79,12 @@ describe("Guided flow (real interaction)", () => {
     click(/Excluding GST/);
     // ATO min is (52400 - 4764 gst saved) * 0.2813; type the inc-GST figure into the ex-GST box
     const exGst = Math.round((52400 - 52400 / 11) * 0.2813);
-    type(/Residual value/, String(Math.round(exGst * 1.1)));
+    type(/Residual \(balloon\) value/, String(Math.round(exGst * 1.1)));
     expect(
       screen.getByText(/much closer to the ATO figure including GST/),
     ).toBeTruthy();
     click(/Including GST/);
-    type(/Residual value/, String(Math.round(exGst * 1.1)));
+    type(/Residual \(balloon\) value/, String(Math.round(exGst * 1.1)));
     expect(screen.queryByText(/much closer to the ATO figure/)).toBeNull();
     // Not comparing with the current car, so the lease-end market value isn't asked
     expect(screen.queryByText(/market value of the car at the end/)).toBeNull();
@@ -92,7 +92,7 @@ describe("Guided flow (real interaction)", () => {
 
     // Payment: monthly figure entered under "per fortnight"
     click(/Any other provider/);
-    click(/Per fortnight/);
+    click(/^Fortnight/);
     click(/^Excluding GST/);
     type(/Finance \(lease\) payment/, "1250");
     expect(screen.getByRole("alert").textContent).toMatch(
@@ -157,8 +157,8 @@ describe("Guided flow (real interaction)", () => {
     expect(document.getElementById("gd-start")).toBeNull();
     if (new Date() < new Date("2027-03-01")) click(/Before 1 April 2027/);
     click("Next");
-    click(/^No, I would otherwise be paying cash/);
-    click(/No, I'd replace it either way/);
+    click(/^Pay cash for this car/);
+    click(/Replace my car either way/);
     click("Next");
     type(/Approximate drive-away price/, "65000");
     click(/5 years/);

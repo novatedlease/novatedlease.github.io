@@ -207,7 +207,7 @@ export type StepId = (typeof STEP_IDS)[number];
 export const STEP_TITLES: Record<StepId, string> = {
   intro: "Before you start",
   compare: "What you're comparing",
-  car: "The car",
+  car: "Tell us about the car",
   quick: "The basics",
   price: "The price",
   lease: "The lease",
@@ -606,7 +606,7 @@ export function missingForStep(step: StepId, d: GuidedDraft): string[] {
       else if (d.residualBasis !== "unknown" && !positive(d.residual))
         out.push("Residual amount");
       if (asksMarketValueEnd(d) && !marketValueEndEntered(d))
-        out.push("Estimated market value at the end of the lease");
+        out.push("Estimated market value at lease end");
       break;
     case "payment":
       if (!d.paymentPeriod) out.push("Fortnightly or monthly");
