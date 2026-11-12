@@ -132,6 +132,8 @@ describe("render smoke test", () => {
       "Total taxable income",
       "Home loan offset interest rate",
       "Lease start date",
+      "Lease documentation fee and financed add-ons",
+      "Of that, first-year insurance already financed",
       "Lease duration",
       "Residual value",
       "Luxury vehicle adjustment",

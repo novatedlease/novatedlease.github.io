@@ -64,3 +64,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Updated both provider pointers and articles to explain the separate entries and removed original quote-specific premium figures from article prose. The marked documentation-fee quote crop is adjacent to the new question.
 - Tests cover both providers, financed amount and rate, the lease-only running-cost adjustment, unchanged cash insurance, and answer gating. TypeScript, 308 calculator tests, ESLint, calculator build and 82-page site build pass. The synthetic rate check uses a known 8% payment; it does not independently re-enter the original private quotes.
 - Next: item 9 provider-aware warnings can omit the obsolete Maxxia/Oly documentation-fee warning. Item 8 owner decision remains pending. No push or merge.
+
+## Item 7 follow-up — Advanced handoff (2026-11-13)
+
+- The owner asked how the new adjustment behaves in Advanced mode. The optional engine input defaults to zero for all existing Advanced inputs and old saved scenarios, so their calculations remain unchanged.
+- Advanced now visibly shows the total one-off financed fees/add-ons and the subset already financed for first-year insurance. The second amount is editable and uses the same GST basis as Advanced's annual Insurance field. Guided passes both fields through; the subset changes only the lease running-cost budget, not the cash scenario.
+- The Advanced form smoke test checks both labels. This prevents the Guided-to-Advanced copy from carrying a hidden cost adjustment. No push or merge.

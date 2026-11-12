@@ -290,7 +290,13 @@ export function InputsPanel(props: {
       </Section>
 
       <Section title="Lease details" defaultOpen>
-        <CurrencyField label="Lease documentation fee" value={inputs.leaseDocFee} onChange={(v) => set("leaseDocFee", v)} hint="Initial financier setup fee, if any. Set as 0 if not applicable." />
+        <CurrencyField label="Lease documentation fee and financed add-ons" value={inputs.leaseDocFee} onChange={(v) => set("leaseDocFee", v)} hint="Total one-off amounts financed in addition to the car, including any first-year insurance. Set to 0 if none." />
+        <CurrencyField
+          label="Of that, first-year insurance already financed"
+          value={inputs.insuranceFinancedFirstYear ?? 0}
+          onChange={(v) => set("insuranceFinancedFirstYear", v)}
+          hint="Enter 0 unless the total above includes first-year comprehensive insurance. Use the same GST basis as annual Insurance below. Guided converts the amount when needed. This removes one premium from the lease running-cost budget; cash keeps full annual insurance."
+        />
         <DateField
           label="Lease start date"
           value={inputs.leaseStartDate}
