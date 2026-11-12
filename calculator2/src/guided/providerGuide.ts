@@ -347,7 +347,11 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xrv7kd"],
     pointers: [
-      { field: "driveaway", text: "This LeaseLab example does not print a drive-away total. “Novated Vehicle Price” has the GST saving taken off; use the dealer’s full on-road price including GST or the helper below." },
+      {
+        field: "driveaway",
+        text: "This LeaseLab example does not print a drive-away total. Add “GST Saved on Car Price” to “Novated Vehicle Price” to get it, or use the dealer’s full on-road price including GST.",
+        more: "On the quote checked, Novated Vehicle Price × 28.13% equalled the printed ex-GST residual, so it is the drive-away price without the car's GST.",
+      },
       {
         field: "payment",
         text: "If your quote shows a weekly lease payment, choose “Per week” and enter it as printed.",
