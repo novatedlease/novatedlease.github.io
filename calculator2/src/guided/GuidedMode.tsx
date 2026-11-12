@@ -1405,7 +1405,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         ) : (
           <div className="gd-callout gd-callout--must" role="status">
             <div className="gd-callout__title">
-              You need to correct your Smart Leasing / MillarX payment first
+              You need to correct your {isSmartOrMillarx(d.provider) ? providerLabel(d.provider!) : "Smart Leasing / MillarX"} payment first
             </div>
             <p>
               The printed payment usually includes a budget reserve. The tool works
@@ -1434,7 +1434,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           initialPeriod={d.paymentPeriod === "perFn" || d.paymentPeriod === "perMonth" ? d.paymentPeriod : null}
           initialGst={d.paymentBasis}
           initialDeferMonths={d.monthsDeferred}
-          initialProvider={d.provider === "millarx" ? "millarx" : undefined}
+          initialProvider={d.provider === "millarx" ? "millarx" : d.provider === "smartleasing" ? "smart" : undefined}
           onClose={() => setAdjustOpen(false)}
           onApply={(_perFn, shown) => {
             // Keep the figure in the period and GST basis the reader's quote uses, so the answers

@@ -28,7 +28,7 @@ export function LeaseAdjustModal(props: {
   initialGst?: QuoteGst | null;
   /** Months until the first finance payment, as answered elsewhere; sets MillarX's reserve. */
   initialDeferMonths?: number | null;
-  /** The provider the reader picked elsewhere, so the toggle starts on it. Defaults to Smart Leasing. */
+  /** The provider the reader already named elsewhere. When given, the Smart Leasing / MillarX toggle is hidden. Defaults to Smart Leasing. */
   initialProvider?: Provider;
 }) {
   const [provider, setProvider] = useState<Provider>(props.initialProvider ?? "smart");
@@ -106,7 +106,7 @@ export function LeaseAdjustModal(props: {
           .
         </div>
 
-        <div style={{ display: "inline-flex", borderRadius: 999, border: "1px solid var(--nlc-border-mid)", background: "var(--nlc-bg-sunken)", padding: 3, marginBottom: 24, gap: 2 }}>
+        {!props.initialProvider && <div style={{ display: "inline-flex", borderRadius: 999, border: "1px solid var(--nlc-border-mid)", background: "var(--nlc-bg-sunken)", padding: 3, marginBottom: 24, gap: 2 }}>
           {(["smart", "millarx"] as const).map((p) => (
             <button
               key={p}
@@ -128,7 +128,7 @@ export function LeaseAdjustModal(props: {
               {p === "smart" ? "Smart Leasing" : "MillarX"}
             </button>
           ))}
-        </div>
+        </div>}
 
         <div style={{ display: "grid", gap: 12, marginBottom: 16 }}>
           {provider === "millarx" && (

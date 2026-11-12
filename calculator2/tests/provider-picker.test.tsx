@@ -117,6 +117,40 @@ describe("provider picker", () => {
   });
 });
 
+describe("correction callout with a named provider", () => {
+  const payDraft = (provider: GuidedDraft["provider"], smartMillarx: boolean | null) => ({
+    ...quoteDraft(),
+    provider,
+    smartMillarx,
+    leaseYears: 5,
+  });
+  const toggle = () => screen.queryByRole("button", { name: "Smart Leasing" }) ?? screen.queryByRole("button", { name: "MillarX" });
+
+  test("MillarX: the callout names MillarX and the tool has no provider toggle", () => {
+    on("payment", payDraft("millarx", true));
+    expect(screen.getByText("You need to correct your MillarX payment first")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Open the correction tool" }));
+    expect(screen.getByRole("dialog")).toBeTruthy();
+    expect(toggle()).toBeNull();
+    expect(screen.getByRole("dialog").textContent).toMatch(/MillarX derives your regular payment/);
+  });
+
+  test("Smart Leasing: the callout names Smart Leasing and the tool starts on it, without a toggle", () => {
+    on("payment", payDraft("smartleasing", true));
+    expect(screen.getByText("You need to correct your Smart Leasing payment first")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Open the correction tool" }));
+    expect(toggle()).toBeNull();
+    expect(screen.getByRole("dialog").textContent).toMatch(/Smart Leasing derives your regular payment/);
+  });
+
+  test("no provider named: the callout names both and the tool keeps its toggle", () => {
+    on("payment", payDraft(null, true));
+    expect(screen.getByText("You need to correct your Smart Leasing / MillarX payment first")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Open the correction tool" }));
+    expect(screen.getByRole("button", { name: "MillarX" })).toBeTruthy();
+  });
+});
+
 describe("provider pointers", () => {
   test("warns when a quote layout has not been checked for over six months", () => {
     const now = new Date(2026, 10, 12);
