@@ -584,6 +584,14 @@ describe("provider pointers", () => {
     expect(article).toContain("Novated Vehicle Price + \"GST Saved on Car Price\"");
   });
 
+  test("LeaseExpress's FBT, residual and payment rows follow Guided", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-leaseexpress-quote.md"), "utf8");
+    for (const field of ["baseValue", "residual", "payment"] as const)
+      expect(article).toContain(pointersFor("leaseexpress", field)[0].text);
+    expect(article).toContain("full\non-road price including GST");
+    expect(article).toContain("Insurance Uplift goes with insurance");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

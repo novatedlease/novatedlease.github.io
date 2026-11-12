@@ -219,3 +219,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Kept the article's separate drive-away calculation, its running-cost category placement and its weekly budget caveat. Focused provider tests (61), ESLint and calculator build pass. The table generator ran; site build can be checked with the next article batch.
 - Fifteen of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint S — LeaseExpress residual and payment GST (2026-11-13)
+
+- LeaseExpress's numbered FBT, residual and fortnightly payment cells now sync from Guided. The residual pointer explicitly chooses **Excluding GST** when a separate **GST on residual** line appears; the payment pointer says to exclude the separate GST column and use the fortnightly period.
+- The article keeps its detailed running-cost category notes. Its unnumbered drive-away warning now directs readers to the full on-road price including GST or Guided's residual helper instead of **Vehicle finance amount**.
+- Focused provider tests (62), ESLint, calculator build and 82-page site build pass. The site build also covered LeaseLab; Astro emitted its one-time duplicate-id cache warnings for the two edited articles.
+- Sixteen of 27 provider articles now have at least one synced table row. No push or merge.
+

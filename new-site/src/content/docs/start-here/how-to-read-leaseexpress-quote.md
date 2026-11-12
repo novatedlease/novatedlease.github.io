@@ -18,16 +18,19 @@ This numbered example shows a LeaseExpress quote layout reviewed in November 202
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
-| 1 | Value for FBT purposes | FBT base value |
+| 1 | Value for FBT purposes | If you see “Value for FBT purposes”, that's the FBT base value. |
 | 3 | Term (months) | Lease term |
-| 6 | Residual value | Residual, "Excluding GST": the "GST on residual" beside it shows the figure is ex GST |
-| 7 | Lease payments (fortnightly) | Finance payment, per fortnight, excluding GST (GST is the separate figure beside it) |
+| 6 | Residual value | If “GST on residual” sits beside “Residual value”, enter the residual figure and choose Excluding GST. |
+| 7 | Lease payments (fortnightly) | If “Lease payments (fortnightly)” has GST in a separate column, enter the payment per fortnight, excluding that GST. |
 | 9 | Re-registrations to Sundry expenses (fortnightly) | Running-cost boxes, per fortnight. "Excluded" lines are $0; Insurance Uplift goes with insurance; roadside goes in Servicing |
 | 10 | Leasexpress fee | Lease management fees |
+<!-- provider-table:end -->
 
-"Vehicle finance amount" is the amount financed, not the drive-away price.
+"Vehicle finance amount" is the amount financed, not the drive-away price. Ask for the full
+on-road price including GST, or use Guided's residual helper if it is unavailable.
 
 Not shown on this sample: **2 drive-away price** (use the calculator's residual helper), **4 deferral**
 (choose "Not sure" if your quote does not say), **5 documentation fee**, **8 luxury vehicle adjustment**,
