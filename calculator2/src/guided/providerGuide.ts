@@ -278,6 +278,74 @@ const GUIDES: ProviderGuide[] = [
       },
     ],
   },
+  {
+    id: "autopia",
+    seen: "2026-11",
+    sources: ["1xq2wcg"],
+    pointers: [
+      {
+        field: "baseValue",
+        text: "If your Autopia quote has no FBT base value, don't use “base price”: that figure excludes GST. Estimate from the car, options and delivery including GST, before stamp duty and registration.",
+      },
+      {
+        field: "docFee",
+        text: "If you see “autopia setup fee”, enter it as the documentation fee.",
+      },
+    ],
+  },
+  {
+    id: "customfleet",
+    seen: "2026-11",
+    sources: ["1xp2oq9"],
+    pointers: [
+      {
+        field: "luxAdj",
+        text: "If you see “Non-Deductible Depreciation”, that's the luxury vehicle adjustment.",
+      },
+      {
+        field: "fees",
+        text: "If you see both “Lease Management Fee” and “Salary Packaging Fee”, include both in lease management fees.",
+      },
+    ],
+  },
+  {
+    id: "leaselab",
+    seen: "2026-11",
+    sources: ["1xrv7kd"],
+    pointers: [
+      {
+        field: "payment",
+        text: "If your quote shows a weekly lease payment, choose “Per week” and enter it as printed.",
+      },
+      {
+        field: "running",
+        text: "If the running costs are shown weekly, choose “Per week” for those too.",
+      },
+      {
+        field: "residual",
+        text: "If the residual is labelled ex GST, choose “Excluding GST”.",
+      },
+    ],
+  },
+  {
+    id: "spa",
+    seen: "2026-11",
+    sources: ["1xs6pa5"],
+    pointers: [
+      {
+        field: "driveaway",
+        text: "If you see “Novated lease purchase price (excluding GST)”, don't use it as the drive-away price. Use the full price including GST and on-road costs.",
+      },
+      {
+        field: "baseValue",
+        text: "If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price.",
+      },
+      {
+        field: "defer",
+        text: "If you see “Based on 2-month deferred lease”, choose 2 months deferred.",
+      },
+    ],
+  },
 ];
 
 const BY_ID = new Map(GUIDES.map((g) => [g.id, g]));

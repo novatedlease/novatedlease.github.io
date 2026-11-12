@@ -1,7 +1,10 @@
 # Provider picker and "where to find it" pictures: design (2026-11-12)
 
-> **Status:** proposal only, nothing built. Covers issues 16, 18, 19 and 20 in
-> `QUOTE_FORMAT_ISSUES_2026-11.md`. Owner decisions needed are listed at the end.
+> **Status (2026-11-12):** the optional picker and text pointers are prototyped on a review
+> branch. Four more providers (Autopia, Custom Fleet, LeaseLab and S.P.A.) have pointers based on
+> the recorded quote review. Annotated pictures and provider articles remain unbuilt; they need
+> consented source quotes and the decisions listed at the end. Covers issues 16, 18, 19 and 20 in
+> `QUOTE_FORMAT_ISSUES_2026-11.md`.
 > Findings are as of November 2026 (newest Reddit quote per provider, 1 Aug – 11 Nov 2026).
 
 Goal: a reader who tells us their provider gets a short, dated pointer, and later a picture crop,

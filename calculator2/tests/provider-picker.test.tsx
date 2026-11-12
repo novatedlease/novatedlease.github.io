@@ -46,6 +46,33 @@ describe("provider picker", () => {
     expect(saved().smartMillarx).toBeNull();
   });
 
+  test("changing provider clears a payment corrected for the previous provider", () => {
+    on("lease", {
+      ...quoteDraft(),
+      provider: "smartleasing",
+      smartMillarx: true,
+      payment: { text: "400", none: false, estimated: false },
+      paymentCorrected: true,
+    });
+    fireEvent.change(picker(), { target: { value: "millarx" } });
+    expect(saved().paymentCorrected).toBe(false);
+    expect(saved().payment.text).toBe("");
+  });
+
+  test("switching a corrected Smart Leasing draft to Other clears its correction", () => {
+    on("lease", {
+      ...quoteDraft(),
+      provider: "smartleasing",
+      smartMillarx: true,
+      payment: { text: "400", none: false, estimated: false },
+      paymentCorrected: true,
+    });
+    fireEvent.change(picker(), { target: { value: "other" } });
+    expect(saved().smartMillarx).toBeNull();
+    expect(saved().paymentCorrected).toBe(false);
+    expect(saved().payment.text).toBe("");
+  });
+
   test("a named provider hides the Smart Leasing / MillarX question", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
     expect(screen.queryByText("Is your lease with Smart Leasing or MillarX?")).toBeNull();
@@ -63,6 +90,13 @@ describe("provider picker", () => {
 });
 
 describe("provider pointers", () => {
+  test("new providers have evidence-backed pointers on the appropriate fields", () => {
+    expect(pointersFor("autopia", "baseValue")[0].text).toMatch(/base price/);
+    expect(pointersFor("customfleet", "luxAdj")[0].text).toMatch(/Non-Deductible Depreciation/);
+    expect(pointersFor("leaselab", "payment")[0].text).toMatch(/Per week/);
+    expect(pointersFor("spa", "driveaway")[0].text).toMatch(/excluding GST/);
+  });
+
   test("SG Fleet's deferral pointer sits under the deferral question", () => {
     on("lease", { ...quoteDraft(), provider: "sgfleet" });
     const pointer = screen.getByText(/payable as 34 payments/);

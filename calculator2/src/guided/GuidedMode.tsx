@@ -1534,13 +1534,13 @@ function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
       onChange={(v) => {
         const next = v === "" ? null : v;
         set("provider", next);
+        // The correction depends on the provider's quote structure. Never carry it to another choice.
+        if (d.paymentCorrected && next !== d.provider) {
+          set("payment", emptyMoney());
+          set("paymentCorrected", false);
+        }
         if (isNamedProvider(next)) {
           const sm = isSmartOrMillarx(next);
-          // A corrected figure only makes sense for those two providers; don't leave it behind.
-          if (!sm && d.paymentCorrected) {
-            set("payment", emptyMoney());
-            set("paymentCorrected", false);
-          }
           set("smartMillarx", sm);
         } else if (isNamedProvider(d.provider)) {
           // Back to "not named": that answer was ours, so ask the question again.
