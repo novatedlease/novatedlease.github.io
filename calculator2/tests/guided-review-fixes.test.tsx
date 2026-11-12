@@ -913,10 +913,10 @@ describe("Advanced opens with example figures: say so", () => {
   });
 });
 
-describe("intro: choosing doesn't move on; the quote reminder shows first", () => {
-  test("“Have your quote open” appears only after Yes, and Next moves on", () => {
+describe("intro: choosing doesn't move on; the provider question shows first", () => {
+  test("“Who is your quote from?” appears only after Yes, and Next moves on", () => {
     render(<App />);
-    const list = () => screen.queryByText("Have your quote open.");
+    const list = () => screen.queryByText("Who is your quote from? (optional)");
     expect(list()).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: /No, I'm just exploring/ }));
     expect(list()).toBeNull();

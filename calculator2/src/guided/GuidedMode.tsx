@@ -809,15 +809,7 @@ function Intro({
         columns={2}
         hint="You can add your quote later without losing your answers."
       />
-      {d.hasQuote === true && (
-        <>
-          <div className="gd-checklist">
-            <strong>Have your quote open.</strong> Most answers come straight
-            from it.
-          </div>
-          <ProviderSelect d={d} set={set} />
-        </>
-      )}
+      {d.hasQuote === true && <ProviderSelect d={d} set={set} />}
       {onSwitchToAdvanced && (
         <div className="gd-skip">
           Used this calculator before?{" "}
