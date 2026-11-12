@@ -28,6 +28,7 @@ const migrated = {
   orix: { '6': 'residual' },
   nla: { '1': 'baseValue', '2': 'driveaway', '6': 'residual', '7': 'payment' },
   toyotafleet: { '2': 'driveaway', '6': 'residual', '7': 'payment' },
+  customfleet: { '2': 'driveaway', '8': 'luxAdj', '10': 'fees' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

@@ -245,3 +245,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (65), diff check and 82-page site build pass. Astro emitted its one-time duplicate-id cache warning for the edited article.
 - Nineteen of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint W — Custom Fleet price and fees (2026-11-13)
+
+- Custom Fleet's numbered drive-away price, luxury-vehicle adjustment and combined management-fee cells now sync from Guided. The article keeps its three-column annual/monthly/fortnightly lease-payment instruction, the excluding-GST package heading, running-cost categories and included-in-rent exclusions.
+- Focused provider tests (66) and diff check pass. The table generator ran; site build can be rerun with the next article batch.
+- Twenty of 27 provider articles now have at least one synced table row. No push or merge.
+

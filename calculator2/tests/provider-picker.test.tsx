@@ -616,6 +616,14 @@ describe("provider pointers", () => {
     expect(article).toContain("The schedule doesn't state a deferral");
   });
 
+  test("Custom Fleet's price, luxury adjustment and management fees follow Guided", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-customfleet-quote.md"), "utf8");
+    for (const field of ["driveaway", "luxAdj", "fees"] as const)
+      expect(article).toContain(pointersFor("customfleet", field)[0].text);
+    expect(article).toContain("pick one column and the matching period; ex GST");
+    expect(article).toContain("leave them out");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
