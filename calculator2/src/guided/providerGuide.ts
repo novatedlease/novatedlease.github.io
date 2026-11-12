@@ -502,6 +502,22 @@ export function guideMayHaveChanged(seen: string, now = new Date()): boolean {
 }
 
 const TEMPLATE_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
+  alliance: ["baseValue", "driveaway", "term", "defer", "residual", "payment", "running", "fees"],
+  autopia: ["driveaway", "term", "docFee", "residual", "payment", "luxAdj", "running", "fees"],
+  customfleet: ["baseValue", "driveaway", "residual", "payment", "luxAdj", "running", "fees"],
+  driva: ["baseValue", "driveaway", "term", "residual", "payment", "luxAdj", "running", "fees"],
+  fingo: ["baseValue", "driveaway", "term", "defer", "residual", "payment", "running", "fees"],
+  leaseexpress: ["baseValue", "term", "residual", "payment", "running", "fees"],
+  leaselab: ["baseValue", "term", "residual", "payment", "running", "fees"],
+  leaseplan: ["baseValue", "docFee", "payment", "running", "fees"],
+  lendly: ["driveaway", "term", "residual", "payment", "luxAdj", "running", "fees"],
+  millarx: ["driveaway", "term", "defer", "docFee", "residual", "payment"],
+  oly: ["driveaway", "term", "docFee", "payment", "running"],
+  orix: ["term", "docFee", "residual", "payment", "luxAdj", "running", "fees"],
+  remserv: ["term", "residual", "payment", "running"],
+  simplygreen: ["baseValue", "driveaway", "term", "defer", "residual", "payment", "running", "fees"],
+  spa: ["baseValue", "driveaway", "term", "defer", "residual", "payment", "running", "fees"],
+  vehiclesolutions: ["baseValue", "driveaway", "term", "defer", "residual", "payment", "running", "fees"],
   sgfleet: ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "running"],
   smartleasing: ["baseValue", "defer", "residual", "payment", "running"],
   maxxia: ["baseValue", "driveaway", "docFee", "residual", "payment", "insurance", "running"],

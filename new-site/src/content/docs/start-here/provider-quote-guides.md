@@ -19,6 +19,22 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 - [Novated Lease Australia quote guide](/start-here/how-to-read-nla-quote/)
 - [Remunerator quote guide](/start-here/how-to-read-remunerator-quote/)
 - [Toyota Fleet Management quote guide](/start-here/how-to-read-toyotafleet-quote/)
+- [Alliance Leasing quote guide](/start-here/how-to-read-alliance-quote/)
+- [Autopia quote guide](/start-here/how-to-read-autopia-quote/)
+- [Custom Fleet quote guide](/start-here/how-to-read-customfleet-quote/)
+- [Driva quote guide](/start-here/how-to-read-driva-quote/)
+- [Fingo quote guide](/start-here/how-to-read-fingo-quote/)
+- [LeaseExpress quote guide](/start-here/how-to-read-leaseexpress-quote/)
+- [LeaseLab quote guide](/start-here/how-to-read-leaselab-quote/)
+- [LeasePlan / Ayvens quote guide](/start-here/how-to-read-leaseplan-quote/)
+- [Lendly quote guide](/start-here/how-to-read-lendly-quote/)
+- [MillarX quote guide](/start-here/how-to-read-millarx-quote/)
+- [Oly quote guide](/start-here/how-to-read-oly-quote/)
+- [ORIX quote guide](/start-here/how-to-read-orix-quote/)
+- [RemServ quote guide](/start-here/how-to-read-remserv-quote/)
+- [Simplygreen quote guide](/start-here/how-to-read-simplygreen-quote/)
+- [Salary Packaging Australia (S.P.A.) quote guide](/start-here/how-to-read-spa-quote/)
+- [Vehicle Solutions quote guide](/start-here/how-to-read-vehiclesolutions-quote/)
 
 The blue numbers follow one key across providers: **1** FBT base value, **2** drive-away price, **3** lease term, **4** deferral, **5** one-off finance fees, **6** residual, **7** finance payment, **8** luxury vehicle adjustment, **9** running costs, **10** management fees, and **11** interest rate. A missing number means the example page does not show that field. A red ✕ flags a tempting but unsuitable figure.
 

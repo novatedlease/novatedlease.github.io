@@ -9,7 +9,7 @@ description: How to read a novated lease quote — what each line item means, co
 
 This page explains how to interpret a novated lease quote, identify common pitfalls, and compare proposals meaningfully.
 
-If you have a quote from SG Fleet, Smart Leasing, Maxxia, Paywise or Smartsalary, the [provider quote guides](/start-here/provider-quote-guides/) show which labels match the fields in Guided mode. Their illustrations are original, number-free schematics of reviewed layouts.
+The [provider quote guides](/start-here/provider-quote-guides/) show redacted, numbered examples of reviewed quote layouts and explain which labels match the fields in Guided mode.
 
 ---
 
