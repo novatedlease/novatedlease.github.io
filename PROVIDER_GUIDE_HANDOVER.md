@@ -305,3 +305,8 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - The provider integration test now checks each article's trap section holds exactly the trap pointers for that provider.
 - Validation: TypeScript, 350 calculator tests, ESLint on the changed test, calculator build and site build pass; the built SG Fleet page shows the new heading.
 - Still awaiting the owner: item 8 (Smart-branded Smartsalary escape hatch) and item 16's indexing choice for thin pages. No push or merge.
+
+## Owner decisions (2026-11-14)
+
+- Item 16 indexing: keep all 27 provider pages indexed. Revisit with Search Console data after launch. Item 16 is complete.
+- Item 8: owner deferred ("deal with this later"). Do not implement any option until asked. The options put to the owner were: escape hatch in the Smart Leasing correction callout; a picker note only; or wait for Smart.
