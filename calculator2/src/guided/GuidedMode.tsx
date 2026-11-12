@@ -8,6 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { GST_EXEMPT_CAP } from "@engine/ato";
 import type { Inputs } from "@engine/types";
 import { Button } from "../components/ui/Button";
 import { KV, NoteBox } from "../components/ui/shared";
@@ -1113,6 +1114,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
             text={
               "Listed before stamp duty, rego and CTP insurance.\n\n" +
               "Not on your quote? Take the drive-away price and subtract stamp duty, rego and CTP. The dealer's price breakdown usually lists them.\n\n" +
+              `Quote shows a GST credit or GST saving on the car? Multiply it by 11. Doesn't work if it's $${GST_EXEMPT_CAP.toLocaleString("en-AU")}, the most allowed.\n\n` +
               "Also called:\n• FBT value\n• Vehicle base value\n• Value for FBT purposes\n• Vehicle subtotal (on a dealer invoice)\n\n" +
               "✅ Included: the car's price, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar), and any Luxury Car Tax (LCT) if payable.\n\n" +
               "❌ Not included: compulsory third party (CTP) insurance, registration, stamp duty."

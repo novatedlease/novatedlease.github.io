@@ -152,12 +152,23 @@ describe("correction callout with a named provider", () => {
 });
 
 describe("FBT base value not printed", () => {
-  test("tells the reader to take stamp duty, rego and CTP off the drive-away price", () => {
-    for (const id of ["millarx", "oly", "remserv", "lendly"] as const) {
+  test("asks rather than claims, and offers the drive-away method", () => {
+    for (const [id, label] of [["oly", "Oly"], ["remserv", "RemServ"], ["lendly", "Lendly"]] as const) {
       const [p] = pointersFor(id, "baseValue");
       expect(p.notShown).toBe(true);
-      expect(p.text).toMatch(/drive-away price and subtract stamp duty, rego and CTP/);
+      expect(p.text).toBe(
+        `Can't find it on your ${label} quote? Ask ${label}, or take the drive-away price and subtract stamp duty, rego and CTP.`,
+      );
     }
+  });
+
+  test("MillarX: GST credit × 11, with the cap and the salary packager in the tooltip", () => {
+    const [p] = pointersFor("millarx", "baseValue");
+    expect(p.notShown).toBe(true);
+    expect(p.text).toBe("Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11.");
+    expect(p.more).toMatch(/\$6,353, the most allowed/);
+    expect(p.more).toMatch(/ask your salary packager/);
+    expect(p.more).not.toMatch(/Ask MillarX/i);
   });
 });
 

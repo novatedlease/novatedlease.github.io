@@ -1,4 +1,5 @@
 import type { QuoteKey } from "./QuoteDiagram";
+import { GST_EXEMPT_CAP } from "@engine/ato";
 
 /**
  * Optional "Who is your quote from?" answer and the dated, per-field pointers shown for it.
@@ -564,12 +565,21 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
 };
 
 /** Provider-specific wording where the generic "not shown" line would be wrong or unhelpful. */
-const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, string>>>> = {
+type NotShownLine = string | { text: string; more: string };
+
+const capText = `$${GST_EXEMPT_CAP.toLocaleString("en-AU")}`;
+
+const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotShownLine>>>> = {
   fleetpartners: {
     baseValue:
       "FleetPartners doesn't label the FBT base value. Use the Total column of the “Vehicle” line in “Your order”: the car after discount, with options and delivery, including GST, before on-road costs.",
   },
   millarx: {
+    // MillarX is finance only: the salary packager, not MillarX, holds the FBT base value.
+    baseValue: {
+      text: "Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11.",
+      more: `Doesn't work if the credit is ${capText}, the most allowed. Then ask your salary packager, or take the drive-away price and subtract stamp duty, rego and CTP.`,
+    },
     running: "MillarX quotes are finance only. Take the running-cost budgets from your salary packager.",
     fees: "The MillarX BYO finance quote has no fees. Older MillarX quotes show a management fee per month; enter that here if yours does.",
   },
@@ -578,13 +588,13 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, stri
   },
 };
 
-function notShownText(id: ProviderId, field: GuideField): string | null {
+function notShownText(id: ProviderId, field: GuideField): NotShownLine | null {
   const special = NOT_SHOWN_TEXT[id]?.[field];
   if (special) return special;
   const p = providerLabel(id);
   switch (field) {
     case "baseValue":
-      return `The ${p} example checked doesn't print the FBT base value. Ask ${p}, or take the drive-away price and subtract stamp duty, rego and CTP.`;
+      return `Can't find it on your ${p} quote? Ask ${p}, or take the drive-away price and subtract stamp duty, rego and CTP.`;
     case "defer":
       return `The ${p} example checked doesn't say how many months are deferred. Choose “Not sure” (we'll assume 2) unless ${p} tells you.`;
     case "docFee":
@@ -601,8 +611,9 @@ function notShownText(id: ProviderId, field: GuideField): string | null {
 export function pointersFor(id: ProviderId | null, field: GuideField): Pointer[] {
   const listed = guideFor(id)?.pointers.filter((p) => p.field === field) ?? [];
   if (listed.length > 0 || !id || !NOT_SHOWN[id]?.includes(field)) return listed;
-  const text = notShownText(id, field);
-  return text ? [{ field, text, notShown: true }] : [];
+  const line = notShownText(id, field);
+  if (!line) return [];
+  return [typeof line === "string" ? { field, text: line, notShown: true } : { field, ...line, notShown: true }];
 }
 
 /** "Nov 2026" from "2026-11". */

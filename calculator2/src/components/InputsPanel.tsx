@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { GST_EXEMPT_CAP } from "@engine/ato";
 import type { Inputs } from "@engine/types";
 import { getLeaseFbtCategory, getEvLctThresholdForLeaseStart, usedEvHistoryTestsApply, EV_TRANSITIONAL_FULL_EXEMPT_CAP } from "@engine/types";
 import { Section } from "./ui/Section";
@@ -222,6 +223,7 @@ export function InputsPanel(props: {
               text={
                 "Listed on the car invoice prior to stamp duty, rego, and CTP insurance. Many invoices label this vehicle subtotal.\n\n" +
                 "Not on your quote? Take the drive-away price and subtract stamp duty, rego and CTP. The dealer's price breakdown usually lists them.\n\n" +
+                `Quote shows a GST credit or GST saving on the car? Multiply it by 11. Doesn't work if it's $${GST_EXEMPT_CAP.toLocaleString("en-AU")}, the most allowed.\n\n` +
                 "✅ Included: the car's RRP, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar), and any Luxury Car Tax (LCT) if payable.\n\n" +
                 "❌ Not included: compulsory third party (CTP) insurance, registration, stamp duty."
               }
