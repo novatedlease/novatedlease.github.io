@@ -25,8 +25,7 @@ This numbered example shows an ORIX quote layout reviewed in November 2026. Matc
 | 10 | ORIX management fee | Lease management fees |
 | 11 | Interest Rate | Compare with the effective rate Guided shows |
 
-Not shown on this sample: **1 FBT base value** (another ORIX quote, 1wb57rl, prints "FBT base value (inc
-GST)" under the vehicle price), **2 drive-away** (only the parts: vehicle price ex GST, options,
+Not shown on this sample: **1 FBT base value** (some ORIX layouts print "FBT base value (inc GST)" under the vehicle price), **2 drive-away** (only the parts: vehicle price ex GST, options,
 stamp duty and initial rego shown as "Financed"; use "Or add up the parts"), **4 deferral** ("Monthly
 in Arrears" is shown, no deferral).
 

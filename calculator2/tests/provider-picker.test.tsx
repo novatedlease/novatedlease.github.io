@@ -158,10 +158,10 @@ describe("provider pointers", () => {
       .toBe("/assets/images/quote-guide/sgfleet/driveaway-example.pdf");
   });
 
-  test("only providers with reviewed redacted pages expose a quote template", () => {
+  test("newly reviewed providers expose their redacted quote template", () => {
     expect(templateFor("paywise", "fees")).toBe("/assets/images/quote-guide/paywise/field-fees.webp");
     expect(templateFor("fleetpartners", "defer")).toBe("/assets/images/quote-guide/fleetpartners/field-defer.webp");
-    expect(templateFor("remserv", "payment")).toBeNull();
+    expect(templateFor("remserv", "payment")).toBe("/assets/images/quote-guide/remserv/field-payment.webp");
   });
 
   test("fields use a focused crop when one exists; insurance shares the running-costs crop", () => {
