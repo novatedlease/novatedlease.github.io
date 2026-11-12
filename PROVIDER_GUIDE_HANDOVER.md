@@ -117,3 +117,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - The integration test checks the five common IDs, both headings, every provider article and link. Provider-picker tests (46), ESLint and 82-page site build pass. Astro emitted one duplicate-id cache warning for the changed index on the first build, as it did for changed articles; the build completed.
 - The owner choice on titles and whether any thin pages should be noindexed is still pending. No push or merge.
 
+## Item 15, checkpoint D — first article table linked to Guided (2026-11-13)
+
+- Added an idempotent `sync-provider-tables.mjs` to the site prebuild, initially for Flare. Its numbered drive-away and payment action cells now come directly from the corresponding `GUIDES` pointer text, while the article keeps the verified quote labels and its other rows.
+- This corrected a stale Flare article claim that the finance payment is always excluding GST. The current pointer identifies the fortnightly payment without asserting a GST basis that can vary with the employer.
+- An integration test checks the two generated rows against `pointersFor` and rejects the old wording. Focused tests (47), ESLint and 82-page site build pass; built HTML contains the new payment text. Astro emitted its usual one-time duplicate-id cache warning for the edited article.
+- Conversion remains provider by provider. Only Flare is linked so far; the rest of item 15 is open. No push or merge.
+

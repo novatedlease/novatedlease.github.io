@@ -464,6 +464,13 @@ describe("provider pointers", () => {
     }
   });
 
+  test("migrated Flare article rows use the current Guided pointer text", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-flare-quote.md"), "utf8");
+    expect(article).toContain(`| 2 | Total on-road price | ${pointersFor("flare", "driveaway")[0].text} |`);
+    expect(article).toContain(`| 7 | Finance, in Budgeted running costs | ${pointersFor("flare", "payment")[0].text} |`);
+    expect(article).not.toContain("Finance payment, excluding GST; use the printed pay frequency.");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
