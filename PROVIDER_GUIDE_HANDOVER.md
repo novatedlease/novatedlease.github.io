@@ -272,3 +272,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (69), diff check and 82-page site build pass. The site build also covered FleetPartners; Astro emitted its one-time duplicate-id cache warnings for the edited articles.
 - Twenty-three of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint AA — Alliance first-page price and deferral (2026-11-13)
+
+- Alliance Leasing's first-page drive-away and deferred-month action cells now sync from Guided. Its first-page **Total Lease Payment** and second-page **Finance** rows remain hand-curated because the same finance payment appears with different GST bases, established by the quoted footnote. The page-2 **Entry Fee** and other detail remain intact.
+- Focused provider tests (70) and diff check pass. The table generator ran; site build can be checked with the next article batch.
+- Twenty-four of 27 provider articles now have at least one synced table row. No push or merge.
+

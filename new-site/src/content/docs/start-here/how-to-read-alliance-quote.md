@@ -18,17 +18,19 @@ This numbered example shows an Alliance Leasing quote layout reviewed in Novembe
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 1 | FBT Base Value | FBT base value |
-| 2 | Total Drive Away Price (Inc GST) | Drive-away price |
+| 2 | Total Drive Away Price (Inc GST) | Use “Total Drive Away Price (Inc GST)” in Purchase Details. Don’t use “Total Amount Financed”. |
 | 3 | Lease Term | Lease term |
-| 4 | "(based on two month deferred lease structure)" | First payment: after 2 months |
+| 4 | "(based on two month deferred lease structure)" | If you see “based on two month deferred lease structure”, choose 2 months. |
 | 6 | Residual Value (inc GST) | Residual, "Including GST" |
 | 7 | Total Lease Payment (Finance Payment), fortnightly | Finance payment, per fortnight, **Including GST**: footnote 5 says all quoted items include GST except registration. Page 2's "Finance" line (below) is the same payment ex GST |
 | 9 | Registration, insurance, roadside, service and maintenance, tyres, fuel, electricity, other | Running-cost boxes, per fortnight, inc GST (registration ex GST) |
 | 10 | Novated Leasing Administration Fee | Lease management fees |
 | 11 | Finance Rate | Compare with the effective rate Guided shows. Footnote 3 says it includes all fees and charges |
+<!-- provider-table:end -->
 
 ## Page 2: fees, finance and the price breakdown
 

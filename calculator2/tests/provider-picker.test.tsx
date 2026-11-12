@@ -650,6 +650,15 @@ describe("provider pointers", () => {
     expect(article).toContain("residual helper may not work without a printed residual");
   });
 
+  test("Alliance's first-page price and deferral sync without losing two GST payment bases", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-alliance-quote.md"), "utf8");
+    for (const field of ["driveaway", "defer"] as const)
+      expect(article).toContain(pointersFor("alliance", field)[0].text);
+    expect(article).toContain("Finance Payment), fortnightly | Finance payment, per fortnight, **Including GST**");
+    expect(article).toContain("Finance, under Budgeted Running Costs | Finance payment, per fortnight, **Excluding GST**");
+    expect(article).toContain("Entry Fee, under Novated Lease Fees");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
