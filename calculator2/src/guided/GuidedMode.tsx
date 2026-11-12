@@ -807,7 +807,6 @@ function Intro({
           },
         ]}
         columns={2}
-        hint="You can add your quote later without losing your answers."
       />
       {d.hasQuote === true && <ProviderSelect d={d} set={set} />}
       {onSwitchToAdvanced && (
