@@ -676,6 +676,15 @@ describe("provider pointers", () => {
     expect(article).not.toContain("Lease per month");
   });
 
+  test("Smart Leasing's deferral and terms fee sync without hiding its payment correction", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-smartleasing-quote.md"), "utf8");
+    for (const field of ["defer", "docFee"] as const)
+      expect(article).toContain(pointersFor("smartleasing", field)[0].text);
+    expect(article).toContain("Both need it");
+    expect(article).toContain("different customer quote from the two pages above");
+    expect(article).toContain("Some Queensland Government quotes use a different template");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

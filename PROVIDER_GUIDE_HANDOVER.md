@@ -290,3 +290,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (72), ESLint and calculator build pass. The table generator ran; site build can be checked with Smart Leasing in the final article batch.
 - Twenty-six of 27 provider articles now have at least one synced table row. Smart Leasing remains. Item 8's separate Smartsalary escape-hatch choice still awaits the owner. No push or merge.
 
+## Item 15, checkpoint AD — all 27 provider articles linked (2026-11-13)
+
+- Smart Leasing's numbered **Months deferred** and terms-page **Documentation fee** cells now sync from its Guided pointers. The payment row stays hand-curated because it must explain the monthly/fortnightly figures, matching GST answer and Smart Leasing correction tool. The article still says its terms page comes from a different quote, while the first two pages belong together.
+- `sync-provider-tables.mjs` now has a reviewed mapping for at least one action cell in all 27 provider articles. It intentionally leaves quote-specific rows and secondary tables hand-curated. This completes the current article-table linking pass, not a full structured migration of every row. Do not replace remaining rows mechanically.
+- Full calculator test suite passes: 350 tests in 26 files. ESLint and diff check pass. The final 82-page site build passes, with all 27 table syncs and Pagefind indexing. The build emitted Astro's one-time duplicate-id cache warnings for the two edited Smart-branded articles. A jsdom `window.scrollTo` notice appeared in a passing test, as before.
+- Remaining outside this pass: item 8 Smart-branded Smartsalary escape-hatch decision from the owner; item 16 provider-specific trap introductions and any indexing preference; a deeper row model if desired; live deployment date for analytics. No push or merge.
+
