@@ -144,7 +144,7 @@ const GUIDES: ProviderGuide[] = [
       {
         field: "driveaway",
         text: "The two available Smart Leasing pages do not print a drive-away total. Use the dealer's full on-road price including GST, or use “Not on your quote? Work it out from the residual” below.",
-        more: "Do not substitute FBT base value, a GST saving or a lease payment. If you have the vehicle and on-road charges, “Or add up the parts” is another way to fill this field.",
+        more: "Do not substitute FBT base value, a GST saving or a lease payment.",
       },
       {
         field: "payment",
@@ -250,7 +250,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2025-08",
     sources: ["1n16kcg"],
     pointers: [
-      { field: "driveaway", text: "This older LeasePlan example does not show a clearly labelled drive-away total. Ask for the full on-road price including GST, or use the helper below; do not assume the vehicle subtotal includes stamp duty and registration." },
+      { field: "driveaway", text: "This older LeasePlan example does not show a clearly labelled drive-away total. Ask for the full on-road price including GST; do not assume the vehicle subtotal includes stamp duty and registration. The residual helper below won't work here, because this example doesn't print a residual." },
       {
         field: "docFee",
         text: "If you see “Finance Documentation” as a monthly amount, enter $0 here and add it to lease management fees. Enter any “Security Interest” fee here.",
@@ -470,7 +470,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xp2oq9"],
     pointers: [
-      { field: "driveaway", text: "The ORIX example has no drive-away total: it lists vehicle price, options, stamp duty and initial registration separately. Use “Or add up the parts” below and select Excluding GST if you copy the vehicle price from this layout." },
+      { field: "driveaway", text: "The ORIX example has no drive-away total: it lists vehicle price, options, stamp duty and initial registration separately. Ask ORIX or the dealer for the full on-road price including GST, or use “Work it out from the residual” below." },
       { field: "baseValue", text: "If you see “FBT base value (inc GST)”, enter it as printed." },
       { field: "docFee", text: "Check the “Other Fees” footnote for an establishment or non-appointed dealer fee; it may be capitalised into the lease rental." },
       { field: "residual", text: "If you see “Residual value (ex GST)”, choose Excluding GST." },

@@ -22,7 +22,7 @@ This numbered example shows a RemServ quote layout reviewed in October 2026. Mat
 | 9 | Fortnightly inclusions: Rego, Servicing & Incidentals, Tyres, Fuel/charging, Insurance | Running-cost boxes, per fortnight |
 
 **"RemServ price" is not marked as the drive-away price:** the quote doesn't say what it includes
-(its inclusions are unclear). Use "Or add up the parts" or the residual
+(its inclusions are unclear). Ask for the dealer's full drive-away price, or use the residual
 helper instead.
 
 "Upgrade your package" items (guaranteed buy back, total loss assist, lease protection, window

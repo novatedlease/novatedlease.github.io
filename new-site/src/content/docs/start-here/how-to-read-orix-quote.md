@@ -26,7 +26,7 @@ This numbered example shows an ORIX quote layout reviewed in November 2026. Matc
 | 11 | Interest Rate | Compare with the effective rate Guided shows |
 
 Not shown on this sample: **1 FBT base value** (some ORIX layouts print "FBT base value (inc GST)" under the vehicle price), **2 drive-away** (only the parts: vehicle price ex GST, options,
-stamp duty and initial rego shown as "Financed"; use "Or add up the parts"), **4 deferral** ("Monthly
+stamp duty and initial rego shown as "Financed"; ask for the full drive-away price including GST, or use the residual helper), **4 deferral** ("Monthly
 in Arrears" is shown, no deferral).
 
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)
