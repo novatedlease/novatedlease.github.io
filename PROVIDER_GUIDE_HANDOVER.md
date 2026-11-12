@@ -174,3 +174,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused tests (55), ESLint and 82-page site build pass. The build also rechecked the preceding Remunerator and Driva article changes. Astro emitted cache duplicate-id warnings for those three edited articles, but built all pages.
 - Nine articles have migrated rows. No push or merge.
 
+## Item 15, checkpoint M — Lendly drive-away trap and date (2026-11-13)
+
+- Lendly's drive-away action cell now syncs from Guided while retaining the “Price … Drive Away” printed label. Corrected the intro's review month from November to October 2026 to match the guide and generated provenance.
+- Focused provider tests (56) and ESLint pass. The table generator updated the Markdown; site build will be checked with the next article batch.
+- Ten articles have migrated rows. No push or merge.
+

@@ -531,6 +531,13 @@ describe("provider pointers", () => {
     expect(article).toContain("GST as a separate line below the finance subtotal");
   });
 
+  test("Lendly's article uses its current drive-away trap and October review date", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-lendly-quote.md"), "utf8");
+    expect(article).toContain(pointersFor("lendly", "driveaway")[0].text);
+    expect(article).toContain("reviewed in October 2026");
+    expect(article).not.toContain("reviewed in November 2026");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
