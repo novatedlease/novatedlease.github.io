@@ -135,6 +135,17 @@ describe("provider pointers", () => {
       .toBe("/assets/images/quote-guide/sgfleet/redacted-quote.pdf");
   });
 
+  test("SG Fleet FBT opens the marked later-page example instead of the unmarked first pages", () => {
+    on("price", { ...quoteDraft(), provider: "sgfleet" });
+    expect(screen.getByText(/first two pages do not show the FBT base value/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Show where SG Fleet prints FBT base value" }));
+    const image = screen.getByAltText(/number 1 marking FBT Base Value/) as HTMLImageElement;
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/fbt-example.png");
+    expect(screen.getByText(/different SG Fleet quote layout/)).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
+      .toBe("/assets/images/quote-guide/sgfleet/fbt-example.pdf");
+  });
+
   test("only providers with reviewed redacted pages expose a quote template", () => {
     expect(templateFor("paywise", "fees")).toBe("/assets/images/quote-guide/paywise/redacted-quote.png");
     expect(templateFor("fleetpartners", "defer")).toBe("/assets/images/quote-guide/fleetpartners/redacted-quote.png");

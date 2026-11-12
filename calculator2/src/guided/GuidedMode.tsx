@@ -1588,6 +1588,7 @@ function ProviderPointers({
 function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: ProviderId }) {
   const [open, setOpen] = useState(false);
   const template = templateFor(provider, pointer.field);
+  const fbtExample = provider === "sgfleet" && pointer.field === "baseValue";
   return (
     <div className="gd-pointer">
       <span>{pointer.text}</span>
@@ -1603,16 +1604,16 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
               setOpen(!open);
             }}
           >
-            {open ? "Hide redacted quote" : `Show on a ${providerLabel(provider)} quote page`}
+            {open ? "Hide redacted quote" : fbtExample ? "Show where SG Fleet prints FBT base value" : `Show on a ${providerLabel(provider)} quote page`}
           </button>
           {open && (
             <div className="gd-template__body">
               <div className="gd-template__viewport">
-                <img src={template} alt={`Redacted ${providerLabel(provider)} quote pages with numbered field markers`} loading="lazy" decoding="async" width="720" />
+                <img className={fbtExample ? "gd-template__fbt" : undefined} src={template} alt={fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : `Redacted ${providerLabel(provider)} quote pages with numbered field markers`} loading="lazy" decoding="async" width="720" />
               </div>
-              <p>Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ.</p>
+              <p>{fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
               <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the numbered field guide</a>
-              {" · "}<a href={`/assets/images/quote-guide/${provider}/redacted-quote.pdf`} target="_blank" rel="noreferrer">Open PDF</a>
+              {" · "}<a href={template.replace(/\.png$/, ".pdf")} target="_blank" rel="noreferrer">Open PDF</a>
             </div>
           )}
         </div>

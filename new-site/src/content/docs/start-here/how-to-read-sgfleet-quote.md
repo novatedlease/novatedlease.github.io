@@ -8,13 +8,23 @@ datePublished: "2026-11-12"
 
 SG Fleet layouts reviewed in November 2026 show a per-pay **Lease rental** in Package details and a **Monthly lease rental** in Lease details. These are different presentations of the finance payment. Guided mode accepts either when you choose the matching period.
 
+## Where to find the FBT base value
+
+The first two pages of the VSSS example below **do not show FBT Base Value**. Look for the **Fringe Benefit Tax (FBT)** section on a later page. This redacted crop is from a different SG Fleet *Indicative quote* layout and marks the line with **1**. Do not substitute **Vehicle on-road cost** for the FBT base value. If your quote has no such line, ask SG Fleet for it.
+
+![Redacted later SG Fleet FBT section with number 1 marking FBT Base Value](/assets/images/quote-guide/sgfleet/fbt-example.png)
+
+[Open the redacted FBT example as a PDF](/assets/images/quote-guide/sgfleet/fbt-example.pdf).
+
+## Other fields on the VSSS example
+
 ![Redacted SG Fleet quote pages with numbered fields](/assets/images/quote-guide/sgfleet/redacted-quote.png)
 
 *Quote-page example with customer values and identifying details removed. [Open the PDF](/assets/images/quote-guide/sgfleet/redacted-quote.pdf). Match the blue numbers to the table below; your layout may differ.*
 
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |
-| 1 (later page) | FBT base value | **FBT Base Value**, sometimes on a later page | The value as printed, including GST. |
+| 1 (separate example above) | FBT base value | **FBT Base Value** in the **Fringe Benefit Tax (FBT)** section | The value as printed, including GST. |
 | 2 | Drive-away price | **Vehicle on-road cost (incl. GST)** | The full on-road price. |
 | 3 | Lease term | **Lease term** or the term in Package arrangements | The term shown on your quote. |
 | 4 | Months deferred | **Monthly lease rental**, followed by **payable as … payments** | Subtract the number of payable months from the full term in months. If the count is unclear, choose *I'm not sure*. |

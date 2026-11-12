@@ -121,6 +121,7 @@
 .gd-template__body { margin-top: 8px; padding: 8px; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-sm); background: var(--nlc-surface); }
 .gd-template__viewport { max-height: 440px; overflow: auto; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-sm); }
 .gd-template__body img { display: block; width: 100%; max-width: 720px; height: auto; }
+.gd-template__body img.gd-template__fbt { max-width: 425px; }
 .gd-template__body p { margin: 7px 0; color: var(--nlc-text-muted); font-size: 12px; }
 
 /* Findings */

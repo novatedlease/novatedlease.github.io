@@ -91,7 +91,8 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "baseValue",
-        text: "If it isn't on the first pages, look for “FBT Base Value” near the end of the quote.",
+        text: "This SG Fleet sample's first two pages do not show the FBT base value. Look for “FBT Base Value” in a later “Fringe Benefit Tax (FBT)” section. Do not use Vehicle on-road cost for this field.",
+        more: "The marked FBT example below is from a different SG Fleet quote layout. If your quote does not show the line, ask SG Fleet for its FBT base value.",
       },
       {
         field: "luxAdj",
@@ -511,5 +512,6 @@ const TEMPLATE_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
 
 /** Redacted image of a reviewed quote page. The PDF version is linked from the guide. */
 export function templateFor(id: ProviderId, field: GuideField): string | null {
+  if (id === "sgfleet" && field === "baseValue") return "/assets/images/quote-guide/sgfleet/fbt-example.png";
   return TEMPLATE_FIELDS[id]?.includes(field) ? `/assets/images/quote-guide/${id}/redacted-quote.png` : null;
 }
