@@ -40,4 +40,6 @@ The blue numbers follow one key across providers: **1** FBT base value, **2** dr
 
 These are redacted examples of reviewed quote pages, with customer values and identifying details removed. The PDFs are image-based versions of the same pages, not original editable provider documents. Provider layouts change, so check the headings and footnotes on your own quote. If a label differs, use the [general quote guide](/start-here/how-to-read-a-novated-lease-quote/) and the hints inside Guided mode.
 
+If your quote uses a different layout, [tell me which labels changed](/about/contact/#quote-layout-feedback). You can describe them without sending your quote.
+
 The provider picker in Guided mode also gives short instructions beside the relevant field for other providers. You can skip it if yours is not listed.

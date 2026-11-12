@@ -374,7 +374,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 20. Keeping the pictures current when formats change
 
-**Status (2026-11-12):** ◐ The private `freshness_check.py` script and a first report exist. A recurring run is not scheduled, and the proposed “Mine looks different?” submission link is not in Guided.
+**Status (2026-11-12):** ✅ The checker is versioned at `new-site/scripts/freshness_check.py`; a first private report exists. The monthly run is a manual reminder in `PROVIDER_GUIDE_MAINTENANCE.md`, as requested by the owner. Guided links changed-layout feedback to the contact page.
 
 - Date every picture on the page: "SG Fleet quotes, as of Nov 2026".
 - A "Mine looks different? Send it to us" link beside each crop, feeding issue 19.

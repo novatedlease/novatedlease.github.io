@@ -1637,6 +1637,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
               )}
               <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the numbered field guide</a>
               {" · "}<a href={pdfFor(provider, template)} target="_blank" rel="noreferrer">Open PDF</a>
+              {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer">My quote looks different</a>
             </div>
           )}
         </div>

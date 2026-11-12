@@ -156,6 +156,8 @@ describe("provider pointers", () => {
     expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/driveaway-example.png");
     expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
       .toBe("/assets/images/quote-guide/sgfleet/driveaway-example.pdf");
+    expect(screen.getByRole("link", { name: "My quote looks different" }).getAttribute("href"))
+      .toBe("/about/contact/#quote-layout-feedback");
   });
 
   test("newly reviewed providers expose their redacted quote template", () => {
