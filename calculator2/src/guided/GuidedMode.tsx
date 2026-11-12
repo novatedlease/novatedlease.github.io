@@ -30,7 +30,9 @@ import {
   exampleFor,
   cropFor,
   pageFor,
+  pageImagesFor,
   imageSizeFor,
+  markerFor,
   type GuideField,
   type ProviderId,
   type Pointer,
@@ -571,6 +573,12 @@ export function GuidedMode({
         )}
         </MissingFields.Provider>
 
+        {["price", "lease", "payment", "running"].includes(step) && guideFor(draft.provider) && (
+          <p className="gd-pointer__seen">As seen on {providerLabel(draft.provider!)} quotes, {seenLabel(guideFor(draft.provider)!.seen)}.
+            {guideMayHaveChanged(guideFor(draft.provider)!.seen) && " The layout may have changed."}
+          </p>
+        )}
+
         {errors.length > 0 && (
           <label className="gd-ack">
             <input
@@ -744,25 +752,51 @@ function Side({
   d: GuidedDraft;
   children: ReactNode;
 }) {
-  // Phones: the example quote is reference material, so it starts collapsed above the
-  // questions instead of taking half the screen. Desktop keeps it open beside them.
+  const [focusedField, setFocusedField] = useState<GuideField | null>(null);
   const narrow = useNarrowScreen();
   const diagram = <QuoteDiagram highlight={highlight} values={quoteValues(d)} />;
+  const guide = guideFor(d.provider);
+  const selected = focusedField && highlight.some((field) => field === focusedField)
+    ? focusedField
+    : highlight.find((field) => guide && templateFor(guide.id, field)) ?? highlight[0];
+  const focusMap: Record<string, GuideField> = {
+    leaseYears: "term", monthsDeferred: "defer", paymentPeriod: "payment",
+    paymentBasis: "payment", runningPeriod: "running", runningGstHeading: "running",
+    mgmt: "fees", service: "running", rego: "running", fuel: "running",
+  };
   return (
     <div className="gd-split">
-      <div className="gd-split__main">{children}</div>
+      <div className="gd-split__main" onFocusCapture={(event) => {
+        const raw = (event.target as HTMLElement).closest<HTMLElement>("[data-field]")?.dataset.field;
+        if (!raw) return;
+        const field = focusMap[raw] ?? raw as GuideField;
+        if (highlight.some((item) => item === field)) setFocusedField(field);
+      }}>{children}</div>
       <aside className="gd-split__side">
         {narrow ? (
           <details className="gd-help gd-quote-toggle">
-            <summary>Where is this on my quote?</summary>
+            <summary>{guide ? `See a typical quote (not ${providerLabel(guide.id)}'s)` : "Where is this on my quote?"}</summary>
             <div className="gd-help__body">{diagram}</div>
           </details>
+        ) : guide && templateFor(guide.id, selected) ? (
+          <ProviderSidePanel provider={guide.id} field={selected} diagram={diagram} />
         ) : (
           diagram
         )}
       </aside>
     </div>
   );
+}
+
+function ProviderSidePanel({ provider, field, diagram }: { provider: ProviderId; field: GuideField; diagram: ReactNode }) {
+  const image = templateFor(provider, field);
+  const size = imageSizeFor(image);
+  return <div className="gd-provider-side">
+    <strong>{providerLabel(provider)} quote: {field === "baseValue" ? "FBT base value" : field === "driveaway" ? "Drive-away price" : field === "docFee" ? "Documentation fee" : field === "luxAdj" ? "Luxury adjustment" : field === "defer" ? "Months deferred" : field === "fees" ? "Management fees" : field === "payment" ? "Finance payment" : field === "residual" ? "Residual" : "Running costs"}</strong>
+    <p>Marked line from a real quote, with values removed.</p>
+    {image && <img src={image} alt={`Marked ${providerLabel(provider)} quote for ${field}`} width={size?.w} height={size?.h} />}
+    <details className="gd-help gd-provider-side__typical"><summary>Typical quote</summary><div className="gd-help__body">{diagram}</div></details>
+  </div>;
 }
 
 /** True on single-column layouts (matches the .gd-split breakpoint in guided.css). */
@@ -1139,7 +1173,6 @@ function PriceStep({ d, set, f }: StepPropsF) {
         value={d.baseValue}
         onChange={(m) => set("baseValue", m)}
         where="Before stamp duty, rego and CTP."
-        hint="Also called FBT value or vehicle base value. Includes GST."
         findings={f.prices.filter((x) => x.code === "base_exceeds_driveaway")}
       />
       <ProviderPointers d={d} field="baseValue" />
@@ -1557,109 +1590,73 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
   );
 }
 
-/** Dated "If you see X" pointers for the chosen provider, under the matching field. */
-function ProviderPointers({
-  d,
-  field,
-}: {
-  d: GuidedDraft;
-  field: GuideField;
-}) {
+/** Dated, field-specific guidance beneath the matching question. */
+function ProviderPointers({ d, field }: { d: GuidedDraft; field: GuideField }) {
   const guide = guideFor(d.provider);
   if (!guide) return null;
-  let list = pointersFor(d.provider, field);
-  // No written pointer, but a marked crop of this provider's quote exists: offer just the picture.
-  // (Insurance shares the running-costs crop, which is already offered above it.)
-  if (list.length === 0 && field !== "insurance" && cropFor(guide.id, field)) list = [{ field, text: "" }];
+  let list = pointersFor(guide.id, field);
+  // Offer a marked crop even when no written pointer is needed.
+  if (list.length === 0 && field !== "insurance" && cropFor(guide.id, field)) {
+    list = [{ field, text: "", kind: "locate" }];
+  }
   if (list.length === 0) return null;
-  return (
-    <div className="gd-pointers" data-provider={guide.id} data-field={field}>
-      {list.map((p) => (
-        <ProviderPointer key={`${guide.id}-${p.field}-${p.text}`} pointer={p} provider={guide.id} />
-      ))}
-      <div className="gd-pointer__seen">
-        As seen on {providerLabel(guide.id)} quotes, {seenLabel(guide.seen)}.
-        {guideMayHaveChanged(guide.seen) && " The layout may have changed."}
-      </div>
-    </div>
-  );
+  return <div className="gd-pointers" data-provider={guide.id} data-field={field}>
+    {list.map((pointer) => <ProviderPointer key={`${guide.id}-${pointer.field}-${pointer.text}`} pointer={pointer} provider={guide.id} seen={guide.seen} />)}
+  </div>;
 }
 
-function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: ProviderId }) {
+function ProviderPointer({ pointer, provider, seen }: { pointer: Pointer; provider: ProviderId; seen: string }) {
   const [open, setOpen] = useState(false);
   const [showWholePage, setShowWholePage] = useState(false);
-  const [smartPage, setSmartPage] = useState<1 | 2>(pointer.field === "driveaway" ? 1 : 2);
-  const template = pointer.example ? pointer.example.image : pointer.notShown ? null : templateFor(provider, pointer.field);
-  const fbtExample = provider === "sgfleet" && pointer.field === "baseValue";
-  const driveawayExample = provider === "sgfleet" && pointer.field === "driveaway";
-  const smartTerms = provider === "smartleasing" && pointer.field === "docFee";
+  const frameRef = useRef<HTMLDivElement>(null);
   const example = pointer.example ?? exampleFor(provider, pointer.field);
-  const smartSample = provider === "smartleasing" && !smartTerms;
-  const isCrop = !example && !!template?.match(/\/field-[^/]+\.webp$/);
+  const template = pointer.notShown && !example ? null : example?.image ?? templateFor(provider, pointer.field);
   const page = pageFor(provider);
-  const showingWholePage = isCrop && !!page && showWholePage;
-  const smartPageImage = smartSample && smartPage === 1 ? "/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp" : page;
-  const displayedImage = smartSample && (!isCrop || showingWholePage) ? smartPageImage : showingWholePage ? page : template;
-  const imageSize = imageSizeFor(displayedImage);
+  const isCrop = !!template?.match(/\/field-[^/]+\.webp$/);
+  const fullImages = example ? [] : pageImagesFor(provider);
+  const full = !example && (!isCrop || showWholePage) && fullImages.length > 0;
+  const images = full ? fullImages : template ? [template] : [];
+  const marker = markerFor(provider, pointer.field);
   const label = providerLabel(provider);
-  return (
-    <div className="gd-pointer">
-      {pointer.text && <span>{pointer.text}</span>}
-      {pointer.more && <Tip>{pointer.more}</Tip>}
-      {template && (
-        <div className="gd-template">
-          <button
-            type="button"
-            className="gd-linkbtn"
-            aria-expanded={open}
-            onClick={() => {
-              if (!open) trackEvent("guided_pointer_open", { provider, field: pointer.field });
-              if (open) setShowWholePage(false);
-              setOpen(!open);
-            }}
-          >
-            {open ? "Hide redacted quote" : example ? example.button : fbtExample ? "Show where SG Fleet prints FBT base value" : driveawayExample ? "Show SG Fleet drive-away line" : smartTerms ? "Show Smart Leasing terms page" : smartSample && pointer.field === "driveaway" ? "Show both available Smart Leasing pages" : isCrop ? `Show where it is on a ${label} quote` : `Show on a ${label} quote page`}
-          </button>
-          {open && (
-            <div className="gd-template__body">
-              <div className={example ? "gd-template__crop" : showingWholePage || (smartSample && !isCrop) ? "gd-template__fullpage" : isCrop ? "gd-template__crop" : "gd-template__viewport"}>
-                <a href={displayedImage ?? undefined} target="_blank" rel="noreferrer" aria-label="Open the redacted quote image full size">
-                  <img
-                    className={fbtExample ? "gd-template__fbt" : undefined}
-                    src={displayedImage ?? undefined}
-                    alt={example ? example.alt : smartTerms ? "Redacted terms page from another Smart Leasing quote, with documentation fee marked 5" : smartSample && (!isCrop || showingWholePage) ? `Redacted Smart Leasing quote page ${smartPage} of two available pages` : showingWholePage ? `Full redacted ${label} quote page with numbered field markers` : fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : driveawayExample ? "Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost including GST" : isCrop ? `Part of a redacted ${label} quote, with the line for this question numbered and outlined` : `Redacted ${label} quote pages with numbered field markers`}
-                    loading="lazy"
-                    decoding="async"
-                    width={imageSize?.w}
-                    height={imageSize?.h}
-                  />
-                </a>
-              </div>
-              <p>{example ? example.caption : smartTerms ? "Terms page from a different Smart Leasing quote. Its documentation-fee clause is marked 5; quote figures and the quote number were removed." : smartSample && (!isCrop || showingWholePage) ? `Page ${smartPage} of the two available redacted Smart Leasing pages. Neither page prints a drive-away total. A different quote's terms page is linked in the guide.` : showingWholePage ? "Full redacted quote page, scaled to fit here. Switch back to the crop to read the marked line." : fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : driveawayExample ? "This is the Lease details panel on page 2 of the SG Fleet VSSS sample. Customer values were removed." : isCrop ? "Part of a real quote with values and personal details removed. Tap the image to enlarge. Your layout may differ." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
-              {smartSample && (!isCrop || showingWholePage) && (
-                <>
-                  <button type="button" className="gd-linkbtn" onClick={() => setSmartPage(smartPage === 1 ? 2 : 1)}>
-                    Show page {smartPage === 1 ? 2 : 1}
-                  </button>
-                  {" · "}
-                </>
-              )}
-              {isCrop && page && (
-                <>
-                  <button type="button" className="gd-linkbtn" aria-pressed={showingWholePage} onClick={() => setShowWholePage(!showWholePage)}>
-                    {showingWholePage ? "Switch to crop view" : "Switch to full page view"}
-                  </button>
-                  {" · "}
-                </>
-              )}
-              <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the numbered field guide</a>
-              {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer">My quote looks different</a>
-            </div>
-          )}
+  const kind = pointer.kind ?? (pointer.notShown ? "missing" : "locate");
+
+  const scrollToMarker = () => {
+    if (!full || !marker || !frameRef.current) return;
+    const frame = frameRef.current;
+    const imageElements = frame.querySelectorAll("img");
+    const target = imageElements[imageElements.length - 1];
+    const size = imageSizeFor(page);
+    if (!target || !size) return;
+    const scale = target.getBoundingClientRect().width / size.w;
+    const preceding = imageElements.length > 1 ? imageElements[0].getBoundingClientRect().height : 0;
+    frame.scrollTop = Math.max(0, preceding + marker.y * scale - frame.clientHeight / 3);
+  };
+
+  return <div className={`gd-pointer gd-pointer--${kind}`}>
+    {pointer.text && <span>{kind === "missing" ? pointer.text : <><strong>On {label} quotes:</strong> {pointer.text}</>}</span>}
+    {pointer.more && <Tip>{pointer.more}</Tip>}
+    {template && <div className="gd-template">
+      <button type="button" className="gd-linkbtn" aria-expanded={open} onClick={() => {
+        if (!open) trackEvent("guided_pointer_open", { provider, field: pointer.field });
+        if (open) setShowWholePage(false);
+        setOpen(!open);
+      }}>{open ? "Hide picture" : pointer.text ? "Show me" : `Show me on a ${label} quote`}</button>
+      {open && <div className="gd-template__body">
+        <div ref={frameRef} className={full ? "gd-template__fullpage" : "gd-template__crop"}>
+          {images.map((image, index) => {
+            const size = imageSizeFor(image);
+            return <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`Open redacted quote image ${index + 1} full size`}>
+              <img src={image} alt={example ? example.alt : full ? `Full redacted ${label} quote page ${index + 1}` : `Marked ${label} quote for ${pointer.field}`} loading="lazy" decoding="async" width={size?.w} height={size?.h} onLoad={scrollToMarker} />
+            </a>;
+          })}
         </div>
-      )}
-    </div>
-  );
+        <p>A real {label} quote with numbers removed. Checked {seenLabel(seen)}. Tap the image to enlarge.{example && ` ${example.caption}`}</p>
+        {isCrop && fullImages.length > 0 && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? "Switch to crop view" : "Switch to full page view"}</button>{" · "}</>}
+        <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the whole quote</a>
+        {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer">Mine looks different</a>
+      </div>}
+    </div>}
+  </div>;
 }
 
 const PERIOD_WORD: Record<RunningPeriod, string> = {

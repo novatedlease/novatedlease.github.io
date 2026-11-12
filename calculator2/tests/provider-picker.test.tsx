@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, type ProviderId, cropFor, exampleFor, imageSizeFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -254,60 +254,61 @@ describe("provider pointers", () => {
     expect(screen.getAllByText(/As seen on SG Fleet quotes, Nov 2026/).length).toBeGreaterThan(0);
   });
 
-  test("Smart Leasing explains the missing drive-away total beside that field", () => {
+  function openPicture(field: string) {
+    const pointer = document.querySelector(`.gd-pointers[data-field="${field}"]`)!;
+    fireEvent.click(pointer.querySelector(".gd-template > button")!);
+    return pointer;
+  }
+
+  test("Smart Leasing stacks both redacted pages for the missing drive-away price", () => {
     on("price", { ...quoteDraft(), provider: "smartleasing" });
-    const pointer = screen.getByText(/two available Smart Leasing pages do not print a drive-away total/);
-    const driveawayField = document.querySelector('[data-field="driveaway"]')!;
-    expect(driveawayField.nextElementSibling?.contains(pointer)).toBe(true);
-    expect(screen.getByText("Not on your quote? Work it out from the residual")).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Show both available Smart Leasing pages" }));
-    const image = screen.getByAltText(/Smart Leasing quote page 1 of two available pages/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp");
-    fireEvent.click(screen.getByRole("button", { name: "Show page 2" }));
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/redacted-quote.webp");
+    expect(screen.getByText(/Can't find a drive-away total/)).toBeTruthy();
+    const pointer = openPicture("driveaway");
+    const images = pointer.querySelectorAll<HTMLImageElement>(".gd-template__body img");
+    expect([...images].map((image) => image.getAttribute("src"))).toEqual([
+      "/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp",
+      "/assets/images/quote-guide/smartleasing/redacted-quote.webp",
+    ]);
+    expect(pointer.querySelector(".gd-template__fullpage")).toBeTruthy();
   });
 
-  test("Smart Leasing's documentation fee opens the separate terms page", () => {
+  test("Smart Leasing's documentation fee opens its separate terms page", () => {
     on("lease", { ...quoteDraft(), provider: "smartleasing" });
-    expect(screen.getByText(/Look in the small print on Smart Leasing's terms page/)).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Show Smart Leasing terms page" }));
-    const image = screen.getByAltText(/Redacted terms page from another Smart Leasing quote/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/terms-example.webp");
+    const pointer = openPicture("docFee");
+    expect(pointer.querySelector(".gd-template__body img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/smartleasing/terms-example.webp");
   });
 
-  test("SG Fleet's payment pointer shows on the payment screen", () => {
+  test("SG Fleet's payment trap uses an amber box and a scrollable full-page toggle", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
-    expect(screen.getByText(/Use “Lease rental” \(per pay\).*Don.t use “Monthly lease rental/)).toBeTruthy();
-    expect(screen.queryByAltText(/redacted SG Fleet quote/)).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: /Show where it is on a SG Fleet quote/ }));
-    const image = screen.getByAltText(/redacted SG Fleet quote, with the line for this question numbered/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
+    const pointer = openPicture("payment");
+    expect(pointer.querySelector(".gd-pointer--trap")).toBeTruthy();
+    expect(pointer.querySelector(".gd-template__body img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
     fireEvent.click(screen.getByRole("button", { name: "Switch to full page view" }));
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/redacted-quote.webp");
-    expect(image.getAttribute("alt")).toMatch(/Full redacted SG Fleet quote page/);
+    const frame = pointer.querySelector<HTMLElement>(".gd-template__fullpage")!;
+    expect(frame).toBeTruthy();
+    expect(pointer.querySelector(".gd-template__body img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/sgfleet/redacted-quote.webp");
+    Object.defineProperty(frame, "clientHeight", { value: 400 });
+    const page = frame.querySelector("img")!;
+    page.getBoundingClientRect = () => ({ width: 700, height: 1516, x: 0, y: 0, top: 0, left: 0, right: 700, bottom: 1516, toJSON: () => ({}) });
+    fireEvent.load(page);
+    expect(frame.scrollTop).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole("button", { name: "Switch to crop view" }));
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
-    expect(screen.getByRole("link", { name: /numbered field guide/ }).getAttribute("href"))
+    expect(pointer.querySelector(".gd-template__body img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
+    expect(screen.getByRole("link", { name: "See the whole quote" }).getAttribute("href"))
       .toBe("/start-here/how-to-read-sgfleet-quote/");
   });
 
-  test("SG Fleet FBT opens the marked later-page example instead of the unmarked first pages", () => {
+  test("SG Fleet FBT and drive-away use their marked examples", () => {
     on("price", { ...quoteDraft(), provider: "sgfleet" });
-    expect(screen.getByText(/first two pages do not show the FBT base value/)).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Show where SG Fleet prints FBT base value" }));
-    const image = screen.getByAltText(/number 1 marking FBT Base Value/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/fbt-example.webp");
-    expect(screen.getByText(/different SG Fleet quote layout/)).toBeTruthy();
-  });
-
-  test("SG Fleet drive-away opens the marked on-road cost line", () => {
-    on("price", { ...quoteDraft(), provider: "sgfleet" });
-    expect(screen.getByText(/marked 2 on page 2/)).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Show SG Fleet drive-away line" }));
-    const image = screen.getByAltText(/number 2 marking Vehicle on-road cost/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/driveaway-example.webp");
-    expect(screen.getByRole("link", { name: "My quote looks different" }).getAttribute("href"))
-      .toBe("/about/contact/#quote-layout-feedback");
+    expect(openPicture("baseValue").querySelector(".gd-template__body img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/sgfleet/fbt-example.webp");
+    expect(openPicture("driveaway").querySelector(".gd-template__body img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/sgfleet/driveaway-example.webp");
+    expect(screen.getAllByText(/As seen on SG Fleet quotes, Nov 2026/)).toHaveLength(1);
   });
 
   test("newly reviewed providers expose their redacted quote template", () => {
@@ -316,32 +317,45 @@ describe("provider pointers", () => {
     expect(templateFor("remserv", "payment")).toBe("/assets/images/quote-guide/remserv/field-payment.webp");
   });
 
-  test("fields use a focused crop when one exists; insurance shares the running-costs crop", () => {
+  test("fields use focused crops while special examples are data-driven", () => {
     expect(cropFor("maxxia", "insurance")).toBe("/assets/images/quote-guide/maxxia/field-running.webp");
     expect(cropFor("easi", "luxAdj")).toBe("/assets/images/quote-guide/easi/field-luxAdj.webp");
-    // SG Fleet keeps its hand-made FBT and drive-away examples
-    expect(templateFor("sgfleet", "baseValue")).toBe("/assets/images/quote-guide/sgfleet/fbt-example.webp");
-    expect(templateFor("sgfleet", "driveaway")).toBe("/assets/images/quote-guide/sgfleet/driveaway-example.webp");
+    expect(templateFor("sgfleet", "baseValue")).toBe(exampleFor("sgfleet", "baseValue")?.image);
+    expect(templateFor("sgfleet", "driveaway")).toBe(exampleFor("sgfleet", "driveaway")?.image);
+    expect(templateFor("smartleasing", "docFee")).toBe(exampleFor("smartleasing", "docFee")?.image);
   });
 
-  test("a marked crop is offered even where there's no written pointer", () => {
+  test("picture-only guidance offers a link without a blue box", () => {
     on("payment", { ...quoteDraft(), provider: "maxxia", smartMillarx: false });
-    fireEvent.click(screen.getByRole("button", { name: /Show where it is on a Maxxia quote/ }));
-    expect((screen.getByAltText(/redacted Maxxia quote/) as HTMLImageElement).getAttribute("src"))
+    const pointer = openPicture("payment");
+    expect(pointer.querySelector(".gd-pointer--locate")).toBeTruthy();
+    expect(pointer.querySelector(".gd-template__body img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/maxxia/field-payment.webp");
   });
 
-  test("Oly's residual and Alliance's entry fee open their own marked example pages", () => {
+  test("desktop side panel follows the focused Maxxia residual field", () => {
+    on("lease", { ...quoteDraft(), provider: "maxxia" });
+    fireEvent.focus(document.querySelector('[data-field="residual"] input')!);
+    expect(document.querySelector(".gd-provider-side > img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/maxxia/field-residual.webp");
+    expect(screen.getByText("Typical quote")).toBeTruthy();
+  });
+
+  test("locate, trap and missing pointers have distinct kinds", () => {
+    expect(pointersFor("sgfleet", "payment")[0].kind).toBe("trap");
+    expect(pointersFor("sgfleet", "driveaway")[0].kind).toBe("locate");
+    expect(pointersFor("paywise", "defer")[0].kind).toBe("missing");
+    expect(markerFor("sgfleet", "payment")?.y).toBeGreaterThan(0);
+  });
+
+  test("Oly's residual and Alliance's entry fee use their own marked pages", () => {
     on("lease", { ...quoteDraft(), provider: "oly" });
-    expect(screen.getByText(/Your total residual value \(after lease term\)”.*Including GST/)).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Show where Oly prints the residual" }));
-    expect((screen.getByAltText(/Your total residual value marked 6/) as HTMLImageElement).getAttribute("src"))
+    expect(openPicture("residual").querySelector(".gd-template__body img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/oly/residual-example.webp");
     cleanup();
     window.localStorage.clear();
     on("lease", { ...quoteDraft(), provider: "alliance" });
-    fireEvent.click(screen.getByRole("button", { name: "Show Alliance's fees page" }));
-    expect((screen.getByAltText(/Entry Fee marked 5/) as HTMLImageElement).getAttribute("src"))
+    expect(openPicture("docFee").querySelector(".gd-template__body img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/alliance/page2-fees.webp");
   });
 

@@ -18,6 +18,6 @@ test("the price screen steers away from GST-removed prices and misleading aliase
   );
   render(<App />);
   expect(screen.getByText("Drive-away price (including GST)")).toBeTruthy();
-  expect(screen.getByText("Also called FBT value or vehicle base value. Includes GST.")).toBeTruthy();
+  expect(screen.queryByText("Also called FBT value or vehicle base value. Includes GST.")).toBeNull();
   expect(document.body.textContent).not.toMatch(/vehicle cost/i);
 });

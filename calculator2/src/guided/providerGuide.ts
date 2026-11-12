@@ -61,6 +61,7 @@ export type GuideField = QuoteKey | "insurance" | "fees";
 
 export type Pointer = {
   field: GuideField;
+  kind?: "trap" | "locate" | "missing";
   /** One or two short sentences, worded "If you see X, …". Plain text. */
   text: string;
   /** Optional nuance, shown in a tooltip. */
@@ -70,6 +71,24 @@ export type Pointer = {
   /** A marked picture for a not-shown line, e.g. a line to work the figure out from. */
   example?: FieldExample;
 };
+
+/** Specific entries where a plausible quote figure would mislead the calculator. */
+const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
+  sgfleet: ["payment", "baseValue"],
+  millarx: ["payment"], smartleasing: ["payment", "docFee"],
+  flare: ["driveaway"], oly: ["driveaway", "insurance", "docFee"],
+  maxxia: ["insurance", "docFee"], fleetpartners: ["docFee"],
+  leaseplan: ["driveaway", "docFee"], alliance: ["driveaway"],
+  remunerator: ["driveaway", "payment"], easi: ["payment"],
+  autopia: ["baseValue"], leaselab: ["driveaway"],
+  spa: ["driveaway", "baseValue"], smartsalary: ["running"],
+  driva: ["driveaway"], fingo: ["driveaway"],
+  leaseexpress: ["driveaway"], lendly: ["driveaway"],
+};
+
+function withKind(id: ProviderId, pointer: Pointer): Pointer {
+  return { ...pointer, kind: pointer.notShown ? "missing" : TRAP_FIELDS[id]?.includes(pointer.field) ? "trap" : "locate" };
+}
 
 /** Payment pointers never state a GST basis: it can differ between employers on one provider's quotes. */
 const PAYMENT_GST_NOTE =
@@ -92,7 +111,7 @@ const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "payment",
-        text: "Use “Lease rental” (per pay), with your pay period. Don't use “Monthly lease rental (payable as 34 payments)”: it's paid fewer times than the lease has months, so it would overstate your rate.",
+        text: "Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.",
         more: `The per-pay “Lease rental” spreads the same total over the whole lease, which is how the calculator reads every payment.\n\n${PAYMENT_GST_NOTE}`,
       },
       {
@@ -101,12 +120,12 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "baseValue",
-        text: "This SG Fleet sample's first two pages do not show the FBT base value. Look for “FBT Base Value” in a later “Fringe Benefit Tax (FBT)” section. Do not use Vehicle on-road cost for this field.",
+        text: "Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”.",
         more: "The marked FBT example below is from a different SG Fleet quote layout. If your quote does not show the line, ask SG Fleet for its FBT base value.",
       },
       {
         field: "driveaway",
-        text: "On this SG Fleet VSSS quote, use “Vehicle on-road cost (incl. GST)” in the “Lease details” panel for drive-away price. It is marked 2 on page 2.",
+        text: "Use “Vehicle on-road cost (incl. GST)” under “Lease details”.",
         more: "Use the full on-road price. “FBT Base Value” and “Total amount financed” are different figures.",
       },
       {
@@ -151,12 +170,12 @@ const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "driveaway",
-        text: "The two available Smart Leasing pages do not print a drive-away total. Use the dealer's full on-road price including GST, or use “Not on your quote? Work it out from the residual” below.",
+        text: "Can't find a drive-away total? Use the dealer's full on-road price including GST, or the residual helper below.",
         more: "Do not substitute FBT base value, a GST saving or a lease payment.",
       },
       {
         field: "payment",
-        text: "Use the fortnightly “Lease payment” or “Lease per month”, then the correction tool. Both need it.",
+        text: "Use “Lease payment” or “Lease per month”, then run the correction tool. Both need it.",
         more: "Smart Leasing collects the fortnightly figure as though there were 60 monthly payments while 58 go to the financier.",
       },
       {
@@ -165,7 +184,7 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "docFee",
-        text: "Look in the small print on Smart Leasing's terms page for “documentation fee”, marked 5 in this separate quote example. If it says including GST, divide by 1.1 to enter the ex-GST amount here.",
+        text: "Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.",
         more: "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.",
       },
       {
@@ -643,10 +662,11 @@ function notShownText(id: ProviderId, field: GuideField): NotShownLine | null {
 
 export function pointersFor(id: ProviderId | null, field: GuideField): Pointer[] {
   const listed = guideFor(id)?.pointers.filter((p) => p.field === field) ?? [];
-  if (listed.length > 0 || !id || !NOT_SHOWN[id]?.includes(field)) return listed;
+  if (!id) return [];
+  if (listed.length > 0 || !NOT_SHOWN[id]?.includes(field)) return listed.map((p) => withKind(id, p));
   const line = notShownText(id, field);
   if (!line) return [];
-  return [typeof line === "string" ? { field, text: line, notShown: true } : { field, ...line, notShown: true }];
+  return [withKind(id, typeof line === "string" ? { field, text: line, notShown: true } : { field, ...line, notShown: true })];
 }
 
 /** "Nov 2026" from "2026-11". */
@@ -731,6 +751,15 @@ export function pageFor(id: ProviderId): string | null {
   return TEMPLATE_FIELDS[id] ? `/assets/images/quote-guide/${id}/redacted-quote.webp` : null;
 }
 
+/** All reviewed pages available for the in-card full-page view. */
+export function pageImagesFor(id: ProviderId): string[] {
+  const page = pageFor(id);
+  if (!page) return [];
+  return id === "smartleasing"
+    ? ["/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp", page]
+    : [page];
+}
+
 /** A focused crop of the marked line(s) for this field, if one exists. */
 export function cropFor(id: ProviderId, field: GuideField): string | null {
   const f = field === "insurance" ? "running" : field;
@@ -747,6 +776,24 @@ export type FieldExample = {
 
 /** Marked examples from a page other than the provider's main sample. */
 const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample }[] = [
+  { id: "sgfleet", field: "baseValue", example: {
+    image: "/assets/images/quote-guide/sgfleet/fbt-example.webp",
+    button: "Show me on an SG Fleet quote",
+    alt: "Redacted SG Fleet FBT section with FBT Base Value marked 1",
+    caption: "A later FBT section from a different SG Fleet quote layout, with values removed.",
+  } },
+  { id: "sgfleet", field: "driveaway", example: {
+    image: "/assets/images/quote-guide/sgfleet/driveaway-example.webp",
+    button: "Show me on an SG Fleet quote",
+    alt: "Redacted SG Fleet Lease details with Vehicle on-road cost marked 2",
+    caption: "Lease details from an SG Fleet quote, with values removed.",
+  } },
+  { id: "smartleasing", field: "docFee", example: {
+    image: "/assets/images/quote-guide/smartleasing/terms-example.webp",
+    button: "Show me on a Smart Leasing quote",
+    alt: "Redacted Smart Leasing terms page with documentation fee marked 5",
+    caption: "Terms page from a separate Smart Leasing quote, with values removed.",
+  } },
   {
     id: "oly",
     field: "residual",
@@ -773,14 +820,17 @@ export function exampleFor(id: ProviderId, field: GuideField): FieldExample | nu
   return FIELD_EXAMPLES.find((e) => e.id === id && e.field === field)?.example ?? null;
 }
 
-/** Redacted image to show for a field: SG Fleet's focused examples, else a crop, else the whole page. */
+/** Redacted image to show for a field: a special example, a crop, or the whole page. */
 export function templateFor(id: ProviderId, field: GuideField): string | null {
   const example = exampleFor(id, field);
   if (example) return example.image;
-  if (id === "sgfleet" && field === "baseValue") return "/assets/images/quote-guide/sgfleet/fbt-example.webp";
-  if (id === "sgfleet" && field === "driveaway") return "/assets/images/quote-guide/sgfleet/driveaway-example.webp";
-  if (id === "smartleasing" && field === "docFee") return "/assets/images/quote-guide/smartleasing/terms-example.webp";
   return cropFor(id, field) ?? (TEMPLATE_FIELDS[id]?.includes(field) ? pageFor(id) : null);
+}
+
+/** The top edge and height of a numbered line on the converted full page. */
+export function markerFor(id: ProviderId, field: GuideField): { y: number; h: number } | null {
+  const markers = quoteImages.markers as Record<string, Record<string, { y: number; h: number }[]>>;
+  return markers[id]?.[field === "insurance" ? "running" : field]?.[0] ?? null;
 }
 
 /** Intrinsic dimensions reserve space before a quote image finishes loading. */
