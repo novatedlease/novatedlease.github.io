@@ -1716,8 +1716,9 @@ function RunningStep({ d, set, f }: StepPropsF) {
             them to Servicing.
           </li>
           <li>
-            <strong>Optional cover</strong> (lease protection, GAP, minor damage
-            repair): include it only if you're keeping it.
+            <strong>Optional cover</strong> (e.g. LeaseGuard, lease protection,
+            GAP): leave it out, or if you're keeping it, add it to Lease
+            management fees, not Insurance.
           </li>
           <li>
             <strong>A contingency or reserve budget</strong>: leave it out.
@@ -1765,10 +1766,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           hint="Comprehensive cover. Compare with your own insurer's quote."
           tooltip={
             <Tip>
-              Some quotes pay the first year's insurance upfront, inside the
-              amount financed, and only budget for renewals. Enter the full
-              yearly premium here anyway: the calculator counts insurance in
-              every year of the lease.
+              {"Some quotes pay the first year's insurance upfront, inside the amount financed, and only budget for renewals. Enter the full yearly premium here anyway: the calculator counts insurance in every year of the lease.\n\nThe pay-cash comparison assumes you'd have this same insurance without the lease. Enter only cover you'd buy either way; put lease-only cover (e.g. LeaseGuard, GAP) in Lease management fees."}
             </Tip>
           }
           findings={f.insurance}
