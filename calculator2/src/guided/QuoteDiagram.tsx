@@ -27,7 +27,7 @@ const ROWS: { heading: string; rows: Row[] }[] = [
         key: "driveaway",
         label: "Drive-away price",
         value: "$52,400",
-        note: "also: on-road cost, drive-away total; the full price inc GST",
+        note: "also: on-road price; the full price inc GST",
       },
     ],
   },

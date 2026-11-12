@@ -1135,7 +1135,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
         tooltip={
           <InfoTooltip
             text={
-              "Also called:\n• On-road cost\n• On-road price\n• Drive-away total\n\n" +
+              "Also called the on-road price.\n\n" +
               "Some quotes also show a lower \"novated\" or \"effective\" price with the GST saving taken off. Don't use that one: the calculator takes the GST saving off for you."
             }
           />
