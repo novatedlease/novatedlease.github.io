@@ -26,6 +26,9 @@ import {
   providerLabel,
   seenLabel,
   templateFor,
+  cropFor,
+  pageFor,
+  pdfFor,
   type GuideField,
   type ProviderId,
   type Pointer,
@@ -1570,7 +1573,10 @@ function ProviderPointers({
 }) {
   const guide = guideFor(d.provider);
   if (!guide) return null;
-  const list = pointersFor(d.provider, field);
+  let list = pointersFor(d.provider, field);
+  // No written pointer, but a marked crop of this provider's quote exists: offer just the picture.
+  // (Insurance shares the running-costs crop, which is already offered above it.)
+  if (list.length === 0 && field !== "insurance" && cropFor(guide.id, field)) list = [{ field, text: "" }];
   if (list.length === 0) return null;
   return (
     <div className="gd-pointers" data-provider={guide.id}>
@@ -1590,9 +1596,12 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
   const template = templateFor(provider, pointer.field);
   const fbtExample = provider === "sgfleet" && pointer.field === "baseValue";
   const driveawayExample = provider === "sgfleet" && pointer.field === "driveaway";
+  const isCrop = !!template?.endsWith(".webp");
+  const page = pageFor(provider);
+  const label = providerLabel(provider);
   return (
     <div className="gd-pointer">
-      <span>{pointer.text}</span>
+      {pointer.text && <span>{pointer.text}</span>}
       {pointer.more && <Tip>{pointer.more}</Tip>}
       {template && (
         <div className="gd-template">
@@ -1605,16 +1614,29 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
               setOpen(!open);
             }}
           >
-            {open ? "Hide redacted quote" : fbtExample ? "Show where SG Fleet prints FBT base value" : driveawayExample ? "Show SG Fleet drive-away line" : `Show on a ${providerLabel(provider)} quote page`}
+            {open ? "Hide redacted quote" : fbtExample ? "Show where SG Fleet prints FBT base value" : driveawayExample ? "Show SG Fleet drive-away line" : isCrop ? `Show where it is on a ${label} quote` : `Show on a ${label} quote page`}
           </button>
           {open && (
             <div className="gd-template__body">
-              <div className="gd-template__viewport">
-                <img className={fbtExample ? "gd-template__fbt" : undefined} src={template} alt={fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : driveawayExample ? "Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost including GST" : `Redacted ${providerLabel(provider)} quote pages with numbered field markers`} loading="lazy" decoding="async" width="720" />
+              <div className={isCrop ? "gd-template__crop" : "gd-template__viewport"}>
+                <img
+                  className={fbtExample ? "gd-template__fbt" : undefined}
+                  src={template}
+                  alt={fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : driveawayExample ? "Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost including GST" : isCrop ? `Part of a redacted ${label} quote, with the line for this question numbered and outlined` : `Redacted ${label} quote pages with numbered field markers`}
+                  loading="lazy"
+                  decoding="async"
+                  width="720"
+                />
               </div>
-              <p>{fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : driveawayExample ? "This is the Lease details panel on page 2 of the SG Fleet VSSS sample. Customer values were removed." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
+              <p>{fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : driveawayExample ? "This is the Lease details panel on page 2 of the SG Fleet VSSS sample. Customer values were removed." : isCrop ? "Part of a real quote with values and personal details removed. Your layout may differ." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
+              {isCrop && page && (
+                <>
+                  <a href={page} target="_blank" rel="noreferrer">See the whole page</a>
+                  {" · "}
+                </>
+              )}
               <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the numbered field guide</a>
-              {" · "}<a href={template.replace(/\.png$/, ".pdf")} target="_blank" rel="noreferrer">Open PDF</a>
+              {" · "}<a href={pdfFor(provider, template)} target="_blank" rel="noreferrer">Open PDF</a>
             </div>
           )}
         </div>

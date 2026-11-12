@@ -515,9 +515,43 @@ const TEMPLATE_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   toyotafleet: ["driveaway", "docFee", "residual", "payment"],
 };
 
-/** Redacted image of a reviewed quote page. The PDF version is linked from the guide. */
+/**
+ * Focused crops of the redacted pages: just the marked line(s) for one Guided field, so readers
+ * don't have to scroll a whole page. Insurance uses the running-costs crop.
+ */
+const FIELD_CROPS: Partial<Record<ProviderId, GuideField[]>> = {
+  easi: ["baseValue", "defer", "driveaway", "fees", "luxAdj", "payment", "residual", "running", "term"],
+  flare: ["baseValue", "driveaway", "fees", "luxAdj", "payment", "residual", "running", "term"],
+  fleetpartners: ["defer", "docFee", "driveaway", "fees", "payment", "residual", "running"],
+  maxxia: ["baseValue", "docFee", "driveaway", "fees", "payment", "residual", "running", "term"],
+  nla: ["baseValue", "driveaway", "fees", "payment", "residual", "running", "term"],
+  paywise: ["baseValue", "fees", "payment", "residual", "running", "term"],
+  remunerator: ["baseValue", "defer", "driveaway", "payment", "residual", "running", "term"],
+  sgfleet: ["defer", "docFee", "fees", "payment", "residual", "running", "term"],
+  smartleasing: ["baseValue", "defer", "fees", "payment", "residual", "running", "term"],
+  smartsalary: ["baseValue", "fees", "payment", "residual", "running", "term"],
+  toyotafleet: ["baseValue", "docFee", "driveaway", "fees", "luxAdj", "payment", "residual", "running", "term"],
+};
+
+/** The whole redacted quote page for a provider, if one was reviewed. */
+export function pageFor(id: ProviderId): string | null {
+  return TEMPLATE_FIELDS[id] ? `/assets/images/quote-guide/${id}/redacted-quote.png` : null;
+}
+
+/** A focused crop of the marked line(s) for this field, if one exists. */
+export function cropFor(id: ProviderId, field: GuideField): string | null {
+  const f = field === "insurance" ? "running" : field;
+  return FIELD_CROPS[id]?.includes(f) ? `/assets/images/quote-guide/${id}/field-${f}.webp` : null;
+}
+
+/** Redacted image to show for a field: SG Fleet's focused examples, else a crop, else the whole page. */
 export function templateFor(id: ProviderId, field: GuideField): string | null {
   if (id === "sgfleet" && field === "baseValue") return "/assets/images/quote-guide/sgfleet/fbt-example.png";
   if (id === "sgfleet" && field === "driveaway") return "/assets/images/quote-guide/sgfleet/driveaway-example.png";
-  return TEMPLATE_FIELDS[id]?.includes(field) ? `/assets/images/quote-guide/${id}/redacted-quote.png` : null;
+  return cropFor(id, field) ?? (TEMPLATE_FIELDS[id]?.includes(field) ? pageFor(id) : null);
+}
+
+/** PDF to open alongside an image: crops link to the whole page's PDF. */
+export function pdfFor(id: ProviderId, image: string): string {
+  return image.endsWith(".webp") ? `/assets/images/quote-guide/${id}/redacted-quote.pdf` : image.replace(/\.png$/, ".pdf");
 }

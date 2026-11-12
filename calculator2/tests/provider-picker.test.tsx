@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, cropFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -125,10 +125,12 @@ describe("provider pointers", () => {
   test("SG Fleet's payment pointer shows on the payment screen", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
     expect(screen.getByText(/“Monthly lease rental”, either works/)).toBeTruthy();
-    expect(screen.queryByAltText(/Redacted SG Fleet quote pages/)).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: /Show on a SG Fleet quote page/ }));
-    const image = screen.getByAltText(/Redacted SG Fleet quote pages/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe(templateFor("sgfleet", "payment"));
+    expect(screen.queryByAltText(/redacted SG Fleet quote/)).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: /Show where it is on a SG Fleet quote/ }));
+    const image = screen.getByAltText(/redacted SG Fleet quote, with the line for this question numbered/) as HTMLImageElement;
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
+    expect(screen.getByRole("link", { name: "See the whole page" }).getAttribute("href"))
+      .toBe("/assets/images/quote-guide/sgfleet/redacted-quote.png");
     expect(screen.getByRole("link", { name: /numbered field guide/ }).getAttribute("href"))
       .toBe("/start-here/how-to-read-sgfleet-quote/");
     expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
@@ -157,9 +159,36 @@ describe("provider pointers", () => {
   });
 
   test("only providers with reviewed redacted pages expose a quote template", () => {
-    expect(templateFor("paywise", "fees")).toBe("/assets/images/quote-guide/paywise/redacted-quote.png");
-    expect(templateFor("fleetpartners", "defer")).toBe("/assets/images/quote-guide/fleetpartners/redacted-quote.png");
+    expect(templateFor("paywise", "fees")).toBe("/assets/images/quote-guide/paywise/field-fees.webp");
+    expect(templateFor("fleetpartners", "defer")).toBe("/assets/images/quote-guide/fleetpartners/field-defer.webp");
     expect(templateFor("remserv", "payment")).toBeNull();
+  });
+
+  test("fields use a focused crop when one exists; insurance shares the running-costs crop", () => {
+    expect(cropFor("maxxia", "insurance")).toBe("/assets/images/quote-guide/maxxia/field-running.webp");
+    expect(cropFor("easi", "luxAdj")).toBe("/assets/images/quote-guide/easi/field-luxAdj.webp");
+    // SG Fleet keeps its hand-made FBT and drive-away examples
+    expect(templateFor("sgfleet", "baseValue")).toBe("/assets/images/quote-guide/sgfleet/fbt-example.png");
+    expect(templateFor("sgfleet", "driveaway")).toBe("/assets/images/quote-guide/sgfleet/driveaway-example.png");
+  });
+
+  test("a marked crop is offered even where there's no written pointer", () => {
+    on("payment", { ...quoteDraft(), provider: "maxxia", smartMillarx: false });
+    fireEvent.click(screen.getByRole("button", { name: /Show where it is on a Maxxia quote/ }));
+    expect((screen.getByAltText(/redacted Maxxia quote/) as HTMLImageElement).getAttribute("src"))
+      .toBe("/assets/images/quote-guide/maxxia/field-payment.webp");
+  });
+
+  test("every crop listed exists on disk", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const fields = ["baseValue", "driveaway", "term", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees"] as const;
+    for (const p of PROVIDERS) {
+      for (const f of fields) {
+        const src = cropFor(p.id, f);
+        if (src) expect(fs.existsSync(path.join(__dirname, "../../docs", src))).toBe(true);
+      }
+    }
   });
 
   test("no pointers without a named provider", () => {
