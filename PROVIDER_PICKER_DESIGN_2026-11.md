@@ -1,15 +1,28 @@
 # Provider picker and "where to find it" pictures: design (2026-11-12)
 
-> **Status (2026-11-12):** the optional picker and text pointers are prototyped on a review
-> branch. Four more providers (Autopia, Custom Fleet, LeaseLab and S.P.A.) have pointers based on
-> the recorded quote review. Annotated pictures and provider articles remain unbuilt; they need
-> consented source quotes and the decisions listed at the end. Covers issues 16, 18, 19 and 20 in
-> `QUOTE_FORMAT_ISSUES_2026-11.md`.
+> **Status (2026-11-12):** the review branch has an optional picker and dated text pointers for
+> every named provider in its list. Original, number-free schematics and quote-reading articles
+> cover SG Fleet, Smart Leasing, Maxxia, Paywise and Smartsalary. The illustrations are generated
+> by `new-site/scripts/generate-quote-layout-maps.mjs` from reviewed labels and sections.
+> Covers issues 16–19 in `QUOTE_FORMAT_ISSUES_2026-11.md`.
 > Findings are as of November 2026 (newest Reddit quote per provider, 1 Aug – 11 Nov 2026).
 
 Goal: a reader who tells us their provider gets a short, dated pointer, and later a picture crop,
 at each Guided field where the general wording isn't enough. A reader who doesn't, or whose
 provider we haven't covered, gets exactly today's experience plus the improved general hints.
+
+## Implementation decisions after the original proposal
+
+- The picker moved to the **Price** step, before the first quote figures. This lets drive-away and
+  FBT pointers appear on the reader's first pass. The original proposal below placed it on Lease.
+- The owner chose to use quote screenshots privately as layout references, then create original
+  schematics containing provider labels and section names only. No source screenshots, amounts,
+  customer details, quote identifiers, dates or vehicle details appear in the schematics.
+- The five provider articles use the same schematic assets as Guided and give a field-by-field
+  table. The prior screenshot redaction and consent workflow below describes the abandoned
+  screenshot route; it is kept for historical context.
+- The focused schematic is created only when a reader opens it. The full schematic appears in
+  the matching article. A provider layout more than six months old gets a caution in Guided.
 
 ---
 

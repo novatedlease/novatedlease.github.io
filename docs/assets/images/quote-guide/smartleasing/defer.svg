@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 212" role="img" aria-label="Smart Leasing schematic quote layout">
+<rect width="720" height="212" fill="#ffffff"/>
+<rect width="720" height="78" fill="#0f2c4c"/>
+<text x="26" y="37" fill="#ffffff" font-family="Arial,sans-serif" font-size="24" font-weight="700">Smart Leasing</text>
+<text x="26" y="61" fill="#d8e8f9" font-family="Arial,sans-serif" font-size="14">Schematic quote layout · labels only</text>
+<rect x="20" y="83" width="680" height="32" rx="5" fill="#e9f1fb"/>
+<text x="32" y="105" fill="#174a80" font-family="Arial,sans-serif" font-size="17" font-weight="700">Vehicle and finance</text>
+<rect x="20" y="121" width="680" height="44" rx="6" fill="#e4f3ff" stroke="#0b5cab" stroke-width="2"/>
+<text x="34" y="147" fill="#192d42" font-family="Arial,sans-serif" font-size="17">Months deferred</text>
+<rect x="592" y="133" width="86" height="18" rx="4" fill="#e2e8f0"/>
+<text x="26" y="197" fill="#64748b" font-family="Arial,sans-serif" font-size="12">Original illustration based on a reviewed layout. Your quote may differ.</text>
+</svg>

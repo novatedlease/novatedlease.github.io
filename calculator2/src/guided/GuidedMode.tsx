@@ -25,8 +25,10 @@ import {
   pointersFor,
   providerLabel,
   seenLabel,
+  templateFor,
   type GuideField,
   type ProviderId,
+  type Pointer,
 } from "./providerGuide";
 import { SummaryView } from "../components/SummaryView";
 import { NextSteps } from "../components/NextSteps";
@@ -1574,15 +1576,45 @@ function ProviderPointers({
   return (
     <div className="gd-pointers" data-provider={guide.id}>
       {list.map((p) => (
-        <div key={p.text} className="gd-pointer">
-          <span>{p.text}</span>
-          {p.more && <Tip>{p.more}</Tip>}
-        </div>
+        <ProviderPointer key={p.text} pointer={p} provider={guide.id} />
       ))}
       <div className="gd-pointer__seen">
         As seen on {providerLabel(guide.id)} quotes, {seenLabel(guide.seen)}.
         {guideMayHaveChanged(guide.seen) && " The layout may have changed."}
       </div>
+    </div>
+  );
+}
+
+function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: ProviderId }) {
+  const [open, setOpen] = useState(false);
+  const template = templateFor(provider, pointer.field);
+  return (
+    <div className="gd-pointer">
+      <span>{pointer.text}</span>
+      {pointer.more && <Tip>{pointer.more}</Tip>}
+      {template && (
+        <div className="gd-template">
+          <button
+            type="button"
+            className="gd-linkbtn"
+            aria-expanded={open}
+            onClick={() => {
+              if (!open) trackEvent("guided_pointer_open", { provider, field: pointer.field });
+              setOpen(!open);
+            }}
+          >
+            {open ? "Hide quote template" : `Show on a ${providerLabel(provider)} quote template`}
+          </button>
+          {open && (
+            <div className="gd-template__body">
+              <img src={template} alt={`Schematic ${providerLabel(provider)} quote section highlighting the ${pointer.field.replace(/([A-Z])/g, " $1").toLowerCase()} label`} loading="lazy" decoding="async" width="720" />
+              <p>Original label-only illustration. Your quote may differ.</p>
+              <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the full quote guide</a>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

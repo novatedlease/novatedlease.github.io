@@ -494,3 +494,16 @@ export function guideMayHaveChanged(seen: string, now = new Date()): boolean {
   const [year, month] = seen.split("-").map(Number);
   return now.getFullYear() * 12 + now.getMonth() + 1 - (year * 12 + month) > 6;
 }
+
+const TEMPLATE_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
+  sgfleet: ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "running"],
+  smartleasing: ["baseValue", "defer", "residual", "payment", "running"],
+  maxxia: ["baseValue", "driveaway", "docFee", "residual", "payment", "insurance", "running"],
+  paywise: ["baseValue", "residual", "payment", "fees", "running"],
+  smartsalary: ["baseValue", "residual", "payment", "running"],
+};
+
+/** Original label-only illustration; never a copy of a customer's quote. */
+export function templateFor(id: ProviderId, field: GuideField): string | null {
+  return TEMPLATE_FIELDS[id]?.includes(field) ? `/assets/images/quote-guide/${id}/${field}.svg` : null;
+}
