@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -348,6 +348,14 @@ describe("provider pointers", () => {
     expect(markerFor("sgfleet", "payment")?.y).toBeGreaterThan(0);
   });
 
+  test("every main provider pointer stays brief and avoids sample-focused jargon", () => {
+    const fields: GuideField[] = ["baseValue", "driveaway", "term", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees", "rate"];
+    const problems = PROVIDERS.flatMap(({ id }) => fields.flatMap((field) => pointersFor(id, field)
+      .filter(({ text }) => text.length > 140 || /sample|example|VSSS|marked \d|available pages|capitalised|\bITC\b/i.test(text))
+      .map(({ text }) => `${id}/${field}: ${text}`)));
+    expect(problems).toEqual([]);
+  });
+
   test("Oly's residual and Alliance's entry fee use their own marked pages", () => {
     on("lease", { ...quoteDraft(), provider: "oly" });
     expect(openPicture("residual").querySelector(".gd-template__body img")?.getAttribute("src"))
@@ -383,12 +391,12 @@ describe("provider pointers", () => {
 
   test("fields missing from a provider's example get a short what-to-do line, without a picture", () => {
     expect(pointersFor("paywise", "defer")[0]).toMatchObject({ notShown: true });
-    expect(pointersFor("paywise", "defer")[0].text).toMatch(/Paywise example checked doesn't say how many months/);
-    expect(pointersFor("fleetpartners", "baseValue")[0].text).toMatch(/Total column of the “Vehicle” line/);
+    expect(pointersFor("paywise", "defer")[0].text).toMatch(/Can’t find months deferred on your Paywise quote/);
+    expect(pointersFor("fleetpartners", "baseValue")[0].text).toMatch(/Total column of “Vehicle”/);
     // a field the example does show keeps its own pointer
     expect(pointersFor("sgfleet", "defer")[0].notShown).toBeUndefined();
     on("lease", { ...quoteDraft(), provider: "remserv" });
-    const line = screen.getByText(/RemServ example checked shows no documentation or establishment fee/);
+    const line = screen.getByText(/Can’t find a documentation or establishment fee on your RemServ quote/);
     expect(line.closest(".gd-pointer")!.querySelector("button")).toBeNull();
   });
 

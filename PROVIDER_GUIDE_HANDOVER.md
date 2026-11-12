@@ -39,3 +39,12 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Validation: TypeScript, 303 calculator tests, ESLint on changed TS/TSX, calculator build and 82-page site build pass. Browser-checked desktop Price focus switching and phone Price inline image at 390 px. Preview: `http://localhost:4342/calculator/` while local server on port 4342 is running.
 - Known limits: the full-page toggle is offered only when a corresponding full reviewed page exists; separate cropped examples (such as SG Fleet's later FBT section) open their own image and link to the provider article. Later item 5 can rewrite the remaining long or sample-centred pointer text.
 - Next according to the original handover: items 5, 7, 8, 9, 11, 15, 16 and 17 were outside batch A. The owner's latest instruction was to progress item by item; decide the next priority with the owner before tackling accuracy-sensitive items 7 and 8.
+
+## Item 5 — provider pointer wording (2026-11-13)
+
+- Shortened 27 long or sample-focused provider lines and all five generated “not shown” messages. Main text now speaks to the reader's quote, avoids marker numbers and technical shorthand, and is at most 140 characters for every provider/field returned by `pointersFor`. Added or kept key qualifications in `more` tooltips.
+- The Smartsalary running-cost instruction now describes the printed “Less” GST-credit line without exposing the ITC abbreviation in the main text. The exact provider wording remains visible in its redacted quote image. SG Fleet and Smart Leasing lines were already shortened in the preceding redesign commit.
+- Existing date, evidence-source and payment-GST safeguards remain. The quote images and provider articles were not changed in this item.
+- The literal grep from the old review plan still matches type names, code comments and `FIELD_EXAMPLES` alt/caption strings. A runtime test checks every displayed pointer's main text for the prohibited wording and 140-character limit.
+- Validation: TypeScript, 304 calculator tests, ESLint on changed TS/test files, calculator build, and 82-page site build pass. Local preview remains `http://localhost:4342/calculator/` while its server is running.
+- Next priorities need care: item 7 (Maxxia/Oly financed insurance) and item 8 (Smart-branded Smartsalary) were flagged as needing owner decisions in the original review. Safer independent items are 9, 11, 15, 16 and 17, although 9 depends on the accuracy choice for 7/8.
