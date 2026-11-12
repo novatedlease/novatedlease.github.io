@@ -199,3 +199,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (58), ESLint, calculator build and 82-page site build pass. The first site build emitted Astro's one-time duplicate-id cache warning for the edited Paywise article.
 - Twelve of 27 provider articles now have at least one synced table row. Continue reviewing the remaining articles one by one. No push or merge.
 
+## Item 15, checkpoint P — RemServ unlabelled GST basis (2026-11-13)
+
+- RemServ's residual and finance-payment table cells now sync from the Guided pointers. The finance pointer states the fortnightly period and keeps the GST basis uncertain when the quote has no GST label. This removed the article's stale “we assume ex GST” instruction.
+- The running-cost row and price warning remain hand-curated to retain the quote's multiple cost categories and the unclear “RemServ price” inclusions.
+- Focused provider tests (59), ESLint and calculator build pass. The site table generator ran; site build was last checked at Paywise checkpoint O and should be rerun with the next article batch.
+- Thirteen of 27 provider articles now have at least one synced table row. No push or merge.
+

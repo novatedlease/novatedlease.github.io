@@ -531,7 +531,7 @@ const GUIDES: ProviderGuide[] = [
     pointers: [
       { field: "driveaway", text: "If you see only “RemServ price”, its GST basis is unclear on the quote reviewed. Check the full on-road price before entering it." },
       { field: "residual", text: "If “Residual value” has no GST label, choose “I'm not sure” unless the quote or provider confirms the basis." },
-      { field: "payment", text: "If “Finance” has no GST label, check the headings and footnotes; choose “I'm not sure” if it remains unclear." },
+      { field: "payment", text: "If “Finance” is per fortnight with no GST label, enter it per fortnight; choose “I'm not sure” unless the basis is confirmed." },
       { field: "running", text: "If you see “Servicing & Incidentals” as one line, enter that combined amount under servicing and tyres." },
     ],
   },

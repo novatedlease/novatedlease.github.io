@@ -18,12 +18,14 @@ This numbered example shows a RemServ quote layout reviewed in October 2026. Mat
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 3 | Lease term | Lease term |
-| 6 | Residual value (no GST label) | Residual: choose "I'm not sure" unless your quote says inc or ex GST |
-| 7 | Finance (fortnightly inclusion; no GST label) | Finance payment, per fortnight; GST basis "I'm not sure" (we assume ex GST and check) |
+| 6 | Residual value (no GST label) | If “Residual value” has no GST label, choose “I'm not sure” unless the quote or provider confirms the basis. |
+| 7 | Finance (fortnightly inclusion; no GST label) | If “Finance” is per fortnight with no GST label, enter it per fortnight; choose “I'm not sure” unless the basis is confirmed. |
 | 9 | Fortnightly inclusions: Rego, Servicing & Incidentals, Tyres, Fuel/charging, Insurance | Running-cost boxes, per fortnight |
+<!-- provider-table:end -->
 
 **"RemServ price" is not marked as the drive-away price:** the quote doesn't say what it includes
 (its inclusions are unclear). Ask for the dealer's full drive-away price, or use the residual

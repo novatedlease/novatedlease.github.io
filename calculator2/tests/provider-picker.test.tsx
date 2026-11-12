@@ -558,6 +558,14 @@ describe("provider pointers", () => {
     expect(article).toContain("using the quote's period");
   });
 
+  test("RemServ's article leaves unlabelled GST figures uncertain", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-remserv-quote.md"), "utf8");
+    expect(article).toContain(pointersFor("remserv", "residual")[0].text);
+    expect(article).toContain(pointersFor("remserv", "payment")[0].text);
+    expect(article).toContain("per fortnight");
+    expect(article).not.toContain("we assume ex GST");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
