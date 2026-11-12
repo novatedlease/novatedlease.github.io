@@ -26,6 +26,7 @@ const migrated = {
   leaselab: { '6': 'residual', '7': 'payment' },
   leaseexpress: { '1': 'baseValue', '6': 'residual', '7': 'payment' },
   orix: { '6': 'residual' },
+  nla: { '1': 'baseValue', '2': 'driveaway', '6': 'residual', '7': 'payment' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

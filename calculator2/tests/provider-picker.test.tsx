@@ -599,6 +599,14 @@ describe("provider pointers", () => {
     expect(article).toContain("Unless clearly stated otherwise … exclusive of GST");
   });
 
+  test("NLA's vehicle-price components and fortnightly payment follow Guided", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-nla-quote.md"), "utf8");
+    for (const field of ["baseValue", "driveaway", "residual", "payment"] as const)
+      expect(article).toContain(pointersFor("nla", field)[0].text);
+    expect(article).toContain("Price (ex GST), GST, stamp duty, registration and CTP");
+    expect(article).toContain("Keep the **reduction to your take-home pay** out");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

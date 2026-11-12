@@ -481,7 +481,7 @@ const GUIDES: ProviderGuide[] = [
       { field: "baseValue", text: "If you see “Vehicle base value” in the FBT calculations box, that's the FBT base value." },
       { field: "driveaway", text: "If no drive-away total is printed, add the vehicle price, GST, stamp duty, registration and CTP shown on the quote." },
       { field: "residual", text: "If you see “Residual payment (ex GST)”, choose Excluding GST." },
-      { field: "payment", text: "If you see “Lease payment (fixed)” under “Gross fortnightly rental”, enter the lease payment excluding the separate GST line." },
+      { field: "payment", text: "Under “Gross fortnightly rental”, enter “Lease payment (fixed)” per fortnight, excluding its GST line—not take-home-pay reduction." },
     ],
   },
   {

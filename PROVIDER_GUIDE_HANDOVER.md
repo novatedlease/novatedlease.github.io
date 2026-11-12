@@ -232,3 +232,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (63) and diff check pass. The site table generator ran; the site build was last checked at checkpoint S and can be rerun with the next article batch.
 - Seventeen of 27 provider articles now have at least one synced table row. ORIX's fee/payment rows need a separate evidence-preserving review before conversion. No push or merge.
 
+## Item 15, checkpoint U — NLA price components and payment (2026-11-13)
+
+- NLA's numbered FBT, drive-away component, residual and finance-payment cells now sync from Guided. The finance pointer specifies the fortnightly period, excludes the separate GST line and warns against using the take-home-pay reduction. The article retains its printed price-component list and separate take-home-pay warning.
+- Focused provider tests (64), ESLint, calculator build and 82-page site build pass. The build also covered ORIX; Astro emitted one-time duplicate-id cache warnings for these two edited articles.
+- Eighteen of 27 provider articles now have at least one synced table row. No push or merge.
+
