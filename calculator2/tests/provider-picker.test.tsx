@@ -524,6 +524,13 @@ describe("provider pointers", () => {
     expect(article).not.toContain("reviewed in November 2026");
   });
 
+  test("Fingo's article distinguishes its discounted price and GST subtotal", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-fingo-quote.md"), "utf8");
+    for (const field of ["driveaway", "defer", "payment"] as const)
+      expect(article).toContain(pointersFor("fingo", field)[0].text);
+    expect(article).toContain("GST as a separate line below the finance subtotal");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

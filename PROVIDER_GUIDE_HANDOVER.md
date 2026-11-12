@@ -168,3 +168,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (54) and ESLint pass. The table generator updated the Markdown. A site build will be rerun after the next article batch; no change to layout code was made here.
 - Eight articles have migrated rows. No push or merge.
 
+## Item 15, checkpoint L — Fingo price, deferral and payment (2026-11-13)
+
+- Fingo's GST-reduced price trap, optional two-payment deferral and finance-payment cells now sync from Guided. The quote's printed GST subtotal remains described separately so readers can check whether their own payment includes GST.
+- Focused tests (55), ESLint and 82-page site build pass. The build also rechecked the preceding Remunerator and Driva article changes. Astro emitted cache duplicate-id warnings for those three edited articles, but built all pages.
+- Nine articles have migrated rows. No push or merge.
+

@@ -18,16 +18,20 @@ This numbered example shows a Fingo quote layout reviewed in November 2026. Matc
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 1 | FBT Base Value | FBT base value |
-| 2 | Drive away Price (section 2, finance details) | Drive-away price. **Not** "Your car price (drive away price when financed)" in the novated column above: that one has the GST taken off |
+| 2 | Drive away Price (section 2, finance details) | If you see “Your car price (drive away price when financed)”, it has the GST saving taken off. Use the full “Drive away Price” instead. |
 | 3 | TERM (also "Term of lease") | Lease term |
-| 4 | Footnote: "This lease can be set up with the first two payments deferred" | First payment: after 2 months if your lease is set up that way; otherwise straight away. Ask Fingo which applies |
+| 4 | Footnote: "This lease can be set up with the first two payments deferred" | If the footnote says the first two payments can be deferred, check whether your quote uses that option before choosing 2 months. |
 | 6 | Residual Payment ex. GST / Residual Payment incl. GST | Residual: enter either and choose the matching GST answer |
-| 7 | Finance Repayment (Fixed), weekly / fortnightly / monthly | Finance payment in the period you pick, **Excluding GST** (GST is added once at the "GST" line under Sub Total) |
+| 7 | Finance Repayment (Fixed), weekly / fortnightly / monthly | Use “Finance Repayment (Fixed)” with the period shown in its column. Check the subtotal for GST. |
 | 9 | Roadside, Rego & CTP, Comp. Insurance, Servicing, Fuel/Charging, Tyres, Car Wash budgets | Running-cost boxes, ex GST, in the same period |
 | 10 | Management Fee (Fixed) | Lease management fees |
+<!-- provider-table:end -->
+
+The example has GST as a separate line below the finance subtotal. Check that your quote uses the same treatment before choosing the finance payment's GST basis.
 
 "Input Tax Credit" in section 6 is the employer's GST credit on the package; with running costs
 entered ex GST, choose "Excluding GST" for the running-cost heading.
