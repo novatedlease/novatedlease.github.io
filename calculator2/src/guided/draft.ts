@@ -127,6 +127,9 @@ export type GuidedDraft = {
   monthsDeferred: number | null;
   monthsDeferredUnsure: boolean;
   docFee: Money;
+  /** First-year comprehensive insurance financed with the car on some Maxxia/Oly quotes. */
+  insuranceFinanced: YesNoUnsure | null;
+  financedInsurance: Money;
   residualBasis: "exGst" | "incGst" | "unknown" | null;
   residual: Money;
   /** Reader's estimate of the car's market value when the lease ends (not at 5 years). Only asked when comparing with keeping the current car. */
@@ -203,6 +206,8 @@ export function emptyDraft(): GuidedDraft {
     monthsDeferred: null,
     monthsDeferredUnsure: false,
     docFee: emptyMoney(),
+    insuranceFinanced: null,
+    financedInsurance: emptyMoney(),
     residualBasis: null,
     residual: emptyMoney(),
     marketValueEnd: emptyMoney(),
@@ -370,8 +375,14 @@ function pricingInputs(d: GuidedDraft): Inputs | null {
     vehicleCondition: d.vehicleCondition,
     vehicleBaseValue: base,
     driveawayCost: drive,
-    leaseDocFee: moneyValue(d.docFee) ?? 0,
+    leaseDocFee: (moneyValue(d.docFee) ?? 0) + financedInsuranceAmount(d),
   } as Inputs;
+}
+
+export function financedInsuranceAmount(d: GuidedDraft): number {
+  return (d.provider === "maxxia" || d.provider === "oly") && d.insuranceFinanced === "Yes"
+    ? moneyValue(d.financedInsurance) ?? 0
+    : 0;
 }
 
 export function financedExGst(d: GuidedDraft): number | null {
@@ -679,6 +690,11 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       if (!d.leaseYears) ask("leaseYears", "Lease term");
       if (d.monthsDeferred === null) ask("monthsDeferred", "How many months until your first finance payment?");
       if (!answered(d.docFee)) askMoney("docFee", "Documentation fee (or tick “no documentation fee”)");
+      if (d.provider === "maxxia" || d.provider === "oly") {
+        if (!d.insuranceFinanced) ask("insuranceFinanced", "Is first-year insurance included in the amount financed?");
+        if (d.insuranceFinanced === "Yes" && !positive(d.financedInsurance))
+          askMoney("financedInsurance", "First-year insurance premium in the amount financed");
+      }
       if (!positive(d.residual) && d.residualBasis !== "unknown")
         askMoney("residual", "Residual (balloon) value");
       if (!d.residualBasis) ask("residualBasis", "Is the residual including or excluding GST?");
@@ -930,7 +946,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
       estMarketValueFromDriveaway(driveaway),
     annualMileageKm: km,
 
-    leaseDocFee: moneyValue(d.docFee)!,
+    leaseDocFee: moneyValue(d.docFee)! + financedInsuranceAmount(d),
     leaseStartDate: d.leaseStartDate,
     leaseDurationYears: leaseYears,
     monthsDeferred: d.monthsDeferred!,
@@ -948,6 +964,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     electricityAnnual: isEv ? evElectricityClaimAnnual(km) : 0,
     fuelAnnual: isEv ? 0 : running(d.fuel),
     insuranceAnnual: running(d.insurance),
+    insuranceFinancedFirstYear: financedInsuranceAmount(d) / (runningCreditTaken(d) ? 1 + GST_RATE : 1),
     managementFeesAnnual: running(d.mgmt),
     avgAudPerKwh: isEv ? moneyValue(d.chargingRate)! : seed.avgAudPerKwh,
 

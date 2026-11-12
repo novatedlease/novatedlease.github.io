@@ -52,7 +52,7 @@ export function computeDerived(inputs: Inputs): Derived {
     inputs.serviceMaintTyresAnnual +
     inputs.saveShareAnnual +
     inputs.registrationAnnual +
-    inputs.insuranceAnnual +
+    Math.max(0, inputs.insuranceAnnual - (inputs.insuranceFinancedFirstYear ?? 0) / Math.max(1, inputs.leaseDurationYears)) +
     inputs.managementFeesAnnual +
     packagedEnergyAnnual;
 

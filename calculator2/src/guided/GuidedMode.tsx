@@ -354,6 +354,10 @@ export function GuidedMode({
       }
       if (isNamedProvider(next)) updated.smartMillarx = isSmartOrMillarx(next);
       else if (isNamedProvider(previous.provider)) updated.smartMillarx = null;
+      if (next !== previous.provider) {
+        updated.insuranceFinanced = null;
+        updated.financedInsurance = emptyMoney();
+      }
       return updated;
     });
   };
@@ -1285,6 +1289,29 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         findings={f.docFee}
       />
       <ProviderPointers d={d} field="docFee" />
+      {(d.provider === "maxxia" || d.provider === "oly") && <>
+        <Choices
+          field="insuranceFinanced"
+          label="Is the first year's insurance included in the amount financed?"
+          value={d.insuranceFinanced}
+          onChange={(v) => set("insuranceFinanced", v)}
+          options={[
+            { value: "Yes", label: "Yes" },
+            { value: "No", label: "No" },
+            { value: "Unsure", label: "Not sure" },
+          ]}
+          columns={3}
+          hint="Look for a first-year comprehensive insurance line near the establishment fee."
+        />
+        {d.insuranceFinanced === "Yes" && <MoneyInput
+          field="financedInsurance"
+          label="First-year insurance premium in the amount financed"
+          value={d.financedInsurance}
+          onChange={(m) => set("financedInsurance", m)}
+          where="Enter that first-year line only. Keep the establishment fee separate above."
+        />}
+        {d.insuranceFinanced === "Unsure" && <p className="nlc-field__hint">Check your quote or ask the provider. The rate and lease total may be less accurate until you know.</p>}
+      </>}
       <MoneyInput
         field="residual"
         label="Residual (balloon) value"

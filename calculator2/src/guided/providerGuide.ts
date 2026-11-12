@@ -221,13 +221,13 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "insurance",
-        text: "Oly may finance year-one insurance. Enter the full yearly premium here; the result may overstate lease costs by one premium.",
-        more: "The calculator then counts the first year on the lease side twice (in the payments and here), so the lease's cost comes out about one year's premium too high.",
+        text: "Enter the full yearly insurance premium here, including year one. We'll account for any first-year premium financed above.",
+        more: "Use the yearly amount you would pay to insure the car, not just Oly's renewal budget.",
       },
       {
         field: "docFee",
-        text: "Add “Financier's Establishment fee” and “First year Comprehensive Insurance - (Oly arranged)” together and enter the total here.",
-        more: "Both sit in Oly's amount financed. Including the insurance stops the interest rate looking higher than it is.",
+        text: "Enter “Financier's Establishment fee” here. If year-one insurance is financed, enter it in the separate question below.",
+        more: "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
       },
       {
         field: "residual",
@@ -252,13 +252,13 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "insurance",
-        text: "Maxxia may finance year-one insurance. Enter the full yearly premium here; the result may overstate lease costs by one premium.",
-        more: "The calculator then counts the first year on the lease side twice (in the payments and here), so the lease's cost comes out about one year's premium too high.",
+        text: "Enter the full yearly insurance premium here, including year one. We'll account for any first-year premium financed above.",
+        more: "Use the yearly amount you would pay to insure the car, not just Maxxia's renewal budget.",
       },
       {
         field: "docFee",
-        text: "Add “Financier's Establishment Fee” and “1st year Comprehensive Insurance” together and enter the total here.",
-        more: "Both sit in Maxxia's total amount financed. Including the insurance stops the interest rate looking about 2–3 points too high.",
+        text: "Enter “Financier's Establishment Fee” here. If year-one insurance is financed, enter it in the separate question below.",
+        more: "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
       },
     ],
   },

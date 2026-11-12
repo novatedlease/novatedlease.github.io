@@ -43,6 +43,8 @@ export type Inputs = {
   fuelAnnual: number;
 
   insuranceAnnual: number;
+  /** Part of year-one insurance already repaid through finance; spread over the lease for the NL running-cost budget only. */
+  insuranceFinancedFirstYear?: number;
   managementFeesAnnual: number;
 
   avgAudPerKwh: number;

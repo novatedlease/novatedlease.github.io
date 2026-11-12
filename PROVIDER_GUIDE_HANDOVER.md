@@ -56,3 +56,11 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - “Other / not listed” explains that general hints still work and links to quote-layout feedback. The Smart Leasing / Smartsalary layout note remains.
 - No free text is sent to analytics. Tests cover default, named, stale and Other states. Validation: TypeScript, 305 calculator tests, ESLint on changed TS/TSX, calculator build and 82-page site build pass.
 - Owner decisions pending on item 7's financed-insurance treatment and item 8's Smart-branded correction escape hatch. Do not assume the default options without a reply.
+
+## Item 7 — Maxxia and Oly financed first-year insurance (2026-11-13)
+
+- Owner chose the dedicated-question option. Guided now asks Maxxia/Oly readers whether first-year comprehensive insurance is in the amount financed. If Yes, it asks for that premium separately from the documentation fee. Changing provider clears the answer.
+- The premium is added to the financed amount for the effective interest rate. A new optional engine input, `insuranceFinancedFirstYear`, removes one premium spread over the lease from lease running costs. Cash and post-lease insurance keep the full annual cost, so the calculator counts year one through the finance payment and renewals through running costs.
+- Updated both provider pointers and articles to explain the separate entries and removed original quote-specific premium figures from article prose. The marked documentation-fee quote crop is adjacent to the new question.
+- Tests cover both providers, financed amount and rate, the lease-only running-cost adjustment, unchanged cash insurance, and answer gating. TypeScript, 308 calculator tests, ESLint, calculator build and 82-page site build pass. The synthetic rate check uses a known 8% payment; it does not independently re-enter the original private quotes.
+- Next: item 9 provider-aware warnings can omit the obsolete Maxxia/Oly documentation-fee warning. Item 8 owner decision remains pending. No push or merge.

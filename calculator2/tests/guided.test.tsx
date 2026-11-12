@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { fortnightlyLeaseFromEffectiveAnnualRate } from "@engine/effectiveinterest";
 import { computeDerived } from "@engine/derived";
+import { buildWorksheet130 } from "@engine/worksheet_130";
 import {
   atoMinimumResidualExGst,
   buildInputs,
@@ -16,6 +17,7 @@ import {
   estimateAssumptions,
   typicalMarketValueAtLeaseEnd,
   visibleSteps,
+  financedInsuranceAmount,
   type GuidedDraft,
   type Money,
 } from "../src/guided/draft";
@@ -31,6 +33,51 @@ import { GuidedMode } from "../src/guided/GuidedMode";
 
 const m = (text: string): Money => ({ text, none: false, estimated: false });
 const none: Money = { text: "", none: true, estimated: false };
+
+describe("financed first-year insurance", () => {
+  test.each(["maxxia", "oly"] as const)("%s keeps the premium separate and counts it once on the lease", (provider) => {
+    const d = completeDraft(0.08);
+    d.provider = provider;
+    d.insuranceFinanced = "Yes";
+    d.financedInsurance = m("1600");
+    expect(financedInsuranceAmount(d)).toBe(1600);
+    expect(financedExGst(d)).toBeCloseTo(financedExGst({ ...d, insuranceFinanced: "No" })! + 1600, 6);
+    const quotePayment = fortnightlyLeaseFromEffectiveAnnualRate({
+      financedAmountExGst: financedExGst(d)!,
+      residualValueExGst: residualExGstEntered(d)!,
+      leaseYears: d.leaseYears!,
+      deferMonths: d.monthsDeferred!,
+      effectiveAnnualRate: 0.08,
+    });
+    expect(diagnosePayment({ financedExGst: financedExGst(d)!, residualExGst: residualExGstEntered(d)!, leaseYears: d.leaseYears!, deferMonths: d.monthsDeferred! }, quotePayment, "perFn").rate).toBeCloseTo(0.08, 3);
+    const inputs = buildInputs(d)!;
+    expect(inputs.leaseDocFee).toBe(1995);
+    expect(inputs.insuranceAnnual).toBe(1600);
+    expect(inputs.insuranceFinancedFirstYear).toBe(1600);
+
+    const nl = buildWorksheet130({ inputs, scenario: "nl" });
+    const withoutAdjustment = buildWorksheet130({ inputs: { ...inputs, insuranceFinancedFirstYear: 0 }, scenario: "nl" });
+    const leaseDifference = nl.reduce((s, row) => s + row.delta, 0) - withoutAdjustment.reduce((s, row) => s + row.delta, 0);
+    expect(leaseDifference).toBeGreaterThan(0);
+    expect(computeDerived(inputs).runningCostAnnual).toBeCloseTo(computeDerived({ ...inputs, insuranceFinancedFirstYear: 0 }).runningCostAnnual - 320, 6);
+    const cash = buildWorksheet130({ inputs, scenario: "cash" });
+    const cashWithoutAdjustment = buildWorksheet130({ inputs: { ...inputs, insuranceFinancedFirstYear: 0 }, scenario: "cash" });
+    expect(cash.map((row) => row.insurance)).toEqual(cashWithoutAdjustment.map((row) => row.insurance));
+  });
+
+  test("the answer is required only for Maxxia and Oly, and a premium is required after Yes", () => {
+    const d = completeDraft();
+    d.provider = "maxxia";
+    expect(missingForStep("lease", d)).toContain("Is first-year insurance included in the amount financed?");
+    d.insuranceFinanced = "Yes";
+    expect(missingForStep("lease", d)).toContain("First-year insurance premium in the amount financed");
+    d.financedInsurance = m("1600");
+    expect(missingForStep("lease", d)).not.toContain("First-year insurance premium in the amount financed");
+    d.provider = "other";
+    expect(financedInsuranceAmount(d)).toBe(0);
+    expect(missingForStep("lease", d)).not.toContain("Is first-year insurance included in the amount financed?");
+  });
+});
 
 function pricedDraft(): GuidedDraft {
   const d = emptyDraft();
