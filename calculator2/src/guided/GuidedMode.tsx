@@ -1115,7 +1115,8 @@ function PriceStep({ d, set, f }: StepPropsF) {
         tooltip={
           <InfoTooltip
             text={
-              "Listed before stamp duty, rego and CTP insurance. Quotes also call it FBT value, vehicle base value or value for FBT purposes. On a dealer invoice it's often the vehicle subtotal.\n\n" +
+              "Listed before stamp duty, rego and CTP insurance.\n\n" +
+              "Also called:\n• FBT value\n• Vehicle base value\n• Value for FBT purposes\n• Vehicle subtotal (on a dealer invoice)\n\n" +
               "✅ Included: the car's price, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar), and any Luxury Car Tax (LCT) if payable.\n\n" +
               "❌ Not included: compulsory third party (CTP) insurance, registration, stamp duty."
             }
@@ -1134,7 +1135,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
         tooltip={
           <InfoTooltip
             text={
-              "Quotes also call it on-road cost, on-road price, drive-away total, vehicle purchase price or car price.\n\n" +
+              "Also called:\n• On-road cost\n• On-road price\n• Drive-away total\n• Vehicle purchase price\n• Car price\n\n" +
               "Some quotes also show a lower \"novated\" or \"effective\" price with the GST saving taken off. Don't use that one: the calculator takes the GST saving off for you."
             }
           />
@@ -1227,7 +1228,8 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         tooltip={
           <InfoTooltip
             text={
-              "Also called a documentation or entry fee, or a security interest fee. Some quotes only show it in the small print or under “Other fees”. Use the ex-GST amount if both are shown.\n\n" +
+              "Also called:\n• Documentation fee\n• Entry fee\n• Security interest fee\n\n" +
+              "Some quotes only show it in the small print or under “Other fees”. Use the ex-GST amount if both are shown.\n\n" +
               "If your quote charges it per month (for example “Lease establishment fee $8.87” in a monthly list), leave this at $0 and add the monthly amount to your lease management fees on the running-costs screen. Don't enter it in both places."
             }
           />
@@ -1486,7 +1488,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             <InfoTooltip
               text={
                 `Only applies to vehicles costing more than the ATO car limit ($${CAR_LIMIT_FY2027.toLocaleString("en-AU")} for FY2026-27, indexed each July), due to complex employer accounting reasons. It is a separate concept from the Luxury Car Tax (LCT) threshold. Listed separately on some quotes.\n\n` +
-                "Quotes may call it a luxury levy, luxury car charge, luxury vehicle non-deductible or non-deductible depreciation.\n\n" +
+                "Also called:\n• Luxury levy\n• Luxury car charge\n• Luxury vehicle non-deductible\n• Non-deductible depreciation\n\n" +
                 "[Read sgfleet's explainer on the luxury vehicle adjustment](https://www.sgfleet.com/docs/australialibraries/novated/novated-support/7-sgf-oct2024-luxury-vehicle-adjustment.pdf)"
               }
             />
