@@ -608,7 +608,7 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotS
     // MillarX is finance only: the salary packager, not MillarX, holds the FBT base value.
     baseValue: gstCreditLine("millarx", "MillarX", "“Less: GST credit”", "your salary packager"),
     running: "MillarX quotes are finance only. Take the running-cost budgets from your salary packager.",
-    fees: "The MillarX BYO finance quote has no fees. Older MillarX quotes show a management fee per month; enter that here if yours does.",
+    fees: "Some MillarX quotes show a management fee per month. Enter it here if yours does. The BYO finance-only quote has none.",
   },
   remunerator: {
     fees: "Remunerator's summary has no fee line and says management fees are included in its figures. Leave this at $0 unless your quote lists one.",

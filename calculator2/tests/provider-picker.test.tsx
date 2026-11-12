@@ -171,6 +171,12 @@ describe("FBT base value not printed", () => {
     expect(existsSync(resolve(__dirname, "../../docs", p.example!.image.slice(1)))).toBe(true);
   });
 
+  test("MillarX fees: some quotes have a monthly fee, the BYO finance-only one has none", () => {
+    const [p] = pointersFor("millarx", "fees");
+    expect(p.text).toBe("Some MillarX quotes show a management fee per month. Enter it here if yours does. The BYO finance-only quote has none.");
+    expect(p.text).not.toMatch(/Older/);
+  });
+
   test("MillarX sends readers to the salary packager, not MillarX", () => {
     const [p] = pointersFor("millarx", "baseValue");
     expect(p.more).toMatch(/ask your salary packager/);
