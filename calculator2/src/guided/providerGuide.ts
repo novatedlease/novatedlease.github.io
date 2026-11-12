@@ -196,6 +196,11 @@ const GUIDES: ProviderGuide[] = [
         field: "docFee",
         text: "If you see “Financier's Establishment fee”, that's this fee.",
       },
+      {
+        field: "residual",
+        text: "If you see “Your total residual value (after lease term)” near the end of the estimate, it includes GST: choose Including GST.",
+        more: "On the Oly estimate checked, it equalled the ATO minimum on Oly's ex-GST price, plus GST.",
+      },
     ],
   },
   {
@@ -263,6 +268,11 @@ const GUIDES: ProviderGuide[] = [
       {
         field: "defer",
         text: "If you see “based on two month deferred lease structure”, choose 2 months.",
+      },
+      {
+        field: "docFee",
+        text: "If you see “Entry Fee” under “Novated Lease Fees” on page 2, that's this fee.",
+        more: "The same page lists the administration and management fees (enter those under lease management fees) and a vehicle price breakdown ending in the drive-away price.",
       },
     ],
   },
@@ -601,8 +611,50 @@ export function cropFor(id: ProviderId, field: GuideField): string | null {
   return FIELD_CROPS[id]?.includes(f) ? `/assets/images/quote-guide/${id}/field-${f}.webp` : null;
 }
 
+export type FieldExample = {
+  image: string;
+  /** Button label before the example is opened. */
+  button: string;
+  alt: string;
+  caption: string;
+  /** PDF of the page the example comes from. */
+  pdf: string;
+};
+
+/** Marked examples from a page other than the provider's main sample. */
+const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample }[] = [
+  {
+    id: "oly",
+    field: "residual",
+    example: {
+      image: "/assets/images/quote-guide/oly/residual-example.png",
+      button: "Show where Oly prints the residual",
+      alt: "End of a redacted Oly estimate with Your total residual value marked 6",
+      caption: "The last section of the same Oly estimate. Figures were removed; the residual line is marked 6.",
+      pdf: "/assets/images/quote-guide/oly/residual-example.pdf",
+    },
+  },
+  {
+    id: "alliance",
+    field: "docFee",
+    example: {
+      image: "/assets/images/quote-guide/alliance/page2-fees.png",
+      button: "Show Alliance's fees page",
+      alt: "Redacted page 2 of an Alliance Leasing quote with Entry Fee marked 5",
+      caption: "Fees and lease details from page 2 of the same Alliance quote. Figures and customer details were removed; Entry Fee is marked 5.",
+      pdf: "/assets/images/quote-guide/alliance/page2-example.pdf",
+    },
+  },
+];
+
+export function exampleFor(id: ProviderId, field: GuideField): FieldExample | null {
+  return FIELD_EXAMPLES.find((e) => e.id === id && e.field === field)?.example ?? null;
+}
+
 /** Redacted image to show for a field: SG Fleet's focused examples, else a crop, else the whole page. */
 export function templateFor(id: ProviderId, field: GuideField): string | null {
+  const example = exampleFor(id, field);
+  if (example) return example.image;
   if (id === "sgfleet" && field === "baseValue") return "/assets/images/quote-guide/sgfleet/fbt-example.png";
   if (id === "sgfleet" && field === "driveaway") return "/assets/images/quote-guide/sgfleet/driveaway-example.png";
   if (id === "smartleasing" && field === "docFee") return "/assets/images/quote-guide/smartleasing/terms-example.png";
@@ -611,5 +663,7 @@ export function templateFor(id: ProviderId, field: GuideField): string | null {
 
 /** PDF to open alongside an image: crops link to the whole page's PDF. */
 export function pdfFor(id: ProviderId, image: string): string {
+  const example = FIELD_EXAMPLES.find((e) => e.id === id && e.example.image === image);
+  if (example) return example.example.pdf;
   return image.endsWith(".webp") ? `/assets/images/quote-guide/${id}/redacted-quote.pdf` : image.replace(/\.png$/, ".pdf");
 }

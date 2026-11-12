@@ -22,12 +22,21 @@ This numbered example shows an Oly quote layout reviewed in August 2026. Match e
 | 7 | Car lease payments | Finance payment, per month (the page says "Monthly"). No GST label: choose "I'm not sure" unless your quote says. |
 | 9 | Monthly running-cost budget lines | Running-cost boxes, per month. Incidentals and roadside → Servicing. |
 
+## Residual, at the end of the estimate
+
+![End of a redacted Oly estimate with the residual line marked 6](/assets/images/quote-guide/oly/residual-example.png)
+
+*The last section of the same estimate, with figures removed. [Open the image-based PDF](/assets/images/quote-guide/oly/residual-example.pdf).*
+
+| # | On the quote | In Guided |
+|---|---|---|
+| 6 | Your total residual value (after lease term) | Residual, **Including GST**. On the estimate checked it equalled the ATO minimum on Oly's ex-GST price, plus GST. |
+
 Also on the quote: "First year Comprehensive Insurance (Oly arranged)" is inside the total amount
 financed, so the insurance budget only covers renewals. Enter the full yearly premium in Insurance
 anyway (see the insurance tooltip).
 
-Not shown on this sample: **1 FBT base value**, **4 deferral**, **6 residual**, **8 luxury vehicle
-adjustment**, **10 management fee**, **11 interest rate**. Use "Not sure" for the deferral and the
-residual helper or the ATO minimum for the residual.
+Not shown on this sample: **1 FBT base value**, **4 deferral**, **8 luxury vehicle adjustment**,
+**10 management fee**, **11 interest rate**. Use "Not sure" for the deferral.
 
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

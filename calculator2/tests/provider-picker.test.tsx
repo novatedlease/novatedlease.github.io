@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, cropFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, cropFor, exampleFor, pdfFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -213,6 +213,33 @@ describe("provider pointers", () => {
     fireEvent.click(screen.getByRole("button", { name: /Show where it is on a Maxxia quote/ }));
     expect((screen.getByAltText(/redacted Maxxia quote/) as HTMLImageElement).getAttribute("src"))
       .toBe("/assets/images/quote-guide/maxxia/field-payment.webp");
+  });
+
+  test("Oly's residual and Alliance's entry fee open their own marked example pages", () => {
+    on("lease", { ...quoteDraft(), provider: "oly" });
+    expect(screen.getByText(/Your total residual value \(after lease term\)”.*Including GST/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Show where Oly prints the residual" }));
+    expect((screen.getByAltText(/Your total residual value marked 6/) as HTMLImageElement).getAttribute("src"))
+      .toBe("/assets/images/quote-guide/oly/residual-example.png");
+    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
+      .toBe("/assets/images/quote-guide/oly/residual-example.pdf");
+    cleanup();
+    window.localStorage.clear();
+    on("lease", { ...quoteDraft(), provider: "alliance" });
+    fireEvent.click(screen.getByRole("button", { name: "Show Alliance's fees page" }));
+    expect((screen.getByAltText(/Entry Fee marked 5/) as HTMLImageElement).getAttribute("src"))
+      .toBe("/assets/images/quote-guide/alliance/page2-fees.png");
+    expect(pdfFor("alliance", "/assets/images/quote-guide/alliance/page2-fees.png"))
+      .toBe("/assets/images/quote-guide/alliance/page2-example.pdf");
+  });
+
+  test("every field example's image and PDF exist on disk", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    for (const [id, field] of [["oly", "residual"], ["alliance", "docFee"]] as const) {
+      const e = exampleFor(id, field)!;
+      for (const f of [e.image, e.pdf]) expect(fs.existsSync(path.join(__dirname, "../../docs", f))).toBe(true);
+    }
   });
 
   test("every crop listed exists on disk", async () => {
