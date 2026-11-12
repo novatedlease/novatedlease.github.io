@@ -566,6 +566,15 @@ describe("provider pointers", () => {
     expect(article).not.toContain("we assume ex GST");
   });
 
+  test("Simplygreen's price, deferral and payment rows follow Guided", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-simplygreen-quote.md"), "utf8");
+    for (const field of ["driveaway", "defer", "payment"] as const)
+      expect(article).toContain(pointersFor("simplygreen", field)[0].text);
+    expect(article).toContain("Total Lease Cost, per fortnight");
+    expect(article).toContain("Contingency Budget\" is a refundable buffer");
+    expect(pointersFor("simplygreen", "defer")[0].text).not.toContain("No. of Payments 34");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

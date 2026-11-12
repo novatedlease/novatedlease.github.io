@@ -541,7 +541,7 @@ const GUIDES: ProviderGuide[] = [
     sources: ["1xngaj3"],
     pointers: [
       { field: "driveaway", text: "Use “Vehicle Cost” above “GST Credit” and “Financed Amount”. Check that it includes GST." },
-      { field: "defer", text: "If you see “Months Deferred 2” and “No. of Payments 34” on a 36-month lease, choose 2 months." },
+      { field: "defer", text: "Use “Months Deferred” as printed. If only “No. of Payments” appears, subtract it from the lease term in months." },
       { field: "payment", text: "If you see “Total Lease Cost” under “Lease/Finance Budget (excluding gst)”, enter that figure excluding GST in the period shown." },
       { field: "running", text: "If you see a “Contingency Budget” or “Car Washes/Incidentals”, check whether you want those budgets included in your comparison." },
     ],

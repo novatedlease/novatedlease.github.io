@@ -22,6 +22,7 @@ const migrated = {
   spa: { '1': 'baseValue', '2': 'driveaway', '4': 'defer' },
   paywise: { '7': 'payment', '10': 'fees' },
   remserv: { '6': 'residual', '7': 'payment' },
+  simplygreen: { '2': 'driveaway', '4': 'defer', '7': 'payment' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

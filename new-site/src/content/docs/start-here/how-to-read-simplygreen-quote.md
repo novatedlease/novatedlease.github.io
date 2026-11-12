@@ -18,16 +18,18 @@ This numbered example shows a Simplygreen quote layout reviewed in November 2026
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 1 | FBT Base Value | FBT base value |
-| 2 | Vehicle Cost (top-right block, above GST Credit and Financed Amount) | Drive-away price. "Vehicle Cost" here is the full price including GST |
+| 2 | Vehicle Cost (top-right block, above GST Credit and Financed Amount) | Use “Vehicle Cost” above “GST Credit” and “Financed Amount”. Check that it includes GST. |
 | 3 | Term (Months) | Lease term |
-| 4 | Months Deferred; No. of Payments | Deferral: use Months Deferred, or lease months − No. of Payments |
+| 4 | Months Deferred; No. of Payments | Use “Months Deferred” as printed. If only “No. of Payments” appears, subtract it from the lease term in months. |
 | 6 | Residual (ex GST) and Residual (inc GST) | Residual: enter either, with the matching GST answer |
-| 7 | Total Lease Cost, per fortnight, under "Lease/Finance Budget (excluding gst)" | Finance payment, per fortnight, excluding GST |
+| 7 | Total Lease Cost, per fortnight, under "Lease/Finance Budget (excluding gst)" | If you see “Total Lease Cost” under “Lease/Finance Budget (excluding gst)”, enter that figure excluding GST in the period shown. |
 | 9 | Operating Cost Budgets (excluding gst): Charging to Car Washes/Incidentals, yearly and fortnightly | Running-cost boxes, ex GST, in whichever period you use. Roadside and car washes go in Servicing |
 | 10 | Administration Fee | Lease management fees |
+<!-- provider-table:end -->
 
 Below the numbered box: "Carbon Emission Offset" is optional (include only if you're keeping it),
 and "Contingency Budget" is a refundable buffer, so leave it out.

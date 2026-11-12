@@ -206,3 +206,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (59), ESLint and calculator build pass. The site table generator ran; site build was last checked at Paywise checkpoint O and should be rerun with the next article batch.
 - Thirteen of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint Q — Simplygreen price, deferral and payment (2026-11-13)
+
+- Simplygreen's numbered vehicle-price, deferred-months and finance-payment action cells now sync from its Guided pointers. The visible quote-label column still identifies **Vehicle Cost** above **GST Credit**, **Months Deferred**, and fortnightly **Total Lease Cost** under the excluding-GST budget heading.
+- Generalized the Guided deferral pointer: use **Months Deferred** when printed, or subtract **No. of Payments** from the lease term. This avoids embedding one example's month counts in the reusable guidance. The running-cost row and contingency-buffer warning remain hand-curated.
+- Focused provider tests (60), ESLint, calculator build and 82-page site build pass. The site build covered the preceding RemServ change too; Astro emitted its one-time duplicate-id cache warnings for these two edited articles.
+- Fourteen of 27 provider articles now have at least one synced table row. No push or merge.
+
