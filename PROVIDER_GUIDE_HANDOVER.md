@@ -278,3 +278,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (70) and diff check pass. The table generator ran; site build can be checked with the next article batch.
 - Twenty-four of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint AB — Autopia price and setup fee (2026-11-13)
+
+- Autopia's numbered drive-away and setup-fee action cells now sync from Guided. The article retains its unnumbered FBT warning: **base price** excludes GST, and **fringe benefit value** is a taxable value rather than the FBT base value. Payment and luxury adjustment rows remain hand-curated with their period and GST context.
+- Focused provider tests (71), diff check and 82-page site build pass. The site build also covered Alliance; Astro emitted its one-time duplicate-id cache warnings for both edited articles.
+- Twenty-five of 27 provider articles now have at least one synced table row. The two remaining are Smart Leasing and Smartsalary; their distinct branded layouts should remain separate. Item 8's Smart-branded Smartsalary escape hatch still awaits the owner's choice. No push or merge.
+

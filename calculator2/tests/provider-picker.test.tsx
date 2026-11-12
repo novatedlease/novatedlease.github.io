@@ -659,6 +659,14 @@ describe("provider pointers", () => {
     expect(article).toContain("Entry Fee, under Novated Lease Fees");
   });
 
+  test("Autopia's price and setup fee rows sync while its missing FBT warning remains", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-autopia-quote.md"), "utf8");
+    for (const field of ["driveaway", "docFee"] as const)
+      expect(article).toContain(pointersFor("autopia", field)[0].text);
+    expect(article).toContain("base price\" is the vehicle\nprice **excluding GST**");
+    expect(article).toContain("fringe benefit value\" in the FBT calcs is the taxable value");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

@@ -33,6 +33,7 @@ const migrated = {
   fleetpartners: { '2': 'driveaway', '4': 'defer' },
   leaseplan: { '5': 'docFee' },
   alliance: { '2': 'driveaway', '4': 'defer' },
+  autopia: { '2': 'driveaway', '5': 'docFee' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {
