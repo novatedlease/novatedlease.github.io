@@ -242,6 +242,17 @@ describe("provider pointers", () => {
     }
   });
 
+  test("fields missing from a provider's example get a short what-to-do line, without a picture", () => {
+    expect(pointersFor("paywise", "defer")[0]).toMatchObject({ notShown: true });
+    expect(pointersFor("paywise", "defer")[0].text).toMatch(/Paywise example checked doesn't say how many months/);
+    expect(pointersFor("fleetpartners", "baseValue")[0].text).toMatch(/Total column of the “Vehicle” line/);
+    // a field the example does show keeps its own pointer
+    expect(pointersFor("sgfleet", "defer")[0].notShown).toBeUndefined();
+    on("lease", { ...quoteDraft(), provider: "remserv" });
+    const line = screen.getByText(/RemServ example checked shows no documentation or establishment fee/);
+    expect(line.closest(".gd-pointer")!.querySelector("button")).toBeNull();
+  });
+
   test("every crop listed exists on disk", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

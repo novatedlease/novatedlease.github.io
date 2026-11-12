@@ -63,6 +63,8 @@ export type Pointer = {
   text: string;
   /** Optional nuance, shown in a tooltip. */
   more?: string;
+  /** The field isn't on the provider's example, so there's no picture to show. */
+  notShown?: boolean;
 };
 
 export type ProviderGuide = {
@@ -523,8 +525,77 @@ export function guideFor(id: ProviderId | null): ProviderGuide | null {
   return id ? (BY_ID.get(id) ?? null) : null;
 }
 
+/**
+ * Fields the reviewed example for a provider doesn't print. Guided says so, with what to do,
+ * rather than saying nothing. Checked against each provider's numbered example (Nov 2026).
+ */
+const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
+  millarx: ["baseValue", "running", "fees"],
+  flare: ["defer", "docFee"],
+  oly: ["baseValue", "defer", "fees"],
+  maxxia: ["defer"],
+  fleetpartners: ["baseValue"],
+  leaseplan: ["defer", "residual"],
+  remunerator: ["docFee", "fees"],
+  easi: ["docFee"],
+  autopia: ["defer"],
+  customfleet: ["defer", "docFee"],
+  leaselab: ["defer", "docFee"],
+  spa: ["docFee"],
+  paywise: ["defer", "docFee"],
+  smartsalary: ["defer", "docFee"],
+  driva: ["defer", "docFee"],
+  fingo: ["docFee"],
+  nla: ["defer", "docFee"],
+  toyotafleet: ["defer"],
+  leaseexpress: ["defer", "docFee"],
+  orix: ["defer"],
+  remserv: ["baseValue", "defer", "docFee", "fees"],
+  simplygreen: ["docFee"],
+  lendly: ["baseValue", "defer", "docFee"],
+  vehiclesolutions: ["docFee"],
+};
+
+/** Provider-specific wording where the generic "not shown" line would be wrong or unhelpful. */
+const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, string>>>> = {
+  fleetpartners: {
+    baseValue:
+      "FleetPartners doesn't label the FBT base value. Use the Total column of the “Vehicle” line in “Your order”: the car after discount, with options and delivery, including GST, before on-road costs.",
+  },
+  millarx: {
+    running: "MillarX quotes are finance only. Take the running-cost budgets from your salary packager.",
+    fees: "The MillarX BYO finance quote has no fees. Older MillarX quotes show a management fee per month; enter that here if yours does.",
+  },
+  remunerator: {
+    fees: "Remunerator's summary has no fee line and says management fees are included in its figures. Leave this at $0 unless your quote lists one.",
+  },
+};
+
+function notShownText(id: ProviderId, field: GuideField): string | null {
+  const special = NOT_SHOWN_TEXT[id]?.[field];
+  if (special) return special;
+  const p = providerLabel(id);
+  switch (field) {
+    case "baseValue":
+      return `The ${p} example checked doesn't print the FBT base value. Ask ${p}, or add up the car, options and delivery, including GST.`;
+    case "defer":
+      return `The ${p} example checked doesn't say how many months are deferred. Choose “Not sure” (we'll assume 2) unless ${p} tells you.`;
+    case "docFee":
+      return `The ${p} example checked shows no documentation or establishment fee. Leave this at $0 unless your quote lists one.`;
+    case "residual":
+      return `This ${p} example doesn't print a residual. Choose “I'm not sure” and we'll use the ATO minimum.`;
+    case "fees":
+      return `The ${p} example checked shows no management fee. Leave this at $0 unless your quote lists one.`;
+    default:
+      return null;
+  }
+}
+
 export function pointersFor(id: ProviderId | null, field: GuideField): Pointer[] {
-  return guideFor(id)?.pointers.filter((p) => p.field === field) ?? [];
+  const listed = guideFor(id)?.pointers.filter((p) => p.field === field) ?? [];
+  if (listed.length > 0 || !id || !NOT_SHOWN[id]?.includes(field)) return listed;
+  const text = notShownText(id, field);
+  return text ? [{ field, text, notShown: true }] : [];
 }
 
 /** "Nov 2026" from "2026-11". */

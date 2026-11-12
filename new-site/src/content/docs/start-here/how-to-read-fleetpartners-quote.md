@@ -15,12 +15,15 @@ On this layout, the monthly lease cost is split into **Part A** finance rental, 
 | # | On this quote | In Guided mode |
 | --- | --- | --- |
 | 2 | Drive-away total, Total column | Drive-away price, including GST. |
-| 4 | Part A note about delayed payroll payments | Check whether your quote defers the first payments; choose *I'm not sure* if the number is unclear. |
+| 4 | Part A: "lease payments start two months after your lease begins", and "Based on 58 months" | First payment *after 2 months*. The deferral is the lease term minus the months shown (60 − 58 = 2). |
 | 5 | PPSR fee and Brokerage, in Financed amount | Check both one-off fees. Enter PPSR as a documentation fee; check how brokerage is handled in your quote. |
 | 6 | Residual Value (excl GST) | Residual, *Excluding GST*. |
 | 7 | Finance rental, Part A | Finance payment, *Per month*. |
 | 9 | Budgeted running costs, Part B | Enter the listed budgets separately. |
 | 10 | Management Fee, Part C | Lease management fee. |
+| 10 | Lease Establishment Fee, Part C (a monthly amount) | Add it to lease management fees, not the documentation fee: it's charged every month. |
+
+**FBT base value (1)** isn't labelled on these pages. On the "Your order" page, use the **Total column of the "Vehicle" line**: the car after any discount, with options and delivery, including GST, before on-road costs. On the quote checked it matched the FBT base value another provider printed for the same car.
 
 Do not enter **Total lease cost** as the finance payment: it also includes the other parts.
 

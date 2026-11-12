@@ -1596,7 +1596,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
   const [open, setOpen] = useState(false);
   const [showWholePage, setShowWholePage] = useState(false);
   const [smartPage, setSmartPage] = useState<1 | 2>(pointer.field === "driveaway" ? 1 : 2);
-  const template = templateFor(provider, pointer.field);
+  const template = pointer.notShown ? null : templateFor(provider, pointer.field);
   const fbtExample = provider === "sgfleet" && pointer.field === "baseValue";
   const driveawayExample = provider === "sgfleet" && pointer.field === "driveaway";
   const smartTerms = provider === "smartleasing" && pointer.field === "docFee";
