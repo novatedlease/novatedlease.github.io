@@ -1128,7 +1128,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
       <ProviderPointers d={d} field="baseValue" />
       <MoneyInput
         field="driveaway"
-        label="Drive-away price"
+        label="Drive-away price (including GST)"
         tooltip={
           <InfoTooltip
             text={
@@ -1140,7 +1140,6 @@ function PriceStep({ d, set, f }: StepPropsF) {
         value={d.driveaway}
         onChange={(m) => set("driveaway", m)}
         where="The base value plus CTP, stamp duty and rego."
-        hint="The full price including GST, not a lower “novated” price with GST taken off."
         estimatedNote="Worked out from your residual. Usually within about 1%; replace it if you find the actual figure."
         findings={f.prices.filter((x) => x.code !== "base_exceeds_driveaway")}
       />
