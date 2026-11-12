@@ -543,9 +543,7 @@ describe("final review pass", () => {
     );
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: /^Per month/ }));
-    // Same cost to the engine: a monthly figure is the financier's payment, made 58 times in 60 months.
-    // $600 × 26/12 × 60/58 = $1,344.83
-    expect(field(/Finance \(lease\) payment/).value).toBe("1344.83");
+    expect(field(/Finance \(lease\) payment/).value).toBe("1300.00");
   });
 });
 

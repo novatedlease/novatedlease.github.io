@@ -28,12 +28,6 @@ export function LeaseAdjustModal(props: {
   initialGst?: QuoteGst | null;
   /** Months until the first finance payment, as answered elsewhere; sets MillarX's reserve. */
   initialDeferMonths?: number | null;
-  /**
-   * Guided reads a monthly figure as the financier's own payment and spreads it over the term
-   * itself, so a monthly figure needs no correction here. Advanced reads it as spread, so it doesn't
-   * pass this and keeps correcting monthly figures.
-   */
-  monthlyIsFinancierPayment?: boolean;
 }) {
   const [provider, setProvider] = useState<Provider>("smart");
   const [millarxDefer, setMillarxDefer] = useState<1 | 2>(initialMillarxDefer(props.initialDeferMonths));
@@ -49,8 +43,7 @@ export function LeaseAdjustModal(props: {
   }, []);
 
   const totalMonths = props.leaseDurationYears * 12;
-  const monthlyAsIs = !!props.monthlyIsFinancierPayment && quotePeriodMode === "perMonth";
-  const bufferMonths = monthlyAsIs ? 0 : bufferMonthsFor(provider, millarxDefer);
+  const bufferMonths = bufferMonthsFor(provider, millarxDefer);
   const quotedNum = parseAmount(quotedText) ?? NaN;
   const hasQuoted = Number.isFinite(quotedNum) && quotedNum > 0;
   const factor = totalMonths > 0 ? (totalMonths - bufferMonths) / totalMonths : null;
@@ -101,16 +94,10 @@ export function LeaseAdjustModal(props: {
 
         <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 4, paddingRight: 24 }}>Adjust your quoted finance figure</div>
         <div style={{ fontSize: 13, color: "var(--nlc-text-muted)", marginBottom: 20, lineHeight: 1.45 }}>
-          {monthlyAsIs ? (
-            <>A monthly figure on the quote is already the payment to the financier, so it needs no correction. Enter it as printed.{" "}</>
-          ) : (
-            <>
-              {provider === "smart" ? "Smart Leasing" : "MillarX"} derives your regular payment as though you are paying for all {totalMonths} monthly
-              finance payments — but only {totalMonths - bufferMonths} of those are actual payments to the financier. The remainder is held as a budget
-              reserve (refundable if unused at term end). The calculator needs the figure based on the {totalMonths - bufferMonths} true financier
-              payments, which is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% lower than your quoted figure.{" "}
-            </>
-          )}
+          {provider === "smart" ? "Smart Leasing" : "MillarX"} derives your regular payment as though you are paying for all {totalMonths} monthly
+          finance payments — but only {totalMonths - bufferMonths} of those are actual payments to the financier. The remainder is held as a budget
+          reserve (refundable if unused at term end). The calculator needs the figure based on the {totalMonths - bufferMonths} true financier
+          payments, which is ~{factor !== null ? ((1 - factor) * 100).toFixed(1) : "?"}% lower than your quoted figure.{" "}
           <a href="/special-and-policy/smart-leasing-millarx-payment-structure/" target="_blank" rel="noopener noreferrer">
             Read more
           </a>
@@ -142,7 +129,7 @@ export function LeaseAdjustModal(props: {
         </div>
 
         <div style={{ display: "grid", gap: 12, marginBottom: 16 }}>
-          {provider === "millarx" && !monthlyAsIs && (
+          {provider === "millarx" && (
             <QuoteChoice
               label="Months until your first payment (deferral)"
               value={String(millarxDefer) as "1" | "2"}
@@ -207,14 +194,8 @@ export function LeaseAdjustModal(props: {
         </div>
 
         <div style={{ fontSize: 11, color: "var(--nlc-text-muted)", textAlign: "right", marginBottom: 16 }}>
-          {bufferMonths === 0 ? (
-            "No correction needed"
-          ) : (
-            <>
-              × {totalMonths - bufferMonths} / {totalMonths}
-              {factor !== null ? ` = ${(factor * 100).toFixed(3)}%` : ""}
-            </>
-          )}
+          × {totalMonths - bufferMonths} / {totalMonths}
+          {factor !== null ? ` = ${(factor * 100).toFixed(3)}%` : ""}
         </div>
 
         <div style={{ fontSize: 12, fontWeight: 700, color: "var(--nlc-text-muted)", letterSpacing: "0.05em", marginBottom: 6, textTransform: "uppercase" }}>
@@ -239,13 +220,11 @@ export function LeaseAdjustModal(props: {
           {adjustedDisplay !== null ? `$${fmtResult(adjustedDisplay)}` : "—"}
         </div>
 
-        {bufferMonths > 0 && (
-          <div style={{ fontSize: 11, color: "var(--nlc-text-muted)", lineHeight: 1.5, marginBottom: 20 }}>
-            Once applied, the calculator's total cost will appear slightly lower than your provider's quoted total. This is expected — the
-            provider's quote treats the buffer payments as a true financial obligation, whereas this calculator correctly models only the{" "}
-            {totalMonths - bufferMonths} actual financier payments as a cost. The buffer surplus is returned to you at term end if unused.
-          </div>
-        )}
+        <div style={{ fontSize: 11, color: "var(--nlc-text-muted)", lineHeight: 1.5, marginBottom: 20 }}>
+          Once applied, the calculator's total cost will appear slightly lower than your provider's quoted total. This is expected — the
+          provider's quote treats the buffer payments as a true financial obligation, whereas this calculator correctly models only the{" "}
+          {totalMonths - bufferMonths} actual financier payments as a cost. The buffer surplus is returned to you at term end if unused.
+        </div>
 
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
           <button

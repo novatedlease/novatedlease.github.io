@@ -84,26 +84,6 @@ export const PERIOD_UNIT: Record<Period, string> = { perWeek: "week", perFn: "fo
 export function toPerFn(v: number, p: Period): number {
   return (v * PERIODS_PER_YEAR[p]) / 26;
 }
-
-/**
- * A finance payment as the engine takes it: per fortnight, spread over the whole term. A monthly
- * figure on a quote is the financier's own payment, made (term − deferral) times, so it's spread
- * first: SG Fleet's $1,195/mth × 34 ÷ 36 = its $520.90 a fortnight. Per-pay figures and yearly
- * totals are already spread. Checked against printed rates on SG Fleet, MillarX, Toyota Fleet and
- * Alliance quotes (Nov 2026).
- */
-export function paymentToEngineFn(
-  v: number,
-  p: Period,
-  leaseYears: number | null,
-  deferMonths: number | null,
-): number {
-  if (p === "perMonth" && leaseYears && deferMonths) {
-    const months = leaseYears * 12;
-    return toPerFn((v * (months - deferMonths)) / months, p);
-  }
-  return toPerFn(v, p);
-}
 /** The answers that are typed amounts. */
 type MoneyKey = { [K in keyof GuidedDraft]: GuidedDraft[K] extends Money ? K : never }[keyof GuidedDraft];
 export type YesNoUnsure = "Yes" | "No" | "Unsure";
@@ -486,15 +466,11 @@ export function residualExGstEntered(d: GuidedDraft): number | null {
 export function paymentPerFn(d: GuidedDraft): number | null {
   const v = moneyValue(d.payment);
   if (v === null || !d.paymentPeriod) return null;
-  const perFn = paymentToEngineFn(v, d.paymentPeriod, d.leaseYears, d.monthsDeferred);
+  const perFn = toPerFn(v, d.paymentPeriod);
   return d.paymentBasis === "incGst" ? perFn / (1 + GST_RATE) : perFn;
 }
 
-/**
- * The luxury vehicle adjustment per fortnight. It's entered in the same period as the payment, but
- * it's a package cost charged every pay, not a financier payment, so a monthly figure isn't spread
- * over the deferral the way the finance payment is.
- */
+/** The luxury vehicle adjustment per fortnight. It's entered in the same period as the payment. */
 export function luxAdjPerFn(d: GuidedDraft): number {
   if (!isLuxuryRange(d)) return 0;
   const v = moneyValue(d.luxAdj) ?? 0;
