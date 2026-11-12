@@ -251,3 +251,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (66) and diff check pass. The table generator ran; site build can be rerun with the next article batch.
 - Twenty of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint X — Vehicle Solutions payment choices (2026-11-13)
+
+- Vehicle Solutions's numbered drive-away, deferral, residual and `7a` payment action cells now sync from Guided. The `7b` inclusion-GST alternative remains its own hand-curated row, so both fortnightly choices stay visible. The running-cost row retains its separate ex-GST, inc-GST and annual column instruction.
+- Generalized the deferral pointer to read the number before **MONTHS DEFERRED** instead of embedding one example's count. The payment pointer now explicitly says to use a fortnightly figure with its matching GST answer.
+- Focused provider tests (67), ESLint, calculator build and 82-page site build pass. The site build covered the preceding Custom Fleet change too; Astro emitted its one-time duplicate-id cache warnings for both edited articles.
+- Twenty-one of 27 provider articles now have at least one synced table row. No push or merge.
+

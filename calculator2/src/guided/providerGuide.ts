@@ -562,9 +562,9 @@ const GUIDES: ProviderGuide[] = [
     sources: ["1wothrn"],
     pointers: [
       { field: "driveaway", text: "Use “Driveaway price” in “Vehicle & lease”, including GST." },
-      { field: "defer", text: "If you see “Finance lease 2 MONTHS DEFERRED”, choose 2 months." },
+      { field: "defer", text: "Use the number before “MONTHS DEFERRED” on the Finance lease line." },
       { field: "residual", text: "If you see “Residual (incl GST)”, choose Including GST." },
-      { field: "payment", text: "If the quote shows EXCL GST and INCL GST payment columns side by side, enter either one and choose the matching GST answer." },
+      { field: "payment", text: "If EXCL GST and INCL GST finance-lease columns sit side by side, enter either fortnightly figure with its matching GST answer." },
     ],
   },
 ];

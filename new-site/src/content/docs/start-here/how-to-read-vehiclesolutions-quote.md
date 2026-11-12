@@ -18,17 +18,19 @@ This numbered example shows a Vehicle Solutions quote layout reviewed in Septemb
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 1 | FBT base cost | FBT base value |
-| 2 | Driveaway price | Drive-away price |
+| 2 | Driveaway price | Use “Driveaway price” in “Vehicle & lease”, including GST. |
 | 3 | Lease term | Lease term |
-| 4 | Finance lease "N MONTHS DEFERRED" | Deferral: the number before "months deferred" |
-| 6 | Residual (incl GST) | Residual, "Including GST" |
-| 7a | Finance lease, FORTNIGHTLY EXCL GST column | Finance payment, per fortnight, excluding GST |
+| 4 | Finance lease "N MONTHS DEFERRED" | Use the number before “MONTHS DEFERRED” on the Finance lease line. |
+| 6 | Residual (incl GST) | If you see “Residual (incl GST)”, choose Including GST. |
+| 7a | Finance lease, FORTNIGHTLY EXCL GST column | If EXCL GST and INCL GST finance-lease columns sit side by side, enter either fortnightly figure with its matching GST answer. |
 | 7b | Finance lease, FORTNIGHTLY INCL GST column | Or this one, per fortnight, including GST. Either works with the matching GST answer |
 | 9 | Fuel / charge, Insurance, Rego & CTP, Tyres, Servicing | Running-cost boxes; the quote shows ex GST, inc GST and annual columns, so pick the period and GST heading you copy from |
 | 10 | Administration | Lease management fees |
+<!-- provider-table:end -->
 
 Not shown on this sample: **5 documentation fee**, **8 luxury vehicle adjustment**, **11 interest
 rate** (not printed).

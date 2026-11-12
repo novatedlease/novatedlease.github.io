@@ -29,6 +29,7 @@ const migrated = {
   nla: { '1': 'baseValue', '2': 'driveaway', '6': 'residual', '7': 'payment' },
   toyotafleet: { '2': 'driveaway', '6': 'residual', '7': 'payment' },
   customfleet: { '2': 'driveaway', '8': 'luxAdj', '10': 'fees' },
+  vehiclesolutions: { '2': 'driveaway', '4': 'defer', '6': 'residual', '7a': 'payment' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

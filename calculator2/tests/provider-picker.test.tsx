@@ -624,6 +624,15 @@ describe("provider pointers", () => {
     expect(article).toContain("leave them out");
   });
 
+  test("Vehicle Solutions keeps both fortnightly GST payment choices", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-vehiclesolutions-quote.md"), "utf8");
+    for (const field of ["driveaway", "defer", "residual", "payment"] as const)
+      expect(article).toContain(pointersFor("vehiclesolutions", field)[0].text);
+    expect(article).toContain("| 7a | Finance lease, FORTNIGHTLY EXCL GST column |");
+    expect(article).toContain("| 7b | Finance lease, FORTNIGHTLY INCL GST column |");
+    expect(pointersFor("vehiclesolutions", "defer")[0].text).not.toContain("2 MONTHS DEFERRED");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
