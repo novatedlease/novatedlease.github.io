@@ -438,6 +438,11 @@ describe("provider pointers", () => {
     const manifest = (await import("../../docs/assets/images/quote-guide/manifest.json")).default;
     const fields: GuideField[] = ["baseValue", "driveaway", "term", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees", "rate"];
     const index = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/provider-quote-guides.md"), "utf8");
+    expect(index).toContain("## Most common");
+    expect(index).toContain("## All providers");
+    const common = index.split("## Most common\n")[1]?.split("## All providers")[0] ?? "";
+    expect([...common.matchAll(/how-to-read-(\w+)-quote/g)].map((match) => match[1]))
+      .toEqual(["smartleasing", "sgfleet", "maxxia", "paywise", "smartsalary"]);
     const docsRoot = resolve(__dirname, "../../docs");
     for (const key of Object.keys(manifest.images)) {
       expect(existsSync(resolve(docsRoot, "assets/images/quote-guide", key)), key).toBe(true);

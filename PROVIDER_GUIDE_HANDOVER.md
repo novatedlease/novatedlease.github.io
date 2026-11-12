@@ -110,3 +110,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Added `PROVIDER_ARTICLE_TABLE_AUDIT_2026-11.md`. It inventories all 27 main tables, the three second-section tables, and 14 provider/field pairs whose explicit pointer is absent from the main table. It gives a row schema and safe conversion path.
 - The audit explains why copying the short pointer into a generic table would lose verified quote labels and provider-specific GST/period details. The table conversion is deliberately left open for provider-by-provider review; no existing article table was removed.
 - No push or merge.
+
+## Item 16, checkpoint B — provider index (2026-11-13)
+
+- The provider index now has the picker's five "Most common" providers, followed by all 27 named providers alphabetically. The link list is generated during `new-site` prebuild from `PROVIDERS` and `POPULAR` in `providerGuide.ts`, so the index stays in step with the picker.
+- The integration test checks the five common IDs, both headings, every provider article and link. Provider-picker tests (46), ESLint and 82-page site build pass. Astro emitted one duplicate-id cache warning for the changed index on the first build, as it did for changed articles; the build completed.
+- The owner choice on titles and whether any thin pages should be noindexed is still pending. No push or merge.
+

@@ -8,33 +8,45 @@ datePublished: "2026-11-12"
 
 Choose a provider to see a numbered, redacted quote-page example and a guide to the fields in [Guided mode](/calculator/).
 
-- [SG Fleet quote guide](/start-here/how-to-read-sgfleet-quote/)
+<!-- provider-index:begin -->
+## Most common
+
 - [Smart Leasing quote guide](/start-here/how-to-read-smartleasing-quote/)
+- [SG Fleet quote guide](/start-here/how-to-read-sgfleet-quote/)
 - [Maxxia quote guide](/start-here/how-to-read-maxxia-quote/)
 - [Paywise quote guide](/start-here/how-to-read-paywise-quote/)
-- [Smartsalary / Smart Drive quote guide](/start-here/how-to-read-smartsalary-quote/)
-- [Easi quote guide](/start-here/how-to-read-easi-quote/)
-- [Flare quote guide](/start-here/how-to-read-flare-quote/)
-- [FleetPartners quote guide](/start-here/how-to-read-fleetpartners-quote/)
-- [Novated Lease Australia quote guide](/start-here/how-to-read-nla-quote/)
-- [Remunerator quote guide](/start-here/how-to-read-remunerator-quote/)
-- [Toyota Fleet Management quote guide](/start-here/how-to-read-toyotafleet-quote/)
+- [Smartsalary (Smart Drive) quote guide](/start-here/how-to-read-smartsalary-quote/)
+
+## All providers
+
 - [Alliance Leasing quote guide](/start-here/how-to-read-alliance-quote/)
 - [Autopia quote guide](/start-here/how-to-read-autopia-quote/)
 - [Custom Fleet quote guide](/start-here/how-to-read-customfleet-quote/)
 - [Driva quote guide](/start-here/how-to-read-driva-quote/)
-- [Fingo quote guide](/start-here/how-to-read-fingo-quote/)
+- [Easi (EasiFleet) quote guide](/start-here/how-to-read-easi-quote/)
+- [Fingo (Automotive Lease Packaging) quote guide](/start-here/how-to-read-fingo-quote/)
+- [Flare quote guide](/start-here/how-to-read-flare-quote/)
+- [FleetPartners quote guide](/start-here/how-to-read-fleetpartners-quote/)
 - [LeaseExpress quote guide](/start-here/how-to-read-leaseexpress-quote/)
 - [LeaseLab quote guide](/start-here/how-to-read-leaselab-quote/)
 - [LeasePlan / Ayvens quote guide](/start-here/how-to-read-leaseplan-quote/)
 - [Lendly quote guide](/start-here/how-to-read-lendly-quote/)
+- [Maxxia quote guide](/start-here/how-to-read-maxxia-quote/)
 - [MillarX quote guide](/start-here/how-to-read-millarx-quote/)
+- [Novated Lease Australia (NLA) quote guide](/start-here/how-to-read-nla-quote/)
 - [Oly quote guide](/start-here/how-to-read-oly-quote/)
 - [ORIX quote guide](/start-here/how-to-read-orix-quote/)
+- [Paywise quote guide](/start-here/how-to-read-paywise-quote/)
 - [RemServ quote guide](/start-here/how-to-read-remserv-quote/)
-- [Simplygreen quote guide](/start-here/how-to-read-simplygreen-quote/)
+- [Remunerator quote guide](/start-here/how-to-read-remunerator-quote/)
 - [Salary Packaging Australia (S.P.A.) quote guide](/start-here/how-to-read-spa-quote/)
+- [SG Fleet quote guide](/start-here/how-to-read-sgfleet-quote/)
+- [Simplygreen quote guide](/start-here/how-to-read-simplygreen-quote/)
+- [Smart Leasing quote guide](/start-here/how-to-read-smartleasing-quote/)
+- [Smartsalary (Smart Drive) quote guide](/start-here/how-to-read-smartsalary-quote/)
+- [Toyota Fleet Management quote guide](/start-here/how-to-read-toyotafleet-quote/)
 - [Vehicle Solutions quote guide](/start-here/how-to-read-vehiclesolutions-quote/)
+<!-- provider-index:end -->
 
 The blue numbers follow one key across providers: **1** FBT base value, **2** drive-away price, **3** lease term, **4** deferral, **5** one-off finance fees, **6** residual, **7** finance payment, **8** luxury vehicle adjustment, **9** running costs, **10** management fees, and **11** interest rate. A missing number means the example page does not show that field. A red ✕ flags a tempting but unsuitable figure.
 
