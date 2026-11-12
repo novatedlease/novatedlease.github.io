@@ -10,6 +10,7 @@ const guides = source.slice(source.indexOf('const GUIDES:'), source.indexOf('exp
 // its Guided field. Quote labels and explanatory prose remain in the article.
 const migrated = {
   flare: { '2': 'driveaway', '7': 'payment' },
+  sgfleet: { '1': 'baseValue', '2': 'driveaway', '7a': 'payment' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {
@@ -25,13 +26,13 @@ for (const [id, rows] of Object.entries(migrated)) {
   const next = oldText.replace(table, (_whole, body) => {
     const seen = new Set();
     const lines = body.split('\n').map((line) => {
-      const number = /^\|\s*(\d+[a-z]?)\s*\|/.exec(line)?.[1];
+      const number = /^\|\s*(\d+[a-z]?)(?:\s|\|)/.exec(line)?.[1];
       if (!number || !rows[number]) return line;
       const pointer = pointers.get(rows[number]);
       if (!pointer) throw new Error(`Pointer missing for ${id}/${rows[number]}`);
       const cells = line.split('|');
-      if (cells.length !== 5) throw new Error(`Expected a three-column table in ${id}`);
-      cells[3] = ` ${pointer.replaceAll('|', '\\|')} `;
+      if (cells.length !== 5 && cells.length !== 6) throw new Error(`Expected a three- or four-column table in ${id}`);
+      cells[cells.length - 2] = ` ${pointer.replaceAll('|', '\\|')} `;
       seen.add(number);
       return cells.join('|');
     });

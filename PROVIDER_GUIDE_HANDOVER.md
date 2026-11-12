@@ -124,3 +124,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - An integration test checks the two generated rows against `pointersFor` and rejects the old wording. Focused tests (47), ESLint and 82-page site build pass; built HTML contains the new payment text. Astro emitted its usual one-time duplicate-id cache warning for the edited article.
 - Conversion remains provider by provider. Only Flare is linked so far; the rest of item 15 is open. No push or merge.
 
+## Item 15, checkpoint E — SG Fleet table linked to Guided (2026-11-13)
+
+- The SG Fleet article's FBT base value, drive-away and finance-payment action cells now sync from the `GUIDES` pointers at site build, retaining the exact quote labels and other detailed rows. The table generator supports both three- and four-column article tables and marker labels such as `7a / 7b`.
+- Removed the stale table instruction to enter the per-pay rent “ex GST”; the article now says to check the payment's GST heading and footnotes because employer layouts vary.
+- Focused tests (48), ESLint and 82-page site build pass. The built HTML contains the new GST-basis sentence and no old ex-GST payment instruction. Astro emitted its one-time duplicate-id cache warning for the edited article.
+- Flare and SG Fleet are migrated; other articles remain hand-curated pending careful row-by-row conversion. No push or merge.
+

@@ -30,16 +30,20 @@ On the VSSS sample, go to **Lease details** on page 2. The line marked **2**, **
 
 *Quote-page example with customer values and identifying details removed. Match the blue numbers to the table below; your layout may differ.*
 
+<!-- provider-table:begin -->
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |
-| 1 (separate example above) | FBT base value | **FBT Base Value** in the **Fringe Benefit Tax (FBT)** section | The value as printed, including GST. |
-| 2 | Drive-away price | **Vehicle on-road cost (incl. GST)** | The full on-road price. |
+| 1 (separate example above) | FBT base value | **FBT Base Value** in the **Fringe Benefit Tax (FBT)** section | Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”. |
+| 2 | Drive-away price | **Vehicle on-road cost (incl. GST)** | Use “Vehicle on-road cost (incl. GST)” under “Lease details”. |
 | 3 | Lease term | **Lease term** or the term in Package arrangements | The term shown on your quote. |
 | 4 | Months deferred | **Monthly lease rental**, followed by **payable as … payments** | Subtract the number of payable months from the full term in months. If the count is unclear, choose *I'm not sure*. |
 | 5 | Documentation fee | **Establishment fee** and **PPSR fee** in Lease details | Check both lines and their GST labels. |
 | 6 | Residual | **Residual value (incl. GST)** | Choose *Including GST*. |
-| 7a / 7b | Finance payment | Per-pay **Lease rental** in Package details (7b). Not the **Monthly lease rental** in Lease details (7a) | Enter the per-pay Lease rental with your pay period, ex GST (see the footnote). |
+| 7a / 7b | Finance payment | Per-pay **Lease rental** in Package details (7b). Not the **Monthly lease rental** in Lease details (7a) | Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months. |
 | 9 | Running costs | Package details, below Lease rental | Enter the budget lines using the period printed on your quote. Keep the package total and change to take-home pay out of the finance-payment box. |
+<!-- provider-table:end -->
+
+Check the finance payment's GST heading and footnotes on your own quote; the basis can vary by employer.
 
 On weekly-pay quotes, both the lease rental and running costs may be shown **per week**. Choose *Per week* for each matching question in Guided mode.
 

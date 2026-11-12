@@ -471,6 +471,14 @@ describe("provider pointers", () => {
     expect(article).not.toContain("Finance payment, excluding GST; use the printed pay frequency.");
   });
 
+  test("SG Fleet's article uses its current price and payment pointers", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-sgfleet-quote.md"), "utf8");
+    for (const field of ["baseValue", "driveaway", "payment"] as const) {
+      expect(article).toContain(pointersFor("sgfleet", field)[0].text);
+    }
+    expect(article).not.toContain("Enter the per-pay Lease rental with your pay period, ex GST");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
