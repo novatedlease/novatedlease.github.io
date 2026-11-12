@@ -695,88 +695,28 @@ export function guideMayHaveChanged(seen: string, now = new Date()): boolean {
   return now.getFullYear() * 12 + now.getMonth() + 1 - (year * 12 + month) > 6;
 }
 
-const TEMPLATE_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
-  alliance: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  autopia: ["driveaway", "docFee", "residual", "payment", "luxAdj", "running", "fees"],
-  customfleet: ["baseValue", "driveaway", "residual", "payment", "luxAdj", "running", "fees"],
-  driva: ["baseValue", "driveaway", "residual", "payment", "luxAdj", "running", "fees"],
-  fingo: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  leaseexpress: ["baseValue", "residual", "payment", "running", "fees"],
-  leaselab: ["baseValue", "residual", "payment", "running", "fees"],
-  leaseplan: ["baseValue", "docFee", "payment", "running", "fees"],
-  lendly: ["driveaway", "residual", "payment", "luxAdj", "running", "fees"],
-  millarx: ["driveaway", "defer", "docFee", "residual", "payment"],
-  oly: ["driveaway", "docFee", "payment", "running"],
-  orix: ["docFee", "residual", "payment", "luxAdj", "running", "fees"],
-  remserv: ["residual", "payment", "running"],
-  simplygreen: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  spa: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  vehiclesolutions: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  sgfleet: ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "running"],
-  smartleasing: ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "running"],
-  maxxia: ["baseValue", "driveaway", "docFee", "residual", "payment", "insurance", "running"],
-  paywise: ["baseValue", "residual", "payment", "fees", "running"],
-  smartsalary: ["baseValue", "residual", "payment", "running"],
-  easi: ["payment", "defer"],
-  flare: ["driveaway", "payment"],
-  fleetpartners: ["docFee", "defer"],
-  nla: ["baseValue", "driveaway", "residual", "payment"],
-  remunerator: ["payment", "defer"],
-  toyotafleet: ["driveaway", "docFee", "residual", "payment"],
-};
-
-/**
- * Focused crops of the redacted pages: just the marked line(s) for one Guided field, so readers
- * don't have to scroll a whole page. Insurance uses the running-costs crop.
- */
-const FIELD_CROPS: Partial<Record<ProviderId, GuideField[]>> = {
-  alliance: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  autopia: ["driveaway", "docFee", "residual", "payment", "luxAdj", "running", "fees"],
-  customfleet: ["baseValue", "driveaway", "residual", "payment", "luxAdj", "running", "fees"],
-  driva: ["baseValue", "driveaway", "residual", "payment", "luxAdj", "running", "fees"],
-  fingo: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  leaseexpress: ["baseValue", "residual", "payment", "running", "fees"],
-  leaselab: ["baseValue", "residual", "payment", "running", "fees"],
-  leaseplan: ["baseValue", "docFee", "payment", "running", "fees"],
-  lendly: ["driveaway", "residual", "payment", "luxAdj", "running", "fees"],
-  millarx: ["driveaway", "defer", "docFee", "residual", "payment"],
-  oly: ["driveaway", "docFee", "payment", "running"],
-  orix: ["docFee", "residual", "payment", "luxAdj", "running", "fees"],
-  remserv: ["residual", "payment", "running"],
-  simplygreen: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  spa: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  vehiclesolutions: ["baseValue", "driveaway", "defer", "residual", "payment", "running", "fees"],
-  easi: ["baseValue", "defer", "driveaway", "fees", "luxAdj", "payment", "residual", "running"],
-  flare: ["baseValue", "driveaway", "fees", "luxAdj", "payment", "residual", "running"],
-  fleetpartners: ["defer", "docFee", "driveaway", "fees", "payment", "residual", "running"],
-  maxxia: ["baseValue", "docFee", "driveaway", "fees", "payment", "residual", "running"],
-  nla: ["baseValue", "driveaway", "fees", "payment", "residual", "running"],
-  paywise: ["baseValue", "fees", "payment", "residual", "running"],
-  remunerator: ["baseValue", "defer", "driveaway", "payment", "residual", "running"],
-  sgfleet: ["defer", "docFee", "fees", "payment", "residual", "running"],
-  smartleasing: ["baseValue", "defer", "fees", "payment", "residual", "running"],
-  smartsalary: ["baseValue", "fees", "payment", "residual", "running"],
-  toyotafleet: ["baseValue", "docFee", "driveaway", "fees", "luxAdj", "payment", "residual", "running"],
-};
-
 /** The whole redacted quote page for a provider, if one was reviewed. */
 export function pageFor(id: ProviderId): string | null {
-  return TEMPLATE_FIELDS[id] ? `/assets/images/quote-guide/${id}/redacted-quote.webp` : null;
+  const image = `/assets/images/quote-guide/${id}/redacted-quote.webp`;
+  return imageSizeFor(image) ? image : null;
 }
 
 /** All reviewed pages available for the in-card full-page view. */
 export function pageImagesFor(id: ProviderId): string[] {
   const page = pageFor(id);
   if (!page) return [];
-  return id === "smartleasing"
-    ? ["/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp", page]
-    : [page];
+  const extraPages = Object.keys(quoteImages.images)
+    .filter((key) => key.startsWith(`${id}/redacted-quote-page-`) && key.endsWith(".webp"))
+    .sort()
+    .map((key) => `/assets/images/quote-guide/${key}`);
+  return [...extraPages, page];
 }
 
 /** A focused crop of the marked line(s) for this field, if one exists. */
 export function cropFor(id: ProviderId, field: GuideField): string | null {
   const f = field === "insurance" ? "running" : field;
-  return FIELD_CROPS[id]?.includes(f) ? `/assets/images/quote-guide/${id}/field-${f}.webp` : null;
+  const image = `/assets/images/quote-guide/${id}/field-${f}.webp`;
+  return imageSizeFor(image) ? image : null;
 }
 
 export type FieldExample = {
@@ -837,7 +777,8 @@ export function exampleFor(id: ProviderId, field: GuideField): FieldExample | nu
 export function templateFor(id: ProviderId, field: GuideField): string | null {
   const example = exampleFor(id, field);
   if (example) return example.image;
-  return cropFor(id, field) ?? (TEMPLATE_FIELDS[id]?.includes(field) ? pageFor(id) : null);
+  const pageContext = quoteImages.pageContextFields as Partial<Record<ProviderId, GuideField[]>>;
+  return cropFor(id, field) ?? (markerFor(id, field) || pageContext[id]?.includes(field) ? pageFor(id) : null);
 }
 
 /** The top edge and height of a numbered line on the converted full page. */

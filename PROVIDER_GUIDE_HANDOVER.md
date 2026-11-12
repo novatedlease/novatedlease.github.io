@@ -84,3 +84,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - A UI test checks the feedback event payload. TypeScript, focused provider-picker tests (45), ESLint and calculator build pass. The prior full 321-test suite passed after item 9; this item changed only three event calls and their test.
 - This branch is not deployed, so there is no ship date yet. When deployed, record that date against the coffee-nudge social-proof A/B test before interpreting its mid-December funnel. After four weeks, compare named-provider versus none completion from Price to results, rate-warning share, and picture-open rate by field.
 - Remaining: item 8's owner choice, item 15 source consolidation, and item 16 article strategy. No push or merge.
+
+## Item 15, checkpoint A — image manifest and coverage (2026-11-13)
+
+- Removed the duplicated `TEMPLATE_FIELDS` and `FIELD_CROPS` inventories. Guided now detects pages and focused field crops from `manifest.json`; a page fallback requires a recorded marker. Smart Leasing's unmarked drive-away context is an explicit `pageContextFields` entry in the manifest and its generator. Extra full pages are discovered from manifest filenames.
+- Added an integration test for every manifest image file, every image path produced by the guide API, every named provider article and index link, and all `seen` month strings. Deleting an image or provider article now fails the test. TypeScript, 46 provider-picker tests, ESLint and calculator build pass.
+- **Item 15 is not finished:** 27 hand-written article tables still duplicate the guide wording, and dateModified is not yet driven from `seen`. The site uses plain `.md` content without MDX; an Astro component cannot be inserted directly. Next checkpoint should use a build-time generated Markdown section or a remark transform, preserving each article's unique explanation and diffing the result.
+- No push or merge.

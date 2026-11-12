@@ -2392,5 +2392,10 @@
         }
       ]
     }
+  },
+  "pageContextFields": {
+    "smartleasing": [
+      "driveaway"
+    ]
   }
 }

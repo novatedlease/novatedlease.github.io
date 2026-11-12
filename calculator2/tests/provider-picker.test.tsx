@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pageFor, pageImagesFor, pointersFor, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -430,6 +430,30 @@ describe("provider pointers", () => {
       for (const f of fields) {
         const src = cropFor(p.id, f);
         if (src) expect(fs.existsSync(path.join(__dirname, "../../docs", src))).toBe(true);
+      }
+    }
+  });
+
+  test("every guide, image path and article link resolves from the shared manifest", async () => {
+    const manifest = (await import("../../docs/assets/images/quote-guide/manifest.json")).default;
+    const fields: GuideField[] = ["baseValue", "driveaway", "term", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees", "rate"];
+    const index = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/provider-quote-guides.md"), "utf8");
+    const docsRoot = resolve(__dirname, "../../docs");
+    for (const key of Object.keys(manifest.images)) {
+      expect(existsSync(resolve(docsRoot, "assets/images/quote-guide", key)), key).toBe(true);
+    }
+    for (const { id } of PROVIDERS) {
+      if (id === "other") continue;
+      const guide = guideFor(id);
+      expect(guide, id).not.toBeNull();
+      expect(guide!.seen, id).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
+      const article = resolve(__dirname, `../../new-site/src/content/docs/start-here/how-to-read-${id}-quote.md`);
+      expect(existsSync(article), article).toBe(true);
+      expect(index, id).toContain(`/start-here/how-to-read-${id}-quote/`);
+      const paths = [pageFor(id), ...pageImagesFor(id), ...fields.flatMap((field) => [cropFor(id, field), templateFor(id, field), exampleFor(id, field)?.image])];
+      for (const src of paths.filter((path): path is string => !!path)) {
+        expect(existsSync(resolve(docsRoot, src.slice(1))), src).toBe(true);
+        expect(imageSizeFor(src), src).not.toBeNull();
       }
     }
   });

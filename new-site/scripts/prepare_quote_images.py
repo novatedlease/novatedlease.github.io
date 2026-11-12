@@ -53,6 +53,9 @@ for provider, source in sorted(markers_raw.items()):
         })
     field_markers[provider] = fields
 
-manifest = {'images': images, 'pages': pages, 'markers': field_markers}
+# A full-page visual is useful even without a numbered line when the point is
+# that the figure is absent from the reviewed pages.
+page_context_fields = {'smartleasing': ['driveaway']}
+manifest = {'images': images, 'pages': pages, 'markers': field_markers, 'pageContextFields': page_context_fields}
 (root / 'manifest.json').write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n')
 print('images',len(images),'pages',len(pages),'markers',sum(len(v) for d in field_markers.values() for v in d.values()))
