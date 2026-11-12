@@ -16,6 +16,7 @@ const migrated = {
   millarx: { '7a': 'payment' },
   easi: { '2': 'driveaway', '7b': 'payment' },
   remunerator: { '2': 'driveaway', '4': 'defer', '7': 'payment' },
+  driva: { '2': 'driveaway', '6': 'residual', '7': 'payment' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

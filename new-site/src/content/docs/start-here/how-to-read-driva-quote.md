@@ -10,7 +10,7 @@ datePublished: "2026-11-12"
 *Checked against 1 quote example; latest layout reviewed Aug 2026.*
 <!-- quote-review:end -->
 
-This numbered example shows a Driva quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
+This numbered example shows a Driva quote layout reviewed in August 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
 ![Redacted Driva quote with numbered fields](/assets/images/quote-guide/driva/redacted-quote.webp)
 
@@ -18,16 +18,18 @@ This numbered example shows a Driva quote layout reviewed in November 2026. Matc
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 1 | FBT Base Value | FBT base value |
-| 2 | DriveAway Price (Vehicle Information) | Drive-away price. Not any "effective novated vehicle price" shown elsewhere |
+| 2 | DriveAway Price (Vehicle Information) | If you see both “DriveAway Price” and a lower “Effective novated vehicle price”, use “DriveAway Price” including GST. |
 | 3 | Lease Term | Lease term |
-| 6 | Residual Value (ex. GST) | Residual, "Excluding GST" |
-| 7 | Lease Payment, in "Budget per payroll ex. GST" | Finance payment, ex GST, in your **Payroll Cycle** (shown under Employment Information, e.g. Monthly) |
+| 6 | Residual Value (ex. GST) | If you see “Residual Value (ex. GST)”, choose Excluding GST. |
+| 7 | Lease Payment, in "Budget per payroll ex. GST" | If you see “Lease Payment” under “Budget per payroll ex. GST”, enter it excluding GST and choose the payroll period shown. |
 | 8 | Luxury Vehicle Adjustment (page 2) | Luxury vehicle adjustment, per payroll |
 | 9 | Power, Service and Maintenance, Registration, Tyres, Insurance | Running-cost boxes, per payroll, ex GST |
 | 10 | Lease Management | Lease management fees |
+<!-- provider-table:end -->
 
 Not shown on this sample: **4 deferral**, **5 documentation fee**, **11 interest rate**. Use "Not sure" for
 the deferral.

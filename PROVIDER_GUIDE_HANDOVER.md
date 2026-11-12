@@ -162,3 +162,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (53) and ESLint pass. The article table generator was run and updated the Markdown. A site build was not repeated for this small row-only change; the generator and table layout passed prior site builds.
 - Seven articles have migrated rows. No push or merge.
 
+## Item 15, checkpoint K — Driva GST-reduced price trap (2026-11-13)
+
+- Driva's drive-away, residual and finance-payment action cells now sync from Guided, retaining the source quote's labels and payment-cycle context. Corrected the intro's review month from November to August 2026 to match `GUIDES` and the generated provenance line.
+- Focused provider tests (54) and ESLint pass. The table generator updated the Markdown. A site build will be rerun after the next article batch; no change to layout code was made here.
+- Eight articles have migrated rows. No push or merge.
+
