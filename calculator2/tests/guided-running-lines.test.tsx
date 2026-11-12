@@ -19,5 +19,5 @@ test("the running-costs screen says where other quote lines go", () => {
   expect(screen.getByText("Where do other lines on my quote go?")).toBeTruthy();
   expect(screen.getByText(/add\s+them to Lease management fees/)).toBeTruthy();
   expect(screen.getByText(/add\s+them to Servicing/)).toBeTruthy();
-  expect(screen.getByText(/unspent money normally comes back to you/)).toBeTruthy();
+  expect(screen.getByText(/add it to Lease\s+management fees, not Insurance/)).toBeTruthy();
 });
