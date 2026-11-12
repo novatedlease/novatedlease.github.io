@@ -15,7 +15,7 @@ function quoteDraft(): GuidedDraft {
   return { ...emptyDraft(), hasQuote: true, vehicleType: "EV", vehicleCondition: "New" };
 }
 
-function on(step: "price" | "lease" | "payment", d: GuidedDraft | Record<string, unknown>) {
+function on(step: "intro" | "price" | "lease" | "payment", d: GuidedDraft | Record<string, unknown>) {
   window.localStorage.setItem(
     KEY,
     JSON.stringify({ draft: d, step, visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
@@ -27,16 +27,17 @@ const saved = () => JSON.parse(window.localStorage.getItem(KEY)!).draft as Guide
 const picker = () => screen.getByLabelText(/Who is your quote from/) as HTMLSelectElement;
 
 describe("provider picker", () => {
-  test("is optional, on the first quote-figure screen, and the choice is saved", () => {
-    on("price", quoteDraft());
+  test("is optional, on the first screen once the reader has a quote, and the choice is saved", () => {
+    on("intro", quoteDraft());
     expect(picker().value).toBe("");
-    expect(missingForStep("price", saved()).join()).not.toMatch(/quote from/);
+    expect(screen.getByText(/No personal information needed/)).toBeTruthy();
+    expect(missingForStep("intro", saved()).join()).not.toMatch(/quote from/);
     fireEvent.change(picker(), { target: { value: "sgfleet" } });
     expect(saved().provider).toBe("sgfleet");
   });
 
   test("Smart Leasing / MillarX answer follows the named provider", () => {
-    on("price", quoteDraft());
+    on("intro", quoteDraft());
     fireEvent.change(picker(), { target: { value: "millarx" } });
     expect(saved().smartMillarx).toBe(true);
     fireEvent.change(picker(), { target: { value: "sgfleet" } });
@@ -47,7 +48,7 @@ describe("provider picker", () => {
   });
 
   test("changing provider clears a payment corrected for the previous provider", () => {
-    on("price", {
+    on("intro", {
       ...quoteDraft(),
       provider: "smartleasing",
       smartMillarx: true,
@@ -60,7 +61,7 @@ describe("provider picker", () => {
   });
 
   test("switching a corrected Smart Leasing draft to Other clears its correction", () => {
-    on("price", {
+    on("intro", {
       ...quoteDraft(),
       provider: "smartleasing",
       smartMillarx: true,
@@ -71,6 +72,15 @@ describe("provider picker", () => {
     expect(saved().smartMillarx).toBeNull();
     expect(saved().paymentCorrected).toBe(false);
     expect(saved().payment.text).toBe("");
+  });
+
+  test("isn't asked when exploring without a quote, and is gone from the price screen", () => {
+    on("intro", { ...emptyDraft(), hasQuote: false });
+    expect(screen.queryByLabelText(/Who is your quote from/)).toBeNull();
+    cleanup();
+    window.localStorage.clear();
+    on("price", quoteDraft());
+    expect(screen.queryByLabelText(/Who is your quote from/)).toBeNull();
   });
 
   test("a named provider hides the Smart Leasing / MillarX question", () => {

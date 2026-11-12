@@ -521,6 +521,7 @@ export function GuidedMode({
               trackEvent("guided_path", { has_quote: hasQuote });
             }}
             onSwitchToAdvanced={onSwitchToAdvanced}
+            set={set}
           />
         )}
         {step === "compare" && <CompareStep d={draft} set={set} />}
@@ -779,10 +780,12 @@ function Intro({
   d,
   onChoose,
   onSwitchToAdvanced,
+  set,
 }: {
   d: GuidedDraft;
   onChoose: (hasQuote: boolean) => void;
   onSwitchToAdvanced?: () => void;
+  set: StepPropsF["set"];
 }) {
   return (
     <>
@@ -807,10 +810,13 @@ function Intro({
         hint="You can add your quote later without losing your answers."
       />
       {d.hasQuote === true && (
-        <div className="gd-checklist">
-          <strong>Have your quote open.</strong> Most answers come straight
-          from it.
-        </div>
+        <>
+          <div className="gd-checklist">
+            <strong>Have your quote open.</strong> Most answers come straight
+            from it.
+          </div>
+          <ProviderSelect d={d} set={set} />
+        </>
       )}
       {onSwitchToAdvanced && (
         <div className="gd-skip">
@@ -1108,7 +1114,6 @@ function PriceStep({ d, set, f }: StepPropsF) {
   return (
     <Side highlight={["baseValue", "driveaway"]} d={d}>
       <Lead>Two different prices from your quote. They're easy to mix up.</Lead>
-      <ProviderSelect d={d} set={set} />
       <MoneyInput
         field="baseValue"
         label="FBT base value (including GST)"
@@ -1506,7 +1511,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
   );
 }
 
-/** Optional "Who is your quote from?", before the first quote figures. */
+/** Optional "Who is your quote from?", on the first screen once the reader says they have a quote. */
 function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
   const popular = PROVIDERS.filter((p) => POPULAR.includes(p.id));
   const rest = PROVIDERS.filter((p) => !POPULAR.includes(p.id) && p.id !== "other")
@@ -1515,7 +1520,7 @@ function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
   return (
     <SelectField<ProviderId | "">
       label="Who is your quote from? (optional)"
-      hint="Helps us point to the right lines. Your quote stays on your device."
+      hint="Used only to show provider-specific guidance on where to find each figure. No personal information needed."
       value={d.provider ?? ""}
       onChange={(v) => {
         const next = v === "" ? null : v;

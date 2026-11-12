@@ -362,7 +362,7 @@ pointer text or crops.
 
 ## Owner decisions needed
 
-1. **Placement:** first question on the Lease step (recommended), or on the Price step?
+1. **Placement:** decided 2026-11-12 by the owner: on the first screen, right after "Yes, I have a quote", with the byline "Used only to show provider-specific guidance on where to find each figure. No personal information needed."
 2. **Migration:** for saved drafts that answered "Yes, Smart Leasing or MillarX", show the old
    two-button question once (recommended), or ask them to pick from the dropdown?
 3. **Provider list:** keep all ~27 (recommended, for analytics), or only those with pointers
