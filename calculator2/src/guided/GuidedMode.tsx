@@ -1094,7 +1094,6 @@ function PriceStep({ d, set, f }: StepPropsF) {
           <InfoTooltip
             text={
               "Listed before stamp duty, rego and CTP insurance. Quotes also call it FBT value, vehicle base value or value for FBT purposes. On a dealer invoice it's often the vehicle subtotal.\n\n" +
-              "Not on your quote? Add up the car, options and delivery, including GST.\n\n" +
               "✅ Included: the car's price, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar), and any Luxury Car Tax (LCT) if payable.\n\n" +
               "❌ Not included: compulsory third party (CTP) insurance, registration, stamp duty."
             }
