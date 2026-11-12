@@ -83,6 +83,24 @@ describe("provider picker", () => {
     expect(screen.queryByLabelText(/Who is your quote from/)).toBeNull();
   });
 
+  test("lists the five most common providers first, then all providers alphabetically", () => {
+    on("intro", quoteDraft());
+    const groups = [...picker().querySelectorAll("optgroup")].map((g) => g.label);
+    expect(groups).toEqual(["Most common", "All providers"]);
+    const common = [...picker().querySelectorAll('optgroup[label="Most common"] option')].map((o) => o.textContent);
+    expect(common).toEqual(["Smart Leasing", "SG Fleet", "Maxxia", "Paywise", "Smartsalary (Smart Drive)"]);
+    const rest = [...picker().querySelectorAll('optgroup[label="All providers"] option')].map((o) => o.textContent);
+    expect(rest.slice(0, -1)).toEqual([...rest.slice(0, -1)].sort((a, b) => a!.localeCompare(b!)));
+    expect(rest.at(-1)).toBe("Other / not listed");
+  });
+
+  test("picking Smart Leasing or Smartsalary explains they use different layouts", () => {
+    on("intro", quoteDraft());
+    expect(screen.queryByText(/related companies, but their quotes use different/)).toBeNull();
+    fireEvent.change(picker(), { target: { value: "smartsalary" } });
+    expect(screen.getByText(/related companies, but their quotes use different/)).toBeTruthy();
+  });
+
   test("a named provider hides the Smart Leasing / MillarX question", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
     expect(screen.queryByText("Is your lease with Smart Leasing or MillarX?")).toBeNull();

@@ -1514,10 +1514,12 @@ function PaymentStep({ d, set, f }: StepPropsF) {
 /** Optional "Who is your quote from?", on the first screen once the reader says they have a quote. */
 function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
   const popular = PROVIDERS.filter((p) => POPULAR.includes(p.id));
-  const rest = PROVIDERS.filter((p) => !POPULAR.includes(p.id) && p.id !== "other")
+  const all = PROVIDERS.filter((p) => p.id !== "other")
     .slice()
     .sort((a, b) => a.label.localeCompare(b.label));
+  const smartRelated = d.provider === "smartleasing" || d.provider === "smartsalary";
   return (
+    <>
     <SelectField<ProviderId | "">
       label="Who is your quote from? (optional)"
       hint="Used only to show provider-specific guidance on where to find each figure. No personal information needed."
@@ -1541,11 +1543,18 @@ function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
       }}
       options={[
         { value: "", label: "Choose, or skip" },
-        ...popular.map((p) => ({ value: p.id, label: p.label })),
-        ...rest.map((p) => ({ value: p.id, label: p.label })),
-        { value: "other", label: providerLabel("other") },
+        ...popular.map((p) => ({ value: p.id, label: p.label, group: "Most common" })),
+        ...all.map((p) => ({ value: p.id, label: p.label, group: "All providers" })),
+        { value: "other", label: providerLabel("other"), group: "All providers" },
       ]}
     />
+    {smartRelated && (
+      <p className="nlc-field__hint gd-provider-note">
+        Smart Leasing and Smartsalary (Smart Drive) are related companies, but their quotes use different
+        layouts. Choose the name on your quote to get the right guidance.
+      </p>
+    )}
+    </>
   );
 }
 

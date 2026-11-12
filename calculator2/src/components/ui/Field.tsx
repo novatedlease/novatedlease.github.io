@@ -240,13 +240,26 @@ export function SelectField<T extends string>({
   label: React.ReactNode;
   value: T;
   onChange: (v: T) => void;
-  options: { value: T; label: string }[];
+  /** Options sharing a `group` are shown under that heading (consecutive options only). */
+  options: { value: T; label: string; group?: string }[];
   tooltip?: React.ReactNode;
   hint?: React.ReactNode;
   id?: string;
 }) {
   const autoId = useId();
   const fieldId = id ?? autoId;
+  const runs: { group?: string; opts: { value: T; label: string }[] }[] = [];
+  for (const o of options) {
+    const last = runs[runs.length - 1];
+    if (last && last.group === o.group) last.opts.push(o);
+    else runs.push({ group: o.group, opts: [o] });
+  }
+  const render = (opts: { value: T; label: string }[], key: string) =>
+    opts.map((opt, i) => (
+      <option key={`${key}-${i}`} value={opt.value}>
+        {opt.label}
+      </option>
+    ));
   return (
     <FieldWrapper label={label} tooltip={tooltip} hint={hint} htmlFor={fieldId}>
       <select
@@ -255,11 +268,15 @@ export function SelectField<T extends string>({
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
       >
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
+        {runs.map((r, i) =>
+          r.group ? (
+            <optgroup key={i} label={r.group}>
+              {render(r.opts, String(i))}
+            </optgroup>
+          ) : (
+            render(r.opts, String(i))
+          ),
+        )}
       </select>
     </FieldWrapper>
   );
