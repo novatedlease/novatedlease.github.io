@@ -15,6 +15,7 @@ const migrated = {
   oly: { '5': 'docFee' },
   millarx: { '7a': 'payment' },
   easi: { '2': 'driveaway', '7b': 'payment' },
+  remunerator: { '2': 'driveaway', '4': 'defer', '7': 'payment' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

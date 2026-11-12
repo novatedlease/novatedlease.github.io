@@ -156,3 +156,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Removed the unqualified ex-GST instruction from Easi's finance-payment row. Focused tests (52), ESLint and 82-page site build pass. Astro emitted its one-time duplicate-id cache warning for this edited article.
 - Six articles have migrated rows; continue provider by provider. No push or merge.
 
+## Item 15, checkpoint J — Remunerator annual payment (2026-11-13)
+
+- Remunerator's drive-away, payment-deferral and yearly finance-payment action cells now sync from Guided. The table keeps the quote's printed “Lease Payment (excl GST)” label and the prose warning against the headline take-home-pay amount.
+- Focused provider tests (53) and ESLint pass. The article table generator was run and updated the Markdown. A site build was not repeated for this small row-only change; the generator and table layout passed prior site builds.
+- Seven articles have migrated rows. No push or merge.
+

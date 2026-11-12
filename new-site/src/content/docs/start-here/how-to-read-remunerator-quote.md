@@ -16,15 +16,17 @@ This Remunerator example prints a **Lease Payment (excl GST)** separately from t
 
 *Customer values and identifying details removed. Your quote may use a different layout.*
 
+<!-- provider-table:begin -->
 | # | On this quote | In Guided mode |
 | --- | --- | --- |
 | 1 | FBT Value | FBT base value. |
-| 2 | Vehicle Purchase Price | Check whether the figure is the full on-road price before entering it. |
+| 2 | Vehicle Purchase Price | “Vehicle Purchase Price” may omit on-road costs. Check it includes GST and all on-road charges before using it. |
 | 3 | Finance Term (months) | Lease term. |
-| 4 | Number of Lease Payments | Compare with the term to find any deferred months. |
+| 4 | Number of Lease Payments | If you see “Number of Lease Payments: 59” on a 60-month term, that's a 1-month deferral. |
 | 6 | Residual (inc GST) | Residual, *Including GST*. |
-| 7 | Lease Payment (excl GST), under Annual Car Expenses | Finance payment, excluding GST, *Per year (total)*. |
+| 7 | Lease Payment (excl GST), under Annual Car Expenses | If you see “Lease Payment (excl GST)” under “Annual Car Expenses”, it's a yearly total: choose “Per year (total)”. |
 | 9 | Recharging, maintenance, registration and insurance | Running-cost budgets. |
+<!-- provider-table:end -->
 
 The quote's effect on take-home pay is a different calculation; do not use it for the finance payment.
 

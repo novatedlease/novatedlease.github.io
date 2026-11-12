@@ -509,6 +509,13 @@ describe("provider pointers", () => {
     expect(article).not.toContain("Finance payment, *Per fortnight*, excluding GST");
   });
 
+  test("Remunerator's article uses its yearly payment and deferral pointers", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-remunerator-quote.md"), "utf8");
+    for (const field of ["driveaway", "defer", "payment"] as const)
+      expect(article).toContain(pointersFor("remunerator", field)[0].text);
+    expect(article).toContain("Lease Payment (excl GST), under Annual Car Expenses");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
