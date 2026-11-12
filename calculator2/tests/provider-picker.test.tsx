@@ -106,6 +106,12 @@ describe("provider pointers", () => {
     }
   });
 
+  test("each named provider explains where to get the drive-away price", () => {
+    for (const provider of PROVIDERS.filter((p) => p.id !== "other")) {
+      expect(pointersFor(provider.id, "driveaway").length, provider.id).toBeGreaterThan(0);
+    }
+  });
+
   test("new providers have evidence-backed pointers on the appropriate fields", () => {
     expect(pointersFor("autopia", "baseValue")[0].text).toMatch(/base price/);
     expect(pointersFor("customfleet", "luxAdj")[0].text).toMatch(/Non-Deductible Depreciation/);

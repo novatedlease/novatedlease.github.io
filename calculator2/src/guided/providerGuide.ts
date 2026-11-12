@@ -114,6 +114,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-10",
     sources: ["1xcd4xa", "1xj7w9y", "1x6ikxh"],
     pointers: [
+      { field: "driveaway", text: "Use “DRIVE AWAY” on the MillarX cover, marked 2 in the example. “On-road price” under What you’re financing is another label to check." },
       {
         field: "defer",
         text: "If you see “$X/mth × 58” on a 60-month lease, that's a 2-month deferral (60 − 58). “× 59” means 1.",
@@ -180,7 +181,7 @@ const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "driveaway",
-        text: "If you see “Oly driveaway price”, don't use it: it has the GST saving taken off. Add the GST back, or use the recommended retail price if it's the full on-road price.",
+        text: "On this Oly example, “Oly driveaway price” has the GST saving taken off. Use the dealer's full on-road price including GST. The marked “Recommended retail price” works only if it includes all on-road charges on your quote.",
       },
       {
         field: "insurance",
@@ -221,6 +222,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xlqzm8", "1x9tvny"],
     pointers: [
+      { field: "driveaway", text: "Use “Drive-away total” in the Total column, marked 2 on the FleetPartners example. Enter the amount including GST." },
       {
         field: "docFee",
         text: "If you see “Lease Establishment Fee” as a monthly amount, enter $0 here and add it to lease management fees. Enter the PPSR fee here.",
@@ -236,6 +238,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2025-08",
     sources: ["1n16kcg"],
     pointers: [
+      { field: "driveaway", text: "This older LeasePlan example does not show a clearly labelled drive-away total. Ask for the full on-road price including GST, or use the helper below; do not assume the vehicle subtotal includes stamp duty and registration." },
       {
         field: "docFee",
         text: "If you see “Finance Documentation” as a monthly amount, enter $0 here and add it to lease management fees. Enter any “Security Interest” fee here.",
@@ -247,6 +250,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xocvn9", "1xnlk94", "1so066a"],
     pointers: [
+      { field: "driveaway", text: "Use “Total Drive Away Price (Inc GST)” in Purchase Details. It is marked 2 on the Alliance example; do not use Total Amount Financed." },
       {
         field: "payment",
         text: "If you see “Total Lease Payment (Finance Payment)”, it includes GST (see footnote 5). The “Finance” line under “Budgeted Running Costs” is the same payment ex GST.",
@@ -262,6 +266,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xof9wr", "1xb8dca", "1vr8ncr"],
     pointers: [
+      { field: "driveaway", text: "The Remunerator example marks “Vehicle Purchase Price” as 2. Confirm it is the full on-road amount including GST before using it; if not, ask for the dealer’s drive-away total." },
       {
         field: "payment",
         text: "If you see “Lease Payment (excl GST)” under “Annual Car Expenses”, it's a yearly total: choose “Per year (total)”.",
@@ -278,6 +283,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xifopq", "1xqceg2", "1so066a"],
     pointers: [
+      { field: "driveaway", text: "Use “Drive Away Price” on the Easi quote, marked 2 on the example. Enter the full price including GST." },
       {
         field: "payment",
         text: "If you see “Lease Per Month”, check whether it says ex GST or inc GST: Easi quotes vary. Enter it per month.",
@@ -294,6 +300,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xq2wcg"],
     pointers: [
+      { field: "driveaway", text: "Use “total onroad cost” in vehicle details for the drive-away price. Confirm your quote includes GST in that figure." },
       {
         field: "baseValue",
         text: "If your Autopia quote has no FBT base value, don't use “base price”: that figure excludes GST. Estimate from the car, options and delivery including GST, before stamp duty and registration.",
@@ -309,6 +316,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xp2oq9"],
     pointers: [
+      { field: "driveaway", text: "Use “Total on road cost (incl. GST)” near the top of My Lease Package. It is marked 2 on the Custom Fleet example." },
       {
         field: "luxAdj",
         text: "If you see “Non-Deductible Depreciation”, that's the luxury vehicle adjustment.",
@@ -324,6 +332,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xrv7kd"],
     pointers: [
+      { field: "driveaway", text: "This LeaseLab example does not print a drive-away total. “Novated Vehicle Price” has the GST saving taken off; use the dealer’s full on-road price including GST or the helper below." },
       {
         field: "payment",
         text: "If your quote shows a weekly lease payment, choose “Per week” and enter it as printed.",
@@ -362,6 +371,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xob46m"],
     pointers: [
+      { field: "driveaway", text: "The Paywise example does not print a drive-away total. Use the dealer’s full on-road price including GST, or the residual-based helper below if you do not have it." },
       { field: "baseValue", text: "If you see “FBT value”, that's the FBT base value." },
       { field: "payment", text: "If you see “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, enter it per fortnight, excluding GST." },
       { field: "fees", text: "If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees." },
@@ -372,6 +382,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xsj1gj"],
     pointers: [
+      { field: "driveaway", text: "The Smartsalary Smart Drive example does not print a drive-away total. Use the dealer’s full on-road price including GST, or the residual-based helper below if you do not have it." },
       { field: "payment", text: "If you see “Lease Payment (Fixed)” under “Motor Vehicle Deductions (inc GST)”, choose Including GST." },
       { field: "running", text: "If the running-cost heading says inc GST and has “Less: Employer Claimed ITC”, choose Including GST, then say your employer claims the GST credit." },
     ],
@@ -423,6 +434,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xo2r3u"],
     pointers: [
+      { field: "driveaway", text: "This LeaseExpress example does not print a drive-away total. “Vehicle finance amount” is not that price; use the dealer’s full on-road price including GST or the helper below." },
       { field: "baseValue", text: "If you see “Value for FBT purposes”, that's the FBT base value." },
       { field: "residual", text: "If “GST on residual” sits beside “Residual value”, the residual figure itself excludes GST." },
       { field: "payment", text: "If you see “Lease payments (fortnightly)” with GST in a separate column, enter the payment excluding that GST column." },
@@ -433,6 +445,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xp2oq9"],
     pointers: [
+      { field: "driveaway", text: "The ORIX example has no drive-away total: it lists vehicle price, options, stamp duty and initial registration separately. Use “Or add up the parts” below and select Excluding GST if you copy the vehicle price from this layout." },
       { field: "baseValue", text: "If you see “FBT base value (inc GST)”, enter it as printed." },
       { field: "docFee", text: "Check the “Other Fees” footnote for an establishment or non-appointed dealer fee; it may be capitalised into the lease rental." },
       { field: "residual", text: "If you see “Residual value (ex GST)”, choose Excluding GST." },
@@ -456,6 +469,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xngaj3"],
     pointers: [
+      { field: "driveaway", text: "Use “Vehicle Cost” above GST Credit and Financed Amount. On this Simplygreen layout it is the full price including GST, marked 2." },
       { field: "defer", text: "If you see “Months Deferred 2” and “No. of Payments 34” on a 36-month lease, choose 2 months." },
       { field: "payment", text: "If you see “Total Lease Cost” under “Lease/Finance Budget (excluding gst)”, enter that figure excluding GST in the period shown." },
       { field: "running", text: "If you see a “Contingency Budget” or “Car Washes/Incidentals”, check whether you want those budgets included in your comparison." },
@@ -476,6 +490,7 @@ const GUIDES: ProviderGuide[] = [
     seen: "2026-09",
     sources: ["1wothrn"],
     pointers: [
+      { field: "driveaway", text: "Use “Driveaway price” in Vehicle & lease, marked 2 on the Vehicle Solutions example. Enter the full amount including GST." },
       { field: "defer", text: "If you see “Finance lease 2 MONTHS DEFERRED”, choose 2 months." },
       { field: "residual", text: "If you see “Residual (incl GST)”, choose Including GST." },
       { field: "payment", text: "If the quote shows EXCL GST and INCL GST payment columns side by side, enter either one and choose the matching GST answer." },

@@ -16,7 +16,7 @@ This numbered example shows an Oly quote layout reviewed in August 2026. Match e
 
 | # | On the quote | In Guided |
 |---|---|---|
-| 2 | Recommended retail price (shown struck out) | Drive-away price. **Not** "Your Oly novated leasing price" / "Oly driveaway price": that's the price with GST taken off. If no RRP is shown, add GST back to the Oly driveaway price. |
+| 2 | Recommended retail price (shown struck out) | On this example it reconciles to the on-road price including GST. Check that the figure on your own quote includes all on-road charges; otherwise use the dealer's full drive-away price. "Your Oly novated leasing price" / "Oly driveaway price" has the GST saving taken off. |
 | 3 | Your chosen novated lease term | Lease term |
 | 5 | Financier's Establishment fee | Documentation fee |
 | 7 | Car lease payments | Finance payment, per month (the page says "Monthly"). No GST label: choose "I'm not sure" unless your quote says. |
