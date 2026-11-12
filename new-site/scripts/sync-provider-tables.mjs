@@ -34,6 +34,7 @@ const migrated = {
   leaseplan: { '5': 'docFee' },
   alliance: { '2': 'driveaway', '4': 'defer' },
   autopia: { '2': 'driveaway', '5': 'docFee' },
+  smartsalary: { '7': 'payment', '9': 'running' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

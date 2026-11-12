@@ -449,8 +449,8 @@ const GUIDES: ProviderGuide[] = [
     sources: ["1xsj1gj"],
     pointers: [
       { field: "driveaway", text: "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or the residual helper below." },
-      { field: "payment", text: "If you see “Lease Payment (Fixed)” under “Motor Vehicle Deductions (inc GST)”, choose Including GST." },
-      { field: "running", text: "Heading says “inc GST” and shows a “Less” GST credit line? Choose Including GST, then say your employer claims it." },
+      { field: "payment", text: "If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period." },
+      { field: "running", text: "“Motor Vehicle Deductions (inc GST)” plus a “Less” GST credit? Enter costs incl GST; say employer claims GST." },
     ],
   },
   {

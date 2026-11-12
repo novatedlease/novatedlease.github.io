@@ -667,6 +667,15 @@ describe("provider pointers", () => {
     expect(article).toContain("fringe benefit value\" in the FBT calcs is the taxable value");
   });
 
+  test("Smartsalary Smart Drive keeps its payment and employer GST credit separate", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-smartsalary-quote.md"), "utf8");
+    for (const field of ["payment", "running"] as const)
+      expect(article).toContain(pointersFor("smartsalary", field)[0].text);
+    expect(article).toContain("Motor Vehicle Deductions (inc GST)");
+    expect(article).toContain("Do not use the total salary deduction");
+    expect(article).not.toContain("Lease per month");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

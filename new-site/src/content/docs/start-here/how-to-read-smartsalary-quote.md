@@ -16,13 +16,15 @@ The Smart Drive layout reviewed in November 2026 puts **Lease Payment (Fixed)** 
 
 *Quote-page example with customer values and identifying details removed. Match the blue numbers to the table below; your layout may differ.*
 
+<!-- provider-table:begin -->
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |
 | 1 | FBT base value | **FBT Base Value** | The value as printed, including GST. |
 | — | Drive-away price | It may not be printed as one total | Use Guided's price helper or your dealer's full drive-away price. |
 | 6 | Residual | **Residual (inc. GST)** | Choose *Including GST*. |
-| 7 | Finance payment | **Lease Payment (Fixed)** under **Motor Vehicle Deductions (inc GST)** | Enter the lease payment, choose the printed period, and choose *Including GST*. |
-| 9 | Running-cost GST | **Motor Vehicle Deductions (inc GST)** and **Less: Employer Claimed ITC** | Choose *Including GST* for the heading, then answer *Yes* to the GST-credit question. Enter running-cost amounts as printed. |
+| 7 | Finance payment | **Lease Payment (Fixed)** under **Motor Vehicle Deductions (inc GST)** | If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period. |
+| 9 | Running-cost GST | **Motor Vehicle Deductions (inc GST)** and **Less: Employer Claimed ITC** | “Motor Vehicle Deductions (inc GST)” plus a “Less” GST credit? Enter costs incl GST; say employer claims GST. |
+<!-- provider-table:end -->
 
 Do not use the total salary deduction as the finance payment: it also includes running-cost budgets.
 

@@ -284,3 +284,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (71), diff check and 82-page site build pass. The site build also covered Alliance; Astro emitted its one-time duplicate-id cache warnings for both edited articles.
 - Twenty-five of 27 provider articles now have at least one synced table row. The two remaining are Smart Leasing and Smartsalary; their distinct branded layouts should remain separate. Item 8's Smart-branded Smartsalary escape hatch still awaits the owner's choice. No push or merge.
 
+## Item 15, checkpoint AC — Smartsalary Smart Drive GST (2026-11-13)
+
+- Smartsalary Smart Drive's numbered finance-payment and running-cost action cells now sync from its own Guided pointers. The payment selects **Including GST** and the printed period; the running-cost pointer explains the employer GST credit without relying on the acronym in the short calculator text. The article keeps the exact **Less: Employer Claimed ITC** quote label and its total-salary-deduction warning.
+- Focused provider tests (72), ESLint and calculator build pass. The table generator ran; site build can be checked with Smart Leasing in the final article batch.
+- Twenty-six of 27 provider articles now have at least one synced table row. Smart Leasing remains. Item 8's separate Smartsalary escape-hatch choice still awaits the owner. No push or merge.
+
