@@ -550,6 +550,14 @@ describe("provider pointers", () => {
     expect(pointersFor("spa", "driveaway")[0].text).toContain("Total Drive Away Price");
   });
 
+  test("Paywise's payment and fee rows keep their package-total and period warnings", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-paywise-quote.md"), "utf8");
+    expect(article).toContain(pointersFor("paywise", "payment")[0].text);
+    expect(article).toContain(pointersFor("paywise", "fees")[0].text);
+    expect(article).toContain("not the package total");
+    expect(article).toContain("using the quote's period");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

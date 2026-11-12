@@ -193,3 +193,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (57) and the 82-page site build pass. Astro emitted its one-time duplicate-id cache warnings for the edited articles; the pages built and Pagefind indexed all 82 pages.
 - Item 16 still needs the proposed provider-specific trap introductions and any owner decision about thin-page indexing. Item 15 article table conversion remains at 11 of 27. Item 8 Smart-branded Smartsalary treatment still awaits the owner's choice. No push or merge.
 
+## Item 15, checkpoint O — Paywise payment and management fees (2026-11-13)
+
+- Paywise's numbered finance-payment and management-fee action cells now sync from its Guided pointers. The pointer text keeps the **Package Inclusions (ex. GST) – Fortnightly** basis, warns against using the package total, and says to combine **Lease Management** with **Salary Packaging** using the quote's period. Other table rows keep their quote-specific wording.
+- Focused provider tests (58), ESLint, calculator build and 82-page site build pass. The first site build emitted Astro's one-time duplicate-id cache warning for the edited Paywise article.
+- Twelve of 27 provider articles now have at least one synced table row. Continue reviewing the remaining articles one by one. No push or merge.
+
