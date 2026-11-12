@@ -104,3 +104,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - A provider integration test verifies each article's review month against `guideFor(id).seen`. This does not turn the quote-review month into `dateModified`: some old quotes were reviewed before these articles existed, and the site correctly derives actual article modification dates from Git.
 - TypeScript, 46 provider-picker tests, ESLint and 82-page site build pass. The first build after writing all 27 files emitted Astro duplicate-id cache warnings; a second unchanged build completed with none.
 - **Item 15 remains open:** the old article tables still need a careful data model before replacing their quote-specific detail with generated pointer text. Do not strip those tables wholesale. No push or merge.
+
+## Item 15, checkpoint C — table conversion audit (2026-11-13)
+
+- Added `PROVIDER_ARTICLE_TABLE_AUDIT_2026-11.md`. It inventories all 27 main tables, the three second-section tables, and 14 provider/field pairs whose explicit pointer is absent from the main table. It gives a row schema and safe conversion path.
+- The audit explains why copying the short pointer into a generic table would lose verified quote labels and provider-specific GST/period details. The table conversion is deliberately left open for provider-by-provider review; no existing article table was removed.
+- No push or merge.
