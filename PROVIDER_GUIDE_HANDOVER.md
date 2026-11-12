@@ -20,3 +20,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Made provider changes atomic in Guided: provider, correction reset and Smart/MillarX state now enter the draft in one update. Existing provider-switch tests cover correction reset and the Smart/MillarX choice.
 - Validation: TypeScript, 302 calculator tests, ESLint on GuidedMode.tsx, calculator build, and site build (82 pages) pass.
 - Next: owner-directed combined redesign of items 4 + 12 + 6. Show a mock-up and get owner approval before coding. User asked to keep progressing item by item; the mock-up is the next independent deliverable.
+
+## Items 4 + 12 + 6 — mock-up checkpoint (2026-11-13)
+
+- Created `design/provider-guidance-redesign-mockup.html` with the proposed desktop side-panel crop, phone inline picture, amber trap, plain location line, muted missing line, one date footer, and a scrollable full-page toggle. It uses SG Fleet redacted WebP assets.
+- Preview: `http://localhost:4341/design/provider-guidance-redesign-mockup.html` while the local Python server is running (server session on port 4341). The file also opens directly from this worktree.
+- Checked the desktop layout and phone picture/full-page toggles in the browser. This is a design mock-up only; the calculator has not yet been redesigned.
+- **Next action requires owner approval per the prior handover:** get feedback on the mock-up before implementing items 4 + 12 + 6. Do not infer approval from the mock-up existing.
