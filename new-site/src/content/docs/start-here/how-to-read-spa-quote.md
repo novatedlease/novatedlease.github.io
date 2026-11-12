@@ -18,17 +18,21 @@ This numbered example shows a Salary Packaging Australia (S.P.A.) quote layout r
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
-| 1 | FBT Base Value | FBT base value |
-| 2 | Total Drive Away Price | Drive-away price. Ignore the page-2 headline "Novated lease purchase price (excluding GST)": that's the price with GST taken off. "Vehicle Cost" on page 1 can equal the drive-away on QLD Government quotes; use Total Drive Away Price |
+| 1 | FBT Base Value | If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price. |
+| 2 | Total Drive Away Price | Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”. |
 | 3 | Lease Term (Months) | Lease term |
-| 4 | Running Cost Reference: "Novated Lease – Based on N-month deferred lease" | First payment: after N months |
+| 4 | Running Cost Reference: "Novated Lease – Based on N-month deferred lease" | If you see “Based on 2-month deferred lease”, choose 2 months deferred. |
 | 6 | Residual Value | Residual, "Including GST" (page 2 prints the same figure "inc GST") |
 | 7 | Novated Lease Repayments – BOQ Credit Pty Ltd, Fortnightly (GST Ex) | Finance payment, per fortnight, **Excluding GST** |
 | 9 | Tyres, Maintenance, Registration Renewal, Insurance Renewal, Fuel and/or Electricity | Running-cost boxes, per fortnight, ex GST ("GST Ex" heading) |
 | 10 | Administration Fee | Lease management fees |
 | 11 | Finance Rate | Compare with the effective rate Guided shows |
+<!-- provider-table:end -->
+
+On Queensland Government layouts, “Vehicle Cost” can equal the drive-away price. Check it against “Total Drive Away Price” before entering it.
 
 The "Less: ITC" line under the totals is the employer's GST credit on running costs; with the
 running costs already shown ex GST, choose "Excluding GST" for the running-cost heading.

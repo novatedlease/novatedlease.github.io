@@ -180,3 +180,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (56) and ESLint pass. The table generator updated the Markdown; site build will be checked with the next article batch.
 - Ten articles have migrated rows. No push or merge.
 
+## Item 15, checkpoint N — SPA full drive-away price (2026-11-13)
+
+- Improved SPA's Guided drive-away pointer to name the printed “Total Drive Away Price” directly, then synced the FBT base value, drive-away and deferral action cells into its article. Kept the Queensland Government “Vehicle Cost” qualification in prose below the table.
+- Focused provider tests (57), ESLint, calculator build and 82-page site build pass. The site build also covered the preceding Lendly article. Astro emitted its one-time duplicate-id cache warnings for both edited articles.
+- Eleven articles have migrated rows. No push or merge.
+

@@ -538,6 +538,14 @@ describe("provider pointers", () => {
     expect(article).not.toContain("reviewed in November 2026");
   });
 
+  test("SPA's article and Guided agree on the full drive-away price", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-spa-quote.md"), "utf8");
+    for (const field of ["baseValue", "driveaway", "defer"] as const)
+      expect(article).toContain(pointersFor("spa", field)[0].text);
+    expect(article).toContain("On Queensland Government layouts");
+    expect(pointersFor("spa", "driveaway")[0].text).toContain("Total Drive Away Price");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

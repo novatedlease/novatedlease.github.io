@@ -420,7 +420,7 @@ const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "driveaway",
-        text: "Don’t use “Novated lease purchase price (excluding GST)”. Ask for the full on-road price including GST.",
+        text: "Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”.",
       },
       {
         field: "baseValue",

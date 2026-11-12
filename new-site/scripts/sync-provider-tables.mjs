@@ -19,6 +19,7 @@ const migrated = {
   driva: { '2': 'driveaway', '6': 'residual', '7': 'payment' },
   fingo: { '2': 'driveaway', '4': 'defer', '7': 'payment' },
   lendly: { '2': 'driveaway' },
+  spa: { '1': 'baseValue', '2': 'driveaway', '4': 'defer' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {
