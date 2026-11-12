@@ -121,7 +121,9 @@
 .gd-template__body { margin-top: 8px; padding: 8px; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-sm); background: var(--nlc-surface); }
 .gd-template__viewport { max-height: 440px; overflow: auto; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-sm); }
 .gd-template__crop { border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-sm); overflow: hidden; background: #fff; }
+.gd-template__fullpage { display: flex; align-items: center; justify-content: center; height: min(70vh, 680px); overflow: hidden; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-sm); background: #fff; }
 .gd-template__body img { display: block; width: 100%; max-width: 720px; height: auto; }
+.gd-template__body .gd-template__fullpage img { width: 100%; height: 100%; max-width: none; object-fit: contain; }
 .gd-template__body img.gd-template__fbt { max-width: 425px; }
 .gd-template__body p { margin: 7px 0; color: var(--nlc-text-muted); font-size: 12px; }
 

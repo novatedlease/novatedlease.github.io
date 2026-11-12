@@ -129,8 +129,11 @@ describe("provider pointers", () => {
     fireEvent.click(screen.getByRole("button", { name: /Show where it is on a SG Fleet quote/ }));
     const image = screen.getByAltText(/redacted SG Fleet quote, with the line for this question numbered/) as HTMLImageElement;
     expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
-    expect(screen.getByRole("link", { name: "See the whole page" }).getAttribute("href"))
-      .toBe("/assets/images/quote-guide/sgfleet/redacted-quote.png");
+    fireEvent.click(screen.getByRole("button", { name: "Switch to full page view" }));
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/redacted-quote.png");
+    expect(image.getAttribute("alt")).toMatch(/Full redacted SG Fleet quote page/);
+    fireEvent.click(screen.getByRole("button", { name: "Switch to crop view" }));
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
     expect(screen.getByRole("link", { name: /numbered field guide/ }).getAttribute("href"))
       .toBe("/start-here/how-to-read-sgfleet-quote/");
     expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))

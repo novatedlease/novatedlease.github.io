@@ -1581,7 +1581,7 @@ function ProviderPointers({
   return (
     <div className="gd-pointers" data-provider={guide.id}>
       {list.map((p) => (
-        <ProviderPointer key={p.text} pointer={p} provider={guide.id} />
+        <ProviderPointer key={`${guide.id}-${p.field}-${p.text}`} pointer={p} provider={guide.id} />
       ))}
       <div className="gd-pointer__seen">
         As seen on {providerLabel(guide.id)} quotes, {seenLabel(guide.seen)}.
@@ -1593,11 +1593,13 @@ function ProviderPointers({
 
 function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: ProviderId }) {
   const [open, setOpen] = useState(false);
+  const [showWholePage, setShowWholePage] = useState(false);
   const template = templateFor(provider, pointer.field);
   const fbtExample = provider === "sgfleet" && pointer.field === "baseValue";
   const driveawayExample = provider === "sgfleet" && pointer.field === "driveaway";
   const isCrop = !!template?.endsWith(".webp");
   const page = pageFor(provider);
+  const showingWholePage = isCrop && !!page && showWholePage;
   const label = providerLabel(provider);
   return (
     <div className="gd-pointer">
@@ -1611,6 +1613,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
             aria-expanded={open}
             onClick={() => {
               if (!open) trackEvent("guided_pointer_open", { provider, field: pointer.field });
+              if (open) setShowWholePage(false);
               setOpen(!open);
             }}
           >
@@ -1618,20 +1621,22 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
           </button>
           {open && (
             <div className="gd-template__body">
-              <div className={isCrop ? "gd-template__crop" : "gd-template__viewport"}>
+              <div className={showingWholePage ? "gd-template__fullpage" : isCrop ? "gd-template__crop" : "gd-template__viewport"}>
                 <img
                   className={fbtExample ? "gd-template__fbt" : undefined}
-                  src={template}
-                  alt={fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : driveawayExample ? "Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost including GST" : isCrop ? `Part of a redacted ${label} quote, with the line for this question numbered and outlined` : `Redacted ${label} quote pages with numbered field markers`}
+                  src={showingWholePage ? page : template}
+                  alt={showingWholePage ? `Full redacted ${label} quote page with numbered field markers` : fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : driveawayExample ? "Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost including GST" : isCrop ? `Part of a redacted ${label} quote, with the line for this question numbered and outlined` : `Redacted ${label} quote pages with numbered field markers`}
                   loading="lazy"
                   decoding="async"
                   width="720"
                 />
               </div>
-              <p>{fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : driveawayExample ? "This is the Lease details panel on page 2 of the SG Fleet VSSS sample. Customer values were removed." : isCrop ? "Part of a real quote with values and personal details removed. Your layout may differ." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
+              <p>{showingWholePage ? "Full redacted quote page, scaled to fit here. Switch back to the crop to read the marked line." : fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : driveawayExample ? "This is the Lease details panel on page 2 of the SG Fleet VSSS sample. Customer values were removed." : isCrop ? "Part of a real quote with values and personal details removed. Your layout may differ." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
               {isCrop && page && (
                 <>
-                  <a href={page} target="_blank" rel="noreferrer">See the whole page</a>
+                  <button type="button" className="gd-linkbtn" aria-pressed={showingWholePage} onClick={() => setShowWholePage(!showWholePage)}>
+                    {showingWholePage ? "Switch to crop view" : "Switch to full page view"}
+                  </button>
                   {" · "}
                 </>
               )}
