@@ -47,6 +47,16 @@ export function providerLabel(id: ProviderId): string {
   return PROVIDERS.find((p) => p.id === id)?.label ?? id;
 }
 
+/** Lower GST-reduced price labels that can be mistaken for a drive-away total. */
+export const DRIVEAWAY_TRAP_LABELS: Partial<Record<ProviderId, { wrong: string; right: string }>> = {
+  flare: { wrong: "Vehicle cost — Flare Cars driveaway cost", right: "Total on-road price" },
+  oly: { wrong: "Oly driveaway price", right: "the dealer's full on-road price including GST" },
+  fingo: { wrong: "Your car price (drive away price when financed)", right: "Drive away Price" },
+  spa: { wrong: "Novated lease purchase price (excluding GST)", right: "the full on-road price including GST" },
+  driva: { wrong: "Effective novated vehicle price", right: "DriveAway Price" },
+  lendly: { wrong: "Total Price (ex. GST)", right: "Price … Drive Away" },
+};
+
 /** True for the two providers whose per-pay figure needs the budget-reserve correction. */
 export function isSmartOrMillarx(id: ProviderId | null): boolean {
   return id === "smartleasing" || id === "millarx";

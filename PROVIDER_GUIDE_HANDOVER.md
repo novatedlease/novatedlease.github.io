@@ -70,3 +70,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - The owner asked how the new adjustment behaves in Advanced mode. The optional engine input defaults to zero for all existing Advanced inputs and old saved scenarios, so their calculations remain unchanged.
 - Advanced now visibly shows the total one-off financed fees/add-ons and the subset already financed for first-year insurance. The second amount is editable and uses the same GST basis as Advanced's annual Insurance field. Guided passes both fields through; the subset changes only the lease running-cost budget, not the cash scenario.
 - The Advanced form smoke test checks both labels. This prevents the Guided-to-Advanced copy from carrying a hidden cost adjustment. No push or merge.
+
+## Item 9 — provider-aware findings (2026-11-13)
+
+- Added warning-only `checkProvider` findings to the existing Price and Payment findings slots. SG Fleet/Easi warn about monthly lease figures; Remunerator warns when its annual payment is entered under another period; LeaseLab checks the usual weekly period; Smartsalary prompts a GST-heading check; and six providers name their GST-reduced drive-away trap when the entered drive-away price is below the FBT base value.
+- The six trap labels live beside the provider guides in `DRIVEAWAY_TRAP_LABELS`. Findings use the selected quote and the reader's own inputs, never auto-change an answer. Maxxia/Oly documentation-fee warnings from the original item 9 plan were omitted because item 7 now asks for financed insurance separately.
+- Each visible provider warning sends `guided_provider_check` once per provider/code/session, with no entered figures or personal data. Unit tests cover every condition, all six trap labels, negative cases, and Other/null. TypeScript, 321 calculator tests, ESLint and calculator build pass. The build also includes the visible Advanced insurance field from the preceding checkpoint.
+- Next: item 8 owner decision may still be pending; otherwise items 15, 16 and 17 remain. No push or merge.

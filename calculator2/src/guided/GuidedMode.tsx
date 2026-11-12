@@ -102,6 +102,7 @@ import {
   checkMileage,
   checkPaymentCorrected,
   checkPrices,
+  checkProvider,
   checkRate,
   checkResidual,
   diagnosePayment,
@@ -179,8 +180,11 @@ function findingsFor(d: GuidedDraft) {
   const base = moneyValue(d.baseValue);
   const drive = moneyValue(d.driveaway);
   const income = moneyValue(d.income);
+  const providerChecks = checkProvider(d);
   return {
     prices: checkPrices(base, drive),
+    providerPrice: providerChecks.filter((f) => f.code === "provider_driveaway_trap"),
+    providerPayment: providerChecks.filter((f) => f.code !== "provider_driveaway_trap"),
     docFee: checkDocFee(moneyValue(d.docFee)),
     residual: checkResidual({
       entered: moneyValue(d.residual),
@@ -266,9 +270,9 @@ type FindingMap = ReturnType<typeof findingsFor>;
 
 const STEP_FIELDS: Partial<Record<StepId, (keyof FindingMap)[]>> = {
   quick: ["evThreshold", "mileage"],
-  price: ["prices"],
+  price: ["prices", "providerPrice"],
   lease: ["docFee", "residual"],
-  payment: ["payment", "paymentCorrected"],
+  payment: ["payment", "paymentCorrected", "providerPayment"],
   running: [
     "mileage",
     "service",
@@ -392,8 +396,13 @@ export function GuidedMode({
           code: f.code,
           level: f.level,
         });
+      if (f.code.startsWith("provider_"))
+        trackOncePerSession(`guided_provider_check_${draft.provider}_${f.code}`, "guided_provider_check", {
+          provider: draft.provider,
+          code: f.code,
+        });
     }
-  }, [current]);
+  }, [current, draft.provider]);
 
   function go(next: StepId) {
     setStep(next);
@@ -1195,7 +1204,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
         onChange={(m) => set("driveaway", m)}
         where="The base value plus CTP, stamp duty and rego."
         estimatedNote="Worked out from your residual. Usually within about 1%; replace it if you find the actual figure."
-        findings={f.prices.filter((x) => x.code !== "base_exceeds_driveaway")}
+        findings={[...f.prices.filter((x) => x.code !== "base_exceeds_driveaway"), ...f.providerPrice]}
       />
       <ProviderPointers d={d} field="driveaway" />
       <DriveawayHelper d={d} set={set} />
@@ -1541,7 +1550,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             : "The car's pre-tax payment, before running costs. Type it as printed."
         }
         suffix={d.paymentPeriod ? `per ${PERIOD_UNIT[d.paymentPeriod]}` : undefined}
-        findings={[...f.payment, ...f.paymentCorrected]}
+        findings={[...f.payment, ...f.paymentCorrected, ...f.providerPayment]}
       />
       {diag?.status === "ok" && diag.rate !== null && (
         <div className="gd-stat">

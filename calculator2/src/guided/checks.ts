@@ -2,7 +2,8 @@ import {
   effectiveAnnualRateFromFortnightlyLease,
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
-import type { Period } from "./draft";
+import { moneyValue, type GuidedDraft, type Period } from "./draft";
+import { DRIVEAWAY_TRAP_LABELS, providerLabel } from "./providerGuide";
 
 export type Level = "error" | "warn" | "info" | "ok";
 export type Finding = {
@@ -15,6 +16,30 @@ export type Finding = {
 
 const GST = 1.1;
 const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-AU")}`;
+
+/** Provider-specific checks supplement the generic findings after the reader enters a figure. */
+export function checkProvider(d: GuidedDraft): Finding[] {
+  const p = d.provider;
+  if (!p || p === "other") return [];
+  const out: Finding[] = [];
+  if ((p === "sgfleet" || p === "easi") && d.paymentPeriod === "perMonth") {
+    out.push({ code: "provider_monthly_payment", level: "warn", message: `${providerLabel(p)} may show a monthly lease rental paid fewer times than the lease has months. Check for the per-pay “Lease rental” and choose its period.` });
+  }
+  if (p === "remunerator" && moneyValue(d.payment) && d.paymentPeriod && d.paymentPeriod !== "perYear") {
+    out.push({ code: "provider_yearly_payment", level: "warn", message: "Remunerator shows the lease payment per year. Check whether the figure you entered is labelled yearly and, if so, choose “Per year”." });
+  }
+  if (p === "leaselab" && (d.paymentPeriod === "perFn" || d.paymentPeriod === "perMonth")) {
+    out.push({ code: "provider_weekly_payment", level: "warn", message: "LeaseLab quotes are usually weekly. Check the period next to your payment." });
+  }
+  if (p === "smartsalary" && d.paymentBasis === "exGst") {
+    out.push({ code: "provider_payment_gst", level: "warn", message: "Smartsalary often shows this payment including GST. Check the heading on your own quote before choosing a GST basis." });
+  }
+  const trap = DRIVEAWAY_TRAP_LABELS[p];
+  if (trap && (moneyValue(d.driveaway) ?? 0) > 0 && (moneyValue(d.baseValue) ?? 0) > 0 && moneyValue(d.driveaway)! < moneyValue(d.baseValue)!) {
+    out.push({ code: "provider_driveaway_trap", level: "warn", message: `This may be “${trap.wrong}”, which has GST taken off. Check for “${trap.right}” instead.` });
+  }
+  return out;
+}
 
 // ─── Price step ─────────────────────────────────────────────────────────────
 
