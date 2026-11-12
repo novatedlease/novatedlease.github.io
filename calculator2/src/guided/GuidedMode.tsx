@@ -1598,7 +1598,8 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
   const template = templateFor(provider, pointer.field);
   const fbtExample = provider === "sgfleet" && pointer.field === "baseValue";
   const driveawayExample = provider === "sgfleet" && pointer.field === "driveaway";
-  const smartSample = provider === "smartleasing";
+  const smartTerms = provider === "smartleasing" && pointer.field === "docFee";
+  const smartSample = provider === "smartleasing" && !smartTerms;
   const isCrop = !!template?.endsWith(".webp");
   const page = pageFor(provider);
   const showingWholePage = isCrop && !!page && showWholePage;
@@ -1621,7 +1622,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
               setOpen(!open);
             }}
           >
-            {open ? "Hide redacted quote" : fbtExample ? "Show where SG Fleet prints FBT base value" : driveawayExample ? "Show SG Fleet drive-away line" : smartSample && pointer.field === "driveaway" ? "Show both available Smart Leasing pages" : isCrop ? `Show where it is on a ${label} quote` : `Show on a ${label} quote page`}
+            {open ? "Hide redacted quote" : fbtExample ? "Show where SG Fleet prints FBT base value" : driveawayExample ? "Show SG Fleet drive-away line" : smartTerms ? "Show Smart Leasing terms page" : smartSample && pointer.field === "driveaway" ? "Show both available Smart Leasing pages" : isCrop ? `Show where it is on a ${label} quote` : `Show on a ${label} quote page`}
           </button>
           {open && (
             <div className="gd-template__body">
@@ -1629,13 +1630,13 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
                 <img
                   className={fbtExample ? "gd-template__fbt" : undefined}
                   src={displayedImage ?? undefined}
-                  alt={smartSample && (!isCrop || showingWholePage) ? `Redacted Smart Leasing quote page ${smartPage} of two available pages` : showingWholePage ? `Full redacted ${label} quote page with numbered field markers` : fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : driveawayExample ? "Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost including GST" : isCrop ? `Part of a redacted ${label} quote, with the line for this question numbered and outlined` : `Redacted ${label} quote pages with numbered field markers`}
+                  alt={smartTerms ? "Redacted terms page from another Smart Leasing quote, with documentation fee marked 5" : smartSample && (!isCrop || showingWholePage) ? `Redacted Smart Leasing quote page ${smartPage} of two available pages` : showingWholePage ? `Full redacted ${label} quote page with numbered field markers` : fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : driveawayExample ? "Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost including GST" : isCrop ? `Part of a redacted ${label} quote, with the line for this question numbered and outlined` : `Redacted ${label} quote pages with numbered field markers`}
                   loading="lazy"
                   decoding="async"
                   width="720"
                 />
               </div>
-              <p>{smartSample && (!isCrop || showingWholePage) ? `Page ${smartPage} of the two available redacted Smart Leasing pages. Neither page prints a drive-away total; the quote mentions a third page that was not shared.` : showingWholePage ? "Full redacted quote page, scaled to fit here. Switch back to the crop to read the marked line." : fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : driveawayExample ? "This is the Lease details panel on page 2 of the SG Fleet VSSS sample. Customer values were removed." : isCrop ? "Part of a real quote with values and personal details removed. Your layout may differ." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
+              <p>{smartTerms ? "Terms page from a different Smart Leasing quote. Its documentation-fee clause is marked 5; quote figures and the quote number were removed." : smartSample && (!isCrop || showingWholePage) ? `Page ${smartPage} of the two available redacted Smart Leasing pages. Neither page prints a drive-away total. A different quote's terms page is linked in the guide.` : showingWholePage ? "Full redacted quote page, scaled to fit here. Switch back to the crop to read the marked line." : fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : driveawayExample ? "This is the Lease details panel on page 2 of the SG Fleet VSSS sample. Customer values were removed." : isCrop ? "Part of a real quote with values and personal details removed. Your layout may differ." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
               {smartSample && (!isCrop || showingWholePage) && (
                 <>
                   <button type="button" className="gd-linkbtn" onClick={() => setSmartPage(smartPage === 1 ? 2 : 1)}>

@@ -137,7 +137,7 @@ const GUIDES: ProviderGuide[] = [
   {
     id: "smartleasing",
     seen: "2026-11",
-    sources: ["1xsbbfa", "1xp1cee", "1xocshn"],
+    sources: ["1xsbbfa", "1xp1cee", "1xocshn", "1xs7vho"],
     pointers: [
       {
         field: "driveaway",
@@ -152,6 +152,11 @@ const GUIDES: ProviderGuide[] = [
       {
         field: "defer",
         text: "If you see “Months deferred”, use that number.",
+      },
+      {
+        field: "docFee",
+        text: "Look in the small print on Smart Leasing's terms page for “documentation fee”, marked 5 in this separate quote example. If it says including GST, divide by 1.1 to enter the ex-GST amount here.",
+        more: "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.",
       },
       {
         field: "residual",
@@ -539,7 +544,7 @@ const TEMPLATE_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   spa: ["baseValue", "driveaway", "term", "defer", "residual", "payment", "running", "fees"],
   vehiclesolutions: ["baseValue", "driveaway", "term", "defer", "residual", "payment", "running", "fees"],
   sgfleet: ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "running"],
-  smartleasing: ["baseValue", "driveaway", "defer", "residual", "payment", "running"],
+  smartleasing: ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "running"],
   maxxia: ["baseValue", "driveaway", "docFee", "residual", "payment", "insurance", "running"],
   paywise: ["baseValue", "residual", "payment", "fees", "running"],
   smartsalary: ["baseValue", "residual", "payment", "running"],
@@ -600,6 +605,7 @@ export function cropFor(id: ProviderId, field: GuideField): string | null {
 export function templateFor(id: ProviderId, field: GuideField): string | null {
   if (id === "sgfleet" && field === "baseValue") return "/assets/images/quote-guide/sgfleet/fbt-example.png";
   if (id === "sgfleet" && field === "driveaway") return "/assets/images/quote-guide/sgfleet/driveaway-example.png";
+  if (id === "smartleasing" && field === "docFee") return "/assets/images/quote-guide/smartleasing/terms-example.png";
   return cropFor(id, field) ?? (TEMPLATE_FIELDS[id]?.includes(field) ? pageFor(id) : null);
 }
 

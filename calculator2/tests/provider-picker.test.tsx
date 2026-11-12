@@ -143,6 +143,16 @@ describe("provider pointers", () => {
       .toBe("/assets/images/quote-guide/smartleasing/redacted-quote.pdf");
   });
 
+  test("Smart Leasing's documentation fee opens the separate terms page", () => {
+    on("lease", { ...quoteDraft(), provider: "smartleasing" });
+    expect(screen.getByText(/Look in the small print on Smart Leasing's terms page/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Show Smart Leasing terms page" }));
+    const image = screen.getByAltText(/Redacted terms page from another Smart Leasing quote/) as HTMLImageElement;
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/terms-example.png");
+    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
+      .toBe("/assets/images/quote-guide/smartleasing/terms-example.pdf");
+  });
+
   test("SG Fleet's payment pointer shows on the payment screen", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
     expect(screen.getByText(/“Monthly lease rental”, either works/)).toBeTruthy();
