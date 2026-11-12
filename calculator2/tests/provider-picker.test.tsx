@@ -479,6 +479,14 @@ describe("provider pointers", () => {
     expect(article).not.toContain("Enter the per-pay Lease rental with your pay period, ex GST");
   });
 
+  test("Maxxia's article keeps financed insurance separate from the fee", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-maxxia-quote.md"), "utf8");
+    expect(article).toContain(pointersFor("maxxia", "docFee")[0].text);
+    expect(article).toContain(pointersFor("maxxia", "insurance")[0].text);
+    expect(article).toContain("**Financier's Establishment Fee** and **1st year Comprehensive Insurance**");
+    expect(article).not.toContain("Add the two and enter the total");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

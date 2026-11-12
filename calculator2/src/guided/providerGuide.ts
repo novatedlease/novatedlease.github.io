@@ -231,12 +231,12 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "insurance",
-        text: "Enter the full yearly insurance premium here, including year one. We'll account for any first-year premium financed above.",
+        text: "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
         more: "Use the yearly amount you would pay to insure the car, not just Oly's renewal budget.",
       },
       {
         field: "docFee",
-        text: "Enter “Financier's Establishment fee” here. If year-one insurance is financed, enter it in the separate question below.",
+        text: "Enter “Financier's Establishment fee” here. If year-one insurance is financed, use Guided's separate insurance question.",
         more: "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
       },
       {
@@ -262,12 +262,12 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "insurance",
-        text: "Enter the full yearly insurance premium here, including year one. We'll account for any first-year premium financed above.",
+        text: "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
         more: "Use the yearly amount you would pay to insure the car, not just Maxxia's renewal budget.",
       },
       {
         field: "docFee",
-        text: "Enter “Financier's Establishment Fee” here. If year-one insurance is financed, enter it in the separate question below.",
+        text: "Enter “Financier's Establishment Fee” here. If year-one insurance is financed, use Guided's separate insurance question.",
         more: "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
       },
     ],

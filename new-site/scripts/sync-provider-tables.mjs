@@ -11,6 +11,7 @@ const guides = source.slice(source.indexOf('const GUIDES:'), source.indexOf('exp
 const migrated = {
   flare: { '2': 'driveaway', '7': 'payment' },
   sgfleet: { '1': 'baseValue', '2': 'driveaway', '7a': 'payment' },
+  maxxia: { '5': 'docFee', '9': 'insurance' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

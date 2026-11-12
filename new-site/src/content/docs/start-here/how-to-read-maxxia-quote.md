@@ -16,14 +16,16 @@ The Maxxia layouts reviewed in November 2026 use **Financed payments** for the l
 
 *Quote-page example with customer values and identifying details removed. Match the blue numbers to the table below; your layout may differ.*
 
+<!-- provider-table:begin -->
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |
 | 1 | FBT base value | **Vehicle FBT Base Value** | The value as printed, including GST. |
 | 2 | Drive-away price | **Car price (based on on roads)** | Use this price, not the FBT base value. They can differ. |
-| 5 | Documentation fee and financed insurance | **Financier's Establishment Fee** and **1st year Comprehensive Insurance** | Enter the establishment fee in Documentation fee. Answer Yes to the separate first-year insurance question and enter that premium there. |
+| 5 | Documentation fee and financed insurance | **Financier's Establishment Fee** and **1st year Comprehensive Insurance** | Enter “Financier's Establishment Fee” here. If year-one insurance is financed, use Guided's separate insurance question. |
 | 6 | Residual | **Total residual value** | The reviewed layout does not label GST clearly. Choose *I'm not sure* if your own quote does not clarify it. |
 | 7 | Finance payment | **Financed payments** | Enter the payment in the period shown. Check the heading or ask Maxxia whether it includes GST. |
-| 9 | Insurance | **Comprehensive insurance renewal** under running costs | Enter the full yearly premium, not just the renewal. See *First-year insurance* below. |
+| 9 | Insurance | **Comprehensive insurance renewal** under running costs | Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately. |
+<!-- provider-table:end -->
 
 ## First-year insurance
 

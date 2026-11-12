@@ -131,3 +131,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused tests (48), ESLint and 82-page site build pass. The built HTML contains the new GST-basis sentence and no old ex-GST payment instruction. Astro emitted its one-time duplicate-id cache warning for the edited article.
 - Flare and SG Fleet are migrated; other articles remain hand-curated pending careful row-by-row conversion. No push or merge.
 
+## Item 15, checkpoint F — Maxxia financed-insurance rows (2026-11-13)
+
+- Maxxia's numbered fee and insurance action cells now sync from the Guided pointers, with the printed quote labels retained. The article's separate first-year insurance explanation remains.
+- Reworded the Maxxia and Oly pointers to avoid “above”/“below”, which were location-specific to Guided and misleading when reused in an article. Both say the financed premium is handled separately.
+- Focused tests (49), TypeScript, ESLint, calculator build and 82-page site build pass. The test checks Maxxia's fee/insurance rows and that the old “add the two” instruction is absent. Astro emitted its one-time duplicate-id cache warning for this edited article.
+- Flare, SG Fleet and Maxxia have migrated rows. Oly is the next related article to review. No push or merge.
+
