@@ -265,3 +265,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (68), ESLint and calculator build pass. The table generator ran; the site build can be checked with the next article batch.
 - Twenty-two of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint Z — LeasePlan monthly versus one-off fee (2026-11-13)
+
+- LeasePlan / Ayvens's one-off **Security Interest** fee row now syncs from Guided and distinguishes it from monthly **Finance Documentation**, which belongs with management fees. The monthly payment row remains hand-curated because its GST basis is not labelled on the reviewed line.
+- The article's unnumbered price explanation now asks for a full on-road price including GST and warns that the residual helper may not work because this example shows no residual. Its August 2025 provenance remains visible.
+- Focused provider tests (69), diff check and 82-page site build pass. The site build also covered FleetPartners; Astro emitted its one-time duplicate-id cache warnings for the edited articles.
+- Twenty-three of 27 provider articles now have at least one synced table row. No push or merge.
+

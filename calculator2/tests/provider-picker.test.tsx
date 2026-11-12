@@ -643,6 +643,13 @@ describe("provider pointers", () => {
     expect(article).toContain("Do not enter **Total lease cost**");
   });
 
+  test("LeasePlan's one-off fee stays separate from monthly finance documentation", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-leaseplan-quote.md"), "utf8");
+    expect(article).toContain(pointersFor("leaseplan", "docFee")[0].text);
+    expect(article).toContain("Confirm the GST basis on your own quote");
+    expect(article).toContain("residual helper may not work without a printed residual");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

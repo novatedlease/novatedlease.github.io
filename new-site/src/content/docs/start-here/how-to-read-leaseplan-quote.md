@@ -18,14 +18,16 @@ This numbered example shows a LeasePlan / Ayvens quote layout reviewed in August
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 1 | FBT Base Value | FBT base value, including GST. |
-| 5 | Security Interest | One-off documentation or registration fee. The separate Finance Documentation fee may be charged monthly; if so, include that in lease management fees instead. |
+| 5 | Security Interest | If “Finance Documentation” is monthly, put it in management fees. Enter any one-off “Security Interest” fee here. |
 | 7 | Finance Payment under Monthly Budgets | Finance payment per month. Confirm the GST basis on your own quote; this sample does not state it on the line. Do not use Monthly Payment (ex GST), which includes the package budgets. |
 | 9 | Maintenance, Tyres, Fuel, Registration, Insurance, Misc Operating Costs and Roadside Assistance | Running cost budgets per month. |
 | 10 | Management Fees (including FBT Fee) | Lease management fees per month. |
+<!-- provider-table:end -->
 
-The sample page does not show a clearly labelled drive-away price, lease term, deferral or residual. Use another page of your quote or ask the provider for those figures. This example was reviewed in August 2025, so check current LeasePlan / Ayvens layouts carefully.
+The sample page does not show a clearly labelled drive-away price, lease term, deferral or residual. Ask for the full on-road price including GST; the residual helper may not work without a printed residual. Use another page of your quote or ask the provider for the other figures. This example was reviewed in August 2025, so check current LeasePlan / Ayvens layouts carefully.
 
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

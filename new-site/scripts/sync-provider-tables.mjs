@@ -31,6 +31,7 @@ const migrated = {
   customfleet: { '2': 'driveaway', '8': 'luxAdj', '10': 'fees' },
   vehiclesolutions: { '2': 'driveaway', '4': 'defer', '6': 'residual', '7a': 'payment' },
   fleetpartners: { '2': 'driveaway', '4': 'defer' },
+  leaseplan: { '5': 'docFee' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {
