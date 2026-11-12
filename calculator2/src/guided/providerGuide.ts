@@ -70,6 +70,10 @@ export type Pointer = {
   example?: FieldExample;
 };
 
+/** Payment pointers never state a GST basis: it can differ between employers on one provider's quotes. */
+const PAYMENT_GST_NOTE =
+  "Whether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.";
+
 export type ProviderGuide = {
   id: ProviderId;
   /** Month of the newest quote layout these pointers were checked against, "YYYY-MM". */
@@ -87,8 +91,8 @@ const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "payment",
-        text: "Use “Lease rental” (per pay), ex GST, with your pay period. Don't use “Monthly lease rental (payable as 34 payments)”: it's paid fewer times than the lease has months, so it would overstate your rate.",
-        more: "The per-pay “Lease rental” spreads the same total over the whole lease, which is how the calculator reads every payment.",
+        text: "Use “Lease rental” (per pay), with your pay period. Don't use “Monthly lease rental (payable as 34 payments)”: it's paid fewer times than the lease has months, so it would overstate your rate.",
+        more: `The per-pay “Lease rental” spreads the same total over the whole lease, which is how the calculator reads every payment.\n\n${PAYMENT_GST_NOTE}`,
       },
       {
         field: "defer",
@@ -180,7 +184,8 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "payment",
-        text: "If you see “Finance” under “Budgeted running costs”, that's the fortnightly payment, ex GST.",
+        text: "If you see “Finance” under “Budgeted running costs”, that's the fortnightly payment.",
+        more: PAYMENT_GST_NOTE,
       },
     ],
   },
@@ -272,7 +277,8 @@ const GUIDES: ProviderGuide[] = [
       { field: "driveaway", text: "Use “Total Drive Away Price (Inc GST)” in Purchase Details. It is marked 2 on the Alliance example; do not use Total Amount Financed." },
       {
         field: "payment",
-        text: "If you see “Total Lease Payment (Finance Payment)”, it includes GST (see footnote 5). The “Finance” line under “Budgeted Running Costs” is the same payment ex GST.",
+        text: "If you see “Total Lease Payment (Finance Payment)” and a “Finance” line under “Budgeted Running Costs”, they're the same payment. Use either.",
+        more: `On the Alliance quote checked, one included GST and the other didn't. ${PAYMENT_GST_NOTE}`,
       },
       {
         field: "defer",
@@ -481,7 +487,7 @@ const GUIDES: ProviderGuide[] = [
       { field: "baseValue", text: "If you see “FBT base value (inc GST)”, enter it as printed." },
       { field: "docFee", text: "Check the “Other Fees” footnote for an establishment or non-appointed dealer fee; it may be capitalised into the lease rental." },
       { field: "residual", text: "If you see “Residual value (ex GST)”, choose Excluding GST." },
-      { field: "payment", text: "If you see a monthly “Lease Rental”, check its footnote: the quote reviewed states that it excludes GST." },
+      { field: "payment", text: "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST." },
       { field: "luxAdj", text: "If you see “Luxury vehicle non-deductible”, that's the luxury vehicle adjustment." },
     ],
   },

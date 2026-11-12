@@ -185,6 +185,20 @@ describe("FBT base value not printed", () => {
 });
 
 describe("provider pointers", () => {
+  test("no payment pointer tells the reader which GST answer to choose", () => {
+    // The payment's GST basis can differ between employers on one provider's quotes. A pointer may
+    // only name a GST basis when it quotes a label that prints it ("If you see “… (excl GST)”").
+    for (const { id } of PROVIDERS) {
+      for (const p of pointersFor(id, "payment")) {
+        const labels = p.text.match(/“[^”]*”/g) ?? [];
+        if (labels.some((l) => /GST/i.test(l))) continue; // the quote's own label states the basis
+        // Quoted labels and capitalised column names ("EXCL GST") are printed on the reader's quote.
+        const unlabelled = p.text.replace(/“[^”]*”/g, "").replace(/\b[A-Z]{3,} GST\b/g, "");
+        expect(unlabelled, `${id}: ${p.text}`).not.toMatch(/\b(ex|excl|exc|inc|incl)\.? GST\b|choose (Including|Excluding) GST|(?<!whether it )(includes|excludes) GST/i);
+      }
+    }
+  });
+
   const before = (a: Element, b: Element) => !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
 
   test("payment pointer comes before the period and GST questions it answers", () => {
