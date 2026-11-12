@@ -16,10 +16,18 @@ The Maxxia layouts reviewed in November 2026 use **Financed payments** for the l
 | --- | --- | --- | --- |
 | 1 | FBT base value | **Vehicle FBT Base Value** | The value as printed, including GST. |
 | 2 | Drive-away price | **Car price (based on on roads)** | Use this price, not the FBT base value. They can differ. |
-| 5 | Documentation fee | **Financier's Establishment Fee** | The fee shown, checking its GST basis. |
+| 5 | Documentation fee | **Financier's Establishment Fee** plus **1st year Comprehensive Insurance** | Add the two and enter the total. See *First-year insurance* below. |
 | 6 | Residual | **Total residual value** | The reviewed layout does not label GST clearly. Choose *I'm not sure* if your own quote does not clarify it. |
 | 7 | Finance payment | **Financed payments** | Enter the payment in the period shown. Check the heading or ask Maxxia whether it includes GST. |
-| 9 | Insurance | **First year Comprehensive Insurance** in the financed amount; **Insurance renewal** under running costs | Enter the full yearly premium in Guided's insurance field, even if the first year is financed upfront. Check that you have not overlooked the upfront amount when comparing finance costs. |
+| 9 | Insurance | **Comprehensive insurance renewal** under running costs | Enter the full yearly premium, not just the renewal. See *First-year insurance* below. |
+
+## First-year insurance
+
+Maxxia includes the first year's comprehensive insurance in the amount financed ("1st year Comprehensive Insurance", $1,691.71 and $2,107.82 on the two quotes checked). The running costs only budget for renewals ("Comprehensive insurance renewal").
+
+1. **Documentation fee:** add "1st year Comprehensive Insurance" to "Financier's Establishment Fee" and enter the total. The payments repay both, so leaving the insurance out makes the effective interest rate look too high: about 14.5% instead of 12.0% on one 3-year Maxxia quote checked.
+2. **Insurance:** enter the full yearly premium, not just the renewal line. The pay-cash comparison needs a full year of insurance every year.
+3. **What the calculator can't separate:** with these entries, the lease side counts the first year's insurance twice, once inside the payments and once in running costs. The lease's total cost comes out about one year's premium too high, so bear that in mind if the result is close.
 
 The financed payment can include fees or insurance that another provider lists separately. The [general quote guide](/start-here/how-to-read-a-novated-lease-quote/) explains why comparing only the payment or a quoted rate can mislead.
 

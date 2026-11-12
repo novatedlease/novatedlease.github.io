@@ -18,7 +18,7 @@ This numbered example shows an Oly quote layout reviewed in August 2026. Match e
 |---|---|---|
 | 2 | Recommended retail price (shown struck out) | On this example it reconciles to the on-road price including GST. Check that the figure on your own quote includes all on-road charges; otherwise use the dealer's full drive-away price. "Your Oly novated leasing price" / "Oly driveaway price" has the GST saving taken off. |
 | 3 | Your chosen novated lease term | Lease term |
-| 5 | Financier's Establishment fee | Documentation fee |
+| 5 | Financier's Establishment fee, plus First year Comprehensive Insurance | Documentation fee: add the two and enter the total. See *First-year insurance* below. |
 | 7 | Car lease payments | Finance payment, per month (the page says "Monthly"). No GST label: choose "I'm not sure" unless your quote says. |
 | 9 | Monthly running-cost budget lines | Running-cost boxes, per month. Incidentals and roadside → Servicing. |
 
@@ -32,9 +32,13 @@ This numbered example shows an Oly quote layout reviewed in August 2026. Match e
 |---|---|---|
 | 6 | Your total residual value (after lease term) | Residual, **Including GST**. On the estimate checked it equalled the ATO minimum on Oly's ex-GST price, plus GST. |
 
-Also on the quote: "First year Comprehensive Insurance (Oly arranged)" is inside the total amount
-financed, so the insurance budget only covers renewals. Enter the full yearly premium in Insurance
-anyway (see the insurance tooltip).
+## First-year insurance
+
+Oly includes the first year's comprehensive insurance in the amount financed ("First year Comprehensive Insurance - (Oly arranged)", $2,022.65 on the quote checked). Its footnote says annual renewals are covered by the running costs.
+
+1. **Documentation fee:** add "First year Comprehensive Insurance" to "Financier's Establishment fee" and enter the total. The payments repay both, so leaving the insurance out makes the effective interest rate look higher than it is.
+2. **Insurance:** enter the full yearly premium, not just the monthly renewal budget. The pay-cash comparison needs a full year of insurance every year.
+3. **What the calculator can't separate:** with these entries, the lease side counts the first year's insurance twice, once inside the payments and once in running costs. The lease's total cost comes out about one year's premium too high, so bear that in mind if the result is close.
 
 Not shown on this sample: **1 FBT base value**, **4 deferral**, **8 luxury vehicle adjustment**,
 **10 management fee**, **11 interest rate**. Use "Not sure" for the deferral.
