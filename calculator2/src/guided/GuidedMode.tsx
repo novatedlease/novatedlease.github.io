@@ -1765,7 +1765,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           hint="Comprehensive cover. Compare with your own insurer's quote."
           tooltip={
             <Tip>
-              {"Some quotes pay the first year's insurance upfront, inside the amount financed, and only budget for renewals. Enter the full yearly premium here anyway: the calculator counts insurance in every year of the lease.\n\nThe pay-cash comparison assumes you'd have this same insurance without the lease. Enter only cover you'd buy either way. Put lease-only cover (e.g. LeaseGuard, GAP) in Lease management fees: you wouldn't buy it if you paid cash, and management fees are the only costs the calculator counts on the lease side only."}
+              {"Some quotes (e.g. Maxxia, Oly) put the first year's insurance in the amount financed and only budget for renewals. Still enter the full yearly premium here, and add the first-year premium to the documentation fee so the interest rate isn't overstated. The calculator then counts the first year on the lease side twice, so the lease's cost comes out about one year's premium too high.\n\nThe pay-cash comparison assumes you'd have this same insurance without the lease. Enter only cover you'd buy either way. Put lease-only cover (e.g. LeaseGuard, GAP) in Lease management fees: you wouldn't buy it if you paid cash, and management fees are the only costs the calculator counts on the lease side only."}
             </Tip>
           }
           findings={f.insurance}
