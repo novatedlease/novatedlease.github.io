@@ -1245,6 +1245,8 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         where="Type the figure exactly as printed."
         findings={f.residual}
       />
+      {/* Before the GST question: most residual pointers answer it. */}
+      <ProviderPointers d={d} field="residual" />
       <Choices
         field="residualBasis"
         label="On your quote, is the residual (balloon) value"
@@ -1272,7 +1274,6 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           </Tip>
         }
       />
-      <ProviderPointers d={d} field="residual" />
       {d.residualBasis === "unknown" && (
         <NoteBox mb={20}>
           {guessed && typedResidual && atoMin ? (
@@ -1315,6 +1316,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         Enter only the <strong>vehicle finance</strong> payment. Running costs
         come next.
       </Lead>
+      {/* Before the questions: most payment pointers say which period and GST basis to choose. */}
+      <ProviderPointers d={d} field="payment" />
       <Choices
         field="paymentPeriod"
         label="How does your quote show the payment?"
@@ -1465,7 +1468,6 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         suffix={d.paymentPeriod ? `per ${PERIOD_UNIT[d.paymentPeriod]}` : undefined}
         findings={[...f.payment, ...f.paymentCorrected]}
       />
-      <ProviderPointers d={d} field="payment" />
       {diag?.status === "ok" && diag.rate !== null && (
         <div className="gd-stat">
           <span className="gd-stat__label">Effective interest rate</span>
@@ -1568,7 +1570,7 @@ function ProviderPointers({
   if (list.length === 0 && field !== "insurance" && cropFor(guide.id, field)) list = [{ field, text: "" }];
   if (list.length === 0) return null;
   return (
-    <div className="gd-pointers" data-provider={guide.id}>
+    <div className="gd-pointers" data-provider={guide.id} data-field={field}>
       {list.map((p) => (
         <ProviderPointer key={`${guide.id}-${p.field}-${p.text}`} pointer={p} provider={guide.id} />
       ))}

@@ -185,6 +185,23 @@ describe("FBT base value not printed", () => {
 });
 
 describe("provider pointers", () => {
+  const before = (a: Element, b: Element) => !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
+
+  test("payment pointer comes before the period and GST questions it answers", () => {
+    on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
+    const pointer = document.querySelector('.gd-pointers[data-field="payment"]')!;
+    expect(pointer).toBeTruthy();
+    expect(before(pointer, screen.getByText("How does your quote show the payment?"))).toBe(true);
+  });
+
+  test("residual pointer sits between the residual amount and its GST question", () => {
+    on("lease", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
+    const residual = document.querySelector('.gd-pointers[data-field="residual"]')!;
+    expect(residual).toBeTruthy();
+    expect(before(screen.getByLabelText(/residual/i, { selector: "input" }), residual)).toBe(true);
+    expect(before(residual, screen.getByText("On your quote, is the residual (balloon) value"))).toBe(true);
+  });
+
   test("warns when a quote layout has not been checked for over six months", () => {
     const now = new Date(2026, 10, 12);
     expect(guideMayHaveChanged("2026-05", now)).toBe(false);
