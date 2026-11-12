@@ -409,7 +409,7 @@ export function GuidedMode({
     setTried(false);
     setResumed(false);
     setVisited((p) => (p.includes(next) ? p : [...p, next]));
-    trackEvent("guided_step", { step: next });
+    trackEvent("guided_step", { step: next, provider: draft.provider ?? "none" });
     requestAnimationFrame(() =>
       topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
     );
@@ -449,8 +449,8 @@ export function GuidedMode({
   const path = draft.hasQuote === null ? null : draft.hasQuote ? "quote" : "exploring";
 
   useEffect(() => {
-    if (onResults) trackOncePerSession("guided_completed", "guided_completed");
-  }, [onResults]);
+    if (onResults) trackOncePerSession("guided_completed", "guided_completed", { provider: draft.provider ?? "none" });
+  }, [onResults, draft.provider]);
 
   useEffect(() => {
     onPathChange?.(path);
@@ -1696,7 +1696,7 @@ function ProviderPointer({ pointer, provider, seen }: { pointer: Pointer; provid
         <p>A real {label} quote with numbers removed. Checked {seenLabel(seen)}. Tap the image to enlarge.{example && ` ${example.caption}`}</p>
         {isCrop && fullImages.length > 0 && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? "Switch to crop view" : "Switch to full page view"}</button>{" · "}</>}
         <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the whole quote</a>
-        {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer">Mine looks different</a>
+        {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer" onClick={() => trackEvent("guided_provider_feedback_click", { provider })}>Mine looks different</a>
       </div>}
     </div>}
   </div>;

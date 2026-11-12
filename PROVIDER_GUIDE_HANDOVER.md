@@ -77,3 +77,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - The six trap labels live beside the provider guides in `DRIVEAWAY_TRAP_LABELS`. Findings use the selected quote and the reader's own inputs, never auto-change an answer. Maxxia/Oly documentation-fee warnings from the original item 9 plan were omitted because item 7 now asks for financed insurance separately.
 - Each visible provider warning sends `guided_provider_check` once per provider/code/session, with no entered figures or personal data. Unit tests cover every condition, all six trap labels, negative cases, and Other/null. TypeScript, 321 calculator tests, ESLint and calculator build pass. The build also includes the visible Advanced insurance field from the preceding checkpoint.
 - Next: item 8 owner decision may still be pending; otherwise items 15, 16 and 17 remain. No push or merge.
+
+## Item 17 — guidance analytics (2026-11-13)
+
+- Added the closed-list provider ID (or `none`) to `guided_step` and `guided_completed`. The "Mine looks different" link now emits `guided_provider_feedback_click` with the provider ID. Item 9 already added one-per-session `guided_provider_check` events with provider and check code. No quote values, free text or customer details are sent.
+- A UI test checks the feedback event payload. TypeScript, focused provider-picker tests (45), ESLint and calculator build pass. The prior full 321-test suite passed after item 9; this item changed only three event calls and their test.
+- This branch is not deployed, so there is no ship date yet. When deployed, record that date against the coffee-nudge social-proof A/B test before interpreting its mid-December funnel. After four weeks, compare named-provider versus none completion from Price to results, rate-warning share, and picture-open rate by field.
+- Remaining: item 8's owner choice, item 15 source consolidation, and item 16 article strategy. No push or merge.

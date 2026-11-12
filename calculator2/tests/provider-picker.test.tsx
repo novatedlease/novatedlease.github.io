@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test } from "vitest";
+import { afterEach, describe, expect, test, vi } from "vitest";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
@@ -9,6 +9,8 @@ import { PROVIDERS, type GuideField, type ProviderId, cropFor, exampleFor, image
 afterEach(() => {
   cleanup();
   window.localStorage.clear();
+  window.sessionStorage.clear();
+  delete window.gtag;
 });
 
 const KEY = "nlc2-guided-draft-v3";
@@ -270,6 +272,15 @@ describe("provider pointers", () => {
     fireEvent.click(pointer.querySelector(".gd-template > button")!);
     return pointer;
   }
+
+  test("quote-layout feedback click records only the selected provider", () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    on("price", { ...quoteDraft(), provider: "sgfleet" });
+    const pointer = openPicture("baseValue");
+    fireEvent.click(pointer.querySelector('a[href="/about/contact/#quote-layout-feedback"]')!);
+    expect(gtag).toHaveBeenCalledWith("event", "guided_provider_feedback_click", { provider: "sgfleet" });
+  });
 
   test("Smart Leasing stacks both redacted pages for the missing drive-away price", () => {
     on("price", { ...quoteDraft(), provider: "smartleasing" });
