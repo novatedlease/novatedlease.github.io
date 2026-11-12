@@ -337,6 +337,15 @@ describe("provider pointers", () => {
     }
   });
 
+  test("no provider offers a lease-term picture", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    for (const p of PROVIDERS) expect(cropFor(p.id, "term")).toBeNull();
+    const dir = path.join(__dirname, "../../docs/assets/images/quote-guide");
+    const left = fs.readdirSync(dir).filter((id) => fs.existsSync(path.join(dir, id, "field-term.webp")));
+    expect(left).toEqual([]);
+  });
+
   test("no pointers without a named provider", () => {
     on("lease", quoteDraft());
     expect(screen.queryByText(/As seen on/)).toBeNull();
