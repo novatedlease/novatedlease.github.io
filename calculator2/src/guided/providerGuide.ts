@@ -141,7 +141,7 @@ const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "driveaway",
-        text: "This Smart Leasing example is page 2 and does not print a drive-away total. Use the dealer's full on-road price including GST, or use “Not on your quote? Work it out from the residual” below.",
+        text: "The two available Smart Leasing pages do not print a drive-away total. Use the dealer's full on-road price including GST, or use “Not on your quote? Work it out from the residual” below.",
         more: "Do not substitute FBT base value, a GST saving or a lease payment. If you have the vehicle and on-road charges, “Or add up the parts” is another way to fill this field.",
       },
       {
@@ -539,7 +539,7 @@ const TEMPLATE_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   spa: ["baseValue", "driveaway", "term", "defer", "residual", "payment", "running", "fees"],
   vehiclesolutions: ["baseValue", "driveaway", "term", "defer", "residual", "payment", "running", "fees"],
   sgfleet: ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "running"],
-  smartleasing: ["baseValue", "defer", "residual", "payment", "running"],
+  smartleasing: ["baseValue", "driveaway", "defer", "residual", "payment", "running"],
   maxxia: ["baseValue", "driveaway", "docFee", "residual", "payment", "insurance", "running"],
   paywise: ["baseValue", "residual", "payment", "fees", "running"],
   smartsalary: ["baseValue", "residual", "payment", "running"],

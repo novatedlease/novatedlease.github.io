@@ -130,10 +130,17 @@ describe("provider pointers", () => {
 
   test("Smart Leasing explains the missing drive-away total beside that field", () => {
     on("price", { ...quoteDraft(), provider: "smartleasing" });
-    const pointer = screen.getByText(/Smart Leasing example is page 2 and does not print a drive-away total/);
+    const pointer = screen.getByText(/two available Smart Leasing pages do not print a drive-away total/);
     const driveawayField = document.querySelector('[data-field="driveaway"]')!;
     expect(driveawayField.nextElementSibling?.contains(pointer)).toBe(true);
     expect(screen.getByText("Not on your quote? Work it out from the residual")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Show both available Smart Leasing pages" }));
+    const image = screen.getByAltText(/Smart Leasing quote page 1 of two available pages/) as HTMLImageElement;
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/redacted-quote-page-1.png");
+    fireEvent.click(screen.getByRole("button", { name: "Show page 2" }));
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/redacted-quote.png");
+    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
+      .toBe("/assets/images/quote-guide/smartleasing/redacted-quote.pdf");
   });
 
   test("SG Fleet's payment pointer shows on the payment screen", () => {
