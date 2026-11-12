@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This numbered example shows an Autopia quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on an Autopia quote
+
+- **FBT base value:** Can’t find the FBT base value? Don’t use “base price”: it excludes GST. Ask for the value or derive it from the price breakdown.
+<!-- provider-traps:end -->
+
 ![Redacted Autopia quote with numbered fields](/assets/images/quote-guide/autopia/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

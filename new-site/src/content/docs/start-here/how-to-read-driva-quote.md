@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This numbered example shows a Driva quote layout reviewed in August 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Driva quote
+
+- **Drive-away price:** If you see both “DriveAway Price” and a lower “Effective novated vehicle price”, use “DriveAway Price” including GST.
+<!-- provider-traps:end -->
+
 ![Redacted Driva quote with numbered fields](/assets/images/quote-guide/driva/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

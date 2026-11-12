@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This numbered example shows a MillarX quote layout reviewed in October 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on a MillarX quote
+
+- **Finance payment:** Use the fortnightly payment or “$X/mth × N” with its matching period, then run the correction tool.
+<!-- provider-traps:end -->
+
 ![Redacted MillarX quote with numbered fields](/assets/images/quote-guide/millarx/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This example has a monthly finance figure and a separate fortnightly Lease Rental tile. Use the fortnightly **Lease Rental** tile. **Lease Per Month** is paid fewer times than the lease has months (see Months Deferred), so entering it would make the rate look higher.
 
+<!-- provider-traps:begin -->
+## What catches people out on an Easi (EasiFleet) quote
+
+- **Finance payment:** Use the fortnightly lease figure. Don’t use “Lease Per Month” if it covers fewer payments than the lease term.
+<!-- provider-traps:end -->
+
 ![Redacted Easi quote with numbered fields](/assets/images/quote-guide/easi/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

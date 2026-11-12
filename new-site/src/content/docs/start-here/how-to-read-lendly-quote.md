@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This numbered example shows a Lendly quote layout reviewed in October 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Lendly quote
+
+- **Drive-away price:** If you see “Price … Drive Away” beside a lower “Total Price (ex. GST)”, use the drive-away price including GST.
+<!-- provider-traps:end -->
+
 ![Redacted Lendly quote with numbered fields](/assets/images/quote-guide/lendly/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

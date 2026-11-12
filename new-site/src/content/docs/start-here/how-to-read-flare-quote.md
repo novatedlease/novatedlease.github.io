@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 Flare shows both **Vehicle cost** and **Total on-road price** on this layout. Use the full *Total on-road price* for the drive-away field; Vehicle cost is after the quoted GST saving.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Flare quote
+
+- **Drive-away price:** If you see “Vehicle cost — Flare Cars driveaway cost”, don't use it: it has the GST saving taken off. Use “Total on-road price”.
+<!-- provider-traps:end -->
+
 ![Redacted Flare quote with numbered fields](/assets/images/quote-guide/flare/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

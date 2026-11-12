@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This numbered example shows a LeaseExpress quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on a LeaseExpress quote
+
+- **Drive-away price:** Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST.
+<!-- provider-traps:end -->
+
 ![Redacted LeaseExpress quote with numbered fields](/assets/images/quote-guide/leaseexpress/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

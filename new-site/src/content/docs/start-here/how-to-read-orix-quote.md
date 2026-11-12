@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This numbered example shows an ORIX quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on an ORIX quote
+
+Nothing on the ORIX quotes we checked looked easy to misread. The table below shows where each figure is.
+<!-- provider-traps:end -->
+
 ![Redacted ORIX quote with numbered fields](/assets/images/quote-guide/orix/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

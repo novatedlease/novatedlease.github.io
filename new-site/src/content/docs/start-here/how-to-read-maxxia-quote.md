@@ -12,6 +12,13 @@ datePublished: "2026-11-12"
 
 The Maxxia layouts reviewed in November 2026 use **Financed payments** for the lease payment. They may include financier fees and the first year's comprehensive insurance in the amount financed. Check those inclusions when comparing the quote with another offer.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Maxxia quote
+
+- **First-year insurance:** Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.
+- **Documentation fee:** Enter “Financier's Establishment Fee” here. If year-one insurance is financed, use Guided's separate insurance question.
+<!-- provider-traps:end -->
+
 ![Redacted Maxxia quote pages with numbered fields](/assets/images/quote-guide/maxxia/redacted-quote.webp)
 
 *Quote-page example with customer values and identifying details removed. Match the blue numbers to the table below; your layout may differ.*

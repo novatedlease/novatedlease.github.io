@@ -12,6 +12,13 @@ datePublished: "2026-11-12"
 
 These two pages come from the same [Smart Leasing quote shared in November 2026](https://www.reddit.com/r/NovatedLeasingAU/comments/1xocshn/). Page 1 shows the vehicle and payment summary; page 2 shows the FBT, finance and running-cost details. Its third page was not shared. A **terms page from another quote** appears below. On page 2, **Lease per month** can be entered as printed with *Per month*. The fortnightly lease payment may include a budget reserve; use Guided's correction tool if you choose that figure.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Smart Leasing quote
+
+- **Finance payment:** Use “Lease payment” or “Lease per month”, then run the correction tool. Both need it.
+- **Documentation fee:** Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.
+<!-- provider-traps:end -->
+
 ![Redacted Smart Leasing quote page 1 showing the vehicle and payment summary](/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp)
 
 ![Redacted Smart Leasing quote page 2 with numbered finance fields](/assets/images/quote-guide/smartleasing/redacted-quote.webp)

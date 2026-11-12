@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This numbered example shows an Alliance Leasing quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on an Alliance Leasing quote
+
+- **Drive-away price:** Use “Total Drive Away Price (Inc GST)” in Purchase Details. Don’t use “Total Amount Financed”.
+<!-- provider-traps:end -->
+
 ![Redacted Alliance Leasing quote with numbered fields](/assets/images/quote-guide/alliance/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

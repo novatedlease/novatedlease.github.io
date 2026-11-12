@@ -459,6 +459,13 @@ describe("provider pointers", () => {
       const title = articleText.match(/^title: "(How to read an? .+ novated lease quote)"$/m)?.[1];
       expect(title, article).toBeTruthy();
       expect(articleText, article).toContain(`# ${title}\n`);
+      // Item 16: the article opens with the same traps Guided shows in amber, and only those.
+      const trapSection = articleText.split("<!-- provider-traps:begin -->")[1]?.split("<!-- provider-traps:end -->")[0];
+      expect(trapSection, article).toBeTruthy();
+      expect(trapSection, article).toContain("## What catches people out on ");
+      const trapTexts = fields.flatMap((field) => pointersFor(id, field)).filter((p) => p.kind === "trap").map((p) => p.text);
+      for (const text of new Set(trapTexts)) expect(trapSection, `${id}: ${text}`).toContain(text);
+      expect((trapSection!.match(/^- \*\*/gm) ?? []).length, id).toBe(new Set(trapTexts).size);
       expect(index, id).toContain(`/start-here/how-to-read-${id}-quote/`);
       const paths = [pageFor(id), ...pageImagesFor(id), ...fields.flatMap((field) => [cropFor(id, field), templateFor(id, field), exampleFor(id, field)?.image])];
       for (const src of paths.filter((path): path is string => !!path)) {

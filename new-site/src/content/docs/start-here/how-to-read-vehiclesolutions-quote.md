@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This numbered example shows a Vehicle Solutions quote layout reviewed in September 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Vehicle Solutions quote
+
+Nothing on the Vehicle Solutions quotes we checked looked easy to misread. The table below shows where each figure is.
+<!-- provider-traps:end -->
+
 ![Redacted Vehicle Solutions quote with numbered fields](/assets/images/quote-guide/vehiclesolutions/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

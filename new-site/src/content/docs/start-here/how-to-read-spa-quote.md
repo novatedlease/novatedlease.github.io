@@ -12,6 +12,13 @@ datePublished: "2026-11-12"
 
 This numbered example shows a Salary Packaging Australia (S.P.A.) quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Salary Packaging Australia (S.P.A.) quote
+
+- **Drive-away price:** Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”.
+- **FBT base value:** If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price.
+<!-- provider-traps:end -->
+
 ![Redacted Salary Packaging Australia (S.P.A.) quote with numbered fields](/assets/images/quote-guide/spa/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

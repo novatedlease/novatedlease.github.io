@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 The NLA Vehicle Packaging Schedule shown here separates the vehicle price components and labels the residual **ex GST**. Use the GST basis printed beside each figure.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Novated Lease Australia (NLA) quote
+
+Nothing on the Novated Lease Australia (NLA) quotes we checked looked easy to misread. The table below shows where each figure is.
+<!-- provider-traps:end -->
+
 ![Redacted NLA quote pages with numbered fields](/assets/images/quote-guide/nla/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

@@ -297,3 +297,11 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Full calculator test suite passes: 350 tests in 26 files. ESLint and diff check pass. The final 82-page site build passes, with all 27 table syncs and Pagefind indexing. The build emitted Astro's one-time duplicate-id cache warnings for the two edited Smart-branded articles. A jsdom `window.scrollTo` notice appeared in a passing test, as before.
 - Remaining outside this pass: item 8 Smart-branded Smartsalary escape-hatch decision from the owner; item 16 provider-specific trap introductions and any indexing preference; a deeper row model if desired; live deployment date for analytics. No push or merge.
 
+
+## Item 16, checkpoint D — trap introductions (2026-11-14)
+
+- New prebuild script `new-site/scripts/sync-provider-traps.mjs` adds "What catches people out on a/an {Provider} quote" to all 27 provider articles, after the intro and before the first image or table. It lists the same trap pointers Guided shows in amber (`TRAP_FIELDS`), labelled by field. The eight providers with no traps (Custom Fleet, NLA, ORIX, Paywise, RemServ, Simplygreen, Toyota Fleet Management, Vehicle Solutions) get one line: "Nothing on the {Provider} quotes we checked looked easy to misread." Idempotent; runs after the table sync.
+- a/an handles acronyms ("an SG Fleet", "an ORIX").
+- The provider integration test now checks each article's trap section holds exactly the trap pointers for that provider.
+- Validation: TypeScript, 350 calculator tests, ESLint on the changed test, calculator build and site build pass; the built SG Fleet page shows the new heading.
+- Still awaiting the owner: item 8 (Smart-branded Smartsalary escape hatch) and item 16's indexing choice for thin pages. No push or merge.

@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This numbered example shows a LeaseLab quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on a LeaseLab quote
+
+- **Drive-away price:** No drive-away total? Add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.
+<!-- provider-traps:end -->
+
 ![Redacted LeaseLab quote with numbered fields](/assets/images/quote-guide/leaselab/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

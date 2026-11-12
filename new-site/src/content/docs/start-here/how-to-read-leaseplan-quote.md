@@ -12,6 +12,13 @@ datePublished: "2026-11-12"
 
 This numbered example shows a LeasePlan / Ayvens quote layout reviewed in August 2025. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on a LeasePlan / Ayvens quote
+
+- **Drive-away price:** Can’t find a drive-away total? Ask for the full on-road price including GST. The residual helper may not work here.
+- **Documentation fee:** If “Finance Documentation” is monthly, put it in management fees. Enter any one-off “Security Interest” fee here.
+<!-- provider-traps:end -->
+
 ![Redacted LeasePlan / Ayvens quote with numbered fields](/assets/images/quote-guide/leaseplan/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

@@ -12,6 +12,13 @@ datePublished: "2026-11-12"
 
 This Remunerator example prints a **Lease Payment (excl GST)** separately from the annual car expenses. Use that lease-payment line for finance; the highlighted headline amount includes running costs.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Remunerator quote
+
+- **Drive-away price:** “Vehicle Purchase Price” may omit on-road costs. Check it includes GST and all on-road charges before using it.
+- **Finance payment:** If you see “Lease Payment (excl GST)” under “Annual Car Expenses”, it's a yearly total: choose “Per year (total)”.
+<!-- provider-traps:end -->
+
 ![Redacted Remunerator quote with numbered fields](/assets/images/quote-guide/remunerator/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

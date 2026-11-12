@@ -12,6 +12,12 @@ datePublished: "2026-11-12"
 
 This Quote/Finance Schedule has an on-road vehicle price including GST and a residual excluding GST. The package section shows **Rent** under a monthly, excluding-GST heading.
 
+<!-- provider-traps:begin -->
+## What catches people out on a Toyota Fleet Management quote
+
+Nothing on the Toyota Fleet Management quotes we checked looked easy to misread. The table below shows where each figure is.
+<!-- provider-traps:end -->
+
 ![Redacted Toyota Fleet Management quote with numbered fields](/assets/images/quote-guide/toyotafleet/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

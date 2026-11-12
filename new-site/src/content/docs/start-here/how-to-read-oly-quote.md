@@ -12,6 +12,14 @@ datePublished: "2026-11-12"
 
 This numbered example shows an Oly quote layout reviewed in August 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
+<!-- provider-traps:begin -->
+## What catches people out on an Oly quote
+
+- **Drive-away price:** Don’t use “Oly driveaway price”: it has the GST saving taken off. Use the dealer’s full on-road price including GST.
+- **First-year insurance:** Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.
+- **Documentation fee:** Enter “Financier's Establishment fee” here. If year-one insurance is financed, use Guided's separate insurance question.
+<!-- provider-traps:end -->
+
 ![Redacted Oly quote with numbered fields](/assets/images/quote-guide/oly/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*

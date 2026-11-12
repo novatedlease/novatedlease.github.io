@@ -16,6 +16,13 @@ SG Fleet layouts reviewed in November 2026 show a per-pay **Lease rental** in Pa
 
 The first two pages of the VSSS example below **do not show FBT Base Value**. Look for the **Fringe Benefit Tax (FBT)** section on a later page. This redacted crop is from a different SG Fleet *Indicative quote* layout and marks the line with **1**. Do not substitute **Vehicle on-road cost** for the FBT base value. If your quote has no such line, ask SG Fleet for it.
 
+<!-- provider-traps:begin -->
+## What catches people out on an SG Fleet quote
+
+- **Finance payment:** Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.
+- **FBT base value:** Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”.
+<!-- provider-traps:end -->
+
 ![Redacted later SG Fleet FBT section with number 1 marking FBT Base Value](/assets/images/quote-guide/sgfleet/fbt-example.webp)
 
 ## Where to find the drive-away price
