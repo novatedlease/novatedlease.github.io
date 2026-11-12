@@ -18,16 +18,18 @@ This numbered example shows an ORIX quote layout reviewed in November 2026. Matc
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 3 | Term (months) | Lease term |
 | 5 | "Other Fees" paragraph (e.g. Non-Appointed Dealer Fee, Establishment Fee) | Documentation fee, ex GST. It's capitalised into the lease rental, so it belongs in the amount financed |
-| 6 | Residual value (ex GST) | Residual, "Excluding GST" |
+| 6 | Residual value (ex GST) | If you see “Residual value (ex GST)”, choose Excluding GST. |
 | 7 | Lease Rental (Charge (Monthly)) | Finance payment, per month, excluding GST (footnote: "Unless clearly stated otherwise … exclusive of GST") |
 | 8 | Luxury vehicle non-deductible (if applicable) | Luxury vehicle adjustment, per month |
 | 9 | Maintenance, Tyres, Energy, Comprehensive insurance, Registration renewal | Running-cost boxes, per month, ex GST |
 | 10 | ORIX management fee | Lease management fees |
 | 11 | Interest Rate | Compare with the effective rate Guided shows |
+<!-- provider-table:end -->
 
 Not shown on this sample: **1 FBT base value** (some ORIX layouts print "FBT base value (inc GST)" under the vehicle price), **2 drive-away** (only the parts: vehicle price ex GST, options,
 stamp duty and initial rego shown as "Financed"; ask for the full drive-away price including GST, or use the residual helper), **4 deferral** ("Monthly

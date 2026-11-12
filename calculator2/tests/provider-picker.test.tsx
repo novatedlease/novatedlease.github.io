@@ -592,6 +592,13 @@ describe("provider pointers", () => {
     expect(article).toContain("Insurance Uplift goes with insurance");
   });
 
+  test("ORIX's residual row follows Guided while fee and GST footnotes remain", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-orix-quote.md"), "utf8");
+    expect(article).toContain(pointersFor("orix", "residual")[0].text);
+    expect(article).toContain("It's capitalised into the lease rental");
+    expect(article).toContain("Unless clearly stated otherwise … exclusive of GST");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

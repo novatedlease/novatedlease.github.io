@@ -226,3 +226,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (62), ESLint, calculator build and 82-page site build pass. The site build also covered LeaseLab; Astro emitted its one-time duplicate-id cache warnings for the two edited articles.
 - Sixteen of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint T — ORIX residual (2026-11-13)
+
+- ORIX's numbered residual row now syncs from Guided. Its **Other Fees** and **Lease Rental** rows deliberately stay hand-curated: the article carries a capitalisation note and the quote's GST footnote that the short pointers do not capture. The missing FBT and drive-away explanations also remain in prose.
+- Focused provider tests (63) and diff check pass. The site table generator ran; the site build was last checked at checkpoint S and can be rerun with the next article batch.
+- Seventeen of 27 provider articles now have at least one synced table row. ORIX's fee/payment rows need a separate evidence-preserving review before conversion. No push or merge.
+

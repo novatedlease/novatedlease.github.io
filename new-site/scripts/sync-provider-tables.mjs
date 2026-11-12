@@ -25,6 +25,7 @@ const migrated = {
   simplygreen: { '2': 'driveaway', '4': 'defer', '7': 'payment' },
   leaselab: { '6': 'residual', '7': 'payment' },
   leaseexpress: { '1': 'baseValue', '6': 'residual', '7': 'payment' },
+  orix: { '6': 'residual' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {
