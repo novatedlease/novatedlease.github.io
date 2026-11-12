@@ -48,3 +48,11 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - The literal grep from the old review plan still matches type names, code comments and `FIELD_EXAMPLES` alt/caption strings. A runtime test checks every displayed pointer's main text for the prohibited wording and 140-character limit.
 - Validation: TypeScript, 304 calculator tests, ESLint on changed TS/test files, calculator build, and 82-page site build pass. Local preview remains `http://localhost:4342/calculator/` while its server is running.
 - Next priorities need care: item 7 (Maxxia/Oly financed insurance) and item 8 (Smart-branded Smartsalary) were flagged as needing owner decisions in the original review. Safer independent items are 9, 11, 15, 16 and 17, although 9 depends on the accuracy choice for 7/8.
+
+## Item 11 — picker polish (2026-11-13)
+
+- The empty picker now explains that the provider is the company at the top of the quote, not the employer or dealer.
+- A named selection confirms that provider-specific locations will appear. If its reviewed guide is older than six months, the hint names the example month (e.g. LeasePlan, Aug 2025).
+- “Other / not listed” explains that general hints still work and links to quote-layout feedback. The Smart Leasing / Smartsalary layout note remains.
+- No free text is sent to analytics. Tests cover default, named, stale and Other states. Validation: TypeScript, 305 calculator tests, ESLint on changed TS/TSX, calculator build and 82-page site build pass.
+- Owner decisions pending on item 7's financed-insurance treatment and item 8's Smart-branded correction escape hatch. Do not assume the default options without a reply.

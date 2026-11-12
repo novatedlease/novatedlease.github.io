@@ -32,10 +32,21 @@ describe("provider picker", () => {
   test("is optional, on the first screen once the reader has a quote, and the choice is saved", () => {
     on("intro", quoteDraft());
     expect(picker().value).toBe("");
-    expect(screen.getByText(/No personal information needed/)).toBeTruthy();
+    expect(screen.getByText(/The company named at the top of your quote/)).toBeTruthy();
     expect(missingForStep("intro", saved()).join()).not.toMatch(/quote from/);
     fireEvent.change(picker(), { target: { value: "sgfleet" } });
     expect(saved().provider).toBe("sgfleet");
+    expect(screen.getByText(/We'll show you where each figure is on a SG Fleet quote/)).toBeTruthy();
+  });
+
+  test("Other has a useful next step, while an older guide names its date", () => {
+    on("intro", quoteDraft());
+    fireEvent.change(picker(), { target: { value: "other" } });
+    expect(screen.getByText(/The general hints work for any quote/)).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Tell us who it's from" }).getAttribute("href"))
+      .toBe("/about/contact/#quote-layout-feedback");
+    fireEvent.change(picker(), { target: { value: "leaseplan" } });
+    expect(screen.getByText(/Our example is from Aug 2025/)).toBeTruthy();
   });
 
   test("Smart Leasing / MillarX answer follows the named provider", () => {

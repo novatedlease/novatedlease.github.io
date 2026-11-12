@@ -1562,11 +1562,18 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
     .slice()
     .sort((a, b) => a.label.localeCompare(b.label));
   const smartRelated = d.provider === "smartleasing" || d.provider === "smartsalary";
+  const guide = guideFor(d.provider);
+  const hint = d.provider === "other" ? <>
+    No problem. The general hints work for any quote. <a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer">Tell us who it's from</a>.
+  </> : guide ? <span className="gd-provider-confirm">
+    We'll show you where each figure is on a {providerLabel(guide.id)} quote.
+    {guideMayHaveChanged(guide.seen) && ` Our example is from ${seenLabel(guide.seen)}.`}
+  </span> : "The company named at the top of your quote, not your employer or the car dealer.";
   return (
     <div className="gd-provider">
     <SelectField<ProviderId | "">
       label="Who is your quote from? (optional)"
-      hint="Used only to show provider-specific guidance on where to find each figure. No personal information needed."
+      hint={hint}
       value={d.provider ?? ""}
       onChange={(v) => {
         const next = v === "" ? null : v;

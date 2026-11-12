@@ -291,3 +291,4 @@
 .gd-provider .nlc-select {
   max-width: 24rem;
 }
+.gd-provider-confirm { color: var(--nlc-good-dark); }
