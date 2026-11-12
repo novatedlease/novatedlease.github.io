@@ -584,7 +584,7 @@ function notShownText(id: ProviderId, field: GuideField): string | null {
   const p = providerLabel(id);
   switch (field) {
     case "baseValue":
-      return `The ${p} example checked doesn't print the FBT base value. Ask ${p}, or add up the car, options and delivery, including GST.`;
+      return `The ${p} example checked doesn't print the FBT base value. Ask ${p}, or take the drive-away price and subtract stamp duty, rego and CTP.`;
     case "defer":
       return `The ${p} example checked doesn't say how many months are deferred. Choose “Not sure” (we'll assume 2) unless ${p} tells you.`;
     case "docFee":

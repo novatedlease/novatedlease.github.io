@@ -1112,6 +1112,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
           <InfoTooltip
             text={
               "Listed before stamp duty, rego and CTP insurance.\n\n" +
+              "Not on your quote? Take the drive-away price and subtract stamp duty, rego and CTP. The dealer's price breakdown usually lists them.\n\n" +
               "Also called:\n• FBT value\n• Vehicle base value\n• Value for FBT purposes\n• Vehicle subtotal (on a dealer invoice)\n\n" +
               "✅ Included: the car's price, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar), and any Luxury Car Tax (LCT) if payable.\n\n" +
               "❌ Not included: compulsory third party (CTP) insurance, registration, stamp duty."

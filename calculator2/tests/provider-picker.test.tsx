@@ -151,6 +151,16 @@ describe("correction callout with a named provider", () => {
   });
 });
 
+describe("FBT base value not printed", () => {
+  test("tells the reader to take stamp duty, rego and CTP off the drive-away price", () => {
+    for (const id of ["millarx", "oly", "remserv", "lendly"] as const) {
+      const [p] = pointersFor(id, "baseValue");
+      expect(p.notShown).toBe(true);
+      expect(p.text).toMatch(/drive-away price and subtract stamp duty, rego and CTP/);
+    }
+  });
+});
+
 describe("provider pointers", () => {
   test("warns when a quote layout has not been checked for over six months", () => {
     const now = new Date(2026, 10, 12);

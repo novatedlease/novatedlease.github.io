@@ -221,6 +221,7 @@ export function InputsPanel(props: {
             <InfoTooltip
               text={
                 "Listed on the car invoice prior to stamp duty, rego, and CTP insurance. Many invoices label this vehicle subtotal.\n\n" +
+                "Not on your quote? Take the drive-away price and subtract stamp duty, rego and CTP. The dealer's price breakdown usually lists them.\n\n" +
                 "✅ Included: the car's RRP, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar), and any Luxury Car Tax (LCT) if payable.\n\n" +
                 "❌ Not included: compulsory third party (CTP) insurance, registration, stamp duty."
               }
