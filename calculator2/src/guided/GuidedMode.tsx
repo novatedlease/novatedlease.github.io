@@ -19,6 +19,7 @@ import {
   POPULAR,
   PROVIDERS,
   guideFor,
+  guideMayHaveChanged,
   isNamedProvider,
   isSmartOrMillarx,
   pointersFor,
@@ -1102,6 +1103,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
   return (
     <Side highlight={["baseValue", "driveaway"]} d={d}>
       <Lead>Two different prices from your quote. They're easy to mix up.</Lead>
+      <ProviderSelect d={d} set={set} />
       <MoneyInput
         field="baseValue"
         label="FBT base value (including GST)"
@@ -1168,7 +1170,6 @@ function LeaseStep({ d, set, f }: StepPropsF) {
   return (
     <Side highlight={["term", "defer", "docFee", "residual"]} d={d}>
       <Lead>The finance terms from your quote.</Lead>
-      <ProviderSelect d={d} set={set} />
       <Choices
         field="leaseYears"
         label="Lease term"
@@ -1520,7 +1521,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
   );
 }
 
-/** Optional "Who is your quote from?", first on the lease screen. */
+/** Optional "Who is your quote from?", before the first quote figures. */
 function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
   const popular = PROVIDERS.filter((p) => POPULAR.includes(p.id));
   const rest = PROVIDERS.filter((p) => !POPULAR.includes(p.id) && p.id !== "other")
@@ -1562,15 +1563,13 @@ function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
 function ProviderPointers({
   d,
   field,
-  fields,
 }: {
   d: GuidedDraft;
-  field?: GuideField;
-  fields?: GuideField[];
+  field: GuideField;
 }) {
   const guide = guideFor(d.provider);
   if (!guide) return null;
-  const list = (fields ?? (field ? [field] : [])).flatMap((x) => pointersFor(d.provider, x));
+  const list = pointersFor(d.provider, field);
   if (list.length === 0) return null;
   return (
     <div className="gd-pointers" data-provider={guide.id}>
@@ -1582,6 +1581,7 @@ function ProviderPointers({
       ))}
       <div className="gd-pointer__seen">
         As seen on {providerLabel(guide.id)} quotes, {seenLabel(guide.seen)}.
+        {guideMayHaveChanged(guide.seen) && " The layout may have changed."}
       </div>
     </div>
   );
@@ -1746,7 +1746,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
         columns={4}
         hint="Use whichever your quote shows. All the boxes below use it."
       />
-      <ProviderPointers d={d} fields={["running", "insurance", "fees"]} />
+      <ProviderPointers d={d} field="running" />
       <Choices<"exGst" | "incGst" | "unknown">
         field="runningGstHeading"
         label="What does the running-cost heading on your quote say?"
@@ -1887,6 +1887,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           findings={f.insurance}
           estimatedNote="Typical estimate"
         />
+        <ProviderPointers d={d} field="insurance" />
         <MoneyInput
         field="mgmt"
           row
@@ -1899,6 +1900,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           estimatedNote="Typical estimate"
           where="Admin, membership and management fees, added together."
         />
+        <ProviderPointers d={d} field="fees" />
         {!isEv && (
           <MoneyInput
         field="fuel"

@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { pointersFor } from "../src/guided/providerGuide";
+import { PROVIDERS, guideFor, guideMayHaveChanged, pointersFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -15,7 +15,7 @@ function quoteDraft(): GuidedDraft {
   return { ...emptyDraft(), hasQuote: true, vehicleType: "EV", vehicleCondition: "New" };
 }
 
-function on(step: "lease" | "payment", d: GuidedDraft | Record<string, unknown>) {
+function on(step: "price" | "lease" | "payment", d: GuidedDraft | Record<string, unknown>) {
   window.localStorage.setItem(
     KEY,
     JSON.stringify({ draft: d, step, visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
@@ -27,16 +27,16 @@ const saved = () => JSON.parse(window.localStorage.getItem(KEY)!).draft as Guide
 const picker = () => screen.getByLabelText(/Who is your quote from/) as HTMLSelectElement;
 
 describe("provider picker", () => {
-  test("is optional, on the lease screen, and the choice is saved", () => {
-    on("lease", quoteDraft());
+  test("is optional, on the first quote-figure screen, and the choice is saved", () => {
+    on("price", quoteDraft());
     expect(picker().value).toBe("");
-    expect(missingForStep("lease", saved()).join()).not.toMatch(/quote from/);
+    expect(missingForStep("price", saved()).join()).not.toMatch(/quote from/);
     fireEvent.change(picker(), { target: { value: "sgfleet" } });
     expect(saved().provider).toBe("sgfleet");
   });
 
   test("Smart Leasing / MillarX answer follows the named provider", () => {
-    on("lease", quoteDraft());
+    on("price", quoteDraft());
     fireEvent.change(picker(), { target: { value: "millarx" } });
     expect(saved().smartMillarx).toBe(true);
     fireEvent.change(picker(), { target: { value: "sgfleet" } });
@@ -47,7 +47,7 @@ describe("provider picker", () => {
   });
 
   test("changing provider clears a payment corrected for the previous provider", () => {
-    on("lease", {
+    on("price", {
       ...quoteDraft(),
       provider: "smartleasing",
       smartMillarx: true,
@@ -60,7 +60,7 @@ describe("provider picker", () => {
   });
 
   test("switching a corrected Smart Leasing draft to Other clears its correction", () => {
-    on("lease", {
+    on("price", {
       ...quoteDraft(),
       provider: "smartleasing",
       smartMillarx: true,
@@ -90,6 +90,22 @@ describe("provider picker", () => {
 });
 
 describe("provider pointers", () => {
+  test("warns when a quote layout has not been checked for over six months", () => {
+    const now = new Date(2026, 10, 12);
+    expect(guideMayHaveChanged("2026-05", now)).toBe(false);
+    expect(guideMayHaveChanged("2026-04", now)).toBe(true);
+  });
+
+  test("each named provider has dated pointers and a recorded quote source", () => {
+    for (const provider of PROVIDERS.filter((p) => p.id !== "other")) {
+      const guide = guideFor(provider.id);
+      expect(guide, provider.id).not.toBeNull();
+      expect(guide!.sources.length, provider.id).toBeGreaterThan(0);
+      expect(guide!.pointers.length, provider.id).toBeGreaterThan(0);
+      expect(guide!.seen, provider.id).toMatch(/^20\d\d-(0[1-9]|1[0-2])$/);
+    }
+  });
+
   test("new providers have evidence-backed pointers on the appropriate fields", () => {
     expect(pointersFor("autopia", "baseValue")[0].text).toMatch(/base price/);
     expect(pointersFor("customfleet", "luxAdj")[0].text).toMatch(/Non-Deductible Depreciation/);
@@ -111,10 +127,10 @@ describe("provider pointers", () => {
     expect(screen.getByText(/“Monthly lease rental”, either works/)).toBeTruthy();
   });
 
-  test("no pointers without a provider, or for one we have none for", () => {
+  test("no pointers without a named provider", () => {
     on("lease", quoteDraft());
     expect(screen.queryByText(/As seen on/)).toBeNull();
-    expect(pointersFor("paywise", "payment")).toEqual([]);
+    expect(pointersFor("other", "payment")).toEqual([]);
     expect(pointersFor(null, "payment")).toEqual([]);
   });
 });

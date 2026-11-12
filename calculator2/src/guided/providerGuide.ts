@@ -346,6 +346,130 @@ const GUIDES: ProviderGuide[] = [
       },
     ],
   },
+  {
+    id: "paywise",
+    seen: "2026-11",
+    sources: ["1xob46m"],
+    pointers: [
+      { field: "baseValue", text: "If you see “FBT value”, that's the FBT base value." },
+      { field: "payment", text: "If you see “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, enter it per fortnight, excluding GST." },
+      { field: "fees", text: "If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees." },
+    ],
+  },
+  {
+    id: "smartsalary",
+    seen: "2026-11",
+    sources: ["1xsj1gj"],
+    pointers: [
+      { field: "payment", text: "If you see “Lease Payment (Fixed)” under “Motor Vehicle Deductions (inc GST)”, choose Including GST." },
+      { field: "running", text: "If the running-cost heading says inc GST and has “Less: Employer Claimed ITC”, choose Including GST, then say your employer claims the GST credit." },
+    ],
+  },
+  {
+    id: "driva",
+    seen: "2026-08",
+    sources: ["1vfxcqr"],
+    pointers: [
+      { field: "driveaway", text: "If you see both “DriveAway Price” and a lower “Effective novated vehicle price”, use “DriveAway Price” including GST." },
+      { field: "residual", text: "If you see “Residual Value (ex. GST)”, choose Excluding GST." },
+      { field: "payment", text: "If you see “Lease Payment” under “Budget per payroll ex. GST”, enter it excluding GST and choose the payroll period shown." },
+    ],
+  },
+  {
+    id: "fingo",
+    seen: "2026-11",
+    sources: ["1xs3una"],
+    pointers: [
+      { field: "driveaway", text: "If you see “Your car price (drive away price when financed)”, it has the GST saving taken off. Use the full “Drive away Price” instead." },
+      { field: "defer", text: "If the footnote says the first two payments can be deferred, check whether your quote uses that option before choosing 2 months." },
+      { field: "payment", text: "If you see “Finance Repayment (Fixed)” in weekly, fortnightly and monthly columns, enter one figure with its matching period. Check the subtotal for GST." },
+    ],
+  },
+  {
+    id: "nla",
+    seen: "2026-11",
+    sources: ["1xs3una"],
+    pointers: [
+      { field: "baseValue", text: "If you see “Vehicle base value” in the FBT calculations box, that's the FBT base value." },
+      { field: "driveaway", text: "If no drive-away total is printed, add the vehicle price, GST, stamp duty, registration and CTP shown on the quote." },
+      { field: "residual", text: "If you see “Residual payment (ex GST)”, choose Excluding GST." },
+      { field: "payment", text: "If you see “Lease payment (fixed)” under “Gross fortnightly rental”, enter the lease payment excluding the separate GST line." },
+    ],
+  },
+  {
+    id: "toyotafleet",
+    seen: "2026-10",
+    sources: ["1x9tvny"],
+    pointers: [
+      { field: "driveaway", text: "If you see “Vehicle price on-road* (incl GST)”, that's the drive-away price." },
+      { field: "docFee", text: "If you see “Est. Fee - financed (exc GST)” and a separate PPSR fee, add both as one-off documentation fees." },
+      { field: "residual", text: "If you see “Residual Value (excl GST)”, choose Excluding GST." },
+      { field: "payment", text: "If you see “Rent” under a monthly “(excl GST)” heading, enter it per month, excluding GST." },
+    ],
+  },
+  {
+    id: "leaseexpress",
+    seen: "2026-11",
+    sources: ["1xo2r3u"],
+    pointers: [
+      { field: "baseValue", text: "If you see “Value for FBT purposes”, that's the FBT base value." },
+      { field: "residual", text: "If “GST on residual” sits beside “Residual value”, the residual figure itself excludes GST." },
+      { field: "payment", text: "If you see “Lease payments (fortnightly)” with GST in a separate column, enter the payment excluding that GST column." },
+    ],
+  },
+  {
+    id: "orix",
+    seen: "2026-11",
+    sources: ["1xp2oq9"],
+    pointers: [
+      { field: "baseValue", text: "If you see “FBT base value (inc GST)”, enter it as printed." },
+      { field: "docFee", text: "Check the “Other Fees” footnote for an establishment or non-appointed dealer fee; it may be capitalised into the lease rental." },
+      { field: "residual", text: "If you see “Residual value (ex GST)”, choose Excluding GST." },
+      { field: "payment", text: "If you see a monthly “Lease Rental”, check its footnote: the quote reviewed states that it excludes GST." },
+      { field: "luxAdj", text: "If you see “Luxury vehicle non-deductible”, that's the luxury vehicle adjustment." },
+    ],
+  },
+  {
+    id: "remserv",
+    seen: "2026-10",
+    sources: ["1xdwkvq"],
+    pointers: [
+      { field: "driveaway", text: "If you see only “RemServ price”, its GST basis is unclear on the quote reviewed. Check the full on-road price before entering it." },
+      { field: "residual", text: "If “Residual value” has no GST label, choose “I'm not sure” unless the quote or provider confirms the basis." },
+      { field: "payment", text: "If “Finance” has no GST label, check the headings and footnotes; choose “I'm not sure” if it remains unclear." },
+      { field: "running", text: "If you see “Servicing & Incidentals” as one line, enter that combined amount under servicing and tyres." },
+    ],
+  },
+  {
+    id: "simplygreen",
+    seen: "2026-11",
+    sources: ["1xngaj3"],
+    pointers: [
+      { field: "defer", text: "If you see “Months Deferred 2” and “No. of Payments 34” on a 36-month lease, choose 2 months." },
+      { field: "payment", text: "If you see “Total Lease Cost” under “Lease/Finance Budget (excluding gst)”, enter that figure excluding GST in the period shown." },
+      { field: "running", text: "If you see a “Contingency Budget” or “Car Washes/Incidentals”, check whether you want those budgets included in your comparison." },
+    ],
+  },
+  {
+    id: "lendly",
+    seen: "2026-10",
+    sources: ["1wus9yl"],
+    pointers: [
+      { field: "driveaway", text: "If you see “Price … Drive Away” beside a lower “Total Price (ex. GST)”, use the drive-away price including GST." },
+      { field: "residual", text: "If “Residual Value” has no GST label, check the footnote: the quote reviewed says it includes GST." },
+      { field: "fees", text: "If you see a “Licence Fee” in the running-cost budget, include it with lease management fees." },
+    ],
+  },
+  {
+    id: "vehiclesolutions",
+    seen: "2026-09",
+    sources: ["1wothrn"],
+    pointers: [
+      { field: "defer", text: "If you see “Finance lease 2 MONTHS DEFERRED”, choose 2 months." },
+      { field: "residual", text: "If you see “Residual (incl GST)”, choose Including GST." },
+      { field: "payment", text: "If the quote shows EXCL GST and INCL GST payment columns side by side, enter either one and choose the matching GST answer." },
+    ],
+  },
 ];
 
 const BY_ID = new Map(GUIDES.map((g) => [g.id, g]));
@@ -363,4 +487,10 @@ export function seenLabel(seen: string): string {
   const [y, m] = seen.split("-").map(Number);
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   return `${months[(m ?? 1) - 1]} ${y}`;
+}
+
+/** Quote layouts can change; show a caution once the last checked month is over six months old. */
+export function guideMayHaveChanged(seen: string, now = new Date()): boolean {
+  const [year, month] = seen.split("-").map(Number);
+  return now.getFullYear() * 12 + now.getMonth() + 1 - (year * 12 + month) > 6;
 }
