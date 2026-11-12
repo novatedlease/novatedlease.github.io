@@ -150,3 +150,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused tests (51), ESLint and 82-page site build pass. The test rejects the old unqualified “per month/fortnight, ex GST” wording. Astro emitted its one-time duplicate-id cache warning for the edited article.
 - Five articles have migrated rows. Smart Leasing's correction treatment remains subject to the owner's item 8 choice. No push or merge.
 
+## Item 15, checkpoint I — Easi payment and price rows (2026-11-13)
+
+- Easi's drive-away and fortnightly lease-payment action cells now sync from Guided. The article keeps the source-specific reconciliation between monthly and fortnightly figures and asks readers to confirm the actual deduction count and GST heading.
+- Removed the unqualified ex-GST instruction from Easi's finance-payment row. Focused tests (52), ESLint and 82-page site build pass. Astro emitted its one-time duplicate-id cache warning for this edited article.
+- Six articles have migrated rows; continue provider by provider. No push or merge.
+

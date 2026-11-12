@@ -14,6 +14,7 @@ const migrated = {
   maxxia: { '5': 'docFee', '9': 'insurance' },
   oly: { '5': 'docFee' },
   millarx: { '7a': 'payment' },
+  easi: { '2': 'driveaway', '7b': 'payment' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

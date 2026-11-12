@@ -16,18 +16,22 @@ This example has a monthly finance figure and a separate fortnightly Lease Renta
 
 *Customer values and identifying details removed. Your quote may use a different layout.*
 
+<!-- provider-table:begin -->
 | # | On this quote | In Guided mode |
 | --- | --- | --- |
 | 1 | FBT Base Value | FBT base value. |
-| 2 | Drive Away Price | Drive-away price, including GST. |
+| 2 | Drive Away Price | Use “Drive Away Price”, including GST. |
 | 3 | Lease Term | Lease term. |
 | 4 | Months Deferred | Months before payments start. |
 | 6 | Residual Value (Inc GST) | Residual, *Including GST*. |
 | 7a | Lease Per Month (ex GST) | Not this one: it is paid fewer times than the lease has months. |
-| 7b | Lease Rental tile | Finance payment, *Per fortnight*, excluding GST. On this layout it equals the monthly figure × 12 ÷ 26, so the rate may still look slightly high; ask Easi how many times it is deducted. |
+| 7b | Lease Rental tile | Use the fortnightly lease figure. Don’t use “Lease Per Month” if it covers fewer payments than the lease term. |
 | 8 | Luxury Vehicle Adjustment | Enter only if this adjustment applies to your quote. |
 | 9 | Electricity, registration, maintenance and insurance | Running-cost budgets, with the period and GST basis shown. |
 | 10 | Admin Fee | Lease management fee. |
+<!-- provider-table:end -->
+
+On the layout reviewed, the fortnightly Lease Rental reconciles to the monthly figure multiplied by 12 and divided by 26. Confirm how many deductions Easi will actually make. Check the payment's GST heading on your own quote.
 
 An establishment fee may already be included in Lease Rental. Check your quote's footnote before adding a separate fee.
 

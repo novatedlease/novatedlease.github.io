@@ -501,6 +501,14 @@ describe("provider pointers", () => {
     expect(article).not.toMatch(/per (month|fortnight), ex GST/);
   });
 
+  test("Easi's per-pay row follows the Guided warning and keeps the deduction caveat", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-easi-quote.md"), "utf8");
+    expect(article).toContain(pointersFor("easi", "payment")[0].text);
+    expect(article).toContain(pointersFor("easi", "driveaway")[0].text);
+    expect(article).toContain("Confirm how many deductions Easi will actually make");
+    expect(article).not.toContain("Finance payment, *Per fortnight*, excluding GST");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
