@@ -158,14 +158,11 @@ describe("guided draft", () => {
     expect(buildInputs(d)!.residualValueExGst).toBeCloseTo(exGst, -1);
   });
 
-  test("a monthly payment is the financier's own payment, spread over the term for the engine", () => {
+  test("a monthly payment is converted to the engine's fortnightly figure", () => {
     const d = completeDraft();
     const fn = moneyValue(d.payment)!;
-    const months = d.leaseYears! * 12;
-    const paid = months - d.monthsDeferred!;
-    // The engine's per-fortnight figure covers all 130 fortnights; the financier is paid `paid` times.
     d.paymentPeriod = "perMonth";
-    d.payment = m(String(((fn * months * 26) / 12 / paid).toFixed(2)));
+    d.payment = m(String(((fn * 26) / 12).toFixed(2)));
     expect(buildInputs(d)!.vehicleLeasePerFn).toBeCloseTo(fn, 1);
   });
 });

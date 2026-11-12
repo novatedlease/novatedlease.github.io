@@ -84,8 +84,8 @@ const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "payment",
-        text: "If you see both “Lease rental” (per pay) and “Monthly lease rental”, either works: choose the matching period. Both are ex GST.",
-        more: "“Monthly lease rental (payable as 34 payments)” is the financier's payment. The per-pay figure spreads the same total over the whole term.",
+        text: "Use “Lease rental” (per pay), ex GST, with your pay period. Don't use “Monthly lease rental (payable as 34 payments)”: it's paid fewer times than the lease has months, so it would overstate your rate.",
+        more: "The per-pay “Lease rental” spreads the same total over the whole lease, which is how the calculator reads every payment.",
       },
       {
         field: "defer",
@@ -123,7 +123,7 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "payment",
-        text: "If you see “$X/mth × N”, enter that monthly figure per month: it needs no correction. If you see “Finance + fee”, take the management fee out first.",
+        text: "Use the fortnightly payment and run it through the correction tool. “$X/mth × N” also works: choose Per month and correct it the same way. If you see “Finance + fee”, take the management fee out first.",
         more: "The fortnightly figure is the monthly payment × 12 ÷ 26, collected for the whole term while the financier is paid term − deferral times. The correction tool takes the extra out.",
       },
       {
@@ -148,7 +148,7 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "payment",
-        text: "If you see “Lease per month”, enter it per month: it needs no correction. The fortnightly “Lease payment” needs the correction tool.",
+        text: "Use the fortnightly “Lease payment” or “Lease per month”, then the correction tool. Both need it.",
         more: "Smart Leasing collects the fortnightly figure as though there were 60 monthly payments while 58 go to the financier.",
       },
       {
@@ -303,8 +303,8 @@ const GUIDES: ProviderGuide[] = [
       { field: "driveaway", text: "Use “Drive Away Price” on the Easi quote, marked 2 on the example. Enter the full price including GST." },
       {
         field: "payment",
-        text: "If you see “Lease Per Month”, check whether it says ex GST or inc GST: Easi quotes vary. Enter it per month.",
-        more: "Easi's fortnightly figure is worked out differently on different quote layouts, so the monthly figure is the safer one to use.",
+        text: "Use the fortnightly lease figure, with the GST basis shown on your quote. “Lease Per Month” is paid fewer times than the lease has months (see “Number of Installments”), so it would make the rate look higher.",
+        more: "On some Easi layouts the fortnightly figure is the monthly × 12 ÷ 26. If yours is, the rate may still look slightly high; ask Easi how many times it is deducted.",
       },
       {
         field: "defer",
@@ -448,6 +448,10 @@ const GUIDES: ProviderGuide[] = [
       { field: "docFee", text: "If you see “Est. Fee - financed (exc GST)” and a separate PPSR fee, add both as one-off documentation fees." },
       { field: "residual", text: "If you see “Residual Value (excl GST)”, choose Excluding GST." },
       { field: "payment", text: "If you see “Rent” under a monthly “(excl GST)” heading, enter it per month, excluding GST." },
+      {
+        field: "defer",
+        text: "Toyota Fleet's schedule doesn't state a deferral. On the quote checked, the printed rate matched payments starting straight away: choose “Straight away” unless Toyota Fleet tells you otherwise.",
+      },
     ],
   },
   {
@@ -547,7 +551,6 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   driva: ["defer", "docFee"],
   fingo: ["docFee"],
   nla: ["defer", "docFee"],
-  toyotafleet: ["defer"],
   leaseexpress: ["defer", "docFee"],
   orix: ["defer"],
   remserv: ["baseValue", "defer", "docFee", "fees"],

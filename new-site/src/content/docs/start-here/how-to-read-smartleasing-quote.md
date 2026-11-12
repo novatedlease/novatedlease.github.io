@@ -21,7 +21,7 @@ These two pages come from the same [Smart Leasing quote shared in November 2026]
 | 4 | Months deferred | **Months deferred** | The number printed. |
 | 5 | Documentation fee | **Documentation fee** in the terms page of another quote below | This one-off fee is in the amount financed. The example says *including GST*; divide by 1.1 to enter its ex-GST amount in Guided. |
 | 6 | Residual | **Residual** and **Residual incl GST** | Either figure works if you choose its matching GST answer. |
-| 7a / 7b | Finance payment | **Lease per month** or **Lease incl GST per month** | Enter one monthly figure and choose its matching GST answer. If using a fortnightly lease payment instead, run the correction tool. |
+| 7a / 7b | Finance payment | **Lease per month** or **Lease incl GST per month** | Enter either the monthly figure or the fortnightly lease payment, with its matching GST answer, then run the Smart Leasing correction tool. Both need it. |
 | 9 | Running costs | **Running Cost Budgets (exc GST)** | Use the period shown for those budget lines and choose *Excluding GST*. |
 
 Some Queensland Government quotes use a different template. In particular, check the GST basis of **Total lease payment (Finance payment)** on your own quote rather than assuming it matches the monthly layout above.

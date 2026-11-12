@@ -21,7 +21,7 @@ This numbered example shows a MillarX quote layout reviewed in October 2026. Mat
 | 4 | "Your first payment is deferred N months"; also "$X/mth × N" (term − N = deferral) | First payment: after that many months |
 | 5 | Setup fee | Documentation fee |
 | 6 | Balloon (End-of-term residual, ex GST) | Residual, "Excluding GST" (the "If you buy it (inc GST)" figure is the same amount inc GST) |
-| 7a | Finance payments "$X/mth × N" | Finance payment, per month, ex GST. This is the payment to the financier: no correction needed in Guided |
+| 7a | Finance payments "$X/mth × N" | Finance payment, per month, ex GST, through the MillarX correction tool (buffer = the deferral months) |
 | 7b | THE PART MILLARX PROVIDES, Fortnightly | Or this one, per fortnight, ex GST, with the MillarX correction (buffer = the deferral months) |
 | 11 | EFFECTIVE RATE | Compare with the effective rate Guided shows |
 

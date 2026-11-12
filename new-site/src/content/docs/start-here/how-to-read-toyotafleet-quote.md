@@ -20,6 +20,8 @@ This Quote/Finance Schedule has an on-road vehicle price including GST and a res
 | 5 | PPSR Fee and Est. Fee, both financed | Add as one-off documentation fees, noting the printed GST basis. |
 | 6 | Residual Value (excl GST) | Residual, *Excluding GST*. |
 | 7 | Rent, package inclusions | Finance payment, *Per month*, excluding GST. |
+
+The schedule doesn't state a deferral. On the quote checked, the printed interest rate matched payments starting straight away, so choose **Straight away** for the first payment unless Toyota Fleet tells you otherwise.
 | 9 | EV reimbursement, registration, maintenance, tyres and insurance | Running-cost budgets in the matching period. |
 | 10 | Management | Lease management fee. |
 | 11 | Interest rate | Compare with Guided's effective-rate result. |

@@ -106,7 +106,7 @@ before writing anything provider-specific.
 
 ### 3. SG Fleet shows two payment figures and states deferral only as a payment count
 
-**Status (2026-11-12):** ✅ Done in Guided: `e89060df` (monthly = financier payment), article `8193645b`. Advanced mode: review branch (see summary).
+**Status (2026-11-12):** Decided by the owner: **all periods are read as spread over the term** (as before); `e89060df` and article `8193645b` were reverted. Instead, guidance steers readers to the per-pay figure (e.g. SG Fleet "Lease rental", not "Monthly lease rental (payable as N payments)"), via a tooltip on the payment-period question and the provider pointers. Evidence for monthly-lease-rental figures being the financier payment (SG Fleet ×2, MillarX ×3, Toyota Fleet with no deferral) is kept above for reference.
 
 - **Problem:** SG Fleet prints a per-pay "Lease rental" (spread over the full term) and a "Monthly
   lease rental" "(payable as 34 payments)" on a 36-month term. The per-pay figure with a 2-month

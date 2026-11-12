@@ -155,7 +155,7 @@ describe("provider pointers", () => {
 
   test("SG Fleet's payment pointer shows on the payment screen", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
-    expect(screen.getByText(/“Monthly lease rental”, either works/)).toBeTruthy();
+    expect(screen.getByText(/Use “Lease rental” \(per pay\).*Don.t use “Monthly lease rental/)).toBeTruthy();
     expect(screen.queryByAltText(/redacted SG Fleet quote/)).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: /Show where it is on a SG Fleet quote/ }));
     const image = screen.getByAltText(/redacted SG Fleet quote, with the line for this question numbered/) as HTMLImageElement;

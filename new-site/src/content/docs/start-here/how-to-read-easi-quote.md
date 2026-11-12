@@ -6,7 +6,7 @@ datePublished: "2026-11-12"
 
 # How to read an Easi quote for Guided mode
 
-This example has a monthly finance figure and a separate fortnightly Lease Rental tile. The monthly **Lease Per Month (ex GST)** figure is the clearest finance input on this layout.
+This example has a monthly finance figure and a separate fortnightly Lease Rental tile. Use the fortnightly **Lease Rental** tile. **Lease Per Month** is paid fewer times than the lease has months (see Months Deferred), so entering it would make the rate look higher.
 
 ![Redacted Easi quote with numbered fields](/assets/images/quote-guide/easi/redacted-quote.png)
 
@@ -19,8 +19,8 @@ This example has a monthly finance figure and a separate fortnightly Lease Renta
 | 3 | Lease Term | Lease term. |
 | 4 | Months Deferred | Months before payments start. |
 | 6 | Residual Value (Inc GST) | Residual, *Including GST*. |
-| 7a | Lease Per Month (ex GST) | Finance payment, *Per month*, excluding GST. |
-| 7b | Lease Rental tile | A fortnightly alternative; confirm its basis before using it. |
+| 7a | Lease Per Month (ex GST) | Not this one: it is paid fewer times than the lease has months. |
+| 7b | Lease Rental tile | Finance payment, *Per fortnight*, excluding GST. On this layout it equals the monthly figure × 12 ÷ 26, so the rate may still look slightly high; ask Easi how many times it is deducted. |
 | 8 | Luxury Vehicle Adjustment | Enter only if this adjustment applies to your quote. |
 | 9 | Electricity, registration, maintenance and insurance | Running-cost budgets, with the period and GST basis shown. |
 | 10 | Admin Fee | Lease management fee. |
