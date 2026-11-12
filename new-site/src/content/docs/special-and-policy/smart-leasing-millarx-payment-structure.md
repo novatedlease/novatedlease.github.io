@@ -1,13 +1,13 @@
 ---
 datePublished: "2026-06-21"
-dateModified: "2026-11-12"
+dateModified: "2026-11-11"
 title: "Smart Leasing & MillarX — why their quoted figure needs adjusting"
-description: Smart Leasing and MillarX quote a regular payment derived from the full lease term, but only a subset of those periods are actual finance payments to the financier. Entering their per-pay figure directly inflates the effective interest rate. Here is why, and how to correct it.
+description: Smart Leasing and MillarX quote a regular payment derived from the full lease term, but only a subset of those periods are actual finance payments to the financier. Entering the quoted figure directly inflates the effective interest rate. Here is why, and how to correct it.
 ---
 
 # Smart Leasing and MillarX — why their quoted figure needs adjusting in the calculator
 
-If you have a quote from Smart Leasing or MillarX and enter its fortnightly payment directly into this calculator, the effective interest rate will come out higher than expected — often by more than 1%. This reflects a structural difference in how these two providers quote their payment amounts.
+If you have a quote from Smart Leasing or MillarX and have tried entering the quoted fortnightly or monthly figure directly into this calculator, the effective interest rate will come out higher than expected — often by more than 1%. This reflects a structural difference in how these two providers quote their payment amounts.
 
 ---
 
@@ -19,7 +19,7 @@ The underlying finance is usually structured with a 2-month deferral (occasional
 
 Now assume the financier's monthly payment is $1,000 ex-GST[^1] for 58 months, or $58,000 total.
 
-Many providers then spread that $58,000 over the entire 130 fortnights — that is, $58,000 ÷ 130 = $446.15 per fortnight ex GST. SG Fleet quotes, for example, show both figures: the per-pay "Lease rental" (spread this way) and the "Monthly lease rental … payable as 58 payments" (the financier's payment). Either works in Guided mode.
+Typically, the novated lease provider then collects $58,000 over the entire 130 fortnights — that is, $58,000 ÷ 130 = $446.15 per fortnight ex GST.
 
 ---
 
@@ -41,10 +41,6 @@ With a 2-month deferral, MillarX's numbers work the same way as the Smart Leasin
 
 The budget reserve is used to cover any shortfall in the budgeted running costs. Any surplus at the end of the term is refunded to you.
 
-:::note[Other providers (November 2026)]
-Some other providers' quotes show a per-pay finance figure equal to the monthly payment × 12 ÷ 26, the same arithmetic as above. We haven't confirmed whether they also collect for the full term or what happens to the extra. If your quote shows a monthly payment, entering that in Guided mode avoids the question.
-:::
-
 ---
 
 ## Why this inflates the effective interest rate in the calculator
@@ -53,9 +49,7 @@ This calculator models the true cost of the finance arrangement — the vehicle 
 
 When you enter the quoted figure from Smart Leasing or MillarX directly, you are entering a number that is slightly higher than the true finance cost — because of the over-collection for the budget reserve. This inflated figure produces a higher effective interest rate than the genuine finance cost would.
 
-The **monthly** figure is different. Smart Leasing's "Lease per month" and MillarX's "$X/mth × N" are the actual monthly payment to the financier ($1,000 in the example). In Guided mode, a payment entered per month is read as exactly that, so it needs no correction. Advanced mode still reads a monthly figure as spread over the whole term, like a fortnightly one, so there it needs the correction too.
-
-The maths for the per-pay figure is straightforward. For a 5-year lease with Smart Leasing (2 buffer months):
+The maths is straightforward. For a 5-year lease with Smart Leasing (2 buffer months):
 
 > True finance figure = Quoted figure × (58 ÷ 60) = Quoted figure × 96.67%
 
@@ -87,7 +81,7 @@ These percentages represent the overstatement of the **payment figure**, not the
 
 The calculator includes a built-in adjustment tool specifically for these providers.
 
-- **Guided mode:** on the payment screen, answer **Yes** to "Is your lease with Smart Leasing or MillarX?" and use the **Open the correction tool** button that appears. If you're entering the monthly figure instead, choose **Per month** and type it as printed: no correction is needed.
+- **Guided mode:** on the payment screen, answer **Yes** to "Is your lease with Smart Leasing or MillarX?" and use the **Open the correction tool** button that appears.
 - **Advanced mode:** click **"Smart Leasing / MillarX customer?"** above the vehicle lease payment field.
 
 The tool opens a panel where you:
@@ -105,7 +99,7 @@ The tool uses 2 months for Smart Leasing, the most commonly reported structure, 
 ### Reading a MillarX quote (November 2026)
 
 - **Deferral:** newer MillarX quotes show a line such as "$819/mth × 58". The number of payments tells you the deferral: 58 payments on a 60-month lease means 2 months, 59 means 1.
-- **Which figure to enter:** in Guided mode, the simplest is the "$X/mth" figure, entered per month as printed. The fortnightly payment is that monthly figure × 12 ÷ 26 and needs the correction. In Advanced mode, either figure goes into the tool and both give the same result.
+- **Which figure to enter:** the fortnightly payment is that monthly figure × 12 ÷ 26. Either one goes into the tool, per fortnight or per month, and both give the same result.
 - **"Finance + fee":** some MillarX quotes show the fortnightly payment as "Finance + fee". That figure includes the management fee. Take the fee out first (a monthly fee × 12 ÷ 26 per fortnight) and enter the fee with your running costs.
 
 ---
@@ -128,7 +122,7 @@ For a Smart Leasing quote of $600/fortnight on a 5-year lease, this is roughly 2
 
 ## Key takeaway
 
-> Smart Leasing and MillarX quote a per-pay figure derived across the full lease term, but part of it funds a running-cost reserve rather than the financier. Entering it directly overstates the finance cost and inflates the effective interest rate. In Guided mode, enter the monthly figure per month (no correction needed), or run the per-pay figure through the **Smart Leasing / MillarX** correction tool before comparing rates or modelling outcomes.
+> Smart Leasing and MillarX quote a regular payment derived across the full lease term, but part of that payment funds a running-cost reserve rather than the financier. Entering the quoted figure directly overstates the finance cost and inflates the effective interest rate. Use the **"Smart / MillarX?"** adjustment tool in the calculator's finance input to scale the figure correctly before comparing rates or modelling outcomes.
 
 ---
 
