@@ -1,6 +1,6 @@
 # Guided mode vs real quotes — issue list (started 2026-11-11)
 
-> **Status 2026-11-12:** issues 1–13, 15 and 20 done on `main` (not pushed). 14, 16 and Advanced-mode monthly handling are on review branches. 17–19 wait on owner decisions. Each issue has a status line. Work through it with the owner one
+> **Status 2026-11-12:** issues 1–13, 15 and 20 done on `main` (not pushed). Issue 14 and Advanced-mode monthly handling are on separate review branches. Issues 16–19 are implemented on `codex/provider-guide-completion` using original number-free quote schematics, and await review. Each issue has a status line. Work through it with the owner one
 > issue at a time, as in `UX_FIXES_HANDOFF_2026-11.md` (plan in a few lines → implement → tests →
 > build → browser check → wait for "next"). That file also has the build, test and preview commands.
 
@@ -306,7 +306,7 @@ pictures of), then 16, then 18–20, then 17. Issue 1 can go any time.
 
 ### 16. Optional provider picker with provider-specific pointers
 
-**Status (2026-11-12):** 🔶 Prototype branch (see summary). Not merged. Design: `PROVIDER_PICKER_DESIGN_2026-11.md`.
+**Status (2026-11-12):** ✅ Review branch `codex/provider-guide-completion`: optional picker before the first quote figures, dated text pointers for every named provider, and a stale-layout caution. Not merged or pushed. Design and decisions: `PROVIDER_PICKER_DESIGN_2026-11.md`.
 
 Replace the "Smart Leasing or MillarX?" yes/no with an optional dropdown (default "Other / not
 listed") on the first quote screen. Show a dated pointer at the affected field only where general
@@ -317,7 +317,9 @@ positions. Prerequisite for issue 18.
 
 ### 17. Per-provider "how to read your quote" articles
 
-**Status (2026-11-12):** ⏸ Waiting: needs consented quote images (issue 19).
+**Status (2026-11-12):** ✅ Review branch: an index and five provider articles (SG Fleet, Smart Leasing, Maxxia, Paywise and Smartsalary) with original label-only schematics and field-by-field tables. Not merged or pushed.
+
+The owner chose reconstructed templates with no quote amounts or identifying details. The original annotated-screenshot proposal follows for historical context.
 
 Top providers only (2026 posts with images: Smart Leasing, SG Fleet, Maxxia, Paywise,
 Smartsalary). Each article is the full annotated quote from issue 18 (every page, numbered boxes
@@ -326,7 +328,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 18. Annotated "where to find it" pictures of each provider's quote
 
-**Status (2026-11-12):** ⏸ Design written (`7de4c8c2`); waiting on owner decisions and consented images.
+**Status (2026-11-12):** ✅ Review branch: focused, number-free SVG schematics generated from the reviewed labels for the five article providers. Readers reveal them beside matching Guided fields; the articles show full schematic layouts. The generator rejects visible numbers and contact-like strings. No source screenshot is published.
 
 - **Idea (owner, 2026-11-11):** for each provider, show a picture of its real quote with the
   figure we're asking about boxed, instead of (or as well as) describing the label.
@@ -356,7 +358,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 19. Image sourcing and consent
 
-**Status (2026-11-12):** ⏸ Design written (`7de4c8c2`); owner to decide submission route and consent wording.
+**Status (2026-11-12):** ✅ Resolved for the current implementation: source screenshots stay private, and the published material is an original schematic containing labels and section names only. If actual quote images are used later, the earlier consent and redaction proposal below still applies.
 
 - Publish only quotes sent to us with permission, not the Reddit screenshots. Reddit posters
   shared theirs for a quote check, not for our site. The Reddit set (`private/quote-review-2026-11/`)
