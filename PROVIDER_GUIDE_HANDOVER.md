@@ -138,3 +138,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused tests (49), TypeScript, ESLint, calculator build and 82-page site build pass. The test checks Maxxia's fee/insurance rows and that the old “add the two” instruction is absent. Astro emitted its one-time duplicate-id cache warning for this edited article.
 - Flare, SG Fleet and Maxxia have migrated rows. Oly is the next related article to review. No push or merge.
 
+## Item 15, checkpoint G — Oly financed-insurance row (2026-11-13)
+
+- Oly's numbered establishment-fee row now syncs from its Guided pointer, so the article directs readers to the separate financed-insurance question. The quote-specific drive-away and residual explanations and the first-year insurance section remain hand-curated.
+- Focused tests (50), ESLint and 82-page site build pass. Astro emitted its one-time duplicate-id cache warning for the edited Oly article.
+- Four articles have migrated rows (Flare, SG Fleet, Maxxia, Oly). Continue only with rows whose old article details can be safely replaced by the short pointer; keep the quote-specific evidence. No push or merge.
+

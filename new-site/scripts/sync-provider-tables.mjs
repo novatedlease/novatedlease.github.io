@@ -12,6 +12,7 @@ const migrated = {
   flare: { '2': 'driveaway', '7': 'payment' },
   sgfleet: { '1': 'baseValue', '2': 'driveaway', '7a': 'payment' },
   maxxia: { '5': 'docFee', '9': 'insurance' },
+  oly: { '5': 'docFee' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {

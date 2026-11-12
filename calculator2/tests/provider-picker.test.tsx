@@ -487,6 +487,13 @@ describe("provider pointers", () => {
     expect(article).not.toContain("Add the two and enter the total");
   });
 
+  test("Oly's article keeps the financed insurance in Guided's separate question", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-oly-quote.md"), "utf8");
+    expect(article).toContain(pointersFor("oly", "docFee")[0].text);
+    expect(article).toContain("Financier's Establishment fee and First year Comprehensive Insurance");
+    expect(article).not.toContain("Documentation fee: add the two and enter the total");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

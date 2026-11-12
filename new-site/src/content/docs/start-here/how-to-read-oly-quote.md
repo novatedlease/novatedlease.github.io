@@ -18,13 +18,15 @@ This numbered example shows an Oly quote layout reviewed in August 2026. Match e
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 2 | Recommended retail price (shown struck out) | On this example it reconciles to the on-road price including GST. Check that the figure on your own quote includes all on-road charges; otherwise use the dealer's full drive-away price. "Your Oly novated leasing price" / "Oly driveaway price" has the GST saving taken off. |
 | 3 | Your chosen novated lease term | Lease term |
-| 5 | Financier's Establishment fee and First year Comprehensive Insurance | Enter the establishment fee in Documentation fee. Answer Yes to the separate first-year insurance question and enter that premium there. |
+| 5 | Financier's Establishment fee and First year Comprehensive Insurance | Enter “Financier's Establishment fee” here. If year-one insurance is financed, use Guided's separate insurance question. |
 | 7 | Car lease payments | Finance payment, per month (the page says "Monthly"). No GST label: choose "I'm not sure" unless your quote says. |
 | 9 | Monthly running-cost budget lines | Running-cost boxes, per month. Incidentals and roadside → Servicing. |
+<!-- provider-table:end -->
 
 ## Residual, at the end of the estimate
 
