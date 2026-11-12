@@ -213,3 +213,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (60), ESLint, calculator build and 82-page site build pass. The site build covered the preceding RemServ change too; Astro emitted its one-time duplicate-id cache warnings for these two edited articles.
 - Fourteen of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint R — LeaseLab weekly payment (2026-11-13)
+
+- LeaseLab's numbered residual and lease-payment action cells now sync from Guided. The payment pointer names the quote's **Budgeted Allowance (ex GST)** heading under weekly allowances and directs readers to choose **Per week** and **Excluding GST**.
+- Kept the article's separate drive-away calculation, its running-cost category placement and its weekly budget caveat. Focused provider tests (61), ESLint and calculator build pass. The table generator ran; site build can be checked with the next article batch.
+- Fifteen of 27 provider articles now have at least one synced table row. No push or merge.
+

@@ -401,7 +401,7 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "payment",
-        text: "If your quote shows a weekly lease payment, choose “Per week” and enter it as printed.",
+        text: "If “Lease” is under “Budgeted Allowance (ex GST)” in Weekly Allowances, choose Per week and Excluding GST.",
       },
       {
         field: "running",

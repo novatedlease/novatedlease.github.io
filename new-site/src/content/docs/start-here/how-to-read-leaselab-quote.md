@@ -18,14 +18,16 @@ This numbered example shows a LeaseLab quote layout reviewed in November 2026. M
 
 ## Numbered field guide
 
+<!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
 | 1 | FBT Base Value | FBT base value |
 | 3 | Lease Term | Lease term |
-| 6 | Residual Ex. GST (also "Residual Value ex. GST" on page 2) | Residual, "Excluding GST" |
-| 7 | Lease, under "Weekly Allowances … Budgeted Allowance (ex GST)" | Finance payment, **per week**, excluding GST |
+| 6 | Residual Ex. GST (also "Residual Value ex. GST" on page 2) | If the residual is labelled ex GST, choose “Excluding GST”. |
+| 7 | Lease, under "Weekly Allowances … Budgeted Allowance (ex GST)" | If “Lease” is under “Budgeted Allowance (ex GST)” in Weekly Allowances, choose Per week and Excluding GST. |
 | 9 | Fuel, Servicing & Maintenance, Roadside, Insurance, Registration, Tyre Replacement | Running-cost boxes, **per week**, ex GST. Roadside goes with Servicing |
 | 10 | Lease Management | Lease management fees, per week |
+<!-- provider-table:end -->
 
 Drive-away price (2) isn't printed. "Novated Vehicle Price" is **not** the drive-away: it's the price
 with the GST saving already taken off. Drive-away ≈ Novated Vehicle Price + "GST Saved on Car Price"
