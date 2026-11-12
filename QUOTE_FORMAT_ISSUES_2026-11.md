@@ -1,6 +1,6 @@
 # Guided mode vs real quotes — issue list (started 2026-11-11)
 
-> **Status 2026-11-12:** issues 1–13, 15 and 20 done on `main` (not pushed). Issue 14 and Advanced-mode monthly handling are on separate review branches. Issues 16–19 are implemented on `codex/provider-guide-completion` with 11 numbered, redacted quote-page examples and guides, and await review. Each issue has a status line. Work through it with the owner one
+> **Status 2026-11-13:** issues 1–13, 15 and 20 done on `main` (not pushed). Issue 14 and Advanced-mode monthly handling are on separate review branches. Issues 16–19 are implemented on `codex/provider-guide-completion` with 27 numbered, redacted quote-page examples and guides, and await review. Each issue has a status line. Work through it with the owner one
 > issue at a time, as in `UX_FIXES_HANDOFF_2026-11.md` (plan in a few lines → implement → tests →
 > build → browser check → wait for "next"). That file also has the build, test and preview commands.
 
@@ -328,7 +328,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 18. Annotated "where to find it" pictures of each provider's quote
 
-**Status (2026-11-12):** ✅ Review branch: 27 redacted quote-page previews with numbered field markers and focused field crops are available beside matching Guided fields. Each article shows the full example and links an image-based PDF. The earlier SVG schematics were removed.
+**Status (2026-11-13):** ✅ Review branch: 27 redacted quote-page previews with numbered field markers and focused field crops are available beside matching Guided fields. Each article shows the full WebP example. The earlier SVG schematics were removed.
 
 - **Idea (owner, 2026-11-11):** for each provider, show a picture of its real quote with the
   figure we're asking about boxed, instead of (or as well as) describing the label.
@@ -358,7 +358,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 19. Image sourcing and consent
 
-**Status (2026-11-12):** ✅ Owner confirmed use of redacted quote-page templates. Customer values and identifying details are removed from the review examples before they are copied to the site; the image-based PDFs contain only those redacted pages. The earlier consent proposal below is historical context.
+**Status (2026-11-13):** ✅ Owner confirmed use of redacted quote-page templates. Customer values and identifying details are removed from the review examples before they are copied to the site. The earlier consent proposal below is historical context.
 
 - Publish only quotes sent to us with permission, not the Reddit screenshots. Reddit posters
   shared theirs for a quote check, not for our site. The Reddit set (`private/quote-review-2026-11/`)

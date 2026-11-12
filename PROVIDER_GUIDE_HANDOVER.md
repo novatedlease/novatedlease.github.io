@@ -10,3 +10,13 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Visual review: six contact sheets covering all 34 new images. The quote-guide directory is 6.7 MB; no WebP exceeds 400 KB.
 - Validation: TypeScript, 302 calculator tests, ESLint on changed TS/TSX, calculator build, and site build (82 pages) pass. Site build requires network access for the existing OG font CDN.
 - Next: item 18 housekeeping, then items 4 + 12 + 6 as the owner-directed redesign. The redesign requires a mock-up for owner approval before coding. Do not start items 5, 7, 8, 9, 11, 15, 16 or 17 without owner direction.
+
+## Item 18 — housekeeping (2026-11-13)
+
+- Corrected the issue list to 27 provider examples and removed stale references to deleted quote-guide PDFs.
+- Updated the picker design note to reflect its actual first-screen placement and WebP article images.
+- Marked `freshness_check.py` as requiring the private archive and manual execution outside public CI.
+- Added an OCR and full-size visual redaction gate to the maintenance reminder.
+- Made provider changes atomic in Guided: provider, correction reset and Smart/MillarX state now enter the draft in one update. Existing provider-switch tests cover correction reset and the Smart/MillarX choice.
+- Validation: TypeScript, 302 calculator tests, ESLint on GuidedMode.tsx, calculator build, and site build (82 pages) pass.
+- Next: owner-directed combined redesign of items 4 + 12 + 6. Show a mock-up and get owner approval before coding. User asked to keep progressing item by item; the mock-up is the next independent deliverable.

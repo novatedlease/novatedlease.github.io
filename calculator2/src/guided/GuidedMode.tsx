@@ -341,6 +341,21 @@ export function GuidedMode({
     setDraft((p) => ({ ...p, [key]: value }));
   };
 
+  const setProvider = (next: ProviderId | null) => {
+    noteInputChange("guided.provider");
+    setDraft((previous) => {
+      const updated = { ...previous, provider: next };
+      // A correction belongs to the quote format selected when it was made.
+      if (previous.paymentCorrected && next !== previous.provider) {
+        updated.payment = emptyMoney();
+        updated.paymentCorrected = false;
+      }
+      if (isNamedProvider(next)) updated.smartMillarx = isSmartOrMillarx(next);
+      else if (isNamedProvider(previous.provider)) updated.smartMillarx = null;
+      return updated;
+    });
+  };
+
   useEffect(() => {
     try {
       window.localStorage.setItem(
@@ -522,7 +537,7 @@ export function GuidedMode({
               trackEvent("guided_path", { has_quote: hasQuote });
             }}
             onSwitchToAdvanced={onSwitchToAdvanced}
-            set={set}
+            setProvider={setProvider}
           />
         )}
         {step === "compare" && <CompareStep d={draft} set={set} />}
@@ -781,12 +796,12 @@ function Intro({
   d,
   onChoose,
   onSwitchToAdvanced,
-  set,
+  setProvider,
 }: {
   d: GuidedDraft;
   onChoose: (hasQuote: boolean) => void;
   onSwitchToAdvanced?: () => void;
-  set: StepPropsF["set"];
+  setProvider: (provider: ProviderId | null) => void;
 }) {
   return (
     <>
@@ -809,7 +824,7 @@ function Intro({
         ]}
         columns={2}
       />
-      {d.hasQuote === true && <ProviderSelect d={d} set={set} />}
+      {d.hasQuote === true && <ProviderSelect d={d} setProvider={setProvider} />}
       {onSwitchToAdvanced && (
         <div className="gd-skip">
           Used this calculator before?{" "}
@@ -1508,7 +1523,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
 }
 
 /** Optional "Who is your quote from?", on the first screen once the reader says they have a quote. */
-function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
+function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (provider: ProviderId | null) => void }) {
   const popular = PROVIDERS.filter((p) => POPULAR.includes(p.id));
   const all = PROVIDERS.filter((p) => p.id !== "other")
     .slice()
@@ -1522,19 +1537,7 @@ function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
       value={d.provider ?? ""}
       onChange={(v) => {
         const next = v === "" ? null : v;
-        set("provider", next);
-        // The correction depends on the provider's quote structure. Never carry it to another choice.
-        if (d.paymentCorrected && next !== d.provider) {
-          set("payment", emptyMoney());
-          set("paymentCorrected", false);
-        }
-        if (isNamedProvider(next)) {
-          const sm = isSmartOrMillarx(next);
-          set("smartMillarx", sm);
-        } else if (isNamedProvider(d.provider)) {
-          // Back to "not named": that answer was ours, so ask the question again.
-          set("smartMillarx", null);
-        }
+        setProvider(next);
         if (next) trackEvent("guided_provider", { provider: next });
       }}
       options={[

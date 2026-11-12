@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Requires the private quote archive (QUOTE_REVIEW_ROOT); it cannot run in public CI.
+# Run manually on the Mac that holds the archive.
 """Monthly quote-format freshness check (issue 20).
 
 Pulls new r/NovatedLeasingAU posts from the Arctic Shift archive, downloads their quote images,
