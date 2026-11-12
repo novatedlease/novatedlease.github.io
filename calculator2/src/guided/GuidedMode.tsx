@@ -1511,7 +1511,7 @@ function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
     .sort((a, b) => a.label.localeCompare(b.label));
   const smartRelated = d.provider === "smartleasing" || d.provider === "smartsalary";
   return (
-    <>
+    <div className="gd-provider">
     <SelectField<ProviderId | "">
       label="Who is your quote from? (optional)"
       hint="Used only to show provider-specific guidance on where to find each figure. No personal information needed."
@@ -1546,7 +1546,7 @@ function ProviderSelect({ d, set }: Pick<StepPropsF, "d" | "set">) {
         layouts. Choose the name on your quote to get the right guidance.
       </p>
     )}
-    </>
+    </div>
   );
 }
 

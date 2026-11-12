@@ -274,3 +274,8 @@
 .gd-headline__line strong { font-size: 22px; font-variant-numeric: tabular-nums; }
 .gd-headline__why { margin: 10px 0 0; font-size: 14px; line-height: 1.5; }
 .gd-headline__caveat { margin: 12px 0 0; font-size: 13px; line-height: 1.5; color: var(--nlc-text-muted); }
+
+/* Provider picker: a full-width select is far too wide on desktop. Fits the longest name. */
+.gd-provider .nlc-select {
+  max-width: 24rem;
+}
