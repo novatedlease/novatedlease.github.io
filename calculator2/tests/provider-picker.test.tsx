@@ -146,6 +146,16 @@ describe("provider pointers", () => {
       .toBe("/assets/images/quote-guide/sgfleet/fbt-example.pdf");
   });
 
+  test("SG Fleet drive-away opens the marked on-road cost line", () => {
+    on("price", { ...quoteDraft(), provider: "sgfleet" });
+    expect(screen.getByText(/marked 2 on page 2/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Show SG Fleet drive-away line" }));
+    const image = screen.getByAltText(/number 2 marking Vehicle on-road cost/) as HTMLImageElement;
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/driveaway-example.png");
+    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
+      .toBe("/assets/images/quote-guide/sgfleet/driveaway-example.pdf");
+  });
+
   test("only providers with reviewed redacted pages expose a quote template", () => {
     expect(templateFor("paywise", "fees")).toBe("/assets/images/quote-guide/paywise/redacted-quote.png");
     expect(templateFor("fleetpartners", "defer")).toBe("/assets/images/quote-guide/fleetpartners/redacted-quote.png");

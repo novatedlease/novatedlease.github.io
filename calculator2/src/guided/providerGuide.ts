@@ -95,6 +95,11 @@ const GUIDES: ProviderGuide[] = [
         more: "The marked FBT example below is from a different SG Fleet quote layout. If your quote does not show the line, ask SG Fleet for its FBT base value.",
       },
       {
+        field: "driveaway",
+        text: "On this SG Fleet VSSS quote, use “Vehicle on-road cost (incl. GST)” in the “Lease details” panel for drive-away price. It is marked 2 on page 2.",
+        more: "Use the full on-road price. “FBT Base Value” and “Total amount financed” are different figures.",
+      },
+      {
         field: "luxAdj",
         text: "If you see “Luxury levy” or “Luxury vehicle adjustment”, that's this line.",
       },
@@ -513,5 +518,6 @@ const TEMPLATE_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
 /** Redacted image of a reviewed quote page. The PDF version is linked from the guide. */
 export function templateFor(id: ProviderId, field: GuideField): string | null {
   if (id === "sgfleet" && field === "baseValue") return "/assets/images/quote-guide/sgfleet/fbt-example.png";
+  if (id === "sgfleet" && field === "driveaway") return "/assets/images/quote-guide/sgfleet/driveaway-example.png";
   return TEMPLATE_FIELDS[id]?.includes(field) ? `/assets/images/quote-guide/${id}/redacted-quote.png` : null;
 }

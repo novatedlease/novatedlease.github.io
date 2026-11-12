@@ -1589,6 +1589,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
   const [open, setOpen] = useState(false);
   const template = templateFor(provider, pointer.field);
   const fbtExample = provider === "sgfleet" && pointer.field === "baseValue";
+  const driveawayExample = provider === "sgfleet" && pointer.field === "driveaway";
   return (
     <div className="gd-pointer">
       <span>{pointer.text}</span>
@@ -1604,14 +1605,14 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
               setOpen(!open);
             }}
           >
-            {open ? "Hide redacted quote" : fbtExample ? "Show where SG Fleet prints FBT base value" : `Show on a ${providerLabel(provider)} quote page`}
+            {open ? "Hide redacted quote" : fbtExample ? "Show where SG Fleet prints FBT base value" : driveawayExample ? "Show SG Fleet drive-away line" : `Show on a ${providerLabel(provider)} quote page`}
           </button>
           {open && (
             <div className="gd-template__body">
               <div className="gd-template__viewport">
-                <img className={fbtExample ? "gd-template__fbt" : undefined} src={template} alt={fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : `Redacted ${providerLabel(provider)} quote pages with numbered field markers`} loading="lazy" decoding="async" width="720" />
+                <img className={fbtExample ? "gd-template__fbt" : undefined} src={template} alt={fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : driveawayExample ? "Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost including GST" : `Redacted ${providerLabel(provider)} quote pages with numbered field markers`} loading="lazy" decoding="async" width="720" />
               </div>
-              <p>{fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
+              <p>{fbtExample ? "This is a later FBT section from a different SG Fleet quote layout. The first two pages of the main sample do not contain this field." : driveawayExample ? "This is the Lease details panel on page 2 of the SG Fleet VSSS sample. Customer values were removed." : "Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ."}</p>
               <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the numbered field guide</a>
               {" · "}<a href={template.replace(/\.png$/, ".pdf")} target="_blank" rel="noreferrer">Open PDF</a>
             </div>
