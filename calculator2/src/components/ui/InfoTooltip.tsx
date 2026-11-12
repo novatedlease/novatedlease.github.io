@@ -181,13 +181,36 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
 
     if (paras.length <= 1) return <>{renderInline(props.text.trim())}</>;
 
+    // Lines starting with "• " form a bulleted list; other lines are paragraphs.
+    const blocks: ({ kind: "p"; text: string } | { kind: "ul"; items: string[] })[] = [];
+    for (const p of paras) {
+      const bullet = p.startsWith("• ") ? p.slice(2).trim() : null;
+      const last = blocks[blocks.length - 1];
+      if (bullet !== null && last?.kind === "ul") last.items.push(bullet);
+      else if (bullet !== null) blocks.push({ kind: "ul", items: [bullet] });
+      else blocks.push({ kind: "p", text: p });
+    }
+
     return (
       <>
-        {paras.map((p, idx) => (
-          <p key={idx} style={{ margin: idx === paras.length - 1 ? 0 : "0 0 10px 0" }}>
-            {renderInline(p)}
-          </p>
-        ))}
+        {blocks.map((b, idx) => {
+          const margin = idx === blocks.length - 1 ? 0 : "0 0 10px 0";
+          if (b.kind === "ul")
+            return (
+              <ul key={idx} style={{ margin, paddingLeft: 18 }}>
+                {b.items.map((it, j) => (
+                  <li key={j}>{renderInline(it)}</li>
+                ))}
+              </ul>
+            );
+          // A line ending in ":" introduces the list below it, so keep them close.
+          const intro = b.text.endsWith(":") && blocks[idx + 1]?.kind === "ul";
+          return (
+            <p key={idx} style={{ margin: intro ? "0 0 4px 0" : margin }}>
+              {renderInline(b.text)}
+            </p>
+          );
+        })}
       </>
     );
   }
