@@ -238,3 +238,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (64), ESLint, calculator build and 82-page site build pass. The build also covered ORIX; Astro emitted one-time duplicate-id cache warnings for these two edited articles.
 - Eighteen of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint V — Toyota Fleet table repair (2026-11-13)
+
+- Toyota Fleet Management's numbered drive-away, residual and rent action cells now sync from Guided. The fee row remains hand-curated because the two financed fees may show different GST bases and the short pointer does not express the article's printed-basis caveat.
+- Repaired the article's Markdown table: a deferral paragraph had been inserted between rows 7 and 9, splitting one table into two. It now sits below the complete table. The text still explains why this reviewed quote supports choosing **Straight away**.
+- Focused provider tests (65), diff check and 82-page site build pass. Astro emitted its one-time duplicate-id cache warning for the edited article.
+- Nineteen of 27 provider articles now have at least one synced table row. No push or merge.
+

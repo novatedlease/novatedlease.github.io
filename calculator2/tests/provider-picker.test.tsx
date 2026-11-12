@@ -607,6 +607,15 @@ describe("provider pointers", () => {
     expect(article).toContain("Keep the **reduction to your take-home pay** out");
   });
 
+  test("Toyota Fleet's numbered table stays whole and preserves the fee GST caveat", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-toyotafleet-quote.md"), "utf8");
+    for (const field of ["driveaway", "residual", "payment"] as const)
+      expect(article).toContain(pointersFor("toyotafleet", field)[0].text);
+    expect(article).toMatch(/\| 7 \|[^\n]+\n\| 9 \|/);
+    expect(article).toContain("noting the printed GST basis");
+    expect(article).toContain("The schedule doesn't state a deferral");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
