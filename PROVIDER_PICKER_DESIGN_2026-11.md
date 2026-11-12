@@ -1,9 +1,9 @@
 # Provider picker and "where to find it" pictures: design (2026-11-12)
 
 > **Status (2026-11-12):** the review branch has an optional picker and dated text pointers for
-> every named provider in its list. Original, number-free schematics and quote-reading articles
-> cover SG Fleet, Smart Leasing, Maxxia, Paywise and Smartsalary. The illustrations are generated
-> by `new-site/scripts/generate-quote-layout-maps.mjs` from reviewed labels and sections.
+> every named provider in its list. Eleven providers now have numbered, redacted quote-page
+> examples and quote-reading articles. Each example is available as a raster preview and an
+> image-based PDF. The earlier generated schematics were replaced after owner feedback.
 > Covers issues 16–19 in `QUOTE_FORMAT_ISSUES_2026-11.md`.
 > Findings are as of November 2026 (newest Reddit quote per provider, 1 Aug – 11 Nov 2026).
 
@@ -15,14 +15,15 @@ provider we haven't covered, gets exactly today's experience plus the improved g
 
 - The picker moved to the **Price** step, before the first quote figures. This lets drive-away and
   FBT pointers appear on the reader's first pass. The original proposal below placed it on Lease.
-- The owner chose to use quote screenshots privately as layout references, then create original
-  schematics containing provider labels and section names only. No source screenshots, amounts,
-  customer details, quote identifiers, dates or vehicle details appear in the schematics.
-- The five provider articles use the same schematic assets as Guided and give a field-by-field
-  table. The prior screenshot redaction and consent workflow below describes the abandoned
-  screenshot route; it is kept for historical context.
-- The focused schematic is created only when a reader opens it. The full schematic appears in
-  the matching article. A provider layout more than six months old gets a caution in Guided.
+- The owner clarified that each template should preserve the reviewed quote's actual page layout,
+  with customer values and identifying details removed and the Guided fields numbered. The 11
+  reviewed redacted examples in the private quote-review folder were used; the unfinished
+  FleetPartners example needed an extra vehicle-detail redaction and numbered markers.
+- Guided reveals the redacted page beside matching fields. Each provider article shows the same
+  page, a numbered key and a PDF link. These PDFs are image-based exports of the redacted page,
+  since the review material is screenshots, not original editable PDF files.
+- A provider layout more than six months old gets a caution in Guided. The original proposal below
+  remains as historical design context; this implementation decision supersedes it.
 
 ---
 

@@ -2,8 +2,8 @@ import type { QuoteKey } from "./QuoteDiagram";
 
 /**
  * Optional "Who is your quote from?" answer and the dated, per-field pointers shown for it.
- * Design: PROVIDER_PICKER_DESIGN_2026-11.md (issue 16). Pointers are text only for now;
- * picture crops wait for consented quotes (issue 18–19).
+ * Design: PROVIDER_PICKER_DESIGN_2026-11.md (issue 16). Reviewed providers can show
+ * redacted quote-page previews; all customer values and identifying details are removed.
  */
 export const PROVIDERS = [
   { id: "smartleasing", label: "Smart Leasing" },
@@ -501,9 +501,15 @@ const TEMPLATE_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   maxxia: ["baseValue", "driveaway", "docFee", "residual", "payment", "insurance", "running"],
   paywise: ["baseValue", "residual", "payment", "fees", "running"],
   smartsalary: ["baseValue", "residual", "payment", "running"],
+  easi: ["payment", "defer"],
+  flare: ["driveaway", "payment"],
+  fleetpartners: ["docFee", "defer"],
+  nla: ["baseValue", "driveaway", "residual", "payment"],
+  remunerator: ["payment", "defer"],
+  toyotafleet: ["driveaway", "docFee", "residual", "payment"],
 };
 
-/** Original label-only illustration; never a copy of a customer's quote. */
+/** Redacted image of a reviewed quote page. The PDF version is linked from the guide. */
 export function templateFor(id: ProviderId, field: GuideField): string | null {
-  return TEMPLATE_FIELDS[id]?.includes(field) ? `/assets/images/quote-guide/${id}/${field}.svg` : null;
+  return TEMPLATE_FIELDS[id]?.includes(field) ? `/assets/images/quote-guide/${id}/redacted-quote.png` : null;
 }

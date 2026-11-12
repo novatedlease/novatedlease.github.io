@@ -125,16 +125,19 @@ describe("provider pointers", () => {
   test("SG Fleet's payment pointer shows on the payment screen", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
     expect(screen.getByText(/“Monthly lease rental”, either works/)).toBeTruthy();
-    expect(screen.queryByAltText(/Schematic SG Fleet quote section/)).toBeNull();
-    fireEvent.click(screen.getByRole("button", { name: /Show on a SG Fleet quote template/ }));
-    const image = screen.getByAltText(/Schematic SG Fleet quote section/) as HTMLImageElement;
+    expect(screen.queryByAltText(/Redacted SG Fleet quote pages/)).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: /Show on a SG Fleet quote page/ }));
+    const image = screen.getByAltText(/Redacted SG Fleet quote pages/) as HTMLImageElement;
     expect(image.getAttribute("src")).toBe(templateFor("sgfleet", "payment"));
-    expect(screen.getByRole("link", { name: /full quote guide/ }).getAttribute("href"))
+    expect(screen.getByRole("link", { name: /numbered field guide/ }).getAttribute("href"))
       .toBe("/start-here/how-to-read-sgfleet-quote/");
+    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
+      .toBe("/assets/images/quote-guide/sgfleet/redacted-quote.pdf");
   });
 
-  test("only the illustrated providers expose a quote template", () => {
-    expect(templateFor("paywise", "fees")).toBe("/assets/images/quote-guide/paywise/fees.svg");
+  test("only providers with reviewed redacted pages expose a quote template", () => {
+    expect(templateFor("paywise", "fees")).toBe("/assets/images/quote-guide/paywise/redacted-quote.png");
+    expect(templateFor("fleetpartners", "defer")).toBe("/assets/images/quote-guide/fleetpartners/redacted-quote.png");
     expect(templateFor("remserv", "payment")).toBeNull();
   });
 

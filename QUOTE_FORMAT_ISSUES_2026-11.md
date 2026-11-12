@@ -1,6 +1,6 @@
 # Guided mode vs real quotes — issue list (started 2026-11-11)
 
-> **Status 2026-11-12:** issues 1–13, 15 and 20 done on `main` (not pushed). Issue 14 and Advanced-mode monthly handling are on separate review branches. Issues 16–19 are implemented on `codex/provider-guide-completion` using original number-free quote schematics, and await review. Each issue has a status line. Work through it with the owner one
+> **Status 2026-11-12:** issues 1–13, 15 and 20 done on `main` (not pushed). Issue 14 and Advanced-mode monthly handling are on separate review branches. Issues 16–19 are implemented on `codex/provider-guide-completion` with 11 numbered, redacted quote-page examples and guides, and await review. Each issue has a status line. Work through it with the owner one
 > issue at a time, as in `UX_FIXES_HANDOFF_2026-11.md` (plan in a few lines → implement → tests →
 > build → browser check → wait for "next"). That file also has the build, test and preview commands.
 
@@ -317,9 +317,9 @@ positions. Prerequisite for issue 18.
 
 ### 17. Per-provider "how to read your quote" articles
 
-**Status (2026-11-12):** ✅ Review branch: an index and five provider articles (SG Fleet, Smart Leasing, Maxxia, Paywise and Smartsalary) with original label-only schematics and field-by-field tables. Not merged or pushed.
+**Status (2026-11-12):** ✅ Review branch: an index and 11 provider articles with numbered, redacted quote-page examples and field-by-field tables. Not merged or pushed.
 
-The owner chose reconstructed templates with no quote amounts or identifying details. The original annotated-screenshot proposal follows for historical context.
+The owner clarified that the examples should preserve the quote-page layout, with all customer values and identifying details removed. The original proposal follows for historical context.
 
 Top providers only (2026 posts with images: Smart Leasing, SG Fleet, Maxxia, Paywise,
 Smartsalary). Each article is the full annotated quote from issue 18 (every page, numbered boxes
@@ -328,7 +328,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 18. Annotated "where to find it" pictures of each provider's quote
 
-**Status (2026-11-12):** ✅ Review branch: focused, number-free SVG schematics generated from the reviewed labels for the five article providers. Readers reveal them beside matching Guided fields; the articles show full schematic layouts. The generator rejects visible numbers and contact-like strings. No source screenshot is published.
+**Status (2026-11-12):** ✅ Review branch: 11 redacted quote-page previews with numbered field markers are available beside matching Guided fields. Each article shows the full example and links an image-based PDF. The earlier SVG schematics were removed.
 
 - **Idea (owner, 2026-11-11):** for each provider, show a picture of its real quote with the
   figure we're asking about boxed, instead of (or as well as) describing the label.
@@ -358,7 +358,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 19. Image sourcing and consent
 
-**Status (2026-11-12):** ✅ Resolved for the current implementation: source screenshots stay private, and the published material is an original schematic containing labels and section names only. If actual quote images are used later, the earlier consent and redaction proposal below still applies.
+**Status (2026-11-12):** ✅ Owner confirmed use of redacted quote-page templates. Customer values and identifying details are removed from the review examples before they are copied to the site; the image-based PDFs contain only those redacted pages. The earlier consent proposal below is historical context.
 
 - Publish only quotes sent to us with permission, not the Reddit screenshots. Reddit posters
   shared theirs for a quote check, not for our site. The Reddit set (`private/quote-review-2026-11/`)

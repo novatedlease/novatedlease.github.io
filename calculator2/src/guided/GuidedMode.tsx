@@ -1603,13 +1603,16 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
               setOpen(!open);
             }}
           >
-            {open ? "Hide quote template" : `Show on a ${providerLabel(provider)} quote template`}
+            {open ? "Hide redacted quote" : `Show on a ${providerLabel(provider)} quote page`}
           </button>
           {open && (
             <div className="gd-template__body">
-              <img src={template} alt={`Schematic ${providerLabel(provider)} quote section highlighting the ${pointer.field.replace(/([A-Z])/g, " $1").toLowerCase()} label`} loading="lazy" decoding="async" width="720" />
-              <p>Original label-only illustration. Your quote may differ.</p>
-              <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the full quote guide</a>
+              <div className="gd-template__viewport">
+                <img src={template} alt={`Redacted ${providerLabel(provider)} quote pages with numbered field markers`} loading="lazy" decoding="async" width="720" />
+              </div>
+              <p>Values and identifying details removed. Scroll the quote page to find the numbered field. Your layout may differ.</p>
+              <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the numbered field guide</a>
+              {" · "}<a href={`/assets/images/quote-guide/${provider}/redacted-quote.pdf`} target="_blank" rel="noreferrer">Open PDF</a>
             </div>
           )}
         </div>
