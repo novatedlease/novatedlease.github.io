@@ -258,3 +258,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (67), ESLint, calculator build and 82-page site build pass. The site build covered the preceding Custom Fleet change too; Astro emitted its one-time duplicate-id cache warnings for both edited articles.
 - Twenty-one of 27 provider articles now have at least one synced table row. No push or merge.
 
+## Item 15, checkpoint Y — FleetPartners split costs and deferral (2026-11-13)
+
+- FleetPartners's numbered drive-away and deferral action cells now sync from Guided. The deferral pointer uses the stated delay or subtracts **Based on** payment months from the lease term; the article keeps its 60 − 58 = 2 example outside the table.
+- The one-off PPSR/brokerage row, monthly establishment-fee row, split Part A–D context, and warning against **Total lease cost** remain hand-curated. FleetPartners has a template exception, so do not infer other marker positions from its private source without visual review.
+- Focused provider tests (68), ESLint and calculator build pass. The table generator ran; the site build can be checked with the next article batch.
+- Twenty-two of 27 provider articles now have at least one synced table row. No push or merge.
+

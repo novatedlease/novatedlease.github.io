@@ -633,6 +633,16 @@ describe("provider pointers", () => {
     expect(pointersFor("vehiclesolutions", "defer")[0].text).not.toContain("2 MONTHS DEFERRED");
   });
 
+  test("FleetPartners retains its split cost and fee treatment", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-fleetpartners-quote.md"), "utf8");
+    for (const field of ["driveaway", "defer"] as const)
+      expect(article).toContain(pointersFor("fleetpartners", field)[0].text);
+    expect(article).toContain("60 lease months minus 58 payment months");
+    expect(article).toContain("check how brokerage is handled");
+    expect(article).toContain("it's charged every month");
+    expect(article).toContain("Do not enter **Total lease cost**");
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

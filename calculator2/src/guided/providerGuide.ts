@@ -284,7 +284,7 @@ const GUIDES: ProviderGuide[] = [
       },
       {
         field: "defer",
-        text: "If you see “Based on 58 months” on a 60-month lease, that's a 2-month deferral.",
+        text: "Use the stated delay before lease payments start, or subtract “Based on” months from the lease term.",
       },
     ],
   },
