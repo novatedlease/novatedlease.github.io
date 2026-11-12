@@ -1,10 +1,10 @@
 ---
-title: "How to read a Driva quote for Guided mode"
+title: "How to read a Driva novated lease quote"
 description: "Find the numbered fields on a redacted Driva quote and enter them in the Guided novated lease calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read a Driva quote for Guided mode
+# How to read a Driva novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 1 quote example; latest layout reviewed Aug 2026.*

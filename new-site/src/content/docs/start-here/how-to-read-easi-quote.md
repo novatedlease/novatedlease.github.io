@@ -1,10 +1,10 @@
 ---
-title: "How to read an Easi quote for Guided mode"
+title: "How to read an Easi novated lease quote"
 description: "Use the numbered, redacted Easi quote to find finance, residual and running-cost figures for Guided mode."
 datePublished: "2026-11-12"
 ---
 
-# How to read an Easi quote for Guided mode
+# How to read an Easi novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 3 quote examples; latest layout reviewed Nov 2026.*

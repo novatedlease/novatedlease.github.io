@@ -1,10 +1,10 @@
 ---
-title: "How to read a Remunerator quote for Guided mode"
+title: "How to read a Remunerator novated lease quote"
 description: "Use a numbered, redacted Remunerator quote to find price, payment, residual and running costs."
 datePublished: "2026-11-12"
 ---
 
-# How to read a Remunerator quote for Guided mode
+# How to read a Remunerator novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 3 quote examples; latest layout reviewed Nov 2026.*

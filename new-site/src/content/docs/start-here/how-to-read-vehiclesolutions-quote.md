@@ -1,10 +1,10 @@
 ---
-title: "How to read a Vehicle Solutions quote for Guided mode"
+title: "How to read a Vehicle Solutions novated lease quote"
 description: "Find the numbered fields on a redacted Vehicle Solutions quote and enter them in the Guided novated lease calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read a Vehicle Solutions quote for Guided mode
+# How to read a Vehicle Solutions novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 1 quote example; latest layout reviewed Sep 2026.*

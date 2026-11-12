@@ -1,10 +1,10 @@
 ---
-title: "How to read a MillarX quote for Guided mode"
+title: "How to read a MillarX novated lease quote"
 description: "Find the numbered fields on a redacted MillarX quote and enter them in the Guided novated lease calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read a MillarX quote for Guided mode
+# How to read a MillarX novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 3 quote examples; latest layout reviewed Oct 2026.*

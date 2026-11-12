@@ -1,10 +1,10 @@
 ---
-title: "How to read a Maxxia quote for Guided mode"
+title: "How to read a Maxxia novated lease quote"
 description: "Find the car price, financed payment, residual and first-year insurance on a Maxxia quote for the Guided calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read a Maxxia quote for Guided mode
+# How to read a Maxxia novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 2 quote examples; latest layout reviewed Nov 2026.*

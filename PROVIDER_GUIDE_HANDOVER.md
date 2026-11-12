@@ -186,3 +186,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused provider tests (57), ESLint, calculator build and 82-page site build pass. The site build also covered the preceding Lendly article. Astro emitted its one-time duplicate-id cache warnings for both edited articles.
 - Eleven articles have migrated rows. No push or merge.
 
+## Item 16, checkpoint C — provider article titles (2026-11-13)
+
+- Renamed the title and visible heading of all 27 provider articles to the pattern “How to read a/an {provider} novated lease quote”. The descriptions and body text still explain Guided mode. The general quote guide and article URLs are unchanged.
+- Kept every provider page indexable while the owner's separate indexing preference is unresolved. A provider integration check verifies the title and heading match across all 27 articles.
+- Focused provider tests (57) and the 82-page site build pass. Astro emitted its one-time duplicate-id cache warnings for the edited articles; the pages built and Pagefind indexed all 82 pages.
+- Item 16 still needs the proposed provider-specific trap introductions and any owner decision about thin-page indexing. Item 15 article table conversion remains at 11 of 27. Item 8 Smart-branded Smartsalary treatment still awaits the owner's choice. No push or merge.
+

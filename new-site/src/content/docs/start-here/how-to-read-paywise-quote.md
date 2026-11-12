@@ -1,10 +1,10 @@
 ---
-title: "How to read a Paywise quote for Guided mode"
+title: "How to read a Paywise novated lease quote"
 description: "Find Paywise's FBT value, residual, lease payment and two management fee lines for the Guided calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read a Paywise quote for Guided mode
+# How to read a Paywise novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 1 quote example; latest layout reviewed Nov 2026.*

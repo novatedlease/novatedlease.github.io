@@ -1,10 +1,10 @@
 ---
-title: "How to read a Flare quote for Guided mode"
+title: "How to read a Flare novated lease quote"
 description: "Find the full on-road price, finance payment and running costs on a numbered, redacted Flare quote."
 datePublished: "2026-11-12"
 ---
 
-# How to read a Flare quote for Guided mode
+# How to read a Flare novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 2 quote examples; latest layout reviewed Nov 2026.*

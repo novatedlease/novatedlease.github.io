@@ -1,10 +1,10 @@
 ---
-title: "How to read a Smart Leasing quote for Guided mode"
+title: "How to read a Smart Leasing novated lease quote"
 description: "Find Smart Leasing's lease payment, deferral, residual and running-cost labels for the Guided novated lease calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read a Smart Leasing quote for Guided mode
+# How to read a Smart Leasing novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 4 quote examples; latest layout reviewed Nov 2026.*

@@ -1,10 +1,10 @@
 ---
-title: "How to read a Toyota Fleet Management quote for Guided mode"
+title: "How to read a Toyota Fleet Management novated lease quote"
 description: "Find the on-road price, residual, financed fees and rent on a numbered Toyota Fleet Management quote."
 datePublished: "2026-11-12"
 ---
 
-# How to read a Toyota Fleet Management quote for Guided mode
+# How to read a Toyota Fleet Management novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 1 quote example; latest layout reviewed Oct 2026.*

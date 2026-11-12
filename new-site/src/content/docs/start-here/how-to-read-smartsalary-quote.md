@@ -1,10 +1,10 @@
 ---
-title: "How to read a Smartsalary Smart Drive quote for Guided mode"
+title: "How to read a Smartsalary Smart Drive novated lease quote"
 description: "Find the fixed lease payment and employer GST credit on a Smartsalary Smart Drive quote for the Guided calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read a Smartsalary Smart Drive quote for Guided mode
+# How to read a Smartsalary Smart Drive novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 1 quote example; latest layout reviewed Nov 2026.*

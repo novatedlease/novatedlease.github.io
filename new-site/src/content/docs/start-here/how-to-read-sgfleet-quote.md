@@ -1,10 +1,10 @@
 ---
-title: "How to read an SG Fleet quote for Guided mode"
+title: "How to read an SG Fleet novated lease quote"
 description: "Find the vehicle price, residual, finance payment, deferral and running costs on an SG Fleet quote for the Guided novated lease calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read an SG Fleet quote for Guided mode
+# How to read an SG Fleet novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 3 quote examples; latest layout reviewed Nov 2026.*

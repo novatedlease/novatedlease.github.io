@@ -1,10 +1,10 @@
 ---
-title: "How to read an Oly quote for Guided mode"
+title: "How to read an Oly novated lease quote"
 description: "Find the numbered fields on a redacted Oly quote and enter them in the Guided novated lease calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read an Oly quote for Guided mode
+# How to read an Oly novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 2 quote examples; latest layout reviewed Nov 2026.*

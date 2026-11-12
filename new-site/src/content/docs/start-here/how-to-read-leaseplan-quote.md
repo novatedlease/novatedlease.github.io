@@ -1,10 +1,10 @@
 ---
-title: "How to read a LeasePlan / Ayvens quote for Guided mode"
+title: "How to read a LeasePlan / Ayvens novated lease quote"
 description: "Find the numbered fields on a redacted LeasePlan / Ayvens quote and enter them in the Guided novated lease calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read a LeasePlan / Ayvens quote for Guided mode
+# How to read a LeasePlan / Ayvens novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 1 quote example; latest layout reviewed Aug 2025.*

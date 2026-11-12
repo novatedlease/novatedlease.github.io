@@ -1,10 +1,10 @@
 ---
-title: "How to read a LeaseExpress quote for Guided mode"
+title: "How to read a LeaseExpress novated lease quote"
 description: "Find the numbered fields on a redacted LeaseExpress quote and enter them in the Guided novated lease calculator."
 datePublished: "2026-11-12"
 ---
 
-# How to read a LeaseExpress quote for Guided mode
+# How to read a LeaseExpress novated lease quote
 
 <!-- quote-review:begin -->
 *Checked against 1 quote example; latest layout reviewed Nov 2026.*

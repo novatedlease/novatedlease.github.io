@@ -454,7 +454,11 @@ describe("provider pointers", () => {
       expect(guide!.seen, id).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
       const article = resolve(__dirname, `../../new-site/src/content/docs/start-here/how-to-read-${id}-quote.md`);
       expect(existsSync(article), article).toBe(true);
-      expect(readFileSync(article, "utf8"), article).toContain(`latest layout reviewed ${seenLabel(guide!.seen)}`);
+      const articleText = readFileSync(article, "utf8");
+      expect(articleText, article).toContain(`latest layout reviewed ${seenLabel(guide!.seen)}`);
+      const title = articleText.match(/^title: "(How to read an? .+ novated lease quote)"$/m)?.[1];
+      expect(title, article).toBeTruthy();
+      expect(articleText, article).toContain(`# ${title}\n`);
       expect(index, id).toContain(`/start-here/how-to-read-${id}-quote/`);
       const paths = [pageFor(id), ...pageImagesFor(id), ...fields.flatMap((field) => [cropFor(id, field), templateFor(id, field), exampleFor(id, field)?.image])];
       for (const src of paths.filter((path): path is string => !!path)) {
