@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a LeasePlan / Ayvens quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 1 quote example; latest layout reviewed Aug 2025.*
+<!-- quote-review:end -->
+
 This numbered example shows a LeasePlan / Ayvens quote layout reviewed in August 2025. Match each marker to the table, then check the period and GST label on your own quote.
 
 ![Redacted LeasePlan / Ayvens quote with numbered fields](/assets/images/quote-guide/leaseplan/redacted-quote.webp)

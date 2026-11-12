@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pageFor, pageImagesFor, pointersFor, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pageFor, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -449,6 +449,7 @@ describe("provider pointers", () => {
       expect(guide!.seen, id).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
       const article = resolve(__dirname, `../../new-site/src/content/docs/start-here/how-to-read-${id}-quote.md`);
       expect(existsSync(article), article).toBe(true);
+      expect(readFileSync(article, "utf8"), article).toContain(`latest layout reviewed ${seenLabel(guide!.seen)}`);
       expect(index, id).toContain(`/start-here/how-to-read-${id}-quote/`);
       const paths = [pageFor(id), ...pageImagesFor(id), ...fields.flatMap((field) => [cropFor(id, field), templateFor(id, field), exampleFor(id, field)?.image])];
       for (const src of paths.filter((path): path is string => !!path)) {

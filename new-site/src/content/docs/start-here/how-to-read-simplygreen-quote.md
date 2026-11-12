@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a Simplygreen quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 1 quote example; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 This numbered example shows a Simplygreen quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
 ![Redacted Simplygreen quote with numbered fields](/assets/images/quote-guide/simplygreen/redacted-quote.webp)

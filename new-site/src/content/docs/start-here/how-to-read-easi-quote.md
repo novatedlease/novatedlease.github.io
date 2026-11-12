@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read an Easi quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 3 quote examples; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 This example has a monthly finance figure and a separate fortnightly Lease Rental tile. Use the fortnightly **Lease Rental** tile. **Lease Per Month** is paid fewer times than the lease has months (see Months Deferred), so entering it would make the rate look higher.
 
 ![Redacted Easi quote with numbered fields](/assets/images/quote-guide/easi/redacted-quote.webp)

@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a LeaseExpress quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 1 quote example; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 This numbered example shows a LeaseExpress quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
 ![Redacted LeaseExpress quote with numbered fields](/assets/images/quote-guide/leaseexpress/redacted-quote.webp)

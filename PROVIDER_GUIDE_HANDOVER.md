@@ -97,3 +97,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Provider-quote article tables become stacked, labelled cards below 600 px. Other article tables keep their existing behavior. The article script adds labels from each table's own headings; if JavaScript is unavailable, the original sideways-scrollable table remains.
 - Skipped the old duplicate-first-cell rowspan merge for provider tables, so every card retains its own number and label. The site build passed (82 pages). Browser-checked the Maxxia article at 375 px: six numbered cards showed all four column labels and the long financed-insurance guidance wrapped within the card.
 - The owner has not yet answered the title/indexing choice for the rest of item 16. Item 15 article-table generation is also still open. No push or merge.
+
+## Item 15, checkpoint B — article review provenance (2026-11-13)
+
+- Added a `prebuild` script that reads each provider's `sources.length` and `seen` from `GUIDES` and synchronizes a clearly marked line directly below the article title: quote-example count and newest layout review month. It updates all 27 articles on the next site build and is idempotent.
+- A provider integration test verifies each article's review month against `guideFor(id).seen`. This does not turn the quote-review month into `dateModified`: some old quotes were reviewed before these articles existed, and the site correctly derives actual article modification dates from Git.
+- TypeScript, 46 provider-picker tests, ESLint and 82-page site build pass. The first build after writing all 27 files emitted Astro duplicate-id cache warnings; a second unchanged build completed with none.
+- **Item 15 remains open:** the old article tables still need a careful data model before replacing their quote-specific detail with generated pointer text. Do not strip those tables wholesale. No push or merge.

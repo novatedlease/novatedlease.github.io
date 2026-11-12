@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a FleetPartners quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 2 quote examples; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 On this layout, the monthly lease cost is split into **Part A** finance rental, **Part B** running-cost budgets, **Part C** product fees, and **Part D** other adjustments. Enter the relevant components separately in Guided mode.
 
 ![Redacted FleetPartners quote pages with numbered fields](/assets/images/quote-guide/fleetpartners/redacted-quote.webp)

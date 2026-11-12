@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a Maxxia quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 2 quote examples; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 The Maxxia layouts reviewed in November 2026 use **Financed payments** for the lease payment. They may include financier fees and the first year's comprehensive insurance in the amount financed. Check those inclusions when comparing the quote with another offer.
 
 ![Redacted Maxxia quote pages with numbered fields](/assets/images/quote-guide/maxxia/redacted-quote.webp)

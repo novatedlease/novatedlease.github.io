@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a RemServ quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 1 quote example; latest layout reviewed Oct 2026.*
+<!-- quote-review:end -->
+
 This numbered example shows a RemServ quote layout reviewed in October 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
 ![Redacted RemServ quote with numbered fields](/assets/images/quote-guide/remserv/redacted-quote.webp)

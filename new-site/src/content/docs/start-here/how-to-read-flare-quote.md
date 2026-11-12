@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a Flare quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 2 quote examples; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 Flare shows both **Vehicle cost** and **Total on-road price** on this layout. Use the full *Total on-road price* for the drive-away field; Vehicle cost is after the quoted GST saving.
 
 ![Redacted Flare quote with numbered fields](/assets/images/quote-guide/flare/redacted-quote.webp)

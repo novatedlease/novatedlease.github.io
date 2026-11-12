@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a Paywise quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 1 quote example; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 The Paywise layout reviewed in November 2026 puts the finance payment under **Package Inclusions (ex. GST) – Fortnightly**. It also shows separate **Lease Management** and **Salary Packaging** fees.
 
 ![Redacted Paywise quote page with numbered fields](/assets/images/quote-guide/paywise/redacted-quote.webp)

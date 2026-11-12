@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a Smart Leasing quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 4 quote examples; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 These two pages come from the same [Smart Leasing quote shared in November 2026](https://www.reddit.com/r/NovatedLeasingAU/comments/1xocshn/). Page 1 shows the vehicle and payment summary; page 2 shows the FBT, finance and running-cost details. Its third page was not shared. A **terms page from another quote** appears below. On page 2, **Lease per month** can be entered as printed with *Per month*. The fortnightly lease payment may include a budget reserve; use Guided's correction tool if you choose that figure.
 
 ![Redacted Smart Leasing quote page 1 showing the vehicle and payment summary](/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp)

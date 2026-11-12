@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read an Oly quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 2 quote examples; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 This numbered example shows an Oly quote layout reviewed in August 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
 ![Redacted Oly quote with numbered fields](/assets/images/quote-guide/oly/redacted-quote.webp)

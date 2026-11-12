@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read a Remunerator quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 3 quote examples; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 This Remunerator example prints a **Lease Payment (excl GST)** separately from the annual car expenses. Use that lease-payment line for finance; the highlighted headline amount includes running costs.
 
 ![Redacted Remunerator quote with numbered fields](/assets/images/quote-guide/remunerator/redacted-quote.webp)

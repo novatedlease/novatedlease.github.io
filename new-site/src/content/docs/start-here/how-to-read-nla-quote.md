@@ -6,6 +6,10 @@ datePublished: "2026-11-12"
 
 # How to read an NLA quote for Guided mode
 
+<!-- quote-review:begin -->
+*Checked against 1 quote example; latest layout reviewed Nov 2026.*
+<!-- quote-review:end -->
+
 The NLA Vehicle Packaging Schedule shown here separates the vehicle price components and labels the residual **ex GST**. Use the GST basis printed beside each figure.
 
 ![Redacted NLA quote pages with numbered fields](/assets/images/quote-guide/nla/redacted-quote.webp)
