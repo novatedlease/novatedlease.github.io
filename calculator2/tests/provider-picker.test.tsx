@@ -1,4 +1,6 @@
 import { afterEach, describe, expect, test } from "vitest";
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
@@ -169,6 +171,12 @@ describe("FBT base value not printed", () => {
     expect(p.more).toMatch(/\$6,353, the most allowed/);
     expect(p.more).toMatch(/ask your salary packager/);
     expect(p.more).not.toMatch(/Ask MillarX/i);
+  });
+
+  test("MillarX: the GST credit line has its own picture, and the file exists", () => {
+    const [p] = pointersFor("millarx", "baseValue");
+    expect(p.example?.image).toBe("/assets/images/quote-guide/millarx/field-gst-credit.webp");
+    expect(existsSync(resolve(__dirname, "../../docs", p.example!.image.slice(1)))).toBe(true);
   });
 });
 

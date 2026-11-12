@@ -66,6 +66,8 @@ export type Pointer = {
   more?: string;
   /** The field isn't on the provider's example, so there's no picture to show. */
   notShown?: boolean;
+  /** A marked picture for a not-shown line, e.g. a line to work the figure out from. */
+  example?: FieldExample;
 };
 
 export type ProviderGuide = {
@@ -565,7 +567,7 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
 };
 
 /** Provider-specific wording where the generic "not shown" line would be wrong or unhelpful. */
-type NotShownLine = string | { text: string; more: string };
+type NotShownLine = string | { text: string; more: string; example?: FieldExample };
 
 const capText = `$${GST_EXEMPT_CAP.toLocaleString("en-AU")}`;
 
@@ -579,6 +581,13 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotS
     baseValue: {
       text: "Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11.",
       more: `Doesn't work if the credit is ${capText}, the most allowed. Then ask your salary packager, or take the drive-away price and subtract stamp duty, rego and CTP.`,
+      example: {
+        image: "/assets/images/quote-guide/millarx/field-gst-credit.webp",
+        button: "Show where MillarX prints the GST credit",
+        alt: "Part of a redacted MillarX quote with the Less: GST credit line outlined",
+        caption: "Part of a real MillarX quote with values removed. Multiply the outlined figure by 11. Tap the image to enlarge.",
+        pdf: "/assets/images/quote-guide/millarx/redacted-quote.pdf",
+      },
     },
     running: "MillarX quotes are finance only. Take the running-cost budgets from your salary packager.",
     fees: "The MillarX BYO finance quote has no fees. Older MillarX quotes show a management fee per month; enter that here if yours does.",

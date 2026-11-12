@@ -1584,13 +1584,13 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
   const [open, setOpen] = useState(false);
   const [showWholePage, setShowWholePage] = useState(false);
   const [smartPage, setSmartPage] = useState<1 | 2>(pointer.field === "driveaway" ? 1 : 2);
-  const template = pointer.notShown ? null : templateFor(provider, pointer.field);
+  const template = pointer.example ? pointer.example.image : pointer.notShown ? null : templateFor(provider, pointer.field);
   const fbtExample = provider === "sgfleet" && pointer.field === "baseValue";
   const driveawayExample = provider === "sgfleet" && pointer.field === "driveaway";
   const smartTerms = provider === "smartleasing" && pointer.field === "docFee";
-  const example = exampleFor(provider, pointer.field);
+  const example = pointer.example ?? exampleFor(provider, pointer.field);
   const smartSample = provider === "smartleasing" && !smartTerms;
-  const isCrop = !!template?.endsWith(".webp");
+  const isCrop = !example && !!template?.endsWith(".webp");
   const page = pageFor(provider);
   const showingWholePage = isCrop && !!page && showWholePage;
   const smartPageImage = smartSample && smartPage === 1 ? "/assets/images/quote-guide/smartleasing/redacted-quote-page-1.png" : page;
