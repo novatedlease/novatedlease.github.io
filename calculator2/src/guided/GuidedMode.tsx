@@ -1895,10 +1895,6 @@ function RunningStep({ d, set, f }: StepPropsF) {
             lease, not when paying cash, and Lease management fees is the one
             box the calculator counts on the lease side only.
           </li>
-          <li>
-            <strong>A contingency or reserve budget</strong>: leave it out.
-            It's a buffer, and unspent money normally comes back to you.
-          </li>
         </ul>
       </Help>
       <div className="gd-rows">
