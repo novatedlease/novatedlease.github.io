@@ -317,7 +317,7 @@ positions. Prerequisite for issue 18.
 
 ### 17. Per-provider "how to read your quote" articles
 
-**Status (2026-11-12):** ✅ Review branch: an index and 11 provider articles with numbered, redacted quote-page examples and field-by-field tables. Not merged or pushed.
+**Status (2026-11-12):** ✅ Review branch: an index and 27 provider articles with numbered, redacted quote-page examples and field-by-field tables. Not merged or pushed.
 
 The owner clarified that the examples should preserve the quote-page layout, with all customer values and identifying details removed. The original proposal follows for historical context.
 
@@ -328,7 +328,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 18. Annotated "where to find it" pictures of each provider's quote
 
-**Status (2026-11-12):** ✅ Review branch: 11 redacted quote-page previews with numbered field markers are available beside matching Guided fields. Each article shows the full example and links an image-based PDF. The earlier SVG schematics were removed.
+**Status (2026-11-12):** ✅ Review branch: 27 redacted quote-page previews with numbered field markers and focused field crops are available beside matching Guided fields. Each article shows the full example and links an image-based PDF. The earlier SVG schematics were removed.
 
 - **Idea (owner, 2026-11-11):** for each provider, show a picture of its real quote with the
   figure we're asking about boxed, instead of (or as well as) describing the label.
@@ -374,7 +374,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 20. Keeping the pictures current when formats change
 
-**Status (2026-11-12):** ✅ Built privately: `private/quote-review-2026-11/scripts/freshness_check.py`; first report in `reports/`.
+**Status (2026-11-12):** ◐ The private `freshness_check.py` script and a first report exist. A recurring run is not scheduled, and the proposed “Mine looks different?” submission link is not in Guided.
 
 - Date every picture on the page: "SG Fleet quotes, as of Nov 2026".
 - A "Mine looks different? Send it to us" link beside each crop, feeding issue 19.

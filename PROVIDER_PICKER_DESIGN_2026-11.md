@@ -1,11 +1,12 @@
 # Provider picker and "where to find it" pictures: design (2026-11-12)
 
 > **Status (2026-11-12):** the review branch has an optional picker and dated text pointers for
-> every named provider in its list. Eleven providers now have numbered, redacted quote-page
-> examples and quote-reading articles. Each example is available as a raster preview and an
-> image-based PDF. The earlier generated schematics were replaced after owner feedback.
+> every named provider in its list. All 27 named providers now have numbered, redacted quote-page
+> examples and quote-reading articles. Each example is available as a raster preview, a focused
+> crop for marked fields, and an image-based PDF. The earlier generated schematics were
+> replaced after owner feedback.
 > Covers issues 16–19 in `QUOTE_FORMAT_ISSUES_2026-11.md`.
-> Findings are as of November 2026 (newest Reddit quote per provider, 1 Aug – 11 Nov 2026).
+> Most layouts were reviewed in August–November 2026; the LeasePlan example is from August 2025.
 
 Goal: a reader who tells us their provider gets a short, dated pointer, and later a picture crop,
 at each Guided field where the general wording isn't enough. A reader who doesn't, or whose
@@ -16,10 +17,10 @@ provider we haven't covered, gets exactly today's experience plus the improved g
 - The picker moved to the **Price** step, before the first quote figures. This lets drive-away and
   FBT pointers appear on the reader's first pass. The original proposal below placed it on Lease.
 - The owner clarified that each template should preserve the reviewed quote's actual page layout,
-  with customer values and identifying details removed and the Guided fields numbered. The 11
+  with customer values and identifying details removed and the Guided fields numbered. All 27
   reviewed redacted examples in the private quote-review folder were used; the unfinished
   FleetPartners example needed an extra vehicle-detail redaction and numbered markers.
-- Guided reveals the redacted page beside matching fields. Each provider article shows the same
+- Guided reveals a focused crop beside matching fields. Each provider article shows the full
   page, a numbered key and a PDF link. These PDFs are image-based exports of the redacted page,
   since the review material is screenshots, not original editable PDF files.
 - A provider layout more than six months old gets a caution in Guided. The original proposal below
