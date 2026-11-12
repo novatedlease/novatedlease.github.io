@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 The NLA Vehicle Packaging Schedule shown here separates the vehicle price components and labels the residual **ex GST**. Use the GST basis printed beside each figure.
 
-![Redacted NLA quote pages with numbered fields](/assets/images/quote-guide/nla/redacted-quote.png)
+![Redacted NLA quote pages with numbered fields](/assets/images/quote-guide/nla/redacted-quote.webp)
 
-*Customer values and identifying details removed. [Open the PDF](/assets/images/quote-guide/nla/redacted-quote.pdf). Your quote may use a different layout.*
+*Customer values and identifying details removed. Your quote may use a different layout.*
 
 | # | On this quote | In Guided mode |
 | --- | --- | --- |

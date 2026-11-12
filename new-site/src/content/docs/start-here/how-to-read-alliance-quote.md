@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 This numbered example shows an Alliance Leasing quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
-![Redacted Alliance Leasing quote with numbered fields](/assets/images/quote-guide/alliance/redacted-quote.png)
+![Redacted Alliance Leasing quote with numbered fields](/assets/images/quote-guide/alliance/redacted-quote.webp)
 
-*Customer values and identifying details removed. [Open the image-based PDF](/assets/images/quote-guide/alliance/redacted-quote.pdf). Your quote may use a different layout.*
+*Customer values and identifying details removed. Your quote may use a different layout.*
 
 ## Numbered field guide
 
@@ -28,9 +28,9 @@ This numbered example shows an Alliance Leasing quote layout reviewed in Novembe
 
 ## Page 2: fees, finance and the price breakdown
 
-![Redacted page 2 of an Alliance Leasing quote with numbered fields](/assets/images/quote-guide/alliance/page2-example.png)
+![Redacted page 2 of an Alliance Leasing quote with numbered fields](/assets/images/quote-guide/alliance/page2-example.webp)
 
-*Page 2 of the same quote, with figures and customer details removed. [Open the image-based PDF](/assets/images/quote-guide/alliance/page2-example.pdf).*
+*Page 2 of the same quote, with figures and customer details removed. *
 
 | # | On page 2 | In Guided |
 |---|---|---|

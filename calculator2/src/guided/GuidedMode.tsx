@@ -30,7 +30,7 @@ import {
   exampleFor,
   cropFor,
   pageFor,
-  pdfFor,
+  imageSizeFor,
   type GuideField,
   type ProviderId,
   type Pointer,
@@ -1592,11 +1592,12 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
   const smartTerms = provider === "smartleasing" && pointer.field === "docFee";
   const example = pointer.example ?? exampleFor(provider, pointer.field);
   const smartSample = provider === "smartleasing" && !smartTerms;
-  const isCrop = !example && !!template?.endsWith(".webp");
+  const isCrop = !example && !!template?.match(/\/field-[^/]+\.webp$/);
   const page = pageFor(provider);
   const showingWholePage = isCrop && !!page && showWholePage;
-  const smartPageImage = smartSample && smartPage === 1 ? "/assets/images/quote-guide/smartleasing/redacted-quote-page-1.png" : page;
+  const smartPageImage = smartSample && smartPage === 1 ? "/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp" : page;
   const displayedImage = smartSample && (!isCrop || showingWholePage) ? smartPageImage : showingWholePage ? page : template;
+  const imageSize = imageSizeFor(displayedImage);
   const label = providerLabel(provider);
   return (
     <div className="gd-pointer">
@@ -1626,7 +1627,8 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
                     alt={example ? example.alt : smartTerms ? "Redacted terms page from another Smart Leasing quote, with documentation fee marked 5" : smartSample && (!isCrop || showingWholePage) ? `Redacted Smart Leasing quote page ${smartPage} of two available pages` : showingWholePage ? `Full redacted ${label} quote page with numbered field markers` : fbtExample ? "Redacted SG Fleet FBT section with number 1 marking FBT Base Value" : driveawayExample ? "Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost including GST" : isCrop ? `Part of a redacted ${label} quote, with the line for this question numbered and outlined` : `Redacted ${label} quote pages with numbered field markers`}
                     loading="lazy"
                     decoding="async"
-                    width="720"
+                    width={imageSize?.w}
+                    height={imageSize?.h}
                   />
                 </a>
               </div>
@@ -1648,7 +1650,6 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
                 </>
               )}
               <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the numbered field guide</a>
-              {" · "}<a href={pdfFor(provider, template)} target="_blank" rel="noreferrer">Open PDF</a>
               {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer">My quote looks different</a>
             </div>
           )}

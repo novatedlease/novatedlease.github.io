@@ -6,7 +6,7 @@ datePublished: "2026-11-12"
 
 # Find calculator figures on your provider's quote
 
-Choose a provider to see a numbered, redacted quote-page example and a guide to the fields in [Guided mode](/calculator/). Each page also has an image-based PDF download.
+Choose a provider to see a numbered, redacted quote-page example and a guide to the fields in [Guided mode](/calculator/).
 
 - [SG Fleet quote guide](/start-here/how-to-read-sgfleet-quote/)
 - [Smart Leasing quote guide](/start-here/how-to-read-smartleasing-quote/)
@@ -38,7 +38,7 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 
 The blue numbers follow one key across providers: **1** FBT base value, **2** drive-away price, **3** lease term, **4** deferral, **5** one-off finance fees, **6** residual, **7** finance payment, **8** luxury vehicle adjustment, **9** running costs, **10** management fees, and **11** interest rate. A missing number means the example page does not show that field. A red ✕ flags a tempting but unsuitable figure.
 
-These are redacted examples of reviewed quote pages, with customer values and identifying details removed. The PDFs are image-based versions of the same pages, not original editable provider documents. Provider layouts change, so check the headings and footnotes on your own quote. If a label differs, use the [general quote guide](/start-here/how-to-read-a-novated-lease-quote/) and the hints inside Guided mode.
+These are redacted examples of reviewed quote pages, with customer values and identifying details removed. Provider layouts change, so check the headings and footnotes on your own quote. If a label differs, use the [general quote guide](/start-here/how-to-read-a-novated-lease-quote/) and the hints inside Guided mode.
 
 If your quote uses a different layout, [tell me which labels changed](/about/contact/#quote-layout-feedback). You can describe them without sending your quote.
 

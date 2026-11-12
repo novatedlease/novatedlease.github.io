@@ -8,11 +8,11 @@ datePublished: "2026-11-12"
 
 These two pages come from the same [Smart Leasing quote shared in November 2026](https://www.reddit.com/r/NovatedLeasingAU/comments/1xocshn/). Page 1 shows the vehicle and payment summary; page 2 shows the FBT, finance and running-cost details. Its third page was not shared. A **terms page from another quote** appears below. On page 2, **Lease per month** can be entered as printed with *Per month*. The fortnightly lease payment may include a budget reserve; use Guided's correction tool if you choose that figure.
 
-![Redacted Smart Leasing quote page 1 showing the vehicle and payment summary](/assets/images/quote-guide/smartleasing/redacted-quote-page-1.png)
+![Redacted Smart Leasing quote page 1 showing the vehicle and payment summary](/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp)
 
-![Redacted Smart Leasing quote page 2 with numbered finance fields](/assets/images/quote-guide/smartleasing/redacted-quote.png)
+![Redacted Smart Leasing quote page 2 with numbered finance fields](/assets/images/quote-guide/smartleasing/redacted-quote.webp)
 
-*Both available pages have customer values and vehicle details removed. [Open the two-page PDF](/assets/images/quote-guide/smartleasing/redacted-quote.pdf). Match the blue numbers to the table below; your layout may differ.*
+*Both available pages have customer values and vehicle details removed. Match the blue numbers to the table below; your layout may differ.*
 
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |
@@ -30,8 +30,8 @@ Some Queensland Government quotes use a different template. In particular, check
 
 This [separate November 2026 quote](https://www.reddit.com/r/NovatedLeasingAU/comments/1xs7vho/) includes its page 3. It shows end-of-lease options and a **Terms & Conditions** section. The clause marked **5** states the total amount financed and a documentation fee. The financed amount is **not** the drive-away price. This page belongs to a different customer quote from the two pages above.
 
-![Redacted third-page terms example from a separate Smart Leasing quote, with documentation fee marked 5](/assets/images/quote-guide/smartleasing/terms-example.png)
+![Redacted third-page terms example from a separate Smart Leasing quote, with documentation fee marked 5](/assets/images/quote-guide/smartleasing/terms-example.webp)
 
-*Quote number and figures removed. [Open this terms-page PDF](/assets/images/quote-guide/smartleasing/terms-example.pdf). Your terms may differ.*
+*Quote number and figures removed. Your terms may differ.*
 
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

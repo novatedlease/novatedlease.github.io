@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 Flare shows both **Vehicle cost** and **Total on-road price** on this layout. Use the full *Total on-road price* for the drive-away field; Vehicle cost is after the quoted GST saving.
 
-![Redacted Flare quote with numbered fields](/assets/images/quote-guide/flare/redacted-quote.png)
+![Redacted Flare quote with numbered fields](/assets/images/quote-guide/flare/redacted-quote.webp)
 
-*Customer values and identifying details removed. [Open the PDF](/assets/images/quote-guide/flare/redacted-quote.pdf). Your quote may use a different layout.*
+*Customer values and identifying details removed. Your quote may use a different layout.*
 
 | # | On this quote | In Guided mode |
 | --- | --- | --- |

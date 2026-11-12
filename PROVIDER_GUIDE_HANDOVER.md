@@ -1,0 +1,12 @@
+# Provider guide worktree handover
+
+This file continues the private handover at `/Users/changyang1230/novated-lease-guide/private/CODEX_HANDOVER_2026-11-12.md` without changing the main checkout. Work only in this worktree on `codex/provider-guide-completion`. Nothing here has been pushed or merged.
+
+## Item 10 — image weight (2026-11-13)
+
+- Converted all 34 page and special-example PNGs to WebP (maximum width 1400 px, quality 80). The new script is `new-site/scripts/prepare_quote_images.py`; it takes the private `crops/markers.json` path.
+- Removed the 34 PNGs, 32 image-only PDFs, and all quote-guide PDF links. Changed Guided and all provider articles to WebP. Existing field crops stay WebP.
+- `docs/assets/images/quote-guide/manifest.json` lists intrinsic dimensions for every image, including the four GST-credit crops and both `FIELD_EXAMPLES`; it also records page dimensions and scaled field marker positions and heights for the later scrollable viewer. Guided now sets intrinsic image width and height.
+- Visual review: six contact sheets covering all 34 new images. The quote-guide directory is 6.7 MB; no WebP exceeds 400 KB.
+- Validation: TypeScript, 302 calculator tests, ESLint on changed TS/TSX, calculator build, and site build (82 pages) pass. Site build requires network access for the existing OG font CDN.
+- Next: item 18 housekeeping, then items 4 + 12 + 6 as the owner-directed redesign. The redesign requires a mock-up for owner approval before coding. Do not start items 5, 7, 8, 9, 11, 15, 16 or 17 without owner direction.

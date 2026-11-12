@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 This numbered example shows a Simplygreen quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
-![Redacted Simplygreen quote with numbered fields](/assets/images/quote-guide/simplygreen/redacted-quote.png)
+![Redacted Simplygreen quote with numbered fields](/assets/images/quote-guide/simplygreen/redacted-quote.webp)
 
-*Customer values and identifying details removed. [Open the image-based PDF](/assets/images/quote-guide/simplygreen/redacted-quote.pdf). Your quote may use a different layout.*
+*Customer values and identifying details removed. Your quote may use a different layout.*
 
 ## Numbered field guide
 

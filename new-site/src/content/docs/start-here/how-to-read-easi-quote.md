@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 This example has a monthly finance figure and a separate fortnightly Lease Rental tile. Use the fortnightly **Lease Rental** tile. **Lease Per Month** is paid fewer times than the lease has months (see Months Deferred), so entering it would make the rate look higher.
 
-![Redacted Easi quote with numbered fields](/assets/images/quote-guide/easi/redacted-quote.png)
+![Redacted Easi quote with numbered fields](/assets/images/quote-guide/easi/redacted-quote.webp)
 
-*Customer values and identifying details removed. [Open the PDF](/assets/images/quote-guide/easi/redacted-quote.pdf). Your quote may use a different layout.*
+*Customer values and identifying details removed. Your quote may use a different layout.*
 
 | # | On this quote | In Guided mode |
 | --- | --- | --- |

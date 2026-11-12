@@ -12,23 +12,19 @@ SG Fleet layouts reviewed in November 2026 show a per-pay **Lease rental** in Pa
 
 The first two pages of the VSSS example below **do not show FBT Base Value**. Look for the **Fringe Benefit Tax (FBT)** section on a later page. This redacted crop is from a different SG Fleet *Indicative quote* layout and marks the line with **1**. Do not substitute **Vehicle on-road cost** for the FBT base value. If your quote has no such line, ask SG Fleet for it.
 
-![Redacted later SG Fleet FBT section with number 1 marking FBT Base Value](/assets/images/quote-guide/sgfleet/fbt-example.png)
-
-[Open the redacted FBT example as a PDF](/assets/images/quote-guide/sgfleet/fbt-example.pdf).
+![Redacted later SG Fleet FBT section with number 1 marking FBT Base Value](/assets/images/quote-guide/sgfleet/fbt-example.webp)
 
 ## Where to find the drive-away price
 
 On the VSSS sample, go to **Lease details** on page 2. The line marked **2**, **Vehicle on-road cost (incl. GST)**, is the drive-away price. It is different from both FBT Base Value and Total amount financed.
 
-![Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost](/assets/images/quote-guide/sgfleet/driveaway-example.png)
-
-[Open the redacted drive-away example as a PDF](/assets/images/quote-guide/sgfleet/driveaway-example.pdf).
+![Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost](/assets/images/quote-guide/sgfleet/driveaway-example.webp)
 
 ## Other fields on the VSSS example
 
-![Redacted SG Fleet quote pages with numbered fields](/assets/images/quote-guide/sgfleet/redacted-quote.png)
+![Redacted SG Fleet quote pages with numbered fields](/assets/images/quote-guide/sgfleet/redacted-quote.webp)
 
-*Quote-page example with customer values and identifying details removed. [Open the PDF](/assets/images/quote-guide/sgfleet/redacted-quote.pdf). Match the blue numbers to the table below; your layout may differ.*
+*Quote-page example with customer values and identifying details removed. Match the blue numbers to the table below; your layout may differ.*
 
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |

@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 The Paywise layout reviewed in November 2026 puts the finance payment under **Package Inclusions (ex. GST) – Fortnightly**. It also shows separate **Lease Management** and **Salary Packaging** fees.
 
-![Redacted Paywise quote page with numbered fields](/assets/images/quote-guide/paywise/redacted-quote.png)
+![Redacted Paywise quote page with numbered fields](/assets/images/quote-guide/paywise/redacted-quote.webp)
 
-*Quote-page example with customer values and identifying details removed. [Open the PDF](/assets/images/quote-guide/paywise/redacted-quote.pdf). Match the blue numbers to the table below; your layout may differ.*
+*Quote-page example with customer values and identifying details removed. Match the blue numbers to the table below; your layout may differ.*
 
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |

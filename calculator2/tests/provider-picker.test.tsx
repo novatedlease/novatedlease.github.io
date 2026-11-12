@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, type ProviderId, cropFor, exampleFor, pdfFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, type ProviderId, cropFor, exampleFor, imageSizeFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -262,11 +262,9 @@ describe("provider pointers", () => {
     expect(screen.getByText("Not on your quote? Work it out from the residual")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Show both available Smart Leasing pages" }));
     const image = screen.getByAltText(/Smart Leasing quote page 1 of two available pages/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/redacted-quote-page-1.png");
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp");
     fireEvent.click(screen.getByRole("button", { name: "Show page 2" }));
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/redacted-quote.png");
-    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
-      .toBe("/assets/images/quote-guide/smartleasing/redacted-quote.pdf");
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/redacted-quote.webp");
   });
 
   test("Smart Leasing's documentation fee opens the separate terms page", () => {
@@ -274,9 +272,7 @@ describe("provider pointers", () => {
     expect(screen.getByText(/Look in the small print on Smart Leasing's terms page/)).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Show Smart Leasing terms page" }));
     const image = screen.getByAltText(/Redacted terms page from another Smart Leasing quote/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/terms-example.png");
-    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
-      .toBe("/assets/images/quote-guide/smartleasing/terms-example.pdf");
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/smartleasing/terms-example.webp");
   });
 
   test("SG Fleet's payment pointer shows on the payment screen", () => {
@@ -287,14 +283,12 @@ describe("provider pointers", () => {
     const image = screen.getByAltText(/redacted SG Fleet quote, with the line for this question numbered/) as HTMLImageElement;
     expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
     fireEvent.click(screen.getByRole("button", { name: "Switch to full page view" }));
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/redacted-quote.png");
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/redacted-quote.webp");
     expect(image.getAttribute("alt")).toMatch(/Full redacted SG Fleet quote page/);
     fireEvent.click(screen.getByRole("button", { name: "Switch to crop view" }));
     expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
     expect(screen.getByRole("link", { name: /numbered field guide/ }).getAttribute("href"))
       .toBe("/start-here/how-to-read-sgfleet-quote/");
-    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
-      .toBe("/assets/images/quote-guide/sgfleet/redacted-quote.pdf");
   });
 
   test("SG Fleet FBT opens the marked later-page example instead of the unmarked first pages", () => {
@@ -302,10 +296,8 @@ describe("provider pointers", () => {
     expect(screen.getByText(/first two pages do not show the FBT base value/)).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Show where SG Fleet prints FBT base value" }));
     const image = screen.getByAltText(/number 1 marking FBT Base Value/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/fbt-example.png");
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/fbt-example.webp");
     expect(screen.getByText(/different SG Fleet quote layout/)).toBeTruthy();
-    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
-      .toBe("/assets/images/quote-guide/sgfleet/fbt-example.pdf");
   });
 
   test("SG Fleet drive-away opens the marked on-road cost line", () => {
@@ -313,9 +305,7 @@ describe("provider pointers", () => {
     expect(screen.getByText(/marked 2 on page 2/)).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Show SG Fleet drive-away line" }));
     const image = screen.getByAltText(/number 2 marking Vehicle on-road cost/) as HTMLImageElement;
-    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/driveaway-example.png");
-    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
-      .toBe("/assets/images/quote-guide/sgfleet/driveaway-example.pdf");
+    expect(image.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/driveaway-example.webp");
     expect(screen.getByRole("link", { name: "My quote looks different" }).getAttribute("href"))
       .toBe("/about/contact/#quote-layout-feedback");
   });
@@ -330,8 +320,8 @@ describe("provider pointers", () => {
     expect(cropFor("maxxia", "insurance")).toBe("/assets/images/quote-guide/maxxia/field-running.webp");
     expect(cropFor("easi", "luxAdj")).toBe("/assets/images/quote-guide/easi/field-luxAdj.webp");
     // SG Fleet keeps its hand-made FBT and drive-away examples
-    expect(templateFor("sgfleet", "baseValue")).toBe("/assets/images/quote-guide/sgfleet/fbt-example.png");
-    expect(templateFor("sgfleet", "driveaway")).toBe("/assets/images/quote-guide/sgfleet/driveaway-example.png");
+    expect(templateFor("sgfleet", "baseValue")).toBe("/assets/images/quote-guide/sgfleet/fbt-example.webp");
+    expect(templateFor("sgfleet", "driveaway")).toBe("/assets/images/quote-guide/sgfleet/driveaway-example.webp");
   });
 
   test("a marked crop is offered even where there's no written pointer", () => {
@@ -346,26 +336,35 @@ describe("provider pointers", () => {
     expect(screen.getByText(/Your total residual value \(after lease term\)”.*Including GST/)).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Show where Oly prints the residual" }));
     expect((screen.getByAltText(/Your total residual value marked 6/) as HTMLImageElement).getAttribute("src"))
-      .toBe("/assets/images/quote-guide/oly/residual-example.png");
-    expect(screen.getByRole("link", { name: "Open PDF" }).getAttribute("href"))
-      .toBe("/assets/images/quote-guide/oly/residual-example.pdf");
+      .toBe("/assets/images/quote-guide/oly/residual-example.webp");
     cleanup();
     window.localStorage.clear();
     on("lease", { ...quoteDraft(), provider: "alliance" });
     fireEvent.click(screen.getByRole("button", { name: "Show Alliance's fees page" }));
     expect((screen.getByAltText(/Entry Fee marked 5/) as HTMLImageElement).getAttribute("src"))
-      .toBe("/assets/images/quote-guide/alliance/page2-fees.png");
-    expect(pdfFor("alliance", "/assets/images/quote-guide/alliance/page2-fees.png"))
-      .toBe("/assets/images/quote-guide/alliance/page2-example.pdf");
+      .toBe("/assets/images/quote-guide/alliance/page2-fees.webp");
   });
 
-  test("every field example's image and PDF exist on disk", async () => {
+  test("every field example image exists on disk", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
     for (const [id, field] of [["oly", "residual"], ["alliance", "docFee"]] as const) {
       const e = exampleFor(id, field)!;
-      for (const f of [e.image, e.pdf]) expect(fs.existsSync(path.join(__dirname, "../../docs", f))).toBe(true);
+      expect(fs.existsSync(path.join(__dirname, "../../docs", e.image))).toBe(true);
+      expect(imageSizeFor(e.image)).toMatchObject({ w: expect.any(Number), h: expect.any(Number) });
     }
+  });
+
+  test("the quote manifest covers page dimensions, field markers and GST credit crops", async () => {
+    const manifest = (await import("../../docs/assets/images/quote-guide/manifest.json")).default;
+    for (const id of ["millarx", "oly", "remserv", "lendly"] as const) {
+      expect(imageSizeFor(`/assets/images/quote-guide/${id}/field-gst-credit.webp`)).toMatchObject({
+        w: expect.any(Number), h: expect.any(Number),
+      });
+    }
+    expect(manifest.pages.sgfleet).toMatchObject({ image: "sgfleet/redacted-quote.webp", w: expect.any(Number), h: expect.any(Number) });
+    expect(manifest.markers.sgfleet.driveaway[0]).toMatchObject({ label: "2", y: expect.any(Number), h: expect.any(Number) });
+    expect(imageSizeFor(exampleFor("oly", "residual")!.image)).toMatchObject({ w: expect.any(Number), h: expect.any(Number) });
   });
 
   test("fields missing from a provider's example get a short what-to-do line, without a picture", () => {

@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 The Maxxia layouts reviewed in November 2026 use **Financed payments** for the lease payment. They may include financier fees and the first year's comprehensive insurance in the amount financed. Check those inclusions when comparing the quote with another offer.
 
-![Redacted Maxxia quote pages with numbered fields](/assets/images/quote-guide/maxxia/redacted-quote.png)
+![Redacted Maxxia quote pages with numbered fields](/assets/images/quote-guide/maxxia/redacted-quote.webp)
 
-*Quote-page example with customer values and identifying details removed. [Open the PDF](/assets/images/quote-guide/maxxia/redacted-quote.pdf). Match the blue numbers to the table below; your layout may differ.*
+*Quote-page example with customer values and identifying details removed. Match the blue numbers to the table below; your layout may differ.*
 
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |

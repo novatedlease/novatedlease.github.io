@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 This numbered example shows a MillarX quote layout reviewed in October 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
-![Redacted MillarX quote with numbered fields](/assets/images/quote-guide/millarx/redacted-quote.png)
+![Redacted MillarX quote with numbered fields](/assets/images/quote-guide/millarx/redacted-quote.webp)
 
-*Customer values and identifying details removed. [Open the image-based PDF](/assets/images/quote-guide/millarx/redacted-quote.pdf). Your quote may use a different layout.*
+*Customer values and identifying details removed. Your quote may use a different layout.*
 
 ## Numbered field guide
 

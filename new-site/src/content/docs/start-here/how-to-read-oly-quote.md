@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 This numbered example shows an Oly quote layout reviewed in August 2026. Match each marker to the table, then check the period and GST label on your own quote.
 
-![Redacted Oly quote with numbered fields](/assets/images/quote-guide/oly/redacted-quote.png)
+![Redacted Oly quote with numbered fields](/assets/images/quote-guide/oly/redacted-quote.webp)
 
-*Customer values and identifying details removed. [Open the image-based PDF](/assets/images/quote-guide/oly/redacted-quote.pdf). Your quote may use a different layout.*
+*Customer values and identifying details removed. Your quote may use a different layout.*
 
 ## Numbered field guide
 
@@ -24,9 +24,9 @@ This numbered example shows an Oly quote layout reviewed in August 2026. Match e
 
 ## Residual, at the end of the estimate
 
-![End of a redacted Oly estimate with the residual line marked 6](/assets/images/quote-guide/oly/residual-example.png)
+![End of a redacted Oly estimate with the residual line marked 6](/assets/images/quote-guide/oly/residual-example.webp)
 
-*The last section of the same estimate, with figures removed. [Open the image-based PDF](/assets/images/quote-guide/oly/residual-example.pdf).*
+*The last section of the same estimate, with figures removed. *
 
 | # | On the quote | In Guided |
 |---|---|---|

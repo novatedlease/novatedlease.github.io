@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 On this layout, the monthly lease cost is split into **Part A** finance rental, **Part B** running-cost budgets, **Part C** product fees, and **Part D** other adjustments. Enter the relevant components separately in Guided mode.
 
-![Redacted FleetPartners quote pages with numbered fields](/assets/images/quote-guide/fleetpartners/redacted-quote.png)
+![Redacted FleetPartners quote pages with numbered fields](/assets/images/quote-guide/fleetpartners/redacted-quote.webp)
 
-*Customer values, vehicle details and identifying details removed. [Open the PDF](/assets/images/quote-guide/fleetpartners/redacted-quote.pdf). Your quote may use a different layout.*
+*Customer values, vehicle details and identifying details removed. Your quote may use a different layout.*
 
 | # | On this quote | In Guided mode |
 | --- | --- | --- |

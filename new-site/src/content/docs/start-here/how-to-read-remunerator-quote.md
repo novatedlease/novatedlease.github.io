@@ -8,9 +8,9 @@ datePublished: "2026-11-12"
 
 This Remunerator example prints a **Lease Payment (excl GST)** separately from the annual car expenses. Use that lease-payment line for finance; the highlighted headline amount includes running costs.
 
-![Redacted Remunerator quote with numbered fields](/assets/images/quote-guide/remunerator/redacted-quote.png)
+![Redacted Remunerator quote with numbered fields](/assets/images/quote-guide/remunerator/redacted-quote.webp)
 
-*Customer values and identifying details removed. [Open the PDF](/assets/images/quote-guide/remunerator/redacted-quote.pdf). Your quote may use a different layout.*
+*Customer values and identifying details removed. Your quote may use a different layout.*
 
 | # | On this quote | In Guided mode |
 | --- | --- | --- |

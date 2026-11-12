@@ -1,0 +1,2396 @@
+{
+  "images": {
+    "alliance/field-baseValue.webp": {
+      "w": 1400,
+      "h": 198
+    },
+    "alliance/field-defer.webp": {
+      "w": 910,
+      "h": 160
+    },
+    "alliance/field-driveaway.webp": {
+      "w": 1400,
+      "h": 224
+    },
+    "alliance/field-fees.webp": {
+      "w": 1400,
+      "h": 634
+    },
+    "alliance/field-payment.webp": {
+      "w": 1400,
+      "h": 602
+    },
+    "alliance/field-residual.webp": {
+      "w": 1400,
+      "h": 193
+    },
+    "alliance/field-running.webp": {
+      "w": 1400,
+      "h": 602
+    },
+    "alliance/page2-example.webp": {
+      "w": 1400,
+      "h": 1401
+    },
+    "alliance/page2-fees.webp": {
+      "w": 1180,
+      "h": 900
+    },
+    "alliance/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1965
+    },
+    "autopia/field-docFee.webp": {
+      "w": 1400,
+      "h": 214
+    },
+    "autopia/field-driveaway.webp": {
+      "w": 1400,
+      "h": 210
+    },
+    "autopia/field-fees.webp": {
+      "w": 1400,
+      "h": 849
+    },
+    "autopia/field-luxAdj.webp": {
+      "w": 1400,
+      "h": 213
+    },
+    "autopia/field-payment.webp": {
+      "w": 1400,
+      "h": 210
+    },
+    "autopia/field-residual.webp": {
+      "w": 1400,
+      "h": 216
+    },
+    "autopia/field-running.webp": {
+      "w": 1400,
+      "h": 848
+    },
+    "autopia/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1718
+    },
+    "customfleet/field-baseValue.webp": {
+      "w": 1010,
+      "h": 162
+    },
+    "customfleet/field-driveaway.webp": {
+      "w": 1012,
+      "h": 147
+    },
+    "customfleet/field-fees.webp": {
+      "w": 1400,
+      "h": 243
+    },
+    "customfleet/field-luxAdj.webp": {
+      "w": 1400,
+      "h": 198
+    },
+    "customfleet/field-payment.webp": {
+      "w": 1400,
+      "h": 193
+    },
+    "customfleet/field-residual.webp": {
+      "w": 1010,
+      "h": 168
+    },
+    "customfleet/field-running.webp": {
+      "w": 1400,
+      "h": 650
+    },
+    "customfleet/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1218
+    },
+    "driva/field-baseValue.webp": {
+      "w": 1184,
+      "h": 183
+    },
+    "driva/field-driveaway.webp": {
+      "w": 1208,
+      "h": 186
+    },
+    "driva/field-fees.webp": {
+      "w": 1400,
+      "h": 618
+    },
+    "driva/field-luxAdj.webp": {
+      "w": 1400,
+      "h": 147
+    },
+    "driva/field-payment.webp": {
+      "w": 1400,
+      "h": 194
+    },
+    "driva/field-residual.webp": {
+      "w": 1184,
+      "h": 183
+    },
+    "driva/field-running.webp": {
+      "w": 1400,
+      "h": 618
+    },
+    "driva/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1930
+    },
+    "easi/field-baseValue.webp": {
+      "w": 900,
+      "h": 135
+    },
+    "easi/field-defer.webp": {
+      "w": 900,
+      "h": 135
+    },
+    "easi/field-driveaway.webp": {
+      "w": 900,
+      "h": 135
+    },
+    "easi/field-fees.webp": {
+      "w": 900,
+      "h": 320
+    },
+    "easi/field-luxAdj.webp": {
+      "w": 900,
+      "h": 135
+    },
+    "easi/field-payment.webp": {
+      "w": 900,
+      "h": 472
+    },
+    "easi/field-residual.webp": {
+      "w": 900,
+      "h": 134
+    },
+    "easi/field-running.webp": {
+      "w": 900,
+      "h": 308
+    },
+    "easi/redacted-quote.webp": {
+      "w": 1400,
+      "h": 853
+    },
+    "fingo/field-baseValue.webp": {
+      "w": 1122,
+      "h": 177
+    },
+    "fingo/field-defer.webp": {
+      "w": 1135,
+      "h": 177
+    },
+    "fingo/field-driveaway.webp": {
+      "w": 1122,
+      "h": 386
+    },
+    "fingo/field-fees.webp": {
+      "w": 1167,
+      "h": 189
+    },
+    "fingo/field-payment.webp": {
+      "w": 1159,
+      "h": 187
+    },
+    "fingo/field-residual.webp": {
+      "w": 1126,
+      "h": 291
+    },
+    "fingo/field-running.webp": {
+      "w": 1164,
+      "h": 900
+    },
+    "fingo/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1967
+    },
+    "flare/field-baseValue.webp": {
+      "w": 900,
+      "h": 140
+    },
+    "flare/field-driveaway.webp": {
+      "w": 900,
+      "h": 231
+    },
+    "flare/field-fees.webp": {
+      "w": 900,
+      "h": 143
+    },
+    "flare/field-luxAdj.webp": {
+      "w": 900,
+      "h": 632
+    },
+    "flare/field-payment.webp": {
+      "w": 900,
+      "h": 138
+    },
+    "flare/field-residual.webp": {
+      "w": 900,
+      "h": 142
+    },
+    "flare/field-running.webp": {
+      "w": 900,
+      "h": 598
+    },
+    "flare/redacted-quote.webp": {
+      "w": 1400,
+      "h": 2145
+    },
+    "fleetpartners/field-defer.webp": {
+      "w": 900,
+      "h": 166
+    },
+    "fleetpartners/field-docFee.webp": {
+      "w": 900,
+      "h": 193
+    },
+    "fleetpartners/field-driveaway.webp": {
+      "w": 900,
+      "h": 162
+    },
+    "fleetpartners/field-fees.webp": {
+      "w": 900,
+      "h": 155
+    },
+    "fleetpartners/field-payment.webp": {
+      "w": 900,
+      "h": 156
+    },
+    "fleetpartners/field-residual.webp": {
+      "w": 900,
+      "h": 150
+    },
+    "fleetpartners/field-running.webp": {
+      "w": 900,
+      "h": 163
+    },
+    "fleetpartners/redacted-quote.webp": {
+      "w": 1240,
+      "h": 3510
+    },
+    "leaseexpress/field-baseValue.webp": {
+      "w": 1108,
+      "h": 180
+    },
+    "leaseexpress/field-fees.webp": {
+      "w": 1087,
+      "h": 179
+    },
+    "leaseexpress/field-payment.webp": {
+      "w": 1087,
+      "h": 180
+    },
+    "leaseexpress/field-residual.webp": {
+      "w": 1087,
+      "h": 173
+    },
+    "leaseexpress/field-running.webp": {
+      "w": 1093,
+      "h": 1080
+    },
+    "leaseexpress/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1143
+    },
+    "leaselab/field-baseValue.webp": {
+      "w": 1144,
+      "h": 182
+    },
+    "leaselab/field-fees.webp": {
+      "w": 1400,
+      "h": 200
+    },
+    "leaselab/field-payment.webp": {
+      "w": 1400,
+      "h": 195
+    },
+    "leaselab/field-residual.webp": {
+      "w": 1144,
+      "h": 182
+    },
+    "leaselab/field-running.webp": {
+      "w": 1400,
+      "h": 641
+    },
+    "leaselab/redacted-quote.webp": {
+      "w": 1400,
+      "h": 4047
+    },
+    "leaseplan/field-baseValue.webp": {
+      "w": 1065,
+      "h": 167
+    },
+    "leaseplan/field-docFee.webp": {
+      "w": 1065,
+      "h": 167
+    },
+    "leaseplan/field-fees.webp": {
+      "w": 1073,
+      "h": 177
+    },
+    "leaseplan/field-payment.webp": {
+      "w": 1065,
+      "h": 167
+    },
+    "leaseplan/field-running.webp": {
+      "w": 1029,
+      "h": 481
+    },
+    "leaseplan/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1514
+    },
+    "lendly/field-driveaway.webp": {
+      "w": 1376,
+      "h": 286
+    },
+    "lendly/field-fees.webp": {
+      "w": 1400,
+      "h": 210
+    },
+    "lendly/field-gst-credit.webp": {
+      "w": 1400,
+      "h": 200
+    },
+    "lendly/field-luxAdj.webp": {
+      "w": 1400,
+      "h": 227
+    },
+    "lendly/field-payment.webp": {
+      "w": 1400,
+      "h": 219
+    },
+    "lendly/field-residual.webp": {
+      "w": 1400,
+      "h": 223
+    },
+    "lendly/field-running.webp": {
+      "w": 1400,
+      "h": 839
+    },
+    "lendly/redacted-quote.webp": {
+      "w": 1400,
+      "h": 3193
+    },
+    "maxxia/field-baseValue.webp": {
+      "w": 900,
+      "h": 133
+    },
+    "maxxia/field-docFee.webp": {
+      "w": 900,
+      "h": 230
+    },
+    "maxxia/field-driveaway.webp": {
+      "w": 900,
+      "h": 136
+    },
+    "maxxia/field-fees.webp": {
+      "w": 900,
+      "h": 136
+    },
+    "maxxia/field-payment.webp": {
+      "w": 900,
+      "h": 426
+    },
+    "maxxia/field-residual.webp": {
+      "w": 900,
+      "h": 133
+    },
+    "maxxia/field-running.webp": {
+      "w": 900,
+      "h": 642
+    },
+    "maxxia/redacted-quote.webp": {
+      "w": 1400,
+      "h": 3900
+    },
+    "millarx/field-defer.webp": {
+      "w": 1400,
+      "h": 222
+    },
+    "millarx/field-docFee.webp": {
+      "w": 1400,
+      "h": 225
+    },
+    "millarx/field-driveaway.webp": {
+      "w": 1335,
+      "h": 566
+    },
+    "millarx/field-gst-credit.webp": {
+      "w": 1400,
+      "h": 312
+    },
+    "millarx/field-payment.webp": {
+      "w": 1400,
+      "h": 647
+    },
+    "millarx/field-residual.webp": {
+      "w": 1400,
+      "h": 192
+    },
+    "millarx/redacted-quote.webp": {
+      "w": 1400,
+      "h": 2266
+    },
+    "nla/field-baseValue.webp": {
+      "w": 900,
+      "h": 139
+    },
+    "nla/field-driveaway.webp": {
+      "w": 900,
+      "h": 661
+    },
+    "nla/field-fees.webp": {
+      "w": 900,
+      "h": 144
+    },
+    "nla/field-payment.webp": {
+      "w": 900,
+      "h": 144
+    },
+    "nla/field-residual.webp": {
+      "w": 900,
+      "h": 142
+    },
+    "nla/field-running.webp": {
+      "w": 900,
+      "h": 419
+    },
+    "nla/redacted-quote.webp": {
+      "w": 1400,
+      "h": 3938
+    },
+    "oly/field-docFee.webp": {
+      "w": 1393,
+      "h": 360
+    },
+    "oly/field-driveaway.webp": {
+      "w": 1393,
+      "h": 438
+    },
+    "oly/field-gst-credit.webp": {
+      "w": 1250,
+      "h": 487
+    },
+    "oly/field-payment.webp": {
+      "w": 1393,
+      "h": 325
+    },
+    "oly/field-running.webp": {
+      "w": 1400,
+      "h": 1093
+    },
+    "oly/redacted-quote.webp": {
+      "w": 1400,
+      "h": 6514
+    },
+    "oly/residual-example.webp": {
+      "w": 1400,
+      "h": 809
+    },
+    "orix/field-docFee.webp": {
+      "w": 1400,
+      "h": 312
+    },
+    "orix/field-fees.webp": {
+      "w": 1400,
+      "h": 591
+    },
+    "orix/field-luxAdj.webp": {
+      "w": 1400,
+      "h": 200
+    },
+    "orix/field-payment.webp": {
+      "w": 1400,
+      "h": 196
+    },
+    "orix/field-residual.webp": {
+      "w": 1069,
+      "h": 169
+    },
+    "orix/field-running.webp": {
+      "w": 1400,
+      "h": 591
+    },
+    "orix/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1632
+    },
+    "paywise/field-baseValue.webp": {
+      "w": 900,
+      "h": 160
+    },
+    "paywise/field-fees.webp": {
+      "w": 900,
+      "h": 204
+    },
+    "paywise/field-payment.webp": {
+      "w": 900,
+      "h": 194
+    },
+    "paywise/field-residual.webp": {
+      "w": 900,
+      "h": 160
+    },
+    "paywise/field-running.webp": {
+      "w": 900,
+      "h": 693
+    },
+    "paywise/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1479
+    },
+    "remserv/field-gst-credit.webp": {
+      "w": 2240,
+      "h": 281
+    },
+    "remserv/field-payment.webp": {
+      "w": 1275,
+      "h": 199
+    },
+    "remserv/field-residual.webp": {
+      "w": 1268,
+      "h": 203
+    },
+    "remserv/field-running.webp": {
+      "w": 1275,
+      "h": 952
+    },
+    "remserv/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1203
+    },
+    "remunerator/field-baseValue.webp": {
+      "w": 900,
+      "h": 154
+    },
+    "remunerator/field-defer.webp": {
+      "w": 900,
+      "h": 154
+    },
+    "remunerator/field-driveaway.webp": {
+      "w": 900,
+      "h": 154
+    },
+    "remunerator/field-payment.webp": {
+      "w": 900,
+      "h": 586
+    },
+    "remunerator/field-residual.webp": {
+      "w": 900,
+      "h": 154
+    },
+    "remunerator/field-running.webp": {
+      "w": 900,
+      "h": 483
+    },
+    "remunerator/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1875
+    },
+    "sgfleet/driveaway-example.webp": {
+      "w": 1268,
+      "h": 410
+    },
+    "sgfleet/fbt-example.webp": {
+      "w": 850,
+      "h": 894
+    },
+    "sgfleet/field-defer.webp": {
+      "w": 900,
+      "h": 159
+    },
+    "sgfleet/field-docFee.webp": {
+      "w": 900,
+      "h": 229
+    },
+    "sgfleet/field-fees.webp": {
+      "w": 900,
+      "h": 145
+    },
+    "sgfleet/field-payment.webp": {
+      "w": 900,
+      "h": 289
+    },
+    "sgfleet/field-residual.webp": {
+      "w": 900,
+      "h": 158
+    },
+    "sgfleet/field-running.webp": {
+      "w": 900,
+      "h": 753
+    },
+    "sgfleet/redacted-quote.webp": {
+      "w": 1400,
+      "h": 3033
+    },
+    "simplygreen/field-baseValue.webp": {
+      "w": 903,
+      "h": 160
+    },
+    "simplygreen/field-defer.webp": {
+      "w": 909,
+      "h": 372
+    },
+    "simplygreen/field-driveaway.webp": {
+      "w": 910,
+      "h": 166
+    },
+    "simplygreen/field-fees.webp": {
+      "w": 903,
+      "h": 720
+    },
+    "simplygreen/field-payment.webp": {
+      "w": 903,
+      "h": 168
+    },
+    "simplygreen/field-residual.webp": {
+      "w": 908,
+      "h": 390
+    },
+    "simplygreen/field-running.webp": {
+      "w": 903,
+      "h": 720
+    },
+    "simplygreen/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1354
+    },
+    "smartleasing/field-baseValue.webp": {
+      "w": 900,
+      "h": 144
+    },
+    "smartleasing/field-defer.webp": {
+      "w": 900,
+      "h": 531
+    },
+    "smartleasing/field-fees.webp": {
+      "w": 900,
+      "h": 137
+    },
+    "smartleasing/field-payment.webp": {
+      "w": 900,
+      "h": 771
+    },
+    "smartleasing/field-residual.webp": {
+      "w": 900,
+      "h": 448
+    },
+    "smartleasing/field-running.webp": {
+      "w": 900,
+      "h": 583
+    },
+    "smartleasing/redacted-quote-page-1.webp": {
+      "w": 1400,
+      "h": 1352
+    },
+    "smartleasing/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1621
+    },
+    "smartleasing/terms-example.webp": {
+      "w": 1400,
+      "h": 1986
+    },
+    "smartsalary/field-baseValue.webp": {
+      "w": 900,
+      "h": 159
+    },
+    "smartsalary/field-fees.webp": {
+      "w": 900,
+      "h": 234
+    },
+    "smartsalary/field-payment.webp": {
+      "w": 900,
+      "h": 562
+    },
+    "smartsalary/field-residual.webp": {
+      "w": 900,
+      "h": 159
+    },
+    "smartsalary/field-running.webp": {
+      "w": 900,
+      "h": 562
+    },
+    "smartsalary/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1891
+    },
+    "spa/field-baseValue.webp": {
+      "w": 1400,
+      "h": 202
+    },
+    "spa/field-defer.webp": {
+      "w": 1200,
+      "h": 185
+    },
+    "spa/field-driveaway.webp": {
+      "w": 1400,
+      "h": 208
+    },
+    "spa/field-fees.webp": {
+      "w": 1400,
+      "h": 198
+    },
+    "spa/field-payment.webp": {
+      "w": 1400,
+      "h": 522
+    },
+    "spa/field-residual.webp": {
+      "w": 1400,
+      "h": 202
+    },
+    "spa/field-running.webp": {
+      "w": 1400,
+      "h": 473
+    },
+    "spa/redacted-quote.webp": {
+      "w": 1400,
+      "h": 2141
+    },
+    "toyotafleet/field-baseValue.webp": {
+      "w": 900,
+      "h": 155
+    },
+    "toyotafleet/field-docFee.webp": {
+      "w": 900,
+      "h": 222
+    },
+    "toyotafleet/field-driveaway.webp": {
+      "w": 900,
+      "h": 157
+    },
+    "toyotafleet/field-fees.webp": {
+      "w": 900,
+      "h": 162
+    },
+    "toyotafleet/field-luxAdj.webp": {
+      "w": 900,
+      "h": 144
+    },
+    "toyotafleet/field-payment.webp": {
+      "w": 900,
+      "h": 189
+    },
+    "toyotafleet/field-residual.webp": {
+      "w": 900,
+      "h": 155
+    },
+    "toyotafleet/field-running.webp": {
+      "w": 900,
+      "h": 460
+    },
+    "toyotafleet/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1636
+    },
+    "vehiclesolutions/field-baseValue.webp": {
+      "w": 1076,
+      "h": 169
+    },
+    "vehiclesolutions/field-defer.webp": {
+      "w": 1400,
+      "h": 577
+    },
+    "vehiclesolutions/field-driveaway.webp": {
+      "w": 1187,
+      "h": 188
+    },
+    "vehiclesolutions/field-fees.webp": {
+      "w": 1400,
+      "h": 199
+    },
+    "vehiclesolutions/field-payment.webp": {
+      "w": 915,
+      "h": 166
+    },
+    "vehiclesolutions/field-residual.webp": {
+      "w": 1187,
+      "h": 183
+    },
+    "vehiclesolutions/field-running.webp": {
+      "w": 1400,
+      "h": 534
+    },
+    "vehiclesolutions/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1073
+    }
+  },
+  "pages": {
+    "alliance": {
+      "image": "alliance/redacted-quote.webp",
+      "w": 1400,
+      "h": 1965
+    },
+    "autopia": {
+      "image": "autopia/redacted-quote.webp",
+      "w": 1400,
+      "h": 1718
+    },
+    "customfleet": {
+      "image": "customfleet/redacted-quote.webp",
+      "w": 1400,
+      "h": 1218
+    },
+    "driva": {
+      "image": "driva/redacted-quote.webp",
+      "w": 1400,
+      "h": 1930
+    },
+    "easi": {
+      "image": "easi/redacted-quote.webp",
+      "w": 1400,
+      "h": 853
+    },
+    "fingo": {
+      "image": "fingo/redacted-quote.webp",
+      "w": 1400,
+      "h": 1967
+    },
+    "flare": {
+      "image": "flare/redacted-quote.webp",
+      "w": 1400,
+      "h": 2145
+    },
+    "fleetpartners": {
+      "image": "fleetpartners/redacted-quote.webp",
+      "w": 1240,
+      "h": 3510
+    },
+    "leaseexpress": {
+      "image": "leaseexpress/redacted-quote.webp",
+      "w": 1400,
+      "h": 1143
+    },
+    "leaselab": {
+      "image": "leaselab/redacted-quote.webp",
+      "w": 1400,
+      "h": 4047
+    },
+    "leaseplan": {
+      "image": "leaseplan/redacted-quote.webp",
+      "w": 1400,
+      "h": 1514
+    },
+    "lendly": {
+      "image": "lendly/redacted-quote.webp",
+      "w": 1400,
+      "h": 3193
+    },
+    "maxxia": {
+      "image": "maxxia/redacted-quote.webp",
+      "w": 1400,
+      "h": 3900
+    },
+    "millarx": {
+      "image": "millarx/redacted-quote.webp",
+      "w": 1400,
+      "h": 2266
+    },
+    "nla": {
+      "image": "nla/redacted-quote.webp",
+      "w": 1400,
+      "h": 3938
+    },
+    "oly": {
+      "image": "oly/redacted-quote.webp",
+      "w": 1400,
+      "h": 6514
+    },
+    "orix": {
+      "image": "orix/redacted-quote.webp",
+      "w": 1400,
+      "h": 1632
+    },
+    "paywise": {
+      "image": "paywise/redacted-quote.webp",
+      "w": 1400,
+      "h": 1479
+    },
+    "remserv": {
+      "image": "remserv/redacted-quote.webp",
+      "w": 1400,
+      "h": 1203
+    },
+    "remunerator": {
+      "image": "remunerator/redacted-quote.webp",
+      "w": 1400,
+      "h": 1875
+    },
+    "sgfleet": {
+      "image": "sgfleet/redacted-quote.webp",
+      "w": 1400,
+      "h": 3033
+    },
+    "simplygreen": {
+      "image": "simplygreen/redacted-quote.webp",
+      "w": 1400,
+      "h": 1354
+    },
+    "smartleasing": {
+      "image": "smartleasing/redacted-quote.webp",
+      "w": 1400,
+      "h": 1621
+    },
+    "smartsalary": {
+      "image": "smartsalary/redacted-quote.webp",
+      "w": 1400,
+      "h": 1891
+    },
+    "spa": {
+      "image": "spa/redacted-quote.webp",
+      "w": 1400,
+      "h": 2141
+    },
+    "toyotafleet": {
+      "image": "toyotafleet/redacted-quote.webp",
+      "w": 1400,
+      "h": 1636
+    },
+    "vehiclesolutions": {
+      "image": "vehiclesolutions/redacted-quote.webp",
+      "w": 1400,
+      "h": 1073
+    }
+  },
+  "markers": {
+    "alliance": {
+      "defer": [
+        {
+          "label": "4",
+          "y": 404,
+          "h": 25
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 628,
+          "h": 25
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 657,
+          "h": 25
+        },
+        {
+          "label": "1",
+          "y": 718,
+          "h": 25
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 688,
+          "h": 25
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 1084,
+          "h": 29
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1172,
+          "h": 265
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 1203,
+          "h": 265
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 1235,
+          "h": 265
+        }
+      ]
+    },
+    "autopia": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 582,
+          "h": 21
+        }
+      ],
+      "docFee": [
+        {
+          "label": "5",
+          "y": 726,
+          "h": 23
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 754,
+          "h": 23
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 809,
+          "h": 20
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 868,
+          "h": 23
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 1064,
+          "h": 20
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 1119,
+          "h": 165
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1208,
+          "h": 165
+        }
+      ]
+    },
+    "customfleet": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 39,
+          "h": 24
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 115,
+          "h": 24
+        },
+        {
+          "label": "1",
+          "y": 319,
+          "h": 24
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 279,
+          "h": 28
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 411,
+          "h": 24
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 456,
+          "h": 300
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 770,
+          "h": 29
+        },
+        {
+          "label": "10",
+          "y": 811,
+          "h": 29
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 1059,
+          "h": 29
+        }
+      ]
+    },
+    "driva": {
+      "term": [
+        {
+          "label": "3",
+          "y": 817,
+          "h": 24
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 950,
+          "h": 23
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 1038,
+          "h": 23
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 1199,
+          "h": 26
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 1391,
+          "h": 289
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1583,
+          "h": 289
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 1689,
+          "h": 27
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 1880,
+          "h": 27
+        }
+      ]
+    },
+    "easi": {
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 268,
+          "h": 14
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 300,
+          "h": 15
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 349,
+          "h": 14
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 419,
+          "h": 14
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 419,
+          "h": 14
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 435,
+          "h": 15
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 614,
+          "h": 75
+        }
+      ],
+      "payment": [
+        {
+          "label": "7b",
+          "y": 615,
+          "h": 75
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 693,
+          "h": 75
+        }
+      ]
+    },
+    "fingo": {
+      "term": [
+        {
+          "label": "3",
+          "y": 199,
+          "h": 38
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 1030,
+          "h": 27
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 1032,
+          "h": 31
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1069,
+          "h": 31
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 1103,
+          "h": 248
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 1301,
+          "h": 31
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 1372,
+          "h": 68
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 1460,
+          "h": 25
+        }
+      ]
+    },
+    "flare": {
+      "residual": [
+        {
+          "label": "6",
+          "y": 842,
+          "h": 28
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 942,
+          "h": 28
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 1763,
+          "h": 27
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 1764,
+          "h": 25
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 1802,
+          "h": 181
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 1833,
+          "h": 181
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 1835,
+          "h": 24
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 2016,
+          "h": 28
+        }
+      ]
+    },
+    "fleetpartners": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 943,
+          "h": 43
+        },
+        {
+          "label": "2",
+          "y": 2680,
+          "h": 45
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 2091,
+          "h": 37
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 2149,
+          "h": 47
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 2254,
+          "h": 32
+        }
+      ],
+      "docFee": [
+        {
+          "label": "5",
+          "y": 2431,
+          "h": 33
+        },
+        {
+          "label": "5",
+          "y": 2467,
+          "h": 34
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 3016,
+          "h": 37
+        }
+      ]
+    },
+    "leaseexpress": {
+      "term": [
+        {
+          "label": "3",
+          "y": 399,
+          "h": 34
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 468,
+          "h": 29
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 505,
+          "h": 34
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 594,
+          "h": 386
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 628,
+          "h": 32
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 983,
+          "h": 33
+        }
+      ]
+    },
+    "leaselab": {
+      "term": [
+        {
+          "label": "3",
+          "y": 1449,
+          "h": 28
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 1603,
+          "h": 29
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 1756,
+          "h": 29
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 2382,
+          "h": 27
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 2430,
+          "h": 310
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 2761,
+          "h": 32
+        }
+      ]
+    },
+    "leaseplan": {
+      "docFee": [
+        {
+          "label": "5",
+          "y": 824,
+          "h": 36
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 1041,
+          "h": 31
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 1126,
+          "h": 36
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 1236,
+          "h": 163
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1398,
+          "h": 36
+        }
+      ]
+    },
+    "lendly": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 594,
+          "h": 33
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 1140,
+          "h": 42
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 1212,
+          "h": 336
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 1721,
+          "h": 41
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1766,
+          "h": 33
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 1809,
+          "h": 47
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 2704,
+          "h": 41
+        }
+      ]
+    },
+    "maxxia": {
+      "term": [
+        {
+          "label": "3",
+          "y": 191,
+          "h": 36
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 429,
+          "h": 36
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 588,
+          "h": 37
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 787,
+          "h": 41
+        }
+      ],
+      "docFee": [
+        {
+          "label": "5",
+          "y": 1012,
+          "h": 36
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 2100,
+          "h": 224
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 2382,
+          "h": 493
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 2987,
+          "h": 43
+        }
+      ]
+    },
+    "millarx": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 339,
+          "h": 76
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 339,
+          "h": 76
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 341,
+          "h": 76
+        }
+      ],
+      "payment": [
+        {
+          "label": "7b",
+          "y": 549,
+          "h": 185
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 775,
+          "h": 27
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 1497,
+          "h": 22
+        }
+      ],
+      "docFee": [
+        {
+          "label": "5",
+          "y": 2159,
+          "h": 26
+        }
+      ]
+    },
+    "nla": {
+      "term": [
+        {
+          "label": "3",
+          "y": 386,
+          "h": 30
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 567,
+          "h": 30
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 691,
+          "h": 229
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 2394,
+          "h": 31
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 2481,
+          "h": 27
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 2715,
+          "h": 313
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 3351,
+          "h": 26
+        }
+      ]
+    },
+    "oly": {
+      "term": [
+        {
+          "label": "3",
+          "y": 247,
+          "h": 144
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 601,
+          "h": 40
+        }
+      ],
+      "docFee": [
+        {
+          "label": "5",
+          "y": 2759,
+          "h": 113
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 4039,
+          "h": 113
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 5713,
+          "h": 690
+        }
+      ]
+    },
+    "orix": {
+      "term": [
+        {
+          "label": "3",
+          "y": 107,
+          "h": 32
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 138,
+          "h": 28
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 171,
+          "h": 28
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 350,
+          "h": 27
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 385,
+          "h": 228
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 420,
+          "h": 228
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 962,
+          "h": 32
+        }
+      ],
+      "docFee": [
+        {
+          "label": "5",
+          "y": 1344,
+          "h": 112
+        }
+      ]
+    },
+    "paywise": {
+      "payment": [
+        {
+          "label": "7",
+          "y": 789,
+          "h": 66
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1043,
+          "h": 70
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 1294,
+          "h": 28
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 1333,
+          "h": 27
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 1374,
+          "h": 28
+        }
+      ]
+    },
+    "remserv": {
+      "term": [
+        {
+          "label": "3",
+          "y": 129,
+          "h": 23
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 129,
+          "h": 23
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 561,
+          "h": 200
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 636,
+          "h": 21
+        }
+      ]
+    },
+    "remunerator": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 604,
+          "h": 25
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 641,
+          "h": 25
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 716,
+          "h": 25
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 755,
+          "h": 25
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 794,
+          "h": 29
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 1056,
+          "h": 147
+        }
+      ]
+    },
+    "sgfleet": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 1760,
+          "h": 29
+        }
+      ],
+      "payment": [
+        {
+          "label": "7b",
+          "y": 1782,
+          "h": 29
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1866,
+          "h": 33
+        }
+      ],
+      "docFee": [
+        {
+          "label": "5",
+          "y": 1889,
+          "h": 29
+        },
+        {
+          "label": "5",
+          "y": 1925,
+          "h": 30
+        }
+      ],
+      "rate": [
+        {
+          "label": "11",
+          "y": 2108,
+          "h": 29
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 2176,
+          "h": 30
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 2211,
+          "h": 29
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 2382,
+          "h": 33
+        }
+      ]
+    },
+    "simplygreen": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 159,
+          "h": 41
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 231,
+          "h": 118
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 254,
+          "h": 118
+        },
+        {
+          "label": "4",
+          "y": 281,
+          "h": 118
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 302,
+          "h": 118
+        },
+        {
+          "label": "6",
+          "y": 325,
+          "h": 118
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 588,
+          "h": 35
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 766,
+          "h": 43
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 968,
+          "h": 265
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1189,
+          "h": 265
+        }
+      ]
+    },
+    "smartleasing": {
+      "term": [
+        {
+          "label": "3",
+          "y": 148,
+          "h": 26
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 181,
+          "h": 146
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 215,
+          "h": 146
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 229,
+          "h": 27
+        }
+      ],
+      "payment": [
+        {
+          "label": "7b",
+          "y": 519,
+          "h": 230
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 552,
+          "h": 230
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 790,
+          "h": 27
+        }
+      ]
+    },
+    "smartsalary": {
+      "payment": [
+        {
+          "label": "7",
+          "y": 99,
+          "h": 209
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 136,
+          "h": 209
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 313,
+          "h": 29
+        },
+        {
+          "label": "10",
+          "y": 1711,
+          "h": 33
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 842,
+          "h": 32
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 912,
+          "h": 32
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 1015,
+          "h": 29
+        }
+      ]
+    },
+    "spa": {
+      "term": [
+        {
+          "label": "3",
+          "y": 629,
+          "h": 24
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 666,
+          "h": 24
+        },
+        {
+          "label": "1",
+          "y": 739,
+          "h": 24
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 702,
+          "h": 24
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 1254,
+          "h": 29
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 1533,
+          "h": 163
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 1565,
+          "h": 163
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 1732,
+          "h": 24
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 1854,
+          "h": 25
+        }
+      ]
+    },
+    "toyotafleet": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 216,
+          "h": 30
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 245,
+          "h": 27
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 279,
+          "h": 26
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 348,
+          "h": 26
+        }
+      ],
+      "docFee": [
+        {
+          "label": "5",
+          "y": 351,
+          "h": 26
+        },
+        {
+          "label": "5",
+          "y": 384,
+          "h": 26
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 782,
+          "h": 52
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 957,
+          "h": 30
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 1548,
+          "h": 33
+        }
+      ]
+    },
+    "vehiclesolutions": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 192,
+          "h": 29
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 240,
+          "h": 26
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 289,
+          "h": 24
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 289,
+          "h": 25
+        }
+      ],
+      "payment": [
+        {
+          "label": "7a",
+          "y": 652,
+          "h": 29
+        },
+        {
+          "label": "7b",
+          "y": 652,
+          "h": 29
+        }
+      ],
+      "defer": [
+        {
+          "label": "4",
+          "y": 654,
+          "h": 197
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 696,
+          "h": 197
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 908,
+          "h": 28
+        }
+      ]
+    }
+  }
+}

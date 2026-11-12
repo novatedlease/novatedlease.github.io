@@ -1,5 +1,6 @@
 import type { QuoteKey } from "./QuoteDiagram";
 import { GST_EXEMPT_CAP } from "@engine/ato";
+import quoteImages from "../../../docs/assets/images/quote-guide/manifest.json";
 
 /**
  * Optional "Who is your quote from?" answer and the dated, per-field pointers shown for it.
@@ -591,7 +592,6 @@ function gstCreditLine(id: ProviderId, label: string, line: string, ask: string)
       button: `Show where ${label} prints the GST credit`,
       alt: `Part of a redacted ${label} quote with the ${line.replace(/[“”]/g, "")} line outlined`,
       caption: `Part of a real ${label} quote with values removed. Multiply the outlined figure by 11. Tap the image to enlarge.`,
-      pdf: `/assets/images/quote-guide/${id}/redacted-quote.pdf`,
     },
   };
 }
@@ -728,7 +728,7 @@ const FIELD_CROPS: Partial<Record<ProviderId, GuideField[]>> = {
 
 /** The whole redacted quote page for a provider, if one was reviewed. */
 export function pageFor(id: ProviderId): string | null {
-  return TEMPLATE_FIELDS[id] ? `/assets/images/quote-guide/${id}/redacted-quote.png` : null;
+  return TEMPLATE_FIELDS[id] ? `/assets/images/quote-guide/${id}/redacted-quote.webp` : null;
 }
 
 /** A focused crop of the marked line(s) for this field, if one exists. */
@@ -743,8 +743,6 @@ export type FieldExample = {
   button: string;
   alt: string;
   caption: string;
-  /** PDF of the page the example comes from. */
-  pdf: string;
 };
 
 /** Marked examples from a page other than the provider's main sample. */
@@ -753,22 +751,20 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     id: "oly",
     field: "residual",
     example: {
-      image: "/assets/images/quote-guide/oly/residual-example.png",
+      image: "/assets/images/quote-guide/oly/residual-example.webp",
       button: "Show where Oly prints the residual",
       alt: "End of a redacted Oly estimate with Your total residual value marked 6",
       caption: "The last section of the same Oly estimate. Figures were removed; the residual line is marked 6.",
-      pdf: "/assets/images/quote-guide/oly/residual-example.pdf",
     },
   },
   {
     id: "alliance",
     field: "docFee",
     example: {
-      image: "/assets/images/quote-guide/alliance/page2-fees.png",
+      image: "/assets/images/quote-guide/alliance/page2-fees.webp",
       button: "Show Alliance's fees page",
       alt: "Redacted page 2 of an Alliance Leasing quote with Entry Fee marked 5",
       caption: "Fees and lease details from page 2 of the same Alliance quote. Figures and customer details were removed; Entry Fee is marked 5.",
-      pdf: "/assets/images/quote-guide/alliance/page2-example.pdf",
     },
   },
 ];
@@ -781,15 +777,17 @@ export function exampleFor(id: ProviderId, field: GuideField): FieldExample | nu
 export function templateFor(id: ProviderId, field: GuideField): string | null {
   const example = exampleFor(id, field);
   if (example) return example.image;
-  if (id === "sgfleet" && field === "baseValue") return "/assets/images/quote-guide/sgfleet/fbt-example.png";
-  if (id === "sgfleet" && field === "driveaway") return "/assets/images/quote-guide/sgfleet/driveaway-example.png";
-  if (id === "smartleasing" && field === "docFee") return "/assets/images/quote-guide/smartleasing/terms-example.png";
+  if (id === "sgfleet" && field === "baseValue") return "/assets/images/quote-guide/sgfleet/fbt-example.webp";
+  if (id === "sgfleet" && field === "driveaway") return "/assets/images/quote-guide/sgfleet/driveaway-example.webp";
+  if (id === "smartleasing" && field === "docFee") return "/assets/images/quote-guide/smartleasing/terms-example.webp";
   return cropFor(id, field) ?? (TEMPLATE_FIELDS[id]?.includes(field) ? pageFor(id) : null);
 }
 
-/** PDF to open alongside an image: crops link to the whole page's PDF. */
-export function pdfFor(id: ProviderId, image: string): string {
-  const example = FIELD_EXAMPLES.find((e) => e.id === id && e.example.image === image);
-  if (example) return example.example.pdf;
-  return image.endsWith(".webp") ? `/assets/images/quote-guide/${id}/redacted-quote.pdf` : image.replace(/\.png$/, ".pdf");
+/** Intrinsic dimensions reserve space before a quote image finishes loading. */
+export function imageSizeFor(image: string | null): { w: number; h: number } | null {
+  if (!image) return null;
+  const prefix = "/assets/images/quote-guide/";
+  if (!image.startsWith(prefix)) return null;
+  const images = quoteImages.images as Record<string, { w: number; h: number }>;
+  return images[image.slice(prefix.length)] ?? null;
 }
