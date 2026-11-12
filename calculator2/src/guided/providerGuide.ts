@@ -139,6 +139,11 @@ const GUIDES: ProviderGuide[] = [
     sources: ["1xsbbfa", "1xp1cee", "1xocshn"],
     pointers: [
       {
+        field: "driveaway",
+        text: "This Smart Leasing example is page 2 and does not print a drive-away total. Use the dealer's full on-road price including GST, or use “Not on your quote? Work it out from the residual” below.",
+        more: "Do not substitute FBT base value, a GST saving or a lease payment. If you have the vehicle and on-road charges, “Or add up the parts” is another way to fill this field.",
+      },
+      {
         field: "payment",
         text: "If you see “Lease per month”, enter it per month: it needs no correction. The fortnightly “Lease payment” needs the correction tool.",
         more: "Smart Leasing collects the fortnightly figure as though there were 60 monthly payments while 58 go to the financier.",

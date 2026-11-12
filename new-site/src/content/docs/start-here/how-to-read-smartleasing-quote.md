@@ -15,7 +15,7 @@ The Smart Leasing layouts reviewed in November 2026 print a **Lease per month** 
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |
 | 1 | FBT base value | **FBT base value** | The value as printed, including GST. |
-| — | Drive-away price | It may not be printed as one total | Use Guided's price helper or add up the vehicle and on-road components. Check against your dealer's full drive-away price. |
+| — | Drive-away price | **Not shown on this page-2 example** | Use the dealer's full on-road price including GST. If you do not have it, use Guided's residual-based helper or add up the vehicle price and on-road charges from other pages. Do not use FBT base value, a GST saving or a lease payment as the drive-away total. |
 | 4 | Months deferred | **Months deferred** | The number printed. |
 | 6 | Residual | **Residual** and **Residual incl GST** | Either figure works if you choose its matching GST answer. |
 | 7a / 7b | Finance payment | **Lease per month** or **Lease incl GST per month** | Enter one monthly figure and choose its matching GST answer. If using a fortnightly lease payment instead, run the correction tool. |

@@ -122,6 +122,14 @@ describe("provider pointers", () => {
     expect(screen.getAllByText(/As seen on SG Fleet quotes, Nov 2026/).length).toBeGreaterThan(0);
   });
 
+  test("Smart Leasing explains the missing drive-away total beside that field", () => {
+    on("price", { ...quoteDraft(), provider: "smartleasing" });
+    const pointer = screen.getByText(/Smart Leasing example is page 2 and does not print a drive-away total/);
+    const driveawayField = document.querySelector('[data-field="driveaway"]')!;
+    expect(driveawayField.nextElementSibling?.contains(pointer)).toBe(true);
+    expect(screen.getByText("Not on your quote? Work it out from the residual")).toBeTruthy();
+  });
+
   test("SG Fleet's payment pointer shows on the payment screen", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
     expect(screen.getByText(/“Monthly lease rental”, either works/)).toBeTruthy();
