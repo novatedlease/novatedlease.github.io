@@ -31,6 +31,7 @@ const {
 
 const showSupport = !hide.includes('support');
 const showKeaneNote = !hide.includes('keane-note');
+const isProviderQuote = /^\/start-here\/how-to-read-[a-z]+-quote\/$/.test(currentPath);
 
 // Find breadcrumb context: which section is this article in?
 let sectionLabel = '';
@@ -60,7 +61,7 @@ for (const entry of navigation) {
         </nav>
       )}
 
-      <article class="article-content">
+      <article class:list={["article-content", { "provider-quote-article": isProviderQuote }]}>
         <slot />
         <InfoTipAssets />
       </article>
@@ -134,6 +135,16 @@ for (const entry of navigation) {
 
     // Merge adjacent duplicate first-column cells in article tables (visual rowspan)
     document.querySelectorAll('.article-content table').forEach(function(table) {
+      if (table.closest('.provider-quote-article')) {
+        var labels = Array.from(table.querySelectorAll('thead th')).map(function(th) { return th.textContent.trim(); });
+        table.querySelectorAll('tbody tr').forEach(function(row) {
+          Array.from(row.querySelectorAll('td')).forEach(function(cell, index) {
+            cell.setAttribute('data-label', labels[index] || '');
+          });
+        });
+        table.classList.add('provider-table-ready');
+        return;
+      }
       var rows = Array.from(table.querySelectorAll('tbody > tr'));
       var activeCell = null;
       var activeText = null;

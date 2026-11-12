@@ -91,3 +91,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Added an integration test for every manifest image file, every image path produced by the guide API, every named provider article and index link, and all `seen` month strings. Deleting an image or provider article now fails the test. TypeScript, 46 provider-picker tests, ESLint and calculator build pass.
 - **Item 15 is not finished:** 27 hand-written article tables still duplicate the guide wording, and dateModified is not yet driven from `seen`. The site uses plain `.md` content without MDX; an Astro component cannot be inserted directly. Next checkpoint should use a build-time generated Markdown section or a remark transform, preserving each article's unique explanation and diffing the result.
 - No push or merge.
+
+## Item 16, checkpoint A — phone table layout (2026-11-13)
+
+- Provider-quote article tables become stacked, labelled cards below 600 px. Other article tables keep their existing behavior. The article script adds labels from each table's own headings; if JavaScript is unavailable, the original sideways-scrollable table remains.
+- Skipped the old duplicate-first-cell rowspan merge for provider tables, so every card retains its own number and label. The site build passed (82 pages). Browser-checked the Maxxia article at 375 px: six numbered cards showed all four column labels and the long financed-insurance guidance wrapped within the card.
+- The owner has not yet answered the title/indexing choice for the rest of item 16. Item 15 article-table generation is also still open. No push or merge.
