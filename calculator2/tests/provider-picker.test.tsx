@@ -494,6 +494,13 @@ describe("provider pointers", () => {
     expect(article).not.toContain("Documentation fee: add the two and enter the total");
   });
 
+  test("MillarX payment rows do not assume one GST basis", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-millarx-quote.md"), "utf8");
+    expect(article).toContain(pointersFor("millarx", "payment")[0].text);
+    expect(article).toContain("Check the payment's GST heading and footnotes");
+    expect(article).not.toMatch(/per (month|fortnight), ex GST/);
+  });
+
   test("no provider offers a lease-term picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");

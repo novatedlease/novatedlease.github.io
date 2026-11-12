@@ -144,3 +144,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - Focused tests (50), ESLint and 82-page site build pass. Astro emitted its one-time duplicate-id cache warning for the edited Oly article.
 - Four articles have migrated rows (Flare, SG Fleet, Maxxia, Oly). Continue only with rows whose old article details can be safely replaced by the short pointer; keep the quote-specific evidence. No push or merge.
 
+## Item 15, checkpoint H — MillarX payment rows (2026-11-13)
+
+- MillarX's monthly payment row now syncs from its Guided pointer. The fortnightly alternative remains quote-specific prose but no longer asserts an ex-GST basis without a label. A sentence below the table directs readers to check the GST heading and use the deferred months as the correction buffer.
+- Focused tests (51), ESLint and 82-page site build pass. The test rejects the old unqualified “per month/fortnight, ex GST” wording. Astro emitted its one-time duplicate-id cache warning for the edited article.
+- Five articles have migrated rows. Smart Leasing's correction treatment remains subject to the owner's item 8 choice. No push or merge.
+

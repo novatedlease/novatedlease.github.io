@@ -13,6 +13,7 @@ const migrated = {
   sgfleet: { '1': 'baseValue', '2': 'driveaway', '7a': 'payment' },
   maxxia: { '5': 'docFee', '9': 'insurance' },
   oly: { '5': 'docFee' },
+  millarx: { '7a': 'payment' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {
