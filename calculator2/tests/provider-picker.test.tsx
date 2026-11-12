@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, cropFor, exampleFor, pdfFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, type ProviderId, cropFor, exampleFor, pdfFor, guideFor, guideMayHaveChanged, pointersFor, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -154,29 +154,27 @@ describe("correction callout with a named provider", () => {
 });
 
 describe("FBT base value not printed", () => {
-  test("asks rather than claims, and offers the drive-away method", () => {
-    for (const [id, label] of [["oly", "Oly"], ["remserv", "RemServ"], ["lendly", "Lendly"]] as const) {
-      const [p] = pointersFor(id, "baseValue");
-      expect(p.notShown).toBe(true);
-      expect(p.text).toBe(
-        `Can't find it on your ${label} quote? Ask ${label}, or take the drive-away price and subtract stamp duty, rego and CTP.`,
-      );
-    }
+  const GST_LINES: [ProviderId, string][] = [
+    ["millarx", "Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11."],
+    ["oly", "Can't find it on your Oly quote? Multiply the “GST” line by 11."],
+    ["remserv", "Can't find it on your RemServ quote? Multiply “GST savings on car” by 11."],
+    ["lendly", "Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11."],
+  ];
+
+  test.each(GST_LINES)("%s: GST credit × 11, with the cap in the tooltip and a picture that exists", (id, text) => {
+    const [p] = pointersFor(id, "baseValue");
+    expect(p.notShown).toBe(true);
+    expect(p.text).toBe(text);
+    expect(p.more).toMatch(/\$6,353, the most allowed/);
+    expect(p.more).toMatch(/drive-away price and subtract stamp duty, rego and CTP/);
+    expect(p.example?.image).toBe(`/assets/images/quote-guide/${id}/field-gst-credit.webp`);
+    expect(existsSync(resolve(__dirname, "../../docs", p.example!.image.slice(1)))).toBe(true);
   });
 
-  test("MillarX: GST credit × 11, with the cap and the salary packager in the tooltip", () => {
+  test("MillarX sends readers to the salary packager, not MillarX", () => {
     const [p] = pointersFor("millarx", "baseValue");
-    expect(p.notShown).toBe(true);
-    expect(p.text).toBe("Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11.");
-    expect(p.more).toMatch(/\$6,353, the most allowed/);
     expect(p.more).toMatch(/ask your salary packager/);
     expect(p.more).not.toMatch(/Ask MillarX/i);
-  });
-
-  test("MillarX: the GST credit line has its own picture, and the file exists", () => {
-    const [p] = pointersFor("millarx", "baseValue");
-    expect(p.example?.image).toBe("/assets/images/quote-guide/millarx/field-gst-credit.webp");
-    expect(existsSync(resolve(__dirname, "../../docs", p.example!.image.slice(1)))).toBe(true);
   });
 });
 

@@ -571,24 +571,42 @@ type NotShownLine = string | { text: string; more: string; example?: FieldExampl
 
 const capText = `$${GST_EXEMPT_CAP.toLocaleString("en-AU")}`;
 
+/**
+ * These quotes print the car's GST credit but no FBT base value. The credit is a tenth of the
+ * GST-inclusive price before on-road costs, so x 11 gives the FBT base value, unless the credit
+ * hit the cap. Checked against real quotes (Nov 2026).
+ */
+function gstCreditLine(id: ProviderId, label: string, line: string, ask: string): NotShownLine {
+  return {
+    text: `Can't find it on your ${label} quote? Multiply ${line} by 11.`,
+    more: `Doesn't work if the credit is ${capText}, the most allowed. Then ask ${ask}, or take the drive-away price and subtract stamp duty, rego and CTP.`,
+    example: {
+      image: `/assets/images/quote-guide/${id}/field-gst-credit.webp`,
+      button: `Show where ${label} prints the GST credit`,
+      alt: `Part of a redacted ${label} quote with the ${line.replace(/[“”]/g, "")} line outlined`,
+      caption: `Part of a real ${label} quote with values removed. Multiply the outlined figure by 11. Tap the image to enlarge.`,
+      pdf: `/assets/images/quote-guide/${id}/redacted-quote.pdf`,
+    },
+  };
+}
+
 const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotShownLine>>>> = {
+  oly: {
+    baseValue: gstCreditLine("oly", "Oly", "the “GST” line", "Oly"),
+  },
+  remserv: {
+    baseValue: gstCreditLine("remserv", "RemServ", "“GST savings on car”", "RemServ"),
+  },
+  lendly: {
+    baseValue: gstCreditLine("lendly", "Lendly", "“GST Tax Credit”", "Lendly"),
+  },
   fleetpartners: {
     baseValue:
       "FleetPartners doesn't label the FBT base value. Use the Total column of the “Vehicle” line in “Your order”: the car after discount, with options and delivery, including GST, before on-road costs.",
   },
   millarx: {
     // MillarX is finance only: the salary packager, not MillarX, holds the FBT base value.
-    baseValue: {
-      text: "Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11.",
-      more: `Doesn't work if the credit is ${capText}, the most allowed. Then ask your salary packager, or take the drive-away price and subtract stamp duty, rego and CTP.`,
-      example: {
-        image: "/assets/images/quote-guide/millarx/field-gst-credit.webp",
-        button: "Show where MillarX prints the GST credit",
-        alt: "Part of a redacted MillarX quote with the Less: GST credit line outlined",
-        caption: "Part of a real MillarX quote with values removed. Multiply the outlined figure by 11. Tap the image to enlarge.",
-        pdf: "/assets/images/quote-guide/millarx/redacted-quote.pdf",
-      },
-    },
+    baseValue: gstCreditLine("millarx", "MillarX", "“Less: GST credit”", "your salary packager"),
     running: "MillarX quotes are finance only. Take the running-cost budgets from your salary packager.",
     fees: "The MillarX BYO finance quote has no fees. Older MillarX quotes show a management fee per month; enter that here if yours does.",
   },
