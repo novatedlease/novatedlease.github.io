@@ -1309,6 +1309,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           { value: "perYear", label: "Per year (total)" },
         ]}
         columns={4}
+        tooltip={<Tip>If your quote shows a payment per pay, use that one. A monthly lease figure marked “payable as 34 payments” or “× 58” is paid fewer times than the lease has months, so it would make the rate look higher than it is.</Tip>}
       />
       <Choices<"exGst" | "incGst" | "unknown">
         field="paymentBasis"
