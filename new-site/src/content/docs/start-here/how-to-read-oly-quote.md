@@ -56,4 +56,14 @@ The Oly quote reviewed includes the first year's comprehensive insurance in the 
 Not shown on this sample: **1 FBT base value**, **4 deferral**, **8 luxury vehicle adjustment**,
 **10 management fee**, **11 interest rate**. Use "Not sure" for the deferral.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **FBT base value:** Can't find it on your Oly quote? Multiply the “GST” line by 11. Doesn't work if the credit is $6,353, the most allowed. Then ask Oly, or take the drive-away price and subtract stamp duty, rego and CTP.
+
+  ![Part of a redacted Oly quote with the line to use outlined](/assets/images/quote-guide/oly/field-gst-credit.webp)
+- **Months deferred:** Can’t find months deferred on your Oly quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Management fees:** Can’t find a management fee on your Oly quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

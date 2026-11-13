@@ -37,4 +37,11 @@ This Remunerator example prints a **Lease Payment (excl GST)** separately from t
 
 The quote's effect on take-home pay is a different calculation; do not use it for the finance payment.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Remunerator quote? Leave this at $0 unless yours lists one.
+- **Management fees:** Remunerator's summary has no fee line and says management fees are included in its figures. Leave this at $0 unless your quote lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider guides →](/start-here/provider-quote-guides/)

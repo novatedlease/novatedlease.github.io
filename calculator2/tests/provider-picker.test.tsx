@@ -227,6 +227,20 @@ describe("provider pointers", () => {
     }
   });
 
+  test("articles list the same can't-find-it lines as Guided", () => {
+    for (const { id } of PROVIDERS) {
+      if (id === "other") continue;
+      const article = readFileSync(resolve(__dirname, `../../new-site/src/content/docs/start-here/how-to-read-${id}-quote.md`), "utf8");
+      const section = article.split("<!-- provider-missing:begin -->")[1]?.split("<!-- provider-missing:end -->")[0] ?? "";
+      const missing = FIELDS_FOR_CAPTIONS.flatMap((field) => pointersFor(id, field)).filter((p) => p.kind === "missing");
+      for (const p of missing) {
+        expect(section, `${id}/${p.field}`).toContain(p.text);
+        if (p.example) expect(section, `${id}/${p.field} picture`).toContain(p.example.image);
+      }
+      expect((section.match(/^- \*\*/gm) ?? []).length, id).toBe(missing.length);
+    }
+  });
+
   test("each picture has one caption, with no date and one enlarge hint", () => {
     for (const { id } of PROVIDERS) {
       if (id === "other") continue;

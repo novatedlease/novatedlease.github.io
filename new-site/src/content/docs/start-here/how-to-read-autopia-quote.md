@@ -42,4 +42,10 @@ price **excluding GST**: don't use it as the FBT base value. Add GST to the base
 delivery instead (Guided's FBT tooltip explains). Also not shown: **4 deferral** (use "Not sure") and
 **11 interest rate**. "fringe benefit value" in the FBT calcs is the taxable value, not the base value.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your Autopia quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

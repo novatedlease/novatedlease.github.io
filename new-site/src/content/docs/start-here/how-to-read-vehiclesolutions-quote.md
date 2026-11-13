@@ -41,4 +41,10 @@ Nothing on the Vehicle Solutions quotes we checked looked easy to misread. The t
 Not shown on this sample: **5 documentation fee**, **8 luxury vehicle adjustment**, **11 interest
 rate** (not printed).
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Vehicle Solutions quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

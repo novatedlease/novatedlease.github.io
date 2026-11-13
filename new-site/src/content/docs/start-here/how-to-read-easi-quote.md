@@ -41,4 +41,10 @@ On the layout reviewed, the fortnightly Lease Rental reconciles to the monthly f
 
 An establishment fee may already be included in Lease Rental. Check your quote's footnote before adding a separate fee.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Easi (EasiFleet) quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider guides →](/start-here/provider-quote-guides/)

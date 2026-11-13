@@ -40,4 +40,14 @@ Note: the "^" on Lease says the lease includes add-ons (tint, dash cam, scratch 
 
 Not shown on this sample: **1 FBT base value**, **4 deferral**, **5 doc fee**, **11 interest rate**.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **FBT base value:** Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11. Doesn't work if the credit is $6,353, the most allowed. Then ask Lendly, or take the drive-away price and subtract stamp duty, rego and CTP.
+
+  ![Part of a redacted Lendly quote with the line to use outlined](/assets/images/quote-guide/lendly/field-gst-credit.webp)
+- **Months deferred:** Can’t find months deferred on your Lendly quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Lendly quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

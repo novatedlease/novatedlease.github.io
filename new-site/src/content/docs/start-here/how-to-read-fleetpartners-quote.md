@@ -41,4 +41,10 @@ Here the deferral is 60 lease months minus 58 payment months, or 2 months.
 
 Do not enter **Total lease cost** as the finance payment: it also includes the other parts.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **FBT base value:** Can’t find the FBT base value? Use the Total column of “Vehicle” in “Your order”. That is the car after discount, options and delivery including GST, before on-road costs.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider guides →](/start-here/provider-quote-guides/)

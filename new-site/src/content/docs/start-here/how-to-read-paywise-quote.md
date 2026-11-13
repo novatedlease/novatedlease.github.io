@@ -33,4 +33,11 @@ Nothing on the Paywise quotes we checked looked easy to misread. The table below
 | 10 | Lease management fees | **Lease Management** and **Salary Packaging** | If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees using the quote's period. |
 <!-- provider-table:end -->
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your Paywise quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Paywise quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

@@ -41,4 +41,10 @@ Not shown on this sample: **1 FBT base value** (some ORIX layouts print "FBT bas
 stamp duty and initial rego shown as "Financed"; ask for the full drive-away price including GST, or use the residual helper), **4 deferral** ("Monthly
 in Arrears" is shown, no deferral).
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your ORIX quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

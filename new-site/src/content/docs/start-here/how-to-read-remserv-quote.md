@@ -43,4 +43,15 @@ tint, paint protection) are optional and not included; leave them out.
 Not shown on this sample: **1 FBT base value**, **2 drive-away**, **4 deferral**, **5 doc fee**, **8 luxury
 vehicle adjustment**, **10 fees** (no fee line shown), **11 interest rate**.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **FBT base value:** Can't find it on your RemServ quote? Multiply “GST savings on car” by 11. Doesn't work if the credit is $6,353, the most allowed. Then ask RemServ, or take the drive-away price and subtract stamp duty, rego and CTP.
+
+  ![Part of a redacted RemServ quote with the line to use outlined](/assets/images/quote-guide/remserv/field-gst-credit.webp)
+- **Months deferred:** Can’t find months deferred on your RemServ quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Documentation fee:** Can’t find a documentation or establishment fee on your RemServ quote? Leave this at $0 unless yours lists one.
+- **Management fees:** Can’t find a management fee on your RemServ quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

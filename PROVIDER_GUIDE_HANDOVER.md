@@ -361,3 +361,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - `sync-provider-review-month`, `-index`, `-tables` and `-traps` now read the JSON; none parses TypeScript any more. `GUIDES` and `TRAP_FIELDS` are exported for the test. The site build changed no article (byte-identical output).
 - **New step after editing `providerGuide.ts`:** regenerate the JSON before the site build, or the calculator test will fail and the articles won't pick up the change.
 - 362 tests, TypeScript, ESLint and site build pass.
+
+## R11 — articles carry the "can't find it" lines and the × 11 tip (2026-11-13)
+
+- New prebuild script `new-site/scripts/sync-provider-missing.mjs` adds "If a figure isn't on your quote" just before each article's closing links, listing the same "Can't find it on your {provider} quote?" lines Guided shows (text plus tooltip), with the GST-credit picture for MillarX, Oly, RemServ and Lendly. 23 articles get the section; 4 have nothing missing. Reads `provider-guides.json` (R12). Idempotent.
+- Test: each article's section lists exactly the "missing" pointers for that provider and includes their pictures. 363 tests and site build pass. Checked the Oly page in the browser.
+- **Left for review:** the older hand-written "Not shown on this sample: …" sentence still sits just above the new section in most articles. It also lists fields Guided doesn't cover (interest rate, lease term) and quote-specific detail, so it was not removed mechanically. Owner may want it trimmed article by article.

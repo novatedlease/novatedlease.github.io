@@ -37,4 +37,11 @@ Flare shows both **Vehicle cost** and **Total on-road price** on this layout. Us
 
 The red ✕ beside Vehicle cost marks the figure to avoid for the drive-away field. Deferral is not stated on these pages; choose *I'm not sure* if your quote does not confirm it.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your Flare quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Flare quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider guides →](/start-here/provider-quote-guides/)

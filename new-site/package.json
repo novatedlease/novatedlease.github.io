@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "prebuild": "node scripts/sync-provider-review-month.mjs && node scripts/sync-provider-index.mjs && node scripts/sync-provider-tables.mjs && node scripts/sync-provider-traps.mjs",
+    "prebuild": "node scripts/sync-provider-review-month.mjs && node scripts/sync-provider-index.mjs && node scripts/sync-provider-tables.mjs && node scripts/sync-provider-traps.mjs && node scripts/sync-provider-missing.mjs",
     "dev": "astro dev",
     "build": "astro build && npx pagefind --site dist",
     "preview": "astro preview",

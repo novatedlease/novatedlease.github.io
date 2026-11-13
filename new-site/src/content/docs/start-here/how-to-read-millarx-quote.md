@@ -47,4 +47,14 @@ Not shown on this sample: **1 FBT base value**, **8 luxury vehicle adjustment**,
 **10 lease management fees** (this is a finance-only BYO quote; running costs and fees come from your
 salary packager).
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **FBT base value:** Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11. Doesn't work if the credit is $6,353, the most allowed. Then ask your salary packager, or take the drive-away price and subtract stamp duty, rego and CTP.
+
+  ![Part of a redacted MillarX quote with the line to use outlined](/assets/images/quote-guide/millarx/field-gst-credit.webp)
+- **Running costs:** MillarX quotes are finance only. Take the running-cost budgets from your salary packager.
+- **Management fees:** Some MillarX quotes show a management fee per month. Enter it if yours does. The BYO finance-only quote has none.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

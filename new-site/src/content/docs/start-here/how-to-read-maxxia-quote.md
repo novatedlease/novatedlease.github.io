@@ -43,4 +43,10 @@ The Maxxia quotes reviewed include the first year's comprehensive insurance in t
 
 The financed payment can include fees or insurance that another provider lists separately. The [general quote guide](/start-here/how-to-read-a-novated-lease-quote/) explains why comparing only the payment or a quoted rate can mislead.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your Maxxia quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

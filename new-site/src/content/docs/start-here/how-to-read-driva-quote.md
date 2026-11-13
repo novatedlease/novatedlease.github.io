@@ -40,4 +40,11 @@ This numbered example shows a Driva quote layout we reviewed. Match each marker 
 Not shown on this sample: **4 deferral**, **5 documentation fee**, **11 interest rate**. Use "Not sure" for
 the deferral.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your Driva quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Driva quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

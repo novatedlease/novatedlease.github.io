@@ -43,4 +43,10 @@ and "Contingency Budget" is a refundable buffer, so leave it out.
 Not shown on this sample: **5 documentation fee**, **8 luxury vehicle adjustment** (the page has a general
 note about cars above the depreciation limit, not a figure), **11 interest rate**.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Simplygreen quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

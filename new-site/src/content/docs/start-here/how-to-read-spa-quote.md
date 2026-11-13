@@ -46,4 +46,10 @@ running costs already shown ex GST, choose "Excluding GST" for the running-cost 
 
 Not shown on this sample: **5 documentation fee** (none shown on these pages) and **8 luxury vehicle adjustment**.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Salary Packaging Australia (S.P.A.) quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

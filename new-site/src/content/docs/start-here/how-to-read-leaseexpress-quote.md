@@ -42,4 +42,11 @@ Not shown on this sample: **2 drive-away price** (use the calculator's residual 
 (choose "Not sure" if your quote does not say), **5 documentation fee**, **8 luxury vehicle adjustment**,
 **11 interest rate**.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your LeaseExpress quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Documentation fee:** Can’t find a documentation or establishment fee on your LeaseExpress quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

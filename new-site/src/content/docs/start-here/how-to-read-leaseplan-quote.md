@@ -37,4 +37,11 @@ This numbered example shows a LeasePlan / Ayvens quote layout we reviewed. Match
 
 The sample page does not show a clearly labelled drive-away price, lease term, deferral or residual. Ask for the full on-road price including GST; the residual helper may not work without a printed residual. Use another page of your quote or ask the provider for the other figures. This example is older than the others, so check current LeasePlan / Ayvens layouts carefully.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your LeasePlan / Ayvens quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Residual:** Can’t find a residual on your LeasePlan / Ayvens quote? Choose “I’m not sure” and we’ll use the ATO minimum.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

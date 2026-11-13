@@ -34,4 +34,11 @@ The Smart Drive layout we reviewed puts **Lease Payment (Fixed)** under a headin
 
 Do not use the total salary deduction as the finance payment: it also includes running-cost budgets.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your Smartsalary (Smart Drive) quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Smartsalary (Smart Drive) quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

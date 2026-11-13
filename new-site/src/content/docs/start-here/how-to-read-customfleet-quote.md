@@ -41,4 +41,11 @@ Not shown on this sample: **3 lease term** (find the term on another page or ask
 **4 deferral**, **5 doc fee**. Roadside Assistance and Accident Management are "Included in Lease
 Rental"; leave them out.
 
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your Custom Fleet quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Custom Fleet quote? Leave this at $0 unless yours lists one.
+<!-- provider-missing:end -->
+
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)
