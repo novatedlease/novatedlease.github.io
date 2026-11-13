@@ -303,8 +303,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "residual",
-        text: "If “Total residual value” has no GST label, check the footnotes or ask Maxxia. Not sure? Choose “I'm not sure”.",
-        more: "On the quotes we checked it included GST. With “I'm not sure”, the calculator works out which reading fits your figure.",
+        text: "If “Total residual value” has no GST label, choose Including GST.",
+        more: "It included GST on all 30 Maxxia quotes we checked (Aug 2025 to Nov 2026).",
       },
       {
         field: "insurance",
