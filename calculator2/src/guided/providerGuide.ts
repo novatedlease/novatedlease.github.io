@@ -240,8 +240,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "insurance",
-        text: "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
-        more: "Use the yearly amount you would pay to insure the car, not just Oly's renewal budget.",
+        text: "Enter the full yearly insurance premium, including year one.",
+        more: "Use the yearly amount you would pay to insure the car, not just Oly's renewal budget. If the first year is financed, the calculator counts it once.",
       },
       {
         field: "docFee",
@@ -271,8 +271,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "insurance",
-        text: "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
-        more: "Use the yearly amount you would pay to insure the car, not just Maxxia's renewal budget.",
+        text: "Enter the full yearly insurance premium, including year one.",
+        more: "Use the yearly amount you would pay to insure the car, not just Maxxia's renewal budget. If the first year is financed, the calculator counts it once.",
       },
       {
         field: "docFee",
@@ -448,7 +448,7 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       { field: "driveaway", text: "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual." },
       { field: "baseValue", text: "If you see “FBT value”, that's the FBT base value." },
-      { field: "payment", text: "Under “Package Inclusions (ex. GST) – Fortnightly”, enter “Lease Payment” per fortnight, ex GST—not the package total." },
+      { field: "payment", text: "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, per fortnight, Excluding GST. Don't use the package total.", more: "The package total adds running costs and fees." },
       { field: "fees", text: "If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees using the quote's period." },
     ],
   },
@@ -459,7 +459,7 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       { field: "driveaway", text: "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual." },
       { field: "payment", text: "If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period." },
-      { field: "running", text: "“Motor Vehicle Deductions (inc GST)” plus a “Less” GST credit? Enter costs incl GST; say employer claims GST." },
+      { field: "running", text: "If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed.", more: "If a “Less” line takes a GST credit off those costs, answer Yes when asked whether a GST credit is taken off." },
     ],
   },
   {
@@ -490,7 +490,7 @@ export const GUIDES: ProviderGuide[] = [
       { field: "baseValue", text: "If you see “Vehicle base value” in the FBT calculations box, that's the FBT base value." },
       { field: "driveaway", text: "No drive-away total? Add the vehicle price, GST, stamp duty, registration, CTP and any luxury car tax shown." },
       { field: "residual", text: "If you see “Residual payment (ex GST)”, choose Excluding GST." },
-      { field: "payment", text: "Under “Gross fortnightly rental”, enter “Lease payment (fixed)” per fortnight, excluding its GST line—not take-home-pay reduction." },
+      { field: "payment", text: "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight, without its separate GST line.", more: "Don't use the take-home-pay reduction. It is after tax and includes running costs." },
     ],
   },
   {
@@ -540,7 +540,7 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       { field: "driveaway", text: "If you see only “RemServ price”, its GST basis is unclear on the quote reviewed. Check the full on-road price before entering it." },
       { field: "residual", text: "If “Residual value” has no GST label, choose “I'm not sure” unless the quote or provider confirms the basis." },
-      { field: "payment", text: "If “Finance” is per fortnight with no GST label, enter it per fortnight; choose “I'm not sure” unless the basis is confirmed." },
+      { field: "payment", text: "If “Finance” is per fortnight with no GST label, enter it per fortnight and choose “I'm not sure” for GST." },
       { field: "running", text: "If you see “Servicing & Incidentals” as one line, enter that combined amount under servicing and tyres." },
     ],
   },

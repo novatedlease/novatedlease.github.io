@@ -379,3 +379,14 @@ Before → after:
 - SG Fleet FBT: "often on a later page" → "which may be on a later page".
 - Tests: no pointer main text or provider check says "usually", "often" or "always"; no check states a payment's GST basis as fact.
 - New `npm run export:guides` in `calculator2` regenerates `provider-guides.json` and runs the site prebuild syncs in one step. 365 tests pass.
+
+## R6 — plain sentences instead of telegram-style pointers (2026-11-13) — owner to read
+
+Before → after (main text; tooltips in brackets):
+- Maxxia and Oly insurance: "…including year one. Guided accounts for any financed first-year premium separately." → "Enter the full yearly insurance premium, including year one." (Tooltip adds: "If the first year is financed, the calculator counts it once.")
+- Paywise payment: "Under “Package Inclusions (ex. GST) – Fortnightly”, enter “Lease Payment” per fortnight, ex GST—not the package total." → "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, per fortnight, Excluding GST. Don't use the package total." (Tooltip: the total adds running costs and fees.)
+- Smartsalary running: "“Motor Vehicle Deductions (inc GST)” plus a “Less” GST credit? Enter costs incl GST; say employer claims GST." → "If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed." (Tooltip: if a “Less” line takes a GST credit off, answer Yes to the GST-credit question, which is the question Guided actually asks next.)
+- NLA payment: "…excluding its GST line—not take-home-pay reduction." → "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight, without its separate GST line." (Tooltip: not the take-home-pay reduction.)
+- RemServ payment: semicolon sentence → "If “Finance” is per fortnight with no GST label, enter it per fortnight and choose “I'm not sure” for GST."
+- Maxxia/Oly doc fee were already rewritten in R10.
+- Test: outside quoted labels, pointer main text has no "—", ";", "incl" or "Guided". Curly quotes were not normalised across the file (left; low value). 366 tests, calculator and site builds pass.

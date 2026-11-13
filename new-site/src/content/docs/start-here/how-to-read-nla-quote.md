@@ -29,7 +29,7 @@ Nothing on the Novated Lease Australia (NLA) quotes we checked looked easy to mi
 | 2 | Price (ex GST), GST, stamp duty, registration and CTP | No drive-away total? Add the vehicle price, GST, stamp duty, registration, CTP and any luxury car tax shown. |
 | 3 | Term (months) | Lease term. |
 | 6 | Residual payment (ex GST) | If you see “Residual payment (ex GST)”, choose Excluding GST. |
-| 7 | Lease payment (fixed), Gross fortnightly rental | Under “Gross fortnightly rental”, enter “Lease payment (fixed)” per fortnight, excluding its GST line—not take-home-pay reduction. |
+| 7 | Lease payment (fixed), Gross fortnightly rental | Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight, without its separate GST line. |
 | 9 | Annual budgets | Running-cost budgets; convert their period when Guided asks. |
 | 10 | Administration (fixed) | Lease management fee. |
 <!-- provider-table:end -->

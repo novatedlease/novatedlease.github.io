@@ -15,7 +15,7 @@ The Maxxia layouts we reviewed use **Financed payments** for the lease payment. 
 <!-- provider-traps:begin -->
 ## What catches people out on a Maxxia quote
 
-- **First-year insurance:** Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.
+- **First-year insurance:** Enter the full yearly insurance premium, including year one.
 - **Documentation fee:** Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question.
 <!-- provider-traps:end -->
 
@@ -31,7 +31,7 @@ The Maxxia layouts we reviewed use **Financed payments** for the lease payment. 
 | 5 | Documentation fee and financed insurance | **Financier's Establishment Fee** and **1st year Comprehensive Insurance** | Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question. |
 | 6 | Residual | **Total residual value** | The reviewed layout does not label GST clearly. Choose *I'm not sure* if your own quote does not clarify it. |
 | 7 | Finance payment | **Financed payments** | Enter the payment in the period shown. Check the heading or ask Maxxia whether it includes GST. |
-| 9 | Insurance | **Comprehensive insurance renewal** under running costs | Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately. |
+| 9 | Insurance | **Comprehensive insurance renewal** under running costs | Enter the full yearly insurance premium, including year one. |
 <!-- provider-table:end -->
 
 ## First-year insurance

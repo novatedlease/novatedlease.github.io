@@ -15,7 +15,7 @@ The Smart Drive layout we reviewed puts **Lease Payment (Fixed)** under a headin
 <!-- provider-traps:begin -->
 ## What catches people out on a Smartsalary (Smart Drive) quote
 
-- **Running costs:** “Motor Vehicle Deductions (inc GST)” plus a “Less” GST credit? Enter costs incl GST; say employer claims GST.
+- **Running costs:** If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed.
 <!-- provider-traps:end -->
 
 ![Redacted Smartsalary Smart Drive quote page with numbered fields](/assets/images/quote-guide/smartsalary/redacted-quote.webp)
@@ -29,7 +29,7 @@ The Smart Drive layout we reviewed puts **Lease Payment (Fixed)** under a headin
 | — | Drive-away price | It may not be printed as one total | Use Guided's price helper or your dealer's full drive-away price. |
 | 6 | Residual | **Residual (inc. GST)** | Choose *Including GST*. |
 | 7 | Finance payment | **Lease Payment (Fixed)** under **Motor Vehicle Deductions (inc GST)** | If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period. |
-| 9 | Running-cost GST | **Motor Vehicle Deductions (inc GST)** and **Less: Employer Claimed ITC** | “Motor Vehicle Deductions (inc GST)” plus a “Less” GST credit? Enter costs incl GST; say employer claims GST. |
+| 9 | Running-cost GST | **Motor Vehicle Deductions (inc GST)** and **Less: Employer Claimed ITC** | If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed. |
 <!-- provider-table:end -->
 
 Do not use the total salary deduction as the finance payment: it also includes running-cost budgets.

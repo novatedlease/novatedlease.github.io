@@ -249,6 +249,17 @@ describe("provider pointers", () => {
     }
   });
 
+  test("pointer main text is plain sentences: no dashes, semicolons, abbreviations or app names outside quoted labels", () => {
+    for (const { id } of PROVIDERS) {
+      for (const field of FIELDS_FOR_CAPTIONS) {
+        for (const p of pointersFor(id, field)) {
+          const own = p.text.replace(/“[^”]*”/g, "“”");
+          expect(own, `${id}/${field}`).not.toMatch(/—|;|\bincl\b|\bGuided\b/);
+        }
+      }
+    }
+  });
+
   test("each picture has one caption, with no date and one enlarge hint", () => {
     for (const { id } of PROVIDERS) {
       if (id === "other") continue;
@@ -625,7 +636,7 @@ describe("provider pointers", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-paywise-quote.md"), "utf8");
     expect(article).toContain(pointersFor("paywise", "payment")[0].text);
     expect(article).toContain(pointersFor("paywise", "fees")[0].text);
-    expect(article).toContain("not the package total");
+    expect(article).toContain("Don't use the package total");
     expect(article).toContain("using the quote's period");
   });
 

@@ -29,7 +29,7 @@ Nothing on the RemServ quotes we checked looked easy to misread. The table below
 |---|---|---|
 | 3 | Lease term | Lease term |
 | 6 | Residual value (no GST label) | If “Residual value” has no GST label, choose “I'm not sure” unless the quote or provider confirms the basis. |
-| 7 | Finance (fortnightly inclusion; no GST label) | If “Finance” is per fortnight with no GST label, enter it per fortnight; choose “I'm not sure” unless the basis is confirmed. |
+| 7 | Finance (fortnightly inclusion; no GST label) | If “Finance” is per fortnight with no GST label, enter it per fortnight and choose “I'm not sure” for GST. |
 | 9 | Fortnightly inclusions: Rego, Servicing & Incidentals, Tyres, Fuel/charging, Insurance | Running-cost boxes, per fortnight |
 <!-- provider-table:end -->
 
