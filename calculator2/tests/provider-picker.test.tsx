@@ -206,7 +206,22 @@ describe("FBT base value not printed", () => {
   });
 });
 
+const FIELDS_FOR_CAPTIONS: GuideField[] = ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees"];
+
 describe("provider pointers", () => {
+  test("each picture has one caption, with no date and one enlarge hint", () => {
+    for (const { id } of PROVIDERS) {
+      if (id === "other") continue;
+      for (const field of FIELDS_FOR_CAPTIONS) {
+        for (const p of pointersFor(id, field)) {
+          const caption = (p.example ?? exampleFor(id, field))?.caption;
+          if (!caption) continue;
+          expect(caption, `${id}/${field}`).not.toMatch(/Tap the image|Checked [A-Z][a-z]{2} \d{4}/);
+        }
+      }
+    }
+  });
+
   test("no payment pointer tells the reader which GST answer to choose", () => {
     // The payment's GST basis can differ between employers on one provider's quotes. A pointer may
     // only name a GST basis when it quotes a label that prints it ("If you see “… (excl GST)”").
@@ -316,7 +331,7 @@ describe("provider pointers", () => {
     expect(pointer.querySelector(".gd-pointer--trap")).toBeTruthy();
     expect(pointer.querySelector(".gd-template__body img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
-    fireEvent.click(screen.getByRole("button", { name: "Switch to full page view" }));
+    fireEvent.click(screen.getByRole("button", { name: "Whole page" }));
     const frame = pointer.querySelector<HTMLElement>(".gd-template__fullpage")!;
     expect(frame).toBeTruthy();
     expect(pointer.querySelector(".gd-template__body img")?.getAttribute("src"))
@@ -326,7 +341,7 @@ describe("provider pointers", () => {
     page.getBoundingClientRect = () => ({ width: 700, height: 1516, x: 0, y: 0, top: 0, left: 0, right: 700, bottom: 1516, toJSON: () => ({}) });
     fireEvent.load(page);
     expect(frame.scrollTop).toBeGreaterThan(0);
-    fireEvent.click(screen.getByRole("button", { name: "Switch to crop view" }));
+    fireEvent.click(screen.getByRole("button", { name: "Just this line" }));
     expect(pointer.querySelector(".gd-template__body img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
     expect(screen.getByRole("link", { name: "See the whole quote" }).getAttribute("href"))

@@ -628,7 +628,7 @@ function gstCreditLine(id: ProviderId, label: string, line: string, ask: string)
     example: {
       image: `/assets/images/quote-guide/${id}/field-gst-credit.webp`,
       alt: `Part of a redacted ${label} quote with the ${line.replace(/[“”]/g, "")} line outlined`,
-      caption: `Part of a real ${label} quote with values removed. Multiply the outlined figure by 11. Tap the image to enlarge.`,
+      caption: `Part of a real ${label} quote with values removed. Multiply the outlined figure by 11.`,
     },
   };
 }

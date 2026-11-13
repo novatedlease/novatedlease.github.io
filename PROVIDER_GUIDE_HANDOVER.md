@@ -321,3 +321,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 
 - New `articleFor()` in `providerGuide.ts`, same rule as the site's trap script. The picker hint and the "Show me on … quote" button now read "an Oly", "an SG Fleet", "an ORIX". Removed the unused `button` labels from `FieldExample`.
 - The existing picker test had asserted "on a SG Fleet quote"; corrected. New unit test covers eight labels. TypeScript, 358 tests, ESLint and calculator build pass. No push or merge.
+
+## R2 — one caption per picture (2026-11-13)
+
+- An opened picture now shows one caption: the special example's own caption, or "A real {provider} quote with numbers removed.", then "Tap the image to enlarge." once. The review date is no longer repeated under each picture (the step footer has it). The crop/page toggle reads "Whole page" / "Just this line".
+- Test: no example caption contains "Tap the image" or a "Checked Mon YYYY" date. 359 tests, TypeScript, ESLint and calculator build pass.
+- To see: Oly → Price step → "Show me" under FBT base value (was two captions).

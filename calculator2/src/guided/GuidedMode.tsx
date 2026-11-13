@@ -1645,11 +1645,11 @@ function ProviderPointers({ d, field }: { d: GuidedDraft; field: GuideField }) {
   }
   if (list.length === 0) return null;
   return <div className="gd-pointers" data-provider={guide.id} data-field={field}>
-    {list.map((pointer) => <ProviderPointer key={`${guide.id}-${pointer.field}-${pointer.text}`} pointer={pointer} provider={guide.id} seen={guide.seen} />)}
+    {list.map((pointer) => <ProviderPointer key={`${guide.id}-${pointer.field}-${pointer.text}`} pointer={pointer} provider={guide.id} />)}
   </div>;
 }
 
-function ProviderPointer({ pointer, provider, seen }: { pointer: Pointer; provider: ProviderId; seen: string }) {
+function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: ProviderId }) {
   const [open, setOpen] = useState(false);
   const [showWholePage, setShowWholePage] = useState(false);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -1694,8 +1694,8 @@ function ProviderPointer({ pointer, provider, seen }: { pointer: Pointer; provid
             </a>;
           })}
         </div>
-        <p>A real {label} quote with numbers removed. Checked {seenLabel(seen)}. Tap the image to enlarge.{example && ` ${example.caption}`}</p>
-        {isCrop && fullImages.length > 0 && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? "Switch to crop view" : "Switch to full page view"}</button>{" · "}</>}
+        <p>{example ? example.caption : `A real ${label} quote with numbers removed.`} Tap the image to enlarge.</p>
+        {isCrop && fullImages.length > 0 && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? "Just this line" : "Whole page"}</button>{" · "}</>}
         <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the whole quote</a>
         {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer" onClick={() => trackEvent("guided_provider_feedback_click", { provider })}>Mine looks different</a>
       </div>}
