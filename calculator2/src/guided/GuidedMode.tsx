@@ -817,7 +817,9 @@ function ProviderSidePanel({ provider, field, diagram }: { provider: ProviderId;
   const label = providerLabel(provider);
   return <div className="gd-provider-side">
     <strong>{label} quote: {FIELD_NAMES[field]}</strong>
-    <p>{image?.match(/\/field-[^/]+\.webp$/)
+    <p>{image?.endsWith("/field-gst-credit.webp")
+      ? "From a real quote, with values removed. The line to use is outlined."
+      : image?.match(/\/field-[^/]+\.webp$/)
       ? "From a real quote, with values removed. ✓ marks the line to use."
       : image?.endsWith("/redacted-quote.webp") && lineLabelFor(provider, field)
         ? `From a real quote, with values removed. Your line is marked ${lineLabelFor(provider, field)}.`
@@ -1711,7 +1713,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
             </a>;
           })}
         </div>
-        <p>{example ? example.caption : full ? `A real ${label} quote with numbers removed.${lineLabel ? ` Your line is marked ${lineLabel}.` : ""}` : `A real ${label} quote with numbers removed. ✓ marks the line to use.`} Tap the image to enlarge.</p>
+        <p>{example ? example.caption : full ? `A real ${label} quote with numbers removed.${lineLabel ? ` Your line is marked ${lineLabel}.` : ""}` : `A real ${label} quote with numbers removed. ${template?.endsWith("/field-gst-credit.webp") ? "The line to use is outlined." : "✓ marks the line to use."}`} Tap the image to enlarge.</p>
         {isCrop && fullImages.length > 0 && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? "Just this line" : "Whole page"}</button>{" · "}</>}
         <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the whole quote</a>
         {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer" onClick={() => trackEvent("guided_provider_feedback_click", { provider })}>Mine looks different</a>

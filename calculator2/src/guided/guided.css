@@ -1,4 +1,7 @@
 .gd { max-width: 1040px; margin: 0 auto; scroll-margin-top: 12px; }
+/* Steps with a quote picture beside the questions use the full calculator width, like Advanced,
+   so the picture is large enough to read. Single-column steps stay at 1040px for line length. */
+.gd:has(.gd-split) { max-width: none; }
 
 /* Progress */
 .gd-steps { list-style: none; display: flex; gap: 4px; padding: 0; margin: 0 0 16px; overflow-x: auto; }
@@ -47,7 +50,7 @@
 .gd-provider-side > p { margin: 4px 0 10px; color: var(--nlc-text-muted); font-size: 12px; }
 .gd-provider-side > a { display: block; cursor: zoom-in; }
 .gd-provider-side > a > img { display: block; width: 100%; height: auto; max-height: 70vh; object-fit: contain; object-position: top; background: #fff; border-radius: var(--nlc-radius-sm); }
-@media (min-width: 1200px) { .gd-split:has(.gd-provider-side) { grid-template-columns: minmax(0, 1fr) minmax(300px, 420px); } }
+@media (min-width: 1200px) { .gd-split:has(.gd-provider-side) { grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr); } }
 .gd-provider-side .gd-provider-side__typical { margin: 16px 0 0; }
 @media (max-width: 820px) {
   .gd-split { grid-template-columns: 1fr; }
