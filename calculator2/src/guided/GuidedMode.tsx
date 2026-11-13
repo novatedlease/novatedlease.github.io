@@ -1,4 +1,5 @@
 import {
+  createContext,
   useContext,
   useDeferredValue,
   useEffect,
@@ -35,6 +36,7 @@ import {
   pageFor,
   pageImagesFor,
   lineLabelFor,
+  type FieldExample,
   imageSizeFor,
   markerFor,
   type GuideField,
@@ -773,6 +775,7 @@ function Side({
   children: ReactNode;
 }) {
   const [focusedField, setFocusedField] = useState<GuideField | null>(null);
+  const [pick, setPick] = useState<PanelPick | null>(null);
   const narrow = useNarrowScreen();
   const diagram = <QuoteDiagram highlight={highlight} values={quoteValues(d)} />;
   const guide = guideFor(d.provider);
@@ -792,8 +795,13 @@ function Side({
         const raw = (event.target as HTMLElement).closest<HTMLElement>("[data-field]")?.dataset.field;
         if (!raw) return;
         const field = focusMap[raw] ?? raw as GuideField;
-        if (highlight.some((item) => item === field) && hasPicture(field)) setFocusedField(field);
-      }}>{children}</div>
+        if (highlight.some((item) => item === field) && hasPicture(field)) {
+          setFocusedField(field);
+          if (pick && pick.field !== field) setPick(null);
+        }
+      }}>
+        <SidePanelContext.Provider value={!narrow && guide ? setPick : null}>{children}</SidePanelContext.Provider>
+      </div>
       {/* On phones a chosen provider's own "Show me" pictures replace the typical-quote diagram. */}
       {!(narrow && guide) && <aside className="gd-split__side">
         {narrow ? (
@@ -801,8 +809,8 @@ function Side({
             <summary>Where is this on my quote?</summary>
             <div className="gd-help__body">{diagram}</div>
           </details>
-        ) : guide && pictureFor(guide.id, selected) ? (
-          <ProviderSidePanel provider={guide.id} field={selected} diagram={diagram} />
+        ) : guide && (pick ?? defaultPick(guide.id, selected)) ? (
+          <ProviderSidePanel provider={guide.id} pick={(pick ?? defaultPick(guide.id, selected))!} diagram={diagram} />
         ) : (
           diagram
         )}
@@ -811,41 +819,22 @@ function Side({
   );
 }
 
-function ProviderSidePanel({ provider, field, diagram }: { provider: ProviderId; field: GuideField; diagram: ReactNode }) {
-  const image = pictureFor(provider, field);
-  const size = imageSizeFor(image);
+function ProviderSidePanel({ provider, pick, diagram }: { provider: ProviderId; pick: PanelPick; diagram: ReactNode }) {
   const label = providerLabel(provider);
-  // A whole page is far taller than the panel: show it at full panel width in a scrolling frame,
-  // scrolled to the marked line, rather than shrunk to fit (unreadable).
-  const isPage = !!image?.endsWith("/redacted-quote.webp");
-  const frameRef = useRef<HTMLDivElement>(null);
-  const scrollToLine = () => {
-    const frame = frameRef.current;
-    const marker = markerFor(provider, field);
-    const img = frame?.querySelector("img");
-    if (!isPage || !frame || !marker || !img || !size) return;
-    const scale = img.getBoundingClientRect().width / size.w;
-    frame.scrollTop = Math.max(0, marker.y * scale - frame.clientHeight / 3);
-  };
-  // Only when the picture or field changes, so a reader's own scrolling isn't undone on re-render.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(scrollToLine, [image, field]);
   return <div className="gd-provider-side">
-    <strong>{label} quote: {FIELD_NAMES[field]}</strong>
-    <p>{image?.endsWith("/field-gst-credit.webp")
-      ? "From a real quote, with values removed. The line to use is outlined."
-      : image?.match(/\/field-[^/]+\.webp$/)
-      ? "From a real quote, with values removed. ✓ marks the line to use."
-      : image?.endsWith("/redacted-quote.webp") && lineLabelFor(provider, field)
-        ? `From a real quote, with values removed. Your line is marked ${lineLabelFor(provider, field)}.`
-        : "Marked line from a real quote, with values removed."} {isPage ? "Scroll to see more; click to enlarge." : "Click to enlarge."}</p>
-    {image && <div ref={frameRef} className={isPage ? "gd-provider-side__page" : undefined}>
-      <a href={image} target="_blank" rel="noreferrer" aria-label={`Open the marked ${label} quote full size`}>
-        <img src={image} alt={`Marked ${label} quote: ${FIELD_NAMES[field]}`} width={size?.w} height={size?.h} onLoad={scrollToLine} />
-      </a>
-    </div>}
+    <strong>{label} quote: {FIELD_NAMES[pick.field]}</strong>
+    <div className="gd-template__body gd-template__body--side">
+      <QuotePicture key={`${pick.field}|${pick.template}`} provider={provider} field={pick.field} template={pick.template} example={pick.example} verb="Click" />
+    </div>
     <details className="gd-help gd-provider-side__typical"><summary>Typical quote</summary><div className="gd-help__body">{diagram}</div></details>
   </div>;
+}
+
+/** The picture the side panel shows for a field before any "Show me" is pressed. */
+function defaultPick(id: ProviderId, field: GuideField): PanelPick | null {
+  const example = pointersFor(id, field).find((p) => p.example)?.example ?? exampleFor(id, field);
+  const template = example?.image ?? templateFor(id, field);
+  return template ? { field, template, example: example ?? null } : null;
 }
 
 /** True on single-column layouts (matches the .gd-split breakpoint in guided.css). */
@@ -1684,21 +1673,54 @@ function ProviderPointers({ d, field }: { d: GuidedDraft; field: GuideField }) {
   </div>;
 }
 
+/** What the desktop side panel shows: a field's picture, picked by focus or by a "Show me" button. */
+type PanelPick = { field: GuideField; template: string; example: FieldExample | null };
+/** Present only on wide screens with a provider panel: "Show me" sends its picture there. */
+const SidePanelContext = createContext<((pick: PanelPick) => void) | null>(null);
+
 function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: ProviderId }) {
   const [open, setOpen] = useState(false);
-  const [showWholePage, setShowWholePage] = useState(false);
-  const frameRef = useRef<HTMLDivElement>(null);
+  const showInPanel = useContext(SidePanelContext);
   const example = pointer.example ?? exampleFor(provider, pointer.field);
   const template = pointer.notShown && !example ? null : example?.image ?? templateFor(provider, pointer.field);
-  const page = pageFor(provider);
-  const isCrop = !!template?.match(/\/field-[^/]+\.webp$/);
-  const fullImages = example ? [] : pageImagesFor(provider);
-  const full = !example && (!isCrop || showWholePage) && fullImages.length > 0;
-  const images = full ? fullImages : template ? [template] : [];
-  const marker = markerFor(provider, pointer.field);
-  const lineLabel = lineLabelFor(provider, pointer.field);
   const label = providerLabel(provider);
   const kind = pointer.kind ?? (pointer.notShown ? "missing" : "locate");
+  const buttonText = pointer.text ? "Show me" : `Show me on ${articleFor(label)} ${label} quote`;
+
+  return <div className={`gd-pointer gd-pointer--${kind}`}>
+    {pointer.text && <span>{kind === "missing" ? pointer.text : <><strong>On {label} quotes:</strong> {pointer.text}</>}</span>}
+    {pointer.more && <Tip>{pointer.more}</Tip>}
+    {template && (showInPanel ? <div className="gd-template">
+      <button type="button" className="gd-linkbtn" onClick={() => {
+        trackEvent("guided_pointer_open", { provider, field: pointer.field });
+        showInPanel({ field: pointer.field, template, example: example ?? null });
+      }}>{buttonText}</button>
+    </div> : <div className="gd-template">
+      <button type="button" className="gd-linkbtn" aria-expanded={open} onClick={() => {
+        if (!open) trackEvent("guided_pointer_open", { provider, field: pointer.field });
+        setOpen(!open);
+      }}>{open ? "Hide picture" : buttonText}</button>
+      {open && <div className="gd-template__body">
+        <QuotePicture provider={provider} field={pointer.field} template={template} example={example ?? null} verb="Tap" />
+      </div>}
+    </div>)}
+  </div>;
+}
+
+/** A marked crop, a special example, or the whole page (scrolled to the line), with caption and links. */
+function QuotePicture({ provider, field, template, example, verb }: {
+  provider: ProviderId; field: GuideField; template: string; example: FieldExample | null; verb: "Tap" | "Click";
+}) {
+  const [showWholePage, setShowWholePage] = useState(false);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const page = pageFor(provider);
+  const isCrop = !!template.match(/\/field-[^/]+\.webp$/);
+  const fullImages = example ? [] : pageImagesFor(provider);
+  const full = !example && (!isCrop || showWholePage) && fullImages.length > 0;
+  const images = full ? fullImages : [template];
+  const marker = markerFor(provider, field);
+  const lineLabel = lineLabelFor(provider, field);
+  const label = providerLabel(provider);
 
   const scrollToMarker = () => {
     if (!full || !marker || !frameRef.current) return;
@@ -1711,32 +1733,28 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
     const preceding = imageElements.length > 1 ? imageElements[0].getBoundingClientRect().height : 0;
     frame.scrollTop = Math.max(0, preceding + marker.y * scale - frame.clientHeight / 3);
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(scrollToMarker, [full, field, template]);
 
-  return <div className={`gd-pointer gd-pointer--${kind}`}>
-    {pointer.text && <span>{kind === "missing" ? pointer.text : <><strong>On {label} quotes:</strong> {pointer.text}</>}</span>}
-    {pointer.more && <Tip>{pointer.more}</Tip>}
-    {template && <div className="gd-template">
-      <button type="button" className="gd-linkbtn" aria-expanded={open} onClick={() => {
-        if (!open) trackEvent("guided_pointer_open", { provider, field: pointer.field });
-        if (open) setShowWholePage(false);
-        setOpen(!open);
-      }}>{open ? "Hide picture" : pointer.text ? "Show me" : `Show me on ${articleFor(label)} ${label} quote`}</button>
-      {open && <div className="gd-template__body">
-        <div ref={frameRef} className={full ? "gd-template__fullpage" : "gd-template__crop"}>
-          {images.map((image, index) => {
-            const size = imageSizeFor(image);
-            return <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`Open redacted quote image ${index + 1} full size`}>
-              <img src={image} alt={example ? example.alt : full ? `Full redacted ${label} quote page ${index + 1}` : `Marked ${label} quote: ${FIELD_NAMES[pointer.field]}`} loading="lazy" decoding="async" width={size?.w} height={size?.h} onLoad={scrollToMarker} />
-            </a>;
-          })}
-        </div>
-        <p>{example ? example.caption : full ? `A real ${label} quote with numbers removed.${lineLabel ? ` Your line is marked ${lineLabel}.` : ""}` : `A real ${label} quote with numbers removed. ${template?.endsWith("/field-gst-credit.webp") ? "The line to use is outlined." : "✓ marks the line to use."}`} Tap the image to enlarge.</p>
-        {isCrop && fullImages.length > 0 && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? "Just this line" : "Whole page"}</button>{" · "}</>}
-        <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the whole quote</a>
-        {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer" onClick={() => trackEvent("guided_provider_feedback_click", { provider })}>Mine looks different</a>
-      </div>}
-    </div>}
-  </div>;
+  const caption = example
+    ? example.caption
+    : full
+      ? `A real ${label} quote with numbers removed.${lineLabel ? ` Your line is marked ${lineLabel}.` : ""} Scroll to see more.`
+      : `A real ${label} quote with numbers removed. ${template.endsWith("/field-gst-credit.webp") ? "The line to use is outlined." : "✓ marks the line to use."}`;
+  return <>
+    <div ref={frameRef} className={full ? "gd-template__fullpage" : "gd-template__crop"}>
+      {images.map((image, index) => {
+        const size = imageSizeFor(image);
+        return <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`Open redacted quote image ${index + 1} full size`}>
+          <img src={image} alt={example ? example.alt : full ? `Full redacted ${label} quote page ${index + 1}` : `Marked ${label} quote: ${FIELD_NAMES[field]}`} loading="lazy" decoding="async" width={size?.w} height={size?.h} onLoad={scrollToMarker} />
+        </a>;
+      })}
+    </div>
+    <p>{caption} {verb} the image to enlarge.</p>
+    {isCrop && fullImages.length > 0 && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? "Just this line" : "Whole page"}</button>{" · "}</>}
+    <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the whole quote</a>
+    {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer" onClick={() => trackEvent("guided_provider_feedback_click", { provider })}>Mine looks different</a>
+  </>;
 }
 
 const PERIOD_WORD: Record<RunningPeriod, string> = {

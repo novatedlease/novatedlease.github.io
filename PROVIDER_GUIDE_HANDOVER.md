@@ -470,3 +470,10 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 - Owner review: where a field has no crop (e.g. Oly lease term), the side panel showed the whole page shrunk to 70vh tall, so it was unreadable. A whole page now fills the panel's width inside a 70vh scrolling frame, scrolled to the field's marker when the picture or field changes (not on every re-render, so the reader's own scrolling stays). Caption: "… Your line is marked 3. Scroll to see more; click to enlarge."
 - `lineLabels` now also lists the lease term ("3") for the 25 providers whose page numbers it (`line_labels.py`).
 - 371 tests, TypeScript, ESLint and calculator build pass; checked as Oly on the Lease step at 1462 px (headless Chromium).
+
+## Desktop: "Show me" drives the side panel; no inline picture (2026-11-13, settles R8)
+
+- Owner decision: on wide screens (over 820 px, steps with the side panel: Price, Lease, Payment) "Show me" no longer opens a picture inside the pointer box. It sends that pointer's picture (its own example, crop or page) to the side panel. The panel now carries the same viewer as the phone inline box: crop with ✓ caption, "Whole page / Just this line" toggle (whole page in a scrolling frame scrolled to the line, "Your line is marked N. Scroll to see more."), "See the whole quote" and "Mine looks different". Focusing another field's input returns the panel to that field's default picture.
+- Phones, and the Running costs step (no side panel), keep the inline picture.
+- Code: one `QuotePicture` component used by both `ProviderPointer` (inline) and `ProviderSidePanel`; `SidePanelContext` is provided by `Side` only when wide and a provider is chosen. `guided_pointer_open` still fires on each Show me.
+- Tests: pointer tests now run at phone width (jsdom has no matchMedia, which reads as wide); new test that on a wide screen Show me fills the side panel and the toggle shows the whole page with "Your line is marked 7b." 372 tests, TypeScript, ESLint, calculator build pass; checked with headless Chromium at 1462 px.

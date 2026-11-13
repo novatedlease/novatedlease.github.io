@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
@@ -368,6 +368,31 @@ describe("provider pointers", () => {
     expect(screen.getAllByText(/As seen on SG Fleet quotes, Nov 2026/).length).toBeGreaterThan(0);
   });
 
+  // These tests cover the phone layout, where "Show me" opens the picture inside the pointer box.
+  // (jsdom has no matchMedia, which Guided reads as a wide screen.)
+  function phoneWidth(narrow: boolean) {
+    window.matchMedia = ((query: string) => ({
+      matches: narrow && query.includes("max-width: 820px"), media: query, onchange: null,
+      addEventListener: () => {}, removeEventListener: () => {}, addListener: () => {}, removeListener: () => {}, dispatchEvent: () => false,
+    })) as unknown as typeof window.matchMedia;
+  }
+  beforeEach(() => phoneWidth(true));
+  afterEach(() => { delete (window as { matchMedia?: unknown }).matchMedia; });
+
+  test("on a wide screen, Show me puts the picture in the side panel, not in the box", () => {
+    phoneWidth(false);
+    on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
+    const pointer = document.querySelector('.gd-pointers[data-field="payment"]')!;
+    fireEvent.click(pointer.querySelector(".gd-template > button")!);
+    expect(pointer.querySelector(".gd-template__body")).toBeNull();
+    const side = document.querySelector(".gd-provider-side")!;
+    expect(side.querySelector("strong")?.textContent).toBe("SG Fleet quote: Finance payment");
+    expect(side.querySelector("img")?.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/field-payment.webp");
+    fireEvent.click(screen.getByRole("button", { name: "Whole page" }));
+    expect(side.querySelector(".gd-template__fullpage img")?.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/redacted-quote.webp");
+    expect(side.textContent).toContain("Your line is marked 7b.");
+  });
+
   function openPicture(field: string) {
     const pointer = document.querySelector(`.gd-pointers[data-field="${field}"]`)!;
     fireEvent.click(pointer.querySelector(".gd-template > button")!);
@@ -457,6 +482,7 @@ describe("provider pointers", () => {
   });
 
   test("desktop side panel follows the focused Maxxia residual field", () => {
+    phoneWidth(false);
     on("lease", { ...quoteDraft(), provider: "maxxia" });
     fireEvent.focus(document.querySelector('[data-field="residual"] input')!);
     expect(document.querySelector(".gd-provider-side img")?.getAttribute("src"))
@@ -467,6 +493,7 @@ describe("provider pointers", () => {
   });
 
   test("desktop side panel shows the GST credit picture for Oly's FBT base value", () => {
+    phoneWidth(false);
     on("price", { ...quoteDraft(), provider: "oly" });
     fireEvent.focus(document.querySelector('[data-field="baseValue"] input')!);
     expect(document.querySelector(".gd-provider-side img")?.getAttribute("src"))

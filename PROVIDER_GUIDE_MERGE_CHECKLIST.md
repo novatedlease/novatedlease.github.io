@@ -44,7 +44,7 @@ merged. Merge only on the owner's instruction.
 2. **Owner wording review:** read R5 and R6 in `PROVIDER_GUIDE_HANDOVER.md`. Confirm or reverse
    R7, which was a provisional trap trim.
 3. **Owner choices:**
-   - R8, whether to hide the inline "Show me" on desktop;
+   - R8: decided 2026-11-13: desktop "Show me" fills the side panel, no inline picture;
    - R11, whether to trim each article's older "Not shown on this sample" sentence;
    - item 8 (parked).
 4. **Merge:** merge into `main` with a merge commit, not a squash, so it can be reverted in one
