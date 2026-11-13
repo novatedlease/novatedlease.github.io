@@ -2496,5 +2496,594 @@
     "smartleasing": [
       "driveaway"
     ]
+  },
+  "lineLabels": {
+    "alliance": {
+      "baseValue": [
+        "1"
+      ],
+      "defer": [
+        "4"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "autopia": {
+      "docFee": [
+        "5"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "customfleet": {
+      "baseValue": [
+        "1"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "driva": {
+      "baseValue": [
+        "1"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "easi": {
+      "baseValue": [
+        "1"
+      ],
+      "defer": [
+        "4"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "payment": [
+        "7b"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "fingo": {
+      "baseValue": [
+        "1"
+      ],
+      "defer": [
+        "4"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "flare": {
+      "baseValue": [
+        "1"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "fleetpartners": {
+      "defer": [
+        "4"
+      ],
+      "docFee": [
+        "5"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "kooya": {
+      "baseValue": [
+        "1"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "leaseexpress": {
+      "baseValue": [
+        "1"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "leaselab": {
+      "baseValue": [
+        "1"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "leaseplan": {
+      "baseValue": [
+        "1"
+      ],
+      "docFee": [
+        "5"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "lendly": {
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "maxxia": {
+      "baseValue": [
+        "1"
+      ],
+      "docFee": [
+        "5"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "millarx": {
+      "baseValue": [
+        "1"
+      ],
+      "defer": [
+        "4"
+      ],
+      "docFee": [
+        "5"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "payment": [
+        "7a",
+        "7b"
+      ],
+      "residual": [
+        "6"
+      ]
+    },
+    "nla": {
+      "baseValue": [
+        "1"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "oly": {
+      "docFee": [
+        "5"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "payment": [
+        "7"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "orix": {
+      "baseValue": [
+        "1"
+      ],
+      "docFee": [
+        "5"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "paywise": {
+      "baseValue": [
+        "1"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "remserv": {
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "remunerator": {
+      "baseValue": [
+        "1"
+      ],
+      "defer": [
+        "4"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "sgfleet": {
+      "defer": [
+        "4"
+      ],
+      "docFee": [
+        "5"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7b"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "simplygreen": {
+      "baseValue": [
+        "1"
+      ],
+      "defer": [
+        "4"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "smartleasing": {
+      "baseValue": [
+        "1"
+      ],
+      "defer": [
+        "4"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7a",
+        "7b"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "smartsalary": {
+      "baseValue": [
+        "1"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "spa": {
+      "baseValue": [
+        "1"
+      ],
+      "defer": [
+        "4"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "toyotafleet": {
+      "baseValue": [
+        "1"
+      ],
+      "docFee": [
+        "5"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    },
+    "vehiclesolutions": {
+      "baseValue": [
+        "1"
+      ],
+      "defer": [
+        "4"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7a",
+        "7b"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ]
+    }
   }
 }

@@ -57,5 +57,12 @@ for provider, source in sorted(markers_raw.items()):
 # that the figure is absent from the reviewed pages.
 page_context_fields = {'smartleasing': ['driveaway']}
 manifest = {'images': images, 'pages': pages, 'markers': field_markers, 'pageContextFields': page_context_fields}
+# Kept from the existing manifest: the number(s) marking each field on the whole page, written by
+# the private crops/line_labels.py (Guided's "Whole page" caption names them).
+manifest_path = root / 'manifest.json'
+if manifest_path.exists():
+    previous = json.loads(manifest_path.read_text())
+    if 'lineLabels' in previous:
+        manifest['lineLabels'] = previous['lineLabels']
 (root / 'manifest.json').write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n')
 print('images',len(images),'pages',len(pages),'markers',sum(len(v) for d in field_markers.values() for v in d.values()))

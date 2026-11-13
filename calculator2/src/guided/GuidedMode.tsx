@@ -34,6 +34,7 @@ import {
   cropFor,
   pageFor,
   pageImagesFor,
+  lineLabelFor,
   imageSizeFor,
   markerFor,
   type GuideField,
@@ -816,7 +817,11 @@ function ProviderSidePanel({ provider, field, diagram }: { provider: ProviderId;
   const label = providerLabel(provider);
   return <div className="gd-provider-side">
     <strong>{label} quote: {FIELD_NAMES[field]}</strong>
-    <p>Marked line from a real quote, with values removed. Click to enlarge.</p>
+    <p>{image?.match(/\/field-[^/]+\.webp$/)
+      ? "From a real quote, with values removed. ✓ marks the line to use."
+      : image?.endsWith("/redacted-quote.webp") && lineLabelFor(provider, field)
+        ? `From a real quote, with values removed. Your line is marked ${lineLabelFor(provider, field)}.`
+        : "Marked line from a real quote, with values removed."} Click to enlarge.</p>
     {image && <a href={image} target="_blank" rel="noreferrer" aria-label={`Open the marked ${label} quote full size`}>
       <img src={image} alt={`Marked ${label} quote: ${FIELD_NAMES[field]}`} width={size?.w} height={size?.h} />
     </a>}
@@ -1672,6 +1677,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
   const full = !example && (!isCrop || showWholePage) && fullImages.length > 0;
   const images = full ? fullImages : template ? [template] : [];
   const marker = markerFor(provider, pointer.field);
+  const lineLabel = lineLabelFor(provider, pointer.field);
   const label = providerLabel(provider);
   const kind = pointer.kind ?? (pointer.notShown ? "missing" : "locate");
 
@@ -1705,7 +1711,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
             </a>;
           })}
         </div>
-        <p>{example ? example.caption : `A real ${label} quote with numbers removed.`} Tap the image to enlarge.</p>
+        <p>{example ? example.caption : full ? `A real ${label} quote with numbers removed.${lineLabel ? ` Your line is marked ${lineLabel}.` : ""}` : `A real ${label} quote with numbers removed. ✓ marks the line to use.`} Tap the image to enlarge.</p>
         {isCrop && fullImages.length > 0 && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? "Just this line" : "Whole page"}</button>{" · "}</>}
         <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the whole quote</a>
         {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer" onClick={() => trackEvent("guided_provider_feedback_click", { provider })}>Mine looks different</a>

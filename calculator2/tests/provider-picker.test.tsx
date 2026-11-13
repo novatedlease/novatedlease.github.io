@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pageFor, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, lineLabelFor, markerFor, guideFor, guideMayHaveChanged, pageFor, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -269,6 +269,32 @@ describe("provider pointers", () => {
           if (!caption) continue;
           expect(caption, `${id}/${field}`).not.toMatch(/Tap the image|Checked [A-Z][a-z]{2} \d{4}/);
         }
+      }
+    }
+  });
+
+  test("whole-page view can name the number of every line Guided shows as a crop", () => {
+    // Crops mark the line with a tick; the whole page keeps the article's numbers, so the caption
+    // says which number to look for.
+    expect(lineLabelFor("oly", "driveaway")).toBe("2");
+    expect(lineLabelFor("millarx", "payment")).toBe("7a or 7b");
+    expect(lineLabelFor("sgfleet", "payment")).toBe("7b");
+    for (const { id } of PROVIDERS) {
+      if (id === "other") continue;
+      for (const field of FIELDS_FOR_CAPTIONS) {
+        const crop = cropFor(id, field);
+        if (!crop || exampleFor(id, field) || !markerFor(id, field)) continue;
+        expect(lineLabelFor(id, field), `${id}/${field}`).toMatch(/^\d+[ab]?( or \d+[ab]?)*$/);
+      }
+    }
+  });
+
+  test("special example captions name the number that marks the line", () => {
+    for (const { id } of PROVIDERS) {
+      if (id === "other") continue;
+      for (const field of FIELDS_FOR_CAPTIONS) {
+        const example = exampleFor(id, field);
+        if (example) expect(example.caption, `${id}/${field}`).toMatch(/marked \d+/);
       }
     }
   });

@@ -776,17 +776,17 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
   { id: "sgfleet", field: "baseValue", example: {
     image: "/assets/images/quote-guide/sgfleet/fbt-example.webp",
     alt: "Redacted SG Fleet FBT section with FBT Base Value marked 1",
-    caption: "A later FBT section from a different SG Fleet quote layout, with values removed.",
+    caption: "A later FBT section from a different SG Fleet quote layout, with values removed. The line to use is marked 1.",
   } },
   { id: "sgfleet", field: "driveaway", example: {
     image: "/assets/images/quote-guide/sgfleet/driveaway-example.webp",
     alt: "Redacted SG Fleet Lease details with Vehicle on-road cost marked 2",
-    caption: "Lease details from an SG Fleet quote, with values removed.",
+    caption: "Lease details from an SG Fleet quote, with values removed. The line to use is marked 2.",
   } },
   { id: "smartleasing", field: "docFee", example: {
     image: "/assets/images/quote-guide/smartleasing/terms-example.webp",
     alt: "Redacted Smart Leasing terms page with documentation fee marked 5",
-    caption: "Terms page from a separate Smart Leasing quote, with values removed.",
+    caption: "Terms page from a separate Smart Leasing quote, with values removed. The line to use is marked 5.",
   } },
   {
     id: "oly",
@@ -849,6 +849,16 @@ export function pictureFor(id: ProviderId, field: GuideField): string | null {
 export function markerFor(id: ProviderId, field: GuideField): { y: number; h: number } | null {
   const markers = quoteImages.markers as Record<string, Record<string, { y: number; h: number }[]>>;
   return markers[id]?.[field === "insurance" ? "running" : field]?.[0] ?? null;
+}
+
+/**
+ * The number(s) that mark this field on the provider's whole redacted page, e.g. "2" or "7a or 7b".
+ * Crops show a tick instead, so the whole-page caption names the number to look for.
+ */
+export function lineLabelFor(id: ProviderId, field: GuideField): string | null {
+  const labels = (quoteImages as { lineLabels?: Record<string, Record<string, string[]>> }).lineLabels;
+  const list = labels?.[id]?.[field === "insurance" ? "running" : field];
+  return list?.length ? list.join(" or ") : null;
 }
 
 /** Intrinsic dimensions reserve space before a quote image finishes loading. */
