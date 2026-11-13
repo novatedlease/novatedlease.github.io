@@ -287,8 +287,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "residual",
-        text: "Look for “Your total residual value (after lease term)” near the end of the estimate.",
-        more: "On the quote we checked it included GST. Check the wording on yours before choosing the matching answer.",
+        text: "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST.",
+        more: "It included GST on both Oly quotes we checked (Apr and Aug 2026): it matched the ATO minimum on Oly's ex-GST price, plus GST.",
       },
     ],
   },

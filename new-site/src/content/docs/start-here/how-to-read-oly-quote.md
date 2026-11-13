@@ -43,7 +43,7 @@ This numbered example shows an Oly quote layout we reviewed. Match each marker t
 
 | # | On the quote | In Guided |
 |---|---|---|
-| 6 | Your total residual value (after lease term) | Residual. On the estimate checked it included GST and equalled the ATO minimum on Oly's ex-GST price, plus GST. Check the GST wording on yours. |
+| 6 | Your total residual value (after lease term) | Residual, *Including GST*. On both Oly estimates we checked it equalled the ATO minimum on Oly's ex-GST price, plus GST. |
 
 ## First-year insurance
 

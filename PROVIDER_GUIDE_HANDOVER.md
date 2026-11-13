@@ -516,3 +516,8 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 
 - Extra-quote search: on 30 Maxxia quotes with readable figures (Aug 2025 – Nov 2026), "Total residual value" = 1.00–1.11 × ATO% × (FBT base value − GST saving) × 1.1, never near the excluding-GST figure. Three match to 0.01%; the rest are higher by about the stamp duty financed.
 - Pointer: "If “Total residual value” has no GST label, choose Including GST." Tooltip: "It included GST on all 30 Maxxia quotes we checked (Aug 2025 to Nov 2026)." Article row 6 matched by hand. 371 tests and both builds pass.
+
+## Oly residual: direct answer (owner, 2026-11-14)
+
+- Second Oly quote found (1sacdgu, Apr 2026): 28.125% × ($82,524 − $6,334) × 1.1 = $23,571 vs printed $23,574.54. The original (1vfxcqr) prints "Residual Value (ex. GST) $9,775.79" and "Your total residual value" $10,752.80.
+- Pointer: "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST." Tooltip names both quotes. Article row 6 matched by hand. 371 tests and both builds pass.

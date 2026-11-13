@@ -1014,7 +1014,7 @@
         "driveaway": "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
         "insurance": "Enter the full yearly insurance premium, including year one.",
         "docFee": "Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question.",
-        "residual": "Look for “Your total residual value (after lease term)” near the end of the estimate."
+        "residual": "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST."
       },
       "traps": [
         "driveaway",
@@ -1051,8 +1051,8 @@
         {
           "field": "residual",
           "kind": "locate",
-          "text": "Look for “Your total residual value (after lease term)” near the end of the estimate.",
-          "more": "On the quote we checked it included GST. Check the wording on yours before choosing the matching answer.",
+          "text": "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST.",
+          "more": "It included GST on both Oly quotes we checked (Apr and Aug 2026): it matched the ATO minimum on Oly's ex-GST price, plus GST.",
           "image": "/assets/images/quote-guide/oly/residual-example.webp"
         },
         {
