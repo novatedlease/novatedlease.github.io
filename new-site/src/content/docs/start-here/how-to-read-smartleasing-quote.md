@@ -16,7 +16,6 @@ These two pages come from the same [Smart Leasing quote shared in November 2026]
 ## What catches people out on a Smart Leasing quote
 
 - **Finance payment:** Use “Lease payment” or “Lease per month”, then run the correction tool. Both need it.
-- **Documentation fee:** Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.
 <!-- provider-traps:end -->
 
 ![Redacted Smart Leasing quote page 1 showing the vehicle and payment summary](/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp)

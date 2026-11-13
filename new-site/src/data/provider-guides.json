@@ -21,8 +21,7 @@
         "residual": "If you see “Residual ex GST” and “Residual inc GST”, use either and choose the matching answer."
       },
       "traps": [
-        "payment",
-        "docFee"
+        "payment"
       ],
       "pointers": [
         {
@@ -40,7 +39,7 @@
         },
         {
           "field": "docFee",
-          "kind": "trap",
+          "kind": "locate",
           "text": "Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.",
           "more": "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.",
           "image": "/assets/images/quote-guide/smartleasing/terms-example.webp"
@@ -131,7 +130,6 @@
         "docFee": "Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question."
       },
       "traps": [
-        "insurance",
         "docFee"
       ],
       "pointers": [
@@ -163,7 +161,7 @@
         },
         {
           "field": "insurance",
-          "kind": "trap",
+          "kind": "locate",
           "text": "Enter the full yearly insurance premium, including year one.",
           "more": "Use the yearly amount you would pay to insure the car, not just Maxxia's renewal budget. If the first year is financed, the calculator counts it once.",
           "image": "/assets/images/quote-guide/maxxia/field-running.webp"
@@ -940,7 +938,6 @@
       },
       "traps": [
         "driveaway",
-        "insurance",
         "docFee"
       ],
       "pointers": [
@@ -980,7 +977,7 @@
         },
         {
           "field": "insurance",
-          "kind": "trap",
+          "kind": "locate",
           "text": "Enter the full yearly insurance premium, including year one.",
           "more": "Use the yearly amount you would pay to insure the car, not just Oly's renewal budget. If the first year is financed, the calculator counts it once.",
           "image": "/assets/images/quote-guide/oly/field-running.webp"

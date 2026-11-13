@@ -15,7 +15,6 @@ The Maxxia layouts we reviewed use **Financed payments** for the lease payment. 
 <!-- provider-traps:begin -->
 ## What catches people out on a Maxxia quote
 
-- **First-year insurance:** Enter the full yearly insurance premium, including year one.
 - **Documentation fee:** Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question.
 <!-- provider-traps:end -->
 

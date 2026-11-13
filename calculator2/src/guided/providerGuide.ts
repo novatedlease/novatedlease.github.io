@@ -94,9 +94,9 @@ export type Pointer = {
 /** Specific entries where a plausible quote figure would mislead the calculator. */
 export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   sgfleet: ["payment", "baseValue"],
-  millarx: ["payment"], smartleasing: ["payment", "docFee"],
-  flare: ["driveaway"], oly: ["driveaway", "insurance", "docFee"],
-  maxxia: ["insurance", "docFee"], fleetpartners: ["docFee"],
+  millarx: ["payment"], smartleasing: ["payment"],
+  flare: ["driveaway"], oly: ["driveaway", "docFee"],
+  maxxia: ["docFee"], fleetpartners: ["docFee"],
   leaseplan: ["driveaway", "docFee"], alliance: ["driveaway"],
   remunerator: ["driveaway", "payment"], easi: ["payment"],
   autopia: ["baseValue"], leaselab: ["driveaway"],

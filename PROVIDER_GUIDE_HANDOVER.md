@@ -390,3 +390,9 @@ Before → after (main text; tooltips in brackets):
 - RemServ payment: semicolon sentence → "If “Finance” is per fortnight with no GST label, enter it per fortnight and choose “I'm not sure” for GST."
 - Maxxia/Oly doc fee were already rewritten in R10.
 - Test: outside quoted labels, pointer main text has no "—", ";", "incl" or "Guided". Curly quotes were not normalised across the file (left; low value). 366 tests, calculator and site builds pass.
+
+## R7 — trimmed the amber trap list (2026-11-13) — owner decision taken provisionally
+
+- The plan asked the owner to choose. Applied the middle option, which is easy to reverse (one line each in `TRAP_FIELDS`): Maxxia `insurance`, Oly `insurance` and Smart Leasing `docFee` are now plain location lines, because they are plain instructions ("enter the full yearly premium"; "look on the terms page"). Maxxia and Oly `docFee` **stay amber**: the financed amount bundles the insurance with the fee, which is a real way to enter the wrong figure. 27 → 24 trap pairs.
+- Articles regenerated: Maxxia's and Oly's "What catches people out" lists lose the insurance line; Smart Leasing's keeps only the payment line.
+- To reverse: put the three fields back in `TRAP_FIELDS` and run `npm run export:guides` in `calculator2`. 366 tests and both builds pass.

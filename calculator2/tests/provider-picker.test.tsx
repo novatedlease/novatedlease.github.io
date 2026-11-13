@@ -440,6 +440,11 @@ describe("provider pointers", () => {
 
   test("locate, trap and missing pointers have distinct kinds", () => {
     expect(pointersFor("sgfleet", "payment")[0].kind).toBe("trap");
+    // Plain instructions are not traps (review round 2, R7).
+    expect(pointersFor("maxxia", "insurance")[0].kind).toBe("locate");
+    expect(pointersFor("oly", "insurance")[0].kind).toBe("locate");
+    expect(pointersFor("smartleasing", "docFee")[0].kind).toBe("locate");
+    expect(pointersFor("maxxia", "docFee")[0].kind).toBe("trap");
     expect(pointersFor("sgfleet", "driveaway")[0].kind).toBe("locate");
     expect(pointersFor("paywise", "defer")[0].kind).toBe("missing");
     expect(markerFor("sgfleet", "payment")?.y).toBeGreaterThan(0);

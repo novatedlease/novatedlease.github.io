@@ -16,7 +16,6 @@ This numbered example shows an Oly quote layout we reviewed. Match each marker t
 ## What catches people out on an Oly quote
 
 - **Drive-away price:** Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.
-- **First-year insurance:** Enter the full yearly insurance premium, including year one.
 - **Documentation fee:** Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question.
 <!-- provider-traps:end -->
 
