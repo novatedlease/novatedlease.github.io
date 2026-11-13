@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { checkProvider } from "../src/guided/checks";
 import { emptyDraft, type GuidedDraft } from "../src/guided/draft";
-import type { ProviderId } from "../src/guided/providerGuide";
+import { PROVIDERS, type ProviderId } from "../src/guided/providerGuide";
 
 function forProvider(provider: ProviderId | null): GuidedDraft {
   return { ...emptyDraft(), provider };
@@ -69,6 +69,21 @@ describe("provider-specific findings", () => {
       d.baseValue.text = "50000";
       d.driveaway.text = "40000";
       expect(checkProvider(d)).toEqual([]);
+    }
+  });
+
+  test("no provider check generalises from a few quotes or states a payment's GST basis as fact", () => {
+    for (const { id } of PROVIDERS) {
+      const d = forProvider(id);
+      d.paymentPeriod = "perMonth";
+      d.paymentBasis = "exGst";
+      d.payment.text = "500";
+      d.baseValue.text = "50000";
+      d.driveaway.text = "45000";
+      for (const f of checkProvider(d)) {
+        expect(f.message, id).not.toMatch(/\b(usually|often|always)\b/i);
+        expect(f.message, id).not.toMatch(/payment (is|includes|excludes) (ex|inc)/i);
+      }
     }
   });
 });

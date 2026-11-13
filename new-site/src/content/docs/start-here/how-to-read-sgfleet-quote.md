@@ -20,7 +20,7 @@ The first two pages of the VSSS example below **do not show FBT Base Value**. Lo
 ## What catches people out on an SG Fleet quote
 
 - **Finance payment:** Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.
-- **FBT base value:** Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”.
+- **FBT base value:** Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”.
 <!-- provider-traps:end -->
 
 ![Redacted later SG Fleet FBT section with number 1 marking FBT Base Value](/assets/images/quote-guide/sgfleet/fbt-example.webp)
@@ -40,7 +40,7 @@ On the VSSS sample, go to **Lease details** on page 2. The line marked **2**, **
 <!-- provider-table:begin -->
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |
-| 1 (separate example above) | FBT base value | **FBT Base Value** in the **Fringe Benefit Tax (FBT)** section | Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”. |
+| 1 (separate example above) | FBT base value | **FBT Base Value** in the **Fringe Benefit Tax (FBT)** section | Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”. |
 | 2 | Drive-away price | **Vehicle on-road cost (incl. GST)** | Use “Vehicle on-road cost (incl. GST)” under “Lease details”. |
 | 3 | Lease term | **Lease term** or the term in Package arrangements | The term shown on your quote. |
 | 4 | Months deferred | **Monthly lease rental**, followed by **payable as … payments** | Subtract the number of payable months from the full term in months. If the count is unclear, choose *I'm not sure*. |

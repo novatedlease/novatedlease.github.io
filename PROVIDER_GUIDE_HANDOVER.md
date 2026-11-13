@@ -367,3 +367,15 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - New prebuild script `new-site/scripts/sync-provider-missing.mjs` adds "If a figure isn't on your quote" just before each article's closing links, listing the same "Can't find it on your {provider} quote?" lines Guided shows (text plus tooltip), with the GST-credit picture for MillarX, Oly, RemServ and Lendly. 23 articles get the section; 4 have nothing missing. Reads `provider-guides.json` (R12). Idempotent.
 - Test: each article's section lists exactly the "missing" pointers for that provider and includes their pictures. 363 tests and site build pass. Checked the Oly page in the browser.
 - **Left for review:** the older hand-written "Not shown on this sample: …" sentence still sits just above the new section in most articles. It also lists fields Guided doesn't cover (interest rate, lease term) and quote-specific detail, so it was not removed mechanically. Owner may want it trimmed article by article.
+
+## R5 — softened claims that rest on one quote (2026-11-13) — owner to read
+
+Before → after:
+- LeaseLab check: "LeaseLab quotes are usually weekly. Check the period next to your payment." → "The LeaseLab quote we checked showed weekly amounts. Check the period beside your payment."
+- Smartsalary check: "Smartsalary often shows this payment including GST. Check the heading…" → "If your payment sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST. Check the heading on your own quote."
+- Remunerator check: "Remunerator shows the lease payment per year. Check whether…" → "On the Remunerator quote we checked, “Lease Payment” was a yearly total. If yours is under “Annual Car Expenses”, choose “Per year”."
+- Maxxia residual: "If you see “Total residual value” with no GST label, it's usually including GST." → "If “Total residual value” has no GST label, check the footnotes or ask Maxxia. Not sure? Choose “I'm not sure”." Tooltip: "On the quotes we checked it included GST. With “I'm not sure”, the calculator works out which reading fits your figure."
+- Oly residual: "…near the end of the estimate, it includes GST: choose Including GST." → "Look for “Your total residual value (after lease term)” near the end of the estimate." Tooltip says it included GST on the quote checked. Oly article row 6 matched by hand.
+- SG Fleet FBT: "often on a later page" → "which may be on a later page".
+- Tests: no pointer main text or provider check says "usually", "often" or "always"; no check states a payment's GST basis as fact.
+- New `npm run export:guides` in `calculator2` regenerates `provider-guides.json` and runs the site prebuild syncs in one step. 365 tests pass.

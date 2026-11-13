@@ -68,7 +68,7 @@
       "written": {
         "payment": "Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.",
         "defer": "If you see “payable as 34 payments” on a 36-month lease, that's a 2-month deferral (36 − 34).",
-        "baseValue": "Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”.",
+        "baseValue": "Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”.",
         "driveaway": "Use “Vehicle on-road cost (incl. GST)” under “Lease details”.",
         "luxAdj": "If you see “Luxury levy” or “Luxury vehicle adjustment”, that's this line.",
         "running": "If your pay is weekly, the package lines are per week. Choose “Per week”."
@@ -81,7 +81,7 @@
         {
           "field": "baseValue",
           "kind": "trap",
-          "text": "Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”.",
+          "text": "Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”.",
           "more": "If your quote does not show the FBT line, ask SG Fleet for its FBT base value.",
           "image": "/assets/images/quote-guide/sgfleet/fbt-example.webp"
         },
@@ -126,7 +126,7 @@
       "sourceCount": 2,
       "written": {
         "driveaway": "If you see “Car price (based on on roads…)”, that's the drive-away price.",
-        "residual": "If you see “Total residual value” with no GST label, it's usually including GST.",
+        "residual": "If “Total residual value” has no GST label, check the footnotes or ask Maxxia. Not sure? Choose “I'm not sure”.",
         "insurance": "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
         "docFee": "Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question."
       },
@@ -157,8 +157,8 @@
         {
           "field": "residual",
           "kind": "locate",
-          "text": "If you see “Total residual value” with no GST label, it's usually including GST.",
-          "more": "Check the GST wording on your own quote before choosing the matching answer.",
+          "text": "If “Total residual value” has no GST label, check the footnotes or ask Maxxia. Not sure? Choose “I'm not sure”.",
+          "more": "On the quotes we checked it included GST. With “I'm not sure”, the calculator works out which reading fits your figure.",
           "image": "/assets/images/quote-guide/maxxia/field-residual.webp"
         },
         {
@@ -933,7 +933,7 @@
         "driveaway": "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
         "insurance": "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
         "docFee": "Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question.",
-        "residual": "If you see “Your total residual value (after lease term)” near the end of the estimate, it includes GST: choose Including GST."
+        "residual": "Look for “Your total residual value (after lease term)” near the end of the estimate."
       },
       "traps": [
         "driveaway",
@@ -971,8 +971,8 @@
         {
           "field": "residual",
           "kind": "locate",
-          "text": "If you see “Your total residual value (after lease term)” near the end of the estimate, it includes GST: choose Including GST.",
-          "more": "Check the GST wording on your own quote before choosing the matching answer.",
+          "text": "Look for “Your total residual value (after lease term)” near the end of the estimate.",
+          "more": "On the quote we checked it included GST. Check the wording on yours before choosing the matching answer.",
           "image": "/assets/images/quote-guide/oly/residual-example.webp"
         },
         {

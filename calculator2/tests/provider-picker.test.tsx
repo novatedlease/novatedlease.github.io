@@ -241,6 +241,14 @@ describe("provider pointers", () => {
     }
   });
 
+  test("provider lines and checks don't generalise from a few quotes", () => {
+    for (const { id } of PROVIDERS) {
+      for (const field of FIELDS_FOR_CAPTIONS) {
+        for (const p of pointersFor(id, field)) expect(p.text, `${id}/${field}`).not.toMatch(/\b(usually|often|always)\b/i);
+      }
+    }
+  });
+
   test("each picture has one caption, with no date and one enlarge hint", () => {
     for (const { id } of PROVIDERS) {
       if (id === "other") continue;

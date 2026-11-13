@@ -139,7 +139,7 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "baseValue",
-        text: "Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”.",
+        text: "Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”.",
         more: "If your quote does not show the FBT line, ask SG Fleet for its FBT base value.",
       },
       {
@@ -250,8 +250,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "residual",
-        text: "If you see “Your total residual value (after lease term)” near the end of the estimate, it includes GST: choose Including GST.",
-        more: "Check the GST wording on your own quote before choosing the matching answer.",
+        text: "Look for “Your total residual value (after lease term)” near the end of the estimate.",
+        more: "On the quote we checked it included GST. Check the wording on yours before choosing the matching answer.",
       },
     ],
   },
@@ -266,8 +266,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "residual",
-        text: "If you see “Total residual value” with no GST label, it's usually including GST.",
-        more: "Check the GST wording on your own quote before choosing the matching answer.",
+        text: "If “Total residual value” has no GST label, check the footnotes or ask Maxxia. Not sure? Choose “I'm not sure”.",
+        more: "On the quotes we checked it included GST. With “I'm not sure”, the calculator works out which reading fits your figure.",
       },
       {
         field: "insurance",
