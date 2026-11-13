@@ -26,7 +26,7 @@ export function checkProvider(d: GuidedDraft): Finding[] {
     out.push({ code: "provider_monthly_payment", level: "warn", message: `${providerLabel(p)} may show a monthly lease rental paid fewer times than the lease has months. Check for the per-pay “Lease rental” and choose its period.` });
   }
   if (p === "remunerator" && moneyValue(d.payment) && d.paymentPeriod && d.paymentPeriod !== "perYear") {
-    out.push({ code: "provider_yearly_payment", level: "warn", message: "On the Remunerator quote we checked, “Lease Payment” was a yearly total. If yours is under “Annual Car Expenses”, choose “Per year”." });
+    out.push({ code: "provider_yearly_payment", level: "warn", message: "On all 7 Remunerator quotes we checked, “Lease Payment” under “Annual Car Expenses” was a yearly total. Choose “Per year”." });
   }
   if (p === "leaselab" && d.paymentPeriod === "perMonth") {
     out.push({ code: "provider_weekly_payment", level: "warn", message: "The LeaseLab quotes we checked showed weekly or fortnightly amounts. Check the period beside your payment." });

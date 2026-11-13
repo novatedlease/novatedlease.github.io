@@ -41,7 +41,7 @@ merged. Merge only on the owner's instruction.
 1. **Walk-through (owner):** at phone width, in both light and dark theme, check at least SG
    Fleet, Smart Leasing, Maxxia, Oly, MillarX and one no-trap provider (NLA). On each, open every
    "Show me" on the Price, Lease, Payment and Running steps. Light and dark at phone width: owner reviewed a contact sheet of all 28 guides × Price, Lease, Payment, Running on 2026-11-14 and found no problems. Opened "Show me" pictures are not on it.
-2. **Owner wording review:** R6 read 2026-11-14 (Paywise reworded). R5 waits on the extra-quote
+2. **Owner wording review:** R6 read 2026-11-14 (Paywise reworded). R5 settled 2026-11-14 after the extra-quote
    search. R7 trap trim kept (owner, 2026-11-14).
 3. **Owner choices:**
    - R8: decided 2026-11-13: desktop "Show me" fills the side panel, no inline picture;

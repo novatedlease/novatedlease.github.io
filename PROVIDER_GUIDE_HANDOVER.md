@@ -521,3 +521,8 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 
 - Second Oly quote found (1sacdgu, Apr 2026): 28.125% × ($82,524 − $6,334) × 1.1 = $23,571 vs printed $23,574.54. The original (1vfxcqr) prints "Residual Value (ex. GST) $9,775.79" and "Your total residual value" $10,752.80.
 - Pointer: "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST." Tooltip names both quotes. Article row 6 matched by hand. 371 tests and both builds pass.
+
+## Remunerator: yearly on all 7 quotes (owner, 2026-11-14)
+
+- 7 Remunerator quotes (Aug 2025 – Nov 2026) all show "Lease Payment (excl GST)" as a yearly figure under "Annual Car Expenses". Check message: "On all 7 Remunerator quotes we checked, “Lease Payment” under “Annual Car Expenses” was a yearly total. Choose “Per year”." Pointer tooltip opens with "Yearly on all 7 Remunerator quotes we checked." 371 tests and both builds pass.
+- R5 review finished: SG Fleet ("which may be on a later page", 13 of 15 quotes) and Smartsalary (no new quotes) stay as they are.

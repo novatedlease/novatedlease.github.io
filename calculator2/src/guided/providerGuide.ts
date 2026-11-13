@@ -377,7 +377,7 @@ export const GUIDES: ProviderGuide[] = [
       {
         field: "payment",
         text: "If you see “Lease Payment (excl GST)” under “Annual Car Expenses”, it's a yearly total: choose “Per year (total)”.",
-        more: "The per-fortnight and per-month boxes on the summary are the whole salary deduction, including running costs.",
+        more: "Yearly on all 7 Remunerator quotes we checked. The per-fortnight and per-month boxes on the summary are the whole salary deduction, including running costs.",
       },
       {
         field: "defer",
