@@ -404,3 +404,9 @@ Before → after (main text; tooltips in brackets):
 - New `FIELD_NAMES` map: side-panel heading and image alt text now say "Marked Maxxia quote: Residual" instead of raw ids like `docFee`.
 - **Not done (owner preference):** hiding the inline "Show me" on desktop while the side panel shows the same picture. Both still appear.
 - Tests updated and one added (Oly base value → GST-credit picture). 367 tests, ESLint and calculator build pass.
+
+## R13, R14, R15 — merge checklist, analytics plan, freshness routine (2026-11-13)
+
+- New `PROVIDER_GUIDE_MERGE_CHECKLIST.md`: what changes for visitors, the safety checks run on the branch diff (no private files, PDFs, markers or PNGs; 204 redacted WebP), what is still to do before merging, how to roll back, the analytics reading plan (R14), and the freshness routine with the owner's open questions (R15).
+- **Not done from R13:** the scripted 27-provider × 4-step contact sheet in light and dark. Playwright is not installed in `calculator2` and installing it was out of scope; the checklist lists a manual walk-through of six providers instead. Light theme has still never been reviewed.
+- **Owner action before deploy:** register `provider`, `field` and `code` as GA4 event-scoped custom dimensions, or the new events can't be reported by provider.
