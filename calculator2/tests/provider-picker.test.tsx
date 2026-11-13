@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, lineLabelFor, markerFor, guideFor, guideMayHaveChanged, pageFor, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, lineLabelFor, markerFor, guideFor, guideIsOld, guideMayHaveChanged, pageFor, shownKind, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -334,6 +334,18 @@ describe("provider pointers", () => {
     const now = new Date(2026, 10, 12);
     expect(guideMayHaveChanged("2026-05", now)).toBe(false);
     expect(guideMayHaveChanged("2026-04", now)).toBe(true);
+  });
+
+  test("a guide over twelve months old shows its traps as plain lines (R15)", () => {
+    const now = new Date(2026, 10, 14);
+    expect(guideIsOld("2025-11", now)).toBe(false);
+    expect(guideIsOld("2025-10", now)).toBe(true);
+    const docFee = pointersFor("leaseplan", "docFee")[0];
+    expect(docFee.kind).toBe("trap");
+    expect(shownKind(docFee, "leaseplan", now)).toBe("locate");
+    expect(shownKind(docFee, "leaseplan", new Date(2026, 0, 1))).toBe("trap");
+    expect(shownKind(pointersFor("leaseplan", "residual")[0], "leaseplan", now)).toBe("missing");
+    expect(shownKind(pointersFor("oly", "docFee")[0], "oly", now)).toBe("trap");
   });
 
   test("each named provider has dated pointers and a recorded quote source", () => {

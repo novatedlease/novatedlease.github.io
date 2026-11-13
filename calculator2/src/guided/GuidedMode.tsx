@@ -24,6 +24,8 @@ import {
   articleFor,
   FIELD_NAMES,
   pictureFor,
+  guideIsOld,
+  shownKind,
   guideMayHaveChanged,
   isNamedProvider,
   isSmartOrMillarx,
@@ -596,8 +598,10 @@ export function GuidedMode({
         </MissingFields.Provider>
 
         {["price", "lease", "payment", "running"].includes(step) && guideFor(draft.provider) && (
-          <p className="gd-pointer__seen">As seen on {providerLabel(draft.provider!)} quotes, {seenLabel(guideFor(draft.provider)!.seen)}.
-            {guideMayHaveChanged(guideFor(draft.provider)!.seen) && " The layout may have changed."}
+          <p className="gd-pointer__seen">{guideIsOld(guideFor(draft.provider)!.seen)
+            ? `Based on ${articleFor(providerLabel(draft.provider!))} ${providerLabel(draft.provider!)} quote from ${seenLabel(guideFor(draft.provider)!.seen)}. Yours may look different.`
+            : <>As seen on {providerLabel(draft.provider!)} quotes, {seenLabel(guideFor(draft.provider)!.seen)}.
+            {guideMayHaveChanged(guideFor(draft.provider)!.seen) && " The layout may have changed."}</>}
           </p>
         )}
 
@@ -1683,7 +1687,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
   const example = pointer.example ?? exampleFor(provider, pointer.field);
   const template = pointer.notShown && !example ? null : example?.image ?? templateFor(provider, pointer.field);
   const label = providerLabel(provider);
-  const kind = pointer.kind ?? (pointer.notShown ? "missing" : "locate");
+  const kind = shownKind(pointer, provider);
   const buttonText = pointer.text ? "Show me" : `Show me on ${articleFor(label)} ${label} quote`;
 
   return <div className={`gd-pointer gd-pointer--${kind}`}>

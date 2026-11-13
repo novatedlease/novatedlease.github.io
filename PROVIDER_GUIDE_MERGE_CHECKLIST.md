@@ -93,7 +93,6 @@ provider and insurance answers are optional fields.
   - Look for new quotes for any guide older than six months; the picker hint already warns
     readers about these.
   - Re-check every provider with a "Mine looks different" click.
-- **Owner to decide:**
-  - Should a guide older than twelve months with no new quote lose its amber traps and "Can't
-    find it" lines? It would keep only plain location lines and be marked as old.
-  - Should LeasePlan get that treatment now?
+- **Decided 2026-11-14:** over 12 months with no newer quote, a guide's amber traps show as plain
+  lines with "Based on a … quote from … Yours may look different." Automatic by date; applies to
+  LeasePlan now. The 6-month caution stays as it was.

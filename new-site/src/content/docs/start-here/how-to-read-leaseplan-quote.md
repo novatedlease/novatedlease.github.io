@@ -15,6 +15,8 @@ This numbered example shows a LeasePlan / Ayvens quote layout we reviewed. Match
 <!-- provider-traps:begin -->
 ## What catches people out on a LeasePlan / Ayvens quote
 
+*Based on a LeasePlan / Ayvens quote from Aug 2025. Yours may look different.*
+
 - **Drive-away price:** Can’t find a drive-away total? Ask for the full on-road price including GST. The quote we checked had no residual to work it out from.
 - **Documentation fee:** If “Finance Documentation” is monthly, put it in management fees. Enter any one-off “Security Interest” fee as the documentation fee.
 <!-- provider-traps:end -->

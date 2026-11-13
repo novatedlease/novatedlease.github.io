@@ -735,10 +735,26 @@ export function seenLabel(seen: string): string {
   return `${months[(m ?? 1) - 1]} ${y}`;
 }
 
+function monthsSince(seen: string, now: Date): number {
+  const [year, month] = seen.split("-").map(Number);
+  return now.getFullYear() * 12 + now.getMonth() + 1 - (year * 12 + month);
+}
+
 /** Quote layouts can change; show a caution once the last checked month is over six months old. */
 export function guideMayHaveChanged(seen: string, now = new Date()): boolean {
-  const [year, month] = seen.split("-").map(Number);
-  return now.getFullYear() * 12 + now.getMonth() + 1 - (year * 12 + month) > 6;
+  return monthsSince(seen, now) > 6;
+}
+
+/** Over twelve months with no newer quote checked: amber traps show as plain lines (review round 2, R15). */
+export function guideIsOld(seen: string, now = new Date()): boolean {
+  return monthsSince(seen, now) > 12;
+}
+
+/** The kind a pointer is shown as: an old guide's traps are no longer amber. */
+export function shownKind(pointer: Pointer, id: ProviderId, now = new Date()): NonNullable<Pointer["kind"]> {
+  const kind = pointer.kind ?? (pointer.notShown ? "missing" : "locate");
+  const guide = guideFor(id);
+  return kind === "trap" && guide && guideIsOld(guide.seen, now) ? "locate" : kind;
 }
 
 /** The whole redacted quote page for a provider, if one was reviewed. */

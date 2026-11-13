@@ -22,8 +22,17 @@ const anOrA = (word) => (/^[A-Z]{2}/.test(word) ? (/^[AEFHILMNORSX]/.test(word) 
 const block = /<!-- provider-traps:begin -->\n[\s\S]*?<!-- provider-traps:end -->\n\n?/;
 const review = /<!-- quote-review:end -->\n\n/;
 
+// Review round 2, R15: past twelve months with no newer quote, Guided shows the traps as plain lines; the article says so.
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const now = new Date();
+const oldNote = (seen, label) => {
+  const [y, m] = seen.split('-').map(Number);
+  if (now.getFullYear() * 12 + now.getMonth() + 1 - (y * 12 + m) <= 12) return '';
+  return `*Based on ${anOrA(label)} ${label} quote from ${MONTHS[m - 1]} ${y}. Yours may look different.*\n\n`;
+};
+
 let count = 0;
-for (const { id, label, written, traps: fields } of guides.providers) {
+for (const { id, label, seen, written, traps: fields } of guides.providers) {
   const pointers = new Map(Object.entries(written));
   const lines = fields.map((field) => {
     const text = pointers.get(field);
@@ -33,7 +42,7 @@ for (const { id, label, written, traps: fields } of guides.providers) {
   const list = lines.length
     ? lines.join('\n')
     : `Nothing on the ${label} quotes we checked looked easy to misread. The table below shows where each figure is.`;
-  const section = `<!-- provider-traps:begin -->\n## What catches people out on ${anOrA(label)} ${label} quote\n\n${list}\n<!-- provider-traps:end -->\n\n`;
+  const section = `<!-- provider-traps:begin -->\n## What catches people out on ${anOrA(label)} ${label} quote\n\n${oldNote(seen, label)}${list}\n<!-- provider-traps:end -->\n\n`;
 
   const article = path.join(docs, `how-to-read-${id}-quote.md`);
   const oldText = readFileSync(article, 'utf8');

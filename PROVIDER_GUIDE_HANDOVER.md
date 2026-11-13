@@ -526,3 +526,10 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 
 - 7 Remunerator quotes (Aug 2025 – Nov 2026) all show "Lease Payment (excl GST)" as a yearly figure under "Annual Car Expenses". Check message: "On all 7 Remunerator quotes we checked, “Lease Payment” under “Annual Car Expenses” was a yearly total. Choose “Per year”." Pointer tooltip opens with "Yearly on all 7 Remunerator quotes we checked." 371 tests and both builds pass.
 - R5 review finished: SG Fleet ("which may be on a later page", 13 of 15 quotes) and Smartsalary (no new quotes) stay as they are.
+
+## R15: twelve-month rule (owner, 2026-11-14)
+
+- Two stages. Over 6 months since a guide's newest checked quote: the existing caution ("The layout may have changed", "Our example is from …"). Over 12 months: `shownKind()` shows its amber traps as plain lines, and the step footer reads "Based on a LeasePlan / Ayvens quote from Aug 2025. Yours may look different." "Can't find it?" lines are unchanged. Applies automatically by date; `TRAP_FIELDS` and the export are unchanged, so the committed JSON doesn't drift with time.
+- Articles: `sync-provider-traps.mjs` adds the same italic note under "What catches people out" when the guide is over 12 months old at build time (LeasePlan now).
+- Applies today only to LeasePlan / Ayvens (newest checked quote Aug 2025; the archive has two more from Aug–Sep 2025, none newer). Refresh a guide by checking a newer quote and updating its `seen` month.
+- 372 tests, ESLint, calculator and site builds pass.
