@@ -195,7 +195,7 @@ describe("FBT base value not printed", () => {
 
   test("MillarX fees: some quotes have a monthly fee, the BYO finance-only one has none", () => {
     const [p] = pointersFor("millarx", "fees");
-    expect(p.text).toBe("Some MillarX quotes show a management fee per month. Enter it here if yours does. The BYO finance-only quote has none.");
+    expect(p.text).toBe("Some MillarX quotes show a management fee per month. Enter it if yours does. The BYO finance-only quote has none.");
     expect(p.text).not.toMatch(/Older/);
   });
 
@@ -209,6 +209,24 @@ describe("FBT base value not printed", () => {
 const FIELDS_FOR_CAPTIONS: GuideField[] = ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees"];
 
 describe("provider pointers", () => {
+  test("pointer text reads well out of context: no here, above or below", () => {
+    // The same text is reused in the provider articles, where "here" has nothing to point at.
+    for (const { id } of PROVIDERS) {
+      for (const field of FIELDS_FOR_CAPTIONS) {
+        for (const p of pointersFor(id, field)) expect(p.text, `${id}/${field}`).not.toMatch(/\b(here|above|below)\b/i);
+      }
+    }
+  });
+
+  test("article intros don't state their own review month", () => {
+    for (const { id } of PROVIDERS) {
+      if (id === "other") continue;
+      const article = readFileSync(resolve(__dirname, `../../new-site/src/content/docs/start-here/how-to-read-${id}-quote.md`), "utf8");
+      const body = article.replace(/<!-- quote-review:begin -->[\s\S]*?<!-- quote-review:end -->/, "");
+      expect(body, id).not.toMatch(/reviewed in (January|February|March|April|May|June|July|August|September|October|November|December) 20\d\d/);
+    }
+  });
+
   test("each picture has one caption, with no date and one enlarge hint", () => {
     for (const { id } of PROVIDERS) {
       if (id === "other") continue;
@@ -555,7 +573,7 @@ describe("provider pointers", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-driva-quote.md"), "utf8");
     for (const field of ["driveaway", "residual", "payment"] as const)
       expect(article).toContain(pointersFor("driva", field)[0].text);
-    expect(article).toContain("reviewed in August 2026");
+    expect(article).toContain("latest layout reviewed Aug 2026");
     expect(article).not.toContain("reviewed in November 2026");
   });
 
@@ -569,7 +587,7 @@ describe("provider pointers", () => {
   test("Lendly's article uses its current drive-away trap and October review date", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-lendly-quote.md"), "utf8");
     expect(article).toContain(pointersFor("lendly", "driveaway")[0].text);
-    expect(article).toContain("reviewed in October 2026");
+    expect(article).toContain("latest layout reviewed Oct 2026");
     expect(article).not.toContain("reviewed in November 2026");
   });
 

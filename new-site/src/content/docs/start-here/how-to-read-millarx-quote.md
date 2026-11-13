@@ -10,7 +10,7 @@ datePublished: "2026-11-12"
 *Checked against 3 quote examples; latest layout reviewed Oct 2026.*
 <!-- quote-review:end -->
 
-This numbered example shows a MillarX quote layout reviewed in October 2026. Match each marker to the table, then check the period and GST label on your own quote.
+This numbered example shows a MillarX quote layout we reviewed. Match each marker to the table, then check the period and GST label on your own quote.
 
 <!-- provider-traps:begin -->
 ## What catches people out on a MillarX quote

@@ -15,7 +15,7 @@ On this layout, the monthly lease cost is split into **Part A** finance rental, 
 <!-- provider-traps:begin -->
 ## What catches people out on a FleetPartners quote
 
-- **Documentation fee:** If you see “Lease Establishment Fee” as a monthly amount, enter $0 here and add it to lease management fees. Enter the PPSR fee here.
+- **Documentation fee:** If “Lease Establishment Fee” is monthly, add it to management fees instead. Add the one-off PPSR fee and any financed brokerage.
 <!-- provider-traps:end -->
 
 ![Redacted FleetPartners quote pages with numbered fields](/assets/images/quote-guide/fleetpartners/redacted-quote.webp)

@@ -10,7 +10,7 @@ datePublished: "2026-11-12"
 *Checked against 3 quote examples; latest layout reviewed Nov 2026.*
 <!-- quote-review:end -->
 
-SG Fleet layouts reviewed in November 2026 show a per-pay **Lease rental** in Package details and a **Monthly lease rental** in Lease details. Use the per-pay **Lease rental**. The **Monthly lease rental** is paid fewer times than the lease has months ("payable as 34 payments" on 36 months), so entering it would overstate your rate.
+SG Fleet layouts we reviewed show a per-pay **Lease rental** in Package details and a **Monthly lease rental** in Lease details. Use the per-pay **Lease rental**. The **Monthly lease rental** is paid fewer times than the lease has months ("payable as 34 payments" on 36 months), so entering it would overstate your rate.
 
 ## Where to find the FBT base value
 

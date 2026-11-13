@@ -10,7 +10,7 @@ datePublished: "2026-11-12"
 *Checked against 1 quote example; latest layout reviewed Nov 2026.*
 <!-- quote-review:end -->
 
-The Smart Drive layout reviewed in November 2026 puts **Lease Payment (Fixed)** under a heading marked **Motor Vehicle Deductions (inc GST)**. For running costs, it separately shows **Less: Employer Claimed ITC**, the GST credit.
+The Smart Drive layout we reviewed puts **Lease Payment (Fixed)** under a heading marked **Motor Vehicle Deductions (inc GST)**. For running costs, it separately shows **Less: Employer Claimed ITC**, the GST credit.
 
 <!-- provider-traps:begin -->
 ## What catches people out on a Smartsalary (Smart Drive) quote

@@ -26,7 +26,7 @@ Nothing on the Novated Lease Australia (NLA) quotes we checked looked easy to mi
 | # | On this quote | In Guided mode |
 | --- | --- | --- |
 | 1 | Vehicle base value, FBT calculations | If you see “Vehicle base value” in the FBT calculations box, that's the FBT base value. |
-| 2 | Price (ex GST), GST, stamp duty, registration and CTP | If no drive-away total is printed, add the vehicle price, GST, stamp duty, registration and CTP shown on the quote. |
+| 2 | Price (ex GST), GST, stamp duty, registration and CTP | No drive-away total? Add the vehicle price, GST, stamp duty, registration, CTP and any luxury car tax shown. |
 | 3 | Term (months) | Lease term. |
 | 6 | Residual payment (ex GST) | If you see “Residual payment (ex GST)”, choose Excluding GST. |
 | 7 | Lease payment (fixed), Gross fortnightly rental | Under “Gross fortnightly rental”, enter “Lease payment (fixed)” per fortnight, excluding its GST line—not take-home-pay reduction. |

@@ -10,14 +10,14 @@ datePublished: "2026-11-12"
 *Checked against 2 quote examples; latest layout reviewed Nov 2026.*
 <!-- quote-review:end -->
 
-This numbered example shows an Oly quote layout reviewed in August 2026. Match each marker to the table, then check the period and GST label on your own quote.
+This numbered example shows an Oly quote layout we reviewed. Match each marker to the table, then check the period and GST label on your own quote.
 
 <!-- provider-traps:begin -->
 ## What catches people out on an Oly quote
 
 - **Drive-away price:** Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.
 - **First-year insurance:** Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.
-- **Documentation fee:** Enter “Financier's Establishment fee” here. If year-one insurance is financed, use Guided's separate insurance question.
+- **Documentation fee:** Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question.
 <!-- provider-traps:end -->
 
 ![Redacted Oly quote with numbered fields](/assets/images/quote-guide/oly/redacted-quote.webp)
@@ -31,7 +31,7 @@ This numbered example shows an Oly quote layout reviewed in August 2026. Match e
 |---|---|---|
 | 2 | Recommended retail price (shown struck out) | On this example it reconciles to the on-road price including GST. Check that the figure on your own quote includes all on-road charges; otherwise use the dealer's full drive-away price. "Your Oly novated leasing price" / "Oly driveaway price" has the GST saving taken off. |
 | 3 | Your chosen novated lease term | Lease term |
-| 5 | Financier's Establishment fee and First year Comprehensive Insurance | Enter “Financier's Establishment fee” here. If year-one insurance is financed, use Guided's separate insurance question. |
+| 5 | Financier's Establishment fee and First year Comprehensive Insurance | Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question. |
 | 7 | Car lease payments | Finance payment, per month (the page says "Monthly"). No GST label: choose "I'm not sure" unless your quote says. |
 | 9 | Monthly running-cost budget lines | Running-cost boxes, per month. Incidentals and roadside → Servicing. |
 <!-- provider-table:end -->
@@ -40,7 +40,7 @@ This numbered example shows an Oly quote layout reviewed in August 2026. Match e
 
 ![End of a redacted Oly estimate with the residual line marked 6](/assets/images/quote-guide/oly/residual-example.webp)
 
-*The last section of the same estimate, with figures removed. *
+*The last section of the same estimate, with figures removed.*
 
 | # | On the quote | In Guided |
 |---|---|---|

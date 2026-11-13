@@ -10,7 +10,7 @@ datePublished: "2026-11-12"
 *Checked against 1 quote example; latest layout reviewed Sep 2026.*
 <!-- quote-review:end -->
 
-This numbered example shows a Vehicle Solutions quote layout reviewed in September 2026. Match each marker to the table, then check the period and GST label on your own quote.
+This numbered example shows a Vehicle Solutions quote layout we reviewed. Match each marker to the table, then check the period and GST label on your own quote.
 
 <!-- provider-traps:begin -->
 ## What catches people out on a Vehicle Solutions quote

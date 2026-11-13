@@ -10,7 +10,7 @@ datePublished: "2026-11-12"
 *Checked against 3 quote examples; latest layout reviewed Nov 2026.*
 <!-- quote-review:end -->
 
-This numbered example shows an Alliance Leasing quote layout reviewed in November 2026. Match each marker to the table, then check the period and GST label on your own quote.
+This numbered example shows an Alliance Leasing quote layout we reviewed. Match each marker to the table, then check the period and GST label on your own quote.
 
 <!-- provider-traps:begin -->
 ## What catches people out on an Alliance Leasing quote
@@ -42,7 +42,7 @@ This numbered example shows an Alliance Leasing quote layout reviewed in Novembe
 
 ![Redacted page 2 of an Alliance Leasing quote with numbered fields](/assets/images/quote-guide/alliance/page2-example.webp)
 
-*Page 2 of the same quote, with figures and customer details removed. *
+*Page 2 of the same quote, with figures and customer details removed.*
 
 | # | On page 2 | In Guided |
 |---|---|---|

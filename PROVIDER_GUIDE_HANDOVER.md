@@ -344,3 +344,13 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 
 - The plan was to repaint the crop so "Recommended retail price" wasn't marked as the answer. On checking, the crop is right for this quote: the article (row 2) already says the retail price reconciled to the on-road price including GST. The mismatch was in the words, so the pointer now says: "Don't use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges." The tooltip says it matched on the quote checked and to ask the dealer if not. No image changed.
 - The warning from R4 and the article's trap list follow (site build synced). 359 tests, calculator and site builds pass.
+
+## R10 — article defects (2026-11-13)
+
+- **Review months:** 20 article intros said "layout reviewed in {Month Year}", which could disagree with the generated "latest layout reviewed" line (Oly said August under a November line). They now say "layout(s) we reviewed"; the generated line is the only date. LeasePlan's "reviewed in August 2025" became "older than the others". A test blocks review months outside the generated line.
+- **Italics:** fixed the stray space before the closing `*` in the Alliance and Oly captions.
+- **"here/above/below":** rewrote 11 pointer lines that only made sense next to a calculator box (they are reused in the articles): "enter … here" → "as the documentation fee"; "the residual helper below" → "work it out from the residual"; Simplygreen "above" → "the line before". A test blocks those words in pointer main text.
+- **FleetPartners doc fee:** now "If “Lease Establishment Fee” is monthly, add it to management fees instead. Add the one-off PPSR fee and any financed brokerage." (the crop boxes both).
+- **NLA drive-away:** now includes "any luxury car tax shown".
+- Maxxia/Oly doc fee also reworded (overlaps R6): "Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question."
+- 361 tests, ESLint, calculator and site builds pass. Look at: Oly, Alliance, FleetPartners, LeasePlan, NLA articles.
