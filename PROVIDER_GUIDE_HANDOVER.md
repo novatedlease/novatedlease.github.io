@@ -494,3 +494,9 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 ## R11 follow-up: old "Not shown on this sample" lines trimmed (2026-11-13)
 
 - In the 14 articles that had both, the hand-written "Not shown on this sample" line no longer repeats fields covered by the generated "If a figure isn't on your quote" section. It keeps only the rest (usually the luxury adjustment and interest rate) and its provider-specific notes (Autopia base price, ORIX drive-away parts, Custom Fleet lease term and inclusions). No line became empty. Site build passes.
+
+## R6 follow-up: Paywise payment names the printed GST label (2026-11-14)
+
+- Paywise payment pointer: "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, not the package total. If you see “(ex. GST)”, choose Excluding GST." Tooltip: "Enter it per fortnight. The package total adds running costs and fees." Exactly 140 characters, the pointer limit. Article row 7 synced.
+- Also fixed the Autopia article test that the R11 trim broke by re-wrapping a sentence ("fringe benefit value" back on one line).
+- 372 tests, calculator and site builds pass. ESLint's only error is the existing `import/no-relative-packages` rule lookup in `tests/golden-master.test.ts`, unchanged.

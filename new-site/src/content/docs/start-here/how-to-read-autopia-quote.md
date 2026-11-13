@@ -39,8 +39,8 @@ This numbered example shows an Autopia quote layout we reviewed. Match each mark
 
 Not shown on this sample: **1 FBT base value**. Autopia doesn't print it, and its "base price" is the vehicle
 price **excluding GST**: don't use it as the FBT base value. Add GST to the base price, options and
-delivery instead (Guided's FBT tooltip explains). Also not shown: **11 interest rate**. "fringe benefit
-value" in the FBT calcs is the taxable value, not the base value.
+delivery instead (Guided's FBT tooltip explains). Also not shown: **11 interest rate**.
+"fringe benefit value" in the FBT calcs is the taxable value, not the base value.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

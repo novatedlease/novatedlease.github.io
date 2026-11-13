@@ -703,7 +703,7 @@ describe("provider pointers", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-paywise-quote.md"), "utf8");
     expect(article).toContain(pointersFor("paywise", "payment")[0].text);
     expect(article).toContain(pointersFor("paywise", "fees")[0].text);
-    expect(article).toContain("Don't use the package total");
+    expect(article).toContain("not the package total");
     expect(article).toContain("using the quote's period");
   });
 

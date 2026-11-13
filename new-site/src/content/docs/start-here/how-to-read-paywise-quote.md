@@ -29,7 +29,7 @@ Nothing on the Paywise quotes we checked looked easy to misread. The table below
 | — | Drive-away price | It may not be printed as one total | Use Guided's price helper or your dealer's full drive-away price. |
 | — | Months deferred | It may not be stated | Choose *I'm not sure* unless your own quote or provider confirms it. |
 | 6 | Residual | **Residual value (inc. GST)** | Choose *Including GST*. |
-| 7 | Finance payment | **Lease Payment** under **Package Inclusions (ex. GST) – Fortnightly** | Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, per fortnight, Excluding GST. Don't use the package total. |
+| 7 | Finance payment | **Lease Payment** under **Package Inclusions (ex. GST) – Fortnightly** | Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, not the package total. If you see “(ex. GST)”, choose Excluding GST. |
 | 10 | Lease management fees | **Lease Management** and **Salary Packaging** | If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees using the quote's period. |
 <!-- provider-table:end -->
 

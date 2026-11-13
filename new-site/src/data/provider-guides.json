@@ -176,7 +176,7 @@
       "written": {
         "driveaway": "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual.",
         "baseValue": "If you see “FBT value”, that's the FBT base value.",
-        "payment": "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, per fortnight, Excluding GST. Don't use the package total.",
+        "payment": "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, not the package total. If you see “(ex. GST)”, choose Excluding GST.",
         "fees": "If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees using the quote's period."
       },
       "traps": [],
@@ -208,8 +208,8 @@
         {
           "field": "payment",
           "kind": "locate",
-          "text": "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, per fortnight, Excluding GST. Don't use the package total.",
-          "more": "The package total adds running costs and fees.",
+          "text": "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, not the package total. If you see “(ex. GST)”, choose Excluding GST.",
+          "more": "Enter it per fortnight. The package total adds running costs and fees.",
           "image": "/assets/images/quote-guide/paywise/field-payment.webp"
         },
         {

@@ -485,7 +485,7 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       { field: "driveaway", text: "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual." },
       { field: "baseValue", text: "If you see “FBT value”, that's the FBT base value." },
-      { field: "payment", text: "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, per fortnight, Excluding GST. Don't use the package total.", more: "The package total adds running costs and fees." },
+      { field: "payment", text: "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, not the package total. If you see “(ex. GST)”, choose Excluding GST.", more: "Enter it per fortnight. The package total adds running costs and fees." },
       { field: "fees", text: "If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees using the quote's period." },
     ],
   },
