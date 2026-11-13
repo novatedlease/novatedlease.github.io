@@ -310,3 +310,9 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 
 - Item 16 indexing: keep all 27 provider pages indexed. Revisit with Search Console data after launch. Item 16 is complete.
 - Item 8: owner deferred ("deal with this later"). Do not implement any option until asked. The options put to the owner were: escape hatch in the Smart Leasing correction callout; a picker note only; or wait for Smart.
+
+## Second big-picture review (2026-11-13)
+
+- `PROVIDER_GUIDE_REVIEW_ROUND2_2026-11.md` scores the branch against the design aims and lists 15 follow-up plans (R1–R15) written for a smaller model. Nothing in it is implemented.
+- Batch A (R1, R2, R3, R4, R9, R10, R11) needs no owner input. R5 and R6 need the owner to read the wording. R7 and R8 need an owner decision first. R12–R15 are pre-merge work.
+- Item 8 stays parked. No push or merge.
