@@ -21,6 +21,7 @@ export const PROVIDERS = [
   { id: "fingo", label: "Fingo (Automotive Lease Packaging)" },
   { id: "flare", label: "Flare" },
   { id: "fleetpartners", label: "FleetPartners" },
+  { id: "kooya", label: "Kooya" },
   { id: "leaseexpress", label: "LeaseExpress" },
   { id: "leaselab", label: "LeaseLab" },
   { id: "leaseplan", label: "LeasePlan / Ayvens" },
@@ -64,6 +65,7 @@ export const DRIVEAWAY_TRAP_LABELS: Partial<Record<ProviderId, { wrong: string; 
   spa: { wrong: "Novated lease purchase price (excluding GST)", right: { label: "Total Drive Away Price" } },
   driva: { wrong: "Effective novated vehicle price", right: { label: "DriveAway Price" } },
   lendly: { wrong: "Total Price (ex. GST)", right: { label: "Price … Drive Away" } },
+  kooya: { wrong: "Price (ex. GST)", right: { label: "Total (drive way)" } },
 };
 
 /** True for the two providers whose per-pay figure needs the budget-reserve correction. */
@@ -103,6 +105,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   spa: ["driveaway", "baseValue"], smartsalary: ["running"],
   driva: ["driveaway"], fingo: ["driveaway"],
   leaseexpress: ["driveaway"], lendly: ["driveaway"],
+  kooya: ["driveaway", "payment"],
 };
 
 function withKind(id: ProviderId, pointer: Pointer): Pointer {
@@ -226,6 +229,40 @@ export const GUIDES: ProviderGuide[] = [
         text: "If you see “Finance” under “Budgeted running costs”, that's the fortnightly payment.",
         more: PAYMENT_GST_NOTE,
       },
+    ],
+  },
+  {
+    id: "kooya",
+    seen: "2026-08",
+    sources: ["1vg13w1", "1unt2tj", "1st7ozz"],
+    pointers: [
+      {
+        field: "driveaway",
+        text: "Use “Total (drive way)”. Don't use “Price (ex. GST)”: it has the GST saving taken off.",
+        more: "On the quotes we checked, “Price (ex. GST)” plus the “GST” line below it added up to “Total (drive way)”.",
+      },
+      {
+        field: "baseValue",
+        text: "Look for “FBT base value” under “Taxation & finance”, near the end of the quote.",
+      },
+      {
+        field: "payment",
+        text: "Use “Lease payment” under “Total running costs”. Don't use the “Finance” tile on page 1: it's a different figure.",
+        more: `“Per paycycle” follows “Employer pay cycle” near the top. It was monthly on one quote we checked and fortnightly on another. On the quotes we checked, the tile was about a tenth higher than “Lease payment”.\n\n${PAYMENT_GST_NOTE}`,
+      },
+      {
+        field: "defer",
+        text: "If you see “based on a 2-month deferred lease structure” under “Employee authorisation”, choose 2 months.",
+        more: "Only one of the quotes we checked included this section. If yours doesn't, choose “Not sure”.",
+      },
+      { field: "residual", text: "If you see “Residual value inc GST”, choose Including GST." },
+      { field: "luxAdj", text: "If you see “Luxury car adjustment” under “Payroll calculation”, that's this line." },
+      {
+        field: "running",
+        text: "Use the “Per paycycle” lines under “Total running costs”, not the tiles on page 1. Choose the period shown in “Employer pay cycle”.",
+        more: "The table lists GST on its own line. If yours does too, choose Excluding GST.",
+      },
+      { field: "fees", text: "If you see “Administration fee” under “Total running costs”, that's the management fee." },
     ],
   },
   {
@@ -612,6 +649,7 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   simplygreen: ["docFee"],
   lendly: ["baseValue", "defer", "docFee"],
   vehiclesolutions: ["docFee"],
+  kooya: ["docFee"],
 };
 
 /** Provider-specific wording where the generic "not shown" line would be wrong or unhelpful. */
@@ -766,6 +804,15 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
       image: "/assets/images/quote-guide/alliance/page2-fees.webp",
       alt: "Redacted page 2 of an Alliance Leasing quote with Entry Fee marked 5",
       caption: "Fees and lease details from page 2 of the same Alliance quote. Figures and customer details were removed; Entry Fee is marked 5.",
+    },
+  },
+  {
+    id: "kooya",
+    field: "defer",
+    example: {
+      image: "/assets/images/quote-guide/kooya/defer-example.webp",
+      alt: "Redacted Kooya Employee authorisation section with the 2-month deferral line marked 4",
+      caption: "The authorisation section of a separate Kooya quote, with the deferral line marked 4.",
     },
   },
 ];

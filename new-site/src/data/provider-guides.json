@@ -604,6 +604,86 @@
       ]
     },
     {
+      "id": "kooya",
+      "label": "Kooya",
+      "seen": "2026-08",
+      "sourceCount": 3,
+      "written": {
+        "driveaway": "Use “Total (drive way)”. Don't use “Price (ex. GST)”: it has the GST saving taken off.",
+        "baseValue": "Look for “FBT base value” under “Taxation & finance”, near the end of the quote.",
+        "payment": "Use “Lease payment” under “Total running costs”. Don't use the “Finance” tile on page 1: it's a different figure.",
+        "defer": "If you see “based on a 2-month deferred lease structure” under “Employee authorisation”, choose 2 months.",
+        "residual": "If you see “Residual value inc GST”, choose Including GST.",
+        "luxAdj": "If you see “Luxury car adjustment” under “Payroll calculation”, that's this line.",
+        "running": "Use the “Per paycycle” lines under “Total running costs”, not the tiles on page 1. Choose the period shown in “Employer pay cycle”.",
+        "fees": "If you see “Administration fee” under “Total running costs”, that's the management fee."
+      },
+      "traps": [
+        "driveaway",
+        "payment"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "locate",
+          "text": "Look for “FBT base value” under “Taxation & finance”, near the end of the quote.",
+          "image": "/assets/images/quote-guide/kooya/field-baseValue.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "Use “Total (drive way)”. Don't use “Price (ex. GST)”: it has the GST saving taken off.",
+          "more": "On the quotes we checked, “Price (ex. GST)” plus the “GST” line below it added up to “Total (drive way)”.",
+          "image": "/assets/images/quote-guide/kooya/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "If you see “based on a 2-month deferred lease structure” under “Employee authorisation”, choose 2 months.",
+          "more": "Only one of the quotes we checked included this section. If yours doesn't, choose “Not sure”.",
+          "image": "/assets/images/quote-guide/kooya/defer-example.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Kooya quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Residual value inc GST”, choose Including GST.",
+          "image": "/assets/images/quote-guide/kooya/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "trap",
+          "text": "Use “Lease payment” under “Total running costs”. Don't use the “Finance” tile on page 1: it's a different figure.",
+          "more": "“Per paycycle” follows “Employer pay cycle” near the top. It was monthly on one quote we checked and fortnightly on another. On the quotes we checked, the tile was about a tenth higher than “Lease payment”.\n\nWhether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.",
+          "image": "/assets/images/quote-guide/kooya/field-payment.webp"
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Luxury car adjustment” under “Payroll calculation”, that's this line.",
+          "image": "/assets/images/quote-guide/kooya/field-luxAdj.webp"
+        },
+        {
+          "field": "running",
+          "kind": "locate",
+          "text": "Use the “Per paycycle” lines under “Total running costs”, not the tiles on page 1. Choose the period shown in “Employer pay cycle”.",
+          "more": "The table lists GST on its own line. If yours does too, choose Excluding GST.",
+          "image": "/assets/images/quote-guide/kooya/field-running.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "locate",
+          "text": "If you see “Administration fee” under “Total running costs”, that's the management fee.",
+          "image": "/assets/images/quote-guide/kooya/field-fees.webp"
+        }
+      ]
+    },
+    {
       "id": "leaseexpress",
       "label": "LeaseExpress",
       "seen": "2026-11",

@@ -410,3 +410,33 @@ Before → after (main text; tooltips in brackets):
 - New `PROVIDER_GUIDE_MERGE_CHECKLIST.md`: what changes for visitors, the safety checks run on the branch diff (no private files, PDFs, markers or PNGs; 204 redacted WebP), what is still to do before merging, how to roll back, the analytics reading plan (R14), and the freshness routine with the owner's open questions (R15).
 - **Not done from R13:** the scripted 27-provider × 4-step contact sheet in light and dark. Playwright is not installed in `calculator2` and installing it was out of scope; the checklist lists a manual walk-through of six providers instead. Light theme has still never been reviewed.
 - **Owner action before deploy:** register `provider`, `field` and `code` as GA4 event-scoped custom dimensions, or the new events can't be reported by provider.
+
+## Kooya added as the 28th provider (2026-11-13)
+
+Owner request: Kooya had no guide. Three Kooya quotes on one green template (Reddit 1st7ozz Apr 2026,
+1unt2tj Jul 2026, 1vg13w1 Aug 2026; images in the private archive under `images-kooya/` and
+`images-aug-nov-2026/`). Older 2025 posts that mention Kooya were not used.
+
+- **Picker and Guided:** "Kooya" in the A–Z list. Pointers for drive-away, FBT base value, payment,
+  deferral, residual, luxury adjustment, running costs and management fee; documentation fee is a
+  "Can't find it?" line.
+- **Two traps (amber):**
+  - drive-away: “Price (ex. GST)” is “Total (drive way)” minus the “GST” line on all three quotes. Added to
+    `DRIVEAWAY_TRAP_LABELS`, so the GST-reduced-price error fires when it's entered.
+  - payment: the page 1 “Finance” tile was “Lease payment” × 1.1 on all three quotes
+    (1,105.17 → 1,216; 653.48 → 719; 1,651.21 → 1,816). The pointer says only that it's a different
+    figure; the "about a tenth higher" detail is in the tooltip. No GST basis is stated for the payment.
+- **Per pay cycle:** Kooya's table is “Per paycycle”, following “Employer pay cycle” (monthly on two
+  quotes, fortnightly on one). Said in the payment tooltip and running-cost pointer.
+- **Deferral:** only the April quote has the “Employee authorisation” page (“based on a 2-month
+  deferred lease structure”). It is a `FIELD_EXAMPLES` crop, `kooya/defer-example.webp`.
+- **Not done:** the financed first-year insurance question stays Maxxia/Oly only. All three Kooya
+  quotes say “Comprehensive first year funded: No”; the article tells readers with “Yes” to ask Kooya.
+- **Images:** `kooya/redacted-quote.webp` (Aug 2026, both pages stacked; red ✕ on “Price (ex. GST)”
+  and the Finance tile), seven field crops and the deferral crop. Template config in the private
+  `templates/kooya/`; markers merged into private `crops/markers.json` (backup
+  `markers.before-kooya.json`). The drive-away crop is two stacked strips so it's readable on phones.
+  Every image OCR-checked for amounts, emails and phone numbers (clean) and viewed.
+- **Counts:** sync scripts now expect 28 providers. New article `how-to-read-kooya-quote.md`.
+- Checks: tsc, 368 tests, eslint, calculator build, site build; Guided Price step and article checked
+  in the browser.

@@ -46,5 +46,5 @@ for (const { id, label, written, traps: fields } of guides.providers) {
   if (next !== oldText) writeFileSync(article, next);
   count++;
 }
-if (count !== 27) throw new Error(`Expected 27 provider guides, found ${count}`);
+if (count !== 28) throw new Error(`Expected 28 provider guides, found ${count}`);
 console.log(`Synced trap introductions for ${count} provider articles`);

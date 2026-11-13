@@ -27,6 +27,7 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 - [Fingo (Automotive Lease Packaging) quote guide](/start-here/how-to-read-fingo-quote/)
 - [Flare quote guide](/start-here/how-to-read-flare-quote/)
 - [FleetPartners quote guide](/start-here/how-to-read-fleetpartners-quote/)
+- [Kooya quote guide](/start-here/how-to-read-kooya-quote/)
 - [LeaseExpress quote guide](/start-here/how-to-read-leaseexpress-quote/)
 - [LeaseLab quote guide](/start-here/how-to-read-leaselab-quote/)
 - [LeasePlan / Ayvens quote guide](/start-here/how-to-read-leaseplan-quote/)

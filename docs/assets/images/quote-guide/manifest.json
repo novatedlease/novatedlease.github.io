@@ -268,6 +268,42 @@
       "w": 1240,
       "h": 3510
     },
+    "kooya/defer-example.webp": {
+      "w": 1400,
+      "h": 226
+    },
+    "kooya/field-baseValue.webp": {
+      "w": 900,
+      "h": 134
+    },
+    "kooya/field-driveaway.webp": {
+      "w": 900,
+      "h": 237
+    },
+    "kooya/field-fees.webp": {
+      "w": 900,
+      "h": 141
+    },
+    "kooya/field-luxAdj.webp": {
+      "w": 900,
+      "h": 137
+    },
+    "kooya/field-payment.webp": {
+      "w": 900,
+      "h": 137
+    },
+    "kooya/field-residual.webp": {
+      "w": 900,
+      "h": 134
+    },
+    "kooya/field-running.webp": {
+      "w": 900,
+      "h": 636
+    },
+    "kooya/redacted-quote.webp": {
+      "w": 1400,
+      "h": 3115
+    },
     "leaseexpress/field-baseValue.webp": {
       "w": 1108,
       "h": 180
@@ -858,6 +894,11 @@
       "w": 1240,
       "h": 3510
     },
+    "kooya": {
+      "image": "kooya/redacted-quote.webp",
+      "w": 1400,
+      "h": 3115
+    },
     "leaseexpress": {
       "image": "leaseexpress/redacted-quote.webp",
       "w": 1400,
@@ -1427,6 +1468,64 @@
           "label": "10",
           "y": 3016,
           "h": 37
+        }
+      ]
+    },
+    "kooya": {
+      "residual": [
+        {
+          "label": "6",
+          "y": 449,
+          "h": 21
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 504,
+          "h": 23
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 685,
+          "h": 28
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 2073,
+          "h": 24
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 2106,
+          "h": 227
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 2333,
+          "h": 21
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 2981,
+          "h": 21
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 2983,
+          "h": 24
         }
       ]
     },

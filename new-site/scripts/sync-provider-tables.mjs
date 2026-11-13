@@ -35,6 +35,7 @@ const migrated = {
   autopia: { '2': 'driveaway', '5': 'docFee' },
   smartsalary: { '7': 'payment', '9': 'running' },
   smartleasing: { '4': 'defer', '5': 'docFee' },
+  kooya: { '1': 'baseValue', '2': 'driveaway', '4': 'defer', '6': 'residual', '7': 'payment', '8': 'luxAdj', '9': 'running', '10': 'fees' },
 };
 
 for (const [id, rows] of Object.entries(migrated)) {
