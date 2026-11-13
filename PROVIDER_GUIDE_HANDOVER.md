@@ -519,7 +519,7 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 
 ## Oly residual: direct answer (owner, 2026-11-14)
 
-- Second Oly quote found (1sacdgu, Apr 2026): 28.125% × ($82,524 − $6,334) × 1.1 = $23,571 vs printed $23,574.54. The original (1vfxcqr) prints "Residual Value (ex. GST) $9,775.79" and "Your total residual value" $10,752.80.
+- Second Oly quote found (1sacdgu, Apr 2026): 28.125% × ($82,524 − $6,334) × 1.1 = $23,571 vs printed $23,574.54. The original (1vfxcqr, RRP $38,000, GST savings $3,249.67): 28.125% × ($38,000 − $3,249.67) × 1.1 = $10,751 vs printed $10,752.80. Correction 2026-11-14: the "Residual Value (ex. GST) $9,775.79" page in that post is a Driva quote for the same car, not Oly; the conclusion rests on Oly's own figures above.
 - Pointer: "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST." Tooltip names both quotes. Article row 6 matched by hand. 371 tests and both builds pass.
 
 ## Remunerator: yearly on all 7 quotes (owner, 2026-11-14)
