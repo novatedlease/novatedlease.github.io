@@ -3,8 +3,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
-const source = readFileSync(path.join(root, 'calculator2/src/guided/providerGuide.ts'), 'utf8');
-const guides = source.slice(source.indexOf('const GUIDES:'), source.indexOf('export function guideFor'));
+const guides = JSON.parse(readFileSync(path.join(root, 'new-site/src/data/provider-guides.json'), 'utf8'));
 
 // Migrate one article at a time. Each entry maps the quote's numbered row to
 // its Guided field. Quote labels and explanatory prose remain in the article.
@@ -39,11 +38,9 @@ const migrated = {
 };
 
 for (const [id, rows] of Object.entries(migrated)) {
-  const providerBlock = [...guides.matchAll(/^  \{\n    id: "(\w+)",([\s\S]*?)(?=^  \{\n    id: |^\];)/gm)]
-    .find((match) => match[1] === id)?.[2];
-  if (!providerBlock) throw new Error(`Guide missing for ${id}`);
-  const pointers = new Map([...providerBlock.matchAll(/field: "(\w+)",\s*text: ("(?:\\.|[^"\\])*")/g)]
-    .map(([, field, value]) => [field, JSON.parse(value)]));
+  const written = guides.providers.find((g) => g.id === id)?.written;
+  if (!written) throw new Error(`Guide missing for ${id}`);
+  const pointers = new Map(Object.entries(written));
   const article = path.join(root, `new-site/src/content/docs/start-here/how-to-read-${id}-quote.md`);
   const oldText = readFileSync(article, 'utf8');
   const table = /<!-- provider-table:begin -->\n([\s\S]*?)\n<!-- provider-table:end -->/;

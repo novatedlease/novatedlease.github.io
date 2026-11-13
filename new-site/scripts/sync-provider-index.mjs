@@ -3,13 +3,9 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
-const source = readFileSync(path.join(root, 'calculator2/src/guided/providerGuide.ts'), 'utf8');
-const providerBlock = source.slice(source.indexOf('export const PROVIDERS = ['), source.indexOf('] as const;'));
-const providers = [...providerBlock.matchAll(/\{ id: "(\w+)", label: "([^"]+)" \}/g)]
-  .map(([, id, label]) => ({ id, label }))
-  .filter(({ id }) => id !== 'other');
-const popularBlock = source.match(/export const POPULAR: ProviderId\[\] = \[([^\]]+)\]/)?.[1];
-const popular = [...(popularBlock ?? '').matchAll(/"(\w+)"/g)].map(([, id]) => id);
+const guides = JSON.parse(readFileSync(path.join(root, 'new-site/src/data/provider-guides.json'), 'utf8'));
+const providers = guides.providers.map(({ id, label }) => ({ id, label }));
+const popular = guides.popular;
 if (providers.length !== 27 || popular.length !== 5) throw new Error('Provider index source changed; review the generator');
 const byId = new Map(providers.map((p) => [p.id, p]));
 for (const id of popular) if (!byId.has(id)) throw new Error(`Unknown popular provider: ${id}`);

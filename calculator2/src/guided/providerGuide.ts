@@ -92,7 +92,7 @@ export type Pointer = {
 };
 
 /** Specific entries where a plausible quote figure would mislead the calculator. */
-const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
+export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   sgfleet: ["payment", "baseValue"],
   millarx: ["payment"], smartleasing: ["payment", "docFee"],
   flare: ["driveaway"], oly: ["driveaway", "insurance", "docFee"],
@@ -122,7 +122,7 @@ export type ProviderGuide = {
   pointers: Pointer[];
 };
 
-const GUIDES: ProviderGuide[] = [
+export const GUIDES: ProviderGuide[] = [
   {
     id: "sgfleet",
     seen: "2026-11",

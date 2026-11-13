@@ -3,24 +3,12 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 // Item 16: each provider article opens with "What catches people out on a {Provider} quote",
-// built from the same trap pointers Guided shows in amber (TRAP_FIELDS in providerGuide.ts).
+// built from the same trap pointers Guided shows in amber (TRAP_FIELDS in providerGuide.ts, via src/data/provider-guides.json).
 // Idempotent: rewrites only the block between the provider-traps markers.
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
-const source = readFileSync(path.join(root, 'calculator2/src/guided/providerGuide.ts'), 'utf8');
+const guides = JSON.parse(readFileSync(path.join(root, 'new-site/src/data/provider-guides.json'), 'utf8'));
 const docs = path.join(root, 'new-site/src/content/docs/start-here');
-
-const labels = new Map([...source.matchAll(/\{ id: "(\w+)", label: "([^"]+)" \}/g)].map(([, id, label]) => [id, label]));
-
-const trapBlock = source.slice(source.indexOf('const TRAP_FIELDS'), source.indexOf('function withKind'));
-const traps = new Map();
-for (const [, id, fields] of trapBlock.matchAll(/(\w+): \[([^\]]*)\]/g)) {
-  traps.set(id, [...fields.matchAll(/"(\w+)"/g)].map(([, f]) => f));
-}
-
-const guides = source.slice(source.indexOf('const GUIDES:'), source.indexOf('export function guideFor'));
-const blocks = new Map([...guides.matchAll(/^  \{\n    id: "(\w+)",([\s\S]*?)(?=^  \{\n    id: |^\];)/gm)]
-  .map(([, id, body]) => [id, body]));
 
 const FIELD_NAMES = {
   baseValue: 'FBT base value', driveaway: 'Drive-away price', defer: 'Deferred payments',
@@ -35,12 +23,8 @@ const block = /<!-- provider-traps:begin -->\n[\s\S]*?<!-- provider-traps:end --
 const review = /<!-- quote-review:end -->\n\n/;
 
 let count = 0;
-for (const [id, body] of blocks) {
-  const label = labels.get(id);
-  if (!label) throw new Error(`Provider label missing for ${id}`);
-  const pointers = new Map([...body.matchAll(/field: "(\w+)",\s*text: ("(?:\\.|[^"\\])*")/g)]
-    .map(([, field, value]) => [field, JSON.parse(value)]));
-  const fields = traps.get(id) ?? [];
+for (const { id, label, written, traps: fields } of guides.providers) {
+  const pointers = new Map(Object.entries(written));
   const lines = fields.map((field) => {
     const text = pointers.get(field);
     if (!text) throw new Error(`Trap pointer missing for ${id}/${field}`);

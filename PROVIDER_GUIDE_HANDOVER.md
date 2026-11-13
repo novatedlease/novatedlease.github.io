@@ -354,3 +354,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - **NLA drive-away:** now includes "any luxury car tax shown".
 - Maxxia/Oly doc fee also reworded (overlaps R6): "Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question."
 - 361 tests, ESLint, calculator and site builds pass. Look at: Oly, Alliance, FleetPartners, LeasePlan, NLA articles.
+
+## R12 — site scripts read a generated JSON file (2026-11-13)
+
+- `calculator2/tests/provider-export.test.ts` imports the real `providerGuide.ts` and compares it with the committed `new-site/src/data/provider-guides.json` (labels, popular list, review month, source count, written pointer text, trap fields in order, and every resolved pointer including "can't find it" lines and their pictures). It fails when the JSON is stale. Regenerate with `EXPORT_PROVIDER_GUIDES=1 npx vitest run tests/provider-export.test.ts` in `calculator2`. Reddit source ids are not exported.
+- `sync-provider-review-month`, `-index`, `-tables` and `-traps` now read the JSON; none parses TypeScript any more. `GUIDES` and `TRAP_FIELDS` are exported for the test. The site build changed no article (byte-identical output).
+- **New step after editing `providerGuide.ts`:** regenerate the JSON before the site build, or the calculator test will fail and the articles won't pick up the change.
+- 362 tests, TypeScript, ESLint and site build pass.

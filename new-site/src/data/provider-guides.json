@@ -1,0 +1,1345 @@
+{
+  "note": "Generated from calculator2/src/guided/providerGuide.ts by tests/provider-export.test.ts. Do not edit.",
+  "popular": [
+    "smartleasing",
+    "sgfleet",
+    "maxxia",
+    "paywise",
+    "smartsalary"
+  ],
+  "providers": [
+    {
+      "id": "smartleasing",
+      "label": "Smart Leasing",
+      "seen": "2026-11",
+      "sourceCount": 4,
+      "written": {
+        "driveaway": "Can't find a drive-away total? Use the dealer's full on-road price including GST, or work it out from the residual.",
+        "payment": "Use “Lease payment” or “Lease per month”, then run the correction tool. Both need it.",
+        "defer": "If you see “Months deferred”, use that number.",
+        "docFee": "Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.",
+        "residual": "If you see “Residual ex GST” and “Residual inc GST”, use either and choose the matching answer."
+      },
+      "traps": [
+        "payment",
+        "docFee"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Can't find a drive-away total? Use the dealer's full on-road price including GST, or work it out from the residual.",
+          "more": "Do not substitute FBT base value, a GST saving or a lease payment.",
+          "image": "/assets/images/quote-guide/smartleasing/redacted-quote.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "If you see “Months deferred”, use that number.",
+          "image": "/assets/images/quote-guide/smartleasing/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "trap",
+          "text": "Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.",
+          "more": "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.",
+          "image": "/assets/images/quote-guide/smartleasing/terms-example.webp"
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Residual ex GST” and “Residual inc GST”, use either and choose the matching answer.",
+          "image": "/assets/images/quote-guide/smartleasing/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "trap",
+          "text": "Use “Lease payment” or “Lease per month”, then run the correction tool. Both need it.",
+          "more": "Smart Leasing collects the fortnightly figure as though there were 60 monthly payments while 58 go to the financier.",
+          "image": "/assets/images/quote-guide/smartleasing/field-payment.webp"
+        }
+      ]
+    },
+    {
+      "id": "sgfleet",
+      "label": "SG Fleet",
+      "seen": "2026-11",
+      "sourceCount": 3,
+      "written": {
+        "payment": "Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.",
+        "defer": "If you see “payable as 34 payments” on a 36-month lease, that's a 2-month deferral (36 − 34).",
+        "baseValue": "Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”.",
+        "driveaway": "Use “Vehicle on-road cost (incl. GST)” under “Lease details”.",
+        "luxAdj": "If you see “Luxury levy” or “Luxury vehicle adjustment”, that's this line.",
+        "running": "If your pay is weekly, the package lines are per week. Choose “Per week”."
+      },
+      "traps": [
+        "payment",
+        "baseValue"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "trap",
+          "text": "Look for “FBT Base Value” in the FBT section, often on a later page. Don't use “Vehicle on-road cost”.",
+          "more": "If your quote does not show the FBT line, ask SG Fleet for its FBT base value.",
+          "image": "/assets/images/quote-guide/sgfleet/fbt-example.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Use “Vehicle on-road cost (incl. GST)” under “Lease details”.",
+          "more": "Use the full on-road price. “FBT Base Value” and “Total amount financed” are different figures.",
+          "image": "/assets/images/quote-guide/sgfleet/driveaway-example.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "If you see “payable as 34 payments” on a 36-month lease, that's a 2-month deferral (36 − 34).",
+          "image": "/assets/images/quote-guide/sgfleet/field-defer.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "trap",
+          "text": "Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.",
+          "more": "The per-pay “Lease rental” spreads the same total over the whole lease, which is how the calculator reads every payment.\n\nWhether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.",
+          "image": "/assets/images/quote-guide/sgfleet/field-payment.webp"
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Luxury levy” or “Luxury vehicle adjustment”, that's this line.",
+          "image": null
+        },
+        {
+          "field": "running",
+          "kind": "locate",
+          "text": "If your pay is weekly, the package lines are per week. Choose “Per week”.",
+          "image": "/assets/images/quote-guide/sgfleet/field-running.webp"
+        }
+      ]
+    },
+    {
+      "id": "maxxia",
+      "label": "Maxxia",
+      "seen": "2026-11",
+      "sourceCount": 2,
+      "written": {
+        "driveaway": "If you see “Car price (based on on roads…)”, that's the drive-away price.",
+        "residual": "If you see “Total residual value” with no GST label, it's usually including GST.",
+        "insurance": "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
+        "docFee": "Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question."
+      },
+      "traps": [
+        "insurance",
+        "docFee"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "If you see “Car price (based on on roads…)”, that's the drive-away price.",
+          "image": "/assets/images/quote-guide/maxxia/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Maxxia quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "trap",
+          "text": "Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question.",
+          "more": "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
+          "image": "/assets/images/quote-guide/maxxia/field-docFee.webp"
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Total residual value” with no GST label, it's usually including GST.",
+          "more": "Check the GST wording on your own quote before choosing the matching answer.",
+          "image": "/assets/images/quote-guide/maxxia/field-residual.webp"
+        },
+        {
+          "field": "insurance",
+          "kind": "trap",
+          "text": "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
+          "more": "Use the yearly amount you would pay to insure the car, not just Maxxia's renewal budget.",
+          "image": "/assets/images/quote-guide/maxxia/field-running.webp"
+        }
+      ]
+    },
+    {
+      "id": "paywise",
+      "label": "Paywise",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual.",
+        "baseValue": "If you see “FBT value”, that's the FBT base value.",
+        "payment": "Under “Package Inclusions (ex. GST) – Fortnightly”, enter “Lease Payment” per fortnight, ex GST—not the package total.",
+        "fees": "If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees using the quote's period."
+      },
+      "traps": [],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "locate",
+          "text": "If you see “FBT value”, that's the FBT base value.",
+          "image": "/assets/images/quote-guide/paywise/field-baseValue.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual.",
+          "image": null
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Paywise quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Paywise quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "Under “Package Inclusions (ex. GST) – Fortnightly”, enter “Lease Payment” per fortnight, ex GST—not the package total.",
+          "image": "/assets/images/quote-guide/paywise/field-payment.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "locate",
+          "text": "If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees using the quote's period.",
+          "image": "/assets/images/quote-guide/paywise/field-fees.webp"
+        }
+      ]
+    },
+    {
+      "id": "smartsalary",
+      "label": "Smartsalary (Smart Drive)",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual.",
+        "payment": "If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period.",
+        "running": "“Motor Vehicle Deductions (inc GST)” plus a “Less” GST credit? Enter costs incl GST; say employer claims GST."
+      },
+      "traps": [
+        "running"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual.",
+          "image": null
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Smartsalary (Smart Drive) quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Smartsalary (Smart Drive) quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period.",
+          "image": "/assets/images/quote-guide/smartsalary/field-payment.webp"
+        },
+        {
+          "field": "running",
+          "kind": "trap",
+          "text": "“Motor Vehicle Deductions (inc GST)” plus a “Less” GST credit? Enter costs incl GST; say employer claims GST.",
+          "image": "/assets/images/quote-guide/smartsalary/field-running.webp"
+        }
+      ]
+    },
+    {
+      "id": "alliance",
+      "label": "Alliance Leasing",
+      "seen": "2026-11",
+      "sourceCount": 3,
+      "written": {
+        "driveaway": "Use “Total Drive Away Price (Inc GST)” in Purchase Details. Don’t use “Total Amount Financed”.",
+        "payment": "If “Total Lease Payment (Finance Payment)” matches “Finance” in the running costs, use either figure.",
+        "defer": "If you see “based on two month deferred lease structure”, choose 2 months.",
+        "docFee": "If you see “Entry Fee” under “Novated Lease Fees” on page 2, that's this fee."
+      },
+      "traps": [
+        "driveaway"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "Use “Total Drive Away Price (Inc GST)” in Purchase Details. Don’t use “Total Amount Financed”.",
+          "image": "/assets/images/quote-guide/alliance/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "If you see “based on two month deferred lease structure”, choose 2 months.",
+          "image": "/assets/images/quote-guide/alliance/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "locate",
+          "text": "If you see “Entry Fee” under “Novated Lease Fees” on page 2, that's this fee.",
+          "more": "The same page lists the administration and management fees (enter those under lease management fees) and a vehicle price breakdown ending in the drive-away price.",
+          "image": "/assets/images/quote-guide/alliance/page2-fees.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If “Total Lease Payment (Finance Payment)” matches “Finance” in the running costs, use either figure.",
+          "more": "These lines can have different GST labels. Whether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.",
+          "image": "/assets/images/quote-guide/alliance/field-payment.webp"
+        }
+      ]
+    },
+    {
+      "id": "autopia",
+      "label": "Autopia",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Use “total onroad cost” in vehicle details for the drive-away price. Confirm your quote includes GST in that figure.",
+        "baseValue": "Can’t find the FBT base value? Don’t use “base price”: it excludes GST. Ask for the value or derive it from the price breakdown.",
+        "docFee": "If you see “autopia setup fee”, enter it as the documentation fee."
+      },
+      "traps": [
+        "baseValue"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "trap",
+          "text": "Can’t find the FBT base value? Don’t use “base price”: it excludes GST. Ask for the value or derive it from the price breakdown.",
+          "more": "Include the car, options and delivery with GST, before stamp duty and registration.",
+          "image": null
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Use “total onroad cost” in vehicle details for the drive-away price. Confirm your quote includes GST in that figure.",
+          "image": "/assets/images/quote-guide/autopia/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Autopia quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "locate",
+          "text": "If you see “autopia setup fee”, enter it as the documentation fee.",
+          "image": "/assets/images/quote-guide/autopia/field-docFee.webp"
+        }
+      ]
+    },
+    {
+      "id": "customfleet",
+      "label": "Custom Fleet",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Use “Total on road cost (incl. GST)” near the top of “My Lease Package”.",
+        "luxAdj": "If you see “Non-Deductible Depreciation”, that's the luxury vehicle adjustment.",
+        "fees": "If you see both “Lease Management Fee” and “Salary Packaging Fee”, include both in lease management fees."
+      },
+      "traps": [],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Use “Total on road cost (incl. GST)” near the top of “My Lease Package”.",
+          "image": "/assets/images/quote-guide/customfleet/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Custom Fleet quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Custom Fleet quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Non-Deductible Depreciation”, that's the luxury vehicle adjustment.",
+          "image": "/assets/images/quote-guide/customfleet/field-luxAdj.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "locate",
+          "text": "If you see both “Lease Management Fee” and “Salary Packaging Fee”, include both in lease management fees.",
+          "image": "/assets/images/quote-guide/customfleet/field-fees.webp"
+        }
+      ]
+    },
+    {
+      "id": "driva",
+      "label": "Driva",
+      "seen": "2026-08",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "If you see both “DriveAway Price” and a lower “Effective novated vehicle price”, use “DriveAway Price” including GST.",
+        "residual": "If you see “Residual Value (ex. GST)”, choose Excluding GST.",
+        "payment": "If you see “Lease Payment” under “Budget per payroll ex. GST”, enter it excluding GST and choose the payroll period shown."
+      },
+      "traps": [
+        "driveaway"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "If you see both “DriveAway Price” and a lower “Effective novated vehicle price”, use “DriveAway Price” including GST.",
+          "image": "/assets/images/quote-guide/driva/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Driva quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Driva quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Residual Value (ex. GST)”, choose Excluding GST.",
+          "image": "/assets/images/quote-guide/driva/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If you see “Lease Payment” under “Budget per payroll ex. GST”, enter it excluding GST and choose the payroll period shown.",
+          "image": "/assets/images/quote-guide/driva/field-payment.webp"
+        }
+      ]
+    },
+    {
+      "id": "easi",
+      "label": "Easi (EasiFleet)",
+      "seen": "2026-11",
+      "sourceCount": 3,
+      "written": {
+        "driveaway": "Use “Drive Away Price”, including GST.",
+        "payment": "Use the fortnightly lease figure. Don’t use “Lease Per Month” if it covers fewer payments than the lease term.",
+        "defer": "If you see “Months Deferred” or “Number of Installments”, use it: 58 instalments on 60 months means 2."
+      },
+      "traps": [
+        "payment"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Use “Drive Away Price”, including GST.",
+          "image": "/assets/images/quote-guide/easi/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "If you see “Months Deferred” or “Number of Installments”, use it: 58 instalments on 60 months means 2.",
+          "image": "/assets/images/quote-guide/easi/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Easi (EasiFleet) quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "payment",
+          "kind": "trap",
+          "text": "Use the fortnightly lease figure. Don’t use “Lease Per Month” if it covers fewer payments than the lease term.",
+          "more": "On some Easi layouts the fortnightly figure is the monthly × 12 ÷ 26. If yours is, the rate may still look slightly high; ask Easi how many times it is deducted.",
+          "image": "/assets/images/quote-guide/easi/field-payment.webp"
+        }
+      ]
+    },
+    {
+      "id": "fingo",
+      "label": "Fingo (Automotive Lease Packaging)",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "If you see “Your car price (drive away price when financed)”, it has the GST saving taken off. Use the full “Drive away Price” instead.",
+        "defer": "If the footnote says the first two payments can be deferred, check whether your quote uses that option before choosing 2 months.",
+        "payment": "Use “Finance Repayment (Fixed)” with the period shown in its column. Check the subtotal for GST."
+      },
+      "traps": [
+        "driveaway"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "If you see “Your car price (drive away price when financed)”, it has the GST saving taken off. Use the full “Drive away Price” instead.",
+          "image": "/assets/images/quote-guide/fingo/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "If the footnote says the first two payments can be deferred, check whether your quote uses that option before choosing 2 months.",
+          "image": "/assets/images/quote-guide/fingo/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Fingo (Automotive Lease Packaging) quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "Use “Finance Repayment (Fixed)” with the period shown in its column. Check the subtotal for GST.",
+          "image": "/assets/images/quote-guide/fingo/field-payment.webp"
+        }
+      ]
+    },
+    {
+      "id": "flare",
+      "label": "Flare",
+      "seen": "2026-11",
+      "sourceCount": 2,
+      "written": {
+        "driveaway": "If you see “Vehicle cost — Flare Cars driveaway cost”, don't use it: it has the GST saving taken off. Use “Total on-road price”.",
+        "payment": "If you see “Finance” under “Budgeted running costs”, that's the fortnightly payment."
+      },
+      "traps": [
+        "driveaway"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "If you see “Vehicle cost — Flare Cars driveaway cost”, don't use it: it has the GST saving taken off. Use “Total on-road price”.",
+          "image": "/assets/images/quote-guide/flare/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Flare quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Flare quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If you see “Finance” under “Budgeted running costs”, that's the fortnightly payment.",
+          "more": "Whether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.",
+          "image": "/assets/images/quote-guide/flare/field-payment.webp"
+        }
+      ]
+    },
+    {
+      "id": "fleetpartners",
+      "label": "FleetPartners",
+      "seen": "2026-11",
+      "sourceCount": 2,
+      "written": {
+        "driveaway": "Use “Drive-away total” in the Total column, including GST.",
+        "docFee": "If “Lease Establishment Fee” is monthly, add it to management fees instead. Add the one-off PPSR fee and any financed brokerage.",
+        "defer": "Use the stated delay before lease payments start, or subtract “Based on” months from the lease term."
+      },
+      "traps": [
+        "docFee"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "missing",
+          "text": "Can’t find the FBT base value? Use the Total column of “Vehicle” in “Your order”.",
+          "more": "That is the car after discount, options and delivery including GST, before on-road costs.",
+          "image": null
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Use “Drive-away total” in the Total column, including GST.",
+          "image": "/assets/images/quote-guide/fleetpartners/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "Use the stated delay before lease payments start, or subtract “Based on” months from the lease term.",
+          "image": "/assets/images/quote-guide/fleetpartners/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "trap",
+          "text": "If “Lease Establishment Fee” is monthly, add it to management fees instead. Add the one-off PPSR fee and any financed brokerage.",
+          "image": "/assets/images/quote-guide/fleetpartners/field-docFee.webp"
+        }
+      ]
+    },
+    {
+      "id": "leaseexpress",
+      "label": "LeaseExpress",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST.",
+        "baseValue": "If you see “Value for FBT purposes”, that's the FBT base value.",
+        "residual": "If “GST on residual” sits beside “Residual value”, enter the residual figure and choose Excluding GST.",
+        "payment": "If “Lease payments (fortnightly)” has GST in a separate column, enter the payment per fortnight, excluding that GST."
+      },
+      "traps": [
+        "driveaway"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "locate",
+          "text": "If you see “Value for FBT purposes”, that's the FBT base value.",
+          "image": "/assets/images/quote-guide/leaseexpress/field-baseValue.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST.",
+          "more": "If you have the residual, you can work out the price from it.",
+          "image": null
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your LeaseExpress quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your LeaseExpress quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If “GST on residual” sits beside “Residual value”, enter the residual figure and choose Excluding GST.",
+          "image": "/assets/images/quote-guide/leaseexpress/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If “Lease payments (fortnightly)” has GST in a separate column, enter the payment per fortnight, excluding that GST.",
+          "image": "/assets/images/quote-guide/leaseexpress/field-payment.webp"
+        }
+      ]
+    },
+    {
+      "id": "leaselab",
+      "label": "LeaseLab",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "No drive-away total? Add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.",
+        "payment": "If “Lease” is under “Budgeted Allowance (ex GST)” in Weekly Allowances, choose Per week and Excluding GST.",
+        "running": "If the running costs are shown weekly, choose “Per week” for those too.",
+        "residual": "If the residual is labelled ex GST, choose “Excluding GST”."
+      },
+      "traps": [
+        "driveaway"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "No drive-away total? Add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.",
+          "more": "Adding the printed GST saving reverses the GST reduction in “Novated Vehicle Price”. Check against your dealer's full on-road price if available.",
+          "image": null
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your LeaseLab quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your LeaseLab quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If the residual is labelled ex GST, choose “Excluding GST”.",
+          "image": "/assets/images/quote-guide/leaselab/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If “Lease” is under “Budgeted Allowance (ex GST)” in Weekly Allowances, choose Per week and Excluding GST.",
+          "image": "/assets/images/quote-guide/leaselab/field-payment.webp"
+        },
+        {
+          "field": "running",
+          "kind": "locate",
+          "text": "If the running costs are shown weekly, choose “Per week” for those too.",
+          "image": "/assets/images/quote-guide/leaselab/field-running.webp"
+        }
+      ]
+    },
+    {
+      "id": "leaseplan",
+      "label": "LeasePlan / Ayvens",
+      "seen": "2025-08",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Can’t find a drive-away total? Ask for the full on-road price including GST. The quote we checked had no residual to work it out from.",
+        "docFee": "If “Finance Documentation” is monthly, put it in management fees. Enter any one-off “Security Interest” fee as the documentation fee."
+      },
+      "traps": [
+        "driveaway",
+        "docFee"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "Can’t find a drive-away total? Ask for the full on-road price including GST. The quote we checked had no residual to work it out from.",
+          "more": "The vehicle subtotal may leave out stamp duty and registration. The reviewed quote did not print a residual.",
+          "image": null
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your LeasePlan / Ayvens quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "trap",
+          "text": "If “Finance Documentation” is monthly, put it in management fees. Enter any one-off “Security Interest” fee as the documentation fee.",
+          "image": "/assets/images/quote-guide/leaseplan/field-docFee.webp"
+        },
+        {
+          "field": "residual",
+          "kind": "missing",
+          "text": "Can’t find a residual on your LeasePlan / Ayvens quote? Choose “I’m not sure” and we’ll use the ATO minimum.",
+          "image": null
+        }
+      ]
+    },
+    {
+      "id": "lendly",
+      "label": "Lendly",
+      "seen": "2026-10",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "If you see “Price … Drive Away” beside a lower “Total Price (ex. GST)”, use the drive-away price including GST.",
+        "residual": "If “Residual Value” has no GST label, check the footnote: the quote reviewed says it includes GST.",
+        "fees": "If you see a “Licence Fee” in the running-cost budget, include it with lease management fees."
+      },
+      "traps": [
+        "driveaway"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "missing",
+          "text": "Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11.",
+          "more": "Doesn't work if the credit is $6,353, the most allowed. Then ask Lendly, or take the drive-away price and subtract stamp duty, rego and CTP.",
+          "image": "/assets/images/quote-guide/lendly/field-gst-credit.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "If you see “Price … Drive Away” beside a lower “Total Price (ex. GST)”, use the drive-away price including GST.",
+          "image": "/assets/images/quote-guide/lendly/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Lendly quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Lendly quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If “Residual Value” has no GST label, check the footnote: the quote reviewed says it includes GST.",
+          "image": "/assets/images/quote-guide/lendly/field-residual.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "locate",
+          "text": "If you see a “Licence Fee” in the running-cost budget, include it with lease management fees.",
+          "image": "/assets/images/quote-guide/lendly/field-fees.webp"
+        }
+      ]
+    },
+    {
+      "id": "millarx",
+      "label": "MillarX",
+      "seen": "2026-10",
+      "sourceCount": 3,
+      "written": {
+        "driveaway": "Use “DRIVE AWAY” on the cover. You can also check “On-road price” under “What you’re financing”.",
+        "defer": "If you see “$X/mth × 58” on a 60-month lease, that's a 2-month deferral (60 − 58). “× 59” means 1.",
+        "payment": "Use the fortnightly payment or “$X/mth × N” with its matching period, then run the correction tool.",
+        "docFee": "If you see “Setup fee” under “What you're financing”, that's this fee.",
+        "residual": "If you see “Balloon (ex GST)”, choose Excluding GST."
+      },
+      "traps": [
+        "payment"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "missing",
+          "text": "Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11.",
+          "more": "Doesn't work if the credit is $6,353, the most allowed. Then ask your salary packager, or take the drive-away price and subtract stamp duty, rego and CTP.",
+          "image": "/assets/images/quote-guide/millarx/field-gst-credit.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Use “DRIVE AWAY” on the cover. You can also check “On-road price” under “What you’re financing”.",
+          "image": "/assets/images/quote-guide/millarx/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "If you see “$X/mth × 58” on a 60-month lease, that's a 2-month deferral (60 − 58). “× 59” means 1.",
+          "image": "/assets/images/quote-guide/millarx/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "locate",
+          "text": "If you see “Setup fee” under “What you're financing”, that's this fee.",
+          "image": "/assets/images/quote-guide/millarx/field-docFee.webp"
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Balloon (ex GST)”, choose Excluding GST.",
+          "image": "/assets/images/quote-guide/millarx/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "trap",
+          "text": "Use the fortnightly payment or “$X/mth × N” with its matching period, then run the correction tool.",
+          "more": "If your quote says “Finance + fee”, subtract the management fee first. The fortnightly amount spreads the monthly figure over the whole term; the correction tool removes the extra.",
+          "image": "/assets/images/quote-guide/millarx/field-payment.webp"
+        },
+        {
+          "field": "running",
+          "kind": "missing",
+          "text": "MillarX quotes are finance only. Take the running-cost budgets from your salary packager.",
+          "image": null
+        },
+        {
+          "field": "fees",
+          "kind": "missing",
+          "text": "Some MillarX quotes show a management fee per month. Enter it if yours does. The BYO finance-only quote has none.",
+          "image": null
+        }
+      ]
+    },
+    {
+      "id": "nla",
+      "label": "Novated Lease Australia (NLA)",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "baseValue": "If you see “Vehicle base value” in the FBT calculations box, that's the FBT base value.",
+        "driveaway": "No drive-away total? Add the vehicle price, GST, stamp duty, registration, CTP and any luxury car tax shown.",
+        "residual": "If you see “Residual payment (ex GST)”, choose Excluding GST.",
+        "payment": "Under “Gross fortnightly rental”, enter “Lease payment (fixed)” per fortnight, excluding its GST line—not take-home-pay reduction."
+      },
+      "traps": [],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "locate",
+          "text": "If you see “Vehicle base value” in the FBT calculations box, that's the FBT base value.",
+          "image": "/assets/images/quote-guide/nla/field-baseValue.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "No drive-away total? Add the vehicle price, GST, stamp duty, registration, CTP and any luxury car tax shown.",
+          "image": "/assets/images/quote-guide/nla/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Novated Lease Australia (NLA) quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Novated Lease Australia (NLA) quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Residual payment (ex GST)”, choose Excluding GST.",
+          "image": "/assets/images/quote-guide/nla/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "Under “Gross fortnightly rental”, enter “Lease payment (fixed)” per fortnight, excluding its GST line—not take-home-pay reduction.",
+          "image": "/assets/images/quote-guide/nla/field-payment.webp"
+        }
+      ]
+    },
+    {
+      "id": "oly",
+      "label": "Oly",
+      "seen": "2026-11",
+      "sourceCount": 2,
+      "written": {
+        "driveaway": "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
+        "insurance": "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
+        "docFee": "Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question.",
+        "residual": "If you see “Your total residual value (after lease term)” near the end of the estimate, it includes GST: choose Including GST."
+      },
+      "traps": [
+        "driveaway",
+        "insurance",
+        "docFee"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "missing",
+          "text": "Can't find it on your Oly quote? Multiply the “GST” line by 11.",
+          "more": "Doesn't work if the credit is $6,353, the most allowed. Then ask Oly, or take the drive-away price and subtract stamp duty, rego and CTP.",
+          "image": "/assets/images/quote-guide/oly/field-gst-credit.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
+          "more": "On the quote we checked, it matched the full on-road price including GST. If yours doesn't include on-road charges, ask the dealer for the full drive-away price.",
+          "image": "/assets/images/quote-guide/oly/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Oly quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "trap",
+          "text": "Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question.",
+          "more": "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
+          "image": "/assets/images/quote-guide/oly/field-docFee.webp"
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Your total residual value (after lease term)” near the end of the estimate, it includes GST: choose Including GST.",
+          "more": "Check the GST wording on your own quote before choosing the matching answer.",
+          "image": "/assets/images/quote-guide/oly/residual-example.webp"
+        },
+        {
+          "field": "insurance",
+          "kind": "trap",
+          "text": "Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.",
+          "more": "Use the yearly amount you would pay to insure the car, not just Oly's renewal budget.",
+          "image": "/assets/images/quote-guide/oly/field-running.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "missing",
+          "text": "Can’t find a management fee on your Oly quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        }
+      ]
+    },
+    {
+      "id": "orix",
+      "label": "ORIX",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "No drive-away total? Ask ORIX or the dealer for the full on-road price including GST, or work it out from the residual.",
+        "baseValue": "If you see “FBT base value (inc GST)”, enter it as printed.",
+        "docFee": "Check the “Other Fees” footnote for an establishment or dealer fee.",
+        "residual": "If you see “Residual value (ex GST)”, choose Excluding GST.",
+        "payment": "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST.",
+        "luxAdj": "If you see “Luxury vehicle non-deductible”, that's the luxury vehicle adjustment."
+      },
+      "traps": [],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "locate",
+          "text": "If you see “FBT base value (inc GST)”, enter it as printed.",
+          "image": "/assets/images/quote-guide/orix/redacted-quote.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "No drive-away total? Ask ORIX or the dealer for the full on-road price including GST, or work it out from the residual.",
+          "image": null
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your ORIX quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "locate",
+          "text": "Check the “Other Fees” footnote for an establishment or dealer fee.",
+          "more": "It may already be added to the amount you borrow.",
+          "image": "/assets/images/quote-guide/orix/field-docFee.webp"
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Residual value (ex GST)”, choose Excluding GST.",
+          "image": "/assets/images/quote-guide/orix/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST.",
+          "image": "/assets/images/quote-guide/orix/field-payment.webp"
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Luxury vehicle non-deductible”, that's the luxury vehicle adjustment.",
+          "image": "/assets/images/quote-guide/orix/field-luxAdj.webp"
+        }
+      ]
+    },
+    {
+      "id": "remserv",
+      "label": "RemServ",
+      "seen": "2026-10",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "If you see only “RemServ price”, its GST basis is unclear on the quote reviewed. Check the full on-road price before entering it.",
+        "residual": "If “Residual value” has no GST label, choose “I'm not sure” unless the quote or provider confirms the basis.",
+        "payment": "If “Finance” is per fortnight with no GST label, enter it per fortnight; choose “I'm not sure” unless the basis is confirmed.",
+        "running": "If you see “Servicing & Incidentals” as one line, enter that combined amount under servicing and tyres."
+      },
+      "traps": [],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "missing",
+          "text": "Can't find it on your RemServ quote? Multiply “GST savings on car” by 11.",
+          "more": "Doesn't work if the credit is $6,353, the most allowed. Then ask RemServ, or take the drive-away price and subtract stamp duty, rego and CTP.",
+          "image": "/assets/images/quote-guide/remserv/field-gst-credit.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "If you see only “RemServ price”, its GST basis is unclear on the quote reviewed. Check the full on-road price before entering it.",
+          "image": null
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your RemServ quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your RemServ quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If “Residual value” has no GST label, choose “I'm not sure” unless the quote or provider confirms the basis.",
+          "image": "/assets/images/quote-guide/remserv/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If “Finance” is per fortnight with no GST label, enter it per fortnight; choose “I'm not sure” unless the basis is confirmed.",
+          "image": "/assets/images/quote-guide/remserv/field-payment.webp"
+        },
+        {
+          "field": "running",
+          "kind": "locate",
+          "text": "If you see “Servicing & Incidentals” as one line, enter that combined amount under servicing and tyres.",
+          "image": "/assets/images/quote-guide/remserv/field-running.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "missing",
+          "text": "Can’t find a management fee on your RemServ quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        }
+      ]
+    },
+    {
+      "id": "remunerator",
+      "label": "Remunerator",
+      "seen": "2026-11",
+      "sourceCount": 3,
+      "written": {
+        "driveaway": "“Vehicle Purchase Price” may omit on-road costs. Check it includes GST and all on-road charges before using it.",
+        "payment": "If you see “Lease Payment (excl GST)” under “Annual Car Expenses”, it's a yearly total: choose “Per year (total)”.",
+        "defer": "If you see “Number of Lease Payments: 59” on a 60-month term, that's a 1-month deferral."
+      },
+      "traps": [
+        "driveaway",
+        "payment"
+      ],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "“Vehicle Purchase Price” may omit on-road costs. Check it includes GST and all on-road charges before using it.",
+          "more": "If it does not, ask the dealer for the full drive-away price.",
+          "image": "/assets/images/quote-guide/remunerator/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "If you see “Number of Lease Payments: 59” on a 60-month term, that's a 1-month deferral.",
+          "image": "/assets/images/quote-guide/remunerator/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Remunerator quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "payment",
+          "kind": "trap",
+          "text": "If you see “Lease Payment (excl GST)” under “Annual Car Expenses”, it's a yearly total: choose “Per year (total)”.",
+          "more": "The per-fortnight and per-month boxes on the summary are the whole salary deduction, including running costs.",
+          "image": "/assets/images/quote-guide/remunerator/field-payment.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "missing",
+          "text": "Remunerator's summary has no fee line and says management fees are included in its figures. Leave this at $0 unless your quote lists one.",
+          "image": null
+        }
+      ]
+    },
+    {
+      "id": "simplygreen",
+      "label": "Simplygreen",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Use “Vehicle Cost”, the line before “GST Credit” and “Financed Amount”. Check that it includes GST.",
+        "defer": "Use “Months Deferred” as printed. If only “No. of Payments” appears, subtract it from the lease term in months.",
+        "payment": "If you see “Total Lease Cost” under “Lease/Finance Budget (excluding gst)”, enter that figure excluding GST in the period shown.",
+        "running": "If you see a “Contingency Budget” or “Car Washes/Incidentals”, check whether you want those budgets included in your comparison."
+      },
+      "traps": [],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Use “Vehicle Cost”, the line before “GST Credit” and “Financed Amount”. Check that it includes GST.",
+          "image": "/assets/images/quote-guide/simplygreen/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "Use “Months Deferred” as printed. If only “No. of Payments” appears, subtract it from the lease term in months.",
+          "image": "/assets/images/quote-guide/simplygreen/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Simplygreen quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If you see “Total Lease Cost” under “Lease/Finance Budget (excluding gst)”, enter that figure excluding GST in the period shown.",
+          "image": "/assets/images/quote-guide/simplygreen/field-payment.webp"
+        },
+        {
+          "field": "running",
+          "kind": "locate",
+          "text": "If you see a “Contingency Budget” or “Car Washes/Incidentals”, check whether you want those budgets included in your comparison.",
+          "image": "/assets/images/quote-guide/simplygreen/field-running.webp"
+        }
+      ]
+    },
+    {
+      "id": "spa",
+      "label": "Salary Packaging Australia (S.P.A.)",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”.",
+        "baseValue": "If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price.",
+        "defer": "If you see “Based on 2-month deferred lease”, choose 2 months deferred."
+      },
+      "traps": [
+        "driveaway",
+        "baseValue"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "trap",
+          "text": "If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price.",
+          "image": "/assets/images/quote-guide/spa/field-baseValue.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”.",
+          "image": "/assets/images/quote-guide/spa/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "If you see “Based on 2-month deferred lease”, choose 2 months deferred.",
+          "image": "/assets/images/quote-guide/spa/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Salary Packaging Australia (S.P.A.) quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        }
+      ]
+    },
+    {
+      "id": "toyotafleet",
+      "label": "Toyota Fleet Management",
+      "seen": "2026-10",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "If you see “Vehicle price on-road* (incl GST)”, that's the drive-away price.",
+        "docFee": "If you see “Est. Fee - financed (exc GST)” and a separate PPSR fee, add both as one-off documentation fees.",
+        "residual": "If you see “Residual Value (excl GST)”, choose Excluding GST.",
+        "payment": "If you see “Rent” under a monthly “(excl GST)” heading, enter it per month, excluding GST.",
+        "defer": "Can’t find a deferral on your Toyota Fleet quote? Choose “Straight away” unless Toyota Fleet tells you otherwise."
+      },
+      "traps": [],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "If you see “Vehicle price on-road* (incl GST)”, that's the drive-away price.",
+          "image": "/assets/images/quote-guide/toyotafleet/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "Can’t find a deferral on your Toyota Fleet quote? Choose “Straight away” unless Toyota Fleet tells you otherwise.",
+          "more": "Choose another answer if your schedule explicitly says payments start later.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "locate",
+          "text": "If you see “Est. Fee - financed (exc GST)” and a separate PPSR fee, add both as one-off documentation fees.",
+          "image": "/assets/images/quote-guide/toyotafleet/field-docFee.webp"
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Residual Value (excl GST)”, choose Excluding GST.",
+          "image": "/assets/images/quote-guide/toyotafleet/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If you see “Rent” under a monthly “(excl GST)” heading, enter it per month, excluding GST.",
+          "image": "/assets/images/quote-guide/toyotafleet/field-payment.webp"
+        }
+      ]
+    },
+    {
+      "id": "vehiclesolutions",
+      "label": "Vehicle Solutions",
+      "seen": "2026-09",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Use “Driveaway price” in “Vehicle & lease”, including GST.",
+        "defer": "Use the number before “MONTHS DEFERRED” on the Finance lease line.",
+        "residual": "If you see “Residual (incl GST)”, choose Including GST.",
+        "payment": "If EXCL GST and INCL GST finance-lease columns sit side by side, enter either fortnightly figure with its matching GST answer."
+      },
+      "traps": [],
+      "pointers": [
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Use “Driveaway price” in “Vehicle & lease”, including GST.",
+          "image": "/assets/images/quote-guide/vehiclesolutions/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "locate",
+          "text": "Use the number before “MONTHS DEFERRED” on the Finance lease line.",
+          "image": "/assets/images/quote-guide/vehiclesolutions/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "missing",
+          "text": "Can’t find a documentation or establishment fee on your Vehicle Solutions quote? Leave this at $0 unless yours lists one.",
+          "image": null
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Residual (incl GST)”, choose Including GST.",
+          "image": "/assets/images/quote-guide/vehiclesolutions/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "If EXCL GST and INCL GST finance-lease columns sit side by side, enter either fortnightly figure with its matching GST answer.",
+          "image": "/assets/images/quote-guide/vehiclesolutions/field-payment.webp"
+        }
+      ]
+    }
+  ]
+}
