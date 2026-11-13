@@ -52,8 +52,7 @@ The Oly quote reviewed includes the first year's comprehensive insurance in the 
 1. **Documentation fee:** enter only "Financier's Establishment fee". Answer **Yes** to the separate first-year insurance question and enter "First year Comprehensive Insurance" there. Both amounts enter the financed amount used for the effective interest rate.
 2. **Insurance running cost:** enter your expected full yearly premium, not just the monthly renewal budget. The cash comparison needs a full year of insurance every year. Guided removes the financed first-year premium from the lease's running-cost budget, so it is counted once through the finance payment.
 
-Not shown on this sample: **1 FBT base value**, **4 deferral**, **8 luxury vehicle adjustment**,
-**10 management fee**, **11 interest rate**. Use "Not sure" for the deferral.
+Not shown on this sample: **8 luxury vehicle adjustment**, **11 interest rate**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

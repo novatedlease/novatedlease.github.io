@@ -37,9 +37,8 @@ Nothing on the Custom Fleet quotes we checked looked easy to misread. The table 
 | 11 | Interest Rate | Compare with the effective rate Guided shows |
 <!-- provider-table:end -->
 
-Not shown on this sample: **3 lease term** (find the term on another page or ask the provider),
-**4 deferral**, **5 doc fee**. Roadside Assistance and Accident Management are "Included in Lease
-Rental"; leave them out.
+Not shown on this sample: **3 lease term** (find the term on another page or ask the provider). Roadside
+Assistance and Accident Management are "Included in Lease Rental"; leave them out.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

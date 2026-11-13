@@ -37,8 +37,7 @@ This numbered example shows a Driva quote layout we reviewed. Match each marker 
 | 10 | Lease Management | Lease management fees |
 <!-- provider-table:end -->
 
-Not shown on this sample: **4 deferral**, **5 documentation fee**, **11 interest rate**. Use "Not sure" for
-the deferral.
+Not shown on this sample: **11 interest rate**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

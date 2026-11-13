@@ -40,8 +40,7 @@ helper instead.
 "Upgrade your package" items (guaranteed buy back, total loss assist, lease protection, window
 tint, paint protection) are optional and not included; leave them out.
 
-Not shown on this sample: **1 FBT base value**, **2 drive-away**, **4 deferral**, **5 doc fee**, **8 luxury
-vehicle adjustment**, **10 fees** (no fee line shown), **11 interest rate**.
+Not shown on this sample: **2 drive-away**, **8 luxury vehicle adjustment**, **11 interest rate**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

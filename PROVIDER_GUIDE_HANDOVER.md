@@ -490,3 +490,7 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 
 - `npm run build` in `calculator2` now ends with `npm run export:guides`. Rebuilding Guided always refreshes `new-site/src/data/provider-guides.json` and the synced article blocks, so the articles can't keep old wording by accident.
 - `npm run export:guides` still works on its own. The stale-JSON test remains as a backstop.
+
+## R11 follow-up: old "Not shown on this sample" lines trimmed (2026-11-13)
+
+- In the 14 articles that had both, the hand-written "Not shown on this sample" line no longer repeats fields covered by the generated "If a figure isn't on your quote" section. It keeps only the rest (usually the luxury adjustment and interest rate) and its provider-specific notes (Autopia base price, ORIX drive-away parts, Custom Fleet lease term and inclusions). No line became empty. Site build passes.

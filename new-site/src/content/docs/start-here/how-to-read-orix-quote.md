@@ -37,9 +37,9 @@ Nothing on the ORIX quotes we checked looked easy to misread. The table below sh
 | 11 | Interest Rate | Compare with the effective rate Guided shows |
 <!-- provider-table:end -->
 
-Not shown on this sample: **1 FBT base value** (some ORIX layouts print "FBT base value (inc GST)" under the vehicle price), **2 drive-away** (only the parts: vehicle price ex GST, options,
-stamp duty and initial rego shown as "Financed"; ask for the full drive-away price including GST, or use the residual helper), **4 deferral** ("Monthly
-in Arrears" is shown, no deferral).
+Not shown on this sample: **1 FBT base value** (some ORIX layouts print "FBT base value (inc GST)" under the vehicle
+price), **2 drive-away** (only the parts: vehicle price ex GST, options, stamp duty and initial rego
+shown as "Financed"; ask for the full drive-away price including GST, or use the residual helper).
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

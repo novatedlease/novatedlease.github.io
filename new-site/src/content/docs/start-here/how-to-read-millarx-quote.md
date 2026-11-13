@@ -43,9 +43,7 @@ Older MillarX quotes show "Finance + fee" per fortnight: that includes the month
 so take it out before using 7b (or use 7a). On those quotes the management fee is a separate card
 ("Management fee, per month") — enter it in Guided's lease management fees.
 
-Not shown on this sample: **1 FBT base value**, **8 luxury vehicle adjustment**, **9 running costs** and
-**10 lease management fees** (this is a finance-only BYO quote; running costs and fees come from your
-salary packager).
+Not shown on this sample: **8 luxury vehicle adjustment**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

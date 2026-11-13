@@ -38,8 +38,7 @@ Nothing on the Vehicle Solutions quotes we checked looked easy to misread. The t
 | 10 | Administration | Lease management fees |
 <!-- provider-table:end -->
 
-Not shown on this sample: **5 documentation fee**, **8 luxury vehicle adjustment**, **11 interest
-rate** (not printed).
+Not shown on this sample: **8 luxury vehicle adjustment**, **11 interest rate** (not printed).
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

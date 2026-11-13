@@ -38,7 +38,7 @@ This numbered example shows a Lendly quote layout we reviewed. Match each marker
 
 Note: the "^" on Lease says the lease includes add-ons (tint, dash cam, scratch & dent, membership).
 
-Not shown on this sample: **1 FBT base value**, **4 deferral**, **5 doc fee**, **11 interest rate**.
+Not shown on this sample: **11 interest rate**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

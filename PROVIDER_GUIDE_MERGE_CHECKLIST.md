@@ -45,7 +45,7 @@ merged. Merge only on the owner's instruction.
    R7, which was a provisional trap trim.
 3. **Owner choices:**
    - R8: decided 2026-11-13: desktop "Show me" fills the side panel, no inline picture;
-   - R11, whether to trim each article's older "Not shown on this sample" sentence;
+   - R11: decided 2026-11-13: older "Not shown on this sample" lines trimmed to what the new section doesn't cover;
    - item 8 (parked).
 4. **Merge:** merge into `main` with a merge commit, not a squash, so it can be reverted in one
    step. Push; the site is live about 75 seconds later.

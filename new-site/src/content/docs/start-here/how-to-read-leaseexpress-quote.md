@@ -38,9 +38,8 @@ This numbered example shows a LeaseExpress quote layout we reviewed. Match each 
 "Vehicle finance amount" is the amount financed, not the drive-away price. Ask for the full
 on-road price including GST, or use Guided's residual helper if it is unavailable.
 
-Not shown on this sample: **2 drive-away price** (use the calculator's residual helper), **4 deferral**
-(choose "Not sure" if your quote does not say), **5 documentation fee**, **8 luxury vehicle adjustment**,
-**11 interest rate**.
+Not shown on this sample: **2 drive-away price** (use the calculator's residual helper), **8 luxury vehicle
+adjustment**, **11 interest rate**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

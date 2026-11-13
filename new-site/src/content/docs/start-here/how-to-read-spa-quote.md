@@ -44,7 +44,7 @@ On Queensland Government layouts, “Vehicle Cost” can equal the drive-away pr
 The "Less: ITC" line under the totals is the employer's GST credit on running costs; with the
 running costs already shown ex GST, choose "Excluding GST" for the running-cost heading.
 
-Not shown on this sample: **5 documentation fee** (none shown on these pages) and **8 luxury vehicle adjustment**.
+Not shown on this sample: **8 luxury vehicle adjustment**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

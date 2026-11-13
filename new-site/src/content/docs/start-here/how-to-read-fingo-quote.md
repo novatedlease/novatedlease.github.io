@@ -42,7 +42,7 @@ The example has GST as a separate line below the finance subtotal. Check that yo
 "Input Tax Credit" in section 6 is the employer's GST credit on the package; with running costs
 entered ex GST, choose "Excluding GST" for the running-cost heading.
 
-Not shown on this sample: **5 documentation fee**, **8 luxury vehicle adjustment**, **11 interest rate**.
+Not shown on this sample: **8 luxury vehicle adjustment**, **11 interest rate**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

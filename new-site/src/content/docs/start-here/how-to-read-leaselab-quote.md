@@ -42,8 +42,7 @@ with the GST saving already taken off. Drive-away ≈ Novated Vehicle Price + "G
 The page notes "unspent funds will be returned at the end of the lease": the weekly allowances are
 budgets, not fixed fees.
 
-Not shown on this sample: **4 deferral** (use "Not sure"), **5 documentation fee**, **8 luxury vehicle
-adjustment**, **11 interest rate**.
+Not shown on this sample: **8 luxury vehicle adjustment**, **11 interest rate**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote
