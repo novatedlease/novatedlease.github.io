@@ -815,6 +815,21 @@ function ProviderSidePanel({ provider, field, diagram }: { provider: ProviderId;
   const image = pictureFor(provider, field);
   const size = imageSizeFor(image);
   const label = providerLabel(provider);
+  // A whole page is far taller than the panel: show it at full panel width in a scrolling frame,
+  // scrolled to the marked line, rather than shrunk to fit (unreadable).
+  const isPage = !!image?.endsWith("/redacted-quote.webp");
+  const frameRef = useRef<HTMLDivElement>(null);
+  const scrollToLine = () => {
+    const frame = frameRef.current;
+    const marker = markerFor(provider, field);
+    const img = frame?.querySelector("img");
+    if (!isPage || !frame || !marker || !img || !size) return;
+    const scale = img.getBoundingClientRect().width / size.w;
+    frame.scrollTop = Math.max(0, marker.y * scale - frame.clientHeight / 3);
+  };
+  // Only when the picture or field changes, so a reader's own scrolling isn't undone on re-render.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(scrollToLine, [image, field]);
   return <div className="gd-provider-side">
     <strong>{label} quote: {FIELD_NAMES[field]}</strong>
     <p>{image?.endsWith("/field-gst-credit.webp")
@@ -823,10 +838,12 @@ function ProviderSidePanel({ provider, field, diagram }: { provider: ProviderId;
       ? "From a real quote, with values removed. ✓ marks the line to use."
       : image?.endsWith("/redacted-quote.webp") && lineLabelFor(provider, field)
         ? `From a real quote, with values removed. Your line is marked ${lineLabelFor(provider, field)}.`
-        : "Marked line from a real quote, with values removed."} Click to enlarge.</p>
-    {image && <a href={image} target="_blank" rel="noreferrer" aria-label={`Open the marked ${label} quote full size`}>
-      <img src={image} alt={`Marked ${label} quote: ${FIELD_NAMES[field]}`} width={size?.w} height={size?.h} />
-    </a>}
+        : "Marked line from a real quote, with values removed."} {isPage ? "Scroll to see more; click to enlarge." : "Click to enlarge."}</p>
+    {image && <div ref={frameRef} className={isPage ? "gd-provider-side__page" : undefined}>
+      <a href={image} target="_blank" rel="noreferrer" aria-label={`Open the marked ${label} quote full size`}>
+        <img src={image} alt={`Marked ${label} quote: ${FIELD_NAMES[field]}`} width={size?.w} height={size?.h} onLoad={scrollToLine} />
+      </a>
+    </div>}
     <details className="gd-help gd-provider-side__typical"><summary>Typical quote</summary><div className="gd-help__body">{diagram}</div></details>
   </div>;
 }

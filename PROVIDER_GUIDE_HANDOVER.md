@@ -464,3 +464,9 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 - Owner review: Guided was capped at 1040 px while Advanced uses the full calculator width (about 1270 px at a 1460 px window). Steps with a quote picture beside the questions (Price, Lease, Payment) now drop the cap (`.gd:has(.gd-split)`), and above 1200 px the picture column is `minmax(360px, 1fr)` instead of 300–420 px: at 1462 px the picture is about 595 px wide instead of about 390 px. Single-column steps (Before you start, Running costs, About you, Review) keep 1040 px, because their choice buttons and text stretch badly at full width. So the card widens and narrows between steps.
 - Fix found in the same review: the "× 11" GST-credit pictures (outlined line, no tick) were captioned "✓ marks the line to use". They now say "The line to use is outlined." in both the inline caption and the desktop side panel.
 - 371 tests, TypeScript, ESLint and calculator build pass; checked at 1462 and 1100 px with headless Chromium.
+
+## Desktop side panel: whole pages scroll at full width (2026-11-13)
+
+- Owner review: where a field has no crop (e.g. Oly lease term), the side panel showed the whole page shrunk to 70vh tall, so it was unreadable. A whole page now fills the panel's width inside a 70vh scrolling frame, scrolled to the field's marker when the picture or field changes (not on every re-render, so the reader's own scrolling stays). Caption: "… Your line is marked 3. Scroll to see more; click to enlarge."
+- `lineLabels` now also lists the lease term ("3") for the 25 providers whose page numbers it (`line_labels.py`).
+- 371 tests, TypeScript, ESLint and calculator build pass; checked as Oly on the Lease step at 1462 px (headless Chromium).
