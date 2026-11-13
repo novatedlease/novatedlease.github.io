@@ -47,6 +47,12 @@ export function providerLabel(id: ProviderId): string {
   return PROVIDERS.find((p) => p.id === id)?.label ?? id;
 }
 
+/** "a" or "an" before a provider name: acronyms are read letter by letter ("an SG Fleet", "an ORIX"). */
+export function articleFor(label: string): "a" | "an" {
+  if (/^[A-Z]{2}/.test(label)) return /^[AEFHILMNORSX]/.test(label) ? "an" : "a";
+  return /^[AEIOU]/i.test(label) ? "an" : "a";
+}
+
 /** Lower GST-reduced price labels that can be mistaken for a drive-away total. */
 export const DRIVEAWAY_TRAP_LABELS: Partial<Record<ProviderId, { wrong: string; right: string }>> = {
   flare: { wrong: "Vehicle cost — Flare Cars driveaway cost", right: "Total on-road price" },
@@ -621,7 +627,6 @@ function gstCreditLine(id: ProviderId, label: string, line: string, ask: string)
     more: `Doesn't work if the credit is ${capText}, the most allowed. Then ask ${ask}, or take the drive-away price and subtract stamp duty, rego and CTP.`,
     example: {
       image: `/assets/images/quote-guide/${id}/field-gst-credit.webp`,
-      button: `Show where ${label} prints the GST credit`,
       alt: `Part of a redacted ${label} quote with the ${line.replace(/[“”]/g, "")} line outlined`,
       caption: `Part of a real ${label} quote with values removed. Multiply the outlined figure by 11. Tap the image to enlarge.`,
     },
@@ -721,8 +726,6 @@ export function cropFor(id: ProviderId, field: GuideField): string | null {
 
 export type FieldExample = {
   image: string;
-  /** Button label before the example is opened. */
-  button: string;
   alt: string;
   caption: string;
 };
@@ -731,19 +734,16 @@ export type FieldExample = {
 const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample }[] = [
   { id: "sgfleet", field: "baseValue", example: {
     image: "/assets/images/quote-guide/sgfleet/fbt-example.webp",
-    button: "Show me on an SG Fleet quote",
     alt: "Redacted SG Fleet FBT section with FBT Base Value marked 1",
     caption: "A later FBT section from a different SG Fleet quote layout, with values removed.",
   } },
   { id: "sgfleet", field: "driveaway", example: {
     image: "/assets/images/quote-guide/sgfleet/driveaway-example.webp",
-    button: "Show me on an SG Fleet quote",
     alt: "Redacted SG Fleet Lease details with Vehicle on-road cost marked 2",
     caption: "Lease details from an SG Fleet quote, with values removed.",
   } },
   { id: "smartleasing", field: "docFee", example: {
     image: "/assets/images/quote-guide/smartleasing/terms-example.webp",
-    button: "Show me on a Smart Leasing quote",
     alt: "Redacted Smart Leasing terms page with documentation fee marked 5",
     caption: "Terms page from a separate Smart Leasing quote, with values removed.",
   } },
@@ -752,7 +752,6 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     field: "residual",
     example: {
       image: "/assets/images/quote-guide/oly/residual-example.webp",
-      button: "Show where Oly prints the residual",
       alt: "End of a redacted Oly estimate with Your total residual value marked 6",
       caption: "The last section of the same Oly estimate. Figures were removed; the residual line is marked 6.",
     },
@@ -762,7 +761,6 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     field: "docFee",
     example: {
       image: "/assets/images/quote-guide/alliance/page2-fees.webp",
-      button: "Show Alliance's fees page",
       alt: "Redacted page 2 of an Alliance Leasing quote with Entry Fee marked 5",
       caption: "Fees and lease details from page 2 of the same Alliance quote. Figures and customer details were removed; Entry Fee is marked 5.",
     },

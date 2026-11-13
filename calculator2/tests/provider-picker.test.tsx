@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pageFor, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, markerFor, guideFor, guideMayHaveChanged, pageFor, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -30,6 +30,15 @@ function on(step: "intro" | "price" | "lease" | "payment", d: GuidedDraft | Reco
 const saved = () => JSON.parse(window.localStorage.getItem(KEY)!).draft as GuidedDraft;
 const picker = () => screen.getByLabelText(/Who is your quote from/) as HTMLSelectElement;
 
+describe("a or an before a provider name", () => {
+  test.each([
+    ["Oly", "an"], ["SG Fleet", "an"], ["ORIX", "an"], ["Easi (EasiFleet)", "an"],
+    ["Maxxia", "a"], ["Smart Leasing", "a"], ["Novated Lease Australia (NLA)", "a"], ["LeasePlan / Ayvens", "a"],
+  ])("%s takes %s", (label, expected) => {
+    expect(articleFor(label)).toBe(expected);
+  });
+});
+
 describe("provider picker", () => {
   test("is optional, on the first screen once the reader has a quote, and the choice is saved", () => {
     on("intro", quoteDraft());
@@ -38,7 +47,7 @@ describe("provider picker", () => {
     expect(missingForStep("intro", saved()).join()).not.toMatch(/quote from/);
     fireEvent.change(picker(), { target: { value: "sgfleet" } });
     expect(saved().provider).toBe("sgfleet");
-    expect(screen.getByText(/We'll show you where each figure is on a SG Fleet quote/)).toBeTruthy();
+    expect(screen.getByText(/We'll show you where each figure is on an SG Fleet quote/)).toBeTruthy();
   });
 
   test("Other has a useful next step, while an older guide names its date", () => {

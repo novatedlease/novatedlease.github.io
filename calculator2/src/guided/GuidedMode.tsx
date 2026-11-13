@@ -20,6 +20,7 @@ import {
   POPULAR,
   PROVIDERS,
   guideFor,
+  articleFor,
   guideMayHaveChanged,
   isNamedProvider,
   isSmartOrMillarx,
@@ -1602,7 +1603,7 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
   const hint = d.provider === "other" ? <>
     No problem. The general hints work for any quote. <a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer">Tell us who it's from</a>.
   </> : guide ? <span className="gd-provider-confirm">
-    We'll show you where each figure is on a {providerLabel(guide.id)} quote.
+    We'll show you where each figure is on {articleFor(providerLabel(guide.id))} {providerLabel(guide.id)} quote.
     {guideMayHaveChanged(guide.seen) && ` Our example is from ${seenLabel(guide.seen)}.`}
   </span> : "The company named at the top of your quote, not your employer or the car dealer.";
   return (
@@ -1683,7 +1684,7 @@ function ProviderPointer({ pointer, provider, seen }: { pointer: Pointer; provid
         if (!open) trackEvent("guided_pointer_open", { provider, field: pointer.field });
         if (open) setShowWholePage(false);
         setOpen(!open);
-      }}>{open ? "Hide picture" : pointer.text ? "Show me" : `Show me on a ${label} quote`}</button>
+      }}>{open ? "Hide picture" : pointer.text ? "Show me" : `Show me on ${articleFor(label)} ${label} quote`}</button>
       {open && <div className="gd-template__body">
         <div ref={frameRef} className={full ? "gd-template__fullpage" : "gd-template__crop"}>
           {images.map((image, index) => {

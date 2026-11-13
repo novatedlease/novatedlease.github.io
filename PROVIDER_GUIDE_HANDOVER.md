@@ -316,3 +316,8 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - `PROVIDER_GUIDE_REVIEW_ROUND2_2026-11.md` scores the branch against the design aims and lists 15 follow-up plans (R1–R15) written for a smaller model. Nothing in it is implemented.
 - Batch A (R1, R2, R3, R4, R9, R10, R11) needs no owner input. R5 and R6 need the owner to read the wording. R7 and R8 need an owner decision first. R12–R15 are pre-merge work.
 - Item 8 stays parked. No push or merge.
+
+## R1 — a/an before provider names in Guided (2026-11-13)
+
+- New `articleFor()` in `providerGuide.ts`, same rule as the site's trap script. The picker hint and the "Show me on … quote" button now read "an Oly", "an SG Fleet", "an ORIX". Removed the unused `button` labels from `FieldExample`.
+- The existing picker test had asserted "on a SG Fleet quote"; corrected. New unit test covers eight labels. TypeScript, 358 tests, ESLint and calculator build pass. No push or merge.
