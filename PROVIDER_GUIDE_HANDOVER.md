@@ -485,3 +485,8 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 ## Side panel: no "Typical quote" once a provider is chosen (2026-11-13)
 
 - Owner decision: the provider panel no longer offers the generic "Typical quote" diagram. The diagram still shows on desktop when no provider is chosen or the provider has no picture for the field, and on phones (no provider) behind "Where is this on my quote?". Test updated: the Maxxia panel has no "Typical quote". 372 tests, ESLint, calculator build pass.
+
+## Guide export runs with every calculator build (2026-11-13)
+
+- `npm run build` in `calculator2` now ends with `npm run export:guides`. Rebuilding Guided always refreshes `new-site/src/data/provider-guides.json` and the synced article blocks, so the articles can't keep old wording by accident.
+- `npm run export:guides` still works on its own. The stale-JSON test remains as a backstop.
