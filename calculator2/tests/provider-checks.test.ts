@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { checkProvider } from "../src/guided/checks";
 import { emptyDraft, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, type ProviderId } from "../src/guided/providerGuide";
+import { DRIVEAWAY_TRAP_LABELS, PROVIDERS, TRAP_FIELDS, type ProviderId } from "../src/guided/providerGuide";
 
 function forProvider(provider: ProviderId | null): GuidedDraft {
   return { ...emptyDraft(), provider };
@@ -56,10 +56,17 @@ describe("provider-specific findings", () => {
     expect(findings.map((f) => f.code)).toContain("provider_driveaway_trap");
     expect(findings[0].message).toContain(label);
     expect(findings[0].level).toBe("error");
-    // Descriptions are not quoted as if they were printed labels.
-    expect(findings[0].message).not.toMatch(/“the dealer/);
+    // It points to the amber drive-away note rather than repeating it.
+    expect(findings[0].message).toContain("See the note below");
+    expect(TRAP_FIELDS[provider]).toContain("driveaway");
     d.driveaway.text = "52000";
     expect(checkProvider(d)).toEqual([]);
+  });
+
+  test("every GST-reduced price trap has an amber drive-away note to point to", () => {
+    for (const provider of Object.keys(DRIVEAWAY_TRAP_LABELS) as ProviderId[]) {
+      expect(TRAP_FIELDS[provider], provider).toContain("driveaway");
+    }
   });
 
   test("other and no provider have no provider-specific findings", () => {

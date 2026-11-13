@@ -55,17 +55,17 @@ export function articleFor(label: string): "a" | "an" {
 }
 
 /**
- * Lower GST-reduced price labels that can be mistaken for a drive-away total. `right` is either a
- * printed label (quoted in messages) or a plain description (not quoted).
+ * Lower GST-reduced price labels that can be mistaken for a drive-away total. The amber drive-away
+ * pointer for each of these providers says which line to use instead; the red check points to it.
  */
-export const DRIVEAWAY_TRAP_LABELS: Partial<Record<ProviderId, { wrong: string; right: { label: string } | { text: string } }>> = {
-  flare: { wrong: "Vehicle cost — Flare Cars driveaway cost", right: { label: "Total on-road price" } },
-  oly: { wrong: "Oly driveaway price", right: { text: "“Recommended retail price” if it includes all on-road charges, or the dealer's full on-road price" } },
-  fingo: { wrong: "Your car price (drive away price when financed)", right: { label: "Drive away Price" } },
-  spa: { wrong: "Novated lease purchase price (excluding GST)", right: { label: "Total Drive Away Price" } },
-  driva: { wrong: "Effective novated vehicle price", right: { label: "DriveAway Price" } },
-  lendly: { wrong: "Total Price (ex. GST)", right: { label: "Price … Drive Away" } },
-  kooya: { wrong: "Price (ex. GST)", right: { label: "Total (drive way)" } },
+export const DRIVEAWAY_TRAP_LABELS: Partial<Record<ProviderId, { wrong: string }>> = {
+  flare: { wrong: "Vehicle cost — Flare Cars driveaway cost" },
+  oly: { wrong: "Oly driveaway price" },
+  fingo: { wrong: "Your car price (drive away price when financed)" },
+  spa: { wrong: "Novated lease purchase price (excluding GST)" },
+  driva: { wrong: "Effective novated vehicle price" },
+  lendly: { wrong: "Total Price (ex. GST)" },
+  kooya: { wrong: "Price (ex. GST)" },
 };
 
 /** True for the two providers whose per-pay figure needs the budget-reserve correction. */

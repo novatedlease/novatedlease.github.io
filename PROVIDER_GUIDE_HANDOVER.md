@@ -445,3 +445,8 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 
 - Owner review: the "See a typical quote (not Oly's)" link below the fields was still clutter. Below 820 px, with a named provider chosen, the side column is no longer rendered at all; the provider's own "Show me" pictures cover it. With no provider, "Where is this on my quote?" stays at the top. Desktop unchanged (side panel keeps its "Typical quote" fold).
 - 368 tests, TypeScript, ESLint and calculator build pass.
+
+## R4 follow-up — red drive-away message points to the amber note (2026-11-13)
+
+- Owner review: the red "This looks like … Use … instead" message repeated the amber drive-away note directly below it. The red message is now just "This looks like “{label}”. See the note below." The amber note keeps the full explanation and the "Show me" picture.
+- `DRIVEAWAY_TRAP_LABELS` keeps only `wrong`; the unused `right` labels were removed. New test: every provider in it has `driveaway` in `TRAP_FIELDS`, so the note it points to always exists. 369 tests, TypeScript, ESLint and calculator build pass.
