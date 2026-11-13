@@ -440,3 +440,8 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 - **Counts:** sync scripts now expect 28 providers. New article `how-to-read-kooya-quote.md`.
 - Checks: tsc, 368 tests, eslint, calculator build, site build; Guided Price step and article checked
   in the browser.
+
+## R3 follow-up — phone: no typical-quote link once a provider is chosen (2026-11-13)
+
+- Owner review: the "See a typical quote (not Oly's)" link below the fields was still clutter. Below 820 px, with a named provider chosen, the side column is no longer rendered at all; the provider's own "Show me" pictures cover it. With no provider, "Where is this on my quote?" stays at the top. Desktop unchanged (side panel keeps its "Typical quote" fold).
+- 368 tests, TypeScript, ESLint and calculator build pass.

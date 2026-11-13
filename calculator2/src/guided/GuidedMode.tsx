@@ -793,10 +793,11 @@ function Side({
         const field = focusMap[raw] ?? raw as GuideField;
         if (highlight.some((item) => item === field) && hasPicture(field)) setFocusedField(field);
       }}>{children}</div>
-      <aside className="gd-split__side">
+      {/* On phones a chosen provider's own "Show me" pictures replace the typical-quote diagram. */}
+      {!(narrow && guide) && <aside className="gd-split__side">
         {narrow ? (
           <details className="gd-help gd-quote-toggle">
-            <summary>{guide ? `See a typical quote (not ${providerLabel(guide.id)}'s)` : "Where is this on my quote?"}</summary>
+            <summary>Where is this on my quote?</summary>
             <div className="gd-help__body">{diagram}</div>
           </details>
         ) : guide && pictureFor(guide.id, selected) ? (
@@ -804,7 +805,7 @@ function Side({
         ) : (
           diagram
         )}
-      </aside>
+      </aside>}
     </div>
   );
 }
