@@ -744,8 +744,8 @@
       "sourceCount": 1,
       "written": {
         "driveaway": "No drive-away total? Add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.",
-        "payment": "If “Lease” is under “Budgeted Allowance (ex GST)” in Weekly Allowances, choose Per week and Excluding GST.",
-        "running": "If the running costs are shown weekly, choose “Per week” for those too.",
+        "payment": "If “Lease” is under “Budgeted Allowance (ex GST)”, choose the period in the heading (Weekly or Fortnightly Allowances) and Excluding GST.",
+        "running": "Choose the period in the heading for the running costs too.",
         "residual": "If the residual is labelled ex GST, choose “Excluding GST”."
       },
       "traps": [
@@ -780,13 +780,13 @@
         {
           "field": "payment",
           "kind": "locate",
-          "text": "If “Lease” is under “Budgeted Allowance (ex GST)” in Weekly Allowances, choose Per week and Excluding GST.",
+          "text": "If “Lease” is under “Budgeted Allowance (ex GST)”, choose the period in the heading (Weekly or Fortnightly Allowances) and Excluding GST.",
           "image": "/assets/images/quote-guide/leaselab/field-payment.webp"
         },
         {
           "field": "running",
           "kind": "locate",
-          "text": "If the running costs are shown weekly, choose “Per week” for those too.",
+          "text": "Choose the period in the heading for the running costs too.",
           "image": "/assets/images/quote-guide/leaselab/field-running.webp"
         }
       ]

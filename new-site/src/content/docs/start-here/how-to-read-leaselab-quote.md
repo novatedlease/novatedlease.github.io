@@ -30,16 +30,16 @@ This numbered example shows a LeaseLab quote layout we reviewed. Match each mark
 | 1 | FBT Base Value | FBT base value |
 | 3 | Lease Term | Lease term |
 | 6 | Residual Ex. GST (also "Residual Value ex. GST" on page 2) | If the residual is labelled ex GST, choose “Excluding GST”. |
-| 7 | Lease, under "Weekly Allowances … Budgeted Allowance (ex GST)" | If “Lease” is under “Budgeted Allowance (ex GST)” in Weekly Allowances, choose Per week and Excluding GST. |
-| 9 | Fuel, Servicing & Maintenance, Roadside, Insurance, Registration, Tyre Replacement | Running-cost boxes, **per week**, ex GST. Roadside goes with Servicing |
-| 10 | Lease Management | Lease management fees, per week |
+| 7 | Lease, under "Weekly Allowances" (or "Fortnightly Allowances") … "Budgeted Allowance (ex GST)" | If “Lease” is under “Budgeted Allowance (ex GST)”, choose the period in the heading (Weekly or Fortnightly Allowances) and Excluding GST. |
+| 9 | Fuel, Servicing & Maintenance, Roadside, Insurance, Registration, Tyre Replacement | Running-cost boxes, **per week or per fortnight** as the heading says, ex GST. Roadside goes with Servicing |
+| 10 | Lease Management | Lease management fees, same period as the heading |
 <!-- provider-table:end -->
 
 Drive-away price (2) isn't printed. "Novated Vehicle Price" is **not** the drive-away: it's the price
 with the GST saving already taken off. Drive-away ≈ Novated Vehicle Price + "GST Saved on Car Price"
 (page 1). Or use Guided's residual helper.
 
-The page notes "unspent funds will be returned at the end of the lease": the weekly allowances are
+The page notes "unspent funds will be returned at the end of the lease": the allowances are
 budgets, not fixed fees.
 
 Not shown on this sample: **8 luxury vehicle adjustment**, **11 interest rate**.

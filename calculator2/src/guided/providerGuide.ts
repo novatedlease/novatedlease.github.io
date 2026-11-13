@@ -447,11 +447,11 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "payment",
-        text: "If “Lease” is under “Budgeted Allowance (ex GST)” in Weekly Allowances, choose Per week and Excluding GST.",
+        text: "If “Lease” is under “Budgeted Allowance (ex GST)”, choose the period in the heading (Weekly or Fortnightly Allowances) and Excluding GST.",
       },
       {
         field: "running",
-        text: "If the running costs are shown weekly, choose “Per week” for those too.",
+        text: "Choose the period in the heading for the running costs too.",
       },
       {
         field: "residual",

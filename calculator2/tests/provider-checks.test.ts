@@ -25,10 +25,12 @@ describe("provider-specific findings", () => {
     expect(checkProvider(d)).toEqual([]);
   });
 
-  test.each(["perFn", "perMonth"] as const)("LeaseLab flags %s against its usual weekly quote", (period) => {
+  test("LeaseLab flags a monthly payment; its quotes are weekly or fortnightly", () => {
     const d = forProvider("leaselab");
-    d.paymentPeriod = period;
+    d.paymentPeriod = "perMonth";
     expect(checkProvider(d).map((f) => f.code)).toContain("provider_weekly_payment");
+    d.paymentPeriod = "perFn";
+    expect(checkProvider(d).map((f) => f.code)).not.toContain("provider_weekly_payment");
   });
 
   test("Smartsalary checks the GST heading without changing the answer", () => {

@@ -355,7 +355,7 @@ describe("provider pointers", () => {
   test("new providers have evidence-backed pointers on the appropriate fields", () => {
     expect(pointersFor("autopia", "baseValue")[0].text).toMatch(/base price/);
     expect(pointersFor("customfleet", "luxAdj")[0].text).toMatch(/Non-Deductible Depreciation/);
-    expect(pointersFor("leaselab", "payment")[0].text).toMatch(/Per week/);
+    expect(pointersFor("leaselab", "payment")[0].text).toMatch(/Weekly or Fortnightly Allowances/);
     expect(pointersFor("spa", "driveaway")[0].text).toMatch(/excluding GST/);
   });
 
@@ -724,11 +724,11 @@ describe("provider pointers", () => {
     expect(pointersFor("simplygreen", "defer")[0].text).not.toContain("No. of Payments 34");
   });
 
-  test("LeaseLab's payment pointer matches its weekly ex-GST table row", () => {
+  test("LeaseLab's payment pointer matches its weekly or fortnightly ex-GST table row", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-leaselab-quote.md"), "utf8");
     for (const field of ["residual", "payment"] as const)
       expect(article).toContain(pointersFor("leaselab", field)[0].text);
-    expect(article).toContain("Weekly Allowances … Budgeted Allowance (ex GST)");
+    expect(article).toContain('"Weekly Allowances" (or "Fortnightly Allowances") … "Budgeted Allowance (ex GST)"');
     expect(article).toContain("Roadside goes with Servicing");
     expect(article).toContain("Novated Vehicle Price + \"GST Saved on Car Price\"");
   });

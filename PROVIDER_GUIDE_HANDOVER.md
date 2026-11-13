@@ -504,3 +504,10 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 ## R7 decided: trap trim kept (owner, 2026-11-14)
 
 - Maxxia and Oly insurance and Smart Leasing doc fee stay plain lines. Maxxia and Oly doc fee stay amber.
+
+## LeaseLab: weekly or fortnightly (2026-11-14)
+
+- Extra-quote search (Reddit backlog Jul 2025 – Jul 2026 plus r/AusFinance): 11 LeaseLab quotes, 8 "Weekly Allowances" and 3 "Fortnightly Allowances" (1pzysjl Dec 2025, 1t51ned May 2026, 1urknk3 Jul 2026), none monthly. The old check wrongly flagged "per fortnight".
+- Check `provider_weekly_payment` now fires only for "per month": "The LeaseLab quotes we checked showed weekly or fortnightly amounts. Check the period beside your payment."
+- Payment pointer: "If “Lease” is under “Budgeted Allowance (ex GST)”, choose the period in the heading (Weekly or Fortnightly Allowances) and Excluding GST." Running pointer: "Choose the period in the heading for the running costs too." Article rows 7, 9, 10 and the allowances note follow.
+- 371 tests (two period cases merged into one), calculator and site builds pass.
