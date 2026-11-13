@@ -327,3 +327,8 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - An opened picture now shows one caption: the special example's own caption, or "A real {provider} quote with numbers removed.", then "Tap the image to enlarge." once. The review date is no longer repeated under each picture (the step footer has it). The crop/page toggle reads "Whole page" / "Just this line".
 - Test: no example caption contains "Tap the image" or a "Checked Mon YYYY" date. 359 tests, TypeScript, ESLint and calculator build pass.
 - To see: Oly → Price step → "Show me" under FBT base value (was two captions).
+
+## R3 — phone: typical-quote toggle below the fields (2026-11-13)
+
+- Below 820 px, with a named provider chosen, "See a typical quote (not {provider}'s)" now sits after the fields and just above the "As seen on …" line, instead of between the step title and the intro. With no provider, "Where is this on my quote?" stays on top, now with 8 px clear of the title. Desktop unchanged.
+- Checked at 390 px as Oly on the Price step. 359 tests and calculator build pass.

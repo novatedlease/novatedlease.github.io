@@ -50,7 +50,10 @@
 @media (max-width: 820px) {
   .gd-split { grid-template-columns: 1fr; }
   .gd-split__side { position: static; order: -1; }
-  .gd-quote-toggle { margin: 0 0 18px; }
+  .gd-quote-toggle { margin: 8px 0 18px; }
+  /* With a provider chosen, its own pointers lead; the typical quote waits below the fields. */
+  .gd-split--provider .gd-split__side { order: 0; }
+  .gd-split--provider .gd-quote-toggle { margin: 4px 0 0; }
 }
 
 /* Quote diagram */

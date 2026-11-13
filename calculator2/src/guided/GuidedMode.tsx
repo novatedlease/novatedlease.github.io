@@ -779,7 +779,7 @@ function Side({
     mgmt: "fees", service: "running", rego: "running", fuel: "running",
   };
   return (
-    <div className="gd-split">
+    <div className={guide ? "gd-split gd-split--provider" : "gd-split"}>
       <div className="gd-split__main" onFocusCapture={(event) => {
         const raw = (event.target as HTMLElement).closest<HTMLElement>("[data-field]")?.dataset.field;
         if (!raw) return;
