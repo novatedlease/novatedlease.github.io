@@ -489,7 +489,7 @@ describe("provider pointers", () => {
       .toBe("/assets/images/quote-guide/maxxia/field-residual.webp");
     expect(document.querySelector(".gd-provider-side img")?.getAttribute("alt")).toBe("Marked Maxxia quote: Residual");
     expect(document.querySelector(".gd-provider-side a")?.getAttribute("href")).toBe("/assets/images/quote-guide/maxxia/field-residual.webp");
-    expect(screen.getByText("Typical quote")).toBeTruthy();
+    expect(screen.queryByText("Typical quote")).toBeNull();
   });
 
   test("desktop side panel shows the GST credit picture for Oly's FBT base value", () => {

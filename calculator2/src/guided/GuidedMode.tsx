@@ -810,7 +810,7 @@ function Side({
             <div className="gd-help__body">{diagram}</div>
           </details>
         ) : guide && (pick ?? defaultPick(guide.id, selected)) ? (
-          <ProviderSidePanel provider={guide.id} pick={(pick ?? defaultPick(guide.id, selected))!} diagram={diagram} />
+          <ProviderSidePanel provider={guide.id} pick={(pick ?? defaultPick(guide.id, selected))!} />
         ) : (
           diagram
         )}
@@ -819,14 +819,13 @@ function Side({
   );
 }
 
-function ProviderSidePanel({ provider, pick, diagram }: { provider: ProviderId; pick: PanelPick; diagram: ReactNode }) {
+function ProviderSidePanel({ provider, pick }: { provider: ProviderId; pick: PanelPick }) {
   const label = providerLabel(provider);
   return <div className="gd-provider-side">
     <strong>{label} quote: {FIELD_NAMES[pick.field]}</strong>
     <div className="gd-template__body gd-template__body--side">
       <QuotePicture key={`${pick.field}|${pick.template}`} provider={provider} field={pick.field} template={pick.template} example={pick.example} verb="Click" />
     </div>
-    <details className="gd-help gd-provider-side__typical"><summary>Typical quote</summary><div className="gd-help__body">{diagram}</div></details>
   </div>;
 }
 

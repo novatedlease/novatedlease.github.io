@@ -481,3 +481,7 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 ## Desktop side panel sticks below the nav bar (2026-11-13)
 
 - Owner review: when scrolling, the panel stuck 12 px from the window top, under the site's 56 px sticky nav, so its title ("Oly quote: Residual") was hidden. It now sticks at `--nav-height + 12px`, and the panel picture (crop or whole-page frame) is capped at `100vh − nav − 230px` so the whole panel fits on screen. Checked with headless Chromium at 1462×925 while scrolled to the residual question.
+
+## Side panel: no "Typical quote" once a provider is chosen (2026-11-13)
+
+- Owner decision: the provider panel no longer offers the generic "Typical quote" diagram. The diagram still shows on desktop when no provider is chosen or the provider has no picture for the field, and on phones (no provider) behind "Where is this on my quote?". Test updated: the Maxxia panel has no "Typical quote". 372 tests, ESLint, calculator build pass.
