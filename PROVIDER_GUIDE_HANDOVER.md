@@ -477,3 +477,7 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 - Phones, and the Running costs step (no side panel), keep the inline picture.
 - Code: one `QuotePicture` component used by both `ProviderPointer` (inline) and `ProviderSidePanel`; `SidePanelContext` is provided by `Side` only when wide and a provider is chosen. `guided_pointer_open` still fires on each Show me.
 - Tests: pointer tests now run at phone width (jsdom has no matchMedia, which reads as wide); new test that on a wide screen Show me fills the side panel and the toggle shows the whole page with "Your line is marked 7b." 372 tests, TypeScript, ESLint, calculator build pass; checked with headless Chromium at 1462 px.
+
+## Desktop side panel sticks below the nav bar (2026-11-13)
+
+- Owner review: when scrolling, the panel stuck 12 px from the window top, under the site's 56 px sticky nav, so its title ("Oly quote: Residual") was hidden. It now sticks at `--nav-height + 12px`, and the panel picture (crop or whole-page frame) is capped at `100vh − nav − 230px` so the whole panel fits on screen. Checked with headless Chromium at 1462×925 while scrolled to the residual question.
