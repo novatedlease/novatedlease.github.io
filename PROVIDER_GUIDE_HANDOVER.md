@@ -339,3 +339,8 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 - `DRIVEAWAY_TRAP_LABELS[].right` is now `{ label }` (quoted) or `{ text }` (not quoted). SPA's right answer now names its printed “Total Drive Away Price”, matching its pointer.
 - **Not done: the residual-based trigger from the plan.** Checked the maths: without an FBT base value the calculator has no GST saving, so it cannot compute an expected residual either; and a GST-reduced price shifts the residual ratio by about 1.1, the same signature as an ex/inc GST mix-up, which the residual check already reports. A reliable second trigger would need a new question; left for the owner.
 - Browser-checked as Oly at 390 px: one red message. 359 tests, TypeScript, ESLint and calculator build pass.
+
+## R9 — Oly drive-away: words now match the marked crop (2026-11-13)
+
+- The plan was to repaint the crop so "Recommended retail price" wasn't marked as the answer. On checking, the crop is right for this quote: the article (row 2) already says the retail price reconciled to the on-road price including GST. The mismatch was in the words, so the pointer now says: "Don't use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges." The tooltip says it matched on the quote checked and to ask the dealer if not. No image changed.
+- The warning from R4 and the article's trap list follow (site build synced). 359 tests, calculator and site builds pass.

@@ -59,7 +59,7 @@ export function articleFor(label: string): "a" | "an" {
  */
 export const DRIVEAWAY_TRAP_LABELS: Partial<Record<ProviderId, { wrong: string; right: { label: string } | { text: string } }>> = {
   flare: { wrong: "Vehicle cost — Flare Cars driveaway cost", right: { label: "Total on-road price" } },
-  oly: { wrong: "Oly driveaway price", right: { text: "the dealer's full on-road price including GST" } },
+  oly: { wrong: "Oly driveaway price", right: { text: "“Recommended retail price” if it includes all on-road charges, or the dealer's full on-road price" } },
   fingo: { wrong: "Your car price (drive away price when financed)", right: { label: "Drive away Price" } },
   spa: { wrong: "Novated lease purchase price (excluding GST)", right: { label: "Total Drive Away Price" } },
   driva: { wrong: "Effective novated vehicle price", right: { label: "DriveAway Price" } },
@@ -235,8 +235,8 @@ const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "driveaway",
-        text: "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use the dealer’s full on-road price including GST.",
-        more: "“Recommended retail price” works only if it includes all on-road charges.",
+        text: "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
+        more: "On the quote we checked, it matched the full on-road price including GST. If yours doesn't include on-road charges, ask the dealer for the full drive-away price.",
       },
       {
         field: "insurance",

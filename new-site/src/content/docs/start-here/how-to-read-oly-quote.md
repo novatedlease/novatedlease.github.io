@@ -15,7 +15,7 @@ This numbered example shows an Oly quote layout reviewed in August 2026. Match e
 <!-- provider-traps:begin -->
 ## What catches people out on an Oly quote
 
-- **Drive-away price:** Don’t use “Oly driveaway price”: it has the GST saving taken off. Use the dealer’s full on-road price including GST.
+- **Drive-away price:** Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.
 - **First-year insurance:** Enter the full yearly insurance premium, including year one. Guided accounts for any financed first-year premium separately.
 - **Documentation fee:** Enter “Financier's Establishment fee” here. If year-one insurance is financed, use Guided's separate insurance question.
 <!-- provider-traps:end -->
