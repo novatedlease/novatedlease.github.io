@@ -782,6 +782,22 @@ export function templateFor(id: ProviderId, field: GuideField): string | null {
   return cropFor(id, field) ?? (markerFor(id, field) || pageContext[id]?.includes(field) ? pageFor(id) : null);
 }
 
+/** Plain names for each field, for headings and image alt text. */
+export const FIELD_NAMES: Record<GuideField, string> = {
+  baseValue: "FBT base value", driveaway: "Drive-away price", term: "Lease term", defer: "Months deferred",
+  docFee: "Documentation fee", residual: "Residual", payment: "Finance payment", luxAdj: "Luxury adjustment",
+  running: "Running costs", insurance: "Insurance", fees: "Management fees",
+};
+
+/**
+ * The picture to show for a field, in the same order the inline "Show me" uses: the pointer's own
+ * example (e.g. the GST credit x 11 crop), a special example, then a crop or the marked page.
+ */
+export function pictureFor(id: ProviderId, field: GuideField): string | null {
+  const own = pointersFor(id, field).find((p) => p.example)?.example;
+  return own?.image ?? exampleFor(id, field)?.image ?? templateFor(id, field);
+}
+
 /** The top edge and height of a numbered line on the converted full page. */
 export function markerFor(id: ProviderId, field: GuideField): { y: number; h: number } | null {
   const markers = quoteImages.markers as Record<string, Record<string, { y: number; h: number }[]>>;

@@ -21,6 +21,8 @@ import {
   PROVIDERS,
   guideFor,
   articleFor,
+  FIELD_NAMES,
+  pictureFor,
   guideMayHaveChanged,
   isNamedProvider,
   isSmartOrMillarx,
@@ -773,9 +775,11 @@ function Side({
   const narrow = useNarrowScreen();
   const diagram = <QuoteDiagram highlight={highlight} values={quoteValues(d)} />;
   const guide = guideFor(d.provider);
-  const selected = focusedField && highlight.some((field) => field === focusedField)
+  const hasPicture = (field: GuideField) => !!guide && !!pictureFor(guide.id, field);
+  // Keep showing the last provider picture when the focused field has none of its own.
+  const selected = focusedField && hasPicture(focusedField)
     ? focusedField
-    : highlight.find((field) => guide && templateFor(guide.id, field)) ?? highlight[0];
+    : highlight.find(hasPicture) ?? highlight[0];
   const focusMap: Record<string, GuideField> = {
     leaseYears: "term", monthsDeferred: "defer", paymentPeriod: "payment",
     paymentBasis: "payment", runningPeriod: "running", runningGstHeading: "running",
@@ -787,7 +791,7 @@ function Side({
         const raw = (event.target as HTMLElement).closest<HTMLElement>("[data-field]")?.dataset.field;
         if (!raw) return;
         const field = focusMap[raw] ?? raw as GuideField;
-        if (highlight.some((item) => item === field)) setFocusedField(field);
+        if (highlight.some((item) => item === field) && hasPicture(field)) setFocusedField(field);
       }}>{children}</div>
       <aside className="gd-split__side">
         {narrow ? (
@@ -795,7 +799,7 @@ function Side({
             <summary>{guide ? `See a typical quote (not ${providerLabel(guide.id)}'s)` : "Where is this on my quote?"}</summary>
             <div className="gd-help__body">{diagram}</div>
           </details>
-        ) : guide && templateFor(guide.id, selected) ? (
+        ) : guide && pictureFor(guide.id, selected) ? (
           <ProviderSidePanel provider={guide.id} field={selected} diagram={diagram} />
         ) : (
           diagram
@@ -806,12 +810,15 @@ function Side({
 }
 
 function ProviderSidePanel({ provider, field, diagram }: { provider: ProviderId; field: GuideField; diagram: ReactNode }) {
-  const image = templateFor(provider, field);
+  const image = pictureFor(provider, field);
   const size = imageSizeFor(image);
+  const label = providerLabel(provider);
   return <div className="gd-provider-side">
-    <strong>{providerLabel(provider)} quote: {field === "baseValue" ? "FBT base value" : field === "driveaway" ? "Drive-away price" : field === "docFee" ? "Documentation fee" : field === "luxAdj" ? "Luxury adjustment" : field === "defer" ? "Months deferred" : field === "fees" ? "Management fees" : field === "payment" ? "Finance payment" : field === "residual" ? "Residual" : "Running costs"}</strong>
-    <p>Marked line from a real quote, with values removed.</p>
-    {image && <img src={image} alt={`Marked ${providerLabel(provider)} quote for ${field}`} width={size?.w} height={size?.h} />}
+    <strong>{label} quote: {FIELD_NAMES[field]}</strong>
+    <p>Marked line from a real quote, with values removed. Click to enlarge.</p>
+    {image && <a href={image} target="_blank" rel="noreferrer" aria-label={`Open the marked ${label} quote full size`}>
+      <img src={image} alt={`Marked ${label} quote: ${FIELD_NAMES[field]}`} width={size?.w} height={size?.h} />
+    </a>}
     <details className="gd-help gd-provider-side__typical"><summary>Typical quote</summary><div className="gd-help__body">{diagram}</div></details>
   </div>;
 }
@@ -1693,7 +1700,7 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
           {images.map((image, index) => {
             const size = imageSizeFor(image);
             return <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`Open redacted quote image ${index + 1} full size`}>
-              <img src={image} alt={example ? example.alt : full ? `Full redacted ${label} quote page ${index + 1}` : `Marked ${label} quote for ${pointer.field}`} loading="lazy" decoding="async" width={size?.w} height={size?.h} onLoad={scrollToMarker} />
+              <img src={image} alt={example ? example.alt : full ? `Full redacted ${label} quote page ${index + 1}` : `Marked ${label} quote: ${FIELD_NAMES[pointer.field]}`} loading="lazy" decoding="async" width={size?.w} height={size?.h} onLoad={scrollToMarker} />
             </a>;
           })}
         </div>

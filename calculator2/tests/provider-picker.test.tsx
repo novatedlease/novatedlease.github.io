@@ -433,9 +433,18 @@ describe("provider pointers", () => {
   test("desktop side panel follows the focused Maxxia residual field", () => {
     on("lease", { ...quoteDraft(), provider: "maxxia" });
     fireEvent.focus(document.querySelector('[data-field="residual"] input')!);
-    expect(document.querySelector(".gd-provider-side > img")?.getAttribute("src"))
+    expect(document.querySelector(".gd-provider-side img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/maxxia/field-residual.webp");
+    expect(document.querySelector(".gd-provider-side img")?.getAttribute("alt")).toBe("Marked Maxxia quote: Residual");
+    expect(document.querySelector(".gd-provider-side a")?.getAttribute("href")).toBe("/assets/images/quote-guide/maxxia/field-residual.webp");
     expect(screen.getByText("Typical quote")).toBeTruthy();
+  });
+
+  test("desktop side panel shows the GST credit picture for Oly's FBT base value", () => {
+    on("price", { ...quoteDraft(), provider: "oly" });
+    fireEvent.focus(document.querySelector('[data-field="baseValue"] input')!);
+    expect(document.querySelector(".gd-provider-side img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/oly/field-gst-credit.webp");
   });
 
   test("locate, trap and missing pointers have distinct kinds", () => {

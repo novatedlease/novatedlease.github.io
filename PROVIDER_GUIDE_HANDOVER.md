@@ -396,3 +396,11 @@ Before → after (main text; tooltips in brackets):
 - The plan asked the owner to choose. Applied the middle option, which is easy to reverse (one line each in `TRAP_FIELDS`): Maxxia `insurance`, Oly `insurance` and Smart Leasing `docFee` are now plain location lines, because they are plain instructions ("enter the full yearly premium"; "look on the terms page"). Maxxia and Oly `docFee` **stay amber**: the financed amount bundles the insurance with the fee, which is a real way to enter the wrong figure. 27 → 24 trap pairs.
 - Articles regenerated: Maxxia's and Oly's "What catches people out" lists lose the insurance line; Smart Leasing's keeps only the payment line.
 - To reverse: put the three fields back in `TRAP_FIELDS` and run `npm run export:guides` in `calculator2`. 366 tests and both builds pass.
+
+## R8 — desktop side picture (2026-11-13) — partly, owner to look
+
+- New `pictureFor()` in `providerGuide.ts` picks the side picture in the same order as the inline "Show me" (pointer's own example, special example, crop, marked page). Focusing Oly's FBT base value now shows the GST-credit "× 11" crop instead of falling back to the generic diagram. When the focused field has no picture, the panel keeps the last provider picture.
+- The side picture is now a link that opens full size ("Click to enlarge"); its height cap is 70vh instead of 260 px; from 1200 px the side column can grow to 420 px. In the 1380 px check it is noticeably larger, though the card's own width still limits it.
+- New `FIELD_NAMES` map: side-panel heading and image alt text now say "Marked Maxxia quote: Residual" instead of raw ids like `docFee`.
+- **Not done (owner preference):** hiding the inline "Show me" on desktop while the side panel shows the same picture. Both still appear.
+- Tests updated and one added (Oly base value → GST-credit picture). 367 tests, ESLint and calculator build pass.
