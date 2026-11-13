@@ -36,7 +36,9 @@ export function checkProvider(d: GuidedDraft): Finding[] {
   }
   const trap = DRIVEAWAY_TRAP_LABELS[p];
   if (trap && (moneyValue(d.driveaway) ?? 0) > 0 && (moneyValue(d.baseValue) ?? 0) > 0 && moneyValue(d.driveaway)! < moneyValue(d.baseValue)!) {
-    out.push({ code: "provider_driveaway_trap", level: "warn", message: `This may be “${trap.wrong}”, which has GST taken off. Check for “${trap.right}” instead.` });
+    const right = "label" in trap.right ? `“${trap.right.label}”` : trap.right.text;
+    // An error, like the generic "base value above drive-away" check it replaces on screen.
+    out.push({ code: "provider_driveaway_trap", level: "error", message: `This looks like “${trap.wrong}”, which has the GST saving taken off. Use ${right} instead.` });
   }
   return out;
 }

@@ -183,7 +183,10 @@ function findingsFor(d: GuidedDraft) {
   const income = moneyValue(d.income);
   const providerChecks = checkProvider(d);
   return {
-    prices: checkPrices(base, drive),
+    // A named provider's own explanation replaces the generic "swapped the boxes?" error.
+    prices: checkPrices(base, drive).filter(
+      (f) => f.code !== "base_exceeds_driveaway" || !providerChecks.some((p) => p.code === "provider_driveaway_trap"),
+    ),
     providerPrice: providerChecks.filter((f) => f.code === "provider_driveaway_trap"),
     providerPayment: providerChecks.filter((f) => f.code !== "provider_driveaway_trap"),
     docFee: checkDocFee(moneyValue(d.docFee)),

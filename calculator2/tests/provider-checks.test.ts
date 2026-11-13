@@ -54,6 +54,9 @@ describe("provider-specific findings", () => {
     const findings = checkProvider(d);
     expect(findings.map((f) => f.code)).toContain("provider_driveaway_trap");
     expect(findings[0].message).toContain(label);
+    expect(findings[0].level).toBe("error");
+    // Descriptions are not quoted as if they were printed labels.
+    expect(findings[0].message).not.toMatch(/“the dealer/);
     d.driveaway.text = "52000";
     expect(checkProvider(d)).toEqual([]);
   });

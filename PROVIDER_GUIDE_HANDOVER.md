@@ -332,3 +332,10 @@ This file continues the private handover at `/Users/changyang1230/novated-lease-
 
 - Below 820 px, with a named provider chosen, "See a typical quote (not {provider}'s)" now sits after the fields and just above the "As seen on …" line, instead of between the step title and the intro. With no provider, "Where is this on my quote?" stays on top, now with 8 px clear of the title. Desktop unchanged.
 - Checked at 390 px as Oly on the Price step. 359 tests and calculator build pass.
+
+## R4 — GST-reduced price warning: one message (2026-11-13)
+
+- For the six providers with a GST-reduced "drive-away" label (Flare, Oly, Fingo, SPA, Driva, Lendly), entering a drive-away price below the FBT base value now shows one message under the price: "This looks like “Oly driveaway price”, which has the GST saving taken off. Use the dealer's full on-road price including GST instead." The generic "swapped the two boxes?" error is no longer shown alongside it. The provider message is now an error, so the step still asks the reader to confirm before moving on, exactly as before.
+- `DRIVEAWAY_TRAP_LABELS[].right` is now `{ label }` (quoted) or `{ text }` (not quoted). SPA's right answer now names its printed “Total Drive Away Price”, matching its pointer.
+- **Not done: the residual-based trigger from the plan.** Checked the maths: without an FBT base value the calculator has no GST saving, so it cannot compute an expected residual either; and a GST-reduced price shifts the residual ratio by about 1.1, the same signature as an ex/inc GST mix-up, which the residual check already reports. A reliable second trigger would need a new question; left for the owner.
+- Browser-checked as Oly at 390 px: one red message. 359 tests, TypeScript, ESLint and calculator build pass.
