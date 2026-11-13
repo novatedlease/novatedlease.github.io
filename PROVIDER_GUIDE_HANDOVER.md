@@ -500,3 +500,7 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 - Paywise payment pointer: "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, not the package total. If you see “(ex. GST)”, choose Excluding GST." Tooltip: "Enter it per fortnight. The package total adds running costs and fees." Exactly 140 characters, the pointer limit. Article row 7 synced.
 - Also fixed the Autopia article test that the R11 trim broke by re-wrapping a sentence ("fringe benefit value" back on one line).
 - 372 tests, calculator and site builds pass. ESLint's only error is the existing `import/no-relative-packages` rule lookup in `tests/golden-master.test.ts`, unchanged.
+
+## R7 decided: trap trim kept (owner, 2026-11-14)
+
+- Maxxia and Oly insurance and Smart Leasing doc fee stay plain lines. Maxxia and Oly doc fee stay amber.
