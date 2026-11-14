@@ -46,7 +46,7 @@ import {
   type Pointer,
 } from "./providerGuide";
 import { SummaryView } from "../components/SummaryView";
-import { longDate, residualAsTyped } from "./answerText";
+import { NOT_ANSWERED, carText, longDate, residualAsTyped, termText } from "./answerText";
 import { NextSteps } from "../components/NextSteps";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
@@ -135,6 +135,11 @@ export const ADVANCED_DETAILS_TOP = "details-top";
 /** Anchor for "Assumptions we made for you", opened from the note at the top of an estimate. */
 const ASSUMPTIONS_ID = "gd-assumptions";
 const money = (n: number) => `$${Math.round(n).toLocaleString("en-AU")}`;
+/** A typed amount for the answers list, or "Not answered" when it is blank or unreadable. */
+const moneyOrNa = (m: Money, positiveOnly = true) => {
+  const v = moneyValue(m);
+  return v === null || (positiveOnly && v <= 0) ? NOT_ANSWERED : money(v);
+};
 
 type Stored = { draft: GuidedDraft; step: StepId; visited: StepId[] };
 
@@ -2629,21 +2634,21 @@ function ReviewStep({
   const cashRow: [string, string, StepId] = [
     "Cash you'd otherwise use",
     d.cashHome === "offset"
-      ? `In a home loan offset at ${moneyValue(d.offsetRate) ?? "?"}%`
+      ? moneyValue(d.offsetRate) === null ? "In a home loan offset, rate not answered" : `In a home loan offset at ${moneyValue(d.offsetRate)}%`
       : d.cashHome === "ipOffset"
-        ? `In an investment property offset at ${moneyValue(d.savingsRatePreTax) ?? "?"}% before tax`
+        ? moneyValue(d.savingsRatePreTax) === null ? "In an investment property offset, rate not answered" : `In an investment property offset at ${moneyValue(d.savingsRatePreTax)}% before tax`
         : d.cashHome === "savings"
-        ? `In savings at ${moneyValue(d.savingsRatePreTax) ?? "?"}% before tax`
+        ? moneyValue(d.savingsRatePreTax) === null ? "In savings, rate not answered" : `In savings at ${moneyValue(d.savingsRatePreTax)}% before tax`
         : d.cashHome === "invested"
           ? `Invested, ${moneyValue(d.investedRate) ?? 0}% after tax`
           : d.cashHome === "none"
             ? "No cash to pay outright"
-            : "?",
+            : NOT_ANSWERED,
     "you",
   ];
   const carRow: [string, string, StepId] = [
     "Car",
-    `${d.vehicleType === "EV" ? "Electric" : "Petrol/diesel/hybrid"}, ${d.vehicleCondition?.split(" ")[0].toLowerCase() ?? ""}`,
+    carText(d),
     "car",
   ];
   const fbtRow: [string, string, StepId] | null = fbt
@@ -2651,7 +2656,7 @@ function ReviewStep({
     : null;
   const incomeRow: [string, string, StepId] = [
     "Taxable income",
-    money(moneyValue(d.income) ?? 0),
+    moneyOrNa(d.income),
     "you",
   ];
   const comparedRow: [string, string, StepId] = [
@@ -2683,13 +2688,13 @@ function ReviewStep({
           fbtRow,
           [
             "Approximate drive-away price",
-            money(moneyValue(d.driveaway) ?? 0),
+            moneyOrNa(d.driveaway),
             "quick",
           ],
-          ["Term", `${d.leaseYears ?? "?"} years`, "quick"],
+          ["Term", d.leaseYears ? `${d.leaseYears} years` : NOT_ANSWERED, "quick"],
           [
             "Kilometres per year",
-            `${(moneyValue(d.mileage) ?? 0).toLocaleString("en-AU")} km`,
+            moneyValue(d.mileage) ? `${moneyValue(d.mileage)!.toLocaleString("en-AU")} km` : NOT_ANSWERED,
             "quick",
           ],
           incomeRow,
@@ -2698,23 +2703,23 @@ function ReviewStep({
         ]
       : [
           carRow,
-          ["Lease start", longDate(effectiveStartDate(d)) ?? "?", "car"],
+          ["Lease start", longDate(effectiveStartDate(d)) ?? NOT_ANSWERED, "car"],
           fbtRow,
-          ["FBT base value", money(moneyValue(d.baseValue) ?? 0), "price"],
-          ["Drive-away price", money(moneyValue(d.driveaway) ?? 0), "price"],
+          ["FBT base value", moneyOrNa(d.baseValue), "price"],
+          ["Drive-away price", moneyOrNa(d.driveaway), "price"],
           [
             "Term",
-            `${d.leaseYears ?? "?"} years, first payment after ${d.monthsDeferred ?? "?"} months`,
+            termText(d),
             "lease",
           ],
-          ["Documentation fee", money(moneyValue(d.docFee) ?? 0), "lease"],
-          ["Residual", residualAsTyped(d) ?? "?", "lease"],
+          ["Documentation fee", moneyOrNa(d.docFee, false), "lease"],
+          ["Residual", residualAsTyped(d) ?? NOT_ANSWERED, "lease"],
           asksMarketValueEnd(d)
             ? [
                 "Market value at lease end",
                 marketValueEndEntered(d)
                   ? `${money(marketValueEndEntered(d)!)}${d.marketValueEnd.estimated ? " (typical estimate)" : ""}`
-                  : "?",
+                  : NOT_ANSWERED,
                 "alternatives",
               ]
             : null,
@@ -2722,12 +2727,12 @@ function ReviewStep({
             "Lease payment",
             paymentPerFn(d)
               ? `${money(moneyValue(d.payment) ?? 0)} per ${d.paymentPeriod ? PERIOD_UNIT[d.paymentPeriod] : "fortnight"}${d.paymentBasis === "incGst" ? " inc GST" : d.paymentBasis === "exGst" ? " ex GST" : " (GST not stated, taken as ex GST)"}`
-              : "?",
+              : NOT_ANSWERED,
             "payment",
           ],
           [
             "Effective interest rate",
-            diag?.rate != null ? `${(diag.rate * 100).toFixed(2)}%` : "?",
+            diag?.rate != null ? `${(diag.rate * 100).toFixed(2)}%` : "Needs the payment and lease answers",
             "payment",
           ],
           incomeRow,
@@ -2756,7 +2761,7 @@ function ReviewStep({
           {rows.map(([k, v, s]) => (
             <div key={k} className="gd-answers__row">
               <dt>{k}</dt>
-              <dd>{v}</dd>
+              <dd>{v === NOT_ANSWERED ? <span className="gd-answers__na">{v}</span> : v}</dd>
               <button
                 type="button"
                 className="gd-linkbtn"

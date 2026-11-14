@@ -1,6 +1,9 @@
 /** How the review screen's answers list words each answer: as the reader typed it. */
 import { atoMinimumResidualExGst, guessedResidualBasis, moneyValue, type GuidedDraft } from "./draft";
 
+/** Shown, in the muted style, for a question with no answer yet, so a gap never reads as $0. */
+export const NOT_ANSWERED = "Not answered";
+
 const money = (n: number) => `$${Math.round(n).toLocaleString("en-AU")}`;
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -24,4 +27,20 @@ export function residualAsTyped(d: GuidedDraft): string | null {
     return `${money(v)}, GST not stated (we read it as ${guess === "incGst" ? "including" : "excluding"} GST)`;
   const ato = atoMinimumResidualExGst(d);
   return ato ? `Not on your quote: the ATO minimum, ${money(ato)} excluding GST` : null;
+}
+
+/** "Petrol/diesel/hybrid, new"; with no type yet, "New (type not answered)". */
+export function carText(d: GuidedDraft): string {
+  const cond = d.vehicleCondition?.split(" ")[0] ?? null;
+  if (!d.vehicleType) return cond ? `${cond} (type not answered)` : NOT_ANSWERED;
+  const type = d.vehicleType === "EV" ? "Electric" : "Petrol/diesel/hybrid";
+  return cond ? `${type}, ${cond.toLowerCase()}` : `${type} (new or used not answered)`;
+}
+
+/** "5 years, first payment after 2 months", naming whichever half is missing. */
+export function termText(d: GuidedDraft): string {
+  if (!d.leaseYears) return NOT_ANSWERED;
+  const years = `${d.leaseYears} year${d.leaseYears > 1 ? "s" : ""}`;
+  if (d.monthsDeferred === null) return `${years}, first payment not answered`;
+  return `${years}, first payment after ${d.monthsDeferred} month${d.monthsDeferred === 1 ? "" : "s"}`;
 }

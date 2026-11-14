@@ -75,3 +75,30 @@ describe("UX 5: the answers list shows what the reader typed", () => {
     expect(a["Residual (ex GST)"]).toBeUndefined();
   });
 });
+
+describe("UX 6: gaps read 'Not answered', never $0 or ?", () => {
+  test("a partial draft on the review screen", () => {
+    const d = partialQuote();
+    d.vehicleType = null;
+    d.baseValue = m("");
+    seedReview(d);
+    render(<App />);
+    const a = answers();
+    expect(a["Car"]).toBe("New (type not answered)");
+    expect(a["FBT base value"]).toBe("Not answered");
+    expect(a["Term"]).toBe("5 years, first payment not answered");
+    expect(a["Documentation fee"]).toBe("Not answered");
+    expect(a["Lease payment"]).toBe("Not answered");
+    expect(a["Taxable income"]).toBe("Not answered");
+    expect(Object.values(a).some((v) => v.includes("?") || v === "$0")).toBe(false);
+    expect(document.querySelectorAll(".gd-answers__na").length).toBeGreaterThanOrEqual(4);
+  });
+
+  test("a ticked 'no documentation fee' still shows $0", () => {
+    const d = partialQuote();
+    d.docFee = { text: "", none: true, estimated: false };
+    seedReview(d);
+    render(<App />);
+    expect(answers()["Documentation fee"]).toBe("$0");
+  });
+});
