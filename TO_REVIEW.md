@@ -62,6 +62,10 @@ The suggested order is from the review. Each item is small (S) or a few hours (M
 
 - Item 8 from the earlier review (Smart-branded Smartsalary escape hatch): parked, on your instruction.
 - Lendly × 11 pointer: only one quote, so leave it until more evidence turns up.
+- Queensland Government summary table (RemServ, SPA, Easi, Smartsalary and others for Qld public
+  servants): "Supplier Margin" and the Qld "Total Amount Financed" don't reconcile with the printed
+  rate; first-year insurance sits inside "Total Vehicle Costs". 24 quotes collected in
+  `private/qld-summary-table/` (12 likely, 12 unconfirmed). No action for now (owner, 2026-11-14).
 - After launch: raise the "Checked against N quotes" counts as new quotes appear. Read GA4 four
   weeks after shipping (questions in the merge checklist).
 
