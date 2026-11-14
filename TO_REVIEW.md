@@ -17,7 +17,7 @@ Owner decisions on all 23 UX items (2026-11-14): `UX_REVIEW_2026-11-14_DECISIONS
 - [x] **UX 22: cap wording.** "the maximum, about $6,300 (for example $6,334 or $6,353)": OK?
 - [x] **LeasePlan article:** drop the duplicated date in the new "Based on a LeasePlan quote from
   Aug 2025" note? (optional) Done: now "From an older quote. Yours may look different."
-- [ ] **GA4:** also register `level` as a custom dimension? (optional)
+- [x] **GA4:** also register `level` as a custom dimension? (optional) Done by you 2026-11-14 ("Check level").
 
 - [x] **Clear Lease (new, 2026-11-14):** read the Guided lines and the article
   (`/start-here/how-to-read-clearlease-quote/`). It rests on one quote, so check the wording of

@@ -72,8 +72,8 @@ provider and insurance answers are optional fields.
   - `guided_provider_feedback_click` (provider);
   - `guided_finding_shown` (code, level).
 - **GA4 admin:** done 2026-11-14. Event-scoped custom dimensions "Provider" (`provider`), "Field"
-  (`field`) and "Check code" (`code`) are registered on property 521792876. `level` is not
-  registered.
+  (`field`), "Check code" (`code`) and "Check level" (`level`) are registered on property
+  521792876.
 - **Questions, four weeks after shipping** (use `~/.claude/scripts/ga4_report.py`):
   1. What share of readers who have a quote pick a provider? Which providers, and how many pick
      "Other"?
