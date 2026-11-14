@@ -1961,9 +1961,12 @@ function RunningStep({ d, set, f }: StepPropsF) {
         ]}
         columns={3}
       />
-      <Help title="See how the two look on a quote">
-        <GstMock />
-      </Help>
+      {/* The provider's own picture shows the real heading; a made-up one beside it only competes (UX 18). */}
+      {!(d.provider && cropFor(d.provider, "running")) && (
+        <Help title="See how the two look on a quote">
+          <GstMock />
+        </Help>
+      )}
       {heading === "incGst" && (
         <>
           <Choices<YesNoUnsure>
@@ -2028,12 +2031,6 @@ function RunningStep({ d, set, f }: StepPropsF) {
         </ul>
       </Help>
       <div className="gd-rows">
-        {!period && (
-          <div className="nlc-field__hint">
-            Choose how costs are shown on your quote (above) to see a typical
-            figure for each.
-          </div>
-        )}
         <MoneyInput
         field="service"
           row

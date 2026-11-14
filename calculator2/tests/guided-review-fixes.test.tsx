@@ -960,7 +960,7 @@ describe("Advanced vehicle finance: a visible period switch", () => {
 });
 
 describe("running costs: the period comes first, so typical figures can show", () => {
-  test("period sits right after kilometres; a pointer shows until it's chosen, then the typical-figure buttons", () => {
+  test("period sits right after kilometres; typical-figure buttons appear once it's chosen, with no nudge before (UX 18)", () => {
     const d = quoteDraft();
     d.runningPeriod = null;
     d.service = { text: "", none: false, estimated: false };
@@ -972,10 +972,9 @@ describe("running costs: the period comes first, so typical figures can show", (
     const text = document.body.textContent!;
     expect(text.indexOf("Kilometres per year")).toBeLessThan(text.indexOf("How are costs shown on your quote?"));
     expect(text.indexOf("How are costs shown on your quote?")).toBeLessThan(text.indexOf("What does the running-cost heading"));
-    expect(screen.getByText(/to see a typical figure for each/)).toBeTruthy();
+    expect(screen.queryByText(/to see a typical figure for each/)).toBeNull();
     expect(screen.queryByRole("button", { name: /Use a typical figure/ })).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Per year" }));
-    expect(screen.queryByText(/to see a typical figure for each/)).toBeNull();
     expect(screen.getAllByRole("button", { name: /Use a typical figure/ }).length).toBeGreaterThan(0);
     expect(missingForStep("running", { ...d, mileage: { text: "", none: false, estimated: false } }).slice(0, 2)).toEqual([
       "Kilometres per year",
@@ -1050,5 +1049,23 @@ describe("explorer wording", () => {
     );
     render(<App />);
     expect(screen.getByText("Competitive leases tend to be around 10% or lower.")).toBeTruthy();
+  });
+});
+
+describe("UX 18: no generic GST mock-up beside the provider's own picture", () => {
+  test("shown with no provider, hidden for Maxxia", () => {
+    const d = quoteDraft();
+    const seed = (provider: GuidedDraft["provider"]) => {
+      cleanup();
+      window.localStorage.setItem(
+        "nlc2-guided-draft-v3",
+        JSON.stringify({ draft: { ...d, provider }, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+      );
+      render(<App />);
+    };
+    seed(null);
+    expect(screen.getByText("See how the two look on a quote")).toBeTruthy();
+    seed("maxxia");
+    expect(screen.queryByText("See how the two look on a quote")).toBeNull();
   });
 });
