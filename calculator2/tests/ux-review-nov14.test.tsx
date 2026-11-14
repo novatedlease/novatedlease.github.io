@@ -145,3 +145,24 @@ describe("UX 4: Your alternatives has sanity checks", () => {
     expect(screen.getByText(/\$400 a month is high for an account fee/)).toBeTruthy();
   });
 });
+
+describe("UX 8: the payment amount comes first", () => {
+  test("amount box before the period and GST questions; Still to answer in the same order", () => {
+    const d = partialQuote();
+    d.monthsDeferred = 2;
+    d.docFee = { text: "", none: true, estimated: false };
+    d.residual = m("16860");
+    d.residualBasis = "incGst";
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "payment", visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
+    );
+    render(<App />);
+    const text = document.body.textContent!;
+    expect(text.indexOf("Finance (lease) payment")).toBeLessThan(text.indexOf("How does your quote show the payment?"));
+    expect(text.indexOf("How does your quote show the payment?")).toBeLessThan(text.indexOf("Does the payment include or exclude GST?"));
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+    const items = [...document.querySelectorAll(".gd-missing__list li")].map((li) => li.textContent);
+    expect(items[0]).toBe("Finance (lease) payment");
+  });
+});

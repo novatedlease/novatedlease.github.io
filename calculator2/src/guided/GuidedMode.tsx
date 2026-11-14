@@ -1447,8 +1447,25 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         Enter only the <strong>vehicle finance</strong> payment. Running costs
         come next.
       </Lead>
-      {/* Before the questions: most payment pointers say which period and GST basis to choose. */}
+      {/* The pointer says which figure to use; the amount comes first, since readers find the
+          number on their quote before reading the period and GST printed around it (UX 8). */}
       <ProviderPointers d={d} field="payment" />
+      <MoneyInput
+        field="payment"
+        label="Finance (lease) payment"
+        value={d.payment}
+        onChange={(m) => {
+          set("payment", m);
+          set("paymentCorrected", false);
+        }}
+        where={
+          d.smartMillarx
+            ? "Filled in by the correction tool below, not the printed figure."
+            : "The car's pre-tax payment, before running costs. Type it as printed."
+        }
+        suffix={d.paymentPeriod ? `per ${PERIOD_UNIT[d.paymentPeriod]}` : undefined}
+        findings={[...f.payment, ...f.paymentCorrected, ...f.providerPayment]}
+      />
       <Choices
         field="paymentPeriod"
         label="How does your quote show the payment?"
@@ -1583,22 +1600,6 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           }}
         />
       )}
-      <MoneyInput
-        field="payment"
-        label="Finance (lease) payment"
-        value={d.payment}
-        onChange={(m) => {
-          set("payment", m);
-          set("paymentCorrected", false);
-        }}
-        where={
-          d.smartMillarx
-            ? "Filled in by the correction tool above, not the printed figure."
-            : "The car's pre-tax payment, before running costs. Type it as printed."
-        }
-        suffix={d.paymentPeriod ? `per ${PERIOD_UNIT[d.paymentPeriod]}` : undefined}
-        findings={[...f.payment, ...f.paymentCorrected, ...f.providerPayment]}
-      />
       {diag?.status === "ok" && diag.rate !== null && (
         <div className="gd-stat">
           <span className="gd-stat__label">Effective interest rate</span>
