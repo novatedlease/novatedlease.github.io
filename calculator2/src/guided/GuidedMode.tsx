@@ -1309,7 +1309,9 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         hint={
           d.monthsDeferredUnsure
             ? "We'll assume 2 months, the most common."
-            : "Quotes often say “deferred 2 months”. Or count the payments: 58 on a 60-month lease means 2."
+            : hasProviderLine(d, "defer")
+              ? undefined
+              : "Quotes often say “deferred 2 months”. Or count the payments: 58 on a 60-month lease means 2."
         }
       />
       <ProviderPointers d={d} field="defer" />
@@ -1363,8 +1365,6 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         where="Type the figure exactly as printed."
         findings={f.residual}
       />
-      {/* Before the GST question: most residual pointers answer it. */}
-      <ProviderPointers d={d} field="residual" />
       <Choices
         field="residualBasis"
         label="On your quote, is the residual (balloon) value"
@@ -1384,7 +1384,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           },
         ]}
         columns={3}
-        hint="Look for “GST” next to the figure. This is the most common slip."
+        hint={hasProviderLine(d, "residual") ? undefined : "Look for “GST” next to the figure. This is the most common slip."}
         tooltip={
           <Tip>
             If a separate “GST on residual” line sits beside the figure, the
@@ -1392,6 +1392,8 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           </Tip>
         }
       />
+      {/* Under the GST question: most residual pointers answer it (UX 17). */}
+      <ProviderPointers d={d} field="residual" />
       {d.residualBasis === "unknown" && (
         <NoteBox mb={20}>
           {guessed && typedResidual && atoMin ? (
@@ -1484,7 +1486,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           },
         ]}
         columns={3}
-        hint="Check next to the payment, its table heading and the footnotes."
+        hint={hasProviderLine(d, "payment") ? undefined : "Check next to the payment, its table heading and the footnotes."}
         tooltip={<Tip>If your quote shows the payment twice, once with GST and once without, the smaller figure is ex GST.</Tip>}
       />
       {smartMillarxAsked(d) && <Choices
@@ -1665,6 +1667,15 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
     )}
     </div>
   );
+}
+
+/**
+ * True when the chosen provider has its own written line for this field. The generic "where to
+ * look" hint under the same question then goes, so each question carries one hint (UX 16).
+ */
+function hasProviderLine(d: GuidedDraft, field: GuideField): boolean {
+  const guide = guideFor(d.provider);
+  return !!guide && pointersFor(guide.id, field).some((p) => p.text && !p.boilerplate);
 }
 
 /** Dated, field-specific guidance beneath the matching question. */
@@ -2053,7 +2064,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           onChange={(m) => set("insurance", m)}
           suffix={suffix}
           suggestion={typicalIn(typical?.insurance)}
-          hint="Comprehensive cover. Compare with your own insurer's quote."
+          hint={hasProviderLine(d, "insurance") ? "Comprehensive cover." : "Comprehensive cover. Compare with your own insurer's quote."}
           tooltip={
             <Tip>
               {"Some quotes (e.g. Maxxia, Oly) put the first year's insurance in the amount financed and only budget for renewals. Still enter the full yearly premium here, and add the first-year premium to the documentation fee so the interest rate isn't overstated. The calculator then counts the first year on the lease side twice, so the lease's cost comes out about one year's premium too high.\n\nThe pay-cash comparison assumes you'd have this same insurance without the lease. Enter only cover you'd buy either way. Put lease-only cover (e.g. LeaseGuard, GAP) in Lease management fees: you wouldn't buy it if you paid cash, and management fees are the only costs the calculator counts on the lease side only."}

@@ -322,12 +322,17 @@ describe("provider pointers", () => {
     expect(before(pointer, screen.getByText("How does your quote show the payment?"))).toBe(true);
   });
 
-  test("residual pointer sits between the residual amount and its GST question", () => {
-    on("lease", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
+  test("residual pointer sits under the GST question it answers, in place of the generic hint (UX 16, 17)", () => {
+    on("lease", { ...quoteDraft(), provider: "maxxia", smartMillarx: false });
     const residual = document.querySelector('.gd-pointers[data-field="residual"]')!;
     expect(residual).toBeTruthy();
-    expect(before(screen.getByLabelText(/residual/i, { selector: "input" }), residual)).toBe(true);
-    expect(before(residual, screen.getByText("On your quote, is the residual (balloon) value"))).toBe(true);
+    expect(before(screen.getByText("On your quote, is the residual (balloon) value"), residual)).toBe(true);
+    expect(screen.queryByText(/This is the most common slip/)).toBeNull();
+  });
+
+  test("with no provider the generic residual GST hint stays", () => {
+    on("lease", { ...quoteDraft(), provider: null, smartMillarx: false });
+    expect(screen.getByText(/This is the most common slip/)).toBeTruthy();
   });
 
   test("warns when a quote layout has not been checked for over six months", () => {
