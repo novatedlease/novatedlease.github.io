@@ -30,7 +30,7 @@ This numbered example shows an Oly quote layout we reviewed. Match each marker t
 |---|---|---|
 | 2 | Recommended retail price (shown struck out) | On this example it reconciles to the on-road price including GST. Check that the figure on your own quote includes all on-road charges; otherwise use the dealer's full drive-away price. "Your Oly novated leasing price" / "Oly driveaway price" has the GST saving taken off. |
 | 3 | Your chosen novated lease term | Lease term |
-| 5 | Financier's Establishment fee and First year Comprehensive Insurance | Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question. |
+| 5 | Financier's Establishment fee | Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question. |
 | 7 | Car lease payments | Finance payment, per month (the page says "Monthly"). No GST label: choose "I'm not sure" unless your quote says. |
 | 9 | Monthly running-cost budget lines | Running-cost boxes, per month. Incidentals and roadside → Servicing. |
 <!-- provider-table:end -->

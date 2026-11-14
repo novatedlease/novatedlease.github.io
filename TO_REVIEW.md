@@ -19,9 +19,11 @@ Owner decisions on all 23 UX items (2026-11-14): `UX_REVIEW_2026-11-14_DECISIONS
   Aug 2025" note? (optional)
 - [ ] **GA4:** also register `level` as a custom dimension? (optional)
 
-- [ ] **Clear Lease (new, 2026-11-14):** read the Guided lines and the article
+- [x] **Clear Lease (new, 2026-11-14):** read the Guided lines and the article
   (`/start-here/how-to-read-clearlease-quote/`). It rests on one quote, so check the wording of
   the two traps and of the "add GAP to management fees" line.
+  Done 2026-11-14: both traps kept; GAP reason now "A cash buyer wouldn't pay it, so it's counted
+  with the lease-only fees." The missing marker 4 is months deferred (fixed numbering), kept.
 
 ## 2. Ready to implement on your go-ahead
 

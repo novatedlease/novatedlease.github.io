@@ -458,7 +458,7 @@ export const GUIDES: ProviderGuide[] = [
       {
         field: "fees",
         text: "Enter “Administration” as the management fee, and add “GAP Insurance (financed)” to it.",
-        more: "You'd only buy GAP cover with a lease, so it belongs with the management fees.",
+        more: "A cash buyer wouldn't pay it, so it's counted with the lease-only fees.",
       },
     ],
   },

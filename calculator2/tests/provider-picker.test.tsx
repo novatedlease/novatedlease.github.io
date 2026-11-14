@@ -668,14 +668,16 @@ describe("provider pointers", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-maxxia-quote.md"), "utf8");
     expect(article).toContain(pointersFor("maxxia", "docFee")[0].text);
     expect(article).toContain(pointersFor("maxxia", "insurance")[0].text);
-    expect(article).toContain("**Financier's Establishment Fee** and **1st year Comprehensive Insurance**");
+    expect(article).toContain("| 5 | Documentation fee | **Financier's Establishment Fee** |");
+    expect(article).not.toContain("| 5 | Documentation fee and financed insurance");
     expect(article).not.toContain("Add the two and enter the total");
   });
 
   test("Oly's article keeps the financed insurance in Guided's separate question", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-oly-quote.md"), "utf8");
     expect(article).toContain(pointersFor("oly", "docFee")[0].text);
-    expect(article).toContain("Financier's Establishment fee and First year Comprehensive Insurance");
+    expect(article).toContain("| 5 | Financier's Establishment fee |");
+    expect(article).toContain("First year Comprehensive Insurance");
     expect(article).not.toContain("Documentation fee: add the two and enter the total");
   });
 
