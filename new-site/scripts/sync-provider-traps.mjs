@@ -23,12 +23,12 @@ const block = /<!-- provider-traps:begin -->\n[\s\S]*?<!-- provider-traps:end --
 const review = /<!-- quote-review:end -->\n\n/;
 
 // Review round 2, R15: past twelve months with no newer quote, Guided shows the traps as plain lines; the article says so.
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const now = new Date();
 const oldNote = (seen, label) => {
   const [y, m] = seen.split('-').map(Number);
   if (now.getFullYear() * 12 + now.getMonth() + 1 - (y * 12 + m) <= 12) return '';
-  return `*Based on ${anOrA(label)} ${label} quote from ${MONTHS[m - 1]} ${y}. Yours may look different.*\n\n`;
+  // The date is already in the quote-review line above, so the note doesn't repeat it (owner, 2026-11-14).
+  return '*From an older quote. Yours may look different.*\n\n';
 };
 
 let count = 0;
