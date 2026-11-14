@@ -718,6 +718,29 @@ function StartOverLink({ onConfirm }: { onConfirm: () => void }) {
 
 // ─── Steps ──────────────────────────────────────────────────────────────────
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/** "2026-12-15" → "15 Dec 2026", the way readers write dates. */
+export function longDate(iso: string | null): string | null {
+  const m = iso ? /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso) : null;
+  return m ? `${Number(m[3])} ${MONTHS[Number(m[2]) - 1]} ${m[1]}` : null;
+}
+
+/**
+ * The residual as the reader typed it, with the GST answer they gave, so it matches their quote.
+ * The ex-GST figure the engine uses stays in the full workings.
+ */
+export function residualAsTyped(d: GuidedDraft): string | null {
+  const v = moneyValue(d.residual);
+  if (v && d.residualBasis === "incGst") return `${money(v)} including GST`;
+  if (v && d.residualBasis === "exGst") return `${money(v)} excluding GST`;
+  if (d.residualBasis !== "unknown") return null;
+  const guess = guessedResidualBasis(d);
+  if (v && guess)
+    return `${money(v)}, GST not stated (we read it as ${guess === "incGst" ? "including" : "excluding"} GST)`;
+  const ato = atoMinimumResidualExGst(d);
+  return ato ? `Not on your quote: the ATO minimum, ${money(ato)} excluding GST` : null;
+}
+
 type StepProps = {
   d: GuidedDraft;
   set: <K extends keyof GuidedDraft>(k: K, v: GuidedDraft[K]) => void;
@@ -2697,7 +2720,7 @@ function ReviewStep({
         ]
       : [
           carRow,
-          ["Lease start", effectiveStartDate(d) ?? "?", "car"],
+          ["Lease start", longDate(effectiveStartDate(d)) ?? "?", "car"],
           fbtRow,
           ["FBT base value", money(moneyValue(d.baseValue) ?? 0), "price"],
           ["Drive-away price", money(moneyValue(d.driveaway) ?? 0), "price"],
@@ -2707,13 +2730,7 @@ function ReviewStep({
             "lease",
           ],
           ["Documentation fee", money(moneyValue(d.docFee) ?? 0), "lease"],
-          [
-            "Residual (ex GST)",
-            residualExGstEntered(d)
-              ? `${money(residualExGstEntered(d)!)}${d.residualBasis === "unknown" ? (guessedResidualBasis(d) ? ` (read as ${guessedResidualBasis(d) === "incGst" ? "inc" : "ex"} GST)` : " (ATO minimum)") : ""}`
-              : "?",
-            "lease",
-          ],
+          ["Residual", residualAsTyped(d) ?? "?", "lease"],
           asksMarketValueEnd(d)
             ? [
                 "Market value at lease end",
