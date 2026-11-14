@@ -75,6 +75,26 @@ export function checkPrices(
   return out;
 }
 
+/**
+ * The GST credit on a car is capped ($6,334 in 2025–26, $6,353 now), so a credit x 11 at the cap
+ * understates a dearer car. A base value that lands on 11 x either cap was probably worked out
+ * that way (UX review 14 Nov 2026, item 23).
+ */
+export const GST_CREDIT_CAPS = [6334, 6353];
+
+export function checkBaseValueAtCap(base: number | null): Finding[] {
+  if (!base) return [];
+  if (!GST_CREDIT_CAPS.some((cap) => Math.abs(base - cap * 11) <= 30)) return [];
+  return [
+    {
+      code: "base_value_at_gst_cap",
+      level: "warn",
+      message:
+        "This matches 11 × the maximum GST credit. If you worked it out that way, your car may cost more. Check for an FBT base value or price breakdown.",
+    },
+  ];
+}
+
 // ─── Lease step ─────────────────────────────────────────────────────────────
 
 export function checkDocFee(fee: number | null): Finding[] {

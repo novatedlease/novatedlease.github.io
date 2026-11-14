@@ -111,6 +111,7 @@ import {
   checkMileage,
   checkPaymentCorrected,
   checkPrices,
+  checkBaseValueAtCap,
   checkProvider,
   checkRate,
   checkResidual,
@@ -200,6 +201,7 @@ function findingsFor(d: GuidedDraft) {
     prices: checkPrices(base, drive).filter(
       (f) => f.code !== "base_exceeds_driveaway" || !providerChecks.some((p) => p.code === "provider_driveaway_trap"),
     ),
+    baseValue: checkBaseValueAtCap(base),
     providerPrice: providerChecks.filter((f) => f.code === "provider_driveaway_trap"),
     providerPayment: providerChecks.filter((f) => f.code !== "provider_driveaway_trap"),
     docFee: checkDocFee(moneyValue(d.docFee)),
@@ -1220,7 +1222,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
         value={d.baseValue}
         onChange={(m) => set("baseValue", m)}
         where="Before stamp duty, rego and CTP."
-        findings={f.prices.filter((x) => x.code === "base_exceeds_driveaway")}
+        findings={[...f.prices.filter((x) => x.code === "base_exceeds_driveaway"), ...f.baseValue]}
       />
       <ProviderPointers d={d} field="baseValue" />
       <MoneyInput

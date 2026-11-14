@@ -4,6 +4,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, type GuidedDraft, type Money } from "../src/guided/draft";
 import { longDate, residualAsTyped } from "../src/guided/answerText";
+import { checkBaseValueAtCap } from "../src/guided/checks";
 
 /** The owner's decisions on the 14 Nov 2026 UX review (UX_REVIEW_2026-11-14_DECISIONS.md). */
 
@@ -100,5 +101,13 @@ describe("UX 6: gaps read 'Not answered', never $0 or ?", () => {
     seedReview(d);
     render(<App />);
     expect(answers()["Documentation fee"]).toBe("$0");
+  });
+});
+
+describe("UX 23: a base value at 11 × the GST cap", () => {
+  test("warns within $30 of either cap, not elsewhere", () => {
+    for (const v of [69674, 69883, 69660, 69900]) expect(checkBaseValueAtCap(v)[0]?.code).toBe("base_value_at_gst_cap");
+    for (const v of [69600, 69950, 56000, null]) expect(checkBaseValueAtCap(v)).toEqual([]);
+    expect(checkBaseValueAtCap(69883)[0].level).toBe("warn");
   });
 });
