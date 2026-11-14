@@ -4,7 +4,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, type GuidedDraft, type Money } from "../src/guided/draft";
 import { longDate, residualAsTyped } from "../src/guided/answerText";
-import { checkBaseValueAtCap } from "../src/guided/checks";
+import { checkBaseValueAtCap, checkCurrentCarTotal, checkLoanFee, checkLoanRate } from "../src/guided/checks";
 
 /** The owner's decisions on the 14 Nov 2026 UX review (UX_REVIEW_2026-11-14_DECISIONS.md). */
 
@@ -109,5 +109,39 @@ describe("UX 23: a base value at 11 × the GST cap", () => {
     for (const v of [69674, 69883, 69660, 69900]) expect(checkBaseValueAtCap(v)[0]?.code).toBe("base_value_at_gst_cap");
     for (const v of [69600, 69950, 56000, null]) expect(checkBaseValueAtCap(v)).toEqual([]);
     expect(checkBaseValueAtCap(69883)[0].level).toBe("warn");
+  });
+});
+
+describe("UX 4: Your alternatives has sanity checks", () => {
+  test("loan rate outside 2–25%", () => {
+    expect(checkLoanRate(1.5)[0].code).toBe("loan_rate_low");
+    expect(checkLoanRate(26)[0].code).toBe("loan_rate_high");
+    expect(checkLoanRate(7.5)).toEqual([]);
+    expect(checkLoanRate(22)).toEqual([]);
+  });
+
+  test("a monthly fee over $30 reads like the establishment fee", () => {
+    expect(checkLoanFee(400)[0].message).toBe("$400 a month is high for an account fee. Most loans charge $0–$15. Is this the one-off establishment fee?");
+    expect(checkLoanFee(30)).toEqual([]);
+    expect(checkLoanFee(10)).toEqual([]);
+  });
+
+  test("current car costs over $15,000 a year", () => {
+    expect(checkCurrentCarTotal(18000)[0].code).toBe("current_running_high");
+    expect(checkCurrentCarTotal(9000)).toEqual([]);
+  });
+
+  test("on screen: the fee hint and the warning under the box", () => {
+    const d = partialQuote();
+    d.hasQuote = false;
+    d.compareLoan = true;
+    d.loanFee = m("400");
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "alternatives", visited: ["intro", "car", "compare", "quick", "you", "alternatives"] }),
+    );
+    render(<App />);
+    expect(screen.getByText("Monthly account-keeping fee, often $0–$15. Not the one-off establishment fee.")).toBeTruthy();
+    expect(screen.getByText(/\$400 a month is high for an account fee/)).toBeTruthy();
   });
 });

@@ -476,6 +476,47 @@ export function checkRate(
   return [];
 }
 
+// ─── Your alternatives step (UX review 14 Nov 2026, item 4) ─────────────────
+
+/** Car loans sit well inside 2–25% a year; outside it, the rate was probably mistyped. */
+export function checkLoanRate(ratePct: number | null): Finding[] {
+  if (ratePct === null || ratePct === 0) return [];
+  if (ratePct > 25) return checkRate("loan", ratePct, 25);
+  if (ratePct < 2)
+    return [
+      {
+        code: "loan_rate_low",
+        level: "warn",
+        message: `${ratePct}% is lower than car loans charge. Check it's the yearly rate, for example 7.5 for 7.5%.`,
+      },
+    ];
+  return [];
+}
+
+/** A one-off establishment fee typed as the monthly fee is counted every month of the loan. */
+export function checkLoanFee(fee: number | null): Finding[] {
+  if (!fee || fee <= 30) return [];
+  return [
+    {
+      code: "loan_fee_high",
+      level: "warn",
+      message: `${fmt(fee)} a month is high for an account fee. Most loans charge $0–$15. Is this the one-off establishment fee?`,
+    },
+  ];
+}
+
+/** The current car's yearly costs together: over about $15,000 usually means a total over several years. */
+export function checkCurrentCarTotal(yearly: number | null): Finding[] {
+  if (!yearly || yearly <= 15000) return [];
+  return [
+    {
+      code: "current_running_high",
+      level: "warn",
+      message: `Your current car's costs add up to ${fmt(yearly)} a year, which is a lot for one car. Check each is a yearly figure, not a total over several years.`,
+    },
+  ];
+}
+
 export function checkChargingRate(perKwh: number | null): Finding[] {
   if (perKwh === null || perKwh === 0) return [];
   if (perKwh >= 1) {

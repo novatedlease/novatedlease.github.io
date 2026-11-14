@@ -111,6 +111,9 @@ import {
   checkMileage,
   checkPaymentCorrected,
   checkPrices,
+  checkLoanRate,
+  checkLoanFee,
+  checkCurrentCarTotal,
   checkBaseValueAtCap,
   checkProvider,
   checkRate,
@@ -266,7 +269,13 @@ function findingsFor(d: GuidedDraft) {
     offset: checkRate("offset", moneyValue(d.offsetRate), 12),
     savings: checkRate("savings", moneyValue(d.savingsRatePreTax), 12),
     invested: checkRate("invested", moneyValue(d.investedRate), 10),
-    loan: checkRate("loan", moneyValue(d.loanRate), 20),
+    loan: d.compareLoan ? checkLoanRate(moneyValue(d.loanRate)) : [],
+    loanFee: d.compareLoan ? checkLoanFee(moneyValue(d.loanFee)) : [],
+    curTotal: d.compareCurrent
+      ? checkCurrentCarTotal(
+          [d.curService, d.curRego, d.curFuel, d.curInsurance].reduce((sum, m) => sum + (moneyValue(m) ?? 0), 0),
+        )
+      : [],
   };
 }
 
@@ -302,7 +311,7 @@ const STEP_FIELDS: Partial<Record<StepId, (keyof FindingMap)[]>> = {
     "charging",
   ],
   you: ["income", "offset", "savings", "invested"],
-  alternatives: ["loan", "marketValue", "curValueNow", "curValueEnd", "curService", "curRego", "curFuel", "curInsurance"],
+  alternatives: ["loan", "loanFee", "marketValue", "curValueNow", "curValueEnd", "curService", "curRego", "curFuel", "curInsurance", "curTotal"],
 };
 
 /** Findings that only make sense on the screens the reader actually sees. */
@@ -2421,7 +2430,9 @@ function AlternativesStep({ d, set, f }: StepPropsF) {
             label="Loan monthly account fee"
             value={d.loanFee}
             onChange={(m) => set("loanFee", m)}
+            where="Monthly account-keeping fee, often $0–$15. Not the one-off establishment fee."
             noneLabel="No monthly fee ($0)"
+            findings={f.loanFee}
           />
         </section>
       )}
@@ -2544,7 +2555,7 @@ function CurrentCarFields({ d, set, f }: StepPropsF) {
           onChange={(m) => set("curInsurance", m)}
           suffix="per year"
           suggestion={t.insurance}
-          findings={f.curInsurance}
+          findings={[...f.curInsurance, ...f.curTotal]}
           estimatedNote={CUR_TYPICAL}
         />
       </div>
