@@ -34,7 +34,9 @@ export function quoteAssumptions(d: GuidedDraft): QuoteAssumption[] {
   method("Tax", "Legislated rates for each year, a 2% Medicare levy, and the same income every year");
   method(
     "Paying cash: running costs",
-    `The same servicing, registration, insurance and ${d.vehicleType === "EV" ? "your real charging cost" : "fuel"} as your quote, with GST added back. No management fees`,
+    d.vehicleType === "EV"
+      ? "The same servicing, registration and insurance as your quote, with GST added back, plus your real charging cost. No management fees"
+      : "The same servicing, registration, insurance and fuel as your quote, with GST added back. No management fees",
   );
   method("Running costs", "The same each year");
   const rate = (m: GuidedDraft["offsetRate"]) => moneyValue(m);
