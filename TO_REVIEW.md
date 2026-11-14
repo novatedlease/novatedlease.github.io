@@ -47,9 +47,15 @@ The suggested order is from the review. Each item is small (S) or a few hours (M
 
 ## 3. Before merging (from `PROVIDER_GUIDE_MERGE_CHECKLIST.md`)
 
-- [ ] **Phone walkthrough:** at phone width, light and dark, open every "Show me" on the Price,
+- [x] **Phone walkthrough:** at phone width, light and dark, open every "Show me" on the Price,
   Lease, Payment and Running steps for SG Fleet, Smart Leasing, Maxxia, Oly, MillarX and NLA. The
   contact sheet didn't include opened pictures.
+  Done 2026-11-14 at 500 px (Chrome's narrowest window), light and dark: all 24 screens, all 50
+  pictures load. Found and fixed: Smart Leasing / MillarX callout said the tool fills the payment in
+  "below" after the amount moved up (82c101de). Open: Maxxia and Oly documentation-fee crops still
+  tick "1st year Comprehensive Insurance" although the text says to enter only the establishment
+  fee; the insurance "Show me" for both reuses the running-costs crop; Smart Leasing's
+  documentation-fee picture is a whole terms page, unreadable until tapped.
 - [ ] **Say "merge":** it will be a merge commit into `main`, not a squash, then a push. The site goes
   live in about 75 seconds.
 
