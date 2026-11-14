@@ -185,7 +185,8 @@
 .gd-missing-note { margin-top: 6px; font-size: 13px; font-weight: 600; color: var(--nlc-bad-dark); }
 .gd-missing__list { margin: 6px 0 0; padding-left: 18px; }
 .gd-missing__list li { margin: 2px 0; }
-.gd-missing__list .gd-linkbtn { text-align: left; }
+/* A button is inline-block, so a wrapped one sits on its last line and drags the bullet down. */
+.gd-missing__list .gd-linkbtn { text-align: left; vertical-align: top; }
 .gd-missing.gd-missing--done { background: var(--nlc-good-light); border-color: var(--nlc-good); color: var(--nlc-good-dark); }
 .gd-missing { margin-top: 14px; padding: 10px 12px; border-radius: var(--nlc-radius-md); background: var(--nlc-bad-light); border: 1px solid var(--nlc-bad); font-size: 14px; }
 .gd-ack { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; font-size: 14px; cursor: pointer; }
