@@ -159,6 +159,14 @@ const electricityTooltip =
   "Why is electricity treated separately?\n\n" +
   "For most running costs under a novated lease, the amount you spend and the amount you claim are the same. Electricity is different: under the ATO EV home-charging claim rule, the claimable amount (5.47c/km) can differ materially from your actual out-of-pocket electricity cost, which can create a genuine net gain or loss.";
 
+/** The figure is the whole take-home pay reduction, so finance and running costs after tax. */
+const leasePaymentsLabel = (
+  <span>
+    Lease: payments incl. running costs{" "}
+    <InfoTooltip text="Your take-home pay reduction: finance and running costs, after tax." />
+  </span>
+);
+
 function NoteBox(p: { title: string; children: React.ReactNode }) {
   return (
     <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", padding: "10px 12px", border: "1px solid var(--nlc-blue-mid)", background: "var(--nlc-blue-light)", borderRadius: 8 }}>
@@ -201,7 +209,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
       <CardHeader title={`Novated lease vs paying cash — over ${years} years`} />
       <Hero amount={totalSaving} suffix={totalSaving >= 0 ? `cheaper than paying cash over ${years} years` : `more expensive than paying cash over ${years} years`} />
       <div style={{ display: "grid", gap: 4 }}>
-        <BreakdownRow label="Lease: payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
+        <BreakdownRow label={leasePaymentsLabel} value={fmtAud0(s.leasePaymentsOverLease)} indent />
         <BreakdownRow label="Lease: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
         {nlPostLeaseRunning > 0 && <BreakdownRow label="Lease: running costs after it ends" value={fmtAud0(nlPostLeaseRunning)} indent />}
         {isEv && (
@@ -241,7 +249,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
           <CardHeader title={`Novated lease vs a car loan — over ${years} years`} />
           <Hero amount={totalSavingVsLoan} suffix={totalSavingVsLoan >= 0 ? `cheaper than a car loan over ${years} years` : `more expensive than a car loan over ${years} years`} />
           <div style={{ display: "grid", gap: 4 }}>
-            <BreakdownRow label="Lease: payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
+            <BreakdownRow label={leasePaymentsLabel} value={fmtAud0(s.leasePaymentsOverLease)} indent />
             <BreakdownRow label="Lease: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
             {nlPostLeaseRunning > 0 && <BreakdownRow label="Lease: running costs after it ends" value={fmtAud0(nlPostLeaseRunning)} indent />}
             {isEv && (
