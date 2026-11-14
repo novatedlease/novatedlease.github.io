@@ -55,8 +55,9 @@ The suggested order is from the review. Each item is small (S) or a few hours (M
   Done 2026-11-14 at 500 px (Chrome's narrowest window), light and dark: all 24 screens, all 50
   pictures load. Found and fixed: Smart Leasing / MillarX callout said the tool fills the payment in
   "below" after the amount moved up (82c101de). Maxxia and Oly documentation-fee crops ticked
-  "1st year Comprehensive Insurance" too; tick and box painted out (owner, 2026-11-14). Open: the insurance "Show me" for both reuses the running-costs crop; Smart Leasing's
-  documentation-fee picture is a whole terms page, unreadable until tapped.
+  "1st year Comprehensive Insurance" too; tick and box painted out (owner, 2026-11-14). Open: the insurance "Show me" for both reuses the running-costs crop. Smart Leasing's
+  documentation-fee picture was a whole terms page; now a crop of the clause, rebuilt from the
+  original screenshot with the fee ticked (2026-11-14).
 - [ ] **Say "merge":** it will be a merge commit into `main`, not a squash, then a push. The site goes
   live in about 75 seconds.
 

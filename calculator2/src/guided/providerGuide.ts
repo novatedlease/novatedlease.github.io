@@ -869,9 +869,9 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     caption: "Lease details from an SG Fleet quote, with values removed. The line to use is marked 2.",
   } },
   { id: "smartleasing", field: "docFee", example: {
-    image: "/assets/images/quote-guide/smartleasing/terms-example.webp",
-    alt: "Redacted Smart Leasing terms page with documentation fee marked 5",
-    caption: "Terms page from a separate Smart Leasing quote, with values removed. The line to use is marked 5.",
+    image: "/assets/images/quote-guide/smartleasing/field-docFee.webp",
+    alt: "Clause from a redacted Smart Leasing terms page with the documentation fee ticked",
+    caption: "The terms clause from a separate Smart Leasing quote, with values removed. The fee to use is ticked.",
   } },
   {
     id: "oly",

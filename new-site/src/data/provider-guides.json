@@ -42,7 +42,7 @@
           "kind": "locate",
           "text": "Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.",
           "more": "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.",
-          "image": "/assets/images/quote-guide/smartleasing/terms-example.webp"
+          "image": "/assets/images/quote-guide/smartleasing/field-docFee.webp"
         },
         {
           "field": "residual",

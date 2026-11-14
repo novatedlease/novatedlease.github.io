@@ -295,12 +295,12 @@ describe("provider pointers", () => {
     }
   });
 
-  test("special example captions name the number that marks the line", () => {
+  test("special example captions say how the line is marked: its number, or a tick on a crop", () => {
     for (const { id } of PROVIDERS) {
       if (id === "other") continue;
       for (const field of FIELDS_FOR_CAPTIONS) {
         const example = exampleFor(id, field);
-        if (example) expect(example.caption, `${id}/${field}`).toMatch(/marked \d+/);
+        if (example) expect(example.caption, `${id}/${field}`).toMatch(example.image.includes("/field-") ? /is ticked/ : /marked \d+/);
       }
     }
   });
@@ -443,11 +443,11 @@ describe("provider pointers", () => {
     expect(pointer.querySelector(".gd-template__fullpage")).toBeTruthy();
   });
 
-  test("Smart Leasing's documentation fee opens its separate terms page", () => {
+  test("Smart Leasing's documentation fee opens a crop of the separate terms page's clause", () => {
     on("lease", { ...quoteDraft(), provider: "smartleasing" });
     const pointer = openPicture("docFee");
     expect(pointer.querySelector(".gd-template__body img")?.getAttribute("src"))
-      .toBe("/assets/images/quote-guide/smartleasing/terms-example.webp");
+      .toBe("/assets/images/quote-guide/smartleasing/field-docFee.webp");
   });
 
   test("SG Fleet's payment trap uses an amber box and a scrollable full-page toggle", () => {
