@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, type GuidedDraft, type Money } from "../src/guided/draft";
-import { longDate, residualAsTyped } from "../src/guided/GuidedMode";
+import { longDate, residualAsTyped } from "../src/guided/answerText";
 
 /** The owner's decisions on the 14 Nov 2026 UX review (UX_REVIEW_2026-11-14_DECISIONS.md). */
 
