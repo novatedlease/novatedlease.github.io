@@ -436,7 +436,7 @@ export function InputsPanel(props: {
         <CurrencyField label="Registration" value={inputs.registrationAnnual} onChange={(v) => set("registrationAnnual", v)} />
         {isEv ? (
           <CurrencyField
-            label="Electricity"
+            label="Electricity budget in the lease"
             value={inputs.electricityAnnual}
             onChange={(v) => set("electricityAnnual", v)}
             hint="The packaged claim amount (ATO shortcut: 5.47c/km) — not your actual charging cost, which goes in the Electricity section below."
