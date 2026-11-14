@@ -1303,7 +1303,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           { value: "0", label: "Straight away" },
           { value: "1", label: "After 1 month" },
           { value: "2", label: "After 2 months", sub: "Most common" },
-          { value: "unsure", label: "Not sure" },
+          { value: "unsure", label: "Not sure", sub: "We'll assume 2" },
         ]}
         columns={4}
         hint={
@@ -1671,7 +1671,7 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
 function ProviderPointers({ d, field }: { d: GuidedDraft; field: GuideField }) {
   const guide = guideFor(d.provider);
   if (!guide) return null;
-  let list = pointersFor(guide.id, field);
+  let list = pointersFor(guide.id, field).filter((p) => !p.boilerplate);
   // Offer a marked crop even when no written pointer is needed.
   if (list.length === 0 && field !== "insurance" && cropFor(guide.id, field)) {
     list = [{ field, text: "", kind: "locate" }];

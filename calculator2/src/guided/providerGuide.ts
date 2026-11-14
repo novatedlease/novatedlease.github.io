@@ -91,6 +91,11 @@ export type Pointer = {
   more?: string;
   /** The field isn't on the provider's example, so there's no picture to show. */
   notShown?: boolean;
+  /**
+   * The same sentence for every provider, repeating a control already on screen ("Not sure",
+   * "no fee ($0)"). Articles list it; Guided leaves it out (UX review 14 Nov 2026, item 15).
+   */
+  boilerplate?: boolean;
   /** A marked picture for a not-shown line, e.g. a line to work the figure out from. */
   example?: FieldExample;
 };
@@ -738,6 +743,9 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotS
   },
 };
 
+/** Fields whose generic "can't find it" line only repeats an on-screen control. */
+const BOILERPLATE_FIELDS: GuideField[] = ["defer", "docFee", "fees"];
+
 function notShownText(id: ProviderId, field: GuideField): NotShownLine | null {
   const special = NOT_SHOWN_TEXT[id]?.[field];
   if (special) return special;
@@ -764,7 +772,10 @@ export function pointersFor(id: ProviderId | null, field: GuideField): Pointer[]
   if (listed.length > 0 || !NOT_SHOWN[id]?.includes(field)) return listed.map((p) => withKind(id, p));
   const line = notShownText(id, field);
   if (!line) return [];
-  return [withKind(id, typeof line === "string" ? { field, text: line, notShown: true } : { field, ...line, notShown: true })];
+  const boilerplate = BOILERPLATE_FIELDS.includes(field) && !NOT_SHOWN_TEXT[id]?.[field];
+  return [withKind(id, typeof line === "string"
+    ? { field, text: line, notShown: true, ...(boilerplate ? { boilerplate } : {}) }
+    : { field, ...line, notShown: true })];
 }
 
 /** "Nov 2026" from "2026-11". */

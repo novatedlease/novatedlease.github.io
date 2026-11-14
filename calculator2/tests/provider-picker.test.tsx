@@ -571,9 +571,18 @@ describe("provider pointers", () => {
     expect(pointersFor("fleetpartners", "baseValue")[0].text).toMatch(/Total column of “Vehicle”/);
     // a field the example does show keeps its own pointer
     expect(pointersFor("sgfleet", "defer")[0].notShown).toBeUndefined();
+    // Articles keep the generic line; Guided drops it, since "no fee ($0)" is right above (UX 15).
+    expect(pointersFor("remserv", "docFee")[0]).toMatchObject({ notShown: true, boilerplate: true });
     on("lease", { ...quoteDraft(), provider: "remserv" });
-    const line = screen.getByText(/Can’t find a documentation or establishment fee on your RemServ quote/);
-    expect(line.closest(".gd-pointer")!.querySelector("button")).toBeNull();
+    expect(screen.queryByText(/Can’t find a documentation or establishment fee/)).toBeNull();
+    expect(screen.queryByText(/Can’t find months deferred/)).toBeNull();
+    expect(screen.getByText("We'll assume 2")).toBeTruthy();
+  });
+
+  test("provider-specific not-shown lines are not boilerplate", () => {
+    expect(pointersFor("remunerator", "fees")[0].boilerplate).toBeUndefined();
+    expect(pointersFor("oly", "baseValue")[0].boilerplate).toBeUndefined();
+    expect(pointersFor("toyotafleet", "defer").every((p) => !p.boilerplate)).toBe(true);
   });
 
   test("every crop listed exists on disk", async () => {
