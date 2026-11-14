@@ -1544,7 +1544,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         (d.paymentCorrected ? (
           <div className="gd-callout gd-callout--done" role="status">
             <div className="gd-callout__title">
-              ✓ Corrected payment entered below
+              ✓ Corrected payment entered above
             </div>
             <p>
               This is the finance-only figure from the correction tool, not the
@@ -1565,7 +1565,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             </div>
             <p>
               The printed payment usually includes a budget reserve. The tool works
-              out the finance-only payment and fills it in below.
+              out the finance-only payment and fills it in above.
             </p>
             {d.leaseYears ? (
               <Button

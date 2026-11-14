@@ -452,7 +452,7 @@ describe("Smart Leasing / MillarX on the payment screen", () => {
     window.localStorage.clear();
     onPayment({ ...d, paymentCorrected: true });
     expect(screen.queryByText(/You need to correct/)).toBeNull();
-    expect(screen.getByText(/Corrected payment entered below/)).toBeTruthy();
+    expect(screen.getByText(/Corrected payment entered above/)).toBeTruthy();
   });
 });
 
