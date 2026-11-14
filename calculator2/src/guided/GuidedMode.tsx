@@ -1367,7 +1367,6 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           label="First-year insurance premium in the amount financed"
           value={d.financedInsurance}
           onChange={(m) => set("financedInsurance", m)}
-          where="Enter that first-year line only. Keep the establishment fee separate above."
         />}
         {d.insuranceFinanced === "Unsure" && <p className="nlc-field__hint">Check your quote or ask the provider. The rate and lease total may be less accurate until you know.</p>}
       </>}
