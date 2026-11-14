@@ -26,6 +26,8 @@ type Props = {
   compactMoreDetails?: boolean;
   /** Guided: the reader said they can't pay cash, so the cash card goes after the ones they might act on. */
   cashLast?: boolean;
+  /** Hide the residual and interest notes; Guided's quote path lists them under "What we assumed". */
+  hideNotes?: boolean;
 };
 
 const FULL_BREAKDOWN_ANCHOR = "details-section-2-financial-summary";
@@ -175,7 +177,7 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
   );
 }
 
-export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails, cashLast }: Props) {
+export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails, cashLast, hideNotes }: Props) {
   const {
     s,
     years,
@@ -308,10 +310,12 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
 
       {afterResults}
 
-      <NoteBox title="Residual assumption:">
-        all scenarios include the final residual payout, so the model assumes you own the car outright at the end of the lease. This addresses the common misconception that novated leasing is expensive because you "don't own the car."
-      </NoteBox>
-      <NoteBox title="How interest is compared:">each option's home loan interest is measured against not buying a car at all, so all the options can be compared fairly.</NoteBox>
+      {!hideNotes && <>
+        <NoteBox title="Residual assumption:">
+          all scenarios include the final residual payout, so the model assumes you own the car outright at the end of the lease. This addresses the common misconception that novated leasing is expensive because you "don't own the car."
+        </NoteBox>
+        <NoteBox title="How interest is compared:">each option's home loan interest is measured against not buying a car at all, so all the options can be compared fairly.</NoteBox>
+      </>}
     </div>
   );
 }

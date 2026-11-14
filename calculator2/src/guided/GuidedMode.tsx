@@ -52,6 +52,7 @@ import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
 import { summaryFigures } from "../components/summaryFigures";
 import { superShortfallOverLease, takeHomeReductionPerFn } from "../components/payImpact";
+import { quoteAssumptions } from "./quoteAssumptions";
 import { ASSUMED_EFFECTIVE_RATE } from "../assumptions";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
@@ -2608,6 +2609,7 @@ function ReviewStep({
     null,
   );
   const assumptions = exploring ? estimateAssumptions(d) : null;
+  const quoteAssumed = !exploring && inputs ? quoteAssumptions(d) : null;
   /** Bumped to open "Assumptions we made for you" from the note at the top. */
   const [assumptionsNonce, setAssumptionsNonce] = useState<number>();
   function showAssumptions() {
@@ -2797,6 +2799,26 @@ function ReviewStep({
           ))}
         </dl>
       </Section>
+      {quoteAssumed && (
+        <Section
+          title={`What we assumed (${quoteAssumed.length})`}
+          description="Where your quote or answers didn't say."
+          anchorId={ASSUMPTIONS_ID}
+          forceOpenNonce={assumptionsNonce}
+        >
+          {(["unsure", "method"] as const).map((g) => {
+            const items = quoteAssumed.filter((a) => a.group === g);
+            return items.length ? (
+              <div key={g} className="gd-assumed">
+                <div className="gd-assumed__group">{g === "unsure" ? "You chose “Not sure”" : "How we work it out"}</div>
+                <div className="gd-kvlist">
+                  {items.map((a) => <KV key={a.label} label={a.label} value={a.value} />)}
+                </div>
+              </div>
+            ) : null;
+          })}
+        </Section>
+      )}
       {inputs && assumptions && (
         <Section
           title={`What we assumed (${assumptions.length})`}
@@ -2876,6 +2898,7 @@ function ReviewStep({
             onNavigateToDetails={(anchorId) => openAdvanced(anchorId)}
             hideDisclaimers
             compactMoreDetails
+            hideNotes={!exploring}
             cashLast={cashNone}
             onMoreDetails={(anchorId) => {
               trackEvent("guided_more_details_clicked");

@@ -223,3 +223,32 @@ describe("UX 2 and 3: take-home pay and lost super beside the headline", () => {
     expect(document.body.textContent).not.toMatch(/Your super may also be reduced/);
   });
 });
+
+describe("UX 14: the quote path lists what we assumed", () => {
+  test("'Not sure' answers first, then the method; the two italic notes move into it", () => {
+    const d = fullQuote();
+    d.monthsDeferred = 2;
+    d.monthsDeferredUnsure = true;
+    seedReview(d);
+    render(<App />);
+    const title = screen.getByRole("button", { name: /^What we assumed \(\d+\)/ });
+    fireEvent.click(title);
+    const text = document.body.textContent!;
+    expect(text).toMatch(/You chose “Not sure”/);
+    expect(text).toMatch(/Months until first payment.*2, the most common/);
+    expect(text).toMatch(/How we work it out/);
+    expect(text).toMatch(/Legislated rates for each year/);
+    expect(text).toMatch(/6\.1% for the whole lease/);
+    expect(text).not.toMatch(/Residual assumption:/);
+  });
+
+  test("no 'Not sure' group when everything was answered", () => {
+    const d = fullQuote();
+    d.residual = m("16860");
+    d.residualBasis = "incGst";
+    seedReview(d);
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /^What we assumed/ }));
+    expect(document.body.textContent).not.toMatch(/You chose “Not sure”/);
+  });
+});
