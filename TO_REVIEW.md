@@ -27,21 +27,21 @@ Owner decisions on all 23 UX items (2026-11-14): `UX_REVIEW_2026-11-14_DECISIONS
 
 The suggested order is from the review. Each item is small (S) or a few hours (M).
 
-- [ ] **Batch A, quick trust fixes (S):** 1 "Lease: payments" label · 5 answers list shows values
+- [x] **Batch A, quick trust fixes (S):** 1 "Lease: payments" label · 5 answers list shows values
   as typed, and dates as "15 Dec 2026" · 6 "Not answered" instead of $0 · 9 phone bullet
   alignment · 12 "electricity gain / loss" renamed.
-- [ ] **Batch B, alternatives checks (S–M):** 4 loan fee hint, plus warnings on the fee, rate,
+- [x] **Batch B, alternatives checks (S–M):** 4 loan fee hint, plus warnings on the fee, rate,
   market value and running costs.
-- [ ] **Batch C, provider clutter (S):**
+- [x] **Batch C, provider clutter (S):**
   - 15 drop 34 boilerplate "Can't find it?" lines;
   - 16 one hint per question;
   - 17 provider line under its question;
   - 18 hide generic picture links and the typical-figure nudge on the quote path.
-- [ ] **Batch D, FBT base value (S):**
+- [x] **Batch D, FBT base value (S):**
   - 19 Oly: "GST" line × 11, with no cap caveat;
   - 20 RemServ and 21 MillarX: point to the printed "FBT Base Value" first;
   - 23 warning at 11 × the cap.
-- [ ] **Batch E, copy (S):** 7 income hint · 10 Advanced "Electricity budget in the lease" · 11
+- [x] **Batch E, copy (S):** 7 income hint · 10 Advanced "Electricity budget in the lease" · 11
   NSW Health placement and the financed-amount hint · 13 help text names · 14 "What we assumed" on the
   quote path.
 

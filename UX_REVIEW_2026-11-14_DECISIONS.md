@@ -43,7 +43,14 @@
   If you worked it out that way, your car may cost more. Check for an FBT base value or price
   breakdown." Amber, non-blocking, all providers, within ~$30 of $69,674 or $69,883.
 
-## Implementation batches (none started)
+## Implementation (done 2026-11-14, not pushed)
+
+All approved items are implemented on this branch, one commit per item (19-21 and 2-3 share
+one each), 392 tests passing. Browser-checked at 390 px: results headline (take-home \$466.60
+and SG loss \$10,704 match Advanced), answers list, What we assumed, Payment, Lease (Maxxia),
+Price (Oly, 11 x cap warning). Item 4 is covered by a render test.
+
+Batches as planned:
 
 - A, trust fixes: 1, 5, 6, 9, 12
 - B, alternatives checks: 4
