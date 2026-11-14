@@ -4,16 +4,17 @@ Branch `codex/provider-guide-completion`, preview at http://100.95.205.3:4340 (T
 localhost:4340. Nothing is pushed or merged. Tick items as you go.
 
 Full detail for every UX item: `UX_REVIEW_2026-11-14.md` (item numbers match).
+Owner decisions on all 23 UX items (2026-11-14): `UX_REVIEW_2026-11-14_DECISIONS.md`.
 
 ## 1. Decisions only you can make
 
-- [ ] **UX 2: take-home pay line.** Add "Your take-home pay: about $X less per fortnight" under
+- [x] **UX 2: take-home pay line.** Add "Your take-home pay: about $X less per fortnight" under
   the headline, and "Compare this with the take-home figure on your quote"? Approve or change the wording.
-- [ ] **UX 3: lost super.** Show it next to the headline ("Not counted above: about $X less super
+- [x] **UX 3: lost super.** Show it next to the headline ("Not counted above: about $X less super
   over 5 years"), or subtract it from the headline saving?
-- [ ] **UX 8: Payment step order.** Move the amount to the top, with the period and GST questions
+- [x] **UX 8: Payment step order.** Move the amount to the top, with the period and GST questions
   under it? This changes a familiar screen, so only if you like the idea.
-- [ ] **UX 22: cap wording.** "the maximum, about $6,300 (for example $6,334 or $6,353)": OK?
+- [x] **UX 22: cap wording.** "the maximum, about $6,300 (for example $6,334 or $6,353)": OK?
 - [ ] **LeasePlan article:** drop the duplicated date in the new "Based on a LeasePlan quote from
   Aug 2025" note? (optional)
 - [ ] **GA4:** also register `level` as a custom dimension? (optional)
