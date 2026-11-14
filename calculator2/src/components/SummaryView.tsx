@@ -216,7 +216,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
           <BreakdownRow
             label={
               <span>
-                Lease: electricity gain / loss <InfoTooltip text={electricityTooltip} />
+                Charging: lease budget vs your real cost <InfoTooltip text={electricityTooltip} />
               </span>
             }
             value={fmtSigned(-chargingDelta)}
@@ -256,7 +256,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
               <BreakdownRow
                 label={
                   <span>
-                    Lease: electricity gain / loss <InfoTooltip text={electricityTooltip} />
+                    Charging: lease budget vs your real cost <InfoTooltip text={electricityTooltip} />
                   </span>
                 }
                 value={fmtSigned(-chargingDelta)}
