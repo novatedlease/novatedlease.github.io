@@ -2149,7 +2149,7 @@ function YouStep({ d, set, f }: StepPropsF) {
         label="Your annual taxable income"
         value={d.income}
         onChange={(m) => set("income", m)}
-        where="From ALL your jobs and income, after deductions: the ‘taxable income’ line on your tax return."
+        where="From all your jobs, after deductions but before tax, and before this lease. The ‘taxable income’ line on your last tax return is a good guide."
         tooltip={<Tip>Not just the employer arranging this lease. Use the yearly figure before tax, as it is before the lease. A recent tax return or payslip helps.</Tip>}
         findings={f.income}
       />
