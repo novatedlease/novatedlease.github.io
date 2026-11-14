@@ -18,6 +18,10 @@ Full detail for every UX item: `UX_REVIEW_2026-11-14.md` (item numbers match).
   Aug 2025" note? (optional)
 - [ ] **GA4:** also register `level` as a custom dimension? (optional)
 
+- [ ] **Clear Lease (new, 2026-11-14):** read the Guided lines and the article
+  (`/start-here/how-to-read-clearlease-quote/`). It rests on one quote, so check the wording of
+  the two traps and of the "add GAP to management fees" line.
+
 ## 2. Ready to implement on your go-ahead
 
 The suggested order is from the review. Each item is small (S) or a few hours (M).
