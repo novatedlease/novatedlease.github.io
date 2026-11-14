@@ -295,6 +295,9 @@
 .gd-headline__line { font-size: 17px; line-height: 1.45; padding: 2px 0; }
 .gd-headline__line strong { font-size: 22px; font-variant-numeric: tabular-nums; }
 .gd-headline__why { margin: 10px 0 0; font-size: 14px; line-height: 1.5; }
+.gd-headline__pay, .gd-headline__super { margin: 8px 0 0; font-size: 15px; line-height: 1.45; }
+.gd-headline__pay strong, .gd-headline__super strong { font-variant-numeric: tabular-nums; }
+.gd-headline__pay-sub { display: block; font-size: 13px; color: var(--nlc-text-muted); }
 .gd-headline__caveat { margin: 12px 0 0; font-size: 13px; line-height: 1.5; color: var(--nlc-text-muted); }
 
 /* Provider picker: a full-width select is far too wide on desktop. Fits the longest name. */

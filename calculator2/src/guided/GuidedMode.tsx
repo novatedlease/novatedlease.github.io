@@ -51,6 +51,7 @@ import { NextSteps } from "../components/NextSteps";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
 import { summaryFigures } from "../components/summaryFigures";
+import { superShortfallOverLease, takeHomeReductionPerFn } from "../components/payImpact";
 import { ASSUMED_EFFECTIVE_RATE } from "../assumptions";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
@@ -89,6 +90,7 @@ import {
   smartMillarxAsked,
   PERIOD_UNIT,
   PERIODS_PER_YEAR,
+  type Period,
   typicalCurrentCar,
   typicalFigures,
   typicalMarketValueAtLeaseEnd,
@@ -2859,6 +2861,7 @@ function ReviewStep({
         }
         onEditCompare={() => onEdit("compare")}
         onOpenAdvanced={() => openAdvanced()}
+        payPeriod={exploring ? null : d.paymentPeriod}
       />
       <Section
         title="Show how we got this"
@@ -3199,7 +3202,13 @@ function ResultHeadline({
   ratePct = null,
   onEditCompare,
   onOpenAdvanced,
+  payPeriod = null,
 }: {
+  /**
+   * The quote path's payment period: the take-home line is shown in it, with a prompt to compare
+   * with the quote. Null on an estimate (per fortnight, no quote to compare with).
+   */
+  payPeriod?: Period | null;
   /** The lease's effective interest rate, as a percentage, when known. */
   ratePct?: number | null;
   inputs: Inputs;
@@ -3215,6 +3224,11 @@ function ResultHeadline({
   const fig = summaryFigures(inputs, horizon);
   const lines = comparisonLines(inputs, fig, cashNone, "paying cash");
   const reasons = worseOffReasons(inputs, fig, ratePct, approx);
+  const perFn = takeHomeReductionPerFn(inputs);
+  const unit = PERIOD_UNIT[payPeriod ?? "perFn"];
+  const perPay = perFn === null ? null : (perFn * 26) / PERIODS_PER_YEAR[payPeriod ?? "perFn"];
+  const lostSuper = superShortfallOverLease(inputs);
+  const leaseYears = inputs.leaseDurationYears;
   return (
     <div className="gd-headline" role="status">
       <div className="gd-headline__lead">Over {fig.years} years, a novated lease leaves you:</div>
@@ -3223,6 +3237,21 @@ function ResultHeadline({
           <Outcome net={net} approx={approx} what={what} />
         </div>
       ))}
+      {/* The figure every quote leads with, so the reader can match our answer to theirs (UX 2). */}
+      {perPay !== null && (
+        <p className="gd-headline__pay">
+          Your take-home pay: about <strong>{money(perPay)} less per {unit}</strong>.
+          {payPeriod && <span className="gd-headline__pay-sub">Compare this with the take-home figure on your quote.</span>}
+        </p>
+      )}
+      {/* Not in the saving above: super is still the reader's money, only locked away (UX 3). */}
+      {lostSuper >= 50 && (
+        <p className="gd-headline__super">
+          Not counted above: about <strong className="gd-neg">{money(Math.round(lostSuper / 100) * 100)} less super</strong>{" "}
+          over {leaseYears} year{leaseYears === 1 ? "" : "s"}.
+          <span className="gd-headline__pay-sub">Your employer works out super on your salary after the lease.</span>
+        </p>
+      )}
       {reasons.map((r, i) => (
         <p key={i} className="gd-headline__why">
           {r}
@@ -3247,7 +3276,6 @@ function ResultHeadline({
         Not counted in these figures: changes to HECS repayments, childcare
         subsidy, the Medicare levy surcharge or Division 293 tax. Advanced mode
         works out the adjusted taxable income they're based on.{" "}
-        {inputs.superFromPreNlIncome === "No" && <>Your super may also be reduced under this setup. </>}
         <button type="button" className="gd-linkbtn" onClick={onOpenAdvanced}>
           See the full workings
         </button>

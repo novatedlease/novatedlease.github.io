@@ -166,3 +166,60 @@ describe("UX 8: the payment amount comes first", () => {
     expect(items[0]).toBe("Finance (lease) payment");
   });
 });
+
+function fullQuote(): GuidedDraft {
+  const d = partialQuote();
+  d.monthsDeferred = 2;
+  d.docFee = { text: "", none: true, estimated: false };
+  d.residualBasis = "unknown";
+  d.smartMillarx = false;
+  d.paymentPeriod = "perFn";
+  d.paymentBasis = "exGst";
+  d.payment = m("520");
+  d.luxAdj = { text: "", none: true, estimated: false };
+  d.gstPassedOn = "Yes";
+  d.runningGstHeading = "exGst";
+  d.mileage = m("15000");
+  d.runningPeriod = "perYear";
+  d.service = m("800");
+  d.rego = m("900");
+  d.insurance = m("1500");
+  d.mgmt = m("300");
+  d.fuel = m("2400");
+  d.income = m("120000");
+  d.superPreNl = "Yes";
+  d.cashHome = "offset";
+  d.offsetRate = m("6.1");
+  d.nswHealth = false;
+  return d;
+}
+
+describe("UX 2 and 3: take-home pay and lost super beside the headline", () => {
+  test("quote path: take-home per pay in the quote's period, with the compare prompt", () => {
+    seedReview(fullQuote());
+    render(<App />);
+    const pay = document.querySelector(".gd-headline__pay")!;
+    expect(pay.textContent).toMatch(/^Your take-home pay: about \$[\d,]+ less per fortnight\./);
+    expect(pay.textContent).toMatch(/Compare this with the take-home figure on your quote\./);
+    expect(document.querySelector(".gd-headline__super")).toBeNull();
+  });
+
+  test("a monthly quote shows it per month", () => {
+    const d = fullQuote();
+    d.paymentPeriod = "perMonth";
+    d.payment = m("1127");
+    seedReview(d);
+    render(<App />);
+    expect(document.querySelector(".gd-headline__pay")!.textContent).toMatch(/less per month\./);
+  });
+
+  test("super worked out after the lease: the shortfall shows, not subtracted", () => {
+    const d = fullQuote();
+    d.superPreNl = "No";
+    seedReview(d);
+    render(<App />);
+    const sup = document.querySelector(".gd-headline__super")!;
+    expect(sup.textContent).toMatch(/^Not counted above: about \$[\d,]+00 less super over 5 years\./);
+    expect(document.body.textContent).not.toMatch(/Your super may also be reduced/);
+  });
+});

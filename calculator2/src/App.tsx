@@ -3,6 +3,7 @@ import type { Inputs } from "@engine/types";
 import { financedAmountExGstFromInputs } from "@engine/effectiveinterest";
 import { residualFractionForYears } from "@engine/ato";
 import { computeDerived } from "@engine/derived";
+import { withLvFolded } from "./components/payImpact";
 import { URL_STATE_PARAM, getInputsFromLocationSearch } from "@engine/urlState";
 import { advancedDefaultInputs, sentinelDefaultInputs } from "./state/defaultInputs";
 import { estMarketValueFromDriveaway, evElectricityClaimAnnual, nonEvFuelAnnual } from "./assumptions";
@@ -39,12 +40,9 @@ const TOUR_HIDDEN_KEY = "nlc2-tour-hidden";
 
 type OutputTab = "summary" | "details" | "compare";
 
-// Matches v1 App.tsx's buildAtiRowsFromFyBreakdown/buildSgRowsFromFyBreakdown —
-// folds the luxury vehicle adjustment into the lease payment before computing
-// FY breakdown, so ATI/SG figures align with LeaseReport's take-home impact.
-function withLvFolded(inputs: Inputs): Inputs {
-  return { ...inputs, vehicleLeasePerFn: inputs.vehicleLeasePerFn + inputs.luxuryVehicleAdjPerFn };
-}
+// Matches v1 App.tsx's buildAtiRowsFromFyBreakdown/buildSgRowsFromFyBreakdown: withLvFolded
+// folds the luxury vehicle adjustment into the lease payment before computing the FY breakdown,
+// so ATI/SG figures align with LeaseReport's take-home impact (and Guided's lost-super line).
 function buildAtiRows(inputs: Inputs) {
   return computeDerived(withLvFolded(inputs)).atiRows;
 }
