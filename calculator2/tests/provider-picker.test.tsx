@@ -177,20 +177,26 @@ describe("correction callout with a named provider", () => {
 
 describe("FBT base value not printed", () => {
   const GST_LINES: [ProviderId, string][] = [
-    ["millarx", "Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11."],
-    ["oly", "Can't find it on your Oly quote? Multiply the “GST” line by 11."],
-    ["remserv", "Can't find it on your RemServ quote? Multiply “GST savings on car” by 11."],
+    ["millarx", "Look for “FBT Base Value”. Not printed? Multiply “Less: GST credit” by 11, unless it's the maximum."],
+    ["remserv", "Look for “FBT Base Value” on the vehicle details page. Only have the summary? Multiply “GST savings on car” by 11, unless it's the maximum."],
     ["lendly", "Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11."],
   ];
 
-  test.each(GST_LINES)("%s: GST credit × 11, with the cap in the tooltip and a picture that exists", (id, text) => {
+  test.each(GST_LINES)("%s: printed value first or GST credit × 11, with the cap in the tooltip and a picture that exists", (id, text) => {
     const [p] = pointersFor(id, "baseValue");
     expect(p.notShown).toBe(true);
     expect(p.text).toBe(text);
-    expect(p.more).toMatch(/\$6,353, the most allowed/);
+    expect(p.more).toMatch(/\$6,353/);
     expect(p.more).toMatch(/drive-away price and subtract stamp duty, rego and CTP/);
     expect(p.example?.image).toBe(`/assets/images/quote-guide/${id}/field-gst-credit.webp`);
     expect(existsSync(resolve(__dirname, "../../docs", p.example!.image.slice(1)))).toBe(true);
+  });
+
+  test("Oly: the uncapped “GST” line × 11, never the capped saving, and no cap caveat (UX 19)", () => {
+    const [p] = pointersFor("oly", "baseValue");
+    expect(p.text).toBe("Can't find it on your Oly quote? Multiply the “GST” line in the price breakdown by 11. Don't use “Estimated GST savings upfront”.");
+    expect(p.more).toBe("Or add “Vehicle list price” and “Dealer delivery charges”, then add 10%.");
+    expect(p.example?.image).toBe("/assets/images/quote-guide/oly/field-gst-credit.webp");
   });
 
   test("MillarX fees: some quotes have a monthly fee, the BYO finance-only one has none", () => {

@@ -48,7 +48,7 @@ Not shown on this sample: **8 luxury vehicle adjustment**.
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote
 
-- **FBT base value:** Can't find it on your MillarX quote? Multiply “Less: GST credit” by 11. Doesn't work if the credit is $6,353, the most allowed. Then ask your salary packager, or take the drive-away price and subtract stamp duty, rego and CTP.
+- **FBT base value:** Look for “FBT Base Value”. Not printed? Multiply “Less: GST credit” by 11, unless it's the maximum. The maximum is $6,353. If yours is that, ask your salary packager, or take the drive-away price and subtract stamp duty, rego and CTP.
 
   ![Part of a redacted MillarX quote with the line to use outlined](/assets/images/quote-guide/millarx/field-gst-credit.webp)
 - **Running costs:** MillarX quotes are finance only. Take the running-cost budgets from your salary packager.

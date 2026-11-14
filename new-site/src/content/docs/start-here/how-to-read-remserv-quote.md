@@ -45,7 +45,7 @@ Not shown on this sample: **2 drive-away**, **8 luxury vehicle adjustment**, **1
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote
 
-- **FBT base value:** Can't find it on your RemServ quote? Multiply “GST savings on car” by 11. Doesn't work if the credit is $6,353, the most allowed. Then ask RemServ, or take the drive-away price and subtract stamp duty, rego and CTP.
+- **FBT base value:** Look for “FBT Base Value” on the vehicle details page. Only have the summary? Multiply “GST savings on car” by 11, unless it's the maximum. The maximum is $6,353. If yours is that, ask RemServ, or take the drive-away price and subtract stamp duty, rego and CTP.
 
   ![Part of a redacted RemServ quote with the line to use outlined](/assets/images/quote-guide/remserv/field-gst-credit.webp)
 - **Months deferred:** Can’t find months deferred on your RemServ quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.

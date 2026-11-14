@@ -706,10 +706,16 @@ const capText = `$${GST_EXEMPT_CAP.toLocaleString("en-AU")}`;
  * GST-inclusive price before on-road costs, so x 11 gives the FBT base value, unless the credit
  * hit the cap. Checked against real quotes (Nov 2026).
  */
-function gstCreditLine(id: ProviderId, label: string, line: string, ask: string): NotShownLine {
+function gstCreditLine(
+  id: ProviderId,
+  label: string,
+  line: string,
+  ask: string,
+  wording?: { text: string; more: string },
+): NotShownLine {
   return {
-    text: `Can't find it on your ${label} quote? Multiply ${line} by 11.`,
-    more: `Doesn't work if the credit is ${capText}, the most allowed. Then ask ${ask}, or take the drive-away price and subtract stamp duty, rego and CTP.`,
+    text: wording?.text ?? `Can't find it on your ${label} quote? Multiply ${line} by 11.`,
+    more: wording?.more ?? `Doesn't work if the credit is ${capText}, the most allowed. Then ask ${ask}, or take the drive-away price and subtract stamp duty, rego and CTP.`,
     example: {
       image: `/assets/images/quote-guide/${id}/field-gst-credit.webp`,
       alt: `Part of a redacted ${label} quote with the ${line.replace(/[“”]/g, "")} line outlined`,
@@ -720,10 +726,19 @@ function gstCreditLine(id: ProviderId, label: string, line: string, ask: string)
 
 const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotShownLine>>>> = {
   oly: {
-    baseValue: gstCreditLine("oly", "Oly", "the “GST” line", "Oly"),
+    // Oly's breakdown prints the full "GST" line, separate from the capped "Estimated GST savings
+    // upfront", so x 11 works even above the cap (UX 19; 1rvtybv, Mar 2026).
+    baseValue: gstCreditLine("oly", "Oly", "the “GST” line", "Oly", {
+      text: "Can't find it on your Oly quote? Multiply the “GST” line in the price breakdown by 11. Don't use “Estimated GST savings upfront”.",
+      more: "Or add “Vehicle list price” and “Dealer delivery charges”, then add 10%.",
+    }),
   },
   remserv: {
-    baseValue: gstCreditLine("remserv", "RemServ", "“GST savings on car”", "RemServ"),
+    // 6 of 16 RemServ quotes print it on a vehicle details page; the summary page has only the capped credit (UX 20).
+    baseValue: gstCreditLine("remserv", "RemServ", "“GST savings on car”", "RemServ", {
+      text: "Look for “FBT Base Value” on the vehicle details page. Only have the summary? Multiply “GST savings on car” by 11, unless it's the maximum.",
+      more: `The maximum is ${capText}. If yours is that, ask RemServ, or take the drive-away price and subtract stamp duty, rego and CTP.`,
+    }),
   },
   lendly: {
     baseValue: gstCreditLine("lendly", "Lendly", "“GST Tax Credit”", "Lendly"),
@@ -734,7 +749,11 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotS
   },
   millarx: {
     // MillarX is finance only: the salary packager, not MillarX, holds the FBT base value.
-    baseValue: gstCreditLine("millarx", "MillarX", "“Less: GST credit”", "your salary packager"),
+    // 1 of 3 MillarX quotes prints it; it equals the GST credit x 11 (UX 21).
+    baseValue: gstCreditLine("millarx", "MillarX", "“Less: GST credit”", "your salary packager", {
+      text: "Look for “FBT Base Value”. Not printed? Multiply “Less: GST credit” by 11, unless it's the maximum.",
+      more: `The maximum is ${capText}. If yours is that, ask your salary packager, or take the drive-away price and subtract stamp duty, rego and CTP.`,
+    }),
     running: "MillarX quotes are finance only. Take the running-cost budgets from your salary packager.",
     fees: "Some MillarX quotes show a management fee per month. Enter it if yours does. The BYO finance-only quote has none.",
   },
