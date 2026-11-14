@@ -35,6 +35,7 @@ PROVIDERS = {
     "LeaseExpress": r"lease ?express", "MillarX": r"millar ?x", "Custom Fleet": r"custom ?fleet",
     "ORIX": r"\borix\b", "LeaseLab": r"lease ?lab", "Simplygreen": r"simply ?green",
     "Lendly": r"\blendly\b", "Vehicle Solutions": r"vehicle solutions", "Fleet Network": r"fleet ?network",
+    "Clear Lease": r"clear ?lease", "Kooya": r"\bkooya\b",
     "Selectus": r"selectus", "Novated Co": r"novated ?co\b", "Macquarie": r"macquarie",
 }
 
@@ -68,6 +69,8 @@ EXPECTED = {
     "Lendly": [r"price drive away", r"licen[cs]e fee", r"monthly running costs"],
     "Vehicle Solutions": [r"fbt base cost", r"finance lease", r"driveaway price"],
     "LeaseExpress": [r"value for fbt purposes", r"lease payments", r"leasexpress fee"],
+    "Clear Lease": [r"vehicle finance amount", r"finance budget", r"total residual payable"],
+    "Kooya": [r"total \(drive ?way\)", r"lease payment", r"residual value inc gst"],
 }
 
 

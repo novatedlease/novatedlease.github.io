@@ -50,6 +50,7 @@ describe("provider-specific findings", () => {
     ["driva", "Effective novated vehicle price"],
     ["lendly", "Total Price (ex. GST)"],
     ["kooya", "Price (ex. GST)"],
+    ["clearlease", "Vehicle Finance Amount"],
   ] as const)("%s names the low drive-away trap when the entered amount is below FBT base", (provider, label) => {
     const d = forProvider(provider);
     d.baseValue.text = "50000";

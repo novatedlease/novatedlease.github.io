@@ -352,6 +352,87 @@
       ]
     },
     {
+      "id": "clearlease",
+      "label": "Clear Lease",
+      "seen": "2026-11",
+      "sourceCount": 1,
+      "written": {
+        "driveaway": "Use “Price (incl GST)” under “Your Vehicle & Finance”. Don't use “Vehicle Finance Amount”: it has the GST saving taken off.",
+        "baseValue": "Use “Vehicle Base Value” under “FBT Calculation”, on the page headed “The numbers”.",
+        "docFee": "Add “Financier Setup Fee” and “Clear Lease Fee” together.",
+        "residual": "If you see “Total Residual Payable”, choose Including GST. “Residual amount” is without GST.",
+        "payment": "Use “Finance Budget”, per month. Don't use “What it costs you per month” or “Total Cost to You”: they're after tax.",
+        "luxAdj": "If you see “Pre-tax Luxury Car Charge”, that's this line.",
+        "running": "Use “Maintenance” to “Comprehensive Insurance” under “Your Budget/ Inclusions per month”, and choose Per month.",
+        "fees": "Enter “Administration” as the management fee, and add “GAP Insurance (financed)” to it."
+      },
+      "traps": [
+        "driveaway",
+        "payment"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "locate",
+          "text": "Use “Vehicle Base Value” under “FBT Calculation”, on the page headed “The numbers”.",
+          "image": "/assets/images/quote-guide/clearlease/field-baseValue.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "Use “Price (incl GST)” under “Your Vehicle & Finance”. Don't use “Vehicle Finance Amount”: it has the GST saving taken off.",
+          "more": "On the quote we checked, “Price (incl GST)” minus “GST Savings” equalled “Vehicle Finance Amount”.",
+          "image": "/assets/images/quote-guide/clearlease/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Clear Lease quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "locate",
+          "text": "Add “Financier Setup Fee” and “Clear Lease Fee” together.",
+          "more": "“Vehicle Finance Amount” leaves both fees out, but on the quote we checked the payment only matched with both financed.",
+          "image": "/assets/images/quote-guide/clearlease/field-docFee.webp"
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "If you see “Total Residual Payable”, choose Including GST. “Residual amount” is without GST.",
+          "image": "/assets/images/quote-guide/clearlease/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "trap",
+          "text": "Use “Finance Budget”, per month. Don't use “What it costs you per month” or “Total Cost to You”: they're after tax.",
+          "more": "Those two figures also include running costs. On the quote we checked, “GST” was a separate line below “Finance Budget”. If yours is too, choose Excluding GST.\n\nWhether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.",
+          "image": "/assets/images/quote-guide/clearlease/field-payment.webp"
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Pre-tax Luxury Car Charge”, that's this line.",
+          "image": "/assets/images/quote-guide/clearlease/field-luxAdj.webp"
+        },
+        {
+          "field": "running",
+          "kind": "locate",
+          "text": "Use “Maintenance” to “Comprehensive Insurance” under “Your Budget/ Inclusions per month”, and choose Per month.",
+          "more": "“GST” is a separate line in the right-hand column. If yours is too, choose Excluding GST.",
+          "image": "/assets/images/quote-guide/clearlease/field-running.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "locate",
+          "text": "Enter “Administration” as the management fee, and add “GAP Insurance (financed)” to it.",
+          "more": "You'd only buy GAP cover with a lease, so it belongs with the management fees.",
+          "image": "/assets/images/quote-guide/clearlease/field-fees.webp"
+        }
+      ]
+    },
+    {
       "id": "customfleet",
       "label": "Custom Fleet",
       "seen": "2026-11",

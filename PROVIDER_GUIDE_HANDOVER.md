@@ -533,3 +533,36 @@ Owner request: Kooya had no guide. Three Kooya quotes on one green template (Red
 - Articles: `sync-provider-traps.mjs` adds the same italic note under "What catches people out" when the guide is over 12 months old at build time (LeasePlan now).
 - Applies today only to LeasePlan / Ayvens (newest checked quote Aug 2025; the archive has two more from Aug–Sep 2025, none newer). Refresh a guide by checking a newer quote and updating its `seen` month.
 - 372 tests, ESLint, calculator and site builds pass.
+
+## Clear Lease added as the 29th provider (2026-11-14)
+
+Owner request, from a quote posted that day (Reddit 1xvt7sq, Nov 2026, Tesla Model Y, 36 months).
+Images in the private archive under `images-2026-11/1xvt7sq_*.jpg`. The only other Clear Lease
+quote in the archive (1o05pxh, Oct 2025) is an older, different layout ("Gross Finance Budget",
+"Net operating budget per pay", weekly). It wasn't used for the pointers.
+
+- **Picker and Guided:** "Clear Lease" in the A–Z list. Pointers for FBT base value, drive-away,
+  documentation fee, residual, payment, luxury charge, running costs and management fee. Deferral
+  is a "Can't find it?" line.
+- **Two traps (amber):**
+  - drive-away: "Vehicle Finance Amount" is "Price (incl GST)" minus "GST Savings" (64,448 −
+    5,654.55 = 58,793.45). Added to `DRIVEAWAY_TRAP_LABELS`.
+  - payment: the large "What it costs you per month" and "Total Cost to You" are the after-tax
+    take-home change including running costs. Use "Finance Budget" (monthly).
+- **Checked by back-solving the payment:** 10.52% over 36 monthly payments in arrears, residual
+  $27,562.37, on $58,793.45 + $330 + $695 gives $1,290.34 against "Finance Budget" $1,290.20. So
+  both fees are financed although "Vehicle Finance Amount" leaves them out, the payment has no GST in
+  it, and there was no deferral on this quote. The "GST" line ($183.77) is 10% of every budget line,
+  and the residual is 46.88% of "Vehicle Finance Amount". Only the label-based GST wording is used
+  ("If yours is too, choose Excluding GST"), per the payment GST rule.
+- **GAP Insurance (financed):** told to add it to management fees (lease-only cover, as the
+  Running-step tooltip already says).
+- **Images:** `clearlease/redacted-quote.webp` (both pages stacked; red ✕ on the headline, "Vehicle
+  Finance Amount" and "Total Cost to You") and eight field crops. Template config in private
+  `templates/clearlease/`. Markers merged into private `crops/markers.json` (backup
+  `markers.before-clearlease.json`). `make_crops.py` gained two `EXTRA` context boxes and now skips
+  other providers under `--only`. Every image OCR-checked (only marker numbers found) and viewed.
+- **Also:** `freshness_check.py` (repo and private) now knows Clear Lease and Kooya.
+- **Counts:** the sync scripts now expect 29 providers. New article `how-to-read-clearlease-quote.md`.
+- Checks: tsc, 373 tests, eslint, calculator build, site build; the Price, Lease, Payment and Running
+  steps were checked at 390 px.

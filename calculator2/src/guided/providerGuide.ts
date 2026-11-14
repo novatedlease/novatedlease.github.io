@@ -15,6 +15,7 @@ export const PROVIDERS = [
   { id: "smartsalary", label: "Smartsalary (Smart Drive)" },
   { id: "alliance", label: "Alliance Leasing" },
   { id: "autopia", label: "Autopia" },
+  { id: "clearlease", label: "Clear Lease" },
   { id: "customfleet", label: "Custom Fleet" },
   { id: "driva", label: "Driva" },
   { id: "easi", label: "Easi (EasiFleet)" },
@@ -66,6 +67,7 @@ export const DRIVEAWAY_TRAP_LABELS: Partial<Record<ProviderId, { wrong: string }
   driva: { wrong: "Effective novated vehicle price" },
   lendly: { wrong: "Total Price (ex. GST)" },
   kooya: { wrong: "Price (ex. GST)" },
+  clearlease: { wrong: "Vehicle Finance Amount" },
 };
 
 /** True for the two providers whose per-pay figure needs the budget-reserve correction. */
@@ -106,6 +108,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   driva: ["driveaway"], fingo: ["driveaway"],
   leaseexpress: ["driveaway"], lendly: ["driveaway"],
   kooya: ["driveaway", "payment"],
+  clearlease: ["driveaway", "payment"],
 };
 
 function withKind(id: ProviderId, pointer: Pointer): Pointer {
@@ -420,6 +423,41 @@ export const GUIDES: ProviderGuide[] = [
     ],
   },
   {
+    id: "clearlease",
+    seen: "2026-11",
+    sources: ["1xvt7sq"],
+    pointers: [
+      {
+        field: "driveaway",
+        text: "Use “Price (incl GST)” under “Your Vehicle & Finance”. Don't use “Vehicle Finance Amount”: it has the GST saving taken off.",
+        more: "On the quote we checked, “Price (incl GST)” minus “GST Savings” equalled “Vehicle Finance Amount”.",
+      },
+      { field: "baseValue", text: "Use “Vehicle Base Value” under “FBT Calculation”, on the page headed “The numbers”." },
+      {
+        field: "docFee",
+        text: "Add “Financier Setup Fee” and “Clear Lease Fee” together.",
+        more: "“Vehicle Finance Amount” leaves both fees out, but on the quote we checked the payment only matched with both financed.",
+      },
+      { field: "residual", text: "If you see “Total Residual Payable”, choose Including GST. “Residual amount” is without GST." },
+      {
+        field: "payment",
+        text: "Use “Finance Budget”, per month. Don't use “What it costs you per month” or “Total Cost to You”: they're after tax.",
+        more: `Those two figures also include running costs. On the quote we checked, “GST” was a separate line below “Finance Budget”. If yours is too, choose Excluding GST.\n\n${PAYMENT_GST_NOTE}`,
+      },
+      { field: "luxAdj", text: "If you see “Pre-tax Luxury Car Charge”, that's this line." },
+      {
+        field: "running",
+        text: "Use “Maintenance” to “Comprehensive Insurance” under “Your Budget/ Inclusions per month”, and choose Per month.",
+        more: "“GST” is a separate line in the right-hand column. If yours is too, choose Excluding GST.",
+      },
+      {
+        field: "fees",
+        text: "Enter “Administration” as the management fee, and add “GAP Insurance (financed)” to it.",
+        more: "You'd only buy GAP cover with a lease, so it belongs with the management fees.",
+      },
+    ],
+  },
+  {
     id: "customfleet",
     seen: "2026-11",
     sources: ["1xp2oq9"],
@@ -635,6 +673,7 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   remunerator: ["docFee", "fees"],
   easi: ["docFee"],
   autopia: ["defer"],
+  clearlease: ["defer"],
   customfleet: ["defer", "docFee"],
   leaselab: ["defer", "docFee"],
   spa: ["docFee"],
