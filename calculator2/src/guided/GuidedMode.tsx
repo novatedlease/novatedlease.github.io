@@ -62,6 +62,7 @@ import {
   STEP_IDS,
   STEP_TITLES,
   annualOf,
+  serviceAndTyresAnnual,
   asksMarketValueEnd,
   atoMinimumResidualExGst,
   guessedResidualBasis,
@@ -163,7 +164,14 @@ function loadStored(): Stored | null {
       STEP_IDS.includes(v),
     );
     return {
-      draft: { ...emptyDraft(), ...parsed.draft },
+      // Drafts saved before tyres had its own box held them in servicing.
+      draft: {
+        ...emptyDraft(),
+        ...(parsed.draft.tyres === undefined && (parsed.draft.service?.text?.trim() || parsed.draft.service?.none)
+          ? { tyres: { text: "", none: true, estimated: false } }
+          : {}),
+        ...parsed.draft,
+      },
       step: parsed.step,
       visited,
     };
@@ -246,7 +254,7 @@ function findingsFor(d: GuidedDraft) {
     mileage: checkMileage(moneyValue(d.mileage)),
     service: checkAnnualCost(
       "service",
-      d.service.estimated ? null : annualOf(d, d.service),
+      d.service.estimated ? null : serviceAndTyresAnnual(d),
       typical?.service ?? null,
     ),
     rego: checkAnnualCost(
@@ -824,7 +832,7 @@ function Side({
   const focusMap: Record<string, GuideField> = {
     leaseYears: "term", monthsDeferred: "defer", paymentPeriod: "payment",
     paymentBasis: "payment", runningPeriod: "running", runningGstHeading: "running",
-    mgmt: "fees", service: "running", rego: "running", fuel: "running",
+    mgmt: "fees", service: "running", tyres: "running", rego: "running", fuel: "running",
   };
   return (
     <div className={guide ? "gd-split gd-split--provider" : "gd-split"}>
@@ -1820,6 +1828,7 @@ const PERIOD_WORD: Record<RunningPeriod, string> = {
 };
 const RUNNING_FIELDS = [
   "service",
+  "tyres",
   "rego",
   "insurance",
   "mgmt",
@@ -2069,14 +2078,26 @@ function RunningStep({ d, set, f }: StepPropsF) {
         <MoneyInput
         field="service"
           row
-          label={<>Servicing, maintenance and tyres{gstTag}</>}
+          label={<>Servicing and maintenance{gstTag}</>}
           value={d.service}
           onChange={(m) => set("service", m)}
           suffix={suffix}
           suggestion={typicalIn(typical?.service)}
           findings={f.service}
-          estimatedNote="Typical estimate"
+          estimatedNote="Typical estimate, tyres included"
         />
+        {!d.service.estimated && (
+          <MoneyInput
+            field="tyres"
+            row
+            label={<>Tyres{gstTag}</>}
+            value={d.tyres}
+            onChange={(m) => set("tyres", m)}
+            suffix={suffix}
+            noneLabel="No separate tyres line"
+            where="Added to servicing in the results."
+          />
+        )}
         <MoneyInput
         field="rego"
           row

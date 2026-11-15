@@ -218,6 +218,7 @@ function fullQuote(): GuidedDraft {
   d.mileage = m("15000");
   d.runningPeriod = "perYear";
   d.service = m("800");
+  d.tyres = { text: "", none: true, estimated: false };
   d.rego = m("900");
   d.insurance = m("1500");
   d.mgmt = m("300");

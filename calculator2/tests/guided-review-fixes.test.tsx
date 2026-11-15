@@ -68,6 +68,7 @@ function quoteDraft(): GuidedDraft {
   d.mileage = m("12000");
   d.runningPeriod = "perYear";
   d.service = m("1200");
+  d.tyres = { text: "", none: true, estimated: false };
   d.rego = m("900");
   d.insurance = m("1600");
   d.mgmt = m("250");
@@ -1036,7 +1037,10 @@ describe("visual polish on running costs", () => {
     render(<App />);
     const km = screen.getAllByLabelText(/Kilometres per year/).find((el) => el.tagName === "INPUT") as HTMLInputElement;
     expect(km.placeholder).toBe("e.g. 15000");
-    expect(screen.getAllByText("Typical estimate")).toHaveLength(3);
+    expect(screen.getAllByText(/^Typical estimate(, tyres included)?$/)).toHaveLength(3);
+    // The typical servicing figure covers tyres, so their box goes away.
+    expect(screen.getByText("Typical estimate, tyres included")).toBeTruthy();
+    expect(screen.queryByText(/^Tyres/)).toBeNull();
     expect(screen.getAllByText(/Typical estimates aren't from your quote/)).toHaveLength(1);
   });
 });

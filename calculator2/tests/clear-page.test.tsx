@@ -86,3 +86,30 @@ describe("Clear this page", () => {
     expect(saved.baseValue.text).toBe("56000");
   });
 });
+
+describe("tyres have their own box", () => {
+  test("servicing plus tyres, except a typical servicing estimate, which already covers tyres", async () => {
+    const { serviceAndTyresAnnual } = await import("../src/guided/draft");
+    const d = quote();
+    d.runningPeriod = "perYear";
+    d.service = m("800");
+    d.tyres = m("300");
+    expect(serviceAndTyresAnnual(d)).toBe(1100);
+    d.service = { text: "1000", none: false, estimated: true };
+    expect(serviceAndTyresAnnual(d)).toBe(1000);
+  });
+
+  test("an older saved draft with servicing filled is treated as having no separate tyres line", () => {
+    const d = quote() as Partial<GuidedDraft>;
+    d.runningPeriod = "perYear";
+    d.service = m("1200");
+    delete d.tyres;
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+    render(<App />);
+    const box = screen.getByLabelText("No separate tyres line") as HTMLInputElement;
+    expect(box.checked).toBe(true);
+  });
+});

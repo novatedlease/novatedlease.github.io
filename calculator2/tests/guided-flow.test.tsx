@@ -117,7 +117,9 @@ describe("Guided flow (real interaction)", () => {
     click(/Excluding GST/);
     click(/^Per month/);
     type(/Kilometres per year/, "12000");
-    type(/Servicing/, "100");
+    // Tyres have their own box and are added to servicing for the engine: 80 + 20 a month = $1,200 a year.
+    type(/Servicing/, "80");
+    type(/^Tyres/, "20");
     type(/Registration/, "75");
     type(/Insurance/, "133.33");
     type(/Lease management fees/, "20");

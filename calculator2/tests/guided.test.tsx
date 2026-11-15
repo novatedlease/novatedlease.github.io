@@ -128,6 +128,7 @@ function completeDraft(rate = 0.08): GuidedDraft {
   d.runningPeriod = "perYear";
   d.mileage = m("12000");
   d.service = m("1200");
+  d.tyres = { text: "", none: true, estimated: false };
   d.rego = m("900");
   d.insurance = m("1600");
   d.mgmt = m("250");

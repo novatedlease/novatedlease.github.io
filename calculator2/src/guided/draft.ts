@@ -156,6 +156,8 @@ export type GuidedDraft = {
   mileage: Money;
   runningPeriod: RunningPeriod | null;
   service: Money;
+  /** Most quotes list tyres on their own line. Added to servicing for the calculator; "none" = no separate line. */
+  tyres: Money;
   rego: Money;
   insurance: Money;
   mgmt: Money;
@@ -224,6 +226,7 @@ export function emptyDraft(): GuidedDraft {
     mileage: emptyMoney(),
     runningPeriod: null,
     service: emptyMoney(),
+    tyres: emptyMoney(),
     rego: emptyMoney(),
     insurance: emptyMoney(),
     mgmt: emptyMoney(),
@@ -297,6 +300,13 @@ export function nswAnnual(d: GuidedDraft): number {
 /** Inc GST figures with a GST credit taken off later: the cost is really the ex GST amount. */
 export function runningCreditTaken(d: GuidedDraft): boolean {
   return d.runningGstHeading === "incGst" && (d.runningGstCredit === "Yes" || d.runningGstCredit === "Unsure");
+}
+
+/** Servicing plus the separate tyres line, yearly; the typical servicing estimate already includes tyres. */
+export function serviceAndTyresAnnual(d: GuidedDraft): number | null {
+  const service = annualOf(d, d.service);
+  if (service === null || d.service.estimated) return service;
+  return service + (annualOf(d, d.tyres) ?? 0);
 }
 
 export function annualOf(d: GuidedDraft, m: Money): number | null {
@@ -719,7 +729,9 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       if (!d.runningGstHeading) ask("runningGstHeading", "What does the running-cost heading on your quote say?");
       else if (d.runningGstHeading === "incGst" && d.runningGstCredit === null)
         ask("runningGstCredit", "Anywhere on the quote, is a GST credit taken off the running costs?");
-      if (!answered(d.service)) askMoney("service", "Servicing, maintenance and tyres");
+      if (!answered(d.service)) askMoney("service", "Servicing and maintenance");
+      // A typical servicing estimate already covers tyres.
+      if (!d.service.estimated && !answered(d.tyres)) askMoney("tyres", "Tyres (or tick “no separate tyres line”)");
       if (!answered(d.rego)) askMoney("rego", "Registration and CTP");
       if (!answered(d.insurance)) askMoney("insurance", "Insurance");
       if (!answered(d.mgmt)) askMoney("mgmt", "Lease management fees");
@@ -963,7 +975,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     superFromPreNlIncome: d.superPreNl === "No" ? "No" : "Yes",
     gstSavingPassedOn: d.gstPassedOn === "No" ? "No" : "Yes",
 
-    serviceMaintTyresAnnual: running(d.service),
+    serviceMaintTyresAnnual: running(d.service) + (d.service.estimated ? 0 : running(d.tyres)),
     saveShareAnnual: nswAnnual(d),
     registrationAnnual: running(d.rego),
     electricityAnnual: isEv ? evElectricityClaimAnnual(km) : 0,
@@ -1008,7 +1020,7 @@ export const STEP_DRAFT_FIELDS: Partial<Record<StepId, (keyof GuidedDraft)[]>> =
   payment: ["payment", "paymentPeriod", "paymentBasis", "paymentCorrected", "luxAdj", "smartMillarx"],
   running: [
     "gstPassedOn", "runningGstHeading", "runningGstCredit", "mileage", "runningPeriod",
-    "service", "rego", "insurance", "mgmt", "fuel", "chargingRate",
+    "service", "tyres", "rego", "insurance", "mgmt", "fuel", "chargingRate",
   ],
   you: ["income", "superPreNl", "cashHome", "offsetRate", "investedRate", "savingsRatePreTax", "nswHealth", "nswAmount", "nswPeriod"],
   alternatives: [
