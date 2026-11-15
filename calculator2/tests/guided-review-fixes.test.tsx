@@ -960,9 +960,24 @@ describe("Advanced vehicle finance: a visible period switch", () => {
   });
 });
 
+describe("running costs: no typical-figure links when the quote has the figures", () => {
+  test("a provider with running costs on its quote gets no 'Use a typical figure' links, and a hint for lines not included", () => {
+    const d = { ...quoteDraft(), provider: "sgfleet" as const, runningPeriod: "perYear" as const };
+    d.service = { text: "", none: false, estimated: false };
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+    render(<App />);
+    expect(screen.queryByRole("button", { name: /Use a typical figure/ })).toBeNull();
+    expect(document.body.textContent).toMatch(/Not included on your quote \(e\.g\. fuel\)\? Enter what\s+you'd expect to spend\. You pay it either way\./);
+  });
+});
+
 describe("running costs: the period comes first, so typical figures can show", () => {
   test("period sits right after kilometres; typical-figure buttons appear once it's chosen, with no nudge before (UX 18)", () => {
-    const d = quoteDraft();
+    // Typical figures are offered only where the quote has no running costs: MillarX.
+    const d = { ...quoteDraft(), provider: "millarx" as const };
     d.runningPeriod = null;
     d.service = { text: "", none: false, estimated: false };
     window.localStorage.setItem(

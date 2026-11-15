@@ -1916,6 +1916,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
   const suffix = period ? PERIOD_WORD[period] : undefined;
   const factor = runningFactor(period);
   const km = moneyValue(d.mileage);
+  const offerTypical = d.provider === "millarx";
   // Keep a filled-in charging budget in step with the kilometres and period; a typed one is left alone.
   const budget = isEv && km && period ? (evElectricityClaimAnnual(km) / factor).toFixed(2) : null;
   const budgetTyped = !!d.chargingBudget.text.trim() && !d.chargingBudget.estimated;
@@ -2067,6 +2068,8 @@ function RunningStep({ d, set, f }: StepPropsF) {
           )}
         </>
       )}
+      {/* Readers copy these off their quote, so typical figures are only offered where the quote has
+          no running-cost budget at all (MillarX quotes are finance-only). The checks still use them. */}
       {/* Boxes in the order the reader's quote prints them, in its wording (runningLayout.ts). */}
       <div className="gd-rows">
         {runningOrder(d.provider).map(({ box, label }) => {
@@ -2082,7 +2085,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
                   value={d.service}
                   onChange={(m) => set("service", m)}
                   suffix={suffix}
-                  suggestion={typicalIn(typical?.service)}
+                  suggestion={offerTypical ? typicalIn(typical?.service) : null}
                   findings={f.service}
                   estimatedNote="Typical estimate, tyres included"
                 />
@@ -2111,7 +2114,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
                   value={d.rego}
                   onChange={(m) => set("rego", m)}
                   suffix={suffix}
-                  suggestion={typicalIn(typical?.rego)}
+                  suggestion={offerTypical ? typicalIn(typical?.rego) : null}
                   findings={f.rego}
                   estimatedNote="Typical estimate"
                 />
@@ -2126,7 +2129,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
                     value={d.insurance}
                     onChange={(m) => set("insurance", m)}
                     suffix={suffix}
-                    suggestion={typicalIn(typical?.insurance)}
+                    suggestion={offerTypical ? typicalIn(typical?.insurance) : null}
                     hint={hasProviderLine(d, "insurance") ? "Comprehensive cover." : "Comprehensive cover. Compare with your own insurer's quote."}
                     tooltip={
                       <Tip>
@@ -2149,7 +2152,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
                     value={d.mgmt}
                     onChange={(m) => set("mgmt", m)}
                     suffix={suffix}
-                    suggestion={typicalIn(typical?.mgmt)}
+                    suggestion={offerTypical ? typicalIn(typical?.mgmt) : null}
                     findings={f.mgmt}
                     estimatedNote="Typical estimate"
                     where="Admin, membership and management fees, added together."
@@ -2182,7 +2185,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
                   value={d.fuel}
                   onChange={(m) => set("fuel", m)}
                   suffix={suffix}
-                  suggestion={typicalIn(typical?.fuel)}
+                  suggestion={offerTypical ? typicalIn(typical?.fuel) : null}
                   findings={f.fuel}
                   estimatedNote="Typical estimate"
                   where="As shown for fuel in the running-costs section."
@@ -2212,6 +2215,10 @@ function RunningStep({ d, set, f }: StepPropsF) {
             <strong>Carbon offset program</strong>: leave it out, or if you're keeping it, add it to Lease management
             fees. Like optional cover, it comes with the lease, not with paying
             cash.
+          </li>
+          <li>
+            <strong>Not included</strong> on your quote (e.g. fuel)? Enter what
+            you'd expect to spend. You pay it either way.
           </li>
         </ul>
       </Help>
