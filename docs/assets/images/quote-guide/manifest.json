@@ -971,6 +971,22 @@
     "toyotafleet/field-mileage.webp": {
       "w": 502,
       "h": 36
+    },
+    "leaselab/field-mileage.webp": {
+      "w": 682,
+      "h": 39
+    },
+    "spa/field-mileage.webp": {
+      "w": 717,
+      "h": 36
+    },
+    "leaseexpress/field-mileage.webp": {
+      "w": 689,
+      "h": 30
+    },
+    "vehiclesolutions/field-mileage.webp": {
+      "w": 697,
+      "h": 38
     }
   },
   "pages": {
