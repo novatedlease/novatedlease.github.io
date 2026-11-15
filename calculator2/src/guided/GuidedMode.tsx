@@ -53,7 +53,7 @@ import { copyShareLink } from "../utils/shareLink";
 import { summaryFigures } from "../components/summaryFigures";
 import { superShortfallOverLease, takeHomeReductionPerFn } from "../components/payImpact";
 import { quoteAssumptions } from "./quoteAssumptions";
-import { ASSUMED_EFFECTIVE_RATE } from "../assumptions";
+import { ASSUMED_EFFECTIVE_RATE, evElectricityClaimAnnual } from "../assumptions";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
 import {
@@ -1912,6 +1912,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
   const period = d.runningPeriod;
   const suffix = period ? PERIOD_WORD[period] : undefined;
   const factor = runningFactor(period);
+  const km = moneyValue(d.mileage);
 
   // Switching period rescales what is already typed so the yearly total stays the same.
   function changePeriod(next: RunningPeriod) {
@@ -2152,6 +2153,31 @@ function RunningStep({ d, set, f }: StepPropsF) {
             where="As shown for fuel in the running-costs section."
           />
         )}
+        {/* The quote's charging line is the ATO shortcut budget, which the calculator works out
+            itself; showing it filled in stops readers typing it into the price-per-kWh box. */}
+        {isEv && (
+          <div className="nlc-field gd-row" data-field="chargingBudget">
+            <div className="gd-row__head">
+              <span className="nlc-field__label">
+                Charging budget
+                <Tip>The ATO's shortcut rate for home charging. The calculator always uses it for the lease, so there's nothing to type.</Tip>
+              </span>
+              <div className="gd-where">Filled in for you: your kilometres × 5.47c. Usually matches the charging line on your quote.</div>
+            </div>
+            <div className="gd-row__body">
+              <div className="gd-fixed">
+                {km && period
+                  ? `$${(evElectricityClaimAnnual(km) / factor).toFixed(2)} ${PERIOD_WORD[period]}`
+                  : "Fill in kilometres and how costs are shown"}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      {isEv && (
+        <div className="gd-offquote">
+          <div className="gd-offquote__title">Not on your quote</div>
+          <div className="gd-rows">
         {isEv && (
           <MoneyInput
         field="chargingRate"
@@ -2160,7 +2186,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
             suffix="per kWh"
             value={d.chargingRate}
             onChange={(m) => set("chargingRate", m)}
-            where="Your blended home and public charging price."
+            where="Your blended home and public price. Used for what charging really costs you, not the budget above."
             noneLabel="Fully solar or free charging ($0)"
             tooltip={<Tip>Only used to estimate your real charging cost. The tax claim itself uses the ATO's 5.47c/km shortcut rate.</Tip>}
             findings={f.charging}
@@ -2191,7 +2217,9 @@ function RunningStep({ d, set, f }: StepPropsF) {
             }
           />
         )}
-      </div>
+          </div>
+        </div>
+      )}
       {RUNNING_FIELDS.some((k) => d[k].estimated && !d[k].none) && (
         <div className="gd-estimated">
           Typical estimates aren't from your quote. Replace any where you have

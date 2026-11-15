@@ -93,6 +93,9 @@
 .gd-card .gd-row { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 300px); justify-content: start; gap: 6px 24px; align-items: start; margin-bottom: 0; padding: 12px 0; border-top: 1px solid var(--nlc-border); }
 /* Beside the quote panel the rows have less room: the label takes what's left. */
 .gd-split .gd-row { grid-template-columns: minmax(0, 1fr) minmax(0, 240px); gap: 6px 16px; }
+.gd-fixed { padding: 9px 12px; border: 1px dashed var(--nlc-border); border-radius: var(--nlc-radius-sm); font-weight: 600; font-variant-numeric: tabular-nums; }
+.gd-offquote { margin-top: 20px; }
+.gd-offquote__title { font-size: 12px; font-weight: 600; color: var(--nlc-text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
 .gd-row:last-child { border-bottom: 1px solid var(--nlc-border); }
 .gd-row .nlc-field__label { margin: 9px 0 2px; }
 .gd-row .gd-where { margin-bottom: 0; }
