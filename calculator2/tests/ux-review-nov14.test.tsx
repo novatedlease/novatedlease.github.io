@@ -13,6 +13,12 @@ beforeEach(() => window.localStorage.clear());
 
 const m = (text: string): Money => ({ text, none: false, estimated: false });
 
+/** Hovers the ⓘ inside `el` and returns its tooltip text. */
+function tipIn(el: Element): string {
+  fireEvent.mouseEnter(el.querySelector(".nlc-info-trigger")!.parentElement!);
+  return document.querySelector('[role="tooltip"]')?.textContent ?? "";
+}
+
 function partialQuote(): GuidedDraft {
   const d = emptyDraft();
   d.hasQuote = true;
@@ -237,7 +243,7 @@ describe("UX 2 and 3: take-home pay and lost super beside the headline", () => {
     render(<App />);
     const pay = document.querySelector(".gd-headline__pay")!;
     expect(pay.textContent).toMatch(/^Your take-home pay: about \$[\d,]+ less per fortnight\./);
-    expect(pay.textContent).toMatch(/Compare this with the take-home figure on your quote\./);
+    expect(tipIn(pay)).toMatch(/Compare this with the take-home figure on your quote\./);
     expect(document.querySelector(".gd-headline__super")).toBeNull();
   });
 
@@ -256,7 +262,8 @@ describe("UX 2 and 3: take-home pay and lost super beside the headline", () => {
     seedReview(d);
     render(<App />);
     const sup = document.querySelector(".gd-headline__super")!;
-    expect(sup.textContent).toMatch(/^Not counted above: your employer pays about \$[\d,]+00 less into your super over 5 years \(about \$[\d,]+00 after the 15% contributions tax\)\./);
+    expect(sup.textContent).toMatch(/^Super: not counted above, your employer pays about \$[\d,]+00 less into it over 5 years\./);
+    expect(tipIn(sup)).toMatch(/after the lease\. After the 15% contributions tax, about \$[\d,]+00 of it would reach your account\./);
     expect(document.body.textContent).not.toMatch(/Your super may also be reduced/);
   });
 });
@@ -312,9 +319,11 @@ describe("super: 'I'm not sure' shows what's at stake", () => {
     seedReview(d);
     render(<App />);
     const lines = [...document.querySelectorAll(".gd-headline__super")].map((el) => el.textContent!);
-    const warn = lines.find((t) => t.startsWith("Check how your employer works out super."));
-    expect(warn).toMatch(/your employer would pay about \$[\d,]+ less into your super over 5 years \(about \$[\d,]+ after the 15% contributions tax\)\./);
-    expect(warn).toMatch(/You chose “I'm not sure”, so the result assumes super is unaffected\. Ask payroll\./);
+    const warn = lines.find((t) => t.startsWith("Super: if your employer works it out"));
+    expect(warn).toMatch(/they'd pay\s+about \$[\d,]+ less into it over 5 years\. Ask payroll\./);
+    const tip = tipIn(document.querySelector(".gd-headline__super")!);
+    expect(tip).toMatch(/After the 15% contributions tax/);
+    expect(tip).toMatch(/You chose “I'm not sure”, so the result above assumes super is unaffected\./);
   });
 
   test("the same amount as when the reader answers 'after lease salary'", () => {
@@ -326,7 +335,7 @@ describe("super: 'I'm not sure' shows what's at stake", () => {
       const text = document.querySelector(".gd-headline__super")!.textContent!;
       unmount();
       window.localStorage.clear();
-      return text.match(/\$[\d,]+ less into your super/)![0];
+      return text.match(/\$[\d,]+ less into it/)![0];
     };
     expect(amount("Unsure")).toBe(amount("No"));
   });
@@ -388,10 +397,10 @@ describe("results: 'Before you decide' under a good result", () => {
     return { text, link };
   };
 
-  test("an EV that comes out ahead: the big risks, the lease term, HECS and childcare, and the risks link", () => {
+  test("an EV that comes out ahead: the big risks, the lease term and the risks link", () => {
     const { text, link } = decideFor({ vehicleType: "EV", fuel: { text: "", none: false, estimated: false }, chargingRate: m("0.3"), payment: m("420") });
-    expect(text).toMatch(/^Before you decide: this saving assumes you keep your job and the car for all 5 years\./);
-    expect(text).toMatch(/Leaving early, a write-off, needing to borrow, or effects on HECS and childcare can cost more than you save\./);
+    expect(text).toMatch(/^Before you decide: this assumes you keep your job and the car for all 5 years\./);
+    expect(text).toMatch(/Leaving early, a write-off or needing to borrow\s+can cost more than you save\./);
     expect(link).toBe("/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure");
   });
 
@@ -455,6 +464,6 @@ describe("lost super: after contributions tax", () => {
     d.income = m("240000");
     seedReview(d);
     render(<App />);
-    expect(document.querySelector(".gd-headline__super")!.textContent).toMatch(/after the 30% contributions tax\)/);
+    expect(tipIn(document.querySelector(".gd-headline__super")!)).toMatch(/After the 30% contributions tax/);
   });
 });

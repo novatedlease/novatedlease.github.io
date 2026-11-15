@@ -3435,7 +3435,7 @@ function ResultHeadline({
   // concessional contributions over $250,000), so what lands in the account is less (owner, 15 Nov 2026).
   const contribTax = inputs.totalTaxableIncome * (1 + SG_RATE) > 250000 ? 0.3 : 0.15;
   const superNet = (gross: number) =>
-    ` (about ${money(Math.round((gross * (1 - contribTax)) / 100) * 100)} after the ${Math.round(contribTax * 100)}% contributions tax)`;
+    `After the ${Math.round(contribTax * 100)}% contributions tax, about ${money(Math.round((gross * (1 - contribTax)) / 100) * 100)} of it would reach your account.`;
   return (
     <div className="gd-headline" role="status">
       <div className="gd-headline__lead">Over {fig.years} years, a novated lease leaves you:</div>
@@ -3448,32 +3448,32 @@ function ResultHeadline({
       {perPay !== null && (
         <p className="gd-headline__pay">
           Your take-home pay: about <strong>{money(perPay)} less per {unit}</strong>.
-          {payPeriod && <span className="gd-headline__pay-sub">Compare this with the take-home figure on your quote.</span>}
+          {payPeriod && <Tip>Compare this with the take-home figure on your quote.</Tip>}
         </p>
       )}
       {/* Not in the saving above: super is still the reader's money, only locked away (UX 3). */}
       {lostSuper >= 50 && (
         <p className="gd-headline__super">
-          Not counted above: your employer pays about <strong className="gd-neg">{money(Math.round(lostSuper / 100) * 100)} less into your super</strong>{" "}
-          over {leaseYears} year{leaseYears === 1 ? "" : "s"}{superNet(lostSuper)}.
-          <span className="gd-headline__pay-sub">Your employer works out super on your salary after the lease.</span>
+          <strong>Super:</strong> not counted above, your employer pays about{" "}
+          <strong className="gd-neg">{money(Math.round(lostSuper / 100) * 100)} less</strong> into it over{" "}
+          {leaseYears} year{leaseYears === 1 ? "" : "s"}.
+          <Tip>{`It works out super on your salary after the lease. ${superNet(lostSuper)}`}</Tip>
         </p>
       )}
       {lostSuperIfAfter >= 50 && (
         <p className="gd-headline__super">
-          <strong>Check how your employer works out super.</strong> If it's on your salary after the
-          lease, your employer would pay about <strong className="gd-neg">{money(Math.round(lostSuperIfAfter / 100) * 100)} less into your super</strong>{" "}
-          over {leaseYears} year{leaseYears === 1 ? "" : "s"}{superNet(lostSuperIfAfter)}.
-          <span className="gd-headline__pay-sub">You chose “I'm not sure”, so the result assumes super is unaffected. Ask payroll.</span>
+          <strong>Super:</strong> if your employer works it out on your salary after the lease, they'd pay
+          about <strong className="gd-neg">{money(Math.round(lostSuperIfAfter / 100) * 100)} less</strong> into it over{" "}
+          {leaseYears} year{leaseYears === 1 ? "" : "s"}. Ask payroll.
+          <Tip>{`${superNet(lostSuperIfAfter)} You chose “I'm not sure”, so the result above assumes super is unaffected.`}</Tip>
         </p>
       )}
       {/* A good result is when readers stop reading, so the big risks sit right under it, tied to
           their own term (owner, 15 Nov 2026). Not shown when the lease comes out behind. */}
       {lines.some(([, net]) => net > 0) && (
         <p className="gd-headline__decide">
-          <strong>Before you decide:</strong> this saving assumes you keep your job and the car for all{" "}
-          {leaseYears} year{leaseYears === 1 ? "" : "s"}. Leaving early, a write-off
-          {inputs.vehicleType === "EV" ? ", needing to borrow, or effects on HECS and childcare" : " or needing to borrow"}{" "}
+          <strong>Before you decide:</strong> this assumes you keep your job and the car for all{" "}
+          {leaseYears} year{leaseYears === 1 ? "" : "s"}. Leaving early, a write-off or needing to borrow
           can cost more than you save.{" "}
           <a href="/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure" target="_blank" rel="noreferrer">
             Check the risks&nbsp;→
@@ -3501,13 +3501,10 @@ function ResultHeadline({
         </p>
       )}
       <p className="gd-headline__caveat">
-        Not counted in these figures: changes to HECS repayments, childcare
-        subsidy, the Medicare levy surcharge or Division 293 tax. Advanced mode
-        works out the adjusted taxable income they're based on.{" "}
+        Not counted: HECS, childcare subsidy, Medicare levy surcharge and Division 293.{" "}
         <button type="button" className="gd-linkbtn" onClick={onOpenAdvanced}>
           See the full workings
         </button>
-        .
       </p>
     </div>
   );
