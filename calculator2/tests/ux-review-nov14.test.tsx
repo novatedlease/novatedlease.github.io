@@ -376,3 +376,27 @@ describe("results: running costs after a short lease", () => {
     expect(document.body.textContent).not.toContain("Lease: running costs after it ends");
   });
 });
+
+describe("results: 'Before you decide' under a good result", () => {
+  const decideFor = (patch: Partial<GuidedDraft>) => {
+    seedReview({ ...fullQuote(), ...patch });
+    const { unmount } = render(<App />);
+    const text = document.querySelector(".gd-headline__decide")?.textContent ?? null;
+    const link = document.querySelector(".gd-headline__decide a")?.getAttribute("href") ?? null;
+    unmount();
+    window.localStorage.clear();
+    return { text, link };
+  };
+
+  test("an EV that comes out ahead: the big risks, the lease term, HECS and childcare, and the risks link", () => {
+    const { text, link } = decideFor({ vehicleType: "EV", fuel: { text: "", none: false, estimated: false }, chargingRate: m("0.3"), payment: m("420") });
+    expect(text).toMatch(/^Before you decide: this saving assumes you keep your job and the car for all 5 years\./);
+    expect(text).toMatch(/Leaving early, a write-off, needing to borrow, or effects on HECS and childcare can cost more than you save\./);
+    expect(link).toBe("/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure");
+  });
+
+  test("not shown when the lease comes out behind", () => {
+    // The petrol fixture at $520 a fortnight comes out worse than paying cash.
+    expect(decideFor({}).text).toBeNull();
+  });
+});

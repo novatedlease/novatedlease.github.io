@@ -3411,6 +3411,19 @@ function ResultHeadline({
           <span className="gd-headline__pay-sub">You chose “I'm not sure”, so the result assumes super is unaffected. Ask payroll.</span>
         </p>
       )}
+      {/* A good result is when readers stop reading, so the big risks sit right under it, tied to
+          their own term (owner, 15 Nov 2026). Not shown when the lease comes out behind. */}
+      {lines.some(([, net]) => net > 0) && (
+        <p className="gd-headline__decide">
+          <strong>Before you decide:</strong> this saving assumes you keep your job and the car for all{" "}
+          {leaseYears} year{leaseYears === 1 ? "" : "s"}. Leaving early, a write-off
+          {inputs.vehicleType === "EV" ? ", needing to borrow, or effects on HECS and childcare" : " or needing to borrow"}{" "}
+          can cost more than you save.{" "}
+          <a href="/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure" target="_blank" rel="noreferrer">
+            Check the risks&nbsp;→
+          </a>
+        </p>
+      )}
       {reasons.map((r, i) => (
         <p key={i} className="gd-headline__why">
           {r}
@@ -3438,15 +3451,7 @@ function ResultHeadline({
         <button type="button" className="gd-linkbtn" onClick={onOpenAdvanced}>
           See the full workings
         </button>
-        , and{" "}
-        <a
-          href="/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure"
-          target="_blank"
-          rel="noreferrer"
-        >
-          check the risks
-        </a>{" "}
-        before deciding.
+        .
       </p>
     </div>
   );
