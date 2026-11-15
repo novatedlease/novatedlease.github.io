@@ -94,3 +94,32 @@ describe("running costs byline", () => {
     expect(document.body.textContent).toContain("From your quote's running-cost budget.");
   });
 });
+
+describe("kilometres: where each quote prints them", () => {
+  test("SG Fleet points to Annual distance", () => {
+    atRunning("sgfleet", "Non-EV");
+    const note = document.querySelector('.gd-pointers[data-field="mileage"]')!;
+    expect(note.textContent).toBe("On SG Fleet quotes: Use “Annual distance” under “Your package arrangements”.");
+    expect(document.body.textContent).toContain("The figure your quote's budgets are based on.");
+  });
+
+  test("ORIX and Lendly print a whole-lease total, so their note is a warning", () => {
+    for (const p of ["orix", "lendly"] as const) {
+      atRunning(p, "EV");
+      expect(document.querySelector('.gd-pointers[data-field="mileage"] .gd-pointer--trap')?.textContent).toMatch(/Divide by the years|Divide it by the years/);
+      cleanup();
+    }
+  });
+
+  test("a provider whose quotes don't print kilometres keeps the generic hint", () => {
+    atRunning("leaseplan", "Non-EV");
+    expect(document.querySelector('.gd-pointers[data-field="mileage"]')).toBeNull();
+    expect(document.body.textContent).toContain("The average Australian drives about 12,000 km.");
+  });
+
+  test("every line names a real provider", async () => {
+    const { MILEAGE_LINE } = await import("../src/guided/mileageLine");
+    const ids = new Set(PROVIDERS.map((p) => p.id));
+    for (const id of Object.keys(MILEAGE_LINE)) expect(ids.has(id as never)).toBe(true);
+  });
+});

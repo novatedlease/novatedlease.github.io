@@ -56,6 +56,7 @@ import { summaryFigures } from "../components/summaryFigures";
 import { superShortfallOverLease, takeHomeReductionPerFn } from "../components/payImpact";
 import { quoteAssumptions } from "./quoteAssumptions";
 import { RUNNING_LAYOUT, runLabelText, runningOrder } from "./runningLayout";
+import { MILEAGE_LINE } from "./mileageLine";
 import { ASSUMED_EFFECTIVE_RATE, evElectricityClaimAnnual } from "../assumptions";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
@@ -1937,6 +1938,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
   const factor = runningFactor(period);
   const km = moneyValue(d.mileage);
   const offerTypical = d.provider === "millarx";
+  const mileageLine = d.provider ? MILEAGE_LINE[d.provider] : undefined;
   // Keep a filled-in charging budget in step with the kilometres and period; a typed one is left alone.
   const budget = isEv && km && period ? (evElectricityClaimAnnual(km) / factor).toFixed(2) : null;
   const budgetTyped = !!d.chargingBudget.text.trim() && !d.chargingBudget.estimated;
@@ -1991,9 +1993,17 @@ function RunningStep({ d, set, f }: StepPropsF) {
         suffix="km"
         value={d.mileage}
         onChange={(m) => set("mileage", m)}
-        where="Your best estimate. The average Australian drives about 12,000 km."
+        where={mileageLine ? "The figure your quote's budgets are based on." : "Your best estimate. The average Australian drives about 12,000 km."}
         findings={f.mileage}
       />
+      {/* Where this provider's quote prints the kilometres (mileageLine.ts). */}
+      {mileageLine && d.provider && (
+        <div className="gd-pointers" data-provider={d.provider} data-field="mileage">
+          <div className={`gd-pointer gd-pointer--${mileageLine.trap ? "trap" : "locate"}`}>
+            <span><strong>On {providerLabel(d.provider)} quotes:</strong> {mileageLine.text}</span>
+          </div>
+        </div>
+      )}
       <Help title="How do I use my current driving to estimate this?">
         Check your last two service records for the odometer reading, subtract,
         and divide by the years between. Or multiply a typical weekly total by
