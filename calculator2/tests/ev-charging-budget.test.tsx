@@ -47,3 +47,19 @@ describe("EV charging budget", () => {
     expect(section.textContent).toContain("Electricity price you pay to charge, per kWh");
   });
 });
+
+describe("a $0 charging budget", () => {
+  test("warns that it's a net loss against the 5.47c shortcut, with a link to the article", () => {
+    evAtRunning("10000");
+    render(<App />);
+    const box = screen.getAllByLabelText(/Charging budget/).find((el) => el.tagName === "INPUT") as HTMLInputElement;
+    fireEvent.change(box, { target: { value: "0" } });
+    const row = box.closest(".gd-row")!;
+    expect(row.textContent).toContain("A $0 charging budget is a net loss");
+    expect(row.textContent).toContain("about $547 a year at your kilometres");
+    expect(row.querySelector("a")?.getAttribute("href")).toBe("/running-costs/ev-home-charging-shortcut/");
+    // The filled-in 5.47c figure itself gets no warning.
+    fireEvent.change(box, { target: { value: "21.04" } });
+    expect(box.closest(".gd-row")!.textContent).not.toContain("net loss");
+  });
+});

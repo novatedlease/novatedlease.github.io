@@ -517,6 +517,23 @@ export function checkCurrentCarTotal(yearly: number | null): Finding[] {
   ];
 }
 
+/**
+ * A $0 EV charging budget: the reader pays all their charging from after-tax pay, when the ATO's
+ * 5.47c/km home-charging shortcut lets them claim at least that much through the lease, whatever
+ * their real cost (owner request, 15 Nov 2026).
+ */
+export function checkChargingBudget(typed: number | null, shortcutAnnual: number | null): Finding[] {
+  if (typed !== 0) return [];
+  return [
+    {
+      code: "charging_budget_zero",
+      level: "warn",
+      message: `A $0 charging budget is a net loss: you'd pay all your charging from after-tax pay. Claiming at least the ATO's 5.47c per km${shortcutAnnual ? ` (about ${fmt(shortcutAnnual)} a year at your kilometres)` : ""} comes out ahead, even if your real cost is lower.`,
+      link: { href: "/running-costs/ev-home-charging-shortcut/", label: "How the 5.47c shortcut works" },
+    },
+  ];
+}
+
 export function checkChargingRate(perKwh: number | null): Finding[] {
   if (perKwh === null || perKwh === 0) return [];
   if (perKwh >= 1) {

@@ -113,6 +113,7 @@ import {
 import {
   checkAnnualCost,
   checkChargingRate,
+  checkChargingBudget,
   checkCurrentCarValueEnd,
   checkCurrentCarValueNow,
   checkDocFee,
@@ -278,6 +279,9 @@ function findingsFor(d: GuidedDraft) {
       typical?.fuel ?? null,
     ),
     charging: checkChargingRate(moneyValue(d.chargingRate)),
+    chargingBudget: d.vehicleType === "EV" && !d.chargingBudget.estimated
+      ? checkChargingBudget(moneyValue(d.chargingBudget), moneyValue(d.mileage) ? evElectricityClaimAnnual(moneyValue(d.mileage)!) : null)
+      : [],
     income: checkIncome(income),
     offset: checkRate("offset", moneyValue(d.offsetRate), 12),
     savings: checkRate("savings", moneyValue(d.savingsRatePreTax), 12),
@@ -322,6 +326,7 @@ const STEP_FIELDS: Partial<Record<StepId, (keyof FindingMap)[]>> = {
     "mgmt",
     "fuel",
     "charging",
+    "chargingBudget",
   ],
   you: ["income", "offset", "savings", "invested"],
   alternatives: ["loan", "loanFee", "marketValue", "curValueNow", "curValueEnd", "curService", "curRego", "curFuel", "curInsurance", "curTotal"],
@@ -2205,6 +2210,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
                   onChange={(m) => set("chargingBudget", m)}
                   suffix={suffix}
                   estimatedNote="Filled in: your kilometres × the ATO's 5.47c. Change it if your quote differs."
+                  findings={f.chargingBudget}
                   tooltip={<Tip>The ATO's shortcut rate for home charging. Most quotes budget exactly this.</Tip>}
                 />
               ) : (
