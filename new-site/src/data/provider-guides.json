@@ -130,7 +130,7 @@
         "docFee": "Enter only “Financier's Establishment Fee” as the documentation fee."
       },
       "traps": [
-        "docFee"
+        "insurance"
       ],
       "pointers": [
         {
@@ -147,7 +147,7 @@
         },
         {
           "field": "docFee",
-          "kind": "trap",
+          "kind": "locate",
           "text": "Enter only “Financier's Establishment Fee” as the documentation fee.",
           "more": "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
           "image": "/assets/images/quote-guide/maxxia/field-docFee.webp"
@@ -161,7 +161,7 @@
         },
         {
           "field": "insurance",
-          "kind": "locate",
+          "kind": "trap",
           "text": "Enter the full yearly insurance premium, including year one.",
           "more": "Use the yearly amount you would pay to insure the car, not just Maxxia's renewal budget. If the first year is financed, the calculator counts it once.",
           "image": "/assets/images/quote-guide/maxxia/field-running.webp"
@@ -1098,8 +1098,7 @@
         "residual": "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST."
       },
       "traps": [
-        "driveaway",
-        "docFee"
+        "driveaway"
       ],
       "pointers": [
         {
@@ -1124,7 +1123,7 @@
         },
         {
           "field": "docFee",
-          "kind": "trap",
+          "kind": "locate",
           "text": "Enter only “Financier's Establishment fee” as the documentation fee.",
           "more": "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
           "image": "/assets/images/quote-guide/oly/field-docFee.webp"

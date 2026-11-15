@@ -15,7 +15,7 @@ The Maxxia layouts we reviewed use **Financed payments** for the lease payment. 
 <!-- provider-traps:begin -->
 ## What catches people out on a Maxxia quote
 
-- **Documentation fee:** Enter only “Financier's Establishment Fee” as the documentation fee.
+- **Insurance:** Enter the full yearly insurance premium, including year one.
 <!-- provider-traps:end -->
 
 ![Redacted Maxxia quote pages with numbered fields](/assets/images/quote-guide/maxxia/redacted-quote.webp)

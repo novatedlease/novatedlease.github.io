@@ -105,8 +105,9 @@ export type Pointer = {
 export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   sgfleet: ["payment", "baseValue"],
   millarx: ["payment"], smartleasing: ["payment"],
-  flare: ["driveaway"], oly: ["driveaway", "docFee"],
-  maxxia: ["docFee"], fleetpartners: ["docFee"],
+  flare: ["driveaway"], oly: ["driveaway"],
+  // Maxxia budgets insurance renewals only (year one is financed), so entering that line understates it.
+  maxxia: ["insurance"], fleetpartners: ["docFee"],
   leaseplan: ["driveaway", "docFee"], alliance: ["driveaway"],
   remunerator: ["driveaway", "payment"], easi: ["payment"],
   autopia: ["baseValue"], leaselab: ["driveaway"],

@@ -356,7 +356,7 @@ describe("provider pointers", () => {
     expect(shownKind(docFee, "leaseplan", now)).toBe("locate");
     expect(shownKind(docFee, "leaseplan", new Date(2026, 0, 1))).toBe("trap");
     expect(shownKind(pointersFor("leaseplan", "residual")[0], "leaseplan", now)).toBe("missing");
-    expect(shownKind(pointersFor("oly", "docFee")[0], "oly", now)).toBe("trap");
+    expect(shownKind(pointersFor("oly", "driveaway")[0], "oly", now)).toBe("trap");
   });
 
   test("each named provider has dated pointers and a recorded quote source", () => {
@@ -579,10 +579,13 @@ describe("provider pointers", () => {
   test("locate, trap and missing pointers have distinct kinds", () => {
     expect(pointersFor("sgfleet", "payment")[0].kind).toBe("trap");
     // Plain instructions are not traps (review round 2, R7).
-    expect(pointersFor("maxxia", "insurance")[0].kind).toBe("locate");
+    // Owner, 15 Nov 2026: Maxxia's insurance is the trap (its budget covers renewals only), and the
+    // Maxxia/Oly doc fee lines are plain once the year-one insurance sentence went.
+    expect(pointersFor("maxxia", "insurance")[0].kind).toBe("trap");
     expect(pointersFor("oly", "insurance")[0].kind).toBe("locate");
     expect(pointersFor("smartleasing", "docFee")[0].kind).toBe("locate");
-    expect(pointersFor("maxxia", "docFee")[0].kind).toBe("trap");
+    expect(pointersFor("maxxia", "docFee")[0].kind).toBe("locate");
+    expect(pointersFor("oly", "docFee")[0].kind).toBe("locate");
     expect(pointersFor("sgfleet", "driveaway")[0].kind).toBe("locate");
     expect(pointersFor("paywise", "defer")[0].kind).toBe("missing");
     expect(markerFor("sgfleet", "payment")?.y).toBeGreaterThan(0);

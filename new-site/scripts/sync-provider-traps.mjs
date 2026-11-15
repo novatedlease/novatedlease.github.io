@@ -13,7 +13,7 @@ const docs = path.join(root, 'new-site/src/content/docs/start-here');
 const FIELD_NAMES = {
   baseValue: 'FBT base value', driveaway: 'Drive-away price', defer: 'Deferred payments',
   docFee: 'Documentation fee', residual: 'Residual', payment: 'Finance payment',
-  luxAdj: 'Luxury vehicle adjustment', running: 'Running costs', insurance: 'First-year insurance',
+  luxAdj: 'Luxury vehicle adjustment', running: 'Running costs', insurance: 'Insurance',
   fees: 'Management fees',
 };
 
