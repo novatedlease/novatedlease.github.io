@@ -72,3 +72,13 @@ describe("running-costs screen", () => {
     ]);
   });
 });
+
+describe("other lines help placement", () => {
+  test("comes after the quote's boxes and before the price-per-kWh question", () => {
+    atRunning("smartleasing", "EV");
+    const text = document.body.textContent!;
+    const help = text.indexOf("Where do other lines on my quote go?");
+    expect(help).toBeGreaterThan(text.indexOf("Administration fee"));
+    expect(help).toBeLessThan(text.indexOf("Electricity price you pay to charge"));
+  });
+});

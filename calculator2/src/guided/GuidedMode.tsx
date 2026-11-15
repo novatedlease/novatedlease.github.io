@@ -2063,30 +2063,6 @@ function RunningStep({ d, set, f }: StepPropsF) {
           )}
         </>
       )}
-      <Help title="Where do other lines on my quote go?">
-        <ul className="gd-otherlines">
-          <li>
-            <strong>Other fees</strong> (salary packaging, licence, admin): add
-            them to Lease management fees.
-          </li>
-          <li>
-            <strong>Roadside, incidentals, car wash</strong> and similar: add
-            them to Servicing.
-          </li>
-          <li>
-            <strong>Optional cover</strong> (e.g. LeaseGuard, lease protection,
-            GAP): leave it out, or if you're keeping it, add it to Lease
-            management fees, not Insurance. You'd only buy this cover with a
-            lease, not when paying cash, and Lease management fees is the one
-            box the calculator counts on the lease side only.
-          </li>
-          <li>
-            <strong>Carbon offset program</strong>: leave it out, or if you're keeping it, add it to Lease management
-            fees. Like optional cover, it comes with the lease, not with paying
-            cash.
-          </li>
-        </ul>
-      </Help>
       {/* Boxes in the order the reader's quote prints them, in its wording (runningLayout.ts). */}
       <div className="gd-rows">
         {runningOrder(d.provider).map(({ box, label }) => {
@@ -2211,6 +2187,30 @@ function RunningStep({ d, set, f }: StepPropsF) {
           }
         })}
       </div>
+      <Help title="Where do other lines on my quote go?">
+        <ul className="gd-otherlines">
+          <li>
+            <strong>Other fees</strong> (salary packaging, licence, admin): add
+            them to Lease management fees.
+          </li>
+          <li>
+            <strong>Roadside, incidentals, car wash</strong> and similar: add
+            them to Servicing.
+          </li>
+          <li>
+            <strong>Optional cover</strong> (e.g. LeaseGuard, lease protection,
+            GAP): leave it out, or if you're keeping it, add it to Lease
+            management fees, not Insurance. You'd only buy this cover with a
+            lease, not when paying cash, and Lease management fees is the one
+            box the calculator counts on the lease side only.
+          </li>
+          <li>
+            <strong>Carbon offset program</strong>: leave it out, or if you're keeping it, add it to Lease management
+            fees. Like optional cover, it comes with the lease, not with paying
+            cash.
+          </li>
+        </ul>
+      </Help>
       {isEv && (
         <div className="gd-offquote">
           <div className="gd-offquote__title">Not on your quote</div>
