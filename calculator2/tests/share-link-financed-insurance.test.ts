@@ -17,3 +17,22 @@ describe("share links and the financed first-year insurance field", () => {
     expect(back.driveawayCost).toBe(61234);
   });
 });
+
+describe("financed first-year insurance: every lease-side total takes it off", () => {
+  test("Guided's take-home line matches Advanced's lease section (owner's 3-year EV example, Nov 2026)", async () => {
+    const { computeDerived } = await import("@engine/derived");
+    const { takeHomeReductionPerFn } = await import("../src/components/payImpact");
+    const inputs = {
+      ...advancedDefaultInputs,
+      vehicleType: "EV" as const,
+      vehicleBaseValue: 46990, driveawayCost: 46990, leaseDocFee: 2545.64, leaseDurationYears: 3, monthsDeferred: 2,
+      leaseStartDate: "2026-12-15", totalTaxableIncome: 170000, homeLoanOffsetInterestRate: 6.2,
+      serviceMaintTyresAnnual: 1012.96, registrationAnnual: 995.02, electricityAnnual: 745.94, fuelAnnual: 0,
+      insuranceAnnual: 1916.1133, insuranceFinancedFirstYear: 1916.2, managementFeesAnnual: 163.54,
+      financedAmountForInterestCalcExGst: 45263.82, residualValueExGst: 20026.28, vehicleLeasePerFn: 478.92,
+    };
+    const advancedPerPay = computeDerived(inputs).fyRows[0].takeHomeImpactPerPay;
+    expect(advancedPerPay).toBeCloseTo(390.56, 2);
+    expect(takeHomeReductionPerFn(inputs)!).toBeCloseTo(advancedPerPay, 2);
+  });
+});

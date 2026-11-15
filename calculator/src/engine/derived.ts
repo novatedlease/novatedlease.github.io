@@ -1,3 +1,4 @@
+import { leaseInsuranceAnnual } from "./insurance";
 import type { Inputs } from "./types";
 import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate, getEcmTwoThirdsFromFy, getEcmMultiplierForFy } from "./types";
 import { buildFyBreakdown } from "./fy_breakdown";
@@ -52,7 +53,7 @@ export function computeDerived(inputs: Inputs): Derived {
     inputs.serviceMaintTyresAnnual +
     inputs.saveShareAnnual +
     inputs.registrationAnnual +
-    Math.max(0, inputs.insuranceAnnual - (inputs.insuranceFinancedFirstYear ?? 0) / Math.max(1, inputs.leaseDurationYears)) +
+    leaseInsuranceAnnual(inputs) +
     inputs.managementFeesAnnual +
     packagedEnergyAnnual;
 
