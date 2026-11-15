@@ -806,14 +806,15 @@ function Side({
   d,
   children,
 }: {
-  highlight: QuoteKey[];
+  highlight: GuideField[];
   d: GuidedDraft;
   children: ReactNode;
 }) {
   const [focusedField, setFocusedField] = useState<GuideField | null>(null);
   const [pick, setPick] = useState<PanelPick | null>(null);
   const narrow = useNarrowScreen();
-  const diagram = <QuoteDiagram highlight={highlight} values={quoteValues(d)} />;
+  // The typical-quote diagram has no separate insurance or fees row; both sit under running costs.
+  const diagram = <QuoteDiagram highlight={highlight.filter((k): k is QuoteKey => k !== "insurance" && k !== "fees")} values={quoteValues(d)} />;
   const guide = guideFor(d.provider);
   const hasPicture = (field: GuideField) => !!guide && !!pictureFor(guide.id, field);
   // Keep showing the last provider picture when the focused field has none of its own.
@@ -1939,7 +1940,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
     annual && period ? annual / factor : null;
 
   return (
-    <>
+    <Side highlight={["running", "insurance", "fees"]} d={d}>
       <Lead>From your quote's running-cost budget.</Lead>
       <MoneyInput
         field="mileage"
@@ -2178,7 +2179,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           the real figure.
         </div>
       )}
-    </>
+    </Side>
   );
 }
 
