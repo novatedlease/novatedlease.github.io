@@ -247,6 +247,9 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     electricityAnnual,
     fuelAnnual,
     insuranceAnnual,
+    // Listed (as 0) so share links and saved quotes keep it: their loader only reads fields the
+    // defaults have. Older links without it load as 0, the same as before the field existed.
+    insuranceFinancedFirstYear: 0,
     managementFeesAnnual,
 
     avgAudPerKwh,
