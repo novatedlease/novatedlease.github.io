@@ -435,11 +435,11 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xq2wcg"],
     pointers: [
-      { field: "driveaway", text: "Use “total onroad cost” in vehicle details for the drive-away price. Confirm your quote includes GST in that figure." },
+      { field: "driveaway", text: "Use “total onroad cost” in vehicle details for the drive-away price." },
       {
         field: "baseValue",
-        text: "Can’t find the FBT base value? Don’t use “base price”: it excludes GST. Ask for the value or derive it from the price breakdown.",
-        more: "Include the car, options and delivery with GST, before stamp duty and registration.",
+        text: "“Base price” excludes GST. On this layout, use “total onroad cost” minus registration and stamp duty for the FBT base value.",
+        more: "This equals base price, options and dealer delivery, less any discount, plus GST and luxury car tax. Subtract CTP too if your quote lists it separately. Ask Autopia if its FBT value differs from this price breakdown.",
       },
       {
         field: "docFee",
@@ -905,6 +905,16 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
       image: "/assets/images/quote-guide/oly/residual-example.webp",
       alt: "End of a redacted Oly estimate with Your total residual value marked 6",
       caption: "The last section of the same Oly estimate. Figures were removed; the residual line is marked 6.",
+    },
+  },
+  {
+    id: "autopia",
+    field: "baseValue",
+    example: {
+      image: "/assets/images/quote-guide/autopia/base-value-breakdown.webp",
+      fullPage: "/assets/images/quote-guide/autopia/redacted-quote.webp",
+      alt: "Redacted Autopia vehicle price breakdown with base price, options, delivery, discount, GST and luxury car tax grouped as field 1",
+      caption: "The price components are marked 1. On the full page, find them at the upper left.",
     },
   },
   {

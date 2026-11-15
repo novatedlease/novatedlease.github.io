@@ -142,7 +142,7 @@ Providers:
   and payment tooltip explain this. Guided's conversion also preserves Alliance's explicitly
   ex-GST registration amount if a reader instead enters the page 3 figures with a GST credit.
   Keep the provider article, image manifest and Guided pointers in sync.
-- `calculator2`: 447 Vitest tests pass; ESLint passes on the changed TS/TSX files; the changed
+- `calculator2`: 448 Vitest tests pass; ESLint passes on the changed TS/TSX files; the changed
   site sync script passes `node --check`. Calculator built and Astro preview restarted on 4340.
 - Alliance's focused page 2 crop is a special example; its payment, running-cost, management-fee
   and documentation-fee viewers now offer “Whole page” in the same window, using the redacted
@@ -150,3 +150,11 @@ Providers:
   page still show only their example.
 - Alliance management fee: the extra “On Alliance Leasing quotes” sentence was removed from
   Guided as redundant beside the page 2 table. Its marked picture remains available.
+- Autopia FBT base value: the quote visibly prints “base price”, but that line excludes GST.
+  Guided now shows a marked crop of the redacted vehicle price breakdown and gives the
+  quote-specific calculation: total onroad cost less registration and stamp duty. The article
+  has numbered field 1 and an ATO source, while explaining that the final FBT base value is
+  calculated, not printed. The crop was made from `autopia/redacted-quote.webp` at
+  (50,280)–(665,615), with the base-price-through-LCT group outlined and labelled 1.
+- Autopia drive-away pointer: removed the redundant “Confirm your quote includes GST” sentence;
+  the quoted line is simply “total onroad cost”.

@@ -15,19 +15,24 @@ This numbered example shows an Autopia quote layout we reviewed. Match each mark
 <!-- provider-traps:begin -->
 ## What catches people out on an Autopia quote
 
-- **FBT base value:** Can’t find the FBT base value? Don’t use “base price”: it excludes GST. Ask for the value or derive it from the price breakdown.
+- **FBT base value:** “Base price” excludes GST. On this layout, use “total onroad cost” minus registration and stamp duty for the FBT base value.
 <!-- provider-traps:end -->
 
 ![Redacted Autopia quote with numbered fields](/assets/images/quote-guide/autopia/redacted-quote.webp)
 
 *Customer values and identifying details removed. Your quote may use a different layout.*
 
+![Redacted Autopia price breakdown with the components for FBT base value marked 1](/assets/images/quote-guide/autopia/base-value-breakdown.webp)
+
+*The quote prints “base price” before GST. Field 1 is worked out from the price breakdown.*
+
 ## Numbered field guide
 
 <!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
-| 2 | total onroad cost | Use “total onroad cost” in vehicle details for the drive-away price. Confirm your quote includes GST in that figure. |
+| 1 | base price, GST and the other vehicle price lines | “Base price” excludes GST. On this layout, use “total onroad cost” minus registration and stamp duty for the FBT base value. |
+| 2 | total onroad cost | Use “total onroad cost” in vehicle details for the drive-away price. |
 | 3 | lease term | Lease term |
 | 5 | autopia setup fee | If you see “autopia setup fee”, enter it as the documentation fee. |
 | 6 | residual payment (inc gst) | Residual, "Including GST" |
@@ -37,9 +42,11 @@ This numbered example shows an Autopia quote layout we reviewed. Match each mark
 | 10 | management fee | Lease management fees (add administration cost and reporting services if not $0) |
 <!-- provider-table:end -->
 
-Not shown on this sample: **1 FBT base value**. Autopia doesn't print it, and its "base price" is the vehicle
-price **excluding GST**: don't use it as the FBT base value. Add GST to the base price, options and
-delivery instead (Guided's FBT tooltip explains). Also not shown: **11 interest rate**.
+The final **FBT base value** isn't printed on this sample. Its "base price" is the vehicle price
+**excluding GST**, so use the marked breakdown to work out the GST-inclusive value before
+registration and stamp duty. On another layout, confirm the lessor's FBT base value if the
+purchase price or discount differs. The [ATO's employer guide](https://www.ato.gov.au/law/view/pdf?DocId=SAV%2FFBTGEMP%2F00012&PiT=99991231235958&filename=law%2Fview%2Fpdf%2Fsos%2Ffbtgemp20241122.pdf)
+explains what belongs in a car's base value. Also not shown: **11 interest rate**.
 "fringe benefit value" in the FBT calcs is the taxable value, not the base value.
 
 <!-- provider-missing:begin -->

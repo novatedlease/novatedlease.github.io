@@ -384,7 +384,7 @@ describe("provider pointers", () => {
   });
 
   test("new providers have evidence-backed pointers on the appropriate fields", () => {
-    expect(pointersFor("autopia", "baseValue")[0].text).toMatch(/base price/);
+    expect(pointersFor("autopia", "baseValue")[0].text).toMatch(/base price/i);
     expect(pointersFor("customfleet", "luxAdj")[0].text).toMatch(/Non-Deductible Depreciation/);
     expect(pointersFor("leaselab", "payment")[0].text).toMatch(/Weekly or Fortnightly Allowances/);
     expect(pointersFor("spa", "driveaway")[0].text).toMatch(/excluding GST/);
@@ -632,10 +632,21 @@ describe("provider pointers", () => {
     expect(exampleFor("alliance", "fees")?.image).toBe("/assets/images/quote-guide/alliance/page2-budget.webp");
   });
 
+  test("Autopia's base-value guidance opens its marked price breakdown", () => {
+    on("price", { ...quoteDraft(), provider: "autopia" });
+    const pointer = openPicture("baseValue");
+    expect(pointer.textContent).toContain("Base price");
+    expect(pointer.querySelector(".gd-template__crop img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/autopia/base-value-breakdown.webp");
+    fireEvent.click(screen.getByRole("button", { name: "Whole page" }));
+    expect(pointer.querySelector(".gd-template__fullpage img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/autopia/redacted-quote.webp");
+  });
+
   test("every field example image exists on disk", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
-    for (const [id, field] of [["oly", "residual"], ["alliance", "docFee"], ["alliance", "payment"], ["alliance", "running"], ["alliance", "fees"]] as const) {
+    for (const [id, field] of [["oly", "residual"], ["alliance", "docFee"], ["alliance", "payment"], ["alliance", "running"], ["alliance", "fees"], ["autopia", "baseValue"]] as const) {
       const e = exampleFor(id, field)!;
       expect(fs.existsSync(path.join(__dirname, "../../docs", e.image))).toBe(true);
       expect(imageSizeFor(e.image)).toMatchObject({ w: expect.any(Number), h: expect.any(Number) });
@@ -926,11 +937,14 @@ describe("provider pointers", () => {
     expect(article).toContain("Entry Fee, under Novated Lease Fees");
   });
 
-  test("Autopia's price and setup fee rows sync while its missing FBT warning remains", () => {
+  test("Autopia shows the printed base price but works out the GST-inclusive FBT base value", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-autopia-quote.md"), "utf8");
-    for (const field of ["driveaway", "docFee"] as const)
+    for (const field of ["baseValue", "driveaway", "docFee"] as const)
       expect(article).toContain(pointersFor("autopia", field)[0].text);
-    expect(article).toContain("base price\" is the vehicle\nprice **excluding GST**");
+    expect(article).toContain("| 1 | base price, GST and the other vehicle price lines |");
+    expect(article).toContain("base-value-breakdown.webp");
+    expect(article).toContain("The final **FBT base value** isn't printed on this sample");
+    expect(article).toContain("**excluding GST**");
     expect(article).toContain("fringe benefit value\" in the FBT calcs is the taxable value");
   });
 

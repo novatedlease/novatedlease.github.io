@@ -320,8 +320,8 @@
       "seen": "2026-11",
       "sourceCount": 1,
       "written": {
-        "driveaway": "Use “total onroad cost” in vehicle details for the drive-away price. Confirm your quote includes GST in that figure.",
-        "baseValue": "Can’t find the FBT base value? Don’t use “base price”: it excludes GST. Ask for the value or derive it from the price breakdown.",
+        "driveaway": "Use “total onroad cost” in vehicle details for the drive-away price.",
+        "baseValue": "“Base price” excludes GST. On this layout, use “total onroad cost” minus registration and stamp duty for the FBT base value.",
         "docFee": "If you see “autopia setup fee”, enter it as the documentation fee."
       },
       "traps": [
@@ -331,14 +331,14 @@
         {
           "field": "baseValue",
           "kind": "trap",
-          "text": "Can’t find the FBT base value? Don’t use “base price”: it excludes GST. Ask for the value or derive it from the price breakdown.",
-          "more": "Include the car, options and delivery with GST, before stamp duty and registration.",
-          "image": null
+          "text": "“Base price” excludes GST. On this layout, use “total onroad cost” minus registration and stamp duty for the FBT base value.",
+          "more": "This equals base price, options and dealer delivery, less any discount, plus GST and luxury car tax. Subtract CTP too if your quote lists it separately. Ask Autopia if its FBT value differs from this price breakdown.",
+          "image": "/assets/images/quote-guide/autopia/base-value-breakdown.webp"
         },
         {
           "field": "driveaway",
           "kind": "locate",
-          "text": "Use “total onroad cost” in vehicle details for the drive-away price. Confirm your quote includes GST in that figure.",
+          "text": "Use “total onroad cost” in vehicle details for the drive-away price.",
           "image": "/assets/images/quote-guide/autopia/field-driveaway.webp"
         },
         {
