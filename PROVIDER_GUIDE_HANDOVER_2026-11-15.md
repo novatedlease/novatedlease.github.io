@@ -144,3 +144,7 @@ Providers:
   Keep the provider article, image manifest and Guided pointers in sync.
 - `calculator2`: 447 Vitest tests pass; ESLint passes on the changed TS/TSX files; the changed
   site sync script passes `node --check`. Calculator built and Astro preview restarted on 4340.
+- Alliance's focused page 2 crop is a special example; its payment, running-cost, management-fee
+  and documentation-fee viewers now offer “Whole page” in the same window, using the redacted
+  `page2-example.webp`, then “Focused view” to return. Special examples without a linked full
+  page still show only their example.

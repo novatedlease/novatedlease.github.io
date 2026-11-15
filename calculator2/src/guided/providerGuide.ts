@@ -880,6 +880,8 @@ export function cropFor(id: ProviderId, field: GuideField): string | null {
 
 export type FieldExample = {
   image: string;
+  /** Redacted source page to show in the same viewer when this example is a focused crop. */
+  fullPage?: string;
   alt: string;
   caption: string;
 };
@@ -915,6 +917,7 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     field: "payment",
     example: {
       image: "/assets/images/quote-guide/alliance/page2-budget.webp",
+      fullPage: "/assets/images/quote-guide/alliance/page2-example.webp",
       alt: "Redacted Alliance Leasing page 2 budget with Finance marked 7 and GST on a separate line",
       caption: "Choose the Finance row marked 7 in the page 2 budget. GST is shown separately.",
     },
@@ -924,6 +927,7 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     field: "running",
     example: {
       image: "/assets/images/quote-guide/alliance/page2-budget.webp",
+      fullPage: "/assets/images/quote-guide/alliance/page2-example.webp",
       alt: "Redacted Alliance Leasing page 2 budget with running costs marked 9 and GST on a separate line",
       caption: "Use the running-cost rows marked 9 in the page 2 budget. GST is shown separately.",
     },
@@ -933,6 +937,7 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     field: "fees",
     example: {
       image: "/assets/images/quote-guide/alliance/page2-budget.webp",
+      fullPage: "/assets/images/quote-guide/alliance/page2-example.webp",
       alt: "Redacted Alliance Leasing page 2 budget with Management Fee marked 10 and GST on a separate line",
       caption: "Use the Management Fee row marked 10 in the page 2 budget. GST is shown separately.",
     },
@@ -942,6 +947,7 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     field: "docFee",
     example: {
       image: "/assets/images/quote-guide/alliance/page2-fees.webp",
+      fullPage: "/assets/images/quote-guide/alliance/page2-example.webp",
       alt: "Redacted page 2 of an Alliance Leasing quote with Entry Fee marked 5",
       caption: "Fees and lease details from page 2 of the same Alliance quote. Figures and customer details were removed; Entry Fee is marked 5.",
     },

@@ -1804,10 +1804,11 @@ function QuotePicture({ provider, field, template, example, verb }: {
   const frameRef = useRef<HTMLDivElement>(null);
   const page = pageFor(provider);
   const isCrop = !!template.match(/\/field-[^/]+\.webp$/);
-  const fullImages = example ? [] : pageImagesFor(provider);
-  const full = !example && (!isCrop || showWholePage) && fullImages.length > 0;
+  const fullImages = example ? (example.fullPage ? [example.fullPage] : []) : pageImagesFor(provider);
+  const canSwitch = fullImages.length > 0 && (isCrop || !!(example?.fullPage && example.fullPage !== template));
+  const full = fullImages.length > 0 && (!canSwitch || showWholePage);
   const images = full ? fullImages : [template];
-  const marker = markerFor(provider, field);
+  const marker = example ? null : markerFor(provider, field);
   const lineLabel = lineLabelFor(provider, field);
   const label = providerLabel(provider);
 
@@ -1835,7 +1836,7 @@ function QuotePicture({ provider, field, template, example, verb }: {
       {images.map((image, index) => {
         const size = imageSizeFor(image);
         return <a key={image} href={image} target="_blank" rel="noreferrer" aria-label={`Open redacted quote image ${index + 1} full size`}>
-          <img src={image} alt={example ? example.alt : full ? `Full redacted ${label} quote page ${index + 1}` : `Marked ${label} quote: ${FIELD_NAMES[field]}`} loading="lazy" decoding="async" width={size?.w} height={size?.h} onLoad={scrollToMarker} />
+          <img src={image} alt={full ? example ? `Full redacted ${label} quote page for ${FIELD_NAMES[field]}` : `Full redacted ${label} quote page ${index + 1}` : example ? example.alt : `Marked ${label} quote: ${FIELD_NAMES[field]}`} loading="lazy" decoding="async" width={size?.w} height={size?.h} onLoad={scrollToMarker} />
         </a>;
       })}
     </div>
@@ -1845,7 +1846,7 @@ function QuotePicture({ provider, field, template, example, verb }: {
       {field === "payment" && isSmartOrMillarx(provider) && <> <strong>Don't enter it as printed:</strong> put it through the correction tool first.</>}
       {" "}{verb} the image to enlarge.
     </p>
-    {isCrop && fullImages.length > 0 && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? "Just this line" : "Whole page"}</button>{" · "}</>}
+    {canSwitch && <><button type="button" className="gd-linkbtn" aria-pressed={showWholePage} onClick={() => setShowWholePage(!showWholePage)}>{showWholePage ? (example ? "Focused view" : "Just this line") : "Whole page"}</button>{" · "}</>}
     <a href={`/start-here/how-to-read-${provider}-quote/`} target="_blank" rel="noreferrer">See the whole quote</a>
     {" · "}<a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer" onClick={() => trackEvent("guided_provider_feedback_click", { provider })}>Mine looks different</a>
   </>;

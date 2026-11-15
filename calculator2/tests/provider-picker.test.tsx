@@ -619,7 +619,14 @@ describe("provider pointers", () => {
     cleanup();
     window.localStorage.clear();
     on("payment", { ...quoteDraft(), provider: "alliance" });
-    expect(openPicture("payment").querySelector(".gd-template__body img")?.getAttribute("src"))
+    const paymentPointer = openPicture("payment");
+    expect(paymentPointer.querySelector(".gd-template__body img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/alliance/page2-budget.webp");
+    fireEvent.click(screen.getByRole("button", { name: "Whole page" }));
+    expect(paymentPointer.querySelector(".gd-template__fullpage img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/alliance/page2-example.webp");
+    fireEvent.click(screen.getByRole("button", { name: "Focused view" }));
+    expect(paymentPointer.querySelector(".gd-template__crop img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/alliance/page2-budget.webp");
     expect(exampleFor("alliance", "running")?.image).toBe("/assets/images/quote-guide/alliance/page2-budget.webp");
     expect(exampleFor("alliance", "fees")?.image).toBe("/assets/images/quote-guide/alliance/page2-budget.webp");
@@ -632,6 +639,10 @@ describe("provider pointers", () => {
       const e = exampleFor(id, field)!;
       expect(fs.existsSync(path.join(__dirname, "../../docs", e.image))).toBe(true);
       expect(imageSizeFor(e.image)).toMatchObject({ w: expect.any(Number), h: expect.any(Number) });
+      if (e.fullPage) {
+        expect(fs.existsSync(path.join(__dirname, "../../docs", e.fullPage))).toBe(true);
+        expect(imageSizeFor(e.fullPage)).toMatchObject({ w: expect.any(Number), h: expect.any(Number) });
+      }
     }
   });
 
