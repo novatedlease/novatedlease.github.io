@@ -2090,6 +2090,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
           },
         ]}
         columns={3}
+        hint="If the table adds GST, then takes it off as an employer GST credit (ITC), choose Excluding GST for the amounts before that GST line. If the individual costs say inc GST, choose Including GST; we'll ask about the credit next."
       />
       {/* The provider's own picture shows the real heading; a made-up one beside it only competes (UX 18). */}
       {!(d.provider && cropFor(d.provider, "running")) && (

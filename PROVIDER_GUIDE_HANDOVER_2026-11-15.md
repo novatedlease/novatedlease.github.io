@@ -181,3 +181,8 @@ Providers:
 - Guided payment GST question: a visible note now says to choose Excluding GST when a quote
   adds GST and then subtracts the same amount as an employer GST credit (ITC). The existing
   prompt to check the heading and footnotes remains when no provider payment pointer exists.
+- Guided running-cost GST question: a visible note covers the same GST-addition/ITC-offset
+  table. Choose Excluding GST for individual amounts before the GST line. If the individual
+  costs are marked inc GST, choose Including GST and answer Yes to the following credit
+  question; that path divides the printed amounts by 1.1. Do not blindly choose Excluding GST
+  for inc-GST line items, as that would overstate the costs.
