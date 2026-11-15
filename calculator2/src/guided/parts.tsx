@@ -21,6 +21,7 @@ export function MoneyInput({
   suffix,
   noneLabel,
   suggestion,
+  suggestionBasis,
   tooltip,
   estimatedNote,
   placeholder,
@@ -43,6 +44,8 @@ export function MoneyInput({
   noneLabel?: string;
   /** A typical figure the reader can accept with one tap. Never applied automatically. */
   suggestion?: number | null;
+  /** Where the typical figure comes from, shown beside the "Use a typical figure" link. */
+  suggestionBasis?: ReactNode;
   /** Longer explanation behind an info icon next to the label. */
   tooltip?: ReactNode;
   /** Replaces the default "not from your quote" note shown under an accepted typical figure. */
@@ -113,6 +116,9 @@ export function MoneyInput({
           Not sure? Use a typical figure (about $
           {Math.round(suggestion).toLocaleString("en-AU")})
         </button>
+      )}
+      {suggestionBasis && suggestion != null && suggestion > 0 && !value.none && v === null && (
+        <div className="gd-suggest__basis">{suggestionBasis}</div>
       )}
       {value.estimated && !value.none && (
         <div className="gd-estimated">

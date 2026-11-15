@@ -425,3 +425,25 @@ describe("take-home line: the pay cycle, not the payment's period", () => {
     expect(takeHome({ runningPeriod: "perYear" })).toMatch(/less per fortnight\./);
   });
 });
+
+describe("typical lease-end value says where it comes from", () => {
+  const atAlternatives = (leaseYears: number) => {
+    const d = { ...fullQuote(), compareCurrent: true, leaseYears };
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "alternatives", visited: ["intro", "car", "compare", "price", "lease", "payment", "running", "you", "alternatives"] }),
+    );
+    render(<App />);
+    return document.body.textContent!;
+  };
+
+  test("5-year lease: 40% of the drive-away price after 5 years", () => {
+    const text = atAlternatives(5);
+    expect(text).toContain("Not sure? Use a typical figure (about $24,000)");
+    expect(text).toContain("Based on 40% of the drive-away price after 5 years.");
+  });
+
+  test("shorter lease: scaled to the term", () => {
+    expect(atAlternatives(3)).toContain("Based on 40% of the drive-away price after 5 years, scaled to your term.");
+  });
+});

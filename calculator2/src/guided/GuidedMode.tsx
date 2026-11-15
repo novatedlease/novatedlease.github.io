@@ -2593,7 +2593,10 @@ function AlternativesStep({ d, set, f }: StepPropsF) {
             where="What you could sell it for then. Used-car listings are a good guide."
             tooltip={<Tip>Not on your quote. Against keeping your current car, what each car is worth at the end is part of the comparison.</Tip>}
             suggestion={typicalMarketValueAtLeaseEnd(d)}
-            estimatedNote="A typical estimate. Replace it if used-car listings for your model suggest a different figure."
+            suggestionBasis={d.leaseYears === 5
+              ? "Based on 40% of the drive-away price after 5 years."
+              : "Based on 40% of the drive-away price after 5 years, scaled to your term."}
+            estimatedNote="A typical estimate: 40% of the drive-away price after 5 years. Replace it if used-car listings for your model suggest a different figure."
             findings={f.marketValue}
           />
         </section>
