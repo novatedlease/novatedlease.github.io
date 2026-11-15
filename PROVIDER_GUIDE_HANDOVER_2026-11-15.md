@@ -175,3 +175,6 @@ Providers:
   pointer and article now say to enter the annual figure as printed. Targeted period, provider
   pointer and Guided-to-Advanced tests pass; changed-file ESLint and TypeScript pass. Calculator
   built and Astro preview restarted on port 4340. Full suite was not run for this small change.
+- Guided payment screen: removed the “about $X per fortnight ex GST” subline under the
+  effective interest rate. It confused readers of monthly quotes such as Autopia and did not
+  add a useful input instruction. The rate itself and its calculation are unchanged.

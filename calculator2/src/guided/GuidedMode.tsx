@@ -1483,7 +1483,6 @@ function setDraftDefer(set: StepProps["set"], months: number, unsure: boolean) {
 function PaymentStep({ d, set, f }: StepPropsF) {
   const [adjustOpen, setAdjustOpen] = useState(false);
   const diag = paymentDiagnosisFor(d);
-  const perFn = paymentPerFn(d);
   const luxury = isLuxuryRange(d);
   // An older Autopia draft with an entered amount keeps the payment-period meaning it had
   // before this field gained its own period. A blank Autopia entry starts in the ANNUAL column.
@@ -1663,11 +1662,6 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           <span className="gd-stat__value">
             {(diag.rate * 100).toFixed(2)}%
           </span>
-          {perFn && (d.paymentPeriod !== "perFn" || d.paymentBasis === "incGst") && (
-            <span className="gd-stat__sub">
-              about {money(perFn)} per fortnight ex GST
-            </span>
-          )}
         </div>
       )}
       {luxury && (
