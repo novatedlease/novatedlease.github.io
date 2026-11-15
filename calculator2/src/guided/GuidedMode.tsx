@@ -2273,7 +2273,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
               <div className="gd-presets" aria-label="Typical charging prices">
                 {[
                   // Solar costs the feed-in tariff it would otherwise earn: mostly 2-6c in 2026-27.
-                  { v: 0.04, l: "Solar, about 4c (your feed-in tariff)" },
+                  { v: 0.04, l: "Solar: use your feed-in tariff, about 4c" },
                   { v: 0.08, l: "Home off-peak, about 8c" },
                   { v: 0.3, l: "Home standard, about 30c" },
                   { v: 0.5, l: "Public chargers, about 50c" },
