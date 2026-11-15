@@ -2991,6 +2991,7 @@ function ReviewStep({
         onEditCompare={() => onEdit("compare")}
         onOpenAdvanced={() => openAdvanced()}
         payPeriod={exploring ? null : d.paymentPeriod}
+        superUnsure={!exploring && d.superPreNl === "Unsure"}
       />
       <Section
         title="Show how we got this"
@@ -3333,7 +3334,10 @@ function ResultHeadline({
   onEditCompare,
   onOpenAdvanced,
   payPeriod = null,
+  superUnsure = false,
 }: {
+  /** "I'm not sure" how super is worked out: the result assumes it's unaffected, so show what's at stake. */
+  superUnsure?: boolean;
   /**
    * The quote path's payment period: the take-home line is shown in it, with a prompt to compare
    * with the quote. Null on an estimate (per fortnight, no quote to compare with).
@@ -3358,6 +3362,8 @@ function ResultHeadline({
   const unit = PERIOD_UNIT[payPeriod ?? "perFn"];
   const perPay = perFn === null ? null : (perFn * 26) / PERIODS_PER_YEAR[payPeriod ?? "perFn"];
   const lostSuper = superShortfallOverLease(inputs);
+  // What super would be lost if the employer does use the after-lease salary.
+  const lostSuperIfAfter = superUnsure ? superShortfallOverLease({ ...inputs, superFromPreNlIncome: "No" }) : 0;
   const leaseYears = inputs.leaseDurationYears;
   return (
     <div className="gd-headline" role="status">
@@ -3380,6 +3386,14 @@ function ResultHeadline({
           Not counted above: about <strong className="gd-neg">{money(Math.round(lostSuper / 100) * 100)} less super</strong>{" "}
           over {leaseYears} year{leaseYears === 1 ? "" : "s"}.
           <span className="gd-headline__pay-sub">Your employer works out super on your salary after the lease.</span>
+        </p>
+      )}
+      {lostSuperIfAfter >= 50 && (
+        <p className="gd-headline__super">
+          <strong>Check how your employer works out super.</strong> If it's on your salary after the
+          lease, you'd get about <strong className="gd-neg">{money(Math.round(lostSuperIfAfter / 100) * 100)} less super</strong>{" "}
+          over {leaseYears} year{leaseYears === 1 ? "" : "s"}.
+          <span className="gd-headline__pay-sub">You chose “I'm not sure”, so the result assumes super is unaffected. Ask payroll.</span>
         </p>
       )}
       {reasons.map((r, i) => (

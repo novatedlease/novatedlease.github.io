@@ -304,3 +304,36 @@ describe("Smart Leasing correction box links to the explainer", () => {
     expect(link.getAttribute("href")).toBe("/special-and-policy/smart-leasing-millarx-payment-structure/");
   });
 });
+
+describe("super: 'I'm not sure' shows what's at stake", () => {
+  test("names the super that would be lost if the employer uses the after-lease salary", () => {
+    const d = fullQuote();
+    d.superPreNl = "Unsure";
+    seedReview(d);
+    render(<App />);
+    const lines = [...document.querySelectorAll(".gd-headline__super")].map((el) => el.textContent!);
+    const warn = lines.find((t) => t.startsWith("Check how your employer works out super."));
+    expect(warn).toMatch(/you'd get about \$[\d,]+ less super over 5 years\./);
+    expect(warn).toMatch(/You chose “I'm not sure”, so the result assumes super is unaffected\. Ask payroll\./);
+  });
+
+  test("the same amount as when the reader answers 'after lease salary'", () => {
+    const amount = (answer: GuidedDraft["superPreNl"]) => {
+      const d = fullQuote();
+      d.superPreNl = answer;
+      seedReview(d);
+      const { unmount } = render(<App />);
+      const text = document.querySelector(".gd-headline__super")!.textContent!;
+      unmount();
+      window.localStorage.clear();
+      return text.match(/\$[\d,]+ less super/)![0];
+    };
+    expect(amount("Unsure")).toBe(amount("No"));
+  });
+
+  test("not shown when the reader knows super is worked out before the lease", () => {
+    seedReview(fullQuote());
+    render(<App />);
+    expect(document.body.textContent).not.toMatch(/Check how your employer works out super/);
+  });
+});
