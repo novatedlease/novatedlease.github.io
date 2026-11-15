@@ -65,6 +65,7 @@ import {
   STEP_TITLES,
   annualOf,
   serviceAndTyresAnnual,
+  payCycle,
   asksMarketValueEnd,
   atoMinimumResidualExGst,
   guessedResidualBasis,
@@ -2990,7 +2991,7 @@ function ReviewStep({
         }
         onEditCompare={() => onEdit("compare")}
         onOpenAdvanced={() => openAdvanced()}
-        payPeriod={exploring ? null : d.paymentPeriod}
+        payPeriod={exploring ? null : payCycle(d)}
         superUnsure={!exploring && d.superPreNl === "Unsure"}
       />
       <Section

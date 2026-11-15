@@ -400,3 +400,28 @@ describe("results: 'Before you decide' under a good result", () => {
     expect(decideFor({}).text).toBeNull();
   });
 });
+
+describe("take-home line: the pay cycle, not the payment's period", () => {
+  const takeHome = (patch: Partial<GuidedDraft>) => {
+    seedReview({ ...fullQuote(), ...patch });
+    const { unmount } = render(<App />);
+    const text = document.querySelector(".gd-headline__pay")!.textContent!;
+    unmount();
+    window.localStorage.clear();
+    return text;
+  };
+
+  test("a monthly lease figure with fortnightly running costs shows per fortnight", () => {
+    expect(takeHome({ paymentPeriod: "perMonth", payment: m("1127"), runningPeriod: "perFn", service: m("30.77"), rego: m("34.62"), insurance: m("57.69"), mgmt: m("11.54"), fuel: m("92.31") }))
+      .toMatch(/less per fortnight\./);
+  });
+
+  test("weekly running costs show per week", () => {
+    expect(takeHome({ runningPeriod: "perWeek", service: m("15.38"), rego: m("17.31"), insurance: m("28.85"), mgmt: m("5.77"), fuel: m("46.15") }))
+      .toMatch(/less per week\./);
+  });
+
+  test("yearly running costs fall back to the payment's period", () => {
+    expect(takeHome({ runningPeriod: "perYear" })).toMatch(/less per fortnight\./);
+  });
+});

@@ -312,6 +312,18 @@ export function serviceAndTyresAnnual(d: GuidedDraft): number | null {
   return service + (annualOf(d, d.tyres) ?? 0);
 }
 
+/**
+ * How often the reader is paid, for the take-home line. Quotes print running costs per pay
+ * (Smart Leasing's Fortnightly column, SG Fleet's weekly lines), but the payment can be a monthly
+ * lease figure whatever the pay cycle, so the running-cost period wins. A yearly figure says
+ * nothing about pay, so fall back to the payment's period, then fortnightly.
+ */
+export function payCycle(d: Pick<GuidedDraft, "runningPeriod" | "paymentPeriod">): Period {
+  if (d.runningPeriod && d.runningPeriod !== "perYear") return d.runningPeriod;
+  if (d.paymentPeriod && d.paymentPeriod !== "perYear") return d.paymentPeriod;
+  return "perFn";
+}
+
 export function annualOf(d: GuidedDraft, m: Money): number | null {
   const v = moneyValue(m);
   return v === null ? null : v * runningFactor(d.runningPeriod);
