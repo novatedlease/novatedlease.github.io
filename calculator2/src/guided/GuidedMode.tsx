@@ -1,4 +1,5 @@
 import {
+  Fragment,
   createContext,
   useContext,
   useDeferredValue,
@@ -53,6 +54,7 @@ import { copyShareLink } from "../utils/shareLink";
 import { summaryFigures } from "../components/summaryFigures";
 import { superShortfallOverLease, takeHomeReductionPerFn } from "../components/payImpact";
 import { quoteAssumptions } from "./quoteAssumptions";
+import { runLabelText, runningOrder } from "./runningLayout";
 import { ASSUMED_EFFECTIVE_RATE, evElectricityClaimAnnual } from "../assumptions";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
@@ -2085,100 +2087,129 @@ function RunningStep({ d, set, f }: StepPropsF) {
           </li>
         </ul>
       </Help>
+      {/* Boxes in the order the reader's quote prints them, in its wording (runningLayout.ts). */}
       <div className="gd-rows">
-        <MoneyInput
-        field="service"
-          row
-          label={<>Servicing and maintenance{gstTag}</>}
-          value={d.service}
-          onChange={(m) => set("service", m)}
-          suffix={suffix}
-          suggestion={typicalIn(typical?.service)}
-          findings={f.service}
-          estimatedNote="Typical estimate, tyres included"
-        />
-        {!d.service.estimated && (
-          <MoneyInput
-            field="tyres"
-            row
-            label={<>Tyres{gstTag}</>}
-            value={d.tyres}
-            onChange={(m) => set("tyres", m)}
-            suffix={suffix}
-            where="Leave blank if your quote has no tyres line."
-            tooltip={<Tip>Added to servicing in the results. Some quotes include tyres in maintenance instead.</Tip>}
-          />
-        )}
-        <MoneyInput
-        field="rego"
-          row
-          label={<>Registration and CTP{gstTag}</>}
-          value={d.rego}
-          onChange={(m) => set("rego", m)}
-          suffix={suffix}
-          suggestion={typicalIn(typical?.rego)}
-          findings={f.rego}
-          estimatedNote="Typical estimate"
-        />
-        <MoneyInput
-        field="insurance"
-          row
-          label={<>Insurance{gstTag}</>}
-          value={d.insurance}
-          onChange={(m) => set("insurance", m)}
-          suffix={suffix}
-          suggestion={typicalIn(typical?.insurance)}
-          hint={hasProviderLine(d, "insurance") ? "Comprehensive cover." : "Comprehensive cover. Compare with your own insurer's quote."}
-          tooltip={
-            <Tip>
-              {"Some quotes (e.g. Maxxia, Oly) put the first year's insurance in the amount financed and only budget for renewals. Still enter the full yearly premium here, and add the first-year premium to the documentation fee so the interest rate isn't overstated. The calculator then counts the first year on the lease side twice, so the lease's cost comes out about one year's premium too high.\n\nThe pay-cash comparison assumes you'd have this same insurance without the lease. Enter only cover you'd buy either way. Put lease-only cover (e.g. LeaseGuard, GAP) in Lease management fees: you wouldn't buy it if you paid cash, and management fees are the only costs the calculator counts on the lease side only."}
-            </Tip>
+        {runningOrder(d.provider).map(({ box, label }) => {
+          const name = (fallback: string) => <>{label ? runLabelText(label, isEv) : fallback}{gstTag}</>;
+          switch (box) {
+            case "service":
+              return (
+                <MoneyInput
+                  key={box}
+                  field="service"
+                  row
+                  label={name("Servicing and maintenance")}
+                  value={d.service}
+                  onChange={(m) => set("service", m)}
+                  suffix={suffix}
+                  suggestion={typicalIn(typical?.service)}
+                  findings={f.service}
+                  estimatedNote="Typical estimate, tyres included"
+                />
+              );
+            case "tyres":
+              return d.service.estimated ? null : (
+                <MoneyInput
+                  key={box}
+                  field="tyres"
+                  row
+                  label={name("Tyres")}
+                  value={d.tyres}
+                  onChange={(m) => set("tyres", m)}
+                  suffix={suffix}
+                  where="Leave blank if your quote has no tyres line."
+                  tooltip={<Tip>Added to servicing in the results. Some quotes include tyres in maintenance instead.</Tip>}
+                />
+              );
+            case "rego":
+              return (
+                <MoneyInput
+                  key={box}
+                  field="rego"
+                  row
+                  label={name("Registration and CTP")}
+                  value={d.rego}
+                  onChange={(m) => set("rego", m)}
+                  suffix={suffix}
+                  suggestion={typicalIn(typical?.rego)}
+                  findings={f.rego}
+                  estimatedNote="Typical estimate"
+                />
+              );
+            case "insurance":
+              return (
+                <Fragment key={box}>
+                  <MoneyInput
+                    field="insurance"
+                    row
+                    label={name("Insurance")}
+                    value={d.insurance}
+                    onChange={(m) => set("insurance", m)}
+                    suffix={suffix}
+                    suggestion={typicalIn(typical?.insurance)}
+                    hint={hasProviderLine(d, "insurance") ? "Comprehensive cover." : "Comprehensive cover. Compare with your own insurer's quote."}
+                    tooltip={
+                      <Tip>
+                        {"Some quotes (e.g. Maxxia, Oly) put the first year's insurance in the amount financed and only budget for renewals. Still enter the full yearly premium here, and add the first-year premium to the documentation fee so the interest rate isn't overstated. The calculator then counts the first year on the lease side twice, so the lease's cost comes out about one year's premium too high.\n\nThe pay-cash comparison assumes you'd have this same insurance without the lease. Enter only cover you'd buy either way. Put lease-only cover (e.g. LeaseGuard, GAP) in Lease management fees: you wouldn't buy it if you paid cash, and management fees are the only costs the calculator counts on the lease side only."}
+                      </Tip>
+                    }
+                    findings={f.insurance}
+                    estimatedNote="Typical estimate"
+                  />
+                  <ProviderPointers d={d} field="insurance" />
+                </Fragment>
+              );
+            case "mgmt":
+              return (
+                <Fragment key={box}>
+                  <MoneyInput
+                    field="mgmt"
+                    row
+                    label={name("Lease management fees")}
+                    value={d.mgmt}
+                    onChange={(m) => set("mgmt", m)}
+                    suffix={suffix}
+                    suggestion={typicalIn(typical?.mgmt)}
+                    findings={f.mgmt}
+                    estimatedNote="Typical estimate"
+                    where="Admin, membership and management fees, added together."
+                  />
+                  <ProviderPointers d={d} field="fees" />
+                </Fragment>
+              );
+            case "fuel":
+              // EV: the quote's charging line is the ATO shortcut budget, filled in from the
+              // kilometres so readers don't type it into the price-per-kWh box. It can still be
+              // changed, as in Advanced.
+              return isEv ? (
+                <MoneyInput
+                  key={box}
+                  field="chargingBudget"
+                  row
+                  label={name("Charging budget")}
+                  value={d.chargingBudget}
+                  onChange={(m) => set("chargingBudget", m)}
+                  suffix={suffix}
+                  estimatedNote="Filled in: your kilometres × the ATO's 5.47c. Change it if your quote differs."
+                  tooltip={<Tip>The ATO's shortcut rate for home charging. Most quotes budget exactly this.</Tip>}
+                />
+              ) : (
+                <MoneyInput
+                  key={box}
+                  field="fuel"
+                  row
+                  label={name("Fuel")}
+                  value={d.fuel}
+                  onChange={(m) => set("fuel", m)}
+                  suffix={suffix}
+                  suggestion={typicalIn(typical?.fuel)}
+                  findings={f.fuel}
+                  estimatedNote="Typical estimate"
+                  where="As shown for fuel in the running-costs section."
+                />
+              );
           }
-          findings={f.insurance}
-          estimatedNote="Typical estimate"
-        />
-        <ProviderPointers d={d} field="insurance" />
-        <MoneyInput
-        field="mgmt"
-          row
-          label={<>Lease management fees{gstTag}</>}
-          value={d.mgmt}
-          onChange={(m) => set("mgmt", m)}
-          suffix={suffix}
-          suggestion={typicalIn(typical?.mgmt)}
-          findings={f.mgmt}
-          estimatedNote="Typical estimate"
-          where="Admin, membership and management fees, added together."
-        />
-        <ProviderPointers d={d} field="fees" />
-        {!isEv && (
-          <MoneyInput
-        field="fuel"
-            row
-            label={<>Fuel{gstTag}</>}
-            value={d.fuel}
-            onChange={(m) => set("fuel", m)}
-            suffix={suffix}
-            suggestion={typicalIn(typical?.fuel)}
-            findings={f.fuel}
-            estimatedNote="Typical estimate"
-            where="As shown for fuel in the running-costs section."
-          />
-        )}
-        {/* The quote's charging line is the ATO shortcut budget, filled in from the kilometres so
-            readers don't type it into the price-per-kWh box. It can still be changed, as in Advanced. */}
-        {isEv && (
-          <MoneyInput
-            field="chargingBudget"
-            row
-            label={<>Charging budget{gstTag}</>}
-            value={d.chargingBudget}
-            onChange={(m) => set("chargingBudget", m)}
-            suffix={suffix}
-            estimatedNote="Filled in: your kilometres × the ATO's 5.47c. Change it if your quote differs."
-            tooltip={<Tip>The ATO's shortcut rate for home charging. Most quotes budget exactly this.</Tip>}
-          />
-        )}
+        })}
       </div>
       {isEv && (
         <div className="gd-offquote">
