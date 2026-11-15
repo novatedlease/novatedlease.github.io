@@ -709,7 +709,7 @@ describe("results screen is divided into signposted parts", () => {
     expect(titles()).toEqual(["Your result", "What this is based on", "Save, share or see the full workings", "What to do next"]);
     const next = screen.getByRole("navigation", { name: "What to do next" });
     const hrefs = [...next.querySelectorAll("a")].map((a) => a.getAttribute("href"));
-    expect(hrefs).toEqual(["/start-here/is-it-worth-it/", "/tools/byo-employer-check/", "/tools/checklist/"]);
+    expect(hrefs).toEqual(["/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure", "/tools/byo-employer-check/", "/tools/checklist/"]);
     for (const a of next.querySelectorAll("a")) expect(a.getAttribute("target")).toBe("_blank");
   });
 });

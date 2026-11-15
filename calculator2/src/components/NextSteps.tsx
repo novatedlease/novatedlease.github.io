@@ -11,7 +11,8 @@ import { trackEvent } from "../utils/analytics";
 const STEPS = [
   {
     event: "next_step_worth_it",
-    href: "/start-here/is-it-worth-it/",
+    // Straight to the part the card describes; a reader with results already has the savings figure.
+    href: "/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure",
     title: "Is it right for you?",
     desc: "What the numbers can't show: changing jobs, ending a lease early, and effects on HECS, childcare and borrowing.",
   },
