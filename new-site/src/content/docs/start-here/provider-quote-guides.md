@@ -14,8 +14,6 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 - [Smart Leasing quote guide](/start-here/how-to-read-smartleasing-quote/)
 - [SG Fleet quote guide](/start-here/how-to-read-sgfleet-quote/)
 - [Maxxia quote guide](/start-here/how-to-read-maxxia-quote/)
-- [Flare quote guide](/start-here/how-to-read-flare-quote/)
-- [Paywise quote guide](/start-here/how-to-read-paywise-quote/)
 
 ## All providers
 

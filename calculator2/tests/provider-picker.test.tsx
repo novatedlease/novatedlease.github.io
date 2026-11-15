@@ -107,12 +107,12 @@ describe("provider picker", () => {
     expect(screen.queryByLabelText(/Who is your quote from/)).toBeNull();
   });
 
-  test("lists the five most common providers first, then all providers alphabetically", () => {
+  test("lists the three most common providers first, then all providers alphabetically", () => {
     on("intro", quoteDraft());
     const groups = [...picker().querySelectorAll("optgroup")].map((g) => g.label);
     expect(groups).toEqual(["Most common", "All providers"]);
     const common = [...picker().querySelectorAll('optgroup[label="Most common"] option')].map((o) => o.textContent);
-    expect(common).toEqual(["Smart Leasing", "SG Fleet", "Maxxia", "Flare", "Paywise"]);
+    expect(common).toEqual(["Smart Leasing", "SG Fleet", "Maxxia"]);
     const rest = [...picker().querySelectorAll('optgroup[label="All providers"] option')].map((o) => o.textContent);
     expect(rest.slice(0, -1)).toEqual([...rest.slice(0, -1)].sort((a, b) => a!.localeCompare(b!)));
     expect(rest.at(-1)).toBe("Other / not listed");
@@ -675,7 +675,7 @@ describe("provider pointers", () => {
     expect(index).toContain("## All providers");
     const common = index.split("## Most common\n")[1]?.split("## All providers")[0] ?? "";
     expect([...common.matchAll(/how-to-read-(\w+)-quote/g)].map((match) => match[1]))
-      .toEqual(["smartleasing", "sgfleet", "maxxia", "flare", "paywise"]);
+      .toEqual(["smartleasing", "sgfleet", "maxxia"]);
     const docsRoot = resolve(__dirname, "../../docs");
     for (const key of Object.keys(manifest.images)) {
       expect(existsSync(resolve(docsRoot, "assets/images/quote-guide", key)), key).toBe(true);

@@ -46,11 +46,12 @@ export const PROVIDERS = [
 export type ProviderId = (typeof PROVIDERS)[number]["id"];
 
 /**
- * The five providers whose quotes appear most in the Reddit archive (posts with the provider named
- * in a quote image, Nov 2026: SG Fleet 132, Smart Leasing 108, Maxxia 84, Flare 32, Paywise 26),
- * repeated at the top of the list.
+ * The providers whose quotes appear most in the Reddit archive, repeated at the top of the list:
+ * posts with the provider named in a quote image (Nov 2026) were SG Fleet 132, Smart Leasing 108
+ * and Maxxia 84, then a near tie of Flare 32, Paywise 26 and FleetPartners 26. Only the three
+ * clear leaders are listed (owner, 15 Nov 2026); picking two from the tie would overstate it.
  */
-export const POPULAR: ProviderId[] = ["smartleasing", "sgfleet", "maxxia", "flare", "paywise"];
+export const POPULAR: ProviderId[] = ["smartleasing", "sgfleet", "maxxia"];
 
 /** Names that are another provider's quote layout: choosing one selects that provider. */
 export const PROVIDER_ALIAS: Partial<Record<ProviderId, ProviderId>> = { smartsalary: "smartleasing" };
