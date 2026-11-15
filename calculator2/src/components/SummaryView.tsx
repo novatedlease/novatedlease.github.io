@@ -212,6 +212,11 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
     interestDelta,
     nlVsKeepSaving,
   } = summaryFigures(inputs, horizon);
+  // On the 5-year view, a shorter lease is followed by running costs paid from take-home pay.
+  const postYears = Math.max(0, 5 - inputs.leaseDurationYears);
+  const postLeaseLabel = postYears > 0
+    ? `${postYears === 1 ? "1 year's" : `${postYears} years'`} running costs after the lease ends, paid in cash`
+    : "Running costs after the lease ends, paid in cash";
 
   const showLoan = inputs.compareWithCarLoan;
   const showCurrentCar = inputs.compareWithCurrentCar;
@@ -226,7 +231,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
       <div style={{ display: "grid", gap: 4 }}>
         <BreakdownRow label={leasePaymentsLabel} value={fmtAud0(s.leasePaymentsOverLease)} indent />
         <BreakdownRow label="Lease: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
-        {nlPostLeaseRunning > 0 && <BreakdownRow label="Lease: running costs after it ends" value={fmtAud0(nlPostLeaseRunning)} indent />}
+        {nlPostLeaseRunning > 0 && <BreakdownRow label={postLeaseLabel} value={fmtAud0(nlPostLeaseRunning)} indent />}
         {isEv && (
           <BreakdownRow
             label={
@@ -266,7 +271,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
           <div style={{ display: "grid", gap: 4 }}>
             <BreakdownRow label={leasePaymentsLabel} value={fmtAud0(s.leasePaymentsOverLease)} indent />
             <BreakdownRow label="Lease: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
-            {nlPostLeaseRunning > 0 && <BreakdownRow label="Lease: running costs after it ends" value={fmtAud0(nlPostLeaseRunning)} indent />}
+            {nlPostLeaseRunning > 0 && <BreakdownRow label={postLeaseLabel} value={fmtAud0(nlPostLeaseRunning)} indent />}
             {isEv && (
               <BreakdownRow
                 label={

@@ -364,3 +364,15 @@ describe("results: the interest row is named after where the cash would come fro
     expect(rowLabels("ipOffset", { savingsRatePreTax: m("6") })).toMatch(/(Investment loan interest saved|Extra investment loan interest) with the lease/);
   });
 });
+
+describe("results: running costs after a short lease", () => {
+  test("a 3-year lease on the 5-year view says 2 years' running costs, paid in cash", () => {
+    const d = fullQuote();
+    d.leaseYears = 3;
+    d.residual = m("26000");
+    seedReview(d);
+    render(<App />);
+    expect(document.body.textContent).toContain("2 years' running costs after the lease ends, paid in cash");
+    expect(document.body.textContent).not.toContain("Lease: running costs after it ends");
+  });
+});
