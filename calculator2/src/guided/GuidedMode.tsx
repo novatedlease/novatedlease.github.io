@@ -30,6 +30,7 @@ import {
   guideMayHaveChanged,
   isNamedProvider,
   isSmartOrMillarx,
+  notOnQuote,
   pointersFor,
   providerLabel,
   seenLabel,
@@ -850,6 +851,11 @@ function Side({
             <summary>Where is this on my quote?</summary>
             <div className="gd-help__body">{diagram}</div>
           </details>
+        ) : guide && !pick && notOnQuote(guide.id, selected) ? (
+          <div className="gd-provider-side gd-provider-side--absent" role="note">
+            <strong>{providerLabel(guide.id)} quote: {FIELD_NAMES[selected]}</strong>
+            <p>Not shown on the {providerLabel(guide.id)} quotes we've seen. The note under the question says what to use instead.</p>
+          </div>
         ) : guide && (pick ?? defaultPick(guide.id, selected)) ? (
           <ProviderSidePanel provider={guide.id} pick={(pick ?? defaultPick(guide.id, selected))!} />
         ) : (

@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, lineLabelFor, markerFor, guideFor, guideIsOld, guideMayHaveChanged, pageFor, shownKind, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
+import { PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, lineLabelFor, markerFor, notOnQuote, guideFor, guideIsOld, guideMayHaveChanged, pageFor, shownKind, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -427,6 +427,23 @@ describe("provider pointers", () => {
     // A pointer with its own text keeps its Show me.
     expect(screen.getByText(/Can't find a drive-away total/)).toBeTruthy();
     expect(screen.getAllByRole("button", { name: "Show me" }).length).toBeGreaterThan(0);
+  });
+
+  test("Smart Leasing drive-away: the side panel says it isn't on the quote, rather than showing an unmarked page", () => {
+    phoneWidth(false);
+    on("price", { ...quoteDraft(), provider: "smartleasing" });
+    const box = document.querySelector<HTMLInputElement>('[data-field="driveaway"] input')!;
+    fireEvent.focus(box);
+    const side = document.querySelector(".gd-split__side")!;
+    expect(side.textContent).toContain("Smart Leasing quote: Drive-away price");
+    expect(side.textContent).toContain("Not shown on the Smart Leasing quotes we've seen.");
+    expect(side.querySelector("img")).toBeNull();
+    // Its own Show me still brings up the pages to work it out from the residual.
+    fireEvent.click(document.querySelector('.gd-pointers[data-field="driveaway"] .gd-template > button')!);
+    expect(side.querySelector("img")).not.toBeNull();
+    expect(notOnQuote("smartleasing", "driveaway")).toBe(true);
+    expect(notOnQuote("smartleasing", "baseValue")).toBe(false);
+    expect(notOnQuote("sgfleet", "baseValue")).toBe(false);
   });
 
   function openPicture(field: string) {

@@ -48,6 +48,7 @@
 .gd-split__side { position: sticky; top: calc(var(--nav-height, 0px) + 12px); }
 .gd-provider-side { padding: 14px; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-md); background: var(--nlc-bg-subtle); }
 .gd-provider-side > strong { display: block; font-size: 14px; }
+.gd-provider-side--absent p { margin: 8px 0 0; font-size: 14px; color: var(--nlc-text-soft); }
 .gd-template__body--side { margin-top: 8px; padding: 0; border: none; background: none; }
 .gd-template__body--side a:has(> img) { cursor: zoom-in; }
 /* The whole panel (title, picture, caption, links, "Typical quote") must fit under the nav bar. */

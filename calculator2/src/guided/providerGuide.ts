@@ -930,6 +930,17 @@ export function pictureFor(id: ProviderId, field: GuideField): string | null {
   return own?.image ?? exampleFor(id, field)?.image ?? templateFor(id, field);
 }
 
+/**
+ * True when the provider's quotes don't print this line: its only picture would be the whole page
+ * with nothing marked, which reads as "it's in there somewhere". (Smart Leasing's drive-away price.)
+ */
+export function notOnQuote(id: ProviderId, field: GuideField): boolean {
+  const picture = pictureFor(id, field);
+  if (!picture || /\/field-[^/]+\.webp$/.test(picture)) return false;
+  if (pointersFor(id, field).some((p) => p.example) || exampleFor(id, field)) return false;
+  return !markerFor(id, field) && !lineLabelFor(id, field);
+}
+
 /** The top edge and height of a numbered line on the converted full page. */
 export function markerFor(id: ProviderId, field: GuideField): { y: number; h: number } | null {
   const markers = quoteImages.markers as Record<string, Record<string, { y: number; h: number }[]>>;
