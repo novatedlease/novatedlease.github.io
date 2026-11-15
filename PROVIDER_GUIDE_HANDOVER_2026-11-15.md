@@ -178,3 +178,6 @@ Providers:
 - Guided payment screen: removed the “about $X per fortnight ex GST” subline under the
   effective interest rate. It confused readers of monthly quotes such as Autopia and did not
   add a useful input instruction. The rate itself and its calculation are unchanged.
+- Guided payment GST question: a visible note now says to choose Excluding GST when a quote
+  adds GST and then subtracts the same amount as an employer GST credit (ITC). The existing
+  prompt to check the heading and footnotes remains when no provider payment pointer exists.
