@@ -522,8 +522,18 @@ export function checkCurrentCarTotal(yearly: number | null): Finding[] {
  * 5.47c/km home-charging shortcut lets them claim at least that much through the lease, whatever
  * their real cost (owner request, 15 Nov 2026).
  */
-export function checkChargingBudget(typed: number | null, shortcutAnnual: number | null): Finding[] {
-  if (typed !== 0) return [];
+export function checkChargingBudget(typedAnnual: number | null, shortcutAnnual: number | null): Finding[] {
+  // More than 10% under the 5.47c figure: rounding and per-pay conversion never get exactly there.
+  if (typedAnnual !== null && typedAnnual > 0 && shortcutAnnual && typedAnnual < shortcutAnnual * 0.9)
+    return [
+      {
+        code: "charging_budget_low",
+        level: "warn",
+        message: `Your charging budget is below the ATO's 5.47c per km (about ${fmt(shortcutAnnual)} a year at your kilometres). Ask to raise it: claiming the full 5.47c comes out ahead. If your quote assumes fewer kilometres than you entered, check that first.`,
+        link: { href: "/running-costs/ev-home-charging-shortcut/", label: "How the 5.47c shortcut works" },
+      },
+    ];
+  if (typedAnnual !== 0) return [];
   return [
     {
       code: "charging_budget_zero",

@@ -63,3 +63,19 @@ describe("a $0 charging budget", () => {
     expect(box.closest(".gd-row")!.textContent).not.toContain("net loss");
   });
 });
+
+describe("a charging budget below the 5.47c figure", () => {
+  test("more than 10% under: asks to raise it and to check the kilometres; close figures pass", () => {
+    evAtRunning("10000");
+    render(<App />);
+    const box = screen.getAllByLabelText(/Charging budget/).find((el) => el.tagName === "INPUT") as HTMLInputElement;
+    // 15 a fortnight is $390 a year against $547.
+    fireEvent.change(box, { target: { value: "15" } });
+    const text = box.closest(".gd-row")!.textContent!;
+    expect(text).toContain("Your charging budget is below the ATO's 5.47c per km (about $547 a year at your kilometres).");
+    expect(text).toContain("If your quote assumes fewer kilometres than you entered, check that first.");
+    // 20 a fortnight is $520, within 10%.
+    fireEvent.change(box, { target: { value: "20" } });
+    expect(box.closest(".gd-row")!.textContent).not.toContain("below the ATO");
+  });
+});

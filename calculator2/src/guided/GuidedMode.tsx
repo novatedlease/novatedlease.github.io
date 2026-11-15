@@ -280,7 +280,7 @@ function findingsFor(d: GuidedDraft) {
     ),
     charging: checkChargingRate(moneyValue(d.chargingRate)),
     chargingBudget: d.vehicleType === "EV" && !d.chargingBudget.estimated
-      ? checkChargingBudget(moneyValue(d.chargingBudget), moneyValue(d.mileage) ? evElectricityClaimAnnual(moneyValue(d.mileage)!) : null)
+      ? checkChargingBudget(annualOf(d, d.chargingBudget), moneyValue(d.mileage) ? evElectricityClaimAnnual(moneyValue(d.mileage)!) : null)
       : [],
     income: checkIncome(income),
     offset: checkRate("offset", moneyValue(d.offsetRate), 12),
