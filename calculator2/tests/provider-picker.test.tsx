@@ -458,6 +458,17 @@ describe("provider pointers", () => {
     expect(side.querySelector("strong")?.textContent).toBe("Smart Leasing quote: FBT base value");
   });
 
+  test("Smart Leasing and MillarX payment pictures say the figure goes through the correction tool", () => {
+    for (const provider of ["smartleasing", "millarx"] as const) {
+      on("payment", { ...quoteDraft(), provider, smartMillarx: true });
+      const pointer = openPicture("payment");
+      expect(pointer.textContent).toContain("Don't enter it as printed: put it through the correction tool first.");
+      cleanup();
+    }
+    on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
+    expect(openPicture("payment").textContent).not.toContain("correction tool first");
+  });
+
   function openPicture(field: string) {
     const pointer = document.querySelector(`.gd-pointers[data-field="${field}"]`)!;
     fireEvent.click(pointer.querySelector(".gd-template > button")!);
