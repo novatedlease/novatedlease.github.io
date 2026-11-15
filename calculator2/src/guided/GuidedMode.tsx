@@ -1913,6 +1913,14 @@ function RunningStep({ d, set, f }: StepPropsF) {
   const suffix = period ? PERIOD_WORD[period] : undefined;
   const factor = runningFactor(period);
   const km = moneyValue(d.mileage);
+  // Keep a filled-in charging budget in step with the kilometres and period; a typed one is left alone.
+  const budget = isEv && km && period ? (evElectricityClaimAnnual(km) / factor).toFixed(2) : null;
+  const budgetTyped = !!d.chargingBudget.text.trim() && !d.chargingBudget.estimated;
+  useEffect(() => {
+    if (budget && !budgetTyped && d.chargingBudget.text !== budget)
+      set("chargingBudget", { text: budget, none: false, estimated: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [budget]);
 
   // Switching period rescales what is already typed so the yearly total stays the same.
   function changePeriod(next: RunningPeriod) {
@@ -1930,6 +1938,10 @@ function RunningStep({ d, set, f }: StepPropsF) {
         }
       }
     }
+    // A typed charging budget is rescaled too; a filled-in one is recalculated above.
+    const cb = parseAmount(d.chargingBudget.text);
+    if (period && from !== to && cb !== null && !d.chargingBudget.estimated)
+      set("chargingBudget", { ...d.chargingBudget, text: String(Math.round(((cb * from) / to) * 100) / 100) });
     set("runningPeriod", next);
   }
   const heading = d.runningGstHeading;
@@ -2153,25 +2165,19 @@ function RunningStep({ d, set, f }: StepPropsF) {
             where="As shown for fuel in the running-costs section."
           />
         )}
-        {/* The quote's charging line is the ATO shortcut budget, which the calculator works out
-            itself; showing it filled in stops readers typing it into the price-per-kWh box. */}
+        {/* The quote's charging line is the ATO shortcut budget, filled in from the kilometres so
+            readers don't type it into the price-per-kWh box. It can still be changed, as in Advanced. */}
         {isEv && (
-          <div className="nlc-field gd-row" data-field="chargingBudget">
-            <div className="gd-row__head">
-              <span className="nlc-field__label">
-                Charging budget
-                <Tip>The ATO's shortcut rate for home charging. The calculator always uses it for the lease, so there's nothing to type.</Tip>
-              </span>
-              <div className="gd-where">Filled in for you: your kilometres × 5.47c. Usually matches the charging line on your quote.</div>
-            </div>
-            <div className="gd-row__body">
-              <div className="gd-fixed">
-                {km && period
-                  ? `$${(evElectricityClaimAnnual(km) / factor).toFixed(2)} ${PERIOD_WORD[period]}`
-                  : "Fill in kilometres and how costs are shown"}
-              </div>
-            </div>
-          </div>
+          <MoneyInput
+            field="chargingBudget"
+            row
+            label={<>Charging budget{gstTag}</>}
+            value={d.chargingBudget}
+            onChange={(m) => set("chargingBudget", m)}
+            suffix={suffix}
+            estimatedNote="Filled in: your kilometres × the ATO's 5.47c. Change it if your quote differs."
+            tooltip={<Tip>The ATO's shortcut rate for home charging. Most quotes budget exactly this.</Tip>}
+          />
         )}
       </div>
       {isEv && (

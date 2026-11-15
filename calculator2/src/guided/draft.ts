@@ -163,6 +163,8 @@ export type GuidedDraft = {
   mgmt: Money;
   fuel: Money;
   chargingRate: Money;
+  /** The quote's EV charging budget. Filled in (estimated) from km × the ATO's 5.47c; the reader can change it. */
+  chargingBudget: Money;
 
   income: Money;
   superPreNl: YesNoUnsure | null;
@@ -232,6 +234,7 @@ export function emptyDraft(): GuidedDraft {
     mgmt: emptyMoney(),
     fuel: emptyMoney(),
     chargingRate: emptyMoney(),
+    chargingBudget: emptyMoney(),
     income: emptyMoney(),
     superPreNl: null,
     cashHome: null,
@@ -977,7 +980,12 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     serviceMaintTyresAnnual: running(d.service) + (d.service.estimated || moneyValue(d.tyres) === null ? 0 : running(d.tyres)),
     saveShareAnnual: nswAnnual(d),
     registrationAnnual: running(d.rego),
-    electricityAnnual: isEv ? evElectricityClaimAnnual(km) : 0,
+    // The 5.47c/km budget unless the reader typed their quote's own figure.
+    electricityAnnual: !isEv
+      ? 0
+      : d.chargingBudget.estimated || moneyValue(d.chargingBudget) === null
+        ? evElectricityClaimAnnual(km)
+        : running(d.chargingBudget),
     fuelAnnual: isEv ? 0 : running(d.fuel),
     insuranceAnnual: running(d.insurance),
     insuranceFinancedFirstYear: financedInsuranceAmount(d) / (runningCreditTaken(d) ? 1 + GST_RATE : 1),
@@ -1019,7 +1027,7 @@ export const STEP_DRAFT_FIELDS: Partial<Record<StepId, (keyof GuidedDraft)[]>> =
   payment: ["payment", "paymentPeriod", "paymentBasis", "paymentCorrected", "luxAdj", "smartMillarx"],
   running: [
     "gstPassedOn", "runningGstHeading", "runningGstCredit", "mileage", "runningPeriod",
-    "service", "tyres", "rego", "insurance", "mgmt", "fuel", "chargingRate",
+    "service", "tyres", "rego", "insurance", "mgmt", "fuel", "chargingRate", "chargingBudget",
   ],
   you: ["income", "superPreNl", "cashHome", "offsetRate", "investedRate", "savingsRatePreTax", "nswHealth", "nswAmount", "nswPeriod"],
   alternatives: [
