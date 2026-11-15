@@ -163,7 +163,43 @@ describe("UX 8: the payment amount comes first", () => {
     expect(text.indexOf("How does your quote show the payment?")).toBeLessThan(text.indexOf("Does the payment include or exclude GST?"));
     fireEvent.click(screen.getByRole("button", { name: "Next" }));
     const items = [...document.querySelectorAll(".gd-missing__list li")].map((li) => li.textContent);
-    expect(items[0]).toBe("Finance (lease) payment");
+    // An unnamed provider is first asked about Smart Leasing / MillarX, which decides what comes next.
+    expect(items.slice(0, 2)).toEqual(["Is your lease with Smart Leasing or MillarX?", "Finance (lease) payment"]);
+  });
+
+  test("Smart Leasing and MillarX go straight to the correction tool; the amount appears once it has run", () => {
+    const d = partialQuote();
+    d.monthsDeferred = 2;
+    d.docFee = { text: "", none: true, estimated: false };
+    d.residual = m("16860");
+    d.residualBasis = "incGst";
+    d.provider = "smartleasing";
+    d.smartMillarx = true;
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "payment", visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
+    );
+    const { unmount } = render(<App />);
+    const text = document.body.textContent!;
+    expect(text).toContain("Open the correction tool");
+    expect(text).not.toContain("Finance (lease) payment");
+    expect(text).not.toContain("How does your quote show the payment?");
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+    const items = [...document.querySelectorAll(".gd-missing__list li")].map((li) => li.textContent);
+    expect(items).toEqual(["Run the payment correction tool"]);
+    unmount();
+
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({
+        draft: { ...d, payment: m("480.00"), paymentPeriod: "perFn", paymentBasis: "exGst", paymentCorrected: true },
+        step: "payment",
+        visited: ["intro", "car", "compare", "price", "lease", "payment"],
+      }),
+    );
+    render(<App />);
+    expect(document.body.textContent).toContain("Finance (lease) payment");
+    expect(document.body.textContent).toContain("Corrected payment entered above");
   });
 });
 

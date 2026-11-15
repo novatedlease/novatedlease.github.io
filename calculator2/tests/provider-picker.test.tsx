@@ -152,7 +152,7 @@ describe("correction callout with a named provider", () => {
 
   test("MillarX: the callout names MillarX and the tool has no provider toggle", () => {
     on("payment", payDraft("millarx", true));
-    expect(screen.getByText("You need to correct your MillarX payment first")).toBeTruthy();
+    expect(screen.getByText("You need to correct your MillarX payment")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Open the correction tool" }));
     expect(screen.getByRole("dialog")).toBeTruthy();
     expect(toggle()).toBeNull();
@@ -161,7 +161,7 @@ describe("correction callout with a named provider", () => {
 
   test("Smart Leasing: the callout names Smart Leasing and the tool starts on it, without a toggle", () => {
     on("payment", payDraft("smartleasing", true));
-    expect(screen.getByText("You need to correct your Smart Leasing payment first")).toBeTruthy();
+    expect(screen.getByText("You need to correct your Smart Leasing payment")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Open the correction tool" }));
     expect(toggle()).toBeNull();
     expect(screen.getByRole("dialog").textContent).toMatch(/Smart Leasing derives your regular payment/);
@@ -169,7 +169,7 @@ describe("correction callout with a named provider", () => {
 
   test("no provider named: the callout names both and the tool keeps its toggle", () => {
     on("payment", payDraft(null, true));
-    expect(screen.getByText("You need to correct your Smart Leasing / MillarX payment first")).toBeTruthy();
+    expect(screen.getByText("You need to correct your Smart Leasing / MillarX payment")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Open the correction tool" }));
     expect(screen.getByRole("button", { name: "MillarX" })).toBeTruthy();
   });

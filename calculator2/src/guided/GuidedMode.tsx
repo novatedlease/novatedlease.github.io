@@ -1443,6 +1443,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
   const perFn = paymentPerFn(d);
   const luxury = isLuxuryRange(d);
   const luxUnit = PERIOD_UNIT[d.paymentPeriod ?? "perFn"];
+  const mustCorrect = !!d.smartMillarx && !d.paymentCorrected;
   return (
     <Side highlight={["payment", "luxAdj", "running"]} d={d}>
       <Lead>
@@ -1452,6 +1453,29 @@ function PaymentStep({ d, set, f }: StepPropsF) {
       {/* The pointer says which figure to use; the amount comes first, since readers find the
           number on their quote before reading the period and GST printed around it (UX 8). */}
       <ProviderPointers d={d} field="payment" />
+      {smartMillarxAsked(d) && <Choices
+        field="smartMillarx"
+        label="Is your lease with Smart Leasing or MillarX?"
+        value={d.smartMillarx}
+        onChange={(v) => {
+          // A corrected figure only makes sense for those two providers; don't leave it behind.
+          if (!v && d.paymentCorrected) {
+            set("payment", emptyMoney());
+            set("paymentCorrected", false);
+          }
+          set("smartMillarx", v);
+        }}
+        options={[
+          { value: true, label: "Yes", sub: "Smart Leasing or MillarX" },
+          { value: false, label: "No", sub: "Any other provider" },
+        ]}
+        columns={2}
+        hint="Their quoted payment needs a quick correction first."
+        tooltip={<Tip>Smart Leasing and MillarX quote a payment that includes a budget-reserve buffer. Entered as printed, it makes the lease look dearer than it is.</Tip>}
+      />}
+      {/* Smart Leasing and MillarX: the printed figure is the wrong one to type, so send them
+          straight to the correction tool; the amount, period and GST appear once it has filled them. */}
+      {!mustCorrect && <>
       <MoneyInput
         field="payment"
         label="Finance (lease) payment"
@@ -1462,7 +1486,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         }}
         where={
           d.smartMillarx
-            ? "Filled in by the correction tool below, not the printed figure."
+            ? "Filled in by the correction tool, not the printed figure."
             : "The car's pre-tax payment, before running costs. Type it as printed."
         }
         suffix={d.paymentPeriod ? `per ${PERIOD_UNIT[d.paymentPeriod]}` : undefined}
@@ -1519,26 +1543,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         hint={hasProviderLine(d, "payment") ? undefined : "Check next to the payment, its table heading and the footnotes."}
         tooltip={<Tip>If your quote shows the payment twice, once with GST and once without, the smaller figure is ex GST.</Tip>}
       />
-      {smartMillarxAsked(d) && <Choices
-        field="smartMillarx"
-        label="Is your lease with Smart Leasing or MillarX?"
-        value={d.smartMillarx}
-        onChange={(v) => {
-          // A corrected figure only makes sense for those two providers; don't leave it behind.
-          if (!v && d.paymentCorrected) {
-            set("payment", emptyMoney());
-            set("paymentCorrected", false);
-          }
-          set("smartMillarx", v);
-        }}
-        options={[
-          { value: true, label: "Yes", sub: "Smart Leasing or MillarX" },
-          { value: false, label: "No", sub: "Any other provider" },
-        ]}
-        columns={2}
-        hint="Their quoted payment needs a quick correction first."
-        tooltip={<Tip>Smart Leasing and MillarX quote a payment that includes a budget-reserve buffer. Entered as printed, it makes the lease look dearer than it is.</Tip>}
-      />}
+      </>}
       {d.smartMillarx &&
         (d.paymentCorrected ? (
           <div className="gd-callout gd-callout--done" role="status">
@@ -1558,13 +1563,13 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             </p>
           </div>
         ) : (
-          <div className="gd-callout gd-callout--must" role="status">
+          <div className="gd-callout gd-callout--must" role="status" data-field="paymentCorrected">
             <div className="gd-callout__title">
-              You need to correct your {isSmartOrMillarx(d.provider) ? providerLabel(d.provider!) : "Smart Leasing / MillarX"} payment first
+              You need to correct your {isSmartOrMillarx(d.provider) ? providerLabel(d.provider!) : "Smart Leasing / MillarX"} payment
             </div>
             <p>
               The printed payment usually includes a budget reserve. The tool works
-              out the finance-only payment and fills it in above.
+              out the finance-only payment and fills it in for you.
             </p>
             {d.leaseYears ? (
               <Button

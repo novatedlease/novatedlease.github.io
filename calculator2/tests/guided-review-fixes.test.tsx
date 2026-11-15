@@ -446,7 +446,7 @@ describe("Smart Leasing / MillarX on the payment screen", () => {
     const d = quoteDraft();
     d.smartMillarx = true;
     onPayment(d);
-    expect(screen.getByText(/You need to correct your Smart Leasing \/ MillarX payment first/)).toBeTruthy();
+    expect(screen.getByText(/You need to correct your Smart Leasing \/ MillarX payment/)).toBeTruthy();
     expect(screen.getByRole("button", { name: "Open the correction tool" })).toBeTruthy();
     cleanup();
     window.localStorage.clear();

@@ -700,12 +700,16 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       if (!d.residualBasis) ask("residualBasis", "Is the residual including or excluding GST?");
       break;
     case "payment":
-      // Same order as the screen: the amount first (UX 8).
-      if (!positive(d.payment)) askMoney("payment", "Finance (lease) payment");
-      if (!d.paymentPeriod) ask("paymentPeriod", "How does your quote show the payment: per week, fortnight, month or year?");
-      if (!d.paymentBasis) ask("paymentBasis", "Does the payment include or exclude GST?");
+      // Same order as the screen: the Smart/MillarX question, then the amount (UX 8). Their
+      // readers see only the correction tool until it has filled the amount, period and GST.
       if (smartMillarxAsked(d) && d.smartMillarx === null)
         ask("smartMillarx", "Is your lease with Smart Leasing or MillarX?");
+      if (d.smartMillarx && !d.paymentCorrected) ask("paymentCorrected", "Run the payment correction tool");
+      else {
+        if (!positive(d.payment)) askMoney("payment", "Finance (lease) payment");
+        if (!d.paymentPeriod) ask("paymentPeriod", "How does your quote show the payment: per week, fortnight, month or year?");
+        if (!d.paymentBasis) ask("paymentBasis", "Does the payment include or exclude GST?");
+      }
       if (isLuxuryRange(d) && !answered(d.luxAdj))
         askMoney("luxAdj", "Luxury vehicle adjustment (or tick “no adjustment”)");
       break;
