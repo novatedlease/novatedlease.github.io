@@ -164,14 +164,7 @@ function loadStored(): Stored | null {
       STEP_IDS.includes(v),
     );
     return {
-      // Drafts saved before tyres had its own box held them in servicing.
-      draft: {
-        ...emptyDraft(),
-        ...(parsed.draft.tyres === undefined && (parsed.draft.service?.text?.trim() || parsed.draft.service?.none)
-          ? { tyres: { text: "", none: true, estimated: false } }
-          : {}),
-        ...parsed.draft,
-      },
+      draft: { ...emptyDraft(), ...parsed.draft },
       step: parsed.step,
       visited,
     };
@@ -2094,8 +2087,8 @@ function RunningStep({ d, set, f }: StepPropsF) {
             value={d.tyres}
             onChange={(m) => set("tyres", m)}
             suffix={suffix}
-            noneLabel="No separate tyres line"
-            where="Added to servicing in the results."
+            where="Leave blank if your quote has no tyres line."
+            tooltip={<Tip>Added to servicing in the results. Some quotes include tyres in maintenance instead.</Tip>}
           />
         )}
         <MoneyInput

@@ -156,7 +156,7 @@ export type GuidedDraft = {
   mileage: Money;
   runningPeriod: RunningPeriod | null;
   service: Money;
-  /** Most quotes list tyres on their own line. Added to servicing for the calculator; "none" = no separate line. */
+  /** Most quotes list tyres on their own line. Optional (blank = $0); added to servicing for the calculator. */
   tyres: Money;
   rego: Money;
   insurance: Money;
@@ -730,8 +730,6 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       else if (d.runningGstHeading === "incGst" && d.runningGstCredit === null)
         ask("runningGstCredit", "Anywhere on the quote, is a GST credit taken off the running costs?");
       if (!answered(d.service)) askMoney("service", "Servicing and maintenance");
-      // A typical servicing estimate already covers tyres.
-      if (!d.service.estimated && !answered(d.tyres)) askMoney("tyres", "Tyres (or tick “no separate tyres line”)");
       if (!answered(d.rego)) askMoney("rego", "Registration and CTP");
       if (!answered(d.insurance)) askMoney("insurance", "Insurance");
       if (!answered(d.mgmt)) askMoney("mgmt", "Lease management fees");
@@ -975,7 +973,8 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     superFromPreNlIncome: d.superPreNl === "No" ? "No" : "Yes",
     gstSavingPassedOn: d.gstPassedOn === "No" ? "No" : "Yes",
 
-    serviceMaintTyresAnnual: running(d.service) + (d.service.estimated ? 0 : running(d.tyres)),
+    // Tyres are optional: a blank box (no tyres line on the quote) counts as $0.
+    serviceMaintTyresAnnual: running(d.service) + (d.service.estimated || moneyValue(d.tyres) === null ? 0 : running(d.tyres)),
     saveShareAnnual: nswAnnual(d),
     registrationAnnual: running(d.rego),
     electricityAnnual: isEv ? evElectricityClaimAnnual(km) : 0,
