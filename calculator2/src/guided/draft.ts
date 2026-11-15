@@ -752,7 +752,7 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       // comparison with keeping the current car, whose fuel is counted.
       if (d.vehicleType === "Non-EV" && !positive(d.fuel)) askMoney("fuel", "Fuel");
       if (d.vehicleType === "EV" && !answered(d.chargingRate))
-        askMoney("chargingRate", "Electricity price you pay to charge (0 if solar)");
+        askMoney("chargingRate", "Electricity price you pay to charge (0 if free)");
       break;
     case "you":
       if (!positive(d.income)) askMoney("income", "Your annual taxable income");

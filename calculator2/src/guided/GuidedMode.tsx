@@ -2266,8 +2266,8 @@ function RunningStep({ d, set, f }: StepPropsF) {
             value={d.chargingRate}
             onChange={(m) => set("chargingRate", m)}
             where="Your blended home and public price. Used for what charging really costs you, not the budget above."
-            noneLabel="Fully solar or free charging ($0)"
-            tooltip={<Tip>Only used to estimate your real charging cost. The tax claim itself uses the ATO's 5.47c/km shortcut rate.</Tip>}
+            noneLabel="Free charging, or solar with no feed-in tariff ($0)"
+            tooltip={<Tip>Only used to estimate your real charging cost. The tax claim itself uses the ATO's 5.47c/km shortcut rate.{"\n\n"}Solar isn't free if you'd otherwise sell that power back: each kWh in the car is a kWh you don't get paid your feed-in tariff for. Use your feed-in tariff as the price.</Tip>}
             findings={f.charging}
             extra={
               <div className="gd-presets" aria-label="Typical charging prices">

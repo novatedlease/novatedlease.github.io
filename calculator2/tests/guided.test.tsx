@@ -371,7 +371,7 @@ describe("guided: comparison, period and charging", () => {
     d.vehicleType = "EV";
     d.chargingRate = emptyDraft().chargingRate;
     expect(missingForStep("running", d)).toContain(
-      "Electricity price you pay to charge (0 if solar)",
+      "Electricity price you pay to charge (0 if free)",
     );
     d.chargingRate = none;
     expect(missingForStep("running", d)).toEqual([]);
