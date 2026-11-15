@@ -49,7 +49,7 @@ describe("running layout data", () => {
 describe("running-costs screen", () => {
   test("SG Fleet: the fee comes first, in SG Fleet's words", () => {
     expect(atRunning("sgfleet", "Non-EV")).toEqual([
-      "Package management fee", "Fuel/charging", "Tyres", "Service and maintenance", "Registration", "Comprehensive insurance",
+      "Package management fee", "Fuel/charging", "Tyres", "Service and maintenance", "Registration", "Insurance",
     ]);
   });
 
