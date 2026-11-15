@@ -1,5 +1,5 @@
 import type { Inputs } from "@engine/types";
-import { isNamedProvider, type ProviderId } from "./providerGuide";
+import { isNamedProvider, isSmartOrMillarx, type ProviderId } from "./providerGuide";
 import {
   EV_TRANSITIONAL_FULL_EXEMPT_CAP,
   getEvLctThresholdForLeaseStart,
@@ -992,6 +992,46 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
 }
 
 /** The "Smart Leasing or MillarX?" question is only needed when the provider isn't named. */
+/**
+ * The answers each screen asks for, so "Clear this page" can reset just those. A field shown on
+ * two screens (drive-away, term, kilometres) is cleared from either, since the reader saw it there.
+ */
+export const STEP_DRAFT_FIELDS: Partial<Record<StepId, (keyof GuidedDraft)[]>> = {
+  car: ["vehicleType", "vehicleCondition", "leaseStartDate", "exploreStart", "usedAfter2022", "usedLctNever"],
+  compare: ["compareLoan", "compareCurrent"],
+  quick: ["driveaway", "leaseYears", "mileage"],
+  price: ["baseValue", "driveaway"],
+  lease: [
+    "leaseYears", "monthsDeferred", "monthsDeferredUnsure", "docFee",
+    "insuranceFinanced", "financedInsurance", "residual", "residualBasis",
+  ],
+  payment: ["payment", "paymentPeriod", "paymentBasis", "paymentCorrected", "luxAdj", "smartMillarx"],
+  running: [
+    "gstPassedOn", "runningGstHeading", "runningGstCredit", "mileage", "runningPeriod",
+    "service", "rego", "insurance", "mgmt", "fuel", "chargingRate",
+  ],
+  you: ["income", "superPreNl", "cashHome", "offsetRate", "investedRate", "savingsRatePreTax", "nswHealth", "nswAmount", "nswPeriod"],
+  alternatives: [
+    "loanDeposit", "loanRate", "loanFee", "curValueNow", "curValueEnd", "curService",
+    "curRego", "curFuel", "curFuelBasisKm", "curInsurance", "marketValueEnd",
+  ],
+};
+
+export function canClearStep(step: StepId): boolean {
+  return !!STEP_DRAFT_FIELDS[step];
+}
+
+/** The draft with this screen's answers back to blank; everything else is kept. */
+export function clearStep(d: GuidedDraft, step: StepId): GuidedDraft {
+  const blank = emptyDraft();
+  const out = { ...d } as Record<keyof GuidedDraft, unknown>;
+  for (const k of STEP_DRAFT_FIELDS[step] ?? []) out[k] = blank[k];
+  const next = out as GuidedDraft;
+  // Smart/MillarX follows a named provider (chosen on the first screen), so keep it in step.
+  if (step === "payment" && isNamedProvider(d.provider)) next.smartMillarx = isSmartOrMillarx(d.provider);
+  return next;
+}
+
 export function smartMillarxAsked(d: Pick<GuidedDraft, "provider">): boolean {
   return !isNamedProvider(d.provider);
 }

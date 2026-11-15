@@ -71,6 +71,8 @@ import {
   currentCarValueEnd,
   effectiveStartDate,
   emptyDraft,
+  canClearStep,
+  clearStep,
   emptyMoney,
   estimateAssumptions,
   fbtCategoryOf,
@@ -504,6 +506,12 @@ export function GuidedMode({
     return () => window.clearInterval(timer);
   }, [onResults, onResultsSeen, path]);
 
+  function clearPage() {
+    setDraft((p) => clearStep(p, step));
+    setAcked((p) => ({ ...p, [step]: undefined }));
+    setTried(false);
+  }
+
   function startOver() {
     setDraft(emptyDraft());
     setAcked({});
@@ -696,40 +704,44 @@ export function GuidedMode({
             <span />
           </div>
         )}
-        {step !== "intro" && <StartOverLink onConfirm={startOver} />}
+        {step !== "intro" && <StartOverLink onConfirm={startOver} onClearPage={canClearStep(step) ? clearPage : undefined} />}
       </div>
     </div>
   );
 }
 
-function StartOverLink({ onConfirm }: { onConfirm: () => void }) {
-  const [asking, setAsking] = useState(false);
+/** "Clear this page" resets the answers on this screen; "Start over" clears everything. Both ask first. */
+function StartOverLink({ onConfirm, onClearPage }: { onConfirm: () => void; onClearPage?: () => void }) {
+  const [asking, setAsking] = useState<"page" | "all" | null>(null);
   if (!asking)
     return (
       <div className="gd-startover">
-        <button
-          type="button"
-          className="gd-linkbtn"
-          onClick={() => setAsking(true)}
-        >
+        {onClearPage && (
+          <button type="button" className="gd-linkbtn" onClick={() => setAsking("page")}>
+            Clear this page
+          </button>
+        )}
+        <button type="button" className="gd-linkbtn" onClick={() => setAsking("all")}>
           Start over
         </button>
       </div>
     );
+  const page = asking === "page";
   return (
-    <div className="gd-startover" role="group" aria-label="Confirm start over">
-      <span>Clear all your answers?</span>
+    <div className="gd-startover" role="group" aria-label={page ? "Confirm clear this page" : "Confirm start over"}>
+      <span>{page ? "Clear the answers on this page?" : "Clear all your answers?"}</span>
       <Button
         variant="primary"
         onClick={() => {
-          trackEvent("guided_start_over");
-          setAsking(false);
-          onConfirm();
+          trackEvent(page ? "guided_clear_page" : "guided_start_over");
+          setAsking(null);
+          if (page) onClearPage?.();
+          else onConfirm();
         }}
       >
-        Yes, clear them
+        Yes, clear {page ? "this page" : "them"}
       </Button>
-      <Button variant="ghost" onClick={() => setAsking(false)}>
+      <Button variant="ghost" onClick={() => setAsking(null)}>
         Cancel
       </Button>
     </div>
