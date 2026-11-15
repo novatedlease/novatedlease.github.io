@@ -35,13 +35,17 @@ const m = (text: string): Money => ({ text, none: false, estimated: false });
 const none: Money = { text: "", none: true, estimated: false };
 
 describe("financed first-year insurance", () => {
-  test.each(["maxxia", "oly"] as const)("%s keeps the premium separate and counts it once on the lease", (provider) => {
+  test.each(["maxxia", "oly"] as const)("%s: renewal budget as printed, year one financed inc GST and counted once", (provider) => {
+    // The Maxxia quote reviewed: year one $1,691.71 financed (inc GST); renewals budgeted at $47.32 a
+    // fortnight, which is 4 ex-GST premiums spread over 5 years ($1,230.32 a year).
     const d = completeDraft(0.08);
     d.provider = provider;
     d.insuranceFinanced = "Yes";
-    d.financedInsurance = m("1600");
-    expect(financedInsuranceAmount(d)).toBe(1600);
-    expect(financedExGst(d)).toBeCloseTo(financedExGst({ ...d, insuranceFinanced: "No" })! + 1600, 6);
+    d.financedInsurance = m("1691.71");
+    d.insurance = m("1230.32");
+    expect(financedInsuranceAmount(d)).toBe(1691.71);
+    // The full premium, GST included, is in the amount financed: no GST credit is taken off it.
+    expect(financedExGst(d)).toBeCloseTo(financedExGst({ ...d, insuranceFinanced: "No" })! + 1691.71, 6);
     const quotePayment = fortnightlyLeaseFromEffectiveAnnualRate({
       financedAmountExGst: financedExGst(d)!,
       residualValueExGst: residualExGstEntered(d)!,
@@ -50,19 +54,21 @@ describe("financed first-year insurance", () => {
       effectiveAnnualRate: 0.08,
     });
     expect(diagnosePayment({ financedExGst: financedExGst(d)!, residualExGst: residualExGstEntered(d)!, leaseYears: d.leaseYears!, deferMonths: d.monthsDeferred! }, quotePayment, "perFn").rate).toBeCloseTo(0.08, 3);
-    const inputs = buildInputs(d)!;
-    expect(inputs.leaseDocFee).toBe(1995);
-    expect(inputs.insuranceAnnual).toBe(1600);
-    expect(inputs.insuranceFinancedFirstYear).toBe(1600);
 
-    const nl = buildWorksheet130({ inputs, scenario: "nl" });
-    const withoutAdjustment = buildWorksheet130({ inputs: { ...inputs, insuranceFinancedFirstYear: 0 }, scenario: "nl" });
-    const leaseDifference = nl.reduce((s, row) => s + row.delta, 0) - withoutAdjustment.reduce((s, row) => s + row.delta, 0);
-    expect(leaseDifference).toBeGreaterThan(0);
-    expect(computeDerived(inputs).runningCostAnnual).toBeCloseTo(computeDerived({ ...inputs, insuranceFinancedFirstYear: 0 }).runningCostAnnual - 320, 6);
+    const inputs = buildInputs(d)!;
+    expect(inputs.leaseDocFee).toBeCloseTo(395 + 1691.71, 6);
+    // Engine figures are ex GST here: the financed year is $1,537.92; the full premium is the
+    // renewal budget plus that year spread over the term.
+    expect(inputs.insuranceFinancedFirstYear).toBeCloseTo(1691.71 / 1.1, 6);
+    expect(inputs.insuranceAnnual).toBeCloseTo(1230.32 + 1691.71 / 1.1 / 5, 6);
+    // The lease side's yearly insurance is back to the printed renewal budget...
+    const noFinanced = buildInputs({ ...d, insuranceFinanced: "No" })!;
+    expect(computeDerived(inputs).runningCostAnnual).toBeCloseTo(computeDerived(noFinanced).runningCostAnnual, 6);
+    // ...while paying cash pays the full premium every year.
     const cash = buildWorksheet130({ inputs, scenario: "cash" });
-    const cashWithoutAdjustment = buildWorksheet130({ inputs: { ...inputs, insuranceFinancedFirstYear: 0 }, scenario: "cash" });
-    expect(cash.map((row) => row.insurance)).toEqual(cashWithoutAdjustment.map((row) => row.insurance));
+    const cashNoFinanced = buildWorksheet130({ inputs: noFinanced, scenario: "cash" });
+    const sum = (rows: { insurance: number }[]) => rows.reduce((t, r) => t + r.insurance, 0);
+    expect(sum(cash)).toBeLessThan(sum(cashNoFinanced));
   });
 
   test("the answer is required only for Maxxia and Oly, and a premium is required after Yes", () => {

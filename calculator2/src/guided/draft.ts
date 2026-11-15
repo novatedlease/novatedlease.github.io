@@ -410,6 +410,15 @@ export function financedInsuranceAmount(d: GuidedDraft): number {
     : 0;
 }
 
+/**
+ * The financed first-year premium on the running costs' GST basis. Quotes finance it including GST
+ * with no credit (Maxxia and Oly's amounts financed add up only that way), so it comes off GST
+ * whenever the running costs are held ex GST: everything except an inc-GST heading with no credit.
+ */
+export function financedInsuranceRunningBasis(d: GuidedDraft): number {
+  return financedInsuranceAmount(d) / (d.gstPassedOn === "No" ? 1 : 1 + GST_RATE);
+}
+
 export function financedExGst(d: GuidedDraft): number | null {
   const p = pricingInputs(d);
   return p ? financedAmountExGstFromInputs(p) : null;
@@ -999,8 +1008,13 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
         ? evElectricityClaimAnnual(km)
         : running(d.chargingBudget),
     fuelAnnual: isEv ? 0 : running(d.fuel),
-    insuranceAnnual: running(d.insurance),
-    insuranceFinancedFirstYear: financedInsuranceAmount(d) / (runningCreditTaken(d) ? 1 + GST_RATE : 1),
+    // Maxxia/Oly finance year one including GST and budget only the renewals, so the reader types the
+    // renewal line as printed. The engine wants the full yearly premium plus the financed year, both
+    // on the running costs' GST basis (ex GST unless the heading is inc GST with no credit taken), and
+    // takes the financed year back off the lease side: lease insurance is then the printed renewal
+    // budget, and paying cash pays the full premium every year.
+    insuranceAnnual: running(d.insurance) + financedInsuranceRunningBasis(d) / leaseYears,
+    insuranceFinancedFirstYear: financedInsuranceRunningBasis(d),
     managementFeesAnnual: running(d.mgmt),
     avgAudPerKwh: isEv ? moneyValue(d.chargingRate)! : seed.avgAudPerKwh,
 

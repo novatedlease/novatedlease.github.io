@@ -106,8 +106,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   sgfleet: ["payment", "baseValue"],
   millarx: ["payment"], smartleasing: ["payment"],
   flare: ["driveaway"], oly: ["driveaway"],
-  // Maxxia budgets insurance renewals only (year one is financed), so entering that line understates it.
-  maxxia: ["insurance"], fleetpartners: ["docFee"],
+  fleetpartners: ["docFee"],
   leaseplan: ["driveaway", "docFee"], alliance: ["driveaway"],
   remunerator: ["driveaway", "payment"], easi: ["payment"],
   autopia: ["baseValue"], leaselab: ["driveaway"],
@@ -287,8 +286,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "insurance",
-        text: "Enter the full yearly insurance premium, including year one.",
-        more: "Use the yearly amount you would pay to insure the car, not just Oly's renewal budget. If the first year is financed, the calculator counts it once.",
+        text: "Enter “Comprehensive Insurance” under “Registration and car insurances” as printed.",
+        more: "It budgets the renewals only: the first year is in the amount financed. Answer Yes to the first-year insurance question on the lease screen and the calculator adds it back.",
       },
       {
         field: "docFee",
@@ -318,8 +317,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "insurance",
-        text: "Enter the full yearly insurance premium, including year one.",
-        more: "Use the yearly amount you would pay to insure the car, not just Maxxia's renewal budget. If the first year is financed, the calculator counts it once.",
+        text: "Enter “Comprehensive insurance renewal” as printed.",
+        more: "It budgets the renewals only: the first year is in the amount financed. Answer Yes to the first-year insurance question on the lease screen and the calculator adds it back.",
       },
       {
         field: "docFee",

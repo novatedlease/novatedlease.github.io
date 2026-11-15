@@ -126,12 +126,10 @@
       "written": {
         "driveaway": "If you see “Car price (based on on roads…)”, that's the drive-away price.",
         "residual": "If “Total residual value” has no GST label, choose Including GST.",
-        "insurance": "Enter the full yearly insurance premium, including year one.",
+        "insurance": "Enter “Comprehensive insurance renewal” as printed.",
         "docFee": "Enter only “Financier's Establishment Fee” as the documentation fee."
       },
-      "traps": [
-        "insurance"
-      ],
+      "traps": [],
       "pointers": [
         {
           "field": "driveaway",
@@ -161,9 +159,9 @@
         },
         {
           "field": "insurance",
-          "kind": "trap",
-          "text": "Enter the full yearly insurance premium, including year one.",
-          "more": "Use the yearly amount you would pay to insure the car, not just Maxxia's renewal budget. If the first year is financed, the calculator counts it once.",
+          "kind": "locate",
+          "text": "Enter “Comprehensive insurance renewal” as printed.",
+          "more": "It budgets the renewals only: the first year is in the amount financed. Answer Yes to the first-year insurance question on the lease screen and the calculator adds it back.",
           "image": "/assets/images/quote-guide/maxxia/field-running.webp"
         }
       ]
@@ -1093,7 +1091,7 @@
       "sourceCount": 2,
       "written": {
         "driveaway": "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
-        "insurance": "Enter the full yearly insurance premium, including year one.",
+        "insurance": "Enter “Comprehensive Insurance” under “Registration and car insurances” as printed.",
         "docFee": "Enter only “Financier's Establishment fee” as the documentation fee.",
         "residual": "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST."
       },
@@ -1138,8 +1136,8 @@
         {
           "field": "insurance",
           "kind": "locate",
-          "text": "Enter the full yearly insurance premium, including year one.",
-          "more": "Use the yearly amount you would pay to insure the car, not just Oly's renewal budget. If the first year is financed, the calculator counts it once.",
+          "text": "Enter “Comprehensive Insurance” under “Registration and car insurances” as printed.",
+          "more": "It budgets the renewals only: the first year is in the amount financed. Answer Yes to the first-year insurance question on the lease screen and the calculator adds it back.",
           "image": "/assets/images/quote-guide/oly/field-running.webp"
         },
         {

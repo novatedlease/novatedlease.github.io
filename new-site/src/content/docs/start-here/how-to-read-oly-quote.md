@@ -49,7 +49,7 @@ This numbered example shows an Oly quote layout we reviewed. Match each marker t
 The Oly quote reviewed includes the first year's comprehensive insurance in the amount financed ("First year Comprehensive Insurance - (Oly arranged)"). Its footnote says annual renewals are covered by the running costs.
 
 1. **Documentation fee:** enter only "Financier's Establishment fee". Answer **Yes** to the separate first-year insurance question and enter "First year Comprehensive Insurance" there. Both amounts enter the financed amount used for the effective interest rate.
-2. **Insurance running cost:** enter your expected full yearly premium, not just the monthly renewal budget. The cash comparison needs a full year of insurance every year. Guided removes the financed first-year premium from the lease's running-cost budget, so it is counted once through the finance payment.
+2. **Insurance running cost:** enter "Comprehensive Insurance" under "Registration and car insurances" as printed. It budgets the renewals only. Guided adds the financed first year back, so paying cash is compared with a full year of insurance every year and the lease counts year one once, through the finance payment.
 
 Not shown on this sample: **8 luxury vehicle adjustment**, **11 interest rate**.
 

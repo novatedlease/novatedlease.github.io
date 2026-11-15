@@ -579,9 +579,9 @@ describe("provider pointers", () => {
   test("locate, trap and missing pointers have distinct kinds", () => {
     expect(pointersFor("sgfleet", "payment")[0].kind).toBe("trap");
     // Plain instructions are not traps (review round 2, R7).
-    // Owner, 15 Nov 2026: Maxxia's insurance is the trap (its budget covers renewals only), and the
-    // Maxxia/Oly doc fee lines are plain once the year-one insurance sentence went.
-    expect(pointersFor("maxxia", "insurance")[0].kind).toBe("trap");
+    // Owner, 15 Nov 2026: Maxxia/Oly insurance is entered as printed (Guided adds the financed year
+    // back), and their doc fee lines are plain, so neither is a trap.
+    expect(pointersFor("maxxia", "insurance")[0].kind).toBe("locate");
     expect(pointersFor("oly", "insurance")[0].kind).toBe("locate");
     expect(pointersFor("smartleasing", "docFee")[0].kind).toBe("locate");
     expect(pointersFor("maxxia", "docFee")[0].kind).toBe("locate");
