@@ -917,8 +917,10 @@ describe("provider pointers", () => {
 
   test("Alliance's footnote and two differently labelled payment examples stay in the article", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-alliance-quote.md"), "utf8");
-    for (const field of ["driveaway", "defer", "payment", "running", "fees"] as const)
+    for (const field of ["driveaway", "defer", "payment", "running"] as const)
       expect(article).toContain(pointersFor("alliance", field)[0].text);
+    expect(pointersFor("alliance", "fees")).toEqual([]);
+    expect(exampleFor("alliance", "fees")?.image).toBe("/assets/images/quote-guide/alliance/page2-budget.webp");
     expect(article).toContain("Finance Payment), fortnightly | This page 3 figure includes GST under footnote 5");
     expect(article).toContain("Finance, under Budgeted Running Costs | Choose “Finance” under “Budgeted Running Costs” on page 2.");
     expect(article).toContain("Entry Fee, under Novated Lease Fees");

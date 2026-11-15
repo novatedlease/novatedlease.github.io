@@ -394,11 +394,6 @@ export const GUIDES: ProviderGuide[] = [
         text: "Use the page 2 “Budgeted Running Costs” figures as printed. GST is a separate line, so choose Excluding GST.",
         more: "Page 3 shows GST-inclusive versions under footnote 5, except registration. Check your own quote's GST layout before choosing a basis.",
       },
-      {
-        field: "fees",
-        text: "Use “Management Fee” in the page 2 budget. GST is listed separately, so enter the amount as printed.",
-        more: "If a separate administration or management fee appears elsewhere, count it once in the lease management fees.",
-      },
     ],
   },
   {

@@ -53,7 +53,7 @@ This numbered example shows an Alliance Leasing quote layout we reviewed. Match 
 | 5 | Entry Fee, under Novated Lease Fees | Documentation fee |
 | 7 | Finance, under Budgeted Running Costs | Choose “Finance” under “Budgeted Running Costs” on page 2. On this quote, GST has its own line, so choose Excluding GST. |
 | 9 | Service and Maintenance, Replacement Tyres, Registration and CTP, Comprehensive Insurance, Electricity | Use the page 2 “Budgeted Running Costs” figures as printed. GST is a separate line, so choose Excluding GST. |
-| 10 | Management Fee, under Budgeted Running Costs | Use “Management Fee” in the page 2 budget. GST is listed separately, so enter the amount as printed. Count any separate administration or management fee once. |
+| 10 | Management Fee, under Budgeted Running Costs | Lease management fees; count any distinct administration fee once. |
 | 2 | Drive away price, under Vehicle Price Breakdown | Drive-away price (the same figure as page 3's Total Drive Away Price) |
 
 Page 2 also repeats the lease term (3), months deferred (4), interest rate (11), residual (6) and

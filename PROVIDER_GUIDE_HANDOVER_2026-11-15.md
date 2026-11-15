@@ -148,3 +148,5 @@ Providers:
   and documentation-fee viewers now offer “Whole page” in the same window, using the redacted
   `page2-example.webp`, then “Focused view” to return. Special examples without a linked full
   page still show only their example.
+- Alliance management fee: the extra “On Alliance Leasing quotes” sentence was removed from
+  Guided as redundant beside the page 2 table. Its marked picture remains available.
