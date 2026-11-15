@@ -1279,7 +1279,8 @@ function PriceStep({ d, set, f }: StepPropsF) {
           <InfoTooltip
             text={
               "Also called the on-road price.\n\n" +
-              "Some quotes also show a lower \"novated\" or \"effective\" price with the GST saving taken off. Don't use that one: the calculator takes the GST saving off for you."
+              "Some quotes also show a lower \"novated\" or \"effective\" price with the GST saving taken off. Don't use that one: the calculator takes the GST saving off for you.\n\n" +
+              "Accessories financed with the car (e.g. dash cam, tint, paint protection) belong in this price too: you'd buy them if you paid cash, and their GST comes off like the car's. On a petrol car, accessories fitted by the dealer at delivery also count towards the FBT base value."
             }
           />
         }
@@ -1369,13 +1370,14 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         label="Documentation fee"
         value={d.docFee}
         onChange={(m) => set("docFee", m)}
-        where="One-off fees in the amount financed, such as establishment, set-up or PPSR fees. Add them together."
+        where="One-off fees in the amount financed, such as establishment, set-up or PPSR fees, and any optional cover financed up front (e.g. GAP, lease protection). Add them together."
         tooltip={
           <InfoTooltip
             text={
               "Also called:\n• Documentation fee\n• Entry fee\n• Security interest fee\n\n" +
               "Some quotes only show it in the small print or under “Other fees”. Use the ex-GST amount if both are shown.\n\n" +
-              "If your quote charges it per month (for example “Lease establishment fee $8.87” in a monthly list), leave this at $0 and add the monthly amount to your lease management fees on the running-costs screen. Don't enter it in both places."
+              "If your quote charges it per month (for example “Lease establishment fee $8.87” in a monthly list), leave this at $0 and add the monthly amount to your lease management fees on the running-costs screen. Don't enter it in both places.\n\n" +
+              "Optional cover financed up front (e.g. GAP, lease protection, total loss, guaranteed buy-back) goes here too: a cash buyer wouldn't buy it, so it counts on the lease side only. Cover charged per pay goes in lease management fees instead. Accessories such as a dash cam or tint go in the drive-away price."
             }
           />
         }
