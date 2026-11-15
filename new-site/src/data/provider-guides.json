@@ -127,7 +127,7 @@
         "driveaway": "If you see “Car price (based on on roads…)”, that's the drive-away price.",
         "residual": "If “Total residual value” has no GST label, choose Including GST.",
         "insurance": "Enter the full yearly insurance premium, including year one.",
-        "docFee": "Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question."
+        "docFee": "Enter only “Financier's Establishment Fee” as the documentation fee."
       },
       "traps": [
         "docFee"
@@ -148,7 +148,7 @@
         {
           "field": "docFee",
           "kind": "trap",
-          "text": "Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question.",
+          "text": "Enter only “Financier's Establishment Fee” as the documentation fee.",
           "more": "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
           "image": "/assets/images/quote-guide/maxxia/field-docFee.webp"
         },
@@ -1094,7 +1094,7 @@
       "written": {
         "driveaway": "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
         "insurance": "Enter the full yearly insurance premium, including year one.",
-        "docFee": "Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question.",
+        "docFee": "Enter only “Financier's Establishment fee” as the documentation fee.",
         "residual": "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST."
       },
       "traps": [
@@ -1125,7 +1125,7 @@
         {
           "field": "docFee",
           "kind": "trap",
-          "text": "Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question.",
+          "text": "Enter only “Financier's Establishment fee” as the documentation fee.",
           "more": "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
           "image": "/assets/images/quote-guide/oly/field-docFee.webp"
         },

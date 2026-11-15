@@ -291,7 +291,7 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "docFee",
-        text: "Enter only “Financier's Establishment fee” as the documentation fee. Financed year-one insurance has its own question.",
+        text: "Enter only “Financier's Establishment fee” as the documentation fee.",
         more: "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
       },
       {
@@ -322,7 +322,7 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "docFee",
-        text: "Enter only “Financier's Establishment Fee” as the documentation fee. Financed year-one insurance has its own question.",
+        text: "Enter only “Financier's Establishment Fee” as the documentation fee.",
         more: "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
       },
     ],
