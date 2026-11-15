@@ -2065,6 +2065,11 @@ function RunningStep({ d, set, f }: StepPropsF) {
             lease, not when paying cash, and Lease management fees is the one
             box the calculator counts on the lease side only.
           </li>
+          <li>
+            <strong>Carbon offset program</strong>: leave it out, or if you're keeping it, add it to Lease management
+            fees. Like optional cover, it comes with the lease, not with paying
+            cash.
+          </li>
         </ul>
       </Help>
       <div className="gd-rows">

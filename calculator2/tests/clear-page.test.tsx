@@ -107,3 +107,14 @@ describe("tyres have their own box", () => {
     expect(missingForStep("running", d).join()).not.toMatch(/Tyres/);
   });
 });
+
+describe("other lines help", () => {
+  test("says where a carbon offset line goes", () => {
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: quote(), step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+    render(<App />);
+    expect(document.body.textContent).toMatch(/Carbon offset.*add it to Lease management\s+fees/s);
+  });
+});
