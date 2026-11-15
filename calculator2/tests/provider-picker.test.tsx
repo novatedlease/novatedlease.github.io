@@ -416,6 +416,19 @@ describe("provider pointers", () => {
     expect(side.textContent).toContain("Your line is marked 7b.");
   });
 
+  test("bare 'Show me on a … quote' links: shown on phones, hidden beside the side panel", () => {
+    // The panel already follows the focused box, so on a wide screen the link would do nothing visible.
+    on("price", { ...quoteDraft(), provider: "smartleasing" });
+    expect(screen.getByRole("button", { name: "Show me on a Smart Leasing quote" })).toBeTruthy();
+    cleanup();
+    phoneWidth(false);
+    on("price", { ...quoteDraft(), provider: "smartleasing" });
+    expect(screen.queryByRole("button", { name: "Show me on a Smart Leasing quote" })).toBeNull();
+    // A pointer with its own text keeps its Show me.
+    expect(screen.getByText(/Can't find a drive-away total/)).toBeTruthy();
+    expect(screen.getAllByRole("button", { name: "Show me" }).length).toBeGreaterThan(0);
+  });
+
   function openPicture(field: string) {
     const pointer = document.querySelector(`.gd-pointers[data-field="${field}"]`)!;
     fireEvent.click(pointer.querySelector(".gd-template > button")!);

@@ -1745,6 +1745,9 @@ function ProviderPointer({ pointer, provider }: { pointer: Pointer; provider: Pr
   const label = providerLabel(provider);
   const kind = shownKind(pointer, provider);
   const buttonText = pointer.text ? "Show me" : `Show me on ${articleFor(label)} ${label} quote`;
+  // On wide screens the side panel already follows the focused box, so a bare "Show me on a … quote"
+  // link would only re-show the picture already there. Pointers with their own text stay.
+  if (showInPanel && !pointer.text) return null;
 
   return <div className={`gd-pointer gd-pointer--${kind}`}>
     {pointer.text && <span>{kind === "missing" ? pointer.text : <><strong>On {label} quotes:</strong> {pointer.text}</>}</span>}
