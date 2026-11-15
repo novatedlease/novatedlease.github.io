@@ -377,8 +377,8 @@ export const GUIDES: ProviderGuide[] = [
       { field: "driveaway", text: "Use “Total Drive Away Price (Inc GST)” in Purchase Details. Don’t use “Total Amount Financed”." },
       {
         field: "payment",
-        text: "Use “Total Lease Payment (Finance Payment)” per fortnight. On this quote, footnote 5 includes GST, so choose Including GST.",
-        more: `Page 2's “Finance” figure is lower by the GST and can be entered with Excluding GST instead. ${PAYMENT_GST_NOTE}`,
+        text: "Choose “Finance” under “Budgeted Running Costs” on page 2. On this quote, GST has its own line, so choose Excluding GST.",
+        more: `The “Finance total” below repeats that figure. Page 3's “Total Lease Payment (Finance Payment)” includes GST under footnote 5. ${PAYMENT_GST_NOTE}`,
       },
       {
         field: "defer",
@@ -391,8 +391,13 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "running",
-        text: "Footnote 5 says these running costs include GST, except vehicle registration. Choose Including GST and enter each amount as printed.",
-        more: "The registration line is labelled “Excl GST”. Check your own quote's footnote and whether a GST credit is taken off before answering the next question.",
+        text: "Use the page 2 “Budgeted Running Costs” figures as printed. GST is a separate line, so choose Excluding GST.",
+        more: "Page 3 shows GST-inclusive versions under footnote 5, except registration. Check your own quote's GST layout before choosing a basis.",
+      },
+      {
+        field: "fees",
+        text: "Use “Management Fee” in the page 2 budget. GST is listed separately, so enter the amount as printed.",
+        more: "If a separate administration or management fee appears elsewhere, count it once in the lease management fees.",
       },
     ],
   },
@@ -903,6 +908,33 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
       image: "/assets/images/quote-guide/oly/residual-example.webp",
       alt: "End of a redacted Oly estimate with Your total residual value marked 6",
       caption: "The last section of the same Oly estimate. Figures were removed; the residual line is marked 6.",
+    },
+  },
+  {
+    id: "alliance",
+    field: "payment",
+    example: {
+      image: "/assets/images/quote-guide/alliance/page2-budget.webp",
+      alt: "Redacted Alliance Leasing page 2 budget with Finance marked 7 and GST on a separate line",
+      caption: "Choose the Finance row marked 7 in the page 2 budget. GST is shown separately.",
+    },
+  },
+  {
+    id: "alliance",
+    field: "running",
+    example: {
+      image: "/assets/images/quote-guide/alliance/page2-budget.webp",
+      alt: "Redacted Alliance Leasing page 2 budget with running costs marked 9 and GST on a separate line",
+      caption: "Use the running-cost rows marked 9 in the page 2 budget. GST is shown separately.",
+    },
+  },
+  {
+    id: "alliance",
+    field: "fees",
+    example: {
+      image: "/assets/images/quote-guide/alliance/page2-budget.webp",
+      alt: "Redacted Alliance Leasing page 2 budget with Management Fee marked 10 and GST on a separate line",
+      caption: "Use the Management Fee row marked 10 in the page 2 budget. GST is shown separately.",
     },
   },
   {

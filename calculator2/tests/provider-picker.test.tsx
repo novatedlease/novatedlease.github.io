@@ -314,7 +314,7 @@ describe("provider pointers", () => {
     for (const { id } of GUIDED_PROVIDERS) {
       for (const p of pointersFor(id, "payment")) {
         if (id === "alliance") {
-          expect(p.text).toContain("On this quote, footnote 5 includes GST, so choose Including GST");
+          expect(p.text).toContain("On this quote, GST has its own line, so choose Excluding GST");
           expect(p.more).toContain("can depend on your employer");
           continue;
         }
@@ -607,7 +607,7 @@ describe("provider pointers", () => {
     expect(problems).toEqual([]);
   });
 
-  test("Oly's residual and Alliance's entry fee use their own marked pages", () => {
+  test("Oly's residual and Alliance's entry fee and finance use their own marked pages", () => {
     on("lease", { ...quoteDraft(), provider: "oly" });
     expect(openPicture("residual").querySelector(".gd-template__body img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/oly/residual-example.webp");
@@ -616,12 +616,19 @@ describe("provider pointers", () => {
     on("lease", { ...quoteDraft(), provider: "alliance" });
     expect(openPicture("docFee").querySelector(".gd-template__body img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/alliance/page2-fees.webp");
+    cleanup();
+    window.localStorage.clear();
+    on("payment", { ...quoteDraft(), provider: "alliance" });
+    expect(openPicture("payment").querySelector(".gd-template__body img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/alliance/page2-budget.webp");
+    expect(exampleFor("alliance", "running")?.image).toBe("/assets/images/quote-guide/alliance/page2-budget.webp");
+    expect(exampleFor("alliance", "fees")?.image).toBe("/assets/images/quote-guide/alliance/page2-budget.webp");
   });
 
   test("every field example image exists on disk", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
-    for (const [id, field] of [["oly", "residual"], ["alliance", "docFee"]] as const) {
+    for (const [id, field] of [["oly", "residual"], ["alliance", "docFee"], ["alliance", "payment"], ["alliance", "running"], ["alliance", "fees"]] as const) {
       const e = exampleFor(id, field)!;
       expect(fs.existsSync(path.join(__dirname, "../../docs", e.image))).toBe(true);
       expect(imageSizeFor(e.image)).toMatchObject({ w: expect.any(Number), h: expect.any(Number) });
@@ -899,10 +906,10 @@ describe("provider pointers", () => {
 
   test("Alliance's footnote and two differently labelled payment examples stay in the article", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-alliance-quote.md"), "utf8");
-    for (const field of ["driveaway", "defer", "payment", "running"] as const)
+    for (const field of ["driveaway", "defer", "payment", "running", "fees"] as const)
       expect(article).toContain(pointersFor("alliance", field)[0].text);
-    expect(article).toContain("Finance Payment), fortnightly | Use “Total Lease Payment (Finance Payment)” per fortnight. On this quote, footnote 5 includes GST, so choose Including GST.");
-    expect(article).toContain("Finance, under Budgeted Running Costs | On this example, this line excludes GST");
+    expect(article).toContain("Finance Payment), fortnightly | This page 3 figure includes GST under footnote 5");
+    expect(article).toContain("Finance, under Budgeted Running Costs | Choose “Finance” under “Budgeted Running Costs” on page 2.");
     expect(article).toContain("Entry Fee, under Novated Lease Fees");
   });
 

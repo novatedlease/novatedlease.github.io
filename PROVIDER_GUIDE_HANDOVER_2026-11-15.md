@@ -133,15 +133,14 @@ Providers:
 
 ## Walkthrough update, 16 Nov 2026
 
-- Alliance Leasing: footnote 5 on the page 3 summary says quoted running costs include GST,
-  except vehicle registration. Guided now points to the footnote, tells the reader to choose
-  Including GST and type the running-cost figures as printed, and keeps Alliance's explicitly
-  ex-GST registration amount unchanged when it converts the other costs for a GST credit.
-  The numbered article's running-cost row follows the same pointer; its payment rows describe
-  only the labels on the example quote and tell readers to check their own quote.
+- Alliance Leasing: the owner chose page 2's “Budgeted Running Costs” table as the reference
+  for finance payment, running costs and management fee. GST is shown separately there, so
+  Guided says to enter those figures as printed with Excluding GST. A focused
+  `page2-budget.webp` was cropped from the already redacted `page2-example.webp`
+  (crop 738,321–1400,980; no original quote data) and is used for all three pictures. Page 3
+  shows GST-inclusive alternatives under footnote 5, except vehicle registration; the article
+  and payment tooltip explain this. Guided's conversion also preserves Alliance's explicitly
+  ex-GST registration amount if a reader instead enters the page 3 figures with a GST credit.
+  Keep the provider article, image manifest and Guided pointers in sync.
 - `calculator2`: 447 Vitest tests pass; ESLint passes on the changed TS/TSX files; the changed
   site sync script passes `node --check`. Calculator built and Astro preview restarted on 4340.
-- Alliance follow-up: the page 3 “Total Lease Payment (Finance Payment)” is also covered by
-  footnote 5 on this quote. Guided now says to enter it per fortnight with Including GST. The
-  lower page 2 “Finance” figure is an ex-GST alternative. The article keeps both examples
-  distinct and directs readers to check the labels on their own quote.
