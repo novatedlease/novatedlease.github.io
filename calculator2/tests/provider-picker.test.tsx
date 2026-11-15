@@ -446,6 +446,18 @@ describe("provider pointers", () => {
     expect(notOnQuote("sgfleet", "baseValue")).toBe(false);
   });
 
+  test("the residual helper under drive-away moves the side panel to the residual picture", () => {
+    phoneWidth(false);
+    on("price", { ...quoteDraft(), provider: "smartleasing", baseValue: { text: "56756.05", none: false, estimated: false } });
+    fireEvent.click(screen.getByText(/Not on your quote\? Work it out from the residual/));
+    fireEvent.focus(document.querySelector<HTMLInputElement>('[data-field="residual"] input')!);
+    const side = document.querySelector(".gd-split__side")!;
+    expect(side.querySelector("strong")?.textContent).toMatch(/^Smart Leasing quote: Residual/);
+    expect(side.querySelector("img")).not.toBeNull();
+    fireEvent.focus(document.querySelector<HTMLInputElement>('[data-field="baseValue"] input')!);
+    expect(side.querySelector("strong")?.textContent).toBe("Smart Leasing quote: FBT base value");
+  });
+
   function openPicture(field: string) {
     const pointer = document.querySelector(`.gd-pointers[data-field="${field}"]`)!;
     fireEvent.click(pointer.querySelector(".gd-template > button")!);

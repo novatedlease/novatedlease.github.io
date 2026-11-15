@@ -810,10 +810,13 @@ function Side({
   highlight,
   d,
   children,
+  followAlso = [],
 }: {
   highlight: GuideField[];
   d: GuidedDraft;
   children: ReactNode;
+  /** Fields the panel also follows on focus without highlighting them (the residual helper on the price screen). */
+  followAlso?: GuideField[];
 }) {
   const [focusedField, setFocusedField] = useState<GuideField | null>(null);
   const [pick, setPick] = useState<PanelPick | null>(null);
@@ -828,6 +831,7 @@ function Side({
     : highlight.find(hasPicture) ?? highlight[0];
   const focusMap: Record<string, GuideField> = {
     leaseYears: "term", monthsDeferred: "defer", paymentPeriod: "payment",
+    residualBasis: "residual", residualPct: "residual",
     paymentBasis: "payment", runningPeriod: "running", runningGstHeading: "running",
     mgmt: "fees", service: "running", tyres: "running", rego: "running", fuel: "running",
   };
@@ -837,7 +841,7 @@ function Side({
         const raw = (event.target as HTMLElement).closest<HTMLElement>("[data-field]")?.dataset.field;
         if (!raw) return;
         const field = focusMap[raw] ?? raw as GuideField;
-        if (highlight.some((item) => item === field) && hasPicture(field)) {
+        if ([...highlight, ...followAlso].some((item) => item === field) && hasPicture(field)) {
           setFocusedField(field);
           if (pick && pick.field !== field) setPick(null);
         }
@@ -1237,7 +1241,7 @@ function FbtNote({
 function PriceStep({ d, set, f }: StepPropsF) {
   const luxury = isLuxuryRange(d);
   return (
-    <Side highlight={["baseValue", "driveaway"]} d={d}>
+    <Side highlight={["baseValue", "driveaway"]} followAlso={["residual"]} d={d}>
       <Lead>Two different prices from your quote. They're easy to mix up.</Lead>
       <MoneyInput
         field="baseValue"
@@ -1278,7 +1282,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
         findings={[...f.prices.filter((x) => x.code !== "base_exceeds_driveaway"), ...f.providerPrice]}
       />
       <ProviderPointers d={d} field="driveaway" />
-      <DriveawayHelper d={d} set={set} />
+      <DriveawayHelper d={d} set={set} residualPointer={<ProviderPointers d={d} field="residual" />} />
       {d.vehicleType === "EV" && fbtCategoryOf(d) && (
         <FbtNote d={d} cat={fbtCategoryOf(d)!} />
       )}
