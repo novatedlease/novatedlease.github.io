@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { GUIDED_PROVIDERS, PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, lineLabelFor, markerFor, notOnQuote, guideFor, guideIsOld, guideMayHaveChanged, pageFor, shownKind, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
+import { GUIDED_PROVIDERS, PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, lineLabelFor, markerFor, notOnQuote, guideFor, guideIsOld, guideMayHaveChanged, pageFor, shownKind, pageImagesFor, pointersFor, seenLabel, showResidualDriveawayHelper, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -40,6 +40,27 @@ describe("a or an before a provider name", () => {
 });
 
 describe("provider picker", () => {
+  test("the residual price helper appears only where the quote guide needs it", () => {
+    const clear = [
+      "sgfleet", "millarx", "flare", "kooya", "maxxia", "fleetpartners", "alliance",
+      "easi", "autopia", "clearlease", "customfleet", "spa", "driva", "fingo",
+      "toyotafleet", "simplygreen", "vehiclesolutions", "lendly", "leaselab", "nla",
+    ] as const;
+    const fallback = ["smartleasing", "oly", "remunerator", "paywise", "prosperity", "leaseexpress", "orix", "remserv"] as const;
+    for (const id of clear) expect(showResidualDriveawayHelper(id), id).toBe(false);
+    for (const id of fallback) expect(showResidualDriveawayHelper(id), id).toBe(true);
+    expect(showResidualDriveawayHelper("leaseplan")).toBe(false); // no residual in its reviewed quote
+    expect(showResidualDriveawayHelper(null)).toBe(true);
+    expect(showResidualDriveawayHelper("other")).toBe(true);
+    expect([...clear, ...fallback, "leaseplan"].sort()).toEqual(GUIDED_PROVIDERS.map((p) => p.id).sort());
+
+    on("price", { ...quoteDraft(), provider: "autopia" });
+    expect(screen.queryByText(/Not on your quote\? Work it out from the residual/)).toBeNull();
+    cleanup();
+    on("price", { ...quoteDraft(), provider: "smartleasing" });
+    expect(screen.getByText(/Not on your quote\? Work it out from the residual/)).toBeTruthy();
+  });
+
   test("is optional, on the first screen once the reader has a quote, and the choice is saved", () => {
     on("intro", quoteDraft());
     expect(picker().value).toBe("");

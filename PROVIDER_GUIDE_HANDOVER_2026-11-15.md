@@ -158,3 +158,12 @@ Providers:
   (50,280)–(665,615), with the base-price-through-LCT group outlined and labelled 1.
 - Autopia drive-away pointer: removed the redundant “Confirm your quote includes GST” sentence;
   the quoted line is simply “total onroad cost”.
+- Drive-away residual fallback: the “Not on your quote? Work it out from the residual” link is
+  hidden in Guided when the reviewed provider guide gives a printed drive-away total or a clear
+  sum of printed lines (20 providers, listed in `DRIVEAWAY_QUOTE_METHOD` in `providerGuide.ts`).
+  It remains for Smart Leasing, Oly, Remunerator, Paywise, Prosperity Smart Drive, LeaseExpress,
+  ORIX, RemServ and Other/unspecified. LeasePlan's reviewed sample lacks both a drive-away total
+  and a residual, so the residual helper is also hidden there. This only changes which helper
+  appears; drive-away calculations and the “Or add up the parts” option are unchanged.
+  `calculator2`: 449 Vitest tests and changed-file ESLint pass. Calculator built and Astro
+  preview restarted on port 4340.

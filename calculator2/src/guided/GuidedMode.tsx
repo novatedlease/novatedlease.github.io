@@ -32,6 +32,7 @@ import {
   isNamedProvider,
   isSmartOrMillarx,
   notOnQuote,
+  showResidualDriveawayHelper,
   pointersFor,
   providerLabel,
   seenLabel,
@@ -1292,7 +1293,9 @@ function PriceStep({ d, set, f }: StepPropsF) {
         findings={[...f.prices.filter((x) => x.code !== "base_exceeds_driveaway"), ...f.providerPrice]}
       />
       <ProviderPointers d={d} field="driveaway" />
-      <DriveawayHelper d={d} set={set} residualPointer={<ProviderPointers d={d} field="residual" />} />
+      {showResidualDriveawayHelper(d.provider) && (
+        <DriveawayHelper d={d} set={set} residualPointer={<ProviderPointers d={d} field="residual" />} />
+      )}
       {d.vehicleType === "EV" && fbtCategoryOf(d) && (
         <FbtNote d={d} cat={fbtCategoryOf(d)!} />
       )}

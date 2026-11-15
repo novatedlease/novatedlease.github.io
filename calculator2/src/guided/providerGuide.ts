@@ -59,6 +59,18 @@ export const PROVIDER_ALIAS: Partial<Record<ProviderId, ProviderId>> = { smartsa
 /** Providers with a guide of their own: everyone except "Other" and the aliases above. */
 export const GUIDED_PROVIDERS = PROVIDERS.filter((p) => p.id !== "other" && !PROVIDER_ALIAS[p.id]);
 
+/** The reviewed layouts give a printed drive-away total or a clear sum of printed lines. */
+const DRIVEAWAY_QUOTE_METHOD = new Set<ProviderId>([
+  "sgfleet", "millarx", "flare", "kooya", "maxxia", "fleetpartners", "alliance",
+  "easi", "autopia", "clearlease", "customfleet", "spa", "driva", "fingo",
+  "toyotafleet", "simplygreen", "vehiclesolutions", "lendly", "leaselab", "nla",
+]);
+
+export function showResidualDriveawayHelper(provider: ProviderId | null): boolean {
+  // The one LeasePlan sample omits both a drive-away total and the residual needed by the helper.
+  return provider !== "leaseplan" && !(provider && DRIVEAWAY_QUOTE_METHOD.has(PROVIDER_ALIAS[provider] ?? provider));
+}
+
 export function providerLabel(id: ProviderId): string {
   return PROVIDERS.find((p) => p.id === id)?.label ?? id;
 }
