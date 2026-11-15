@@ -3096,13 +3096,6 @@ function ReviewStep({
           )}
           <Part
             n={exploring ? 4 : 3}
-            title="What to do next"
-            sub="Each opens in a new tab, so your results stay here."
-          >
-            <NextSteps mode="guided" />
-          </Part>
-          <Part
-            n={exploring ? 5 : 4}
             title="Save, share or see the full workings"
           >
           <ResultTools
@@ -3153,6 +3146,13 @@ function ReviewStep({
             Advanced mode gets a copy of these answers. Changes you make there
             don't flow back here.
           </p>
+          </Part>
+          <Part
+            n={exploring ? 5 : 4}
+            title="What to do next"
+            sub="Each opens in a new tab, so your results stay here."
+          >
+            <NextSteps mode="guided" />
           </Part>
         </>
       )}

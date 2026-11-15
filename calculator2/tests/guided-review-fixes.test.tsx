@@ -686,7 +686,7 @@ describe("current car fuel follows the km answer", () => {
 describe("results screen is divided into signposted parts", () => {
   const titles = () => [...document.querySelectorAll(".gd-part__title")].map((h) => h.textContent);
 
-  test("exploring: results, what they are based on, try numbers, then save/share", () => {
+  test("exploring: results, what they are based on, try numbers, save/share, then what to do next", () => {
     const d = exploringEv();
     d.cashHome = "offset";
     d.offsetRate = m("6");
@@ -699,17 +699,17 @@ describe("results screen is divided into signposted parts", () => {
       JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "alternatives", "review"] }),
     );
     render(<App />);
-    expect(titles()).toEqual(["Your result", "What this is based on", "Try different numbers", "What to do next", "Save, share or see the full workings"]);
+    expect(titles()).toEqual(["Your result", "What this is based on", "Try different numbers", "Save, share or see the full workings", "What to do next"]);
     expect(screen.getByText("Compared with buying with cash and a car loan.")).toBeTruthy();
   });
 
   test("quote path: no Try different numbers part", () => {
     seedGuided(quoteDraft());
     render(<App />);
-    expect(titles()).toEqual(["Your result", "What this is based on", "What to do next", "Save, share or see the full workings"]);
+    expect(titles()).toEqual(["Your result", "What this is based on", "Save, share or see the full workings", "What to do next"]);
     const next = screen.getByRole("navigation", { name: "What to do next" });
     const hrefs = [...next.querySelectorAll("a")].map((a) => a.getAttribute("href"));
-    expect(hrefs).toEqual(["/tools/checklist/", "/tools/byo-employer-check/", "/start-here/is-it-worth-it/"]);
+    expect(hrefs).toEqual(["/start-here/is-it-worth-it/", "/tools/byo-employer-check/", "/tools/checklist/"]);
     for (const a of next.querySelectorAll("a")) expect(a.getAttribute("target")).toBe("_blank");
   });
 });
