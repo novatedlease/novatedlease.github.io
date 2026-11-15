@@ -70,7 +70,7 @@
         "baseValue": "Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”.",
         "driveaway": "Use “Vehicle on-road cost (incl. GST)” under “Lease details”.",
         "luxAdj": "If you see “Luxury levy” or “Luxury vehicle adjustment”, that's this line.",
-        "running": "If your pay is weekly, the package lines are per week. Choose “Per week”."
+        "running": "The package lines are per pay. Choose your pay frequency."
       },
       "traps": [
         "payment",
@@ -113,7 +113,7 @@
         {
           "field": "running",
           "kind": "locate",
-          "text": "If your pay is weekly, the package lines are per week. Choose “Per week”.",
+          "text": "The package lines are per pay. Choose your pay frequency.",
           "image": "/assets/images/quote-guide/sgfleet/field-running.webp"
         }
       ]

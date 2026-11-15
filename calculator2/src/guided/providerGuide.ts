@@ -165,7 +165,7 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "running",
-        text: "If your pay is weekly, the package lines are per week. Choose “Per week”.",
+        text: "The package lines are per pay. Choose your pay frequency.",
       },
     ],
   },
