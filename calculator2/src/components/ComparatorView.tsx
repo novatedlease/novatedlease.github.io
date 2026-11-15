@@ -223,7 +223,8 @@ export function ComparatorView({
   onNavigateToDetails?: (anchorId?: string) => void;
 }) {
   const [selectedKeys, setSelectedKeys] = useState<Set<SelectedKey>>(new Set());
-  const [horizon, setHorizon] = useState<"five_year" | "lease_end">("five_year");
+  // Opens on the shared lease term when every pathway has the same one under 5 years.
+  const [horizon, setHorizon] = useState<"five_year" | "lease_end">("lease_end");
 
   const availablePathways = useMemo<AvailablePathway[]>(() => {
     return savedQuotes.flatMap((q) => {

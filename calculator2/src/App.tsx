@@ -185,7 +185,8 @@ function AdvancedMode(props: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputs.vehicleType, inputs.annualMileageKm, inputs.fuelAnnual]);
 
-  const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("five_year");
+  // A lease shorter than 5 years opens on its own term, as in Guided (owner, 15 Nov 2026).
+  const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("lease_end");
   const leaseYearsRounded = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
   const offerLeaseEndOption = leaseYearsRounded < 5;
   const effectiveHorizon = offerLeaseEndOption ? summaryHorizon : "five_year";
@@ -236,7 +237,7 @@ function AdvancedMode(props: {
               setInputs(advancedDefaultInputs);
               setOutputTab("summary");
               setCopiedLink(false);
-              setSummaryHorizon("five_year");
+              setSummaryHorizon("lease_end");
             }}
             onNavigateToDetails={navigateToDetails}
           />
