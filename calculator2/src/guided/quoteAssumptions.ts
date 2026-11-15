@@ -47,6 +47,11 @@ export function quoteAssumptions(d: GuidedDraft): QuoteAssumption[] {
   else if (d.cashHome === "invested" && rate(d.investedRate) !== null)
     method("Investment return", `${rate(d.investedRate)}% after tax for the whole lease`);
   method("Residual", "Paid from your cash at the end, so you own the car outright, as a cash buyer would");
-  method("Interest", "Each option's home loan interest is measured against not buying a car at all");
+  const where =
+    d.cashHome === "ipOffset" ? "investment loan interest"
+    : d.cashHome === "savings" ? "savings interest"
+    : d.cashHome === "invested" ? "investment return"
+    : "home loan interest";
+  method("Interest", `Each option's ${where} is measured against not buying a car at all`);
   return out;
 }

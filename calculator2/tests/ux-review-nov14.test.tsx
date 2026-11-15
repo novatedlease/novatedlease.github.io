@@ -337,3 +337,30 @@ describe("super: 'I'm not sure' shows what's at stake", () => {
     expect(document.body.textContent).not.toMatch(/Check how your employer works out super/);
   });
 });
+
+describe("results: the interest row is named after where the cash would come from", () => {
+  const rowLabels = (cashHome: GuidedDraft["cashHome"], rate: Partial<GuidedDraft>) => {
+    const d = { ...fullQuote(), cashHome, ...rate };
+    seedReview(d);
+    render(<App />);
+    return document.body.textContent!;
+  };
+
+  test("home loan offset: home loan interest", () => {
+    expect(rowLabels("offset", {})).toMatch(/(Home loan interest saved|Extra home loan interest) with the lease/);
+  });
+
+  test("investments: investment returns, not home loan interest", () => {
+    const text = rowLabels("invested", { investedRate: m("7") });
+    expect(text).toMatch(/(Extra investment returns|Investment returns lost) with the lease/);
+    expect(text).not.toMatch(/home loan interest (saved|with the lease)/i);
+  });
+
+  test("savings: savings interest", () => {
+    expect(rowLabels("savings", { savingsRatePreTax: m("4.5") })).toMatch(/(Extra savings interest|Savings interest lost) with the lease/);
+  });
+
+  test("investment property offset: investment loan interest", () => {
+    expect(rowLabels("ipOffset", { savingsRatePreTax: m("6") })).toMatch(/(Investment loan interest saved|Extra investment loan interest) with the lease/);
+  });
+});

@@ -12,6 +12,13 @@ import { InfoTooltip } from "./ui/InfoTooltip";
  * intentionally unchanged, since that's what makes it legible at a glance.
  */
 
+export type InterestWords = { saved: string; extra: string };
+
+const HOME_LOAN_WORDS: InterestWords = {
+  saved: "Home loan interest saved with the lease",
+  extra: "Extra home loan interest with the lease",
+};
+
 type Props = {
   inputs: Inputs;
   horizon: "five_year" | "lease_end";
@@ -28,6 +35,11 @@ type Props = {
   cashLast?: boolean;
   /** Hide the residual and interest notes; Guided's quote path lists them under "What we assumed". */
   hideNotes?: boolean;
+  /**
+   * Wording for the interest row, so Guided can name where the reader's cash would sit (an offset,
+   * an investment loan, savings or investments). Defaults to the home loan.
+   */
+  interestWords?: InterestWords;
 };
 
 const FULL_BREAKDOWN_ANCHOR = "details-section-2-financial-summary";
@@ -177,7 +189,8 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
   );
 }
 
-export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails, cashLast, hideNotes }: Props) {
+export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails, cashLast, hideNotes, interestWords }: Props) {
+  const words = interestWords ?? HOME_LOAN_WORDS;
   const {
     s,
     years,
@@ -233,7 +246,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
         <BreakdownRow label="Paying cash total" value={fmtAud0(offsetTotalSpent)} bold />
         <Sep />
         <BreakdownRow label={cashflowSaving >= 0 ? "Less spent with the lease" : "More spent with the lease"} value={fmtSigned(cashflowSaving)} color={cashflowSaving >= 0 ? POS : NEG} />
-        <BreakdownRow label={interestSaving >= 0 ? "Home loan interest saved with the lease" : "Extra home loan interest with the lease"} value={fmtSigned(interestSaving)} color={interestSaving >= 0 ? POS : NEG} />
+        <BreakdownRow label={interestSaving >= 0 ? words.saved : words.extra} value={fmtSigned(interestSaving)} color={interestSaving >= 0 ? POS : NEG} />
         <DoubleSep />
         <BreakdownRow label={totalSaving >= 0 ? "Total saving with the lease" : "Total extra cost with the lease"} value={fmtAud0(Math.abs(totalSaving))} bold color={totalSaving >= 0 ? POS : NEG} />
       </div>
@@ -274,7 +287,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
             <BreakdownRow label="Car loan total" value={fmtAud0(loanTotalSpent)} bold />
             <Sep />
             <BreakdownRow label={cashflowSavingVsLoan >= 0 ? "Less spent with the lease" : "More spent with the lease"} value={fmtSigned(cashflowSavingVsLoan)} color={cashflowSavingVsLoan >= 0 ? POS : NEG} />
-            <BreakdownRow label={interestSavingVsLoan >= 0 ? "Home loan interest saved with the lease" : "Extra home loan interest with the lease"} value={fmtSigned(interestSavingVsLoan)} color={interestSavingVsLoan >= 0 ? POS : NEG} />
+            <BreakdownRow label={interestSavingVsLoan >= 0 ? words.saved : words.extra} value={fmtSigned(interestSavingVsLoan)} color={interestSavingVsLoan >= 0 ? POS : NEG} />
             <DoubleSep />
             <BreakdownRow label={totalSavingVsLoan >= 0 ? "Total saving with the lease" : "Total extra cost with the lease"} value={fmtAud0(Math.abs(totalSavingVsLoan))} bold color={totalSavingVsLoan >= 0 ? POS : NEG} />
           </div>
@@ -297,7 +310,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
             <Sep />
             <BreakdownRow label={assetDelta >= 0 ? "New car worth more at the end than your current car" : "New car worth less at the end than your current car"} value={fmtSigned(assetDelta)} color={assetDelta >= 0 ? POS : NEG} />
             <BreakdownRow label={cashDelta >= 0 ? "Less spent with the lease" : "More spent with the lease"} value={fmtSigned(cashDelta)} color={cashDelta >= 0 ? POS : NEG} />
-            <BreakdownRow label={interestDelta >= 0 ? "Home loan interest saved with the lease" : "Extra home loan interest with the lease"} value={fmtSigned(interestDelta)} color={interestDelta >= 0 ? POS : NEG} />
+            <BreakdownRow label={interestDelta >= 0 ? words.saved : words.extra} value={fmtSigned(interestDelta)} color={interestDelta >= 0 ? POS : NEG} />
             <DoubleSep />
             <BreakdownRow label={nlVsKeepSaving >= 0 ? "Total saving with the lease" : "Total extra cost with the lease"} value={fmtAud0(Math.abs(nlVsKeepSaving))} bold color={nlVsKeepSaving >= 0 ? POS : NEG} />
           </div>

@@ -46,7 +46,7 @@ import {
   type ProviderId,
   type Pointer,
 } from "./providerGuide";
-import { SummaryView } from "../components/SummaryView";
+import { SummaryView, type InterestWords } from "../components/SummaryView";
 import { NOT_ANSWERED, carText, longDate, residualAsTyped, termText } from "./answerText";
 import { NextSteps } from "../components/NextSteps";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
@@ -3007,6 +3007,7 @@ function ReviewStep({
             hideDisclaimers
             compactMoreDetails
             hideNotes={!exploring}
+            interestWords={interestWordsFor(d.cashHome)}
             cashLast={cashNone}
             onMoreDetails={(anchorId) => {
               trackEvent("guided_more_details_clicked");
@@ -3325,6 +3326,20 @@ function Outcome({ net, approx, what }: { net: number; approx: boolean; what?: s
  * The answer first: one line per comparison, then the caveats once (not on every card).
  * The full breakdown sits in "Show how we got this" below.
  */
+/** The interest row on the results, named after where the reader said the cash would come from. */
+function interestWordsFor(cashHome: GuidedDraft["cashHome"]): InterestWords | undefined {
+  switch (cashHome) {
+    case "ipOffset":
+      return { saved: "Investment loan interest saved with the lease", extra: "Extra investment loan interest with the lease" };
+    case "savings":
+      return { saved: "Extra savings interest with the lease", extra: "Savings interest lost with the lease" };
+    case "invested":
+      return { saved: "Extra investment returns with the lease", extra: "Investment returns lost with the lease" };
+    default:
+      return undefined;
+  }
+}
+
 function ResultHeadline({
   inputs,
   horizon,
