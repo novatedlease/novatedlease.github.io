@@ -468,6 +468,18 @@ describe("luxury vehicle adjustment", () => {
     d.paymentPeriod = "perMonth";
     expect(buildInputs({ ...d, payment: m("1950") })!.luxuryVehicleAdjPerFn).toBeCloseTo(60, 6);
   });
+
+  test("Autopia's annual payroll figure reaches Advanced as a fortnightly amount", () => {
+    const d = quoteDraft();
+    d.provider = "autopia";
+    d.baseValue = m("76583");
+    d.driveaway = m("79985");
+    d.paymentPeriod = "perMonth";
+    d.payment = m("1313.81");
+    d.luxAdj = m("412.51");
+    d.luxAdjPeriod = "perYear";
+    expect(buildInputs(d)!.luxuryVehicleAdjPerFn).toBeCloseTo(412.51 / 26, 6);
+  });
 });
 
 describe("results cards point to Advanced mode", () => {

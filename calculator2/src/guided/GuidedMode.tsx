@@ -409,6 +409,8 @@ export function GuidedMode({
       if (next !== previous.provider) {
         updated.insuranceFinanced = null;
         updated.financedInsurance = emptyMoney();
+        if (next === "autopia" && !previous.luxAdj.text.trim() && !previous.luxAdj.none)
+          updated.luxAdjPeriod = "perYear";
       }
       return updated;
     });
@@ -803,9 +805,9 @@ function quoteValues(d: GuidedDraft): Partial<Record<QuoteKey, string>> {
   if (payment && d.paymentPeriod)
     out.payment = `${money(payment)} per ${PERIOD_UNIT[d.paymentPeriod]}${d.paymentBasis === "incGst" ? " inc GST" : d.paymentBasis === "exGst" ? " ex GST" : ""}`;
   const luxAdj = d.luxAdj.none || d.luxAdj.text.trim() ? moneyValue(d.luxAdj) : null;
-  if (isLuxuryRange(d) && luxAdj !== null && d.paymentPeriod)
+  if (isLuxuryRange(d) && luxAdj !== null && (d.luxAdjPeriod ?? d.paymentPeriod))
     // Small amounts, so cents matter here.
-    out.luxAdj = `$${luxAdj.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per ${PERIOD_UNIT[d.paymentPeriod]}`;
+    out.luxAdj = `$${luxAdj.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per ${PERIOD_UNIT[(d.luxAdjPeriod ?? d.paymentPeriod)!]}`;
   // The reader's own running costs (not our typical estimates), in the period they chose.
   const runningKeys = RUNNING_FIELDS.filter((k) => k !== "fuel" || d.vehicleType !== "EV");
   const entered = runningKeys.filter((k) => !d[k].estimated && (d[k].none || d[k].text.trim()));
@@ -1483,7 +1485,11 @@ function PaymentStep({ d, set, f }: StepPropsF) {
   const diag = paymentDiagnosisFor(d);
   const perFn = paymentPerFn(d);
   const luxury = isLuxuryRange(d);
-  const luxUnit = PERIOD_UNIT[d.paymentPeriod ?? "perFn"];
+  // An older Autopia draft with an entered amount keeps the payment-period meaning it had
+  // before this field gained its own period. A blank Autopia entry starts in the ANNUAL column.
+  const luxPeriod = d.luxAdjPeriod ?? (d.provider === "autopia" && !d.luxAdj.text.trim() && !d.luxAdj.none
+    ? "perYear" : d.paymentPeriod ?? "perFn");
+  const luxUnit = PERIOD_UNIT[luxPeriod];
   const mustCorrect = !!d.smartMillarx && !d.paymentCorrected;
   return (
     <Side highlight={["payment", "luxAdj", "running"]} d={d}>
@@ -1678,11 +1684,32 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             />
           }
           value={d.luxAdj}
-          onChange={(m) => set("luxAdj", m)}
+          onChange={(m) => {
+            if (d.provider === "autopia" && d.luxAdjPeriod === null && !d.luxAdj.text.trim())
+              set("luxAdjPeriod", "perYear");
+            set("luxAdj", m);
+          }}
           where="A separate line for cars above the ATO car limit. May be called a luxury levy or non-deductible depreciation."
           noneLabel="No luxury vehicle adjustment on my quote"
           suffix={`per ${luxUnit}`}
-          hint={`An extra cost on top of the finance payment, per ${luxUnit} like the payment above.`}
+          hint={d.provider === "autopia"
+            ? "Enter “luxury non-deductible” from the ANNUAL column as printed. We'll convert it for the calculation."
+            : `An extra cost on top of the finance payment, per ${luxUnit}.`}
+        />
+      )}
+      {luxury && (d.provider === "autopia" || d.luxAdjPeriod !== null) && (
+        <Choices
+          field="luxAdjPeriod"
+          label="How is the adjustment shown on your quote?"
+          value={luxPeriod}
+          onChange={(v) => set("luxAdjPeriod", v)}
+          options={[
+            { value: "perYear", label: "Per year" },
+            { value: "perMonth", label: "Per month" },
+            { value: "perFn", label: "Per fortnight" },
+            { value: "perWeek", label: "Per week" },
+          ]}
+          columns={4}
         />
       )}
       {luxury && <ProviderPointers d={d} field="luxAdj" />}

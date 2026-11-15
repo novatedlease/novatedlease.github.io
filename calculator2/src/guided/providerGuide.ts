@@ -457,6 +457,10 @@ export const GUIDES: ProviderGuide[] = [
         field: "docFee",
         text: "If you see “autopia setup fee”, enter it as the documentation fee.",
       },
+      {
+        field: "luxAdj",
+        text: "Use “luxury non-deductible” in the ANNUAL column. Choose Per year and enter it as printed.",
+      },
     ],
   },
   {

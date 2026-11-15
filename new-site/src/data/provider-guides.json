@@ -322,7 +322,8 @@
       "written": {
         "driveaway": "Use “total onroad cost” in vehicle details for the drive-away price.",
         "baseValue": "“Base price” excludes GST. On this layout, use “total onroad cost” minus registration and stamp duty for the FBT base value.",
-        "docFee": "If you see “autopia setup fee”, enter it as the documentation fee."
+        "docFee": "If you see “autopia setup fee”, enter it as the documentation fee.",
+        "luxAdj": "Use “luxury non-deductible” in the ANNUAL column. Choose Per year and enter it as printed."
       },
       "traps": [
         "baseValue"
@@ -352,6 +353,12 @@
           "kind": "locate",
           "text": "If you see “autopia setup fee”, enter it as the documentation fee.",
           "image": "/assets/images/quote-guide/autopia/field-docFee.webp"
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "Use “luxury non-deductible” in the ANNUAL column. Choose Per year and enter it as printed.",
+          "image": "/assets/images/quote-guide/autopia/field-luxAdj.webp"
         }
       ]
     },

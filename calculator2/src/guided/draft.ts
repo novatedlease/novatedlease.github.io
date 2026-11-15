@@ -146,6 +146,8 @@ export type GuidedDraft = {
   /** True when the payment came out of the Smart Leasing / MillarX correction tool rather than being typed. */
   paymentCorrected: boolean;
   luxAdj: Money;
+  /** Null keeps older saved answers in the finance payment's period. Autopia quotes show this annually. */
+  luxAdjPeriod: Period | null;
 
   /** What drives the engine: "Yes" = running costs entered ex GST, "No" = inc GST with no credit. */
   gstPassedOn: YesNoUnsure | null;
@@ -222,6 +224,7 @@ export function emptyDraft(): GuidedDraft {
     payment: emptyMoney(),
     paymentCorrected: false,
     luxAdj: emptyMoney(),
+    luxAdjPeriod: null,
     gstPassedOn: null,
     runningGstHeading: null,
     runningGstCredit: null,
@@ -519,11 +522,12 @@ export function paymentPerFn(d: GuidedDraft): number | null {
   return d.paymentBasis === "incGst" ? perFn / (1 + GST_RATE) : perFn;
 }
 
-/** The luxury vehicle adjustment per fortnight. It's entered in the same period as the payment. */
+/** The luxury vehicle adjustment per fortnight. Older drafts used the payment's period. */
 export function luxAdjPerFn(d: GuidedDraft): number {
   if (!isLuxuryRange(d)) return 0;
   const v = moneyValue(d.luxAdj) ?? 0;
-  return d.paymentPeriod ? toPerFn(v, d.paymentPeriod) : v;
+  const period = d.luxAdjPeriod ?? d.paymentPeriod;
+  return period ? toPerFn(v, period) : v;
 }
 
 export function fbtCategoryOf(d: GuidedDraft): LeaseFbtCategory | null {
@@ -1054,7 +1058,7 @@ export const STEP_DRAFT_FIELDS: Partial<Record<StepId, (keyof GuidedDraft)[]>> =
     "leaseYears", "monthsDeferred", "monthsDeferredUnsure", "docFee",
     "insuranceFinanced", "financedInsurance", "residual", "residualBasis",
   ],
-  payment: ["payment", "paymentPeriod", "paymentBasis", "paymentCorrected", "luxAdj", "smartMillarx"],
+  payment: ["payment", "paymentPeriod", "paymentBasis", "paymentCorrected", "luxAdj", "luxAdjPeriod", "smartMillarx"],
   running: [
     "gstPassedOn", "runningGstHeading", "runningGstCredit", "mileage", "runningPeriod",
     "service", "tyres", "rego", "insurance", "mgmt", "fuel", "chargingRate", "chargingBudget",

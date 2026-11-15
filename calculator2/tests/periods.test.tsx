@@ -38,6 +38,13 @@ describe("weekly and yearly amounts", () => {
     expect(luxAdjPerFn(d)).toBeCloseTo(14.96, 2);
   });
 
+  test("Autopia's annual adjustment converts to a fortnightly engine amount; older entries retain their period", () => {
+    const d = { ...emptyDraft(), provider: "autopia" as const, baseValue: m("76583"), luxAdj: m("412.51"), paymentPeriod: "perMonth" as const };
+    expect(luxAdjPerFn(d)).toBeCloseTo(412.51 * 12 / 26, 6); // saved before a separate period existed
+    d.luxAdjPeriod = "perYear";
+    expect(luxAdjPerFn(d)).toBeCloseTo(412.51 / 26, 6);
+  });
+
   test("weekly running costs are ×52 a year", () => {
     const d = { ...emptyDraft(), runningPeriod: "perWeek" as const };
     expect(annualOf(d, m("17.06"))).toBeCloseTo(887.12, 2);
@@ -96,6 +103,21 @@ describe("Guided payment and running-cost screens", () => {
     window.localStorage.clear();
     on("running", d);
     expect(screen.getByRole("button", { name: /^Per week/ })).toBeTruthy();
+  });
+
+  test("Autopia asks for the annual luxury figure as printed", () => {
+    const d = { ...emptyDraft(), hasQuote: true, provider: "autopia" as const,
+      vehicleType: "EV" as const, vehicleCondition: "New" as const,
+      baseValue: m("76583"), paymentPeriod: "perMonth" as const };
+    on("payment", d);
+    expect(screen.getByText("Luxury vehicle adjustment (per year)")).toBeTruthy();
+    expect(screen.getByText(/Enter “luxury non-deductible” from the ANNUAL column as printed/)).toBeTruthy();
+    const input = screen.getByLabelText(/Luxury vehicle adjustment \(per year\)/);
+    fireEvent.change(input, { target: { value: "412.51" } });
+    const saved = JSON.parse(window.localStorage.getItem("nlc2-guided-draft-v3")!).draft as GuidedDraft;
+    expect(saved.luxAdj.text).toBe("412.51");
+    expect(saved.luxAdjPeriod).toBe("perYear");
+    expect(luxAdjPerFn(saved)).toBeCloseTo(412.51 / 26, 6);
   });
 
   test("switching running costs from fortnightly to weekly halves what's typed", () => {

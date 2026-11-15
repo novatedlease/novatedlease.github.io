@@ -167,3 +167,11 @@ Providers:
   appears; drive-away calculations and the “Or add up the parts” option are unchanged.
   `calculator2`: 449 Vitest tests and changed-file ESLint pass. Calculator built and Astro
   preview restarted on port 4340.
+- Autopia's “luxury non-deductible” line appears only in the ANNUAL payroll column. Guided now
+  defaults the luxury adjustment to Per year when Autopia is selected with an empty answer,
+  lets readers choose the adjustment's period separately, and converts the entered annual
+  amount to the fortnightly value passed to Advanced. Existing saved amounts without an
+  adjustment period retain the old finance-payment-period interpretation. The Autopia field
+  pointer and article now say to enter the annual figure as printed. Targeted period, provider
+  pointer and Guided-to-Advanced tests pass; changed-file ESLint and TypeScript pass. Calculator
+  built and Astro preview restarted on port 4340. Full suite was not run for this small change.

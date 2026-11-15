@@ -37,7 +37,7 @@ This numbered example shows an Autopia quote layout we reviewed. Match each mark
 | 5 | autopia setup fee | If you see “autopia setup fee”, enter it as the documentation fee. |
 | 6 | residual payment (inc gst) | Residual, "Including GST" |
 | 7 | finance, under "monthly rental details" | Finance payment, per month. The lines are ex GST (GST is added as its own line below), so choose Excluding GST |
-| 8 | luxury non-deductible (payroll calcs, ANNUAL column) | Luxury vehicle adjustment: divide the annual figure into your payment period |
+| 8 | luxury non-deductible (payroll calcs, ANNUAL column) | Use “luxury non-deductible” in the ANNUAL column. Choose Per year and enter it as printed. |
 | 9 | maintenance, tyres, fuel, registration & ctp, insurance | Running-cost boxes, per month, ex GST |
 | 10 | management fee | Lease management fees (add administration cost and reporting services if not $0) |
 <!-- provider-table:end -->
