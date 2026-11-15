@@ -270,7 +270,7 @@
       "sourceCount": 3,
       "written": {
         "driveaway": "Use “Total Drive Away Price (Inc GST)” in Purchase Details. Don’t use “Total Amount Financed”.",
-        "payment": "If “Total Lease Payment (Finance Payment)” matches “Finance” in the running costs, use either figure.",
+        "payment": "Use “Total Lease Payment (Finance Payment)” per fortnight. On this quote, footnote 5 includes GST, so choose Including GST.",
         "defer": "If you see “based on two month deferred lease structure”, choose 2 months.",
         "docFee": "If you see “Entry Fee” under “Novated Lease Fees” on page 2, that's this fee.",
         "running": "Footnote 5 says these running costs include GST, except vehicle registration. Choose Including GST and enter each amount as printed."
@@ -301,8 +301,8 @@
         {
           "field": "payment",
           "kind": "locate",
-          "text": "If “Total Lease Payment (Finance Payment)” matches “Finance” in the running costs, use either figure.",
-          "more": "These lines can have different GST labels. Whether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.",
+          "text": "Use “Total Lease Payment (Finance Payment)” per fortnight. On this quote, footnote 5 includes GST, so choose Including GST.",
+          "more": "Page 2's “Finance” figure is lower by the GST and can be entered with Excluding GST instead. Whether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.",
           "image": "/assets/images/quote-guide/alliance/field-payment.webp"
         },
         {

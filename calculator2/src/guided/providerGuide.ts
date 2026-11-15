@@ -377,8 +377,8 @@ export const GUIDES: ProviderGuide[] = [
       { field: "driveaway", text: "Use “Total Drive Away Price (Inc GST)” in Purchase Details. Don’t use “Total Amount Financed”." },
       {
         field: "payment",
-        text: "If “Total Lease Payment (Finance Payment)” matches “Finance” in the running costs, use either figure.",
-        more: `These lines can have different GST labels. ${PAYMENT_GST_NOTE}`,
+        text: "Use “Total Lease Payment (Finance Payment)” per fortnight. On this quote, footnote 5 includes GST, so choose Including GST.",
+        more: `Page 2's “Finance” figure is lower by the GST and can be entered with Excluding GST instead. ${PAYMENT_GST_NOTE}`,
       },
       {
         field: "defer",

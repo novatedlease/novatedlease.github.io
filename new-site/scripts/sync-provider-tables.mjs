@@ -31,7 +31,7 @@ const migrated = {
   vehiclesolutions: { '2': 'driveaway', '4': 'defer', '6': 'residual', '7a': 'payment' },
   fleetpartners: { '2': 'driveaway', '4': 'defer' },
   leaseplan: { '5': 'docFee' },
-  alliance: { '2': 'driveaway', '4': 'defer', '9': 'running' },
+  alliance: { '2': 'driveaway', '4': 'defer', '7': 'payment', '9': 'running' },
   autopia: { '2': 'driveaway', '5': 'docFee' },
   prosperity: { '7': 'payment', '9': 'running' },
   smartleasing: { '4': 'defer', '5': 'docFee' },

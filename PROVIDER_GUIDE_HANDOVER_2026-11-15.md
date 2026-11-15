@@ -141,3 +141,7 @@ Providers:
   only the labels on the example quote and tell readers to check their own quote.
 - `calculator2`: 447 Vitest tests pass; ESLint passes on the changed TS/TSX files; the changed
   site sync script passes `node --check`. Calculator built and Astro preview restarted on 4340.
+- Alliance follow-up: the page 3 “Total Lease Payment (Finance Payment)” is also covered by
+  footnote 5 on this quote. Guided now says to enter it per fortnight with Including GST. The
+  lower page 2 “Finance” figure is an ex-GST alternative. The article keeps both examples
+  distinct and directs readers to check the labels on their own quote.

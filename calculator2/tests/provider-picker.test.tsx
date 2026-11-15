@@ -308,11 +308,16 @@ describe("provider pointers", () => {
     }
   });
 
-  test("no payment pointer tells the reader which GST answer to choose", () => {
+  test("payment pointers only give a GST answer when the example's label or footnote supports it", () => {
     // The payment's GST basis can differ between employers on one provider's quotes. A pointer may
     // only name a GST basis when it quotes a label that prints it ("If you see “… (excl GST)”").
     for (const { id } of GUIDED_PROVIDERS) {
       for (const p of pointersFor(id, "payment")) {
+        if (id === "alliance") {
+          expect(p.text).toContain("On this quote, footnote 5 includes GST, so choose Including GST");
+          expect(p.more).toContain("can depend on your employer");
+          continue;
+        }
         const labels = p.text.match(/“[^”]*”/g) ?? [];
         if (labels.some((l) => /GST/i.test(l))) continue; // the quote's own label states the basis
         // Quoted labels and capitalised column names ("EXCL GST") are printed on the reader's quote.
@@ -894,10 +899,10 @@ describe("provider pointers", () => {
 
   test("Alliance's footnote and two differently labelled payment examples stay in the article", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-alliance-quote.md"), "utf8");
-    for (const field of ["driveaway", "defer", "running"] as const)
+    for (const field of ["driveaway", "defer", "payment", "running"] as const)
       expect(article).toContain(pointersFor("alliance", field)[0].text);
-    expect(article).toContain("Finance Payment), fortnightly | On this example, footnote 5 indicates GST is included");
-    expect(article).toContain("Finance, under Budgeted Running Costs | On this example, this line is labelled ex GST");
+    expect(article).toContain("Finance Payment), fortnightly | Use “Total Lease Payment (Finance Payment)” per fortnight. On this quote, footnote 5 includes GST, so choose Including GST.");
+    expect(article).toContain("Finance, under Budgeted Running Costs | On this example, this line excludes GST");
     expect(article).toContain("Entry Fee, under Novated Lease Fees");
   });
 

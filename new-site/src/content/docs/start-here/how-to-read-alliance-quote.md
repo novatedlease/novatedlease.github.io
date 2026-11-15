@@ -32,7 +32,7 @@ This numbered example shows an Alliance Leasing quote layout we reviewed. Match 
 | 3 | Lease Term | Lease term |
 | 4 | "(based on two month deferred lease structure)" | If you see “based on two month deferred lease structure”, choose 2 months. |
 | 6 | Residual Value (inc GST) | Residual, "Including GST" |
-| 7 | Total Lease Payment (Finance Payment), fortnightly | On this example, footnote 5 indicates GST is included. Check your own quote's payment labels and choose the matching GST basis. |
+| 7 | Total Lease Payment (Finance Payment), fortnightly | Use “Total Lease Payment (Finance Payment)” per fortnight. On this quote, footnote 5 includes GST, so choose Including GST. |
 | 9 | Registration, insurance, roadside, service and maintenance, tyres, fuel, electricity, other | Footnote 5 says these running costs include GST, except vehicle registration. Choose Including GST and enter each amount as printed. |
 | 10 | Novated Leasing Administration Fee | Lease management fees |
 | 11 | Finance Rate | Compare with the effective rate Guided shows. Footnote 3 says it includes all fees and charges |
@@ -47,7 +47,7 @@ This numbered example shows an Alliance Leasing quote layout we reviewed. Match 
 | # | On page 2 | In Guided |
 |---|---|---|
 | 5 | Entry Fee, under Novated Lease Fees | Documentation fee |
-| 7 | Finance, under Budgeted Running Costs | On this example, this line is labelled ex GST. Check your own quote's payment labels before choosing the GST basis. |
+| 7 | Finance, under Budgeted Running Costs | On this example, this line excludes GST and is lower than page 3's Total Lease Payment. Enter it with Excluding GST if you use it; check your own quote's label. |
 | 10 | Novated Leasing Administration Fee, Fortnightly Management Fee, Management Fee | Lease management fees (add any that aren't $0) |
 | 2 | Drive away price, under Vehicle Price Breakdown | Drive-away price (the same figure as page 3's Total Drive Away Price) |
 
