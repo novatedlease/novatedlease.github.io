@@ -54,7 +54,7 @@ import { copyShareLink } from "../utils/shareLink";
 import { summaryFigures } from "../components/summaryFigures";
 import { superShortfallOverLease, takeHomeReductionPerFn } from "../components/payImpact";
 import { quoteAssumptions } from "./quoteAssumptions";
-import { runLabelText, runningOrder } from "./runningLayout";
+import { RUNNING_LAYOUT, runLabelText, runningOrder } from "./runningLayout";
 import { ASSUMED_EFFECTIVE_RATE, evElectricityClaimAnnual } from "../assumptions";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
@@ -1958,7 +1958,10 @@ function RunningStep({ d, set, f }: StepPropsF) {
 
   return (
     <Side highlight={["running", "insurance", "fees"]} d={d}>
-      <Lead>From your quote's running-cost budget.</Lead>
+      <Lead>
+        From your quote's running-cost budget
+        {d.provider && RUNNING_LAYOUT[d.provider] ? `, in ${providerLabel(d.provider)}'s order and wording.` : "."}
+      </Lead>
       <MoneyInput
         field="mileage"
         label="Kilometres per year"

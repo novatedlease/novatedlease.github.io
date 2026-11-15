@@ -82,3 +82,15 @@ describe("other lines help placement", () => {
     expect(help).toBeLessThan(text.indexOf("Electricity price you pay to charge"));
   });
 });
+
+describe("running costs byline", () => {
+  test("names the provider whose order and wording the boxes follow", () => {
+    atRunning("smartleasing", "EV");
+    expect(document.body.textContent).toContain("From your quote's running-cost budget, in Smart Leasing's order and wording.");
+  });
+
+  test("stays generic without a provider layout", () => {
+    atRunning("millarx", "EV");
+    expect(document.body.textContent).toContain("From your quote's running-cost budget.");
+  });
+});
