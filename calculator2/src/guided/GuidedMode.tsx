@@ -2759,9 +2759,9 @@ function ReviewStep({
 }) {
   const exploring = d.hasQuote === false;
   const narrow = useNarrowScreen();
-  const [horizon, setHorizon] = useState<"five_year" | "lease_end">(
-    "five_year",
-  );
+  // A lease shorter than 5 years opens on its own term (owner, 15 Nov 2026); 5 years is a tap away.
+  // Leases of 5 years only have the one view (effectiveHorizon below).
+  const [horizon, setHorizon] = useState<"five_year" | "lease_end">("lease_end");
   /** A pending "open in Advanced" that would replace figures already there. */
   const [confirming, setConfirming] = useState<{ anchorId?: string } | null>(
     null,

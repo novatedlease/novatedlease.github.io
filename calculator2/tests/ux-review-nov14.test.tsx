@@ -381,6 +381,10 @@ describe("results: running costs after a short lease", () => {
     d.residual = m("26000");
     seedReview(d);
     render(<App />);
+    // A short lease opens on its own term; the 5-year view is a tap away.
+    expect(screen.getByRole("button", { name: "The 3-year lease" }).getAttribute("aria-pressed")).toBe("true");
+    expect(document.querySelector(".gd-headline__lead")!.textContent).toBe("Over 3 years, a novated lease leaves you:");
+    fireEvent.click(screen.getByRole("button", { name: "5 years" }));
     expect(document.body.textContent).toContain("2 years' running costs after the lease ends, paid in cash");
     expect(document.body.textContent).not.toContain("Lease: running costs after it ends");
   });
