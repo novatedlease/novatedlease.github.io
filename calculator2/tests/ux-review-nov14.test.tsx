@@ -256,7 +256,7 @@ describe("UX 2 and 3: take-home pay and lost super beside the headline", () => {
     seedReview(d);
     render(<App />);
     const sup = document.querySelector(".gd-headline__super")!;
-    expect(sup.textContent).toMatch(/^Not counted above: about \$[\d,]+00 less super over 5 years\./);
+    expect(sup.textContent).toMatch(/^Not counted above: your employer pays about \$[\d,]+00 less into your super over 5 years \(about \$[\d,]+00 after the 15% contributions tax\)\./);
     expect(document.body.textContent).not.toMatch(/Your super may also be reduced/);
   });
 });
@@ -313,7 +313,7 @@ describe("super: 'I'm not sure' shows what's at stake", () => {
     render(<App />);
     const lines = [...document.querySelectorAll(".gd-headline__super")].map((el) => el.textContent!);
     const warn = lines.find((t) => t.startsWith("Check how your employer works out super."));
-    expect(warn).toMatch(/you'd get about \$[\d,]+ less super over 5 years\./);
+    expect(warn).toMatch(/your employer would pay about \$[\d,]+ less into your super over 5 years \(about \$[\d,]+ after the 15% contributions tax\)\./);
     expect(warn).toMatch(/You chose “I'm not sure”, so the result assumes super is unaffected\. Ask payroll\./);
   });
 
@@ -326,7 +326,7 @@ describe("super: 'I'm not sure' shows what's at stake", () => {
       const text = document.querySelector(".gd-headline__super")!.textContent!;
       unmount();
       window.localStorage.clear();
-      return text.match(/\$[\d,]+ less super/)![0];
+      return text.match(/\$[\d,]+ less into your super/)![0];
     };
     expect(amount("Unsure")).toBe(amount("No"));
   });
@@ -445,5 +445,16 @@ describe("typical lease-end value says where it comes from", () => {
 
   test("shorter lease: scaled to the term", () => {
     expect(atAlternatives(3)).toContain("Based on 40% of the drive-away price after 5 years, scaled to your term.");
+  });
+});
+
+describe("lost super: after contributions tax", () => {
+  test("Division 293 incomes see the 30% rate", () => {
+    const d = fullQuote();
+    d.superPreNl = "No";
+    d.income = m("240000");
+    seedReview(d);
+    render(<App />);
+    expect(document.querySelector(".gd-headline__super")!.textContent).toMatch(/after the 30% contributions tax\)/);
   });
 });

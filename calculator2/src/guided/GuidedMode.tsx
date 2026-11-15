@@ -53,7 +53,7 @@ import { NextSteps } from "../components/NextSteps";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
 import { summaryFigures } from "../components/summaryFigures";
-import { superShortfallOverLease, takeHomeReductionPerFn } from "../components/payImpact";
+import { SG_RATE, superShortfallOverLease, takeHomeReductionPerFn } from "../components/payImpact";
 import { quoteAssumptions } from "./quoteAssumptions";
 import { RUNNING_LAYOUT, runLabelText, runningOrder } from "./runningLayout";
 import { MILEAGE_LINE } from "./mileageLine";
@@ -3431,6 +3431,11 @@ function ResultHeadline({
   // What super would be lost if the employer does use the after-lease salary.
   const lostSuperIfAfter = superUnsure ? superShortfallOverLease({ ...inputs, superFromPreNlIncome: "No" }) : 0;
   const leaseYears = inputs.leaseDurationYears;
+  // Employer contributions are taxed 15% in the fund, 30% under Division 293 (income plus
+  // concessional contributions over $250,000), so what lands in the account is less (owner, 15 Nov 2026).
+  const contribTax = inputs.totalTaxableIncome * (1 + SG_RATE) > 250000 ? 0.3 : 0.15;
+  const superNet = (gross: number) =>
+    ` (about ${money(Math.round((gross * (1 - contribTax)) / 100) * 100)} after the ${Math.round(contribTax * 100)}% contributions tax)`;
   return (
     <div className="gd-headline" role="status">
       <div className="gd-headline__lead">Over {fig.years} years, a novated lease leaves you:</div>
@@ -3449,16 +3454,16 @@ function ResultHeadline({
       {/* Not in the saving above: super is still the reader's money, only locked away (UX 3). */}
       {lostSuper >= 50 && (
         <p className="gd-headline__super">
-          Not counted above: about <strong className="gd-neg">{money(Math.round(lostSuper / 100) * 100)} less super</strong>{" "}
-          over {leaseYears} year{leaseYears === 1 ? "" : "s"}.
+          Not counted above: your employer pays about <strong className="gd-neg">{money(Math.round(lostSuper / 100) * 100)} less into your super</strong>{" "}
+          over {leaseYears} year{leaseYears === 1 ? "" : "s"}{superNet(lostSuper)}.
           <span className="gd-headline__pay-sub">Your employer works out super on your salary after the lease.</span>
         </p>
       )}
       {lostSuperIfAfter >= 50 && (
         <p className="gd-headline__super">
           <strong>Check how your employer works out super.</strong> If it's on your salary after the
-          lease, you'd get about <strong className="gd-neg">{money(Math.round(lostSuperIfAfter / 100) * 100)} less super</strong>{" "}
-          over {leaseYears} year{leaseYears === 1 ? "" : "s"}.
+          lease, your employer would pay about <strong className="gd-neg">{money(Math.round(lostSuperIfAfter / 100) * 100)} less into your super</strong>{" "}
+          over {leaseYears} year{leaseYears === 1 ? "" : "s"}{superNet(lostSuperIfAfter)}.
           <span className="gd-headline__pay-sub">You chose “I'm not sure”, so the result assumes super is unaffected. Ask payroll.</span>
         </p>
       )}
