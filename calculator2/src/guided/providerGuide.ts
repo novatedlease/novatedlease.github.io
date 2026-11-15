@@ -80,7 +80,8 @@ export function isNamedProvider(id: ProviderId | null): id is ProviderId {
   return id !== null && id !== "other";
 }
 
-export type GuideField = QuoteKey | "insurance" | "fees";
+/** "mileage" has a marked crop and a text line (mileageLine.ts) but no written pointer in the guides. */
+export type GuideField = QuoteKey | "insurance" | "fees" | "mileage";
 
 export type Pointer = {
   field: GuideField;
@@ -918,7 +919,7 @@ export function templateFor(id: ProviderId, field: GuideField): string | null {
 export const FIELD_NAMES: Record<GuideField, string> = {
   baseValue: "FBT base value", driveaway: "Drive-away price", term: "Lease term", defer: "Months deferred",
   docFee: "Documentation fee", residual: "Residual", payment: "Finance payment", luxAdj: "Luxury adjustment",
-  running: "Running costs", insurance: "Insurance", fees: "Management fees",
+  running: "Running costs", insurance: "Insurance", fees: "Management fees", mileage: "Kilometres per year",
 };
 
 /**

@@ -891,6 +891,86 @@
     "vehiclesolutions/redacted-quote.webp": {
       "w": 1400,
       "h": 1073
+    },
+    "alliance/field-mileage.webp": {
+      "w": 900,
+      "h": 24
+    },
+    "autopia/field-mileage.webp": {
+      "w": 603,
+      "h": 32
+    },
+    "clearlease/field-mileage.webp": {
+      "w": 667,
+      "h": 40
+    },
+    "driva/field-mileage.webp": {
+      "w": 692,
+      "h": 35
+    },
+    "fingo/field-mileage.webp": {
+      "w": 670,
+      "h": 37
+    },
+    "flare/field-mileage.webp": {
+      "w": 644,
+      "h": 36
+    },
+    "kooya/field-mileage.webp": {
+      "w": 685,
+      "h": 37
+    },
+    "lendly/field-mileage.webp": {
+      "w": 772,
+      "h": 48
+    },
+    "maxxia/field-mileage.webp": {
+      "w": 900,
+      "h": 33
+    },
+    "millarx/field-mileage.webp": {
+      "w": 280,
+      "h": 84
+    },
+    "nla/field-mileage.webp": {
+      "w": 900,
+      "h": 25
+    },
+    "oly/field-mileage.webp": {
+      "w": 587,
+      "h": 40
+    },
+    "orix/field-mileage.webp": {
+      "w": 665,
+      "h": 29
+    },
+    "paywise/field-mileage.webp": {
+      "w": 622,
+      "h": 37
+    },
+    "remunerator/field-mileage.webp": {
+      "w": 548,
+      "h": 36
+    },
+    "sgfleet/field-mileage.webp": {
+      "w": 456,
+      "h": 36
+    },
+    "simplygreen/field-mileage.webp": {
+      "w": 582,
+      "h": 20
+    },
+    "smartleasing/field-mileage.webp": {
+      "w": 605,
+      "h": 36
+    },
+    "smartsalary/field-mileage.webp": {
+      "w": 582,
+      "h": 37
+    },
+    "toyotafleet/field-mileage.webp": {
+      "w": 502,
+      "h": 36
     }
   },
   "pages": {

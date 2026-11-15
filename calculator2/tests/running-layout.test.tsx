@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, fireEvent, render } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, type GuidedDraft, type Money } from "../src/guided/draft";
 import { PROVIDERS } from "../src/guided/providerGuide";
@@ -99,8 +99,23 @@ describe("kilometres: where each quote prints them", () => {
   test("SG Fleet points to Annual distance", () => {
     atRunning("sgfleet", "Non-EV");
     const note = document.querySelector('.gd-pointers[data-field="mileage"]')!;
-    expect(note.textContent).toBe("On SG Fleet quotes: Use “Annual distance” under “Your package arrangements”.");
+    expect(note.textContent).toBe("On SG Fleet quotes: Use “Annual distance” under “Your package arrangements”.Show me");
     expect(document.body.textContent).toContain("The figure your quote's budgets are based on.");
+  });
+
+  test("clicking into the kilometres box shows the marked kilometres line in the side panel", () => {
+    atRunning("sgfleet", "Non-EV");
+    fireEvent.focus(document.querySelector<HTMLInputElement>('[data-field="mileage"] input')!);
+    const side = document.querySelector(".gd-provider-side")!;
+    expect(side.querySelector("strong")?.textContent).toBe("SG Fleet quote: Kilometres per year");
+    expect(side.querySelector("img")?.getAttribute("src")).toBe("/assets/images/quote-guide/sgfleet/field-mileage.webp");
+  });
+
+  test("FleetPartners has the text line but no picture (its sentence sits under another box)", () => {
+    atRunning("fleetpartners", "EV");
+    const note = document.querySelector('.gd-pointers[data-field="mileage"]')!;
+    expect(note.textContent).toMatch(/kms you plan to drive every year/);
+    expect(note.querySelector("button")).toBeNull();
   });
 
   test("ORIX and Lendly print a whole-lease total, so their note is a warning", () => {

@@ -825,7 +825,7 @@ function Side({
   const [pick, setPick] = useState<PanelPick | null>(null);
   const narrow = useNarrowScreen();
   // The typical-quote diagram has no separate insurance or fees row; both sit under running costs.
-  const diagram = <QuoteDiagram highlight={highlight.filter((k): k is QuoteKey => k !== "insurance" && k !== "fees")} values={quoteValues(d)} />;
+  const diagram = <QuoteDiagram highlight={highlight.filter((k): k is QuoteKey => k !== "insurance" && k !== "fees" && k !== "mileage")} values={quoteValues(d)} />;
   const guide = guideFor(d.provider);
   const hasPicture = (field: GuideField) => !!guide && !!pictureFor(guide.id, field);
   // Keep showing the last provider picture when the focused field has none of its own.
@@ -1981,7 +1981,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
     annual && period ? annual / factor : null;
 
   return (
-    <Side highlight={["running", "insurance", "fees"]} d={d}>
+    <Side highlight={["running", "insurance", "fees"]} followAlso={["mileage"]} d={d}>
       <Lead>
         From your quote's running-cost budget
         {d.provider && RUNNING_LAYOUT[d.provider] ? `, in ${providerLabel(d.provider)}'s order and wording.` : "."}
@@ -1999,9 +1999,10 @@ function RunningStep({ d, set, f }: StepPropsF) {
       {/* Where this provider's quote prints the kilometres (mileageLine.ts). */}
       {mileageLine && d.provider && (
         <div className="gd-pointers" data-provider={d.provider} data-field="mileage">
-          <div className={`gd-pointer gd-pointer--${mileageLine.trap ? "trap" : "locate"}`}>
-            <span><strong>On {providerLabel(d.provider)} quotes:</strong> {mileageLine.text}</span>
-          </div>
+          <ProviderPointer
+            pointer={{ field: "mileage", text: mileageLine.text, kind: mileageLine.trap ? "trap" : "locate" }}
+            provider={d.provider}
+          />
         </div>
       )}
       <Help title="How do I use my current driving to estimate this?">
