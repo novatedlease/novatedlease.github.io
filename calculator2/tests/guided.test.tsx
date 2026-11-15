@@ -85,6 +85,19 @@ describe("financed first-year insurance", () => {
   });
 });
 
+test("Alliance's ex-GST registration stays as printed beside inc-GST running costs", () => {
+  const d = completeDraft();
+  d.provider = "alliance";
+  d.runningGstHeading = "incGst";
+  d.runningGstCredit = "Yes";
+  d.rego = m("900");
+  d.insurance = m("1650");
+  const inputs = buildInputs(d)!;
+  expect(inputs.registrationAnnual).toBe(900);
+  expect(inputs.insuranceAnnual).toBeCloseTo(1500, 6);
+  expect(buildInputs({ ...d, provider: "other" })!.registrationAnnual).toBeCloseTo(900 / 1.1, 6);
+});
+
 function pricedDraft(): GuidedDraft {
   const d = emptyDraft();
   d.vehicleType = "Non-EV";

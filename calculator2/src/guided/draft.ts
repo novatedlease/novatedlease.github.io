@@ -1000,7 +1000,11 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     // Tyres are optional: a blank box (no tyres line on the quote) counts as $0.
     serviceMaintTyresAnnual: running(d.service) + (d.service.estimated || moneyValue(d.tyres) === null ? 0 : running(d.tyres)),
     saveShareAnnual: nswAnnual(d),
-    registrationAnnual: running(d.rego),
+    // Alliance's running-cost footnote says its registration line is ex GST, even though the
+    // other lines are inc GST. Keep that printed amount when converting credited costs.
+    registrationAnnual: d.provider === "alliance" && d.runningGstHeading === "incGst"
+      ? annual(d.rego)
+      : running(d.rego),
     // The 5.47c/km budget unless the reader typed their quote's own figure.
     electricityAnnual: !isEv
       ? 0

@@ -130,3 +130,14 @@ Providers:
 9. After merge: check GA4 `next_step_*` events in a couple of weeks (checklist card moved last).
 10. Parked by the owner: Queensland Government "Summary Table" quotes
     (`~/novated-lease-guide/private/qld-summary-table/`).
+
+## Walkthrough update, 16 Nov 2026
+
+- Alliance Leasing: footnote 5 on the page 3 summary says quoted running costs include GST,
+  except vehicle registration. Guided now points to the footnote, tells the reader to choose
+  Including GST and type the running-cost figures as printed, and keeps Alliance's explicitly
+  ex-GST registration amount unchanged when it converts the other costs for a GST credit.
+  The numbered article's running-cost row follows the same pointer; its payment rows describe
+  only the labels on the example quote and tell readers to check their own quote.
+- `calculator2`: 447 Vitest tests pass; ESLint passes on the changed TS/TSX files; the changed
+  site sync script passes `node --check`. Calculator built and Astro preview restarted on 4340.

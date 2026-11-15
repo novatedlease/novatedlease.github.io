@@ -389,6 +389,11 @@ export const GUIDES: ProviderGuide[] = [
         text: "If you see “Entry Fee” under “Novated Lease Fees” on page 2, that's this fee.",
         more: "The same page lists the administration and management fees (enter those under lease management fees) and a vehicle price breakdown ending in the drive-away price.",
       },
+      {
+        field: "running",
+        text: "Footnote 5 says these running costs include GST, except vehicle registration. Choose Including GST and enter each amount as printed.",
+        more: "The registration line is labelled “Excl GST”. Check your own quote's footnote and whether a GST credit is taken off before answering the next question.",
+      },
     ],
   },
   {

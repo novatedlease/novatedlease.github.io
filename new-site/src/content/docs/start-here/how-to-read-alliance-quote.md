@@ -32,8 +32,8 @@ This numbered example shows an Alliance Leasing quote layout we reviewed. Match 
 | 3 | Lease Term | Lease term |
 | 4 | "(based on two month deferred lease structure)" | If you see “based on two month deferred lease structure”, choose 2 months. |
 | 6 | Residual Value (inc GST) | Residual, "Including GST" |
-| 7 | Total Lease Payment (Finance Payment), fortnightly | Finance payment, per fortnight, **Including GST**: footnote 5 says all quoted items include GST except registration. Page 2's "Finance" line (below) is the same payment ex GST |
-| 9 | Registration, insurance, roadside, service and maintenance, tyres, fuel, electricity, other | Running-cost boxes, per fortnight, inc GST (registration ex GST) |
+| 7 | Total Lease Payment (Finance Payment), fortnightly | On this example, footnote 5 indicates GST is included. Check your own quote's payment labels and choose the matching GST basis. |
+| 9 | Registration, insurance, roadside, service and maintenance, tyres, fuel, electricity, other | Footnote 5 says these running costs include GST, except vehicle registration. Choose Including GST and enter each amount as printed. |
 | 10 | Novated Leasing Administration Fee | Lease management fees |
 | 11 | Finance Rate | Compare with the effective rate Guided shows. Footnote 3 says it includes all fees and charges |
 <!-- provider-table:end -->
@@ -47,7 +47,7 @@ This numbered example shows an Alliance Leasing quote layout we reviewed. Match 
 | # | On page 2 | In Guided |
 |---|---|---|
 | 5 | Entry Fee, under Novated Lease Fees | Documentation fee |
-| 7 | Finance, under Budgeted Running Costs | Finance payment, per fortnight, **Excluding GST**. It's page 3's Total Lease Payment without the GST |
+| 7 | Finance, under Budgeted Running Costs | On this example, this line is labelled ex GST. Check your own quote's payment labels before choosing the GST basis. |
 | 10 | Novated Leasing Administration Fee, Fortnightly Management Fee, Management Fee | Lease management fees (add any that aren't $0) |
 | 2 | Drive away price, under Vehicle Price Breakdown | Drive-away price (the same figure as page 3's Total Drive Away Price) |
 
