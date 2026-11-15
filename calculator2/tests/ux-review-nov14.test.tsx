@@ -288,3 +288,18 @@ describe("UX 14: the quote path lists what we assumed", () => {
     expect(document.body.textContent).not.toMatch(/You chose “Not sure”/);
   });
 });
+
+describe("Smart Leasing correction box links to the explainer", () => {
+  test("the must-correct box links to the payment structure article", () => {
+    const d = partialQuote();
+    d.provider = "smartleasing";
+    d.smartMillarx = true;
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "payment", visited: ["intro", "car", "compare", "price", "lease", "payment"] }),
+    );
+    render(<App />);
+    const link = screen.getByRole("link", { name: "Why the printed figure is too high" });
+    expect(link.getAttribute("href")).toBe("/special-and-policy/smart-leasing-millarx-payment-structure/");
+  });
+});

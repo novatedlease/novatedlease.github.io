@@ -1581,7 +1581,10 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             </div>
             <p>
               The printed payment usually includes a budget reserve. The tool works
-              out the finance-only payment and fills it in for you.
+              out the finance-only payment and fills it in for you.{" "}
+              <a href="/special-and-policy/smart-leasing-millarx-payment-structure/" target="_blank" rel="noreferrer">
+                Why the printed figure is too high
+              </a>
             </p>
             {d.leaseYears ? (
               <Button
