@@ -768,30 +768,6 @@
       "w": 1400,
       "h": 1986
     },
-    "smartsalary/field-baseValue.webp": {
-      "w": 900,
-      "h": 159
-    },
-    "smartsalary/field-fees.webp": {
-      "w": 900,
-      "h": 234
-    },
-    "smartsalary/field-payment.webp": {
-      "w": 900,
-      "h": 562
-    },
-    "smartsalary/field-residual.webp": {
-      "w": 900,
-      "h": 159
-    },
-    "smartsalary/field-running.webp": {
-      "w": 900,
-      "h": 562
-    },
-    "smartsalary/redacted-quote.webp": {
-      "w": 1400,
-      "h": 1891
-    },
     "spa/field-baseValue.webp": {
       "w": 1400,
       "h": 202
@@ -964,10 +940,6 @@
       "w": 605,
       "h": 36
     },
-    "smartsalary/field-mileage.webp": {
-      "w": 582,
-      "h": 37
-    },
     "toyotafleet/field-mileage.webp": {
       "w": 502,
       "h": 36
@@ -987,6 +959,34 @@
     "vehiclesolutions/field-mileage.webp": {
       "w": 697,
       "h": 38
+    },
+    "prosperity/field-baseValue.webp": {
+      "w": 900,
+      "h": 159
+    },
+    "prosperity/field-fees.webp": {
+      "w": 900,
+      "h": 234
+    },
+    "prosperity/field-payment.webp": {
+      "w": 900,
+      "h": 562
+    },
+    "prosperity/field-residual.webp": {
+      "w": 900,
+      "h": 159
+    },
+    "prosperity/field-running.webp": {
+      "w": 900,
+      "h": 562
+    },
+    "prosperity/redacted-quote.webp": {
+      "w": 1400,
+      "h": 1891
+    },
+    "prosperity/field-mileage.webp": {
+      "w": 582,
+      "h": 37
     }
   },
   "pages": {
@@ -1115,11 +1115,6 @@
       "w": 1400,
       "h": 1621
     },
-    "smartsalary": {
-      "image": "smartsalary/redacted-quote.webp",
-      "w": 1400,
-      "h": 1891
-    },
     "spa": {
       "image": "spa/redacted-quote.webp",
       "w": 1400,
@@ -1134,6 +1129,11 @@
       "image": "vehiclesolutions/redacted-quote.webp",
       "w": 1400,
       "h": 1073
+    },
+    "prosperity": {
+      "image": "smartsalary/redacted-quote.webp",
+      "w": 1400,
+      "h": 1891
     }
   },
   "markers": {
@@ -2464,55 +2464,6 @@
         }
       ]
     },
-    "smartsalary": {
-      "payment": [
-        {
-          "label": "7",
-          "y": 99,
-          "h": 209
-        }
-      ],
-      "running": [
-        {
-          "label": "9",
-          "y": 136,
-          "h": 209
-        }
-      ],
-      "fees": [
-        {
-          "label": "10",
-          "y": 313,
-          "h": 29
-        },
-        {
-          "label": "10",
-          "y": 1711,
-          "h": 33
-        }
-      ],
-      "term": [
-        {
-          "label": "3",
-          "y": 842,
-          "h": 32
-        }
-      ],
-      "residual": [
-        {
-          "label": "6",
-          "y": 912,
-          "h": 32
-        }
-      ],
-      "baseValue": [
-        {
-          "label": "1",
-          "y": 1015,
-          "h": 29
-        }
-      ]
-    },
     "spa": {
       "term": [
         {
@@ -2699,6 +2650,55 @@
           "label": "10",
           "y": 908,
           "h": 28
+        }
+      ]
+    },
+    "prosperity": {
+      "payment": [
+        {
+          "label": "7",
+          "y": 99,
+          "h": 209
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 136,
+          "h": 209
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 313,
+          "h": 29
+        },
+        {
+          "label": "10",
+          "y": 1711,
+          "h": 33
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 842,
+          "h": 32
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 912,
+          "h": 32
+        }
+      ],
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 1015,
+          "h": 29
         }
       ]
     }
@@ -3298,26 +3298,6 @@
         "3"
       ]
     },
-    "smartsalary": {
-      "baseValue": [
-        "1"
-      ],
-      "fees": [
-        "10"
-      ],
-      "payment": [
-        "7"
-      ],
-      "residual": [
-        "6"
-      ],
-      "running": [
-        "9"
-      ],
-      "term": [
-        "3"
-      ]
-    },
     "spa": {
       "baseValue": [
         "1"
@@ -3389,6 +3369,26 @@
       "payment": [
         "7a",
         "7b"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ],
+      "term": [
+        "3"
+      ]
+    },
+    "prosperity": {
+      "baseValue": [
+        "1"
+      ],
+      "fees": [
+        "10"
+      ],
+      "payment": [
+        "7"
       ],
       "residual": [
         "6"

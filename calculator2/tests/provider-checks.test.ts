@@ -33,8 +33,8 @@ describe("provider-specific findings", () => {
     expect(checkProvider(d).map((f) => f.code)).not.toContain("provider_weekly_payment");
   });
 
-  test("Smartsalary checks the GST heading without changing the answer", () => {
-    const d = forProvider("smartsalary");
+  test("Prosperity Smart Drive checks the GST heading without changing the answer", () => {
+    const d = forProvider("prosperity");
     d.paymentBasis = "exGst";
     expect(checkProvider(d).map((f) => f.code)).toContain("provider_payment_gst");
     expect(d.paymentBasis).toBe("exGst");

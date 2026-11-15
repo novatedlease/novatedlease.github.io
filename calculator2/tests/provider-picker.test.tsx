@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, missingForStep, type GuidedDraft } from "../src/guided/draft";
-import { PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, lineLabelFor, markerFor, notOnQuote, guideFor, guideIsOld, guideMayHaveChanged, pageFor, shownKind, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
+import { GUIDED_PROVIDERS, PROVIDERS, articleFor, type GuideField, type ProviderId, cropFor, exampleFor, imageSizeFor, lineLabelFor, markerFor, notOnQuote, guideFor, guideIsOld, guideMayHaveChanged, pageFor, shownKind, pageImagesFor, pointersFor, seenLabel, templateFor } from "../src/guided/providerGuide";
 
 afterEach(() => {
   cleanup();
@@ -112,17 +112,20 @@ describe("provider picker", () => {
     const groups = [...picker().querySelectorAll("optgroup")].map((g) => g.label);
     expect(groups).toEqual(["Most common", "All providers"]);
     const common = [...picker().querySelectorAll('optgroup[label="Most common"] option')].map((o) => o.textContent);
-    expect(common).toEqual(["Smart Leasing", "SG Fleet", "Maxxia", "Paywise", "Smartsalary (Smart Drive)"]);
+    expect(common).toEqual(["Smart Leasing", "SG Fleet", "Maxxia", "Flare", "Paywise"]);
     const rest = [...picker().querySelectorAll('optgroup[label="All providers"] option')].map((o) => o.textContent);
     expect(rest.slice(0, -1)).toEqual([...rest.slice(0, -1)].sort((a, b) => a!.localeCompare(b!)));
     expect(rest.at(-1)).toBe("Other / not listed");
   });
 
-  test("picking Smart Leasing or Smartsalary explains they use different layouts", () => {
+  test("Smartsalary is Smart Leasing's layout: picking it selects Smart Leasing; Prosperity Smart Drive says it isn't Smart", () => {
     on("intro", quoteDraft());
-    expect(screen.queryByText(/related companies, but their quotes use different/)).toBeNull();
+    expect(screen.queryByText(/same company \(now “Smart”\)/)).toBeNull();
     fireEvent.change(picker(), { target: { value: "smartsalary" } });
-    expect(screen.getByText(/related companies, but their quotes use different/)).toBeTruthy();
+    expect((picker() as HTMLSelectElement).value).toBe("smartleasing");
+    expect(screen.getByText(/Smartsalary and Smart Leasing are the same company \(now “Smart”\), with the same quote layout\./)).toBeTruthy();
+    fireEvent.change(picker(), { target: { value: "prosperity" } });
+    expect(screen.getByText(/Prosperity Smart Drive isn't part of Smart/)).toBeTruthy();
   });
 
   test("a named provider hides the Smart Leasing / MillarX question", () => {
@@ -217,7 +220,7 @@ const FIELDS_FOR_CAPTIONS: GuideField[] = ["baseValue", "driveaway", "defer", "d
 describe("provider pointers", () => {
   test("pointer text reads well out of context: no here, above or below", () => {
     // The same text is reused in the provider articles, where "here" has nothing to point at.
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       for (const field of FIELDS_FOR_CAPTIONS) {
         for (const p of pointersFor(id, field)) expect(p.text, `${id}/${field}`).not.toMatch(/\b(here|above|below)\b/i);
       }
@@ -225,7 +228,7 @@ describe("provider pointers", () => {
   });
 
   test("article intros don't state their own review month", () => {
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       if (id === "other") continue;
       const article = readFileSync(resolve(__dirname, `../../new-site/src/content/docs/start-here/how-to-read-${id}-quote.md`), "utf8");
       const body = article.replace(/<!-- quote-review:begin -->[\s\S]*?<!-- quote-review:end -->/, "");
@@ -234,7 +237,7 @@ describe("provider pointers", () => {
   });
 
   test("articles list the same can't-find-it lines as Guided", () => {
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       if (id === "other") continue;
       const article = readFileSync(resolve(__dirname, `../../new-site/src/content/docs/start-here/how-to-read-${id}-quote.md`), "utf8");
       const section = article.split("<!-- provider-missing:begin -->")[1]?.split("<!-- provider-missing:end -->")[0] ?? "";
@@ -248,7 +251,7 @@ describe("provider pointers", () => {
   });
 
   test("provider lines and checks don't generalise from a few quotes", () => {
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       for (const field of FIELDS_FOR_CAPTIONS) {
         for (const p of pointersFor(id, field)) expect(p.text, `${id}/${field}`).not.toMatch(/\b(usually|often|always)\b/i);
       }
@@ -256,7 +259,7 @@ describe("provider pointers", () => {
   });
 
   test("pointer main text is plain sentences: no dashes, semicolons, abbreviations or app names outside quoted labels", () => {
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       for (const field of FIELDS_FOR_CAPTIONS) {
         for (const p of pointersFor(id, field)) {
           const own = p.text.replace(/“[^”]*”/g, "“”");
@@ -267,7 +270,7 @@ describe("provider pointers", () => {
   });
 
   test("each picture has one caption, with no date and one enlarge hint", () => {
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       if (id === "other") continue;
       for (const field of FIELDS_FOR_CAPTIONS) {
         for (const p of pointersFor(id, field)) {
@@ -285,7 +288,7 @@ describe("provider pointers", () => {
     expect(lineLabelFor("oly", "driveaway")).toBe("2");
     expect(lineLabelFor("millarx", "payment")).toBe("7a or 7b");
     expect(lineLabelFor("sgfleet", "payment")).toBe("7b");
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       if (id === "other") continue;
       for (const field of FIELDS_FOR_CAPTIONS) {
         const crop = cropFor(id, field);
@@ -296,7 +299,7 @@ describe("provider pointers", () => {
   });
 
   test("special example captions say how the line is marked: its number, or a tick on a crop", () => {
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       if (id === "other") continue;
       for (const field of FIELDS_FOR_CAPTIONS) {
         const example = exampleFor(id, field);
@@ -308,7 +311,7 @@ describe("provider pointers", () => {
   test("no payment pointer tells the reader which GST answer to choose", () => {
     // The payment's GST basis can differ between employers on one provider's quotes. A pointer may
     // only name a GST basis when it quotes a label that prints it ("If you see “… (excl GST)”").
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       for (const p of pointersFor(id, "payment")) {
         const labels = p.text.match(/“[^”]*”/g) ?? [];
         if (labels.some((l) => /GST/i.test(l))) continue; // the quote's own label states the basis
@@ -360,7 +363,7 @@ describe("provider pointers", () => {
   });
 
   test("each named provider has dated pointers and a recorded quote source", () => {
-    for (const provider of PROVIDERS.filter((p) => p.id !== "other")) {
+    for (const provider of GUIDED_PROVIDERS) {
       const guide = guideFor(provider.id);
       expect(guide, provider.id).not.toBeNull();
       expect(guide!.sources.length, provider.id).toBeGreaterThan(0);
@@ -370,7 +373,7 @@ describe("provider pointers", () => {
   });
 
   test("each named provider explains where to get the drive-away price", () => {
-    for (const provider of PROVIDERS.filter((p) => p.id !== "other")) {
+    for (const provider of GUIDED_PROVIDERS) {
       expect(pointersFor(provider.id, "driveaway").length, provider.id).toBeGreaterThan(0);
     }
   });
@@ -593,7 +596,7 @@ describe("provider pointers", () => {
 
   test("every main provider pointer stays brief and avoids sample-focused jargon", () => {
     const fields: GuideField[] = ["baseValue", "driveaway", "term", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees", "rate"];
-    const problems = PROVIDERS.flatMap(({ id }) => fields.flatMap((field) => pointersFor(id, field)
+    const problems = GUIDED_PROVIDERS.flatMap(({ id }) => fields.flatMap((field) => pointersFor(id, field)
       .filter(({ text }) => text.length > 140 || /sample|example|VSSS|marked \d|available pages|capitalised|\bITC\b/i.test(text))
       .map(({ text }) => `${id}/${field}: ${text}`)));
     expect(problems).toEqual([]);
@@ -656,7 +659,7 @@ describe("provider pointers", () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
     const fields = ["baseValue", "driveaway", "term", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees"] as const;
-    for (const p of PROVIDERS) {
+    for (const p of GUIDED_PROVIDERS) {
       for (const f of fields) {
         const src = cropFor(p.id, f);
         if (src) expect(fs.existsSync(path.join(__dirname, "../../docs", src))).toBe(true);
@@ -672,12 +675,12 @@ describe("provider pointers", () => {
     expect(index).toContain("## All providers");
     const common = index.split("## Most common\n")[1]?.split("## All providers")[0] ?? "";
     expect([...common.matchAll(/how-to-read-(\w+)-quote/g)].map((match) => match[1]))
-      .toEqual(["smartleasing", "sgfleet", "maxxia", "paywise", "smartsalary"]);
+      .toEqual(["smartleasing", "sgfleet", "maxxia", "flare", "paywise"]);
     const docsRoot = resolve(__dirname, "../../docs");
     for (const key of Object.keys(manifest.images)) {
       expect(existsSync(resolve(docsRoot, "assets/images/quote-guide", key)), key).toBe(true);
     }
-    for (const { id } of PROVIDERS) {
+    for (const { id } of GUIDED_PROVIDERS) {
       if (id === "other") continue;
       const guide = guideFor(id);
       expect(guide, id).not.toBeNull();
@@ -906,10 +909,10 @@ describe("provider pointers", () => {
     expect(article).toContain("fringe benefit value\" in the FBT calcs is the taxable value");
   });
 
-  test("Smartsalary Smart Drive keeps its payment and employer GST credit separate", () => {
-    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-smartsalary-quote.md"), "utf8");
+  test("Prosperity Smart Drive keeps its payment and employer GST credit separate", () => {
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-prosperity-quote.md"), "utf8");
     for (const field of ["payment", "running"] as const)
-      expect(article).toContain(pointersFor("smartsalary", field)[0].text);
+      expect(article).toContain(pointersFor("prosperity", field)[0].text);
     expect(article).toContain("Motor Vehicle Deductions (inc GST)");
     expect(article).toContain("Do not use the total salary deduction");
     expect(article).not.toContain("Lease per month");

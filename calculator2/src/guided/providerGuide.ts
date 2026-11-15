@@ -12,7 +12,10 @@ export const PROVIDERS = [
   { id: "sgfleet", label: "SG Fleet" },
   { id: "maxxia", label: "Maxxia" },
   { id: "paywise", label: "Paywise" },
-  { id: "smartsalary", label: "Smartsalary (Smart Drive)" },
+  { id: "prosperity", label: "Prosperity Smart Drive" },
+  // Smartsalary and Smart Leasing are one company ("Smart") with one quote layout: picking it gives
+  // Smart Leasing's guidance (GuidedMode maps it on selection). Kept so readers find the name.
+  { id: "smartsalary", label: "Smartsalary (Smart)" },
   { id: "alliance", label: "Alliance Leasing" },
   { id: "autopia", label: "Autopia" },
   { id: "clearlease", label: "Clear Lease" },
@@ -42,8 +45,18 @@ export const PROVIDERS = [
 
 export type ProviderId = (typeof PROVIDERS)[number]["id"];
 
-/** The five providers posted most often (Reddit, 2026), repeated at the top of the list. */
-export const POPULAR: ProviderId[] = ["smartleasing", "sgfleet", "maxxia", "paywise", "smartsalary"];
+/**
+ * The five providers whose quotes appear most in the Reddit archive (posts with the provider named
+ * in a quote image, Nov 2026: SG Fleet 132, Smart Leasing 108, Maxxia 84, Flare 32, Paywise 26),
+ * repeated at the top of the list.
+ */
+export const POPULAR: ProviderId[] = ["smartleasing", "sgfleet", "maxxia", "flare", "paywise"];
+
+/** Names that are another provider's quote layout: choosing one selects that provider. */
+export const PROVIDER_ALIAS: Partial<Record<ProviderId, ProviderId>> = { smartsalary: "smartleasing" };
+
+/** Providers with a guide of their own: everyone except "Other" and the aliases above. */
+export const GUIDED_PROVIDERS = PROVIDERS.filter((p) => p.id !== "other" && !PROVIDER_ALIAS[p.id]);
 
 export function providerLabel(id: ProviderId): string {
   return PROVIDERS.find((p) => p.id === id)?.label ?? id;
@@ -110,7 +123,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   leaseplan: ["driveaway", "docFee"], alliance: ["driveaway"],
   remunerator: ["driveaway", "payment"], easi: ["payment"],
   autopia: ["baseValue"], leaselab: ["driveaway"],
-  spa: ["driveaway", "baseValue"], smartsalary: ["running"],
+  spa: ["driveaway", "baseValue"], prosperity: ["running"],
   driva: ["driveaway"], fingo: ["driveaway"],
   leaseexpress: ["driveaway"], lendly: ["driveaway"],
   kooya: ["driveaway", "payment"],
@@ -534,7 +547,10 @@ export const GUIDES: ProviderGuide[] = [
     ],
   },
   {
-    id: "smartsalary",
+    // Prosperity Smart Drive (Prosperity Advisers Group): its "Smart Drive Administration Fee" line,
+    // rebatable-employer packaging and colours match prosperitysmartdrive.com.au (owner, 15 Nov 2026).
+    // It was first filed as Smartsalary; it isn't part of Smart.
+    id: "prosperity",
     seen: "2026-11",
     sources: ["1xsj1gj"],
     pointers: [
@@ -684,7 +700,7 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   leaselab: ["defer", "docFee"],
   spa: ["docFee"],
   paywise: ["defer", "docFee"],
-  smartsalary: ["defer", "docFee"],
+  prosperity: ["defer", "docFee"],
   driva: ["defer", "docFee"],
   fingo: ["docFee"],
   nla: ["defer", "docFee"],

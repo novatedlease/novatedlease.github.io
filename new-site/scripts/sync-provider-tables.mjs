@@ -33,7 +33,7 @@ const migrated = {
   leaseplan: { '5': 'docFee' },
   alliance: { '2': 'driveaway', '4': 'defer' },
   autopia: { '2': 'driveaway', '5': 'docFee' },
-  smartsalary: { '7': 'payment', '9': 'running' },
+  prosperity: { '7': 'payment', '9': 'running' },
   smartleasing: { '4': 'defer', '5': 'docFee' },
   clearlease: { '1': 'baseValue', '2': 'driveaway', '5': 'docFee', '6': 'residual', '7': 'payment', '8': 'luxAdj', '9': 'running', '10': 'fees' },
   kooya: { '1': 'baseValue', '2': 'driveaway', '4': 'defer', '6': 'residual', '7': 'payment', '8': 'luxAdj', '9': 'running', '10': 'fees' },

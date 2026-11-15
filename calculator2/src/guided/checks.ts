@@ -31,7 +31,7 @@ export function checkProvider(d: GuidedDraft): Finding[] {
   if (p === "leaselab" && d.paymentPeriod === "perMonth") {
     out.push({ code: "provider_weekly_payment", level: "warn", message: "The LeaseLab quotes we checked showed weekly or fortnightly amounts. Check the period beside your payment." });
   }
-  if (p === "smartsalary" && d.paymentBasis === "exGst") {
+  if (p === "prosperity" && d.paymentBasis === "exGst") {
     out.push({ code: "provider_payment_gst", level: "warn", message: "If your payment sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST. Check the heading on your own quote." });
   }
   const trap = DRIVEAWAY_TRAP_LABELS[p];

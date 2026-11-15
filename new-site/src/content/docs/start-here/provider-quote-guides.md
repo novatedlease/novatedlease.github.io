@@ -14,8 +14,8 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 - [Smart Leasing quote guide](/start-here/how-to-read-smartleasing-quote/)
 - [SG Fleet quote guide](/start-here/how-to-read-sgfleet-quote/)
 - [Maxxia quote guide](/start-here/how-to-read-maxxia-quote/)
+- [Flare quote guide](/start-here/how-to-read-flare-quote/)
 - [Paywise quote guide](/start-here/how-to-read-paywise-quote/)
-- [Smartsalary (Smart Drive) quote guide](/start-here/how-to-read-smartsalary-quote/)
 
 ## All providers
 
@@ -39,13 +39,13 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 - [Oly quote guide](/start-here/how-to-read-oly-quote/)
 - [ORIX quote guide](/start-here/how-to-read-orix-quote/)
 - [Paywise quote guide](/start-here/how-to-read-paywise-quote/)
+- [Prosperity Smart Drive quote guide](/start-here/how-to-read-prosperity-quote/)
 - [RemServ quote guide](/start-here/how-to-read-remserv-quote/)
 - [Remunerator quote guide](/start-here/how-to-read-remunerator-quote/)
 - [Salary Packaging Australia (S.P.A.) quote guide](/start-here/how-to-read-spa-quote/)
 - [SG Fleet quote guide](/start-here/how-to-read-sgfleet-quote/)
 - [Simplygreen quote guide](/start-here/how-to-read-simplygreen-quote/)
 - [Smart Leasing quote guide](/start-here/how-to-read-smartleasing-quote/)
-- [Smartsalary (Smart Drive) quote guide](/start-here/how-to-read-smartsalary-quote/)
 - [Toyota Fleet Management quote guide](/start-here/how-to-read-toyotafleet-quote/)
 - [Vehicle Solutions quote guide](/start-here/how-to-read-vehiclesolutions-quote/)
 <!-- provider-index:end -->

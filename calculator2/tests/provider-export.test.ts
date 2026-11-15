@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
-  GUIDES, POPULAR, PROVIDERS, TRAP_FIELDS, exampleFor, pointersFor, templateFor, type GuideField,
+  GUIDED_PROVIDERS, GUIDES, POPULAR, TRAP_FIELDS, exampleFor, pointersFor, templateFor, type GuideField,
 } from "../src/guided/providerGuide";
 
 /**
@@ -17,7 +17,7 @@ function exportGuides() {
   return {
     note: "Generated from calculator2/src/guided/providerGuide.ts by tests/provider-export.test.ts. Do not edit.",
     popular: POPULAR,
-    providers: PROVIDERS.filter((p) => p.id !== "other").map(({ id, label }) => {
+    providers: GUIDED_PROVIDERS.map(({ id, label }) => {
       const guide = GUIDES.find((g) => g.id === id)!;
       return {
         id,

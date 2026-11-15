@@ -20,6 +20,7 @@ import { LeaseAdjustModal } from "../components/LeaseAdjustModal";
 import { SelectField } from "../components/ui/Field";
 import {
   POPULAR,
+  PROVIDER_ALIAS,
   PROVIDERS,
   guideFor,
   articleFor,
@@ -1688,11 +1689,13 @@ function PaymentStep({ d, set, f }: StepPropsF) {
 
 /** Optional "Who is your quote from?", on the first screen once the reader says they have a quote. */
 function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (provider: ProviderId | null) => void }) {
-  const popular = PROVIDERS.filter((p) => POPULAR.includes(p.id));
+  // In POPULAR's order (most quotes first), not the list's.
+  const popular = POPULAR.map((id) => PROVIDERS.find((p) => p.id === id)!);
   const all = PROVIDERS.filter((p) => p.id !== "other")
     .slice()
     .sort((a, b) => a.label.localeCompare(b.label));
-  const smartRelated = d.provider === "smartleasing" || d.provider === "smartsalary";
+  const smartRelated = d.provider === "smartleasing";
+  const prosperity = d.provider === "prosperity";
   const guide = guideFor(d.provider);
   const hint = d.provider === "other" ? <>
     No problem. The general hints work for any quote. <a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer">Tell us who it's from</a>.
@@ -1707,7 +1710,7 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
       hint={hint}
       value={d.provider ?? ""}
       onChange={(v) => {
-        const next = v === "" ? null : v;
+        const next = v === "" ? null : (PROVIDER_ALIAS[v] ?? v);
         setProvider(next);
         if (next) trackEvent("guided_provider", { provider: next });
       }}
@@ -1720,8 +1723,12 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
     />
     {smartRelated && (
       <p className="nlc-field__hint gd-provider-note">
-        Smart Leasing and Smartsalary (Smart Drive) are related companies, but their quotes use different
-        layouts. Choose the name on your quote to get the right guidance.
+        Smartsalary and Smart Leasing are the same company (now “Smart”), with the same quote layout.
+      </p>
+    )}
+    {prosperity && (
+      <p className="nlc-field__hint gd-provider-note">
+        Prosperity Smart Drive isn't part of Smart (Smartsalary, Smart Leasing). If your quote says “Smart”, choose Smart Leasing.
       </p>
     )}
     </div>

@@ -4,8 +4,8 @@
     "smartleasing",
     "sgfleet",
     "maxxia",
-    "paywise",
-    "smartsalary"
+    "flare",
+    "paywise"
   ],
   "providers": [
     {
@@ -219,8 +219,8 @@
       ]
     },
     {
-      "id": "smartsalary",
-      "label": "Smartsalary (Smart Drive)",
+      "id": "prosperity",
+      "label": "Prosperity Smart Drive",
       "seen": "2026-11",
       "sourceCount": 1,
       "written": {
@@ -241,27 +241,27 @@
         {
           "field": "defer",
           "kind": "missing",
-          "text": "Can’t find months deferred on your Smartsalary (Smart Drive) quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "text": "Can’t find months deferred on your Prosperity Smart Drive quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
           "image": null
         },
         {
           "field": "docFee",
           "kind": "missing",
-          "text": "Can’t find a documentation or establishment fee on your Smartsalary (Smart Drive) quote? Leave this at $0 unless yours lists one.",
+          "text": "Can’t find a documentation or establishment fee on your Prosperity Smart Drive quote? Leave this at $0 unless yours lists one.",
           "image": null
         },
         {
           "field": "payment",
           "kind": "locate",
           "text": "If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period.",
-          "image": "/assets/images/quote-guide/smartsalary/field-payment.webp"
+          "image": "/assets/images/quote-guide/prosperity/field-payment.webp"
         },
         {
           "field": "running",
           "kind": "trap",
           "text": "If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed.",
           "more": "If a “Less” line takes a GST credit off those costs, answer Yes when asked whether a GST credit is taken off.",
-          "image": "/assets/images/quote-guide/smartsalary/field-running.webp"
+          "image": "/assets/images/quote-guide/prosperity/field-running.webp"
         }
       ]
     },
