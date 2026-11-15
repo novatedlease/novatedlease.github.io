@@ -391,7 +391,7 @@ export function checkAnnualCost(
       ];
     return [];
   }
-  if (value < typical * 0.25) {
+  if (!opts.skipLow && value < typical * 0.25) {
     return [
       {
         code: `${label}_low`,

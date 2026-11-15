@@ -268,6 +268,8 @@ function findingsFor(d: GuidedDraft) {
       "mgmt",
       d.mgmt.estimated ? null : annualOf(d, d.mgmt),
       typical?.mgmt ?? null,
+      // Many leases charge little or no admin fee, so only a high figure is worth a warning.
+      { skipLow: true },
     ),
     fuel: checkAnnualCost(
       "fuel",

@@ -1088,3 +1088,13 @@ describe("UX 18: no generic GST mock-up beside the provider's own picture", () =
     expect(screen.queryByText("See how the two look on a quote")).toBeNull();
   });
 });
+
+describe("management fees: no too-low warning", () => {
+  test("a small admin fee is accepted; a slip to a multi-year total is still caught", async () => {
+    const { checkAnnualCost } = await import("../src/guided/checks");
+    expect(checkAnnualCost("mgmt", 77, 500, { skipLow: true })).toEqual([]);
+    expect(checkAnnualCost("mgmt", 5000, 500, { skipLow: true })[0].code).toBe("mgmt_high");
+    // Other running costs keep their low check.
+    expect(checkAnnualCost("rego", 77, 900)[0].code).toBe("rego_low");
+  });
+});
