@@ -183,3 +183,11 @@ Providers:
   prompt to check the heading and footnotes remains when no provider payment pointer exists.
 - Guided running-cost GST question: a proposed extra ITC hint was removed at the owner's
   request. The existing “Including GST” → GST-credit follow-up already handles those quotes.
+- Clear Lease template cleanup: the three crude black marker strokes in the header, personal
+  details box and page join were replaced with blank paper and neutral value bars in
+  `docs/assets/images/quote-guide/clearlease/redacted-quote.webp`. The quote's labels and numbered
+  markers remain from the original redacted template. `scripts/clean_clearlease_template.py`
+  reproduces the cleanup using only that already-redacted 1400×3564 asset; if the private master
+  is republished later, run the script again on the new redacted WebP. The public Astro asset is
+  hardlinked to the tracked `docs` file. Visual inspection and a pixel check found no remaining
+  near-black stroke pixels in the three cleaned areas. No private original was committed.
