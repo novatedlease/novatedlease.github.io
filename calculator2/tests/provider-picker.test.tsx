@@ -901,7 +901,8 @@ describe("provider pointers", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-leaseexpress-quote.md"), "utf8");
     for (const field of ["baseValue", "residual", "payment"] as const)
       expect(article).toContain(pointersFor("leaseexpress", field)[0].text);
-    expect(article).toContain("full\non-road price including GST");
+    expect(article).toContain("work out the drive-away price in Guided mode");
+    expect(article).toContain("Not on your quote? Work it out from the residual");
     expect(article).toContain("Insurance Uplift goes with insurance");
   });
 

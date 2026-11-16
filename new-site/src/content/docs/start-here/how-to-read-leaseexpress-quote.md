@@ -15,7 +15,7 @@ This numbered example shows a LeaseExpress quote layout we reviewed. Match each 
 <!-- provider-traps:begin -->
 ## What catches people out on a LeaseExpress quote
 
-- **Drive-away price:** Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST.
+- **Drive-away price:** Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST, or work it out from the residual.
 <!-- provider-traps:end -->
 
 ![Redacted LeaseExpress quote with numbered fields](/assets/images/quote-guide/leaseexpress/redacted-quote.webp)
@@ -35,8 +35,10 @@ This numbered example shows a LeaseExpress quote layout we reviewed. Match each 
 | 10 | Leasexpress fee | Lease management fees |
 <!-- provider-table:end -->
 
-"Vehicle finance amount" is the amount financed, not the drive-away price. Ask for the full
-on-road price including GST, or use Guided's residual helper if it is unavailable.
+“Vehicle finance amount” is the amount financed, not the drive-away price. If you have the
+**residual value and percentage**, you can work out the drive-away price in Guided mode: open
+**“Not on your quote? Work it out from the residual”** below the drive-away box. Otherwise,
+ask for the full on-road price including GST.
 
 Not shown on this sample: **2 drive-away price** (use the calculator's residual helper), **8 luxury vehicle
 adjustment**, **11 interest rate**.

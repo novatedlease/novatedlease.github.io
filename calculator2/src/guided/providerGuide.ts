@@ -642,7 +642,7 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xo2r3u"],
     pointers: [
-      { field: "driveaway", text: "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST.", more: "If you have the residual, you can work out the price from it." },
+      { field: "driveaway", text: "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST, or work it out from the residual.", more: "Guided's helper uses the residual value, its percentage and its GST basis." },
       { field: "baseValue", text: "If you see “Value for FBT purposes”, that's the FBT base value." },
       { field: "residual", text: "If “GST on residual” sits beside “Residual value”, enter the residual figure and choose Excluding GST." },
       { field: "payment", text: "If “Lease payments (fortnightly)” has GST in a separate column, enter the payment per fortnight, excluding that GST." },

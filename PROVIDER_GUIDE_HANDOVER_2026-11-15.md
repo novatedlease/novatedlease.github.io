@@ -326,3 +326,7 @@ Providers:
   Advanced entry (header toggle, skip link, full-workings hand-off, and return to existing
   Advanced figures) now selects Details on arrival; a direct Advanced load still starts on
   Summary. Focused interaction tests cover the initial state and three entry paths.
+- LeaseExpress drive-away guidance: the article now explicitly says readers can use the
+  residual value and percentage in Guided's “Not on your quote? Work it out from the residual”
+  helper. The drive-away trap text also mentions this fallback; “Vehicle finance amount” remains
+  excluded as the drive-away price.

@@ -785,7 +785,7 @@
       "seen": "2026-11",
       "sourceCount": 1,
       "written": {
-        "driveaway": "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST.",
+        "driveaway": "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST, or work it out from the residual.",
         "baseValue": "If you see “Value for FBT purposes”, that's the FBT base value.",
         "residual": "If “GST on residual” sits beside “Residual value”, enter the residual figure and choose Excluding GST.",
         "payment": "If “Lease payments (fortnightly)” has GST in a separate column, enter the payment per fortnight, excluding that GST."
@@ -803,8 +803,8 @@
         {
           "field": "driveaway",
           "kind": "trap",
-          "text": "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST.",
-          "more": "If you have the residual, you can work out the price from it.",
+          "text": "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST, or work it out from the residual.",
+          "more": "Guided's helper uses the residual value, its percentage and its GST basis.",
           "image": null
         },
         {
