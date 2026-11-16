@@ -960,47 +960,6 @@
       ]
     },
     {
-      "id": "leaseplan",
-      "label": "LeasePlan / Ayvens",
-      "seen": "2025-08",
-      "sourceCount": 1,
-      "written": {
-        "driveaway": "Can’t find a drive-away total? Ask for the full on-road price including GST. The quote we checked had no residual to work it out from.",
-        "docFee": "If “Finance Documentation” is monthly, put it in management fees. Enter any one-off “Security Interest” fee as the documentation fee."
-      },
-      "traps": [
-        "driveaway",
-        "docFee"
-      ],
-      "pointers": [
-        {
-          "field": "driveaway",
-          "kind": "trap",
-          "text": "Can’t find a drive-away total? Ask for the full on-road price including GST. The quote we checked had no residual to work it out from.",
-          "more": "The vehicle subtotal may leave out stamp duty and registration. The reviewed quote did not print a residual.",
-          "image": null
-        },
-        {
-          "field": "defer",
-          "kind": "missing",
-          "text": "Can’t find months deferred on your LeasePlan / Ayvens quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
-          "image": null
-        },
-        {
-          "field": "docFee",
-          "kind": "trap",
-          "text": "If “Finance Documentation” is monthly, put it in management fees. Enter any one-off “Security Interest” fee as the documentation fee.",
-          "image": "/assets/images/quote-guide/leaseplan/field-docFee.webp"
-        },
-        {
-          "field": "residual",
-          "kind": "missing",
-          "text": "Can’t find a residual on your LeasePlan / Ayvens quote? Choose “I’m not sure” and we’ll use the ATO minimum.",
-          "image": null
-        }
-      ]
-    },
-    {
       "id": "lendly",
       "label": "Lendly",
       "seen": "2026-10",

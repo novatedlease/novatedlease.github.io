@@ -127,7 +127,7 @@ describe("kilometres: where each quote prints them", () => {
   });
 
   test("a provider whose quotes don't print kilometres keeps the generic hint", () => {
-    atRunning("leaseplan", "Non-EV");
+    atRunning("remserv", "Non-EV");
     expect(document.querySelector('.gd-pointers[data-field="mileage"]')).toBeNull();
     expect(document.body.textContent).toContain("The average Australian drives about 12,000 km.");
   });

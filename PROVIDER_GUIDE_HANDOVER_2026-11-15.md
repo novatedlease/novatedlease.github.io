@@ -355,3 +355,19 @@ Providers:
   `http://10.1.1.108:4340/calculator/`. Provider tests (101), changed-file lint and calculator
   build passed. The full Astro build reached its OG-image route, then failed because the
   sandbox could not resolve `cdn.jsdelivr.net`; the local article returned HTTP 200.
+
+## 16 Nov: LeasePlan removed
+
+- SG Fleet (owner of LeasePlan Australia since 2022) moved LeasePlan's novated customers onto
+  its own systems in Oct 2025 and decommissioned LeasePlan Online; its FAQ says "LeasePlan
+  Australia is now known as SG Fleet". The archive has no LeasePlan-format quote after Sep 2025,
+  and later "LeasePlan / SG Fleet" quotes (e.g. post 1oi1kdd) use SG Fleet's layout. Nobody can
+  get a LeasePlan quote now, so the owner asked to delete every trace rather than alias it.
+- Removed: the picker entry, guide, trap/not-shown/running-layout entries and the residual-helper
+  exception; the article, index link, redacted images and manifest entries; the sync-table and
+  freshness-check entries. The sync scripts' provider counts are now 29. The 12-month "old guide"
+  mechanism stays (no guide currently triggers it); its tests now use FleetPartners and a fake date
+  with Inside Edge. Private `running-layout/runlines.json` still lists LeasePlan and lacks Inside
+  Edge (hand-added to `runningLayout.ts` in 25e5c4f4, with "Comp Insurance Provision" instead of
+  the generator's "Insurance"): reconcile before regenerating.
+- Provider tests (113) and changed-file ESLint pass; calculator built; preview restarted on 4340.

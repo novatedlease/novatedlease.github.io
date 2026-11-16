@@ -24,5 +24,5 @@ for (const { id, seen, sourceCount } of guides.providers) {
   if (next !== oldText) writeFileSync(article, next);
   count++;
 }
-if (count !== 30) throw new Error(`Expected 30 provider guides, found ${count}`);
+if (count !== 29) throw new Error(`Expected 29 provider guides, found ${count}`);
 console.log(`Synced quote-review notes for ${count} provider articles`);

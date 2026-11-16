@@ -30,7 +30,6 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 - [Kooya quote guide](/start-here/how-to-read-kooya-quote/)
 - [LeaseExpress quote guide](/start-here/how-to-read-leaseexpress-quote/)
 - [LeaseLab quote guide](/start-here/how-to-read-leaselab-quote/)
-- [LeasePlan / Ayvens quote guide](/start-here/how-to-read-leaseplan-quote/)
 - [Lendly quote guide](/start-here/how-to-read-lendly-quote/)
 - [Maxxia quote guide](/start-here/how-to-read-maxxia-quote/)
 - [MillarX quote guide](/start-here/how-to-read-millarx-quote/)

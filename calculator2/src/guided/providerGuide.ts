@@ -29,7 +29,6 @@ export const PROVIDERS = [
   { id: "kooya", label: "Kooya" },
   { id: "leaseexpress", label: "LeaseExpress" },
   { id: "leaselab", label: "LeaseLab" },
-  { id: "leaseplan", label: "LeasePlan / Ayvens" },
   { id: "lendly", label: "Lendly" },
   { id: "millarx", label: "MillarX" },
   { id: "nla", label: "Novated Lease Australia (NLA)" },
@@ -69,8 +68,7 @@ const DRIVEAWAY_QUOTE_METHOD = new Set<ProviderId>([
 ]);
 
 export function showResidualDriveawayHelper(provider: ProviderId | null): boolean {
-  // The one LeasePlan sample omits both a drive-away total and the residual needed by the helper.
-  return provider !== "leaseplan" && !(provider && DRIVEAWAY_QUOTE_METHOD.has(PROVIDER_ALIAS[provider] ?? provider));
+  return !(provider && DRIVEAWAY_QUOTE_METHOD.has(PROVIDER_ALIAS[provider] ?? provider));
 }
 
 export function providerLabel(id: ProviderId): string {
@@ -135,7 +133,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   millarx: ["payment"], smartleasing: ["payment"],
   flare: ["driveaway"], oly: ["driveaway"],
   fleetpartners: ["docFee"],
-  leaseplan: ["driveaway", "docFee"], alliance: ["driveaway"],
+  alliance: ["driveaway"],
   remunerator: ["driveaway", "payment"], easi: ["payment"],
   autopia: ["baseValue"], leaselab: ["driveaway"],
   spa: ["driveaway", "baseValue"], prosperity: ["running"],
@@ -392,18 +390,6 @@ export const GUIDES: ProviderGuide[] = [
       {
         field: "defer",
         text: "Use the stated delay before lease payments start, or subtract “Based on” months from the lease term.",
-      },
-    ],
-  },
-  {
-    id: "leaseplan",
-    seen: "2025-08",
-    sources: ["1n16kcg"],
-    pointers: [
-      { field: "driveaway", text: "Can’t find a drive-away total? Ask for the full on-road price including GST. The quote we checked had no residual to work it out from.", more: "The vehicle subtotal may leave out stamp duty and registration. The reviewed quote did not print a residual." },
-      {
-        field: "docFee",
-        text: "If “Finance Documentation” is monthly, put it in management fees. Enter any one-off “Security Interest” fee as the documentation fee.",
       },
     ],
   },
@@ -739,7 +725,6 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   flare: ["defer", "docFee"],
   oly: ["baseValue", "defer", "fees"],
   maxxia: ["defer"],
-  leaseplan: ["defer", "residual"],
   insideedge: ["defer"],
   remunerator: ["docFee", "fees"],
   easi: ["docFee"],

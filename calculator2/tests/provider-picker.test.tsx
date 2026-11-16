@@ -33,7 +33,7 @@ const picker = () => screen.getByLabelText(/Who is your quote from/) as HTMLSele
 describe("a or an before a provider name", () => {
   test.each([
     ["Oly", "an"], ["SG Fleet", "an"], ["ORIX", "an"], ["Easi (EasiFleet)", "an"],
-    ["Maxxia", "a"], ["Smart Leasing", "a"], ["Novated Lease Australia (NLA)", "a"], ["LeasePlan / Ayvens", "a"],
+    ["Maxxia", "a"], ["Smart Leasing", "a"], ["Novated Lease Australia (NLA)", "a"],
   ])("%s takes %s", (label, expected) => {
     expect(articleFor(label)).toBe(expected);
   });
@@ -49,10 +49,9 @@ describe("provider picker", () => {
     const fallback = ["smartleasing", "oly", "remunerator", "paywise", "prosperity", "leaseexpress", "orix", "remserv"] as const;
     for (const id of clear) expect(showResidualDriveawayHelper(id), id).toBe(false);
     for (const id of fallback) expect(showResidualDriveawayHelper(id), id).toBe(true);
-    expect(showResidualDriveawayHelper("leaseplan")).toBe(false); // no residual in its reviewed quote
     expect(showResidualDriveawayHelper(null)).toBe(true);
     expect(showResidualDriveawayHelper("other")).toBe(true);
-    expect([...clear, ...fallback, "leaseplan"].sort()).toEqual(GUIDED_PROVIDERS.map((p) => p.id).sort());
+    expect([...clear, ...fallback].sort()).toEqual(GUIDED_PROVIDERS.map((p) => p.id).sort());
 
     on("price", { ...quoteDraft(), provider: "autopia" });
     expect(screen.queryByText(/Not on your quote\? Work it out from the residual/)).toBeNull();
@@ -77,8 +76,14 @@ describe("provider picker", () => {
     expect(screen.getByText(/The general hints work for any quote/)).toBeTruthy();
     expect(screen.getByRole("link", { name: "Tell us who it's from" }).getAttribute("href"))
       .toBe("/about/contact/#quote-layout-feedback");
-    fireEvent.change(picker(), { target: { value: "leaseplan" } });
-    expect(screen.getByText(/Our example is from Aug 2025/)).toBeTruthy();
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date(2027, 5, 1));
+    try {
+      fireEvent.change(picker(), { target: { value: "insideedge" } });
+      expect(screen.getByText(/Our example is from May 2026/)).toBeTruthy();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   test("Smart Leasing / MillarX answer follows the named provider", () => {
@@ -380,11 +385,11 @@ describe("provider pointers", () => {
     const now = new Date(2026, 10, 14);
     expect(guideIsOld("2025-11", now)).toBe(false);
     expect(guideIsOld("2025-10", now)).toBe(true);
-    const docFee = pointersFor("leaseplan", "docFee")[0];
+    const docFee = pointersFor("fleetpartners", "docFee")[0];
     expect(docFee.kind).toBe("trap");
-    expect(shownKind(docFee, "leaseplan", now)).toBe("locate");
-    expect(shownKind(docFee, "leaseplan", new Date(2026, 0, 1))).toBe("trap");
-    expect(shownKind(pointersFor("leaseplan", "residual")[0], "leaseplan", now)).toBe("missing");
+    expect(shownKind(docFee, "fleetpartners", new Date(2027, 11, 15))).toBe("locate");
+    expect(shownKind(docFee, "fleetpartners", now)).toBe("trap");
+    expect(shownKind(pointersFor("maxxia", "defer")[0], "maxxia", new Date(2027, 11, 15))).toBe("missing");
     expect(shownKind(pointersFor("oly", "driveaway")[0], "oly", now)).toBe("trap");
   });
 
@@ -957,14 +962,6 @@ describe("provider pointers", () => {
     expect(article).toContain("check how brokerage is handled");
     expect(article).toContain("it's charged every month");
     expect(article).toContain("Do not enter **Total lease cost**");
-  });
-
-  test("LeasePlan's one-off fee stays separate from monthly finance documentation", () => {
-    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-leaseplan-quote.md"), "utf8");
-    expect(article).toContain(pointersFor("leaseplan", "docFee")[0].text);
-    expect(article).toContain("Confirm the GST basis on your own quote");
-    expect(article).toContain("Ask for the full on-road price including GST");
-    expect(article).not.toContain("residual helper");
   });
 
   test("Alliance's footnote and two differently labelled payment examples stay in the article", () => {

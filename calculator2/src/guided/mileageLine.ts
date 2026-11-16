@@ -1,7 +1,7 @@
 /**
  * Where each provider's quote prints the kilometres a year its budgets assume (owner request,
- * 15 Nov 2026). Read off the Reddit quotes in each provider's `sources`. LeasePlan, RemServ, Easi
- * and Custom Fleet print none on the quotes we have, so they get no line. ORIX and Lendly print a
+ * 15 Nov 2026). Read off the Reddit quotes in each provider's `sources`. RemServ, Easi and
+ * Custom Fleet print none on the quotes we have, so they get no line. ORIX and Lendly print a
  * total for the whole lease, which is a trap: a reader typing it in as a yearly figure would
  * multiply the running costs.
  */

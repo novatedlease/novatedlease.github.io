@@ -30,7 +30,6 @@ const migrated = {
   customfleet: { '2': 'driveaway', '8': 'luxAdj', '10': 'fees' },
   vehiclesolutions: { '2': 'driveaway', '4': 'defer', '6': 'residual', '7a': 'payment' },
   fleetpartners: { '1': 'baseValue', '2': 'driveaway', '4': 'defer' },
-  leaseplan: { '5': 'docFee' },
   alliance: { '2': 'driveaway', '4': 'defer' },
   autopia: { '1': 'baseValue', '2': 'driveaway', '5': 'docFee' },
   prosperity: { '7': 'payment', '9': 'running' },

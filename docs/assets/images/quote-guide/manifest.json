@@ -404,30 +404,6 @@
       "w": 1400,
       "h": 4047
     },
-    "leaseplan/field-baseValue.webp": {
-      "w": 1065,
-      "h": 167
-    },
-    "leaseplan/field-docFee.webp": {
-      "w": 1065,
-      "h": 167
-    },
-    "leaseplan/field-fees.webp": {
-      "w": 1073,
-      "h": 177
-    },
-    "leaseplan/field-payment.webp": {
-      "w": 1065,
-      "h": 167
-    },
-    "leaseplan/field-running.webp": {
-      "w": 1029,
-      "h": 481
-    },
-    "leaseplan/redacted-quote.webp": {
-      "w": 1400,
-      "h": 1514
-    },
     "lendly/field-driveaway.webp": {
       "w": 1376,
       "h": 286
@@ -1109,11 +1085,6 @@
       "image": "leaselab/redacted-quote.webp",
       "w": 1400,
       "h": 4047
-    },
-    "leaseplan": {
-      "image": "leaseplan/redacted-quote.webp",
-      "w": 1400,
-      "h": 1514
     },
     "lendly": {
       "image": "lendly/redacted-quote.webp",
@@ -1909,43 +1880,6 @@
           "label": "10",
           "y": 2761,
           "h": 32
-        }
-      ]
-    },
-    "leaseplan": {
-      "docFee": [
-        {
-          "label": "5",
-          "y": 824,
-          "h": 36
-        }
-      ],
-      "baseValue": [
-        {
-          "label": "1",
-          "y": 1041,
-          "h": 31
-        }
-      ],
-      "payment": [
-        {
-          "label": "7",
-          "y": 1126,
-          "h": 36
-        }
-      ],
-      "running": [
-        {
-          "label": "9",
-          "y": 1236,
-          "h": 163
-        }
-      ],
-      "fees": [
-        {
-          "label": "10",
-          "y": 1398,
-          "h": 36
         }
       ]
     },
@@ -3141,23 +3075,6 @@
       ],
       "term": [
         "3"
-      ]
-    },
-    "leaseplan": {
-      "baseValue": [
-        "1"
-      ],
-      "docFee": [
-        "5"
-      ],
-      "fees": [
-        "10"
-      ],
-      "payment": [
-        "7"
-      ],
-      "running": [
-        "9"
       ]
     },
     "lendly": {

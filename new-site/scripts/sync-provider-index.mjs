@@ -6,7 +6,7 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 const guides = JSON.parse(readFileSync(path.join(root, 'new-site/src/data/provider-guides.json'), 'utf8'));
 const providers = guides.providers.map(({ id, label }) => ({ id, label }));
 const popular = guides.popular;
-if (providers.length !== 30 || popular.length !== 3) throw new Error('Provider index source changed; review the generator');
+if (providers.length !== 29 || popular.length !== 3) throw new Error('Provider index source changed; review the generator');
 const byId = new Map(providers.map((p) => [p.id, p]));
 for (const id of popular) if (!byId.has(id)) throw new Error(`Unknown popular provider: ${id}`);
 const link = ({ id, label }) => `- [${label} quote guide](/start-here/how-to-read-${id}-quote/)`;
