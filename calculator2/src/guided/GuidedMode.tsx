@@ -68,7 +68,6 @@ import {
   STEP_IDS,
   STEP_TITLES,
   annualOf,
-  serviceAndTyresAnnual,
   payCycle,
   asksMarketValueEnd,
   atoMinimumResidualExGst,
@@ -114,6 +113,7 @@ import {
 } from "./draft";
 import {
   checkAnnualCost,
+  checkServiceAndTyres,
   checkChargingRate,
   checkChargingBudget,
   checkCurrentCarValueEnd,
@@ -209,6 +209,11 @@ function paymentDiagnosisFor(d: GuidedDraft) {
 /** Findings by field, so each can sit directly under its input. */
 function findingsFor(d: GuidedDraft) {
   const typical = typicalFigures(d);
+  const serviceTyres = checkServiceAndTyres(
+    d.service.estimated ? null : annualOf(d, d.service),
+    d.service.estimated ? null : annualOf(d, d.tyres),
+    typical?.service ?? null,
+  );
   const base = moneyValue(d.baseValue);
   const drive = moneyValue(d.driveaway);
   const income = moneyValue(d.income);
@@ -253,11 +258,8 @@ function findingsFor(d: GuidedDraft) {
     curValueNow: d.compareCurrent ? checkCurrentCarValueNow(moneyValue(d.curValueNow), drive) : [],
     ...currentCarCostFindings(d),
     mileage: checkMileage(moneyValue(d.mileage)),
-    service: checkAnnualCost(
-      "service",
-      d.service.estimated ? null : serviceAndTyresAnnual(d),
-      typical?.service ?? null,
-    ),
+    service: serviceTyres.service,
+    tyres: serviceTyres.tyres,
     rego: checkAnnualCost(
       "rego",
       d.rego.estimated ? null : annualOf(d, d.rego),
@@ -2173,6 +2175,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
                   value={d.tyres}
                   onChange={(m) => set("tyres", m)}
                   suffix={suffix}
+                  findings={f.tyres}
                   where="Leave blank if your quote has no tyres line."
                   tooltip={<Tip>Added to servicing in the results. Some quotes include tyres in maintenance instead.</Tip>}
                 />

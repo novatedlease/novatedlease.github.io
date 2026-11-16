@@ -412,6 +412,27 @@ export function checkAnnualCost(
   return [];
 }
 
+/** Compare the combined budget with the combined typical amount, then point at the line driving it. */
+export function checkServiceAndTyres(
+  service: number | null,
+  tyres: number | null,
+  typical: number | null,
+): { service: Finding[]; tyres: Finding[] } {
+  const empty = { service: [], tyres: [] };
+  if (service === null) return empty;
+  const tyreAmount = tyres ?? 0;
+  const total = service + tyreAmount;
+  const finding = checkAnnualCost("service", total, typical)[0];
+  if (!finding || !typical || tyreAmount === 0) return { service: finding ? [finding] : [], tyres: [] };
+  const high = finding.code === "service_high";
+  const message = `Servicing and tyres together come to ${fmt(total)} a year (${fmt(service)} maintenance + ${fmt(tyreAmount)} tyres), which looks ${high ? "high" : "low"} against about ${fmt(typical)} typically. Check the amounts and the period selected above.`;
+  const target = high && tyreAmount > service ? "tyres" : "service";
+  return {
+    service: target === "service" ? [{ ...finding, message }] : [],
+    tyres: target === "tyres" ? [{ ...finding, code: "tyres_high", message }] : [],
+  };
+}
+
 export function checkMileage(km: number | null): Finding[] {
   if (km === null || km === 0) return [];
   if (km < 3000) {

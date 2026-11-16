@@ -175,6 +175,15 @@ Providers:
   2026. The private Driva `KEY.md` was corrected too (it is git-ignored).
 - Targeted provider tests: 117 passed; changed TypeScript ESLint clean. Calculator rebuilt and
   Astro preview restarted on port 4340. Nothing pushed or merged.
+
+## 16 Nov: servicing/tyres warning placement
+
+- The running-cost check compares servicing and tyres together with a combined typical yearly
+  amount. On Easi, $16.15 maintenance + $135.49 tyres per fortnight made the old warning say
+  $3,943/year under Maintenance, which looked like it was about $16.15 alone.
+- The warning now explains the two annual components and appears under Tyres when that is the
+  larger cause. The calculation of results is unchanged. A targeted Easi UI test covers the
+  example; 8 tests passed, ESLint clean, calculator rebuilt and preview restarted on port 4340.
 10. Parked by the owner: Queensland Government "Summary Table" quotes
     (`~/novated-lease-guide/private/qld-summary-table/`).
 

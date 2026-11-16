@@ -106,6 +106,26 @@ describe("tyres have their own box", () => {
     d.service = m("800");
     expect(missingForStep("running", d).join()).not.toMatch(/Tyres/);
   });
+
+  test("Easi's high combined budget warns under tyres when tyres drive the total", () => {
+    const d = quote();
+    d.provider = "easi";
+    d.vehicleType = "EV";
+    d.mileage = m("15000");
+    d.runningPeriod = "perFn";
+    d.runningGstHeading = "exGst";
+    d.service = m("16.15");
+    d.tyres = m("135.49");
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+    render(<App />);
+    const maintenance = document.querySelector('[data-field="service"]')!;
+    const tyres = document.querySelector('[data-field="tyres"]')!;
+    expect(maintenance.textContent).not.toMatch(/\$3,943/);
+    expect(tyres.textContent).toMatch(/\$3,943 a year \(\$420 maintenance \+ \$3,523 tyres\)/);
+  });
 });
 
 describe("other lines help", () => {
