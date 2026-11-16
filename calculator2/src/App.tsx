@@ -286,7 +286,7 @@ function AdvancedMode(props: {
 
             {outputTab === "details" && (
               <>
-                <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, Employee Contribution Method (ECM), and EV charging." defaultOpen>
+                <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, Employee Contribution Method (ECM), and EV charging.">
                   <BasicInformationReport inputs={inputs} onNavigateToDetails={navigateToDetails} />
                 </Section>
 
@@ -303,7 +303,6 @@ function AdvancedMode(props: {
                 <Section
                   title="Section 2: Financial summary"
                   description="Total cost comparison across novated lease, cash, loan, and keep-current-car pathways, standardised to a 5-year horizon."
-                  defaultOpen
                   analyticsId="section_2_financial_summary"
                   anchorId="details-section-2-financial-summary"
                   forceOpenNonce={sectionForceOpenNonce("details-section-2-financial-summary")}
@@ -434,7 +433,7 @@ export default function App() {
   // Cross-navigation from Summary/Compare/Basic-info to a specific Details section — replaces
   // v1's window-level "nlguide:navigate" CustomEvent with a plain callback + local state, since
   // everything lives in one component tree here. `nonce` forces a specific Section open even if
-  // the user had collapsed it (Sections default to collapsed except Basic info & Section 2).
+  // the user had collapsed it (all Details sections start collapsed).
   const [navTarget, setNavTarget] = useState<{ anchorId: string; nonce: number } | null>(null);
   function navigateToDetails(anchorId?: string) {
     setOutputTab("details");
@@ -536,8 +535,8 @@ export default function App() {
     setAdvancedEdited(false);
     setShowingExamples(false);
     changeMode("advanced");
+    setOutputTab("details");
     const detailsTop = anchorId === ADVANCED_DETAILS_TOP;
-    if (detailsTop) setOutputTab("details");
     if (anchorId && !detailsTop) {
       setPendingDetailsNav((prev) => ({ anchorId, nonce: (prev?.nonce ?? 0) + 1 }));
       return;
@@ -568,7 +567,13 @@ export default function App() {
       openGuidedInAdvanced(guidedInputsRef.current);
       return;
     }
+    if (next === "advanced" && mode === "guided") setOutputTab("details");
     changeMode(next);
+  }
+
+  function switchToAdvancedWithoutCopy() {
+    setOutputTab("details");
+    changeMode("advanced");
   }
 
   // Quick tour — entry button + guided walkthrough. tourHidden persists forever once dismissed;
@@ -654,7 +659,7 @@ export default function App() {
       {mode === "guided" ? (
         <GuidedMode
           onOpenAdvanced={openGuidedInAdvanced}
-          onSwitchToAdvanced={() => changeMode("advanced")}
+          onSwitchToAdvanced={switchToAdvancedWithoutCopy}
           advancedEdited={advancedEdited}
           onInputsChange={(i) => {
             guidedInputsRef.current = i;

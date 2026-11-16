@@ -321,3 +321,8 @@ Providers:
 - Kooya management fee: removed the redundant “On Kooya quotes: If you see Administration fee...”
   pointer and its Show me link from Guided. The redacted example still marks field 10, and the
   article retains a plain table mapping from Administration fee to lease management fee.
+- Advanced Details: all eight report sections now start collapsed, including Basic information
+  and Section 2. A link to a specific Details section still opens that target. Every Guided →
+  Advanced entry (header toggle, skip link, full-workings hand-off, and return to existing
+  Advanced figures) now selects Details on arrival; a direct Advanced load still starts on
+  Summary. Focused interaction tests cover the initial state and three entry paths.

@@ -245,6 +245,7 @@ describe("Guided → Advanced hand-off", () => {
     seedGuided(quoteDraft());
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: /Open full workings in Advanced mode/ }));
+    expect(screen.getByRole("tab", { name: /Details/ }).getAttribute("aria-selected")).toBe("true");
     expect(num("Fuel")).toBe(2400);
     expect(num(/Drive-away cost/)).toBe(52400);
   });
