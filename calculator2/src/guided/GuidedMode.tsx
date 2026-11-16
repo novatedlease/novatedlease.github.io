@@ -3483,7 +3483,23 @@ function ResultHeadline({
       {perPay !== null && (
         <p className="gd-headline__pay">
           Your take-home pay: about <strong>{money(perPay)} less per {unit}</strong>.
-          {payPeriod && <Tip>Compare this with the take-home figure on your quote.</Tip>}
+          {payPeriod && (
+            <Tip width={420}>
+              Compare this with your provider’s take-home impact. If they differ, check:
+              <ul>
+                <li>
+                  Used the Smart Leasing or MillarX correction? A difference is expected because the quote can include a budget reserve.{" "}
+                  <a href="/special-and-policy/smart-leasing-millarx-payment-structure/" target="_blank" rel="noreferrer">
+                    Why the figures differ
+                  </a>.
+                </li>
+                <li>
+                  Extra quote costs, such as LeaseGuard, incidentals or carbon offset, may be missing from your inputs.
+                  See “Where do other lines on my quote go?” on the Running costs page.
+                </li>
+              </ul>
+            </Tip>
+          )}
         </p>
       )}
       {/* Not in the saving above: super is still the reader's money, only locked away (UX 3). */}

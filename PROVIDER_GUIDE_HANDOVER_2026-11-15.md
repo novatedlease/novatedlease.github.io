@@ -153,6 +153,15 @@ Providers:
   finds none of the old answer text in any published Custom Fleet image.
 - Removed the article's instruction that Roadside Assistance and Accident Management are
   “Included in Lease Rental”; that was only true of this one example.
+
+## 16 Nov: take-home impact tooltip
+
+- The results headline's take-home tooltip now explains two common reasons it can differ from a
+  provider's take-home impact: the Smart Leasing/MillarX payment correction (with a link to the
+  payment-structure article), and optional quote costs omitted from the running-cost inputs.
+  It points readers to “Where do other lines on my quote go?” on the Running costs page.
+- Targeted UX tests: 34 passed; changed TypeScript ESLint clean. Calculator rebuilt and Astro
+  preview restarted on port 4340. Nothing pushed or merged.
 10. Parked by the owner: Queensland Government "Summary Table" quotes
     (`~/novated-lease-guide/private/qld-summary-table/`).
 

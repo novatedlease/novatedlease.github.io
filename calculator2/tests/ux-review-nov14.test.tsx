@@ -243,7 +243,13 @@ describe("UX 2 and 3: take-home pay and lost super beside the headline", () => {
     render(<App />);
     const pay = document.querySelector(".gd-headline__pay")!;
     expect(pay.textContent).toMatch(/^Your take-home pay: about \$[\d,]+ less per fortnight\./);
-    expect(tipIn(pay)).toMatch(/Compare this with the take-home figure on your quote\./);
+    const tooltip = tipIn(pay);
+    expect(tooltip).toMatch(/Compare this with your provider’s take-home impact/);
+    expect(tooltip).toMatch(/Smart Leasing or MillarX correction/);
+    expect(tooltip).toMatch(/LeaseGuard, incidentals or carbon offset/);
+    expect(tooltip).toMatch(/Where do other lines on my quote go\?/);
+    expect(document.querySelector('[role="tooltip"] a')?.getAttribute("href"))
+      .toBe("/special-and-policy/smart-leasing-millarx-payment-structure/");
     expect(document.querySelector(".gd-headline__super")).toBeNull();
   });
 
