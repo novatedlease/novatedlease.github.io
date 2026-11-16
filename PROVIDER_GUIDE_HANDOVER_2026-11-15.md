@@ -184,6 +184,27 @@ Providers:
 - The warning now explains the two annual components and appears under Tyres when that is the
   larger cause. The calculation of results is unchanged. A targeted Easi UI test covers the
   example; 8 tests passed, ESLint clean, calculator rebuilt and preview restarted on port 4340.
+
+## 16 Nov: high insurance comparison prompt
+
+- Easi's $135.49 per fortnight ex-GST insurance budget is $3,523/year, well above the
+  calculator's $2,180/year ex-GST rough estimate for a $58,000 EV. The old generic check only
+  warned at 3× typical, so it missed this.
+- Added a gentle quote-shopping warning under Insurance when the annual amount is **both**
+  at least 30% and $500 above the model estimate. It asks the reader to check period, cover
+  and excess and compare comprehensive quotes. Easi quotes link to
+  [Easi's self-insurance policy](https://support.easifleet.com.au/self-insurance-policy);
+  other quotes link to [AFIA's novated leasing code](https://www.afia.asn.au/finance-code/schedule-2-novated-leasing).
+  These sources say own comprehensive cover is possible subject to the lease terms.
+- Market check: [CHOICE's Jan 2026 quote sample](https://www.choice.com.au/money/insurance/car/articles/the-cost-of-insuring-electric-vehicles)
+  found $2,440/year for new EVs on average and wide brand variation;
+  [Compare the Market's Mar 2026 model sample](https://www.comparethemarket.com.au/news/ev-insurance-up-in-12-months/)
+  found $2,306 across ten EVs, with substantial model differences. Those are consumer
+  premium quotes whereas Guided's ex-GST comparison uses an ex-GST estimate, so the
+  published figures support only a broad ballpark check. The estimator formula was retained;
+  the warning does not call any premium wrong.
+- Targeted tests: 10 passed; ESLint clean. Calculator rebuilt and Astro preview restarted on
+  port 4340. Nothing pushed or merged.
 10. Parked by the owner: Queensland Government "Summary Table" quotes
     (`~/novated-lease-guide/private/qld-summary-table/`).
 

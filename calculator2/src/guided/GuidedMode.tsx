@@ -113,6 +113,7 @@ import {
 } from "./draft";
 import {
   checkAnnualCost,
+  checkInsuranceCost,
   checkServiceAndTyres,
   checkChargingRate,
   checkChargingBudget,
@@ -265,10 +266,10 @@ function findingsFor(d: GuidedDraft) {
       d.rego.estimated ? null : annualOf(d, d.rego),
       typical?.rego ?? null,
     ),
-    insurance: checkAnnualCost(
-      "insurance",
+    insurance: checkInsuranceCost(
       d.insurance.estimated ? null : annualOf(d, d.insurance),
       typical?.insurance ?? null,
+      d.provider,
     ),
     mgmt: checkAnnualCost(
       "mgmt",

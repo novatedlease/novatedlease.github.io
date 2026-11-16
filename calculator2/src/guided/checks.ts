@@ -3,7 +3,7 @@ import {
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
 import { moneyValue, type GuidedDraft, type Period } from "./draft";
-import { DRIVEAWAY_TRAP_LABELS, providerLabel } from "./providerGuide";
+import { DRIVEAWAY_TRAP_LABELS, providerLabel, type ProviderId } from "./providerGuide";
 
 export type Level = "error" | "warn" | "info" | "ok";
 export type Finding = {
@@ -410,6 +410,25 @@ export function checkAnnualCost(
     ];
   }
   return [];
+}
+
+/** A quote budget is worth comparing when it is well above the same car's rough insurance estimate. */
+export function checkInsuranceCost(
+  value: number | null,
+  typical: number | null,
+  provider: ProviderId | null,
+): Finding[] {
+  const periodCheck = checkAnnualCost("insurance", value, typical);
+  if (value === null || !typical || value < typical * 1.3 || value - typical < 500)
+    return periodCheck;
+  return [{
+    code: "insurance_high_compare",
+    level: "warn",
+    message: `About ${fmt(value)} a year is above our rough ${fmt(typical)} estimate. Check the period, cover and excess, then compare comprehensive quotes. If this is provider-arranged cover, ask about using your own insurer; the policy must meet your lease terms.`,
+    link: provider === "easi"
+      ? { href: "https://support.easifleet.com.au/self-insurance-policy", label: "Easi's own-insurance process" }
+      : { href: "https://www.afia.asn.au/finance-code/schedule-2-novated-leasing", label: "Insurance choice in novated leases" },
+  }];
 }
 
 /** Compare the combined budget with the combined typical amount, then point at the line driving it. */

@@ -128,6 +128,37 @@ describe("tyres have their own box", () => {
   });
 });
 
+describe("high insurance budget", () => {
+  test("Easi's $135.49 fortnightly cover prompts a comparison and links its own-insurance process", () => {
+    const d = quote();
+    d.provider = "easi";
+    d.vehicleType = "EV";
+    d.driveaway = m("58000");
+    d.mileage = m("15000");
+    d.runningPeriod = "perFn";
+    d.runningGstHeading = "exGst";
+    d.insurance = m("135.49");
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+    render(<App />);
+    const insurance = document.querySelector('[data-field="insurance"]')!;
+    expect(insurance.textContent).toMatch(/\$3,523 a year is above our rough \$2,180 estimate/);
+    expect(insurance.textContent).toMatch(/using your own insurer/);
+    expect(insurance.querySelector("a")?.getAttribute("href"))
+      .toBe("https://support.easifleet.com.au/self-insurance-policy");
+  });
+
+  test("the comparison prompt needs both 30% and $500 above the rough estimate", async () => {
+    const { checkInsuranceCost } = await import("../src/guided/checks");
+    expect(checkInsuranceCost(2833, 2180, "easi")).toEqual([]);
+    expect(checkInsuranceCost(2834, 2180, "easi")[0].code).toBe("insurance_high_compare");
+    expect(checkInsuranceCost(1499, 1000, "easi")).toEqual([]);
+    expect(checkInsuranceCost(1500, 1000, "easi")[0].code).toBe("insurance_high_compare");
+  });
+});
+
 describe("other lines help", () => {
   test("says where a carbon offset line goes", () => {
     window.localStorage.setItem(
