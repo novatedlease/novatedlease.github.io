@@ -2191,8 +2191,8 @@ function RunningStep({ d, set, f }: StepPropsF) {
           }
         }}
         options={[
-          { value: "exGst", label: "Excluding GST", sub: "e.g. “Amount ex GST”" },
-          { value: "incGst", label: "Including GST", sub: "e.g. “Amount inc GST”" },
+          { value: "exGst", label: "Excluding GST" },
+          { value: "incGst", label: "Including GST" },
           {
             value: "unknown",
             label: "I can't see it",

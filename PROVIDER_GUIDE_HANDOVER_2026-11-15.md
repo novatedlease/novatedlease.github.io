@@ -574,3 +574,8 @@ Open items (not started; raise with the owner):
 
 - Removed “Use whichever your quote shows. All the boxes below use it.” below the
   running-cost period choices to reduce clutter. The choices and calculation are unchanged.
+
+## 16 Nov: running-cost GST choice copy
+
+- Removed the redundant “Amount ex GST” and “Amount inc GST” bylines beneath the
+  Excluding GST and Including GST choices. Kept the “I can't see it” assumption.
