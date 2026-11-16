@@ -497,3 +497,11 @@ Open items (not started; raise with the owner):
 - Owner is mid-walkthrough on :4343; wait for the next review point and check code + source quote
   before changing guidance. Rules at the top of this file still apply (merge only on "merge",
   merge commit not squash, no prepare-content.mjs, no `.astro/`, no unredacted images).
+
+## 16 Nov: walkthrough template images repaired
+
+- The private `provider-walk/assets` symlink was missing, so NLA's template images (and likely
+  other providers' published pictures) returned 404 in the walkthrough. Recreated it pointing
+  to this worktree's `docs/assets`. The NLA full quote and field images exist; both the full
+  quote and running-cost crop returned HTTP 200 on the walkthrough server, including at
+  `http://10.1.1.108:4343/`. This is private server setup, not a public asset change.
