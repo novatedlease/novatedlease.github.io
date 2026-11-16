@@ -466,3 +466,34 @@ Providers:
   such as registration or insurance differently, while the engine applies one GST multiplier to
   every running cost except electricity (`calculator/src/engine/worksheet_130.ts`), so small
   differences are normal. Lendly, for example, credits 1/11 of all running costs, rego included.
+
+## Handover, end of 16 Nov session (for Codex)
+
+State: branch `codex/provider-guide-completion`, 260 commits ahead of `main`, worktree clean,
+nothing pushed or merged. Full suite: 462 Vitest tests pass (35 files). Preview: Astro on 4340,
+walkthrough `server.py` on 4343, both on `0.0.0.0`. Tailscale address is now **100.102.139.46**
+(was 100.95.205.3); MagicDNS name `mac-mini.tailbb9ee.ts.net`.
+
+This session's commits (oldest first), each detailed in a section above:
+1. `4872a7f8` LeasePlan removed entirely (no alias): SG Fleet absorbed it, Oct 2025.
+2. `0c229ecb` CarBon added: 3 quotes, `scripts/build_carbon_template.py`, article, pointers.
+3. `5f7474f0` Walkthrough server moved back to the private folder; owner's 16 "good" marks merged.
+4. `08a8c4e8` Payment screen: rate verdict (BYO suggestion etc.) under the effective-rate box.
+5. `cb283a75`, `38e80bf3`, `fa0146b0`, `ddfcd9b6`, `5db4f372` Lendly: drive-away = Total Price
+   (ex. GST) + GST Tax Credit (re-marked image); FBT base value = credit × 11, or Taxable Value × 5
+   at the cap (stacked picture); payment GST check; "Reading the monthly costs page" section.
+6. `8483bcbb` No "Typical estimate, not from your quote" note on the kWh charging price.
+7. `71b24796` Take-home tooltip: third bullet on per-line GST treatment (applies to all providers).
+
+Open items (not started; raise with the owner):
+- `TO_REVIEW.md` and `PROVIDER_GUIDE_MERGE_CHECKLIST.md` still mention LeasePlan and "27
+  providers"; there are now 29 named guides (30 with Other). Tidy before merge.
+- Inside Edge's running layout is hand-added to generated `runningLayout.ts` and missing from
+  private `runlines.json`; its insurance box says "Comp Insurance Provision", breaking the
+  always-"Insurance" rule. Regenerating would change visible wording: ask first.
+- CarBon: "Finance Management Fee" (Exclusions, no amount) unexplained; tooltip says ask CarBon.
+- Lendly: $236.47 extra in the residual base (probably a financed fee) unexplained; "Licence Fee"
+  meaning unconfirmed (treated as a management fee).
+- Owner is mid-walkthrough on :4343; wait for the next review point and check code + source quote
+  before changing guidance. Rules at the top of this file still apply (merge only on "merge",
+  merge commit not squash, no prepare-content.mjs, no `.astro/`, no unredacted images).
