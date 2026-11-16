@@ -620,3 +620,18 @@ Open items (not started; raise with the owner):
   32 labels with OCR/reviewed-source images: the 30 active guides plus Smartsalary
   (Smart Leasing alias) and retired LeasePlan/Ayvens. RACV appears only as a context
   candidate, with no provider match in the image itself. These remain heuristic counts.
+
+## 17 Nov: CarBon representative comments archived privately
+
+- `u/CarBon_Novated` comments were fetched from Arctic Shift for 14 locally identified
+  CarBon-related threads, including the three guide quote sources, the reposted-quote
+  thread, and the financing-fee discussion. There are 11 comments in 5 threads.
+  The private archive has `scripts/archive_carbon_comments.py`, the linked report
+  `reports/carbon-novated-comments-2026-11-17.md`, and structured records in
+  `data/carbon-novated-comments-2026-11-17.json`. No comment text or private assets
+  were added to this public worktree.
+- On `1xgrene`, the account says the quoted finance rate is 7.49%, its effective
+  rate is capped at 8.95%, and CarBon is not managing that particular lease (the
+  reason given for a $0 management fee). These are account statements, not
+  independently verified provider policy; the guide's existing $0-fee explanation
+  is consistent. The other comments discuss effective rates and competing quotes.
