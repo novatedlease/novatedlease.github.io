@@ -23,7 +23,7 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 - [Custom Fleet quote guide](/start-here/how-to-read-customfleet-quote/)
 - [Driva quote guide](/start-here/how-to-read-driva-quote/)
 - [Easi (EasiFleet) quote guide](/start-here/how-to-read-easi-quote/)
-- [Fingo (Automotive Lease Packaging) quote guide](/start-here/how-to-read-fingo-quote/)
+- [Fingo quote guide](/start-here/how-to-read-fingo-quote/)
 - [Flare quote guide](/start-here/how-to-read-flare-quote/)
 - [FleetPartners quote guide](/start-here/how-to-read-fleetpartners-quote/)
 - [Kooya quote guide](/start-here/how-to-read-kooya-quote/)

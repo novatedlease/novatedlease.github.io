@@ -13,7 +13,7 @@ datePublished: "2026-11-12"
 This numbered example shows a Fingo quote layout we reviewed. Match each marker to the table, then check the period and GST label on your own quote.
 
 <!-- provider-traps:begin -->
-## What catches people out on a Fingo (Automotive Lease Packaging) quote
+## What catches people out on a Fingo quote
 
 - **Drive-away price:** If you see “Your car price (drive away price when financed)”, it has the GST saving taken off. Use the full “Drive away Price” instead.
 <!-- provider-traps:end -->
@@ -47,7 +47,7 @@ Not shown on this sample: **8 luxury vehicle adjustment**, **11 interest rate**.
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote
 
-- **Documentation fee:** Can’t find a documentation or establishment fee on your Fingo (Automotive Lease Packaging) quote? Leave this at $0 unless yours lists one.
+- **Documentation fee:** Can’t find a documentation or establishment fee on your Fingo quote? Leave this at $0 unless yours lists one.
 <!-- provider-missing:end -->
 
 [Open Guided mode →](/calculator/) · [All provider quote guides →](/start-here/provider-quote-guides/)

@@ -22,7 +22,7 @@ export const PROVIDERS = [
   { id: "customfleet", label: "Custom Fleet" },
   { id: "driva", label: "Driva" },
   { id: "easi", label: "Easi (EasiFleet)" },
-  { id: "fingo", label: "Fingo (Automotive Lease Packaging)" },
+  { id: "fingo", label: "Fingo" },
   { id: "flare", label: "Flare" },
   { id: "fleetpartners", label: "FleetPartners" },
   { id: "kooya", label: "Kooya" },

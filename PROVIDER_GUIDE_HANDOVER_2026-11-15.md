@@ -283,3 +283,7 @@ Providers:
   is republished later, run the script again on the new redacted WebP. The public Astro asset is
   hardlinked to the tracked `docs` file. Visual inspection and a pixel check found no remaining
   near-black stroke pixels in the three cleaned areas. No private original was committed.
+- Fingo naming: the provider picker, exported guide data, article section copy and guide index
+  now use “Fingo” without “(Automotive Lease Packaging)”. This is a display-name change only.
+  The calculator build regenerated those files; focused provider-picker/export tests (101)
+  and changed-file ESLint passed. Astro preview was restarted on port 4340.

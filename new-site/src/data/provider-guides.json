@@ -585,7 +585,7 @@
     },
     {
       "id": "fingo",
-      "label": "Fingo (Automotive Lease Packaging)",
+      "label": "Fingo",
       "seen": "2026-11",
       "sourceCount": 1,
       "written": {
@@ -612,7 +612,7 @@
         {
           "field": "docFee",
           "kind": "missing",
-          "text": "Can’t find a documentation or establishment fee on your Fingo (Automotive Lease Packaging) quote? Leave this at $0 unless yours lists one.",
+          "text": "Can’t find a documentation or establishment fee on your Fingo quote? Leave this at $0 unless yours lists one.",
           "image": null
         },
         {
