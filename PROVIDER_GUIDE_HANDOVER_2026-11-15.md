@@ -563,3 +563,9 @@ Open items (not started; raise with the owner):
 - The illustrations use inline SVG viewports over existing redacted assets; no original
   amounts or identifying details were published. Focused provider tests (105),
   changed-file ESLint and calculator build passed. Astro preview restarted on 4340.
+
+## 16 Nov: GST credit answer example
+
+- On the Running costs screen, the Yes answer to “is a GST credit taken off the running
+  costs?” now gives both “Less GST credit” and “Input tax credit” as possible printed
+  line names. This is a copy-only change; the calculation is unchanged.

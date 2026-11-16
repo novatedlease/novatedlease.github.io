@@ -2222,7 +2222,7 @@ function RunningStep({ d, set, f }: StepPropsF) {
               {
                 value: "Yes",
                 label: "Yes",
-                sub: "A line such as “Less GST credit”",
+                sub: "A line such as “Less GST credit” or “Input tax credit”",
               },
               { value: "No", label: "No", sub: "The amounts stay as they are" },
               {
