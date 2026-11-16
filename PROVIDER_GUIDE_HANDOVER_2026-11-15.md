@@ -334,3 +334,9 @@ Providers:
   Price” in the top-right savings tile and “Novated Vehicle Price” lower down in Vehicle
   Information. Guided and the article now name both locations. The already-redacted full page
   has marker 2 on both lines, with a stacked focused crop; no quote amounts were published.
+- LeasePlan source attribution: the Aug 2025 Reddit comparison post 1n16kcg has two images.
+  Image 0 (“Your quote details”) is the source of the LeasePlan guide; it says “Insurance -
+  LeasePlan Supplier” and matches the same layout in post 1mfmtsg, whose page footer explicitly
+  names LeasePlan Australia Limited. Image 1 (“What are my running costs?”) is unbranded in the
+  crop; Inside Edge attribution is inferred by elimination, not proved by a visible logo.
+  The article now states this provenance and links both posts.
