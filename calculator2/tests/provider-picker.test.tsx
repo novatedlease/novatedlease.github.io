@@ -359,6 +359,12 @@ describe("provider pointers", () => {
     }
   });
 
+  test("NLA's payment GST question explains the printed subtotal check", () => {
+    on("payment", { ...quoteDraft(), provider: "nla" });
+    expect(screen.getByText(/On the NLA example, GST is 10% of the other “Gross fortnightly rental” lines/)).toBeTruthy();
+    expect(screen.getByText(/If your table works the same way, choose Excluding GST/)).toBeTruthy();
+  });
+
   const before = (a: Element, b: Element) => !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);
 
   test("payment pointer comes before the period and GST questions it answers", () => {

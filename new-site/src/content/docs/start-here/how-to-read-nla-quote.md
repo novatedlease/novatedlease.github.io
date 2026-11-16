@@ -15,7 +15,7 @@ The NLA Vehicle Packaging Schedule shown here separates the vehicle price compon
 <!-- provider-traps:begin -->
 ## What catches people out on a Novated Lease Australia (NLA) quote
 
-Nothing on the Novated Lease Australia (NLA) quotes we checked looked easy to misread. The table below shows where each figure is.
+- **Finance payment:** Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis.
 <!-- provider-traps:end -->
 
 ![Redacted NLA quote pages with numbered fields](/assets/images/quote-guide/nla/redacted-quote.webp)
@@ -29,12 +29,14 @@ Nothing on the Novated Lease Australia (NLA) quotes we checked looked easy to mi
 | 2 | Price (ex GST), GST, stamp duty, registration and CTP | No drive-away total? Add the vehicle price, GST, stamp duty, registration, CTP and any luxury car tax shown. |
 | 3 | Term (months) | Lease term. |
 | 6 | Residual payment (ex GST) | If you see “Residual payment (ex GST)”, choose Excluding GST. |
-| 7 | Lease payment (fixed), Gross fortnightly rental | Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight, without its separate GST line. |
+| 7 | Lease payment (fixed), Gross fortnightly rental | Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis. |
 | 9 | Annual budgets | Running-cost budgets; convert their period when Guided asks. |
 | 10 | Administration (fixed) | Lease management fee. |
 <!-- provider-table:end -->
 
 Keep the **reduction to your take-home pay** out of the finance-payment field.
+
+On the pictured quote, the GST line in “Gross fortnightly rental” is 10% of the other lines added together. That makes “Lease payment (fixed)” a before-GST figure. If your quote adds up the same way, choose **Excluding GST** for the finance payment.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

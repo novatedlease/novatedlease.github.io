@@ -1176,9 +1176,11 @@
         "baseValue": "If you see “Vehicle base value” in the FBT calculations box, that's the FBT base value.",
         "driveaway": "No drive-away total? Add the vehicle price, GST, stamp duty, registration, CTP and any luxury car tax shown.",
         "residual": "If you see “Residual payment (ex GST)”, choose Excluding GST.",
-        "payment": "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight, without its separate GST line."
+        "payment": "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis."
       },
-      "traps": [],
+      "traps": [
+        "payment"
+      ],
       "pointers": [
         {
           "field": "baseValue",
@@ -1212,9 +1214,9 @@
         },
         {
           "field": "payment",
-          "kind": "locate",
-          "text": "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight, without its separate GST line.",
-          "more": "Don't use the take-home-pay reduction. It is after tax and includes running costs.",
+          "kind": "trap",
+          "text": "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis.",
+          "more": "On the reviewed quote, GST is 10% of the other rental lines added together. Don't use the take-home-pay reduction: it is after tax and includes running costs.",
           "image": "/assets/images/quote-guide/nla/field-payment.webp"
         }
       ]

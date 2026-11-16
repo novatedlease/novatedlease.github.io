@@ -1619,8 +1619,14 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         ]}
         columns={3}
         hint={<>
-          {!hasProviderLine(d, "payment") && "Check next to the payment, its table heading and the footnotes. "}
-          If the table adds GST, then takes the same amount off as an employer GST credit (ITC), choose Excluding GST.
+          {d.provider === "nla" ? (
+            "On the NLA example, GST is 10% of the other “Gross fortnightly rental” lines. If your table works the same way, choose Excluding GST."
+          ) : (
+            <>
+              {!hasProviderLine(d, "payment") && "Check next to the payment, its table heading and the footnotes. "}
+              If the table adds GST, then takes the same amount off as an employer GST credit (ITC), choose Excluding GST.
+            </>
+          )}
         </>}
         tooltip={<Tip>If your quote shows the payment twice, once with GST and once without, the smaller figure is ex GST.</Tip>}
       />

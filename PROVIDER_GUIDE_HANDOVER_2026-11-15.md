@@ -523,3 +523,14 @@ Open items (not started; raise with the owner):
   need visual review and did not trigger any public guidance changes. The post scraper
   covers submissions, not image-bearing comments or deleted uploads. No private image or
   post data was committed to the public branch.
+
+## 16 Nov: NLA payment GST subtotal hint
+
+- On NLA source quote 1xs3una, the “Gross fortnightly rental” rows before GST sum to
+  $659.34 and the GST row is $65.93, 10% after rounding. The gross rental including GST
+  is $725.27. Guided now explains under “Does the payment include or exclude GST?” that
+  readers should choose Excluding GST **if their own table adds up the same way**. The
+  payment pointer and article also direct readers to the subtotal rather than claiming
+  every NLA quote has one GST basis. No quote numbers appear in the public copy. The
+  focused provider tests (100), changed-file ESLint and calculator build passed; Astro
+  preview restarted on 4340. Full suite was not run for this small change.

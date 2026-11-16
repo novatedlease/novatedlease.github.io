@@ -141,6 +141,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   driva: ["driveaway"], fingo: ["driveaway"],
   leaseexpress: ["driveaway"], lendly: ["driveaway"],
   insideedge: ["driveaway", "docFee"],
+  nla: ["payment"],
   carbon: ["payment"],
   kooya: ["driveaway", "payment"],
   clearlease: ["driveaway", "payment"],
@@ -638,7 +639,7 @@ export const GUIDES: ProviderGuide[] = [
       { field: "baseValue", text: "If you see “Vehicle base value” in the FBT calculations box, that's the FBT base value." },
       { field: "driveaway", text: "No drive-away total? Add the vehicle price, GST, stamp duty, registration, CTP and any luxury car tax shown." },
       { field: "residual", text: "If you see “Residual payment (ex GST)”, choose Excluding GST." },
-      { field: "payment", text: "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight, without its separate GST line.", more: "Don't use the take-home-pay reduction. It is after tax and includes running costs." },
+      { field: "payment", text: "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis.", more: "On the reviewed quote, GST is 10% of the other rental lines added together. Don't use the take-home-pay reduction: it is after tax and includes running costs." },
     ],
   },
   {
