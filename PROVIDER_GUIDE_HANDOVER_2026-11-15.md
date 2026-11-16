@@ -432,3 +432,8 @@ Providers:
   from the private source because the old outline crossed the “y”). OCR finds no figures.
   The Lendly article states the payment's GST basis isn't labelled; the “Less GST Savings” line
   suggests it is ex GST, but that wording was not changed.
+- Simplified (owner): Lendly's FBT base value line is now “Find ‘GST Tax Credit’. Less than
+  $6,353? Multiply it by 11. At $6,353, the maximum? Multiply ‘Taxable Value’ by 5.” (× 5, not
+  ÷ 0.2, at the owner's request.) Its picture `lendly/field-base-value-methods.webp` stacks the
+  GST Tax Credit crop and a redacted “Taxable Value” crop from page 7, each with a plain label;
+  built by `scripts/build_lendly_base_value.py`. OCR finds no figures.

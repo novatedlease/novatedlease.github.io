@@ -809,12 +809,17 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotS
     }),
   },
   lendly: {
-    // Lendly's own base value is its statutory "Taxable Value" ÷ 20%; on 1wus9yl that equals the
-    // credit × 11 to the cent ($58,426.95), and it still works when the credit is capped.
-    baseValue: gstCreditLine("lendly", "Lendly", "“GST Tax Credit”", "Lendly", {
-      text: "Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11.",
-      more: `If the credit is ${capText}, the most allowed, divide “Taxable Value” under “Reportable Fringe Benefits Amount” by 0.2 instead.`,
-    }),
+    // Lendly's own base value is its statutory "Taxable Value" x 5 (20% rate); on 1wus9yl that
+    // equals the credit x 11 to the cent ($58,426.95), and it still works when the credit is capped.
+    baseValue: {
+      text: `Find “GST Tax Credit”. Less than ${capText}? Multiply it by 11. At ${capText}, the maximum? Multiply “Taxable Value” by 5.`,
+      more: "“Taxable Value” is under “Reportable Fringe Benefits Amount”, near the end of the quote.",
+      example: {
+        image: "/assets/images/quote-guide/lendly/field-base-value-methods.webp",
+        alt: "Parts of a redacted Lendly quote with the GST Tax Credit and Taxable Value lines outlined",
+        caption: "Part of a real Lendly quote with values removed. Use the top line unless the credit is the maximum.",
+      },
+    },
   },
   millarx: {
     // MillarX is finance only: the salary packager, not MillarX, holds the FBT base value.

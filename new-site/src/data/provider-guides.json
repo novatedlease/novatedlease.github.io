@@ -1054,9 +1054,9 @@
         {
           "field": "baseValue",
           "kind": "missing",
-          "text": "Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11.",
-          "more": "If the credit is $6,353, the most allowed, divide “Taxable Value” under “Reportable Fringe Benefits Amount” by 0.2 instead.",
-          "image": "/assets/images/quote-guide/lendly/field-gst-credit.webp"
+          "text": "Find “GST Tax Credit”. Less than $6,353? Multiply it by 11. At $6,353, the maximum? Multiply “Taxable Value” by 5.",
+          "more": "“Taxable Value” is under “Reportable Fringe Benefits Amount”, near the end of the quote.",
+          "image": "/assets/images/quote-guide/lendly/field-base-value-methods.webp"
         },
         {
           "field": "driveaway",

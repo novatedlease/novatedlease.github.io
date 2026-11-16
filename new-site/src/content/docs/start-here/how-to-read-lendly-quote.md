@@ -38,16 +38,16 @@ This numbered example shows a Lendly quote layout we reviewed. Match each marker
 
 Note: the "^" on Lease says the lease includes add-ons (tint, dash cam, scratch & dent, membership). On the quote reviewed, those add-ons are financed on top of the “Drive Away” price: “Total Price (ex. GST)” is about $2,490 more than the drive-away price less the GST credit. Adding “Total Price (ex. GST)” and “GST Tax Credit” gives a drive-away figure that includes them. On a [Lendly quote](https://www.reddit.com/r/NovatedLeasingAU/comments/1t93tpn/) with its extras inside the drive-away price, the two methods agree to the cent.
 
-The FBT base value is not printed, but Lendly's own figure can be worked out two ways. “GST Tax Credit” × 11 matched Lendly's statutory-formula “Taxable Value” ÷ 0.2 to the cent on the quote reviewed. The second method also works when the credit is capped.
+The FBT base value is not printed, but Lendly's own figure can be worked out two ways. On the quote reviewed, “GST Tax Credit” × 11 and “Taxable Value” × 5 gave the same figure to the cent. Use the second when the credit is at the maximum.
 
 Not shown on this sample: **11 interest rate**.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote
 
-- **FBT base value:** Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11. If the credit is $6,353, the most allowed, divide “Taxable Value” under “Reportable Fringe Benefits Amount” by 0.2 instead.
+- **FBT base value:** Find “GST Tax Credit”. Less than $6,353? Multiply it by 11. At $6,353, the maximum? Multiply “Taxable Value” by 5. “Taxable Value” is under “Reportable Fringe Benefits Amount”, near the end of the quote.
 
-  ![Part of a redacted Lendly quote with the line to use outlined](/assets/images/quote-guide/lendly/field-gst-credit.webp)
+  ![Part of a redacted Lendly quote with the line to use outlined](/assets/images/quote-guide/lendly/field-base-value-methods.webp)
 - **Months deferred:** Can’t find months deferred on your Lendly quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
 - **Documentation fee:** Can’t find a documentation or establishment fee on your Lendly quote? Leave this at $0 unless yours lists one.
 <!-- provider-missing:end -->
