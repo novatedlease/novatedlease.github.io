@@ -593,3 +593,21 @@ Open items (not started; raise with the owner):
   now amber: for Per year and Including GST, multiply the fortnightly fee by 26 and
   then 1.10. Its tooltip covers other period/GST selections. The generated NLA article
   also gets this warning. The calculation engine is unchanged.
+
+## 17 Nov: private provider image sort
+
+- User requested a cheap, autonomous sort of the local Reddit image archive. Private
+  `scripts/sort_images_by_provider.py` indexed 2,465 JPGs (2,123 submission images and
+  342 comment images, including two older comment files). Originals remain in place;
+  `provider-sort-2026-11-17/` contains 2,465 symlinks grouped by provider, context-only
+  candidates, or review status. The CSV/JSON index and count report are under private
+  `data/provider-image-index-2026-11-17.*` and
+  `reports/provider-image-sort-2026-11-17.md`.
+- Results: 1,000 single-provider OCR matches, 3 exact previously reviewed source images,
+  374 context-only candidates, 57 multi-provider ambiguous, 806 unidentified, and 225
+  unlikely to be quotes. The three reviewed overrides distinguish Prosperity Smart Drive
+  from generic “lease plan” wording, and the Vehicle Solutions versus Smart Leasing
+  images in one comparison post. Recovered OCR for two older comment images and 18 Kooya
+  images whose filenames collide with dated images; `ocr-kooya/` keeps those separate.
+  The labels are heuristic and image counts are not quote counts. No private image or
+  index was committed to the public worktree; no calculator guidance changed.
