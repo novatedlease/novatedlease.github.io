@@ -437,3 +437,9 @@ Providers:
   ÷ 0.2, at the owner's request.) Its picture `lendly/field-base-value-methods.webp` stacks the
   GST Tax Credit crop and a redacted “Taxable Value” crop from page 7, each with a plain label;
   built by `scripts/build_lendly_base_value.py`. OCR finds no figures.
+- Lendly payment GST: page 3's “Pre-tax salary sacrifice” $1,547.47 = running costs + Lease +
+  Licence Fee − GST savings; PAYG savings = 39% of it; A+B is the take-home drop. GST savings
+  ($44.51) is about the GST on running costs alone, so the $1,067.35 Lease is ex GST. Per the
+  owner's rule not to state a provider's GST basis as fact, the new payment pointer gives a check:
+  “If ‘Less GST Savings’ is less than a tenth of ‘Lease’, choose Excluding GST.” Article table
+  row 7 now syncs from it (`sync-provider-tables.mjs`), replacing “choose I'm not sure”.

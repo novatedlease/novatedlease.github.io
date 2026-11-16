@@ -1045,6 +1045,7 @@
       "written": {
         "driveaway": "Add “Total Price (ex. GST)” and “GST Tax Credit”. Don't use “Total Price (ex. GST)” on its own.",
         "residual": "If “Residual Value” has no GST label, check the footnote: the quote reviewed says it includes GST.",
+        "payment": "Use “Lease” under “Monthly lease costs”, per month. If “Less GST Savings” is less than a tenth of “Lease”, choose Excluding GST.",
         "fees": "If you see a “Licence Fee” in the running-cost budget, include it with lease management fees."
       },
       "traps": [
@@ -1082,6 +1083,13 @@
           "kind": "locate",
           "text": "If “Residual Value” has no GST label, check the footnote: the quote reviewed says it includes GST.",
           "image": "/assets/images/quote-guide/lendly/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "Use “Lease” under “Monthly lease costs”, per month. If “Less GST Savings” is less than a tenth of “Lease”, choose Excluding GST.",
+          "more": "“Less GST Savings” is the GST credit on the monthly figures. If “Lease” included GST, its credit alone would be about a tenth of it. On the quote reviewed, the saving covered only the running costs.",
+          "image": "/assets/images/quote-guide/lendly/field-payment.webp"
         },
         {
           "field": "fees",

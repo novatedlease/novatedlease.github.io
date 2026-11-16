@@ -17,7 +17,7 @@ const migrated = {
   remunerator: { '2': 'driveaway', '4': 'defer', '7': 'payment' },
   driva: { '2': 'driveaway', '6': 'residual', '7': 'payment' },
   fingo: { '2': 'driveaway', '4': 'defer', '7': 'payment' },
-  lendly: { '2': 'driveaway' },
+  lendly: { '2': 'driveaway', '7': 'payment' },
   spa: { '1': 'baseValue', '2': 'driveaway', '4': 'defer' },
   paywise: { '7': 'payment', '10': 'fees' },
   remserv: { '6': 'residual', '7': 'payment' },

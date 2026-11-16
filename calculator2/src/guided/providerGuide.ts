@@ -710,6 +710,8 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       { field: "driveaway", text: "Add “Total Price (ex. GST)” and “GST Tax Credit”. Don't use “Total Price (ex. GST)” on its own.", more: "That sum includes extras financed outside the “Drive Away” price, such as tint or a dash cam (see the footnote on “Lease”). Without such extras, it equals the drive-away price." },
       { field: "residual", text: "If “Residual Value” has no GST label, check the footnote: the quote reviewed says it includes GST." },
+      // 1wus9yl: GST savings $44.51 ≈ GST on the running costs alone; a GST-inclusive $1,067.35 lease would add ~$97.
+      { field: "payment", text: "Use “Lease” under “Monthly lease costs”, per month. If “Less GST Savings” is less than a tenth of “Lease”, choose Excluding GST.", more: "“Less GST Savings” is the GST credit on the monthly figures. If “Lease” included GST, its credit alone would be about a tenth of it. On the quote reviewed, the saving covered only the running costs." },
       { field: "fees", text: "If you see a “Licence Fee” in the running-cost budget, include it with lease management fees." },
     ],
   },

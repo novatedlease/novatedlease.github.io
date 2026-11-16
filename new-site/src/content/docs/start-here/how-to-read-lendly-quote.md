@@ -30,11 +30,13 @@ This numbered example shows a Lendly quote layout we reviewed. Match each marker
 | 2 | GST Tax Credit + Total Price (ex. GST) | Add “Total Price (ex. GST)” and “GST Tax Credit”. Don't use “Total Price (ex. GST)” on its own. |
 | 3 | Monthly running costs (N mths / … kms) | Lease term = N months |
 | 6 | Residual Value | Residual, "Including GST" (only the definition below says so) |
-| 7 | Lease | Finance payment, per month. GST basis isn't labelled; choose "I'm not sure" |
+| 7 | Lease | Use “Lease” under “Monthly lease costs”, per month. If “Less GST Savings” is less than a tenth of “Lease”, choose Excluding GST. |
 | 8 | Luxury Vehicle Adjustment | Luxury vehicle adjustment, per month |
 | 9 | Monthly running costs: charging, insurance, registration, maintenance, tyres, car wash, roadside | Running-cost boxes, per month |
 | 10 | Licence Fee | Lease management fees |
 <!-- provider-table:end -->
+
+On the quote reviewed, “Less GST Savings” ($44.51 a month) is about the GST on the running costs alone. A GST-inclusive “Lease” of over $1,000 would have added about $97 more, so its “Lease” figure is ex GST. Check the same way on your own quote.
 
 Note: the "^" on Lease says the lease includes add-ons (tint, dash cam, scratch & dent, membership). On the quote reviewed, those add-ons are financed on top of the “Drive Away” price: “Total Price (ex. GST)” is about $2,490 more than the drive-away price less the GST credit. Adding “Total Price (ex. GST)” and “GST Tax Credit” gives a drive-away figure that includes them. On a [Lendly quote](https://www.reddit.com/r/NovatedLeasingAU/comments/1t93tpn/) with its extras inside the drive-away price, the two methods agree to the cent.
 
