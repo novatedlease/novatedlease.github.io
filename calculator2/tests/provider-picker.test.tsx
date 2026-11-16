@@ -929,7 +929,7 @@ describe("provider pointers", () => {
     for (const field of ["driveaway", "luxAdj", "fees"] as const)
       expect(article).toContain(pointersFor("customfleet", field)[0].text);
     expect(article).toContain("pick one column and the matching period; ex GST");
-    expect(article).toContain("leave them out");
+    expect(article).not.toContain('Roadside Assistance and Accident Management are "Included in Lease Rental"');
   });
 
   test("Vehicle Solutions keeps both fortnightly GST payment choices", () => {

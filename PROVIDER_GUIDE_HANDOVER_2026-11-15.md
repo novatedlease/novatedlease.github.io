@@ -144,6 +144,15 @@ Providers:
   to find the base value when the sample doesn't print it.
 - Built the calculator/export and restarted Astro preview at `http://10.1.1.108:4340/`.
   Targeted provider tests: 101 passed; eslint on changed TypeScript: clean. No push or merge.
+
+## 16 Nov: Custom Fleet example cleanup
+
+- Blanked quote-specific choice answers in the published Custom Fleet page and affected Guided
+  crops: employee contribution, fuel, insurance arrangement, roadside assistance, accident
+  management and Peace of Mind Plan. Kept the field names and numbered markers. Confirmed OCR
+  finds none of the old answer text in any published Custom Fleet image.
+- Removed the article's instruction that Roadside Assistance and Accident Management are
+  “Included in Lease Rental”; that was only true of this one example.
 10. Parked by the owner: Queensland Government "Summary Table" quotes
     (`~/novated-lease-guide/private/qld-summary-table/`).
 
