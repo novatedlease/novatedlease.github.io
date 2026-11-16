@@ -1506,6 +1506,9 @@ function setDraftDefer(set: StepProps["set"], months: number, unsure: boolean) {
   set("monthsDeferredUnsure", unsure);
 }
 
+/** Payment checks that judge the effective rate; shown under the rate rather than the amount. */
+const RATE_NOTE_CODES = new Set(["rate_high", "rate_unusually_low", "rate_typical"]);
+
 function PaymentStep({ d, set, f }: StepPropsF) {
   const [adjustOpen, setAdjustOpen] = useState(false);
   const diag = paymentDiagnosisFor(d);
@@ -1516,6 +1519,9 @@ function PaymentStep({ d, set, f }: StepPropsF) {
     ? "perYear" : d.paymentPeriod ?? "perFn");
   const luxUnit = PERIOD_UNIT[luxPeriod];
   const mustCorrect = !!d.smartMillarx && !d.paymentCorrected;
+  // How the effective rate compares belongs under the rate itself, not under the amount box.
+  const rateNotes = f.payment.filter((x) => RATE_NOTE_CODES.has(x.code));
+  const paymentNotes = f.payment.filter((x) => !RATE_NOTE_CODES.has(x.code));
   return (
     <Side highlight={["payment", "luxAdj", "running"]} d={d}>
       <Lead>
@@ -1562,7 +1568,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
             : "The car's pre-tax payment, before running costs. Type it as printed."
         }
         suffix={d.paymentPeriod ? `per ${PERIOD_UNIT[d.paymentPeriod]}` : undefined}
-        findings={[...f.payment, ...f.paymentCorrected, ...f.providerPayment]}
+        findings={[...paymentNotes, ...f.paymentCorrected, ...f.providerPayment]}
       />
       <Choices
         field="paymentPeriod"
@@ -1693,6 +1699,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           </span>
         </div>
       )}
+      <FindingList findings={rateNotes} />
       {luxury && (
         <MoneyInput
         field="luxAdj"

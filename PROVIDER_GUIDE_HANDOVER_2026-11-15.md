@@ -405,3 +405,11 @@ Providers:
   `private/quote-review-2026-11/provider-walk/feedback.json` (backup of the previous file:
   `feedback.before-merge-2026-11-16.json`) and restarted `server.py` from the private folder.
   Always run it from there.
+
+## 16 Nov: effective-rate note placement
+
+- On the Payment screen, the rate verdicts (`rate_high` BYO suggestion, `rate_unusually_low`,
+  `rate_typical`) now show under the “Effective interest rate” box instead of under the amount
+  box, above the period and GST questions (owner request). Entry slips such as `payment_too_high`
+  stay under the amount. Notes still wait until the amount input loses focus (the whole finding
+  map is emptied while typing). New ordering test; 176 related tests and lint pass.

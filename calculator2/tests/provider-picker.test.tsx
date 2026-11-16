@@ -1020,3 +1020,25 @@ describe("provider pointers", () => {
     expect(pointersFor(null, "payment")).toEqual([]);
   });
 });
+
+describe("payment screen order", () => {
+  test("the high-rate BYO note sits under the effective interest rate, not under the amount", () => {
+    on("payment", {
+      ...quoteDraft(),
+      driveaway: { text: "60000", none: false, estimated: false },
+      baseValue: { text: "55000", none: false, estimated: false },
+      leaseYears: 5,
+      monthsDeferred: 2,
+      residualBasis: "exGst",
+      residual: { text: "15468", none: false, estimated: false },
+      payment: { text: "560", none: false, estimated: false },
+      paymentPeriod: "perFn",
+      paymentBasis: "exGst",
+    });
+    const note = screen.getByText(/That's on the high side/);
+    const rate = screen.getByText("Effective interest rate");
+    expect(rate.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    const gst = screen.getByText("Does the payment include or exclude GST?");
+    expect(gst.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+});
