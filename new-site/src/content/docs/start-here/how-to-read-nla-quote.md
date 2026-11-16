@@ -16,6 +16,7 @@ The NLA Vehicle Packaging Schedule shown here separates the vehicle price compon
 ## What catches people out on a Novated Lease Australia (NLA) quote
 
 - **Finance payment:** Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis.
+- **Management fees:** “Administration (fixed)” is fortnightly, before GST. For Per year and Including GST, multiply by 26, then 1.10.
 <!-- provider-traps:end -->
 
 ![Redacted NLA quote pages with numbered fields](/assets/images/quote-guide/nla/redacted-quote.webp)
@@ -31,7 +32,7 @@ The NLA Vehicle Packaging Schedule shown here separates the vehicle price compon
 | 6 | Residual payment (ex GST) | If you see “Residual payment (ex GST)”, choose Excluding GST. |
 | 7 | Lease payment (fixed), Gross fortnightly rental | Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis. |
 | 9 | Annual budgets | Running-cost budgets; convert their period when Guided asks. |
-| 10 | Administration (fixed) | Lease management fee. |
+| 10 | Administration (fixed) | Lease management fee. It is fortnightly and before GST; convert it to the period and GST basis chosen in Guided. |
 <!-- provider-table:end -->
 
 Keep the **reduction to your take-home pay** out of the finance-payment field.

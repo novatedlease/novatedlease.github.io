@@ -584,3 +584,12 @@ Open items (not started; raise with the owner):
 
 - Removed “How do I use my current driving to estimate this?” from the Running costs
   screen. The kilometres field and provider-specific quote pointer remain.
+
+## 16 Nov: NLA administration fee period
+
+- The reviewed NLA quote (1xs3una, page 2) prints “Administration (fixed)” in the
+  Gross fortnightly rental table, before the separate GST line. Its Annual budgets
+  (including GST) section does not repeat this fee. The Running costs fee pointer is
+  now amber: for Per year and Including GST, multiply the fortnightly fee by 26 and
+  then 1.10. Its tooltip covers other period/GST selections. The generated NLA article
+  also gets this warning. The calculation engine is unchanged.

@@ -372,6 +372,13 @@ describe("provider pointers", () => {
     expect(screen.getByText(/GST = 10% of the sum of the other rental lines above/)).toBeTruthy();
   });
 
+  test("NLA marks its fortnightly administration fee as an annual-budget conversion trap", () => {
+    const pointer = pointersFor("nla", "fees")[0];
+    expect(shownKind(pointer, "nla")).toBe("trap");
+    expect(pointer.text).toContain("multiply by 26, then 1.10");
+    expect(pointer.more).toContain("Per year and Excluding GST");
+  });
+
   test.each(["alliance", "easi", "clearlease", "fingo"] as const)("%s shows the verified GST row example", (provider) => {
     phoneWidth(false);
     on("payment", { ...quoteDraft(), provider });

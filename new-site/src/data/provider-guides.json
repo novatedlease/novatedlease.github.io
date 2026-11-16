@@ -1176,10 +1176,12 @@
         "baseValue": "If you see “Vehicle base value” in the FBT calculations box, that's the FBT base value.",
         "driveaway": "No drive-away total? Add the vehicle price, GST, stamp duty, registration, CTP and any luxury car tax shown.",
         "residual": "If you see “Residual payment (ex GST)”, choose Excluding GST.",
-        "payment": "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis."
+        "payment": "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis.",
+        "fees": "“Administration (fixed)” is fortnightly, before GST. For Per year and Including GST, multiply by 26, then 1.10."
       },
       "traps": [
-        "payment"
+        "payment",
+        "fees"
       ],
       "pointers": [
         {
@@ -1218,6 +1220,13 @@
           "text": "Use “Lease payment (fixed)” under “Gross fortnightly rental”, per fortnight. Check the GST subtotal before choosing a basis.",
           "more": "On the reviewed quote, GST is 10% of the other rental lines added together. Don't use the take-home-pay reduction: it is after tax and includes running costs.",
           "image": "/assets/images/quote-guide/nla/field-payment.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "trap",
+          "text": "“Administration (fixed)” is fortnightly, before GST. For Per year and Including GST, multiply by 26, then 1.10.",
+          "more": "The annual budgets leave this fee out. If you chose Per year and Excluding GST, multiply by 26 only. If you chose Per fortnight and Excluding GST, enter it as printed. For another period, convert the fortnightly amount to that period, then add GST only if you chose Including GST.",
+          "image": "/assets/images/quote-guide/nla/field-fees.webp"
         }
       ]
     },
