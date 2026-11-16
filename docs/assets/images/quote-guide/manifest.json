@@ -1023,6 +1023,42 @@
     "insideedge/redacted-quote.webp": {
       "w": 1206,
       "h": 1645
+    },
+    "carbon/redacted-quote.webp": {
+      "w": 1242,
+      "h": 1756
+    },
+    "carbon/field-term.webp": {
+      "w": 1025,
+      "h": 60
+    },
+    "carbon/field-mileage.webp": {
+      "w": 1025,
+      "h": 60
+    },
+    "carbon/field-driveaway.webp": {
+      "w": 360,
+      "h": 75
+    },
+    "carbon/field-residual.webp": {
+      "w": 425,
+      "h": 75
+    },
+    "carbon/field-payment.webp": {
+      "w": 628,
+      "h": 92
+    },
+    "carbon/field-running.webp": {
+      "w": 628,
+      "h": 442
+    },
+    "carbon/field-fees.webp": {
+      "w": 628,
+      "h": 255
+    },
+    "carbon/field-luxAdj.webp": {
+      "w": 805,
+      "h": 185
     }
   },
   "pages": {
@@ -1170,6 +1206,11 @@
       "image": "insideedge/redacted-quote.webp",
       "w": 1206,
       "h": 1645
+    },
+    "carbon": {
+      "image": "carbon/redacted-quote.webp",
+      "w": 1242,
+      "h": 1756
     }
   },
   "markers": {
@@ -2763,6 +2804,64 @@
           "h": 35
         }
       ]
+    },
+    "carbon": {
+      "term": [
+        {
+          "label": "3",
+          "y": 348,
+          "h": 31
+        }
+      ],
+      "mileage": [
+        {
+          "label": "11",
+          "y": 348,
+          "h": 31
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 458,
+          "h": 40
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 580,
+          "h": 30
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 760,
+          "h": 31
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 794,
+          "h": 106
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 904,
+          "h": 28
+        }
+      ],
+      "luxAdj": [
+        {
+          "label": "8",
+          "y": 1315,
+          "h": 38
+        }
+      ]
     }
   },
   "pageContextFields": {
@@ -3469,6 +3568,32 @@
       ],
       "mileage": [
         "11"
+      ]
+    },
+    "carbon": {
+      "driveaway": [
+        "2"
+      ],
+      "fees": [
+        "10"
+      ],
+      "luxAdj": [
+        "8"
+      ],
+      "mileage": [
+        "11"
+      ],
+      "payment": [
+        "7"
+      ],
+      "residual": [
+        "6"
+      ],
+      "running": [
+        "9"
+      ],
+      "term": [
+        "3"
       ]
     }
   }

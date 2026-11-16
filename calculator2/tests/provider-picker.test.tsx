@@ -46,7 +46,7 @@ describe("provider picker", () => {
       "easi", "autopia", "clearlease", "customfleet", "spa", "driva", "fingo",
       "toyotafleet", "simplygreen", "vehiclesolutions", "lendly", "leaselab", "nla", "insideedge",
     ] as const;
-    const fallback = ["smartleasing", "oly", "remunerator", "paywise", "prosperity", "leaseexpress", "orix", "remserv"] as const;
+    const fallback = ["smartleasing", "oly", "remunerator", "paywise", "prosperity", "leaseexpress", "orix", "remserv", "carbon"] as const;
     for (const id of clear) expect(showResidualDriveawayHelper(id), id).toBe(false);
     for (const id of fallback) expect(showResidualDriveawayHelper(id), id).toBe(true);
     expect(showResidualDriveawayHelper(null)).toBe(true);
@@ -1004,13 +1004,13 @@ describe("provider pointers", () => {
     expect(article).toContain("Some Queensland Government quotes use a different template");
   });
 
-  test("Inside Edge can show the term on its Basics page", async () => {
+  test("only Inside Edge and CarBon show the term on a quote picture", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
-    for (const p of PROVIDERS) if (p.id !== "insideedge") expect(cropFor(p.id, "term")).toBeNull();
+    for (const p of PROVIDERS) if (p.id !== "insideedge" && p.id !== "carbon") expect(cropFor(p.id, "term")).toBeNull();
     const dir = path.join(__dirname, "../../docs/assets/images/quote-guide");
     const left = fs.readdirSync(dir).filter((id) => fs.existsSync(path.join(dir, id, "field-term.webp")));
-    expect(left).toEqual(["insideedge"]);
+    expect(left.sort()).toEqual(["carbon", "insideedge"]);
   });
 
   test("no pointers without a named provider", () => {

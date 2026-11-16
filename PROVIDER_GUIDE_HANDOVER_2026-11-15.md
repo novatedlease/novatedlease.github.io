@@ -371,3 +371,27 @@ Providers:
   Edge (hand-added to `runningLayout.ts` in 25e5c4f4, with "Comp Insurance Provision" instead of
   the generator's "Insurance"): reconcile before regenerating.
 - Provider tests (113) and changed-file ESLint pass; calculator built; preview restarted on 4340.
+
+## 16 Nov: CarBon added
+
+- Owner asked for CarBon (CarBon Leasing and Rentals Pty Ltd). Three distinct quotes in the
+  archive share one layout: `1s8dvmb` (Mar 2026, branded, weekly), `1tglqjr` image 2 (May 2026,
+  a comparison post; the same quote is re-posted in comments on `1tferlm`, downloaded privately to
+  `private/quote-review-2026-11/comment-images/`) and `1xgrene` (Oct 2026). The OCR provider
+  guesser had missed them all. The `CarBon_Novated` Reddit account is a CarBon rep; on `1xgrene`
+  it said the $0 management fee was because another company would manage the lease.
+- Public sample: `scripts/build_carbon_template.py` redacts `1s8dvmb_0` (header contact block,
+  car name, vehicle details, every figure via OCR, the savings panel by hand), marks fields
+  2, 3, 6, 7, 8, 9, 10, 11 and writes 9 WebPs plus the manifest entries. OCR of the outputs finds
+  only marker numbers and the generic "$5 monthly Fleet Card Fee" disclaimer.
+- Guidance: payment is "Finance" in "Budgeted Running Costs (Excluding GST)", not "Lease payment"
+  (amber trap); the period is the printed "Payroll Cycle"; residual is inc GST; term and km are in
+  the first sentence. Drive-away is printed on only one quote, so the residual helper stays.
+  FBT base value, deferral and doc fee are not printed; the doc-fee line asks CarBon for the
+  amount financed and any establishment fee (a Reddit customer reported brokerage, originator
+  and establishment fees in a CarBon loan, `1t3vu6z`). "Exclusions" lines are not budgeted:
+  enter expected spend (existing "Not included" rule). "Finance Management Fee" (March and May
+  quotes, no amount) is unexplained: the fee tooltip says to ask CarBon.
+- Sync-script provider counts are now 30; freshness check has CarBon labels; private
+  `runlines.json` has CarBon. Provider tests (114), changed-file ESLint and calculator build
+  pass; preview restarted on 4340; the walkthrough page (:4343) rebuilt with 30 providers.

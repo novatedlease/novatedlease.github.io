@@ -20,6 +20,7 @@ export const MILEAGE_LINE: Partial<Record<ProviderId, MileageLine>> = {
   millarx: { text: "Use “Distance” in the summary at the top, shown in km/yr." },
   kooya: { text: "Use “Kms travelled P/A”." },
   fleetpartners: { text: "Use the figure in “These budgets are based on the … kms you plan to drive every year”." },
+  carbon: { text: "Use the kms in the first line: “… kms a year Annual Travel”." },
   insideedge: { text: "Use “Annual Kilometres” under “Car & lease details” on The Details page." },
   toyotafleet: { text: "Use “Estimated kms per annum”." },
   alliance: { text: "Use “Annual Estimated Kilometres”." },

@@ -104,6 +104,15 @@ export const RUNNING_LAYOUT: Partial<Record<ProviderId, [RunBox, RunLabel][]>> =
     ["insurance", "Insurance"],
     ["mgmt", "Management Fee"],
   ],
+  // CarBon: 3 quotes.
+  carbon: [
+    ["service", "Service and Maintenance"],
+    ["tyres", "Replacement Tyres"],
+    ["rego", "Registration and CTP"],
+    ["insurance", "Insurance"],
+    ["fuel", "Fuel/Charging"],
+    ["mgmt", "Management Fee"],
+  ],
   // Inside Edge: the Basics page of two quotes, checked against a Details page.
   insideedge: [
     ["service", "Maintenance Provision"],

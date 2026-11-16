@@ -18,6 +18,7 @@ export const PROVIDERS = [
   { id: "smartsalary", label: "Smartsalary (Smart)" },
   { id: "alliance", label: "Alliance Leasing" },
   { id: "autopia", label: "Autopia" },
+  { id: "carbon", label: "CarBon" },
   { id: "clearlease", label: "Clear Lease" },
   { id: "customfleet", label: "Custom Fleet" },
   { id: "driva", label: "Driva" },
@@ -140,6 +141,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   driva: ["driveaway"], fingo: ["driveaway"],
   leaseexpress: ["driveaway"], lendly: ["driveaway"],
   insideedge: ["driveaway", "docFee"],
+  carbon: ["payment"],
   kooya: ["driveaway", "payment"],
   clearlease: ["driveaway", "payment"],
 };
@@ -280,6 +282,20 @@ export const GUIDES: ProviderGuide[] = [
       { field: "running", text: "Use the budget lines under “Car Running Costs” on The Basics page. Match the period and GST basis to its heading. Leave out totals." },
       { field: "fees", text: "Add “Management Fee” and recurring “Finance Documentation” from The Basics page. Both sit under its running-cost heading." },
       { field: "docFee", text: "If “Finance Documentation” is monthly, add it to management fees. Enter a one-off documentation fee only if listed separately." },
+    ],
+  },
+  {
+    id: "carbon",
+    seen: "2026-10",
+    sources: ["1s8dvmb", "1tglqjr", "1xgrene"],
+    pointers: [
+      { field: "driveaway", text: "Use “Drive away cost” beside the vehicle details, if your quote prints it. If not, work it out from the residual." },
+      { field: "term", text: "Use the term in the first line: “based on a term of … months”." },
+      { field: "residual", text: "Use “Residual Value inc GST” and choose Including GST. Its percentage is in brackets." },
+      { field: "payment", text: "Use “Finance” in “Budgeted Running Costs (Excluding GST)”, not “Lease payment”. The period is the “Payroll Cycle”.", more: "“Lease payment” adds the running costs to the finance. The table's heading says Excluding GST, so choose Excluding GST. “GST (ITC)” below it is the GST credit, not part of the payment." },
+      { field: "luxAdj", text: "Use “Luxury Car Adjustment” under “Salary Breakdown”, in the Novated column." },
+      { field: "running", text: "Use the lines after “Finance” in “Budgeted Running Costs (Excluding GST)”. Choose Excluding GST, per “Payroll Cycle”.", more: "Anything listed under “Exclusions” isn't budgeted in the lease: enter what you'd expect to spend. The Fuel/Charging budget can include a monthly fleet card fee." },
+      { field: "fees", text: "Use “Management Fee” in the running-cost table. If it's $0 or listed under “Exclusions”, ask who will manage the lease and what they charge.", more: "On one reviewed quote, CarBon said the fee was $0 because another company would manage the lease. A “Finance Management Fee” under Exclusions isn't in the budget; ask CarBon whether it's charged elsewhere." },
     ],
   },
   {
@@ -726,6 +742,7 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   oly: ["baseValue", "defer", "fees"],
   maxxia: ["defer"],
   insideedge: ["defer"],
+  carbon: ["baseValue", "defer", "docFee"],
   remunerator: ["docFee", "fees"],
   easi: ["docFee"],
   autopia: ["defer"],
@@ -803,6 +820,12 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotS
     }),
     running: "MillarX quotes are finance only. Take the running-cost budgets from your salary packager.",
     fees: "Some MillarX quotes show a management fee per month. Enter it if yours does. The BYO finance-only quote has none.",
+  },
+  carbon: {
+    docFee: {
+      text: "CarBon quotes we've seen don't list fees added to the loan. Ask CarBon for the amount financed and any establishment fee.",
+      more: "Leave this at $0 if CarBon confirms there are none.",
+    },
   },
   remunerator: {
     fees: "Remunerator's summary has no fee line and says management fees are included in its figures. Leave this at $0 unless your quote lists one.",
