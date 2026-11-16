@@ -1,4 +1,4 @@
-import { useContext, useId, type ReactNode } from "react";
+import { useContext, useId, useState, type ReactNode } from "react";
 import { MissingFields } from "./missing";
 import { FieldWrapper } from "../components/ui/Field";
 import { InfoTooltip } from "../components/ui/InfoTooltip";
@@ -58,13 +58,14 @@ export function MoneyInput({
   extra?: ReactNode;
 }) {
   const id = useId();
+  const [editing, setEditing] = useState(false);
   const missing = useContext(MissingFields).has(field ?? "");
   const v = moneyValue(value);
   // A "none" saved before its tickbox was removed shows as an editable 0.
   const lockedNone = value.none && !!noneLabel;
   // Typed but unreadable ("85k a year"): say so here, not just "Still to answer" at the bottom.
   const problem = value.none ? null : amountProblem(value.text);
-  const shown: Finding[] = problem
+  const shown: Finding[] = editing ? [] : problem
     ? [{ code: "unreadable", level: "error", message: problem }, ...(findings ?? [])]
     : (findings ?? []);
   const worst =
@@ -83,6 +84,8 @@ export function MoneyInput({
           disabled={lockedNone}
           aria-invalid={worst?.level === "error" || missing ? true : undefined}
           value={value.none ? (lockedNone ? "" : "0") : value.text}
+          onFocus={() => setEditing(true)}
+          onBlur={() => setEditing(false)}
           onChange={(e) =>
             onChange({ text: e.target.value, none: false, estimated: false })
           }

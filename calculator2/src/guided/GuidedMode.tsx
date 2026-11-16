@@ -318,6 +318,13 @@ function currentCarCostFindings(d: GuidedDraft) {
 
 type FindingMap = ReturnType<typeof findingsFor>;
 
+/** Keep figure checks quiet while a reader is still typing an amount. */
+function emptyFindingMap(findings: FindingMap): FindingMap {
+  const empty = { ...findings };
+  for (const key of Object.keys(empty) as (keyof FindingMap)[]) empty[key] = [];
+  return empty;
+}
+
 const STEP_FIELDS: Partial<Record<StepId, (keyof FindingMap)[]>> = {
   quick: ["evThreshold", "mileage"],
   price: ["prices", "providerPrice"],
@@ -388,6 +395,7 @@ export function GuidedMode({
     () => !!stored && stored.step !== "intro",
   );
   const [tried, setTried] = useState(false);
+  const [editingAmount, setEditingAmount] = useState(false);
   /** Per step, the exact set of errors the reader ticked past. A different error needs a fresh tick. */
   const [acked, setAcked] = useState<Partial<Record<StepId, string>>>({});
   const topRef = useRef<HTMLDivElement>(null);
@@ -430,7 +438,11 @@ export function GuidedMode({
     }
   }, [draft, step, visited]);
 
-  const findings = useMemo(() => findingsFor(draft), [draft]);
+  const checkedFindings = useMemo(() => findingsFor(draft), [draft]);
+  const findings = useMemo(
+    () => editingAmount ? emptyFindingMap(checkedFindings) : checkedFindings,
+    [checkedFindings, editingAmount],
+  );
   const steps = visibleSteps(draft);
   const stepIndex = Math.max(0, steps.indexOf(step));
   const missingList = missingItems(step, draft);
@@ -542,7 +554,18 @@ export function GuidedMode({
   const isLast = step === "review";
 
   return (
-    <div className="gd" ref={topRef}>
+    <div
+      className="gd"
+      ref={topRef}
+      onFocusCapture={(event) => {
+        if (event.target instanceof HTMLInputElement && event.target.matches(".gd-money .nlc-input"))
+          setEditingAmount(true);
+      }}
+      onBlurCapture={(event) => {
+        if (event.target instanceof HTMLInputElement && event.target.matches(".gd-money .nlc-input"))
+          setEditingAmount(false);
+      }}
+    >
       {resumed && (
         <div className="gd-banner" role="status">
           <span>

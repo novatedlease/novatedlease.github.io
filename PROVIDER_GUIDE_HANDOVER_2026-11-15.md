@@ -287,3 +287,8 @@ Providers:
   now use “Fingo” without “(Automotive Lease Packaging)”. This is a display-name change only.
   The calculator build regenerated those files; focused provider-picker/export tests (101)
   and changed-file ESLint passed. Astro preview was restarted on port 4340.
+- Guided figure checks: amber and red computed findings now wait until a money input loses focus,
+  including checks based on multiple fields. The input's unreadable-amount message also waits.
+  Saved answers still show findings on return, and clicking Next checks the entered value after
+  the input blurs. The focused Guided interaction tests (71), export test, TypeScript build and
+  changed-file ESLint passed; Astro preview restarted on port 4340.
