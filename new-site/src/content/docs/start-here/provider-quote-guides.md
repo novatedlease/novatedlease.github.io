@@ -26,6 +26,7 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 - [Fingo quote guide](/start-here/how-to-read-fingo-quote/)
 - [Flare quote guide](/start-here/how-to-read-flare-quote/)
 - [FleetPartners quote guide](/start-here/how-to-read-fleetpartners-quote/)
+- [Inside Edge quote guide](/start-here/how-to-read-insideedge-quote/)
 - [Kooya quote guide](/start-here/how-to-read-kooya-quote/)
 - [LeaseExpress quote guide](/start-here/how-to-read-leaseexpress-quote/)
 - [LeaseLab quote guide](/start-here/how-to-read-leaselab-quote/)

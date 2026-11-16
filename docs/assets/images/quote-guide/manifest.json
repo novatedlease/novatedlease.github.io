@@ -1003,6 +1003,50 @@
     "prosperity/field-mileage.webp": {
       "w": 582,
       "h": 37
+    },
+    "insideedge/field-baseValue.webp": {
+      "w": 425,
+      "h": 97
+    },
+    "insideedge/field-docFee.webp": {
+      "w": 525,
+      "h": 149
+    },
+    "insideedge/field-driveaway.webp": {
+      "w": 855,
+      "h": 98
+    },
+    "insideedge/field-fees.webp": {
+      "w": 525,
+      "h": 149
+    },
+    "insideedge/field-mileage.webp": {
+      "w": 365,
+      "h": 73
+    },
+    "insideedge/field-payment.webp": {
+      "w": 525,
+      "h": 83
+    },
+    "insideedge/field-residual.webp": {
+      "w": 425,
+      "h": 90
+    },
+    "insideedge/field-running.webp": {
+      "w": 525,
+      "h": 272
+    },
+    "insideedge/field-term.webp": {
+      "w": 855,
+      "h": 63
+    },
+    "insideedge/redacted-quote-page-1.webp": {
+      "w": 1206,
+      "h": 1705
+    },
+    "insideedge/redacted-quote.webp": {
+      "w": 1206,
+      "h": 1645
     }
   },
   "pages": {
@@ -1150,6 +1194,11 @@
       "image": "smartsalary/redacted-quote.webp",
       "w": 1400,
       "h": 1891
+    },
+    "insideedge": {
+      "image": "insideedge/redacted-quote.webp",
+      "w": 1206,
+      "h": 1645
     }
   },
   "markers": {
@@ -2722,6 +2771,64 @@
           "h": 29
         }
       ]
+    },
+    "insideedge": {
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 433,
+          "h": 33
+        }
+      ],
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 383,
+          "h": 31
+        }
+      ],
+      "term": [
+        {
+          "label": "3",
+          "y": 413,
+          "h": 31
+        }
+      ],
+      "residual": [
+        {
+          "label": "6",
+          "y": 337,
+          "h": 32
+        }
+      ],
+      "payment": [
+        {
+          "label": "7",
+          "y": 607,
+          "h": 30
+        }
+      ],
+      "running": [
+        {
+          "label": "9",
+          "y": 638,
+          "h": 117
+        }
+      ],
+      "fees": [
+        {
+          "label": "10",
+          "y": 720,
+          "h": 106
+        }
+      ],
+      "mileage": [
+        {
+          "label": "11",
+          "y": 339,
+          "h": 35
+        }
+      ]
     }
   },
   "pageContextFields": {
@@ -3419,6 +3526,32 @@
       ],
       "term": [
         "3"
+      ]
+    },
+    "insideedge": {
+      "baseValue": [
+        "1"
+      ],
+      "driveaway": [
+        "2"
+      ],
+      "term": [
+        "3"
+      ],
+      "residual": [
+        "6"
+      ],
+      "payment": [
+        "7"
+      ],
+      "running": [
+        "9"
+      ],
+      "fees": [
+        "10"
+      ],
+      "mileage": [
+        "11"
       ]
     }
   }

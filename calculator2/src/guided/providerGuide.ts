@@ -25,6 +25,7 @@ export const PROVIDERS = [
   { id: "fingo", label: "Fingo" },
   { id: "flare", label: "Flare" },
   { id: "fleetpartners", label: "FleetPartners" },
+  { id: "insideedge", label: "Inside Edge" },
   { id: "kooya", label: "Kooya" },
   { id: "leaseexpress", label: "LeaseExpress" },
   { id: "leaselab", label: "LeaseLab" },
@@ -64,6 +65,7 @@ const DRIVEAWAY_QUOTE_METHOD = new Set<ProviderId>([
   "sgfleet", "millarx", "flare", "kooya", "maxxia", "fleetpartners", "alliance",
   "easi", "autopia", "clearlease", "customfleet", "spa", "driva", "fingo",
   "toyotafleet", "simplygreen", "vehiclesolutions", "lendly", "leaselab", "nla",
+  "insideedge",
 ]);
 
 export function showResidualDriveawayHelper(provider: ProviderId | null): boolean {
@@ -139,6 +141,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   spa: ["driveaway", "baseValue"], prosperity: ["running"],
   driva: ["driveaway"], fingo: ["driveaway"],
   leaseexpress: ["driveaway"], lendly: ["driveaway"],
+  insideedge: ["driveaway", "docFee"],
   kooya: ["driveaway", "payment"],
   clearlease: ["driveaway", "payment"],
 };
@@ -264,6 +267,21 @@ export const GUIDES: ProviderGuide[] = [
         text: "If you see “Finance” under “Budgeted running costs”, that's the fortnightly payment.",
         more: PAYMENT_GST_NOTE,
       },
+    ],
+  },
+  {
+    id: "insideedge",
+    seen: "2026-05",
+    sources: ["1p2wqvv", "1t2cg4z", "1t9nkbk"],
+    pointers: [
+      { field: "baseValue", text: "Use “FBT Base Value” under “Car & lease details” on The Details page." },
+      { field: "driveaway", text: "Use “Purchase Price” on The Basics page. Check it includes on-road costs. Don't use “Purchase Price (ex GST)” on The Details page.", more: "On the quotes checked, the Basics purchase price matched the on-road price. If yours has a discount or differs from “RRP (inc On-Roads)”, confirm the final amount with Inside Edge." },
+      { field: "term", text: "Use “Lease Term” on either The Basics or The Details page." },
+      { field: "residual", text: "Use “Residual Value (ex GST)” on The Details page and choose Excluding GST. The Basics page also shows a residual without a GST label." },
+      { field: "payment", text: "Use “Lease Rental” under “What are my running costs?” on The Basics page. Match the period and GST basis to your quote's heading.", more: PAYMENT_GST_NOTE },
+      { field: "running", text: "Use the budget lines under “Car Running Costs” on The Basics page. Match the period and GST basis to its heading. Leave out totals." },
+      { field: "fees", text: "Add “Management Fee” and recurring “Finance Documentation” from The Basics page. Both sit under its running-cost heading." },
+      { field: "docFee", text: "If “Finance Documentation” is monthly, add it to management fees. Enter a one-off documentation fee only if listed separately." },
     ],
   },
   {
@@ -722,6 +740,7 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   oly: ["baseValue", "defer", "fees"],
   maxxia: ["defer"],
   leaseplan: ["defer", "residual"],
+  insideedge: ["defer"],
   remunerator: ["docFee", "fees"],
   easi: ["docFee"],
   autopia: ["defer"],
@@ -903,6 +922,16 @@ export type FieldExample = {
 
 /** Marked examples from a page other than the provider's main sample. */
 const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample }[] = [
+  ...(["driveaway", "term", "payment", "running", "fees", "docFee", "baseValue", "residual", "mileage"] as GuideField[]).map((field) => ({
+    id: "insideedge" as const,
+    field,
+    example: {
+      image: `/assets/images/quote-guide/insideedge/field-${field}.webp`,
+      fullPage: `/assets/images/quote-guide/insideedge/${["baseValue", "residual", "mileage"].includes(field) ? "redacted-quote.webp" : "redacted-quote-page-1.webp"}`,
+      alt: `Redacted Inside Edge quote showing the ${field} field`,
+      caption: `Inside Edge quote with figures removed. Field ${({ baseValue: "1", driveaway: "2", term: "3", residual: "6", payment: "7", running: "9", fees: "10", docFee: "10", mileage: "11" } as Partial<Record<GuideField, string>>)[field]} is ticked on the full page.`,
+    },
+  })),
   { id: "sgfleet", field: "baseValue", example: {
     image: "/assets/images/quote-guide/sgfleet/fbt-example.webp",
     alt: "Redacted SG Fleet FBT section with FBT Base Value marked 1",

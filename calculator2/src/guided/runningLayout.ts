@@ -105,6 +105,16 @@ export const RUNNING_LAYOUT: Partial<Record<ProviderId, [RunBox, RunLabel][]>> =
     ["mgmt", "Management Fee"],
   ],
   // LeasePlan: 1 quote.
+  // Inside Edge: the Basics page of two quotes, checked against a Details page.
+  insideedge: [
+    ["service", "Maintenance Provision"],
+    ["tyres", "Replacement Tyres"],
+    ["rego", "Registration / CTP"],
+    ["insurance", "Comp Insurance Provision"],
+    ["fuel", { ev: "Home Charging Reimbursement", petrol: "Fuel" }],
+    ["mgmt", "Finance Documentation (+ Management Fee)"],
+  ],
+  // LeasePlan: 1 quote.
   leaseplan: [
     ["service", "Maintenance"],
     ["tyres", "Tyres (4)"],

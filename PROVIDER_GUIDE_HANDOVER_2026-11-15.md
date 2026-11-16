@@ -340,9 +340,18 @@ Providers:
   names LeasePlan Australia Limited. Image 1 (“What are my running costs?”) is unbranded in the
   crop, but its distinctive table matches a branded Inside Edge quote in post 1t2cg4z.
   The article now states this provenance and links the supporting posts.
-- Inside Edge guide feasibility: no provider entry or standalone article yet. Post 1t2cg4z
-  has a branded Inside Edge “The Basics” page with on-road price, residual, finance rental,
-  running-cost budgets and fees. Posts 1t9nkbk and 1p2wqvv have “The Details” pages with
-  explicit Inside Edge disclaimer and FBT base, purchase price excluding GST, lease term and
-  residual. Post 1n16kcg has a cropped Basics running-cost table. These are enough to develop
-  guidance with two complementary layouts; redact amounts and identifiers before publication.
+- Inside Edge guide: added to Guided and the provider index, with per-field pointers and a
+  standalone article. The public numbered sample combines “The Basics” and “The Details” from
+  the *same* quote (post 1p2wqvv); layout was checked against later branded examples in
+  1t2cg4z and 1t9nkbk. The private originals were never added to git. The redacted public
+  WebP pages and field crops are reproducible with `scripts/build_insideedge_template.py`.
+  “Purchase Price” on Basics is the on-road price in the checked examples, but the pointer asks
+  readers to confirm discounts/on-road costs on their own quote; Details' ex-GST price is not
+  used for drive-away. Use the explicitly ex-GST residual on Details. Recurring “Finance
+  Documentation” goes with management fees, not the one-off documentation box. The Basics
+  page supplies the finance payment and running-cost budgets; Details supplies FBT base value
+  and annual kilometres. Months deferred is not printed on this sample. The local preview is
+  `http://10.1.1.108:4340/start-here/how-to-read-insideedge-quote/`; Guided is at
+  `http://10.1.1.108:4340/calculator/`. Provider tests (101), changed-file lint and calculator
+  build passed. The full Astro build reached its OG-image route, then failed because the
+  sandbox could not resolve `cdn.jsdelivr.net`; the local article returned HTTP 200.

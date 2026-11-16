@@ -707,6 +707,78 @@
       ]
     },
     {
+      "id": "insideedge",
+      "label": "Inside Edge",
+      "seen": "2026-05",
+      "sourceCount": 3,
+      "written": {
+        "baseValue": "Use “FBT Base Value” under “Car & lease details” on The Details page.",
+        "driveaway": "Use “Purchase Price” on The Basics page. Check it includes on-road costs. Don't use “Purchase Price (ex GST)” on The Details page.",
+        "term": "Use “Lease Term” on either The Basics or The Details page.",
+        "residual": "Use “Residual Value (ex GST)” on The Details page and choose Excluding GST. The Basics page also shows a residual without a GST label.",
+        "payment": "Use “Lease Rental” under “What are my running costs?” on The Basics page. Match the period and GST basis to your quote's heading.",
+        "running": "Use the budget lines under “Car Running Costs” on The Basics page. Match the period and GST basis to its heading. Leave out totals.",
+        "fees": "Add “Management Fee” and recurring “Finance Documentation” from The Basics page. Both sit under its running-cost heading.",
+        "docFee": "If “Finance Documentation” is monthly, add it to management fees. Enter a one-off documentation fee only if listed separately."
+      },
+      "traps": [
+        "driveaway",
+        "docFee"
+      ],
+      "pointers": [
+        {
+          "field": "baseValue",
+          "kind": "locate",
+          "text": "Use “FBT Base Value” under “Car & lease details” on The Details page.",
+          "image": "/assets/images/quote-guide/insideedge/field-baseValue.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "Use “Purchase Price” on The Basics page. Check it includes on-road costs. Don't use “Purchase Price (ex GST)” on The Details page.",
+          "more": "On the quotes checked, the Basics purchase price matched the on-road price. If yours has a discount or differs from “RRP (inc On-Roads)”, confirm the final amount with Inside Edge.",
+          "image": "/assets/images/quote-guide/insideedge/field-driveaway.webp"
+        },
+        {
+          "field": "defer",
+          "kind": "missing",
+          "text": "Can’t find months deferred on your Inside Edge quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.",
+          "image": null
+        },
+        {
+          "field": "docFee",
+          "kind": "trap",
+          "text": "If “Finance Documentation” is monthly, add it to management fees. Enter a one-off documentation fee only if listed separately.",
+          "image": "/assets/images/quote-guide/insideedge/field-docFee.webp"
+        },
+        {
+          "field": "residual",
+          "kind": "locate",
+          "text": "Use “Residual Value (ex GST)” on The Details page and choose Excluding GST. The Basics page also shows a residual without a GST label.",
+          "image": "/assets/images/quote-guide/insideedge/field-residual.webp"
+        },
+        {
+          "field": "payment",
+          "kind": "locate",
+          "text": "Use “Lease Rental” under “What are my running costs?” on The Basics page. Match the period and GST basis to your quote's heading.",
+          "more": "Whether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.",
+          "image": "/assets/images/quote-guide/insideedge/field-payment.webp"
+        },
+        {
+          "field": "running",
+          "kind": "locate",
+          "text": "Use the budget lines under “Car Running Costs” on The Basics page. Match the period and GST basis to its heading. Leave out totals.",
+          "image": "/assets/images/quote-guide/insideedge/field-running.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "locate",
+          "text": "Add “Management Fee” and recurring “Finance Documentation” from The Basics page. Both sit under its running-cost heading.",
+          "image": "/assets/images/quote-guide/insideedge/field-fees.webp"
+        }
+      ]
+    },
+    {
       "id": "kooya",
       "label": "Kooya",
       "seen": "2026-08",
