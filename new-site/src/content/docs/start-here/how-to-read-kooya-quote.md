@@ -34,7 +34,7 @@ A Kooya quote shows most figures twice: once in the coloured tiles on page 1 and
 | 7 | Lease payment, in Total running costs | Use “Lease payment” under “Total running costs”. Don't use the “Finance” tile on page 1: it's a different figure. |
 | 8 | Luxury car adjustment, in Payroll calculation | If you see “Luxury car adjustment” under “Payroll calculation”, that's this line. |
 | 9 | Service & maintenance, tyres, fuel or electricity, insurance, and rego & CTP | Use the “Per paycycle” lines under “Total running costs”, not the tiles on page 1. Choose the period shown in “Employer pay cycle”. |
-| 10 | Administration fee | If you see “Administration fee” under “Total running costs”, that's the management fee. |
+| 10 | Administration fee | Lease management fee. |
 <!-- provider-table:end -->
 
 The red ✕ marks figures to avoid: *Price (ex. GST)* for the drive-away price, and the *Finance* tile for the lease payment.

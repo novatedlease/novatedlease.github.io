@@ -718,8 +718,7 @@
         "defer": "If you see “based on a 2-month deferred lease structure” under “Employee authorisation”, choose 2 months.",
         "residual": "If you see “Residual value inc GST”, choose Including GST.",
         "luxAdj": "If you see “Luxury car adjustment” under “Payroll calculation”, that's this line.",
-        "running": "Use the “Per paycycle” lines under “Total running costs”, not the tiles on page 1. Choose the period shown in “Employer pay cycle”.",
-        "fees": "If you see “Administration fee” under “Total running costs”, that's the management fee."
+        "running": "Use the “Per paycycle” lines under “Total running costs”, not the tiles on page 1. Choose the period shown in “Employer pay cycle”."
       },
       "traps": [
         "driveaway",
@@ -777,12 +776,6 @@
           "text": "Use the “Per paycycle” lines under “Total running costs”, not the tiles on page 1. Choose the period shown in “Employer pay cycle”.",
           "more": "The table lists GST on its own line. If yours does too, choose Excluding GST.",
           "image": "/assets/images/quote-guide/kooya/field-running.webp"
-        },
-        {
-          "field": "fees",
-          "kind": "locate",
-          "text": "If you see “Administration fee” under “Total running costs”, that's the management fee.",
-          "image": "/assets/images/quote-guide/kooya/field-fees.webp"
         }
       ]
     },

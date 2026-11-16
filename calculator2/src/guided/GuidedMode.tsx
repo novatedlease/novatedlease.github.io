@@ -1803,7 +1803,7 @@ function ProviderPointers({ d, field }: { d: GuidedDraft; field: GuideField }) {
   if (!guide) return null;
   let list = pointersFor(guide.id, field).filter((p) => !p.boilerplate);
   // Offer a marked crop even when no written pointer is needed.
-  if (list.length === 0 && field !== "insurance" && cropFor(guide.id, field)) {
+  if (list.length === 0 && field !== "insurance" && !(guide.id === "kooya" && field === "fees") && cropFor(guide.id, field)) {
     list = [{ field, text: "", kind: "locate" }];
   }
   if (list.length === 0) return null;

@@ -297,7 +297,6 @@ export const GUIDES: ProviderGuide[] = [
         text: "Use the “Per paycycle” lines under “Total running costs”, not the tiles on page 1. Choose the period shown in “Employer pay cycle”.",
         more: "The table lists GST on its own line. If yours does too, choose Excluding GST.",
       },
-      { field: "fees", text: "If you see “Administration fee” under “Total running costs”, that's the management fee." },
     ],
   },
   {

@@ -318,3 +318,6 @@ Providers:
   Guided now treats this as a located field, with a marked field 1 crop and full-page marker
   added to the already redacted quote. The article table uses the same row and no longer
   presents it as missing. Do not publish the owner's numeric screenshot or private original.
+- Kooya management fee: removed the redundant “On Kooya quotes: If you see Administration fee...”
+  pointer and its Show me link from Guided. The redacted example still marks field 10, and the
+  article retains a plain table mapping from Administration fee to lease management fee.
