@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
-import { cleanup, fireEvent, render } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import App from "../src/App";
 import { emptyDraft, type GuidedDraft, type Money } from "../src/guided/draft";
 import { PROVIDERS } from "../src/guided/providerGuide";
@@ -136,5 +136,15 @@ describe("kilometres: where each quote prints them", () => {
     const { MILEAGE_LINE } = await import("../src/guided/mileageLine");
     const ids = new Set(PROVIDERS.map((p) => p.id));
     for (const id of Object.keys(MILEAGE_LINE)) expect(ids.has(id as never)).toBe(true);
+  });
+});
+
+describe("charging price quick-picks", () => {
+  test("picking a tariff doesn't call it a typical estimate that should come from the quote", () => {
+    atRunning("carbon", "EV");
+    fireEvent.click(screen.getByRole("button", { name: /Home off-peak, about 8c/ }));
+    const box = screen.getByLabelText(/Electricity price you pay to charge/) as HTMLInputElement;
+    expect(box.value).toBe("0.08");
+    expect(screen.queryByText(/Typical estimate, not from your quote/)).toBeNull();
   });
 });

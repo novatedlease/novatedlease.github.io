@@ -2340,6 +2340,8 @@ function RunningStep({ d, set, f }: StepPropsF) {
             row
             label="Electricity price you pay to charge, per kWh"
             suffix="per kWh"
+            // The quick-picks are the reader's own choice of tariff, not a figure meant to come from the quote.
+            estimatedNote={null}
             value={d.chargingRate}
             onChange={(m) => set("chargingRate", m)}
             where="Your blended home and public price. Used for what charging really costs you, not the budget above."

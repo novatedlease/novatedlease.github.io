@@ -452,3 +452,10 @@ Providers:
   say “exactly 1/11”, and the article notes this may overstate the GST credit by a few dollars a
   month (rego has little or no GST). The Licence Fee is not explained on either quote, Lendly's
   site or Reddit; Guided keeps treating it as a management fee.
+
+## 16 Nov: no "typical estimate" note on the kWh price
+
+- The charging-price quick-picks (feed-in tariff, off-peak, standard, public) mark the value as
+  estimated, which showed “Typical estimate, not from your quote…”. The price is the reader's own
+  tariff and never on a quote, so `MoneyInput` now accepts `estimatedNote={null}` to hide the note,
+  and the kWh field uses it. The estimated flag on `chargingRate` drives nothing else. New test.

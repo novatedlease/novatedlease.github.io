@@ -48,7 +48,7 @@ export function MoneyInput({
   suggestionBasis?: ReactNode;
   /** Longer explanation behind an info icon next to the label. */
   tooltip?: ReactNode;
-  /** Replaces the default "not from your quote" note shown under an accepted typical figure. */
+  /** Replaces the default "not from your quote" note shown under an accepted typical figure; null hides it. */
   estimatedNote?: ReactNode;
   placeholder?: string;
   findings?: Finding[];
@@ -123,7 +123,7 @@ export function MoneyInput({
       {suggestionBasis && suggestion != null && suggestion > 0 && !value.none && v === null && (
         <div className="gd-suggest__basis">{suggestionBasis}</div>
       )}
-      {value.estimated && !value.none && (
+      {value.estimated && !value.none && estimatedNote !== null && (
         <div className="gd-estimated">
           {estimatedNote ??
             "Typical estimate, not from your quote. Replace it if you have the real figure."}
