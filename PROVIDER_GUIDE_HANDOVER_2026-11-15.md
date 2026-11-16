@@ -635,3 +635,11 @@ Open items (not started; raise with the owner):
   reason given for a $0 management fee). These are account statements, not
   independently verified provider policy; the guide's existing $0-fee explanation
   is consistent. The other comments discuss effective rates and competing quotes.
+
+- Owner clarified the scope: include the account's comments on **any** thread in
+  r/NovatedLeasingAU, not only CarBon-related threads. The private script and files
+  above were expanded and replaced. The complete Arctic Shift author search returned
+  386 comments across 265 threads, dated 28 Apr–16 Nov 2026. All 265 threads are in
+  the local post archive. Eleven comments remain on the previously identified
+  CarBon-related threads. This is an archive result, not a guarantee that deleted or
+  otherwise missing Reddit comments are recoverable. No calculator guidance changed.
