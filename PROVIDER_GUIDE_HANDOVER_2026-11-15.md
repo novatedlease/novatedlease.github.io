@@ -313,3 +313,8 @@ Providers:
   publishing quote numbers. ATO guidance lists vehicle and CTP insurance GST separately.
   Provider-picker/export tests (101), changed-file ESLint and calculator build passed; Astro
   preview restarted on port 4340.
+- FleetPartners FBT base value: the owner identified the "Vehicle" row's Total column in
+  "Your order" → "Price specifications" as the GST-inclusive base before on-road charges.
+  Guided now treats this as a located field, with a marked field 1 crop and full-page marker
+  added to the already redacted quote. The article table uses the same row and no longer
+  presents it as missing. Do not publish the owner's numeric screenshot or private original.

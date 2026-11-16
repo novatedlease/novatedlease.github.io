@@ -669,6 +669,7 @@
       "seen": "2026-11",
       "sourceCount": 2,
       "written": {
+        "baseValue": "Use the “Vehicle” row in “Your order” → “Price specifications”, Total column, including GST.",
         "driveaway": "Use “Drive-away total” in the Total column, including GST.",
         "docFee": "If “Lease Establishment Fee” is monthly, add it to management fees instead. Add the one-off PPSR fee and any financed brokerage.",
         "defer": "Use the stated delay before lease payments start, or subtract “Based on” months from the lease term."
@@ -679,10 +680,10 @@
       "pointers": [
         {
           "field": "baseValue",
-          "kind": "missing",
-          "text": "Can’t find the FBT base value? Use the Total column of “Vehicle” in “Your order”.",
-          "more": "That is the car after discount, options and delivery including GST, before on-road costs.",
-          "image": null
+          "kind": "locate",
+          "text": "Use the “Vehicle” row in “Your order” → “Price specifications”, Total column, including GST.",
+          "more": "This subtotal includes options, delivery and discounts, but excludes stamp duty, registration, CTP and other on-road charges. Don't use “Drive-away total” for the FBT base value.",
+          "image": "/assets/images/quote-guide/fleetpartners/field-baseValue.webp"
         },
         {
           "field": "driveaway",

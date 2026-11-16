@@ -696,7 +696,8 @@ describe("provider pointers", () => {
   test("fields missing from a provider's example get a short what-to-do line, without a picture", () => {
     expect(pointersFor("paywise", "defer")[0]).toMatchObject({ notShown: true });
     expect(pointersFor("paywise", "defer")[0].text).toMatch(/Can’t find months deferred on your Paywise quote/);
-    expect(pointersFor("fleetpartners", "baseValue")[0].text).toMatch(/Total column of “Vehicle”/);
+    expect(pointersFor("fleetpartners", "baseValue")[0].text).toMatch(/“Vehicle” row.*Total column/);
+    expect(templateFor("fleetpartners", "baseValue")).toBe("/assets/images/quote-guide/fleetpartners/field-baseValue.webp");
     // a field the example does show keeps its own pointer
     expect(pointersFor("sgfleet", "defer")[0].notShown).toBeUndefined();
     // Articles keep the generic line; Guided drops it, since "no fee ($0)" is right above (UX 15).

@@ -359,6 +359,11 @@ export const GUIDES: ProviderGuide[] = [
     sources: ["1xlqzm8", "1x9tvny"],
     pointers: [
       {
+        field: "baseValue",
+        text: "Use the “Vehicle” row in “Your order” → “Price specifications”, Total column, including GST.",
+        more: "This subtotal includes options, delivery and discounts, but excludes stamp duty, registration, CTP and other on-road charges. Don't use “Drive-away total” for the FBT base value.",
+      },
+      {
         field: "driveaway",
         text: "Use “Drive-away total” in the Total column, including GST.",
         more: "On the example we checked, “Vehicle GST” also includes GST on CTP. The calculator estimates the vehicle GST credit from the “Vehicle” subtotal only. Before other financed fees, this can leave its derived financed amount slightly higher by the CTP GST. Keep the drive-away total as printed.",
@@ -717,7 +722,6 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   flare: ["defer", "docFee"],
   oly: ["baseValue", "defer", "fees"],
   maxxia: ["defer"],
-  fleetpartners: ["baseValue"],
   leaseplan: ["defer", "residual"],
   remunerator: ["docFee", "fees"],
   easi: ["docFee"],
@@ -786,10 +790,6 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotS
   },
   lendly: {
     baseValue: gstCreditLine("lendly", "Lendly", "“GST Tax Credit”", "Lendly"),
-  },
-  fleetpartners: {
-    baseValue:
-      { text: "Can’t find the FBT base value? Use the Total column of “Vehicle” in “Your order”.", more: "That is the car after discount, options and delivery including GST, before on-road costs." },
   },
   millarx: {
     // MillarX is finance only: the salary packager, not MillarX, holds the FBT base value.

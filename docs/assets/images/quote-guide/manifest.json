@@ -280,6 +280,10 @@
       "w": 1400,
       "h": 2145
     },
+    "fleetpartners/field-baseValue.webp": {
+      "w": 895,
+      "h": 180
+    },
     "fleetpartners/field-defer.webp": {
       "w": 900,
       "h": 166
@@ -1637,6 +1641,13 @@
       ]
     },
     "fleetpartners": {
+      "baseValue": [
+        {
+          "label": "1",
+          "y": 558,
+          "h": 32
+        }
+      ],
       "driveaway": [
         {
           "label": "2",
@@ -2915,6 +2926,9 @@
       ]
     },
     "fleetpartners": {
+      "baseValue": [
+        "1"
+      ],
       "defer": [
         "4"
       ],
