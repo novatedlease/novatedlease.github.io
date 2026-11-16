@@ -534,3 +534,16 @@ Open items (not started; raise with the owner):
   every NLA quote has one GST basis. No quote numbers appear in the public copy. The
   focused provider tests (100), changed-file ESLint and calculator build passed; Astro
   preview restarted on 4340. Full suite was not run for this small change.
+
+## 16 Nov: private comment-image archive backfill
+
+- Searched the Arctic Shift r/NovatedLeasingAU comment archive for `preview.redd.it` links.
+  Found 506 image-bearing comments and saved 340 valid JPGs under the private
+  `comment-images-YYYY-MM/` folders; OCR text is in `comment-ocr/`. These are separate from
+  the 2,123 submission JPGs. A second HEAD check returned 404 for all 165 failed links;
+  one other linked image was under 100 pixels and was excluded.
+- Private script: `scripts/backfill_comment_images.py`. Private audits:
+  `reports/comment-image-backfill-2026-11-16.json` and
+  `reports/comment-image-link-status-2026-11-16.json`. This fills an important gap in the
+  earlier submission-only archive, but does not prove every historical quote image is
+  recoverable. No private comment data or images were committed to this branch.
