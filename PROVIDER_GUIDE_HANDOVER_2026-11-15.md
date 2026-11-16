@@ -292,3 +292,10 @@ Providers:
   Saved answers still show findings on return, and clicking Next checks the entered value after
   the input blurs. The focused Guided interaction tests (71), export test, TypeScript build and
   changed-file ESLint passed; Astro preview restarted on port 4340.
+- Advanced entry: numeric fields still update linked calculations live, but their own clamp/error
+  messages wait until blur. The vehicle-finance safeguard and high-rate note stay hidden while its
+  amount is being edited; the lease-duration requote note likewise waits until blur. Rate-stepper
+  buttons still update immediately. All 459 Vitest tests passed; the calculator built and preview
+  restarted on 4340. Lint passed for changed files except five pre-existing rule violations in
+  `LeaseRateGuard.tsx` (three react-refresh exports, one set-state-in-effect, one ref during render);
+  with only those rules disabled for that file, lint passed.

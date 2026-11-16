@@ -55,6 +55,7 @@ export function InputsPanel(props: {
   // changing lease duration (by any means — field edit, saved-quote load, share link) usually
   // invalidates the per-fortnight quote, so nudge the user to re-check it.
   const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
+  const [editingLeaseDuration, setEditingLeaseDuration] = useState(false);
   const prevLeaseDurationRef = useRef<number>(inputs.leaseDurationYears);
   useEffect(() => {
     if (prevLeaseDurationRef.current !== inputs.leaseDurationYears) {
@@ -340,8 +341,8 @@ export function InputsPanel(props: {
             apply to this lease start date
           </div>
         )}
-        <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} suffix="years" min={1} max={5} decimals={0} />
-        {needsLeaseRequote && (
+        <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} onFocusChange={setEditingLeaseDuration} suffix="years" min={1} max={5} decimals={0} />
+        {needsLeaseRequote && !editingLeaseDuration && (
           <NoteBox color="var(--nlc-acc-red)" mb={14}>
             <div style={{ fontWeight: 800, marginBottom: 4 }}>Heads up: changing lease duration usually changes your per-fortnight lease quote.</div>
             <div style={{ opacity: 0.92 }}>

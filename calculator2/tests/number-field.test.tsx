@@ -38,6 +38,17 @@ test("shorthand like 52.4k means thousands", () => {
   expect(screen.getByTestId("value").textContent).toBe("52400");
 });
 
+test("Advanced amounts update live but clamp warnings wait until blur", () => {
+  render(<Harness />);
+  const box = screen.getByLabelText("Insurance");
+  fireEvent.focus(box);
+  fireEvent.change(box, { target: { value: "-500" } });
+  expect(screen.getByTestId("value").textContent).toBe("0");
+  expect(screen.queryByRole("alert")).toBeNull();
+  fireEvent.blur(box);
+  expect(screen.getByRole("alert").textContent).toMatch(/can't be negative/);
+});
+
 test("the down arrow stops at zero", () => {
   render(<Harness start={50} />);
   fireEvent.keyDown(screen.getByLabelText("Insurance"), { key: "ArrowDown" });

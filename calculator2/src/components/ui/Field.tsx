@@ -37,6 +37,8 @@ type NumberFieldProps = {
   label: React.ReactNode;
   value: number;
   onChange: (v: number) => void;
+  /** Lets a parent hide checks while the reader is still editing this amount. */
+  onFocusChange?: (focused: boolean) => void;
   prefix?: string;
   suffix?: string;
   /** Defaults to 0: no figure in this calculator can be negative. */
@@ -58,14 +60,15 @@ function formatNumber(n: number, decimals: number): string {
 
 /**
  * Number input that shows a formatted, locale-grouped value when not focused
- * (e.g. "65,000") and a raw editable value while focused, committing via
- * onChange on blur. Clamps to [min, max] on commit (min defaults to 0), and says so
- * under the box, so a typed figure is never changed silently.
+ * (e.g. "65,000") and a raw editable value while focused. Linked calculations
+ * update as the reader types, while validation messages wait until blur.
+ * Clamps to [min, max] (min defaults to 0), then explains any clamp below the box.
  */
 export function NumberField({
   label,
   value,
   onChange,
+  onFocusChange,
   prefix,
   suffix,
   min = 0,
@@ -88,7 +91,7 @@ export function NumberField({
   const displayValue = focused ? draft : formatNumber(value, decimals);
 
   function commit(raw: string) {
-    const cleaned = raw.replace(/[^0-9.\-]/g, "");
+    const cleaned = raw.replace(/[^0-9.-]/g, "");
     let n = cleaned === "" || cleaned === "-" ? 0 : parseFloat(cleaned);
     if (!Number.isFinite(n)) n = 0;
     // "52.4k" means 52,400, not 52.4 (letters are otherwise dropped).
@@ -108,8 +111,9 @@ export function NumberField({
     onChange(n);
   }
 
+  const shownError = focused ? undefined : error ?? clampNote;
   return (
-    <FieldWrapper label={label} tooltip={tooltip} hint={hint} error={error ?? clampNote} htmlFor={fieldId}>
+    <FieldWrapper label={label} tooltip={tooltip} hint={hint} error={shownError} htmlFor={fieldId}>
       <div className="nlc-field__control">
         {prefix && <span className="nlc-field__prefix">{prefix}</span>}
         <input
@@ -119,10 +123,11 @@ export function NumberField({
           inputMode="decimal"
           value={displayValue}
           placeholder={placeholder}
-          aria-invalid={!!(error ?? clampNote)}
+          aria-invalid={!!shownError}
           onFocus={() => {
             setFocused(true);
             setDraft(Number.isFinite(value) ? String(round(value, decimals)) : "");
+            onFocusChange?.(true);
           }}
           onChange={(e) => {
             setDraft(e.target.value);
@@ -131,6 +136,7 @@ export function NumberField({
           onBlur={() => {
             setFocused(false);
             commit(draft);
+            onFocusChange?.(false);
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") (e.target as HTMLInputElement).blur();
