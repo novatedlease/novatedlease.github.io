@@ -37,7 +37,7 @@ This numbered example shows a LeasePlan / Ayvens quote layout we reviewed. Match
 | 10 | Management Fees (including FBT Fee) | Lease management fees per month. |
 <!-- provider-table:end -->
 
-The sample page does not show a clearly labelled drive-away price, lease term, deferral or residual. Ask for the full on-road price including GST; the residual helper may not work without a printed residual. Use another page of your quote or ask the provider for the other figures. This example is older than the others, so check current LeasePlan / Ayvens layouts carefully.
+The sample page does not show a clearly labelled drive-away price, lease term, deferral or residual. Ask for the full on-road price including GST. Use another page of your quote or ask the provider for the other figures. This example is older than the others, so check current LeasePlan / Ayvens layouts carefully.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

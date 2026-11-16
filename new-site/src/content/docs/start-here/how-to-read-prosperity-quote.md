@@ -29,9 +29,11 @@ The Smart Drive layout we reviewed puts **Lease Payment (Fixed)** under a headin
 | --- | --- | --- | --- |
 | 1 | FBT base value | **FBT Base Value** | The value as printed, including GST. |
 | — | Drive-away price | It may not be printed as one total | Use Guided's price helper or your dealer's full drive-away price. |
+| 3 | Lease term | **Lease term (months)** | Use the months shown. |
 | 6 | Residual | **Residual (inc. GST)** | Choose *Including GST*. |
 | 7 | Finance payment | **Lease Payment (Fixed)** under **Motor Vehicle Deductions (inc GST)** | If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period. |
 | 9 | Running-cost GST | **Motor Vehicle Deductions (inc GST)** and **Less: Employer Claimed ITC** | If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed. |
+| 10 | Lease management fees | **Smart Drive Administration Fee** and **Less Your Salary Packaging Administration Fee** | Add “Smart Drive Administration Fee” and “Salary Packaging Administration Fee” if both are charged. |
 <!-- provider-table:end -->
 
 Do not use the total salary deduction as the finance payment: it also includes running-cost budgets.

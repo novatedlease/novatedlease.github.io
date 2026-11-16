@@ -128,6 +128,22 @@ Providers:
 8. Current-car typical figures (value at end, servicing, rego, insurance) have no basis note,
    unlike the new car's lease-end value.
 9. After merge: check GA4 `next_step_*` events in a couple of weeks (checklist card moved last).
+
+## 16 Nov: standalone provider article audit
+
+- Checked all 29 provider articles against their numbered redacted page markers, current Guided
+  pointers, generated guide export and referenced image paths. All 29 now explain every marker
+  on the corresponding page; `provider-picker.test.tsx` enforces that coverage.
+- Added missing table entries in Maxxia, Paywise, Prosperity Smart Drive, SG Fleet, Smart Leasing
+  and Toyota Fleet. Prosperity's fee guidance now names both the Smart Drive and salary-packaging
+  administration fees where both are charged; its running-cost box names both too. The private
+  source for that generated label is `private/quote-review-2026-11/running-layout/runlines.json`.
+- Removed stale mentions of the residual helper from LeaseLab and LeasePlan articles, where
+  Guided hides that helper. Removed wrong FBT-base marker metadata for MillarX and ORIX: those
+  marker locations were actually their interest-rate lines. Their articles already describe how
+  to find the base value when the sample doesn't print it.
+- Built the calculator/export and restarted Astro preview at `http://10.1.1.108:4340/`.
+  Targeted provider tests: 101 passed; eslint on changed TypeScript: clean. No push or merge.
 10. Parked by the owner: Queensland Government "Summary Table" quotes
     (`~/novated-lease-guide/private/qld-summary-table/`).
 

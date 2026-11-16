@@ -687,6 +687,9 @@ describe("provider pointers", () => {
     }
     expect(manifest.pages.sgfleet).toMatchObject({ image: "sgfleet/redacted-quote.webp", w: expect.any(Number), h: expect.any(Number) });
     expect(manifest.markers.sgfleet.driveaway[0]).toMatchObject({ label: "2", y: expect.any(Number), h: expect.any(Number) });
+    // The visible 11 on these pages is the interest rate, not an FBT base value.
+    expect(markerFor("millarx", "baseValue")).toBeNull();
+    expect(markerFor("orix", "baseValue")).toBeNull();
     expect(imageSizeFor(exampleFor("oly", "residual")!.image)).toMatchObject({ w: expect.any(Number), h: expect.any(Number) });
   });
 
@@ -743,6 +746,14 @@ describe("provider pointers", () => {
       const article = resolve(__dirname, `../../new-site/src/content/docs/start-here/how-to-read-${id}-quote.md`);
       expect(existsSync(article), article).toBe(true);
       const articleText = readFileSync(article, "utf8");
+      const numberedRows = new Set(
+        [...articleText.matchAll(/^\|\s*(\d+[a-z]?)(?:\s*\/\s*(\d+[a-z]?))?\s*\|/gm)]
+          .flatMap((match) => [match[1], match[2]].filter(Boolean)),
+      );
+      const markedFields = (manifest.markers as Record<string, Record<string, { label: string }[]>>)[id] ?? {};
+      for (const marks of Object.values(markedFields)) {
+        for (const { label } of marks) expect(numberedRows.has(label), `${id}: unexplained marker ${label}`).toBe(true);
+      }
       expect(articleText, article).toContain(`latest layout reviewed ${seenLabel(guide!.seen)}`);
       const title = articleText.match(/^title: "(How to read an? .+ novated lease quote)"$/m)?.[1];
       expect(title, article).toBeTruthy();
@@ -908,7 +919,7 @@ describe("provider pointers", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-toyotafleet-quote.md"), "utf8");
     for (const field of ["driveaway", "residual", "payment"] as const)
       expect(article).toContain(pointersFor("toyotafleet", field)[0].text);
-    expect(article).toMatch(/\| 7 \|[^\n]+\n\| 9 \|/);
+    expect(article).toMatch(/\| 7 \|[^\n]+\n\| 8 \|[^\n]+\n\| 9 \|/);
     expect(article).toContain("noting the printed GST basis");
     expect(article).toContain("The schedule doesn't state a deferral");
   });
@@ -944,7 +955,8 @@ describe("provider pointers", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-leaseplan-quote.md"), "utf8");
     expect(article).toContain(pointersFor("leaseplan", "docFee")[0].text);
     expect(article).toContain("Confirm the GST basis on your own quote");
-    expect(article).toContain("residual helper may not work without a printed residual");
+    expect(article).toContain("Ask for the full on-road price including GST");
+    expect(article).not.toContain("residual helper");
   });
 
   test("Alliance's footnote and two differently labelled payment examples stay in the article", () => {

@@ -31,6 +31,7 @@ Nothing on the Toyota Fleet Management quotes we checked looked easy to misread.
 | 5 | PPSR Fee and Est. Fee, both financed | Add as one-off documentation fees, noting the printed GST basis. |
 | 6 | Residual Value (excl GST) | If you see “Residual Value (excl GST)”, choose Excluding GST. |
 | 7 | Rent, package inclusions | If you see “Rent” under a monthly “(excl GST)” heading, enter it per month, excluding GST. |
+| 8 | Luxury Vehicle Adjustment | Enter it if the quote shows an amount for your car. |
 | 9 | EV reimbursement, registration, maintenance, tyres and insurance | Running-cost budgets in the matching period. |
 | 10 | Management | Lease management fee. |
 | 11 | Interest rate | Compare with Guided's effective-rate result. |

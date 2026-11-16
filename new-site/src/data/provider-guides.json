@@ -224,7 +224,8 @@
       "written": {
         "driveaway": "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual.",
         "payment": "If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period.",
-        "running": "If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed."
+        "running": "If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed.",
+        "fees": "Add “Smart Drive Administration Fee” and “Salary Packaging Administration Fee” if both are charged."
       },
       "traps": [
         "running"
@@ -260,6 +261,13 @@
           "text": "If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed.",
           "more": "If a “Less” line takes a GST credit off those costs, answer Yes when asked whether a GST credit is taken off.",
           "image": "/assets/images/quote-guide/prosperity/field-running.webp"
+        },
+        {
+          "field": "fees",
+          "kind": "locate",
+          "text": "Add “Smart Drive Administration Fee” and “Salary Packaging Administration Fee” if both are charged.",
+          "more": "The second fee appears later on the quote, after the employer GST credit.",
+          "image": "/assets/images/quote-guide/prosperity/field-fees.webp"
         }
       ]
     },
@@ -1180,7 +1188,7 @@
           "field": "baseValue",
           "kind": "locate",
           "text": "If you see “FBT base value (inc GST)”, enter it as printed.",
-          "image": "/assets/images/quote-guide/orix/redacted-quote.webp"
+          "image": null
         },
         {
           "field": "driveaway",

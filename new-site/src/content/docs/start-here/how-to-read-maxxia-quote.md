@@ -27,10 +27,12 @@ Nothing on the Maxxia quotes we checked looked easy to misread. The table below 
 | --- | --- | --- | --- |
 | 1 | FBT base value | **Vehicle FBT Base Value** | The value as printed, including GST. |
 | 2 | Drive-away price | **Car price (based on on roads)** | Use this price, not the FBT base value. They can differ. |
+| 3 | Lease term | **Chosen lease term** | Use the years shown. |
 | 5 | Documentation fee | **Financier's Establishment Fee** | Enter only “Financier's Establishment Fee” as the documentation fee. |
 | 6 | Residual | **Total residual value** | No GST label. It included GST on all 30 Maxxia quotes we checked: choose *Including GST*. |
 | 7 | Finance payment | **Financed payments** | Enter the payment in the period shown. Check the heading or ask Maxxia whether it includes GST. |
 | 9 | Insurance | **Comprehensive insurance renewal** under running costs | Enter “Comprehensive insurance renewal” as printed. |
+| 10 | Lease management fees | **Maxxia novated leasing fee** | Enter this with the running costs in the quote's period. |
 <!-- provider-table:end -->
 
 ## First-year insurance

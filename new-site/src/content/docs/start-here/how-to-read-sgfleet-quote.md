@@ -48,6 +48,8 @@ On the VSSS sample, go to **Lease details** on page 2. The line marked **2**, **
 | 6 | Residual | **Residual value (incl. GST)** | Choose *Including GST*. |
 | 7a / 7b | Finance payment | Per-pay **Lease rental** in Package details (7b). Not the **Monthly lease rental** in Lease details (7a) | Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months. |
 | 9 | Running costs | Package details, below Lease rental | Enter the budget lines using the period printed on your quote. Keep the package total and change to take-home pay out of the finance-payment box. |
+| 10 | Lease management fees | **Package management fee** | Enter the per-pay amount with the other package costs. |
+| 11 | Interest rate | **Interest rate** in Lease details | Compare with Guided's effective rate. |
 <!-- provider-table:end -->
 
 Check the finance payment's GST heading and footnotes on your own quote; the basis can vary by employer.

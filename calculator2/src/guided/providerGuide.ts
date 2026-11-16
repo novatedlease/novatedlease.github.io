@@ -579,6 +579,7 @@ export const GUIDES: ProviderGuide[] = [
       { field: "driveaway", text: "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual." },
       { field: "payment", text: "If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period." },
       { field: "running", text: "If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed.", more: "If a “Less” line takes a GST credit off those costs, answer Yes when asked whether a GST credit is taken off." },
+      { field: "fees", text: "Add “Smart Drive Administration Fee” and “Salary Packaging Administration Fee” if both are charged.", more: "The second fee appears later on the quote, after the employer GST credit." },
     ],
   },
   {

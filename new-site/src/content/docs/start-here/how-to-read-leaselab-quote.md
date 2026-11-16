@@ -37,7 +37,7 @@ This numbered example shows a LeaseLab quote layout we reviewed. Match each mark
 
 Drive-away price (2) isn't printed. "Novated Vehicle Price" is **not** the drive-away: it's the price
 with the GST saving already taken off. Drive-away ≈ Novated Vehicle Price + "GST Saved on Car Price"
-(page 1). Or use Guided's residual helper.
+(page 1). Check that sum against the dealer's full on-road price if you have it.
 
 The page notes "unspent funds will be returned at the end of the lease": the allowances are
 budgets, not fixed fees.
