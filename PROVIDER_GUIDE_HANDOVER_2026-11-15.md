@@ -569,3 +569,8 @@ Open items (not started; raise with the owner):
 - On the Running costs screen, the Yes answer to “is a GST credit taken off the running
   costs?” now gives both “Less GST credit” and “Input tax credit” as possible printed
   line names. This is a copy-only change; the calculation is unchanged.
+
+## 16 Nov: running-cost period copy
+
+- Removed “Use whichever your quote shows. All the boxes below use it.” below the
+  running-cost period choices to reduce clutter. The choices and calculation are unchanged.

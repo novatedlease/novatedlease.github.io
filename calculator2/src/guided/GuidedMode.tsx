@@ -2175,7 +2175,6 @@ function RunningStep({ d, set, f }: StepPropsF) {
           { value: "perYear", label: "Per year" },
         ]}
         columns={4}
-        hint="Use whichever your quote shows. All the boxes below use it."
       />
       <ProviderPointers d={d} field="running" />
       <Choices<"exGst" | "incGst" | "unknown">
