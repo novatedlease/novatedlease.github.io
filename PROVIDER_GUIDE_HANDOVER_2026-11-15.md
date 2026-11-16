@@ -205,6 +205,21 @@ Providers:
   the warning does not call any premium wrong.
 - Targeted tests: 10 passed; ESLint clean. Calculator rebuilt and Astro preview restarted on
   port 4340. Nothing pushed or merged.
+
+## 16 Nov: Easi monthly/fortnightly payment correction
+
+- The owner showed the 36-month Easi quote: $1,147.66/month ex GST × 12 ÷ 26 rounds to its
+  $529.69/fortnight Lease Rental. Both inputs give the calculator the same finance amount when
+  their matching period and GST basis are selected.
+- [Easi's own finance-schedule guide](https://support.easifleet.com.au/novated-finance-schedule)
+  explains the 60-month/58-instalment example: payroll collects the quoted rental over the full
+  term; the financier receives fewer, larger instalments after a two-month deferral. Easi says
+  the total paid is unchanged. This is cash accumulation before the first remittance, not
+  evidence of the extra refundable reserve modelled by the Smart Leasing/MillarX correction.
+- Removed the Easi-specific monthly-payment warning while keeping SG Fleet's. Updated Guided
+  pointer, article, tests and private template KEY to accept either Easi figure. Targeted tests:
+  116 passed; ESLint clean. Calculator rebuilt and Astro preview restarted on port 4340.
+  Nothing pushed or merged.
 10. Parked by the owner: Queensland Government "Summary Table" quotes
     (`~/novated-lease-guide/private/qld-summary-table/`).
 

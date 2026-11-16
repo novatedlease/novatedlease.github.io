@@ -433,8 +433,8 @@ export const GUIDES: ProviderGuide[] = [
       { field: "driveaway", text: "Use “Drive Away Price”, including GST." },
       {
         field: "payment",
-        text: "Use the fortnightly lease figure. Don’t use “Lease Per Month” if it covers fewer payments than the lease term.",
-        more: "On some Easi layouts the fortnightly figure is the monthly × 12 ÷ 26. If yours is, the rate may still look slightly high; ask Easi how many times it is deducted.",
+        text: "Use “Lease Per Month” per month or the fortnightly “Lease Rental” tile. Follow the GST heading on your quote.",
+        more: "On the reviewed layout, the fortnightly tile equals the monthly ex-GST figure × 12 ÷ 26. Easi says its finance schedule can have fewer, larger instalments after a deferral while payroll contributions run over the full term; the total paid stays the same.",
       },
       {
         field: "defer",

@@ -22,7 +22,7 @@ export function checkProvider(d: GuidedDraft): Finding[] {
   const p = d.provider;
   if (!p || p === "other") return [];
   const out: Finding[] = [];
-  if ((p === "sgfleet" || p === "easi") && d.paymentPeriod === "perMonth") {
+  if (p === "sgfleet" && d.paymentPeriod === "perMonth") {
     out.push({ code: "provider_monthly_payment", level: "warn", message: `${providerLabel(p)} may show a monthly lease rental paid fewer times than the lease has months. Check for the per-pay “Lease rental” and choose its period.` });
   }
   if (p === "remunerator" && moneyValue(d.payment) && d.paymentPeriod && d.paymentPeriod !== "perYear") {

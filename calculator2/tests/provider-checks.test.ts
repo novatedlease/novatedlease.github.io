@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { checkProvider } from "../src/guided/checks";
-import { emptyDraft, type GuidedDraft } from "../src/guided/draft";
+import { emptyDraft, paymentPerFn, type GuidedDraft } from "../src/guided/draft";
 import { DRIVEAWAY_TRAP_LABELS, PROVIDERS, TRAP_FIELDS, type ProviderId } from "../src/guided/providerGuide";
 
 function forProvider(provider: ProviderId | null): GuidedDraft {
@@ -8,12 +8,25 @@ function forProvider(provider: ProviderId | null): GuidedDraft {
 }
 
 describe("provider-specific findings", () => {
-  test.each(["sgfleet", "easi"] as const)("%s flags a monthly lease payment", (provider) => {
-    const d = forProvider(provider);
+  test("SG Fleet still flags a monthly lease payment", () => {
+    const d = forProvider("sgfleet");
     d.paymentPeriod = "perMonth";
     expect(checkProvider(d).map((f) => f.code)).toContain("provider_monthly_payment");
     d.paymentPeriod = "perFn";
     expect(checkProvider(d)).toEqual([]);
+  });
+
+  test("Easi accepts either printed payment with its matching period", () => {
+    const d = forProvider("easi");
+    d.payment = { text: "1147.66", none: false, estimated: false };
+    d.paymentPeriod = "perMonth";
+    d.paymentBasis = "exGst";
+    const monthly = paymentPerFn(d);
+    expect(checkProvider(d)).toEqual([]);
+    d.payment.text = "529.69";
+    d.paymentPeriod = "perFn";
+    expect(checkProvider(d)).toEqual([]);
+    expect(paymentPerFn(d)).toBeCloseTo(monthly!, 2);
   });
 
   test("Remunerator flags a typed payment with a non-yearly period", () => {
