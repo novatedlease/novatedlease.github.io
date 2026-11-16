@@ -611,3 +611,12 @@ Open items (not started; raise with the owner):
   images whose filenames collide with dated images; `ocr-kooya/` keeps those separate.
   The labels are heuristic and image counts are not quote counts. No private image or
   index was committed to the public worktree; no calculator guidance changed.
+
+- Follow-up audit corrected two private sorting rules: “Macquarie Park” in an ORIX
+  address is not the Macquarie provider, and “payable to ALP” identifies the Fingo/ALP
+  quote layout. After refreshing the sort, 1,006 images have one OCR provider match,
+  3 have exact reviewed-source overrides, 373 are context-only candidates, 51 contain
+  multiple provider names, 807 are unidentified and 225 are unlikely quotes. There are
+  32 labels with OCR/reviewed-source images: the 30 active guides plus Smartsalary
+  (Smart Leasing alias) and retired LeasePlan/Ayvens. RACV appears only as a context
+  candidate, with no provider match in the image itself. These remain heuristic counts.
