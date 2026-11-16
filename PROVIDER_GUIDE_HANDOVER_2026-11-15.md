@@ -304,3 +304,12 @@ Providers:
   guide and GST, payment-period and price-label traps. Copy only; no tour navigation changed.
   Render-smoke and provider-export tests, TypeScript build and lint with Tour.tsx's two existing
   set-state-in-effect violations excluded passed. Astro preview restarted on port 4340.
+- FleetPartners GST presentation: on the reviewed "Your order" example, the quote's
+  "Vehicle GST" total includes GST on CTP as well as on the vehicle subtotal. The engine uses
+  FBT/vehicle base ÷ 11 (capped), so before separately financed fees it can derive a financed
+  amount slightly higher than the quote's ex-GST drive-away by the GST on CTP.
+  The owner preferred a footnote over changing the general engine. A brief tooltip on the
+  FleetPartners drive-away pointer and a note in its article now explain the difference without
+  publishing quote numbers. ATO guidance lists vehicle and CTP insurance GST separately.
+  Provider-picker/export tests (101), changed-file ESLint and calculator build passed; Astro
+  preview restarted on port 4340.

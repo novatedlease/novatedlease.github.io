@@ -39,6 +39,8 @@ Here the deferral is 60 lease months minus 58 payment months, or 2 months.
 
 **FBT base value (1)** isn't labelled on these pages. On the "Your order" page, use the **Total column of the "Vehicle" line**: the car after any discount, with options and delivery, including GST, before on-road costs. On the quote checked it matched the FBT base value another provider printed for the same car.
 
+**Why the GST figures may differ:** On the example we checked, FleetPartners' line called “Vehicle GST” includes GST on CTP as well as on the vehicle. The calculator estimates the upfront vehicle GST credit from the “Vehicle” subtotal alone. Before any separately financed fees, this can leave its derived financed amount slightly higher than the quote's ex-GST drive-away total by the GST on CTP. Keep the **Drive-away total** and **Vehicle** amounts as printed; don't change either to force a match. The [ATO lists the vehicle and CTP insurance components separately](https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/simpler-bas-gst-bookkeeping-guide).
+
 Do not enter **Total lease cost** as the finance payment: it also includes the other parts.
 
 <!-- provider-missing:begin -->

@@ -358,7 +358,11 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xlqzm8", "1x9tvny"],
     pointers: [
-      { field: "driveaway", text: "Use “Drive-away total” in the Total column, including GST." },
+      {
+        field: "driveaway",
+        text: "Use “Drive-away total” in the Total column, including GST.",
+        more: "On the example we checked, “Vehicle GST” also includes GST on CTP. The calculator estimates the vehicle GST credit from the “Vehicle” subtotal only. Before other financed fees, this can leave its derived financed amount slightly higher by the CTP GST. Keep the drive-away total as printed.",
+      },
       {
         field: "docFee",
         text: "If “Lease Establishment Fee” is monthly, add it to management fees instead. Add the one-off PPSR fee and any financed brokerage.",
