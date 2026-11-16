@@ -338,5 +338,11 @@ Providers:
   Image 0 (“Your quote details”) is the source of the LeasePlan guide; it says “Insurance -
   LeasePlan Supplier” and matches the same layout in post 1mfmtsg, whose page footer explicitly
   names LeasePlan Australia Limited. Image 1 (“What are my running costs?”) is unbranded in the
-  crop; Inside Edge attribution is inferred by elimination, not proved by a visible logo.
-  The article now states this provenance and links both posts.
+  crop, but its distinctive table matches a branded Inside Edge quote in post 1t2cg4z.
+  The article now states this provenance and links the supporting posts.
+- Inside Edge guide feasibility: no provider entry or standalone article yet. Post 1t2cg4z
+  has a branded Inside Edge “The Basics” page with on-road price, residual, finance rental,
+  running-cost budgets and fees. Posts 1t9nkbk and 1p2wqvv have “The Details” pages with
+  explicit Inside Edge disclaimer and FBT base, purchase price excluding GST, lease term and
+  residual. Post 1n16kcg has a cropped Basics running-cost table. These are enough to develop
+  guidance with two complementary layouts; redact amounts and identifiers before publication.

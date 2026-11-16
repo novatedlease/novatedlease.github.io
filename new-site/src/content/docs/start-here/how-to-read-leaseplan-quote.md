@@ -12,7 +12,7 @@ datePublished: "2026-11-12"
 
 This numbered example shows a LeasePlan / Ayvens quote layout we reviewed. Match each marker to the table, then check the period and GST label on your own quote.
 
-**Which screenshot is LeasePlan?** The [source post](https://www.reddit.com/r/NovatedLeasingAU/comments/1n16kcg/help_deciding_on_provider_inside_edge_or_leaseplan/) compares two quotes. This guide uses the “Your quote details” screenshot: its running-cost list says “Insurance - LeasePlan Supplier”, and the layout matches a [separately posted quote](https://www.reddit.com/r/NovatedLeasingAU/comments/1mfmtsg/sg_quote_for_everest/) whose footer names LeasePlan Australia Limited. The other, smaller “What are my running costs?” screenshot has no provider name visible; attributing it to Inside Edge is an inference from the post, not a label on that image.
+**Which screenshot is LeasePlan?** The [source post](https://www.reddit.com/r/NovatedLeasingAU/comments/1n16kcg/help_deciding_on_provider_inside_edge_or_leaseplan/) compares two quotes. This guide uses the “Your quote details” screenshot: its running-cost list says “Insurance - LeasePlan Supplier”, and the layout matches a [separately posted quote](https://www.reddit.com/r/NovatedLeasingAU/comments/1mfmtsg/sg_quote_for_everest/) whose footer names LeasePlan Australia Limited. The smaller “What are my running costs?” screenshot matches the table on a [separately posted Inside Edge quote](https://www.reddit.com/r/NovatedLeasingAU/comments/1t2cg4z/quote_review_pls_inside_edge_vs_sg_fleet/) with the Inside Edge logo. The comparison screenshot itself is cropped and has no visible logo.
 
 <!-- provider-traps:begin -->
 ## What catches people out on a LeasePlan / Ayvens quote
