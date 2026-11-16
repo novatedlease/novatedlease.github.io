@@ -2158,11 +2158,6 @@ function RunningStep({ d, set, f }: StepPropsF) {
           />
         </div>
       )}
-      <Help title="How do I use my current driving to estimate this?">
-        Check your last two service records for the odometer reading, subtract,
-        and divide by the years between. Or multiply a typical weekly total by
-        52.
-      </Help>
       <Choices<RunningPeriod>
         field="runningPeriod"
         label="How are costs shown on your quote?"

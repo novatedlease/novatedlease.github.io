@@ -579,3 +579,8 @@ Open items (not started; raise with the owner):
 
 - Removed the redundant “Amount ex GST” and “Amount inc GST” bylines beneath the
   Excluding GST and Including GST choices. Kept the “I can't see it” assumption.
+
+## 16 Nov: kilometres help pointer
+
+- Removed “How do I use my current driving to estimate this?” from the Running costs
+  screen. The kilometres field and provider-specific quote pointer remain.
