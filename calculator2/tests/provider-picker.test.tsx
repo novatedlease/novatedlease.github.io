@@ -360,9 +360,32 @@ describe("provider pointers", () => {
   });
 
   test("NLA's payment GST question explains the printed subtotal check", () => {
+    phoneWidth(false);
     on("payment", { ...quoteDraft(), provider: "nla" });
     expect(screen.getByText(/On the NLA example, GST is 10% of the other “Gross fortnightly rental” lines/)).toBeTruthy();
     expect(screen.getByText(/If your table works the same way, choose Excluding GST/)).toBeTruthy();
+    const show = document.querySelector<HTMLButtonElement>('[data-gst-subtotal-example="nla"]')!;
+    fireEvent.click(show);
+    expect(document.querySelector('.gd-provider-side svg[role="img"]')?.getAttribute("aria-label"))
+      .toBe("Redacted Novated Lease Australia (NLA) quote with its GST figure boxed");
+    expect(document.querySelector(".gd-split__main .gd-gst-subtotal")).toBeNull();
+    expect(screen.getByText(/GST = 10% of the sum of the other rental lines above/)).toBeTruthy();
+  });
+
+  test.each(["alliance", "easi", "clearlease", "fingo"] as const)("%s shows the verified GST row example", (provider) => {
+    phoneWidth(false);
+    on("payment", { ...quoteDraft(), provider });
+    fireEvent.click(document.querySelector<HTMLButtonElement>(`[data-gst-subtotal-example="${provider}"]`)!);
+    expect(document.querySelector('.gd-provider-side svg[role="img"]')?.getAttribute("aria-label"))
+      .toBe(`Redacted ${provider === "easi" ? "Easi (EasiFleet)" : provider === "alliance" ? "Alliance Leasing" : provider === "clearlease" ? "Clear Lease" : "Fingo"} quote with its GST figure boxed`);
+  });
+
+  test("NLA's GST illustration opens inline only at phone width", () => {
+    phoneWidth(true);
+    on("payment", { ...quoteDraft(), provider: "nla" });
+    fireEvent.click(document.querySelector<HTMLButtonElement>('[data-gst-subtotal-example="nla"]')!);
+    expect(document.querySelector('.gd-split__main .gd-gst-subtotal svg[role="img"]')).toBeTruthy();
+    expect(document.querySelector(".gd-provider-side")).toBeNull();
   });
 
   const before = (a: Element, b: Element) => !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING);

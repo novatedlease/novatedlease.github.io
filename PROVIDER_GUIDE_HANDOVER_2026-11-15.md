@@ -547,3 +547,19 @@ Open items (not started; raise with the owner):
   `reports/comment-image-link-status-2026-11-16.json`. This fills an important gap in the
   earlier submission-only archive, but does not prove every historical quote image is
   recoverable. No private comment data or images were committed to this branch.
+
+## 16 Nov: illustrated GST subtotal checks
+
+- Under “Does the payment include or exclude GST?”, NLA now has a “Show me” control after
+  the conditional GST hint. It shows the relevant part of the existing redacted quote in
+  the **right-hand provider panel on desktop** (inline only at phone width), boxes the GST
+  amount, and states that GST is 10% of the other rental lines above.
+- The same control appears for reviewed Alliance Leasing, Easi, Clear Lease and Fingo examples.
+  Alliance's GST is 10% of “Lease total”; Easi's “GST per Month” is 10% of its monthly
+  ex-GST lease; Clear Lease's GST is 10% of the finance, GAP and other budget lines
+  combined; Fingo's GST is 10% of “Sub Total”. These were checked against the source
+  quotes. The copy tells readers to
+  match their own quote rather than asserting one basis for every quote from a provider.
+- The illustrations use inline SVG viewports over existing redacted assets; no original
+  amounts or identifying details were published. Focused provider tests (105),
+  changed-file ESLint and calculator build passed. Astro preview restarted on 4340.

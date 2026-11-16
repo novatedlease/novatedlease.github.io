@@ -911,9 +911,11 @@ function Side({
 function ProviderSidePanel({ provider, pick }: { provider: ProviderId; pick: PanelPick }) {
   const label = providerLabel(provider);
   return <div className="gd-provider-side">
-    <strong>{label} quote: {FIELD_NAMES[pick.field]}</strong>
+    <strong>{label} quote: {pick.gstSubtotal ? "GST check" : FIELD_NAMES[pick.field]}</strong>
     <div className="gd-template__body gd-template__body--side">
-      <QuotePicture key={`${pick.field}|${pick.template}`} provider={provider} field={pick.field} template={pick.template} example={pick.example} verb="Click" />
+      {pick.gstSubtotal && provider in GST_SUBTOTAL_EXAMPLES
+        ? <GstSubtotalFigure provider={provider as keyof typeof GST_SUBTOTAL_EXAMPLES} />
+        : <QuotePicture key={`${pick.field}|${pick.template}`} provider={provider} field={pick.field} template={pick.template} example={pick.example} verb="Click" />}
     </div>
   </div>;
 }
@@ -1619,8 +1621,8 @@ function PaymentStep({ d, set, f }: StepPropsF) {
         ]}
         columns={3}
         hint={<>
-          {d.provider === "nla" ? (
-            "On the NLA example, GST is 10% of the other “Gross fortnightly rental” lines. If your table works the same way, choose Excluding GST."
+          {d.provider === "nla" || d.provider === "alliance" || d.provider === "easi" || d.provider === "clearlease" || d.provider === "fingo" ? (
+            <GstSubtotalHint provider={d.provider} />
           ) : (
             <>
               {!hasProviderLine(d, "payment") && "Check next to the payment, its table heading and the footnotes. "}
@@ -1810,6 +1812,76 @@ function hasProviderLine(d: GuidedDraft, field: GuideField): boolean {
   return !!guide && pointersFor(guide.id, field).some((p) => p.text && !p.boilerplate);
 }
 
+const GST_SUBTOTAL_EXAMPLES = {
+  nla: {
+    text: "On the NLA example, GST is 10% of the other “Gross fortnightly rental” lines. If your table works the same way, choose Excluding GST.",
+    equation: "GST = 10% of the sum of the other rental lines above.",
+    image: "/assets/images/quote-guide/nla/redacted-quote.webp",
+    width: 1400, height: 3938,
+    viewBox: "690 2306 660 322",
+    box: { x: 1262, y: 2513, w: 80, h: 31 },
+  },
+  alliance: {
+    text: "On the Alliance example, GST is 10% of “Lease total”. If your table works the same way, enter the “Finance” line excluding GST.",
+    equation: "GST = 10% of “Lease total” above. “Finance” is one part of that total.",
+    image: "/assets/images/quote-guide/alliance/page2-budget.webp",
+    width: 662, height: 659,
+    viewBox: "0 0 662 455",
+    box: { x: 495, y: 376, w: 71, h: 27 },
+  },
+  easi: {
+    text: "On the Easi example, “GST per Month” is 10% of “Lease Per Month (ex GST)”. If yours is labelled the same way, choose Excluding GST for that lease figure.",
+    equation: "GST per Month = 10% of Lease Per Month (ex GST).",
+    image: "/assets/images/quote-guide/easi/field-payment.webp",
+    width: 900, height: 472,
+    viewBox: "341 22 485 112",
+    box: { x: 749, y: 80, w: 72, h: 27 },
+  },
+  clearlease: {
+    text: "On the Clear Lease example, GST is 10% of the finance, GAP and budget lines added together. If yours works the same way, choose Excluding GST for “Finance Budget”.",
+    equation: "GST = 10% of the finance, GAP and other budget lines above.",
+    image: "/assets/images/quote-guide/clearlease/redacted-quote.webp",
+    width: 1400, height: 3564,
+    viewBox: "700 2110 650 350",
+    box: { x: 1226, y: 2272, w: 96, h: 31 },
+  },
+  fingo: {
+    text: "On the Fingo example, GST is 10% of “Sub Total”. If your table works the same way, enter “Finance Repayment (Fixed)” excluding GST.",
+    equation: "GST = 10% of “Sub Total” above. The finance repayment is part of that subtotal.",
+    image: "/assets/images/quote-guide/fingo/redacted-quote.webp",
+    width: 1400, height: 1967,
+    viewBox: "705 965 650 495",
+    box: { x: 1155, y: 1372, w: 66, h: 28 },
+  },
+} as const;
+
+function GstSubtotalHint({ provider }: { provider: keyof typeof GST_SUBTOTAL_EXAMPLES }) {
+  const [open, setOpen] = useState(false);
+  const showInPanel = useContext(SidePanelContext);
+  const example = GST_SUBTOTAL_EXAMPLES[provider];
+  return <>
+    {example.text}{" "}
+    <button type="button" className="gd-linkbtn" data-gst-subtotal-example={provider} aria-expanded={showInPanel ? undefined : open} onClick={() => {
+      if (showInPanel) showInPanel({ field: "payment", template: example.image, example: null, gstSubtotal: true });
+      else setOpen(!open);
+    }}>
+      {!showInPanel && open ? "Hide example" : "Show me"}
+    </button>
+    {!showInPanel && open && <GstSubtotalFigure provider={provider} />}
+  </>;
+}
+
+function GstSubtotalFigure({ provider }: { provider: keyof typeof GST_SUBTOTAL_EXAMPLES }) {
+  const example = GST_SUBTOTAL_EXAMPLES[provider];
+  return <figure className="gd-gst-subtotal">
+    <svg viewBox={example.viewBox} role="img" aria-label={`Redacted ${providerLabel(provider)} quote with its GST figure boxed`}>
+      <image href={example.image} width={example.width} height={example.height} />
+      <rect className="gd-gst-subtotal__box" x={example.box.x} y={example.box.y} width={example.box.w} height={example.box.h} rx="4" />
+    </svg>
+    <figcaption>{example.equation} Amounts and identifying details are removed.</figcaption>
+  </figure>;
+}
+
 /** Dated, field-specific guidance beneath the matching question. */
 function ProviderPointers({ d, field }: { d: GuidedDraft; field: GuideField }) {
   const guide = guideFor(d.provider);
@@ -1826,7 +1898,7 @@ function ProviderPointers({ d, field }: { d: GuidedDraft; field: GuideField }) {
 }
 
 /** What the desktop side panel shows: a field's picture, picked by focus or by a "Show me" button. */
-type PanelPick = { field: GuideField; template: string; example: FieldExample | null };
+type PanelPick = { field: GuideField; template: string; example: FieldExample | null; gstSubtotal?: boolean };
 /** Present only on wide screens with a provider panel: "Show me" sends its picture there. */
 const SidePanelContext = createContext<((pick: PanelPick) => void) | null>(null);
 

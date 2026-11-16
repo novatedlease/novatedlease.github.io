@@ -148,6 +148,10 @@
 .gd-template__body a:has(> img) { display: block; }
 .gd-template__body img { display: block; width: 100%; height: auto; }
 .gd-template__body p { margin: 7px 0; color: var(--nlc-text-muted); font-size: 12px; }
+.gd-gst-subtotal { margin: 9px 0 2px; padding: 7px; max-width: 660px; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-sm); background: #fff; }
+.gd-gst-subtotal svg { display: block; width: 100%; height: auto; }
+.gd-gst-subtotal__box { fill: none; stroke: #d24809; stroke-width: 5; }
+.gd-gst-subtotal figcaption { padding: 6px 3px 1px; color: #26364a; font-size: 12px; line-height: 1.4; font-weight: 600; }
 :root[data-theme="dark"] .gd-template__crop img,
 :root[data-theme="dark"] .gd-provider-side img { opacity: .92; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gd-template__crop img, :root:not([data-theme="light"]) .gd-provider-side img { opacity: .92; } }
