@@ -459,3 +459,10 @@ Providers:
   estimated, which showed “Typical estimate, not from your quote…”. The price is the reader's own
   tariff and never on a quote, so `MoneyInput` now accepts `estimatedNote={null}` to hide the note,
   and the kWh field uses it. The estimated flag on `chargingRate` drives nothing else. New test.
+
+## 16 Nov: take-home tooltip, GST bullet
+
+- The results take-home tooltip has a third check (owner request): providers treat GST on lines
+  such as registration or insurance differently, while the engine applies one GST multiplier to
+  every running cost except electricity (`calculator/src/engine/worksheet_130.ts`), so small
+  differences are normal. Lendly, for example, credits 1/11 of all running costs, rego included.

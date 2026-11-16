@@ -3533,6 +3533,11 @@ function ResultHeadline({
                   Extra quote costs, such as LeaseGuard, incidentals or carbon offset, may be missing from your inputs.
                   See “Where do other lines on my quote go?” on the Running costs page.
                 </li>
+                <li>
+                  GST on individual running costs. Providers treat GST on lines such as registration or
+                  insurance in slightly different ways. This calculator gives every running cost the same
+                  GST treatment, so small differences are normal.
+                </li>
               </ul>
             </Tip>
           )}

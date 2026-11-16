@@ -248,6 +248,7 @@ describe("UX 2 and 3: take-home pay and lost super beside the headline", () => {
     expect(tooltip).toMatch(/Smart Leasing or MillarX correction/);
     expect(tooltip).toMatch(/LeaseGuard, incidentals or carbon offset/);
     expect(tooltip).toMatch(/Where do other lines on my quote go\?/);
+    expect(tooltip).toMatch(/every running cost the same\s+GST treatment/);
     expect(document.querySelector('[role="tooltip"] a')?.getAttribute("href"))
       .toBe("/special-and-policy/smart-leasing-millarx-payment-structure/");
     expect(document.querySelector(".gd-headline__super")).toBeNull();
