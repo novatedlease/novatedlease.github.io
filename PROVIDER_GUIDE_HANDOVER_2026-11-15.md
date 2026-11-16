@@ -413,3 +413,22 @@ Providers:
   box, above the period and GST questions (owner request). Entry slips such as `payment_too_high`
   stay under the amount. Notes still wait until the amount input loses focus (the whole finding
   map is emptied while typing). New ordering test; 176 related tests and lint pass.
+
+## 16 Nov: Lendly drive-away and FBT base value reconciled
+
+- On the reviewed Lendly quote (`1wus9yl`), Drive Away $59,534.35 − GST Tax Credit $5,311.54 =
+  $54,222.81, but “Total Price (ex. GST)” is $56,712.80. The $2,489.99 gap is the add-ons the
+  “Lease^” footnote lists (tint, dash cam, Scratch & Dent membership), financed outside the
+  drive-away price. On `1t93tpn` (May 2026, extras inside the drive-away) the block adds up to
+  the cent, so that quote is now a second Lendly source. Using the printed drive-away price had
+  Guided understate the amount financed by ~$2,490 and show ~13.7% instead of ~11.9–12.1%.
+- Drive-away pointer is now “Add ‘Total Price (ex. GST)’ and ‘GST Tax Credit’”; Guided then derives
+  exactly $56,712.80. The residual implies a base of $56,949.27 ex GST (another $236.47,
+  probably a financed fee, not named on the quote): left alone.
+- FBT base value: Lendly's page 7 statutory “Taxable Value” $11,685.39 ÷ 0.2 = $58,426.95, equal to
+  GST credit × 11 to the cent. Pointer keeps × 11; the cap fallback is now Taxable Value ÷ 0.2.
+- Lendly's full page and drive-away crop re-marked by `scripts/remark_lendly_driveaway.py`
+  (one-shot; works on the committed redacted page, re-copies only the printed words “Drive Away^”
+  from the private source because the old outline crossed the “y”). OCR finds no figures.
+  The Lendly article states the payment's GST basis isn't labelled; the “Less GST Savings” line
+  suggests it is ex GST, but that wording was not changed.

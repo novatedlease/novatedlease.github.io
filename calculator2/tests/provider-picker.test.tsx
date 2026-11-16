@@ -208,8 +208,16 @@ describe("FBT base value not printed", () => {
   const GST_LINES: [ProviderId, string][] = [
     ["millarx", "Look for “FBT Base Value”. Not printed? Multiply “Less: GST credit” by 11, unless it's the maximum."],
     ["remserv", "Look for “FBT Base Value” on the vehicle details page. Only have the summary? Multiply “GST savings on car” by 11, unless it's the maximum."],
-    ["lendly", "Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11."],
   ];
+
+  test("lendly: GST credit × 11, or its statutory Taxable Value ÷ 0.2 when the credit is capped", () => {
+    const [p] = pointersFor("lendly", "baseValue");
+    expect(p.notShown).toBe(true);
+    expect(p.text).toBe("Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11.");
+    expect(p.more).toMatch(/\$6,353/);
+    expect(p.more).toMatch(/divide “Taxable Value” .* by 0\.2/);
+    expect(existsSync(resolve(__dirname, "../../docs", p.example!.image.slice(1)))).toBe(true);
+  });
 
   test.each(GST_LINES)("%s: printed value first or GST credit × 11, with the cap in the tooltip and a picture that exists", (id, text) => {
     const [p] = pointersFor(id, "baseValue");

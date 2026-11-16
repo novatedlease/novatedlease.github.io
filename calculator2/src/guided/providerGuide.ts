@@ -706,9 +706,9 @@ export const GUIDES: ProviderGuide[] = [
   {
     id: "lendly",
     seen: "2026-10",
-    sources: ["1wus9yl"],
+    sources: ["1wus9yl", "1t93tpn"],
     pointers: [
-      { field: "driveaway", text: "If you see “Price … Drive Away” beside a lower “Total Price (ex. GST)”, use the drive-away price including GST." },
+      { field: "driveaway", text: "Add “Total Price (ex. GST)” and “GST Tax Credit”. Don't use “Total Price (ex. GST)” on its own.", more: "That sum includes extras financed outside the “Drive Away” price, such as tint or a dash cam (see the footnote on “Lease”). Without such extras, it equals the drive-away price." },
       { field: "residual", text: "If “Residual Value” has no GST label, check the footnote: the quote reviewed says it includes GST." },
       { field: "fees", text: "If you see a “Licence Fee” in the running-cost budget, include it with lease management fees." },
     ],
@@ -809,7 +809,12 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotS
     }),
   },
   lendly: {
-    baseValue: gstCreditLine("lendly", "Lendly", "“GST Tax Credit”", "Lendly"),
+    // Lendly's own base value is its statutory "Taxable Value" ÷ 20%; on 1wus9yl that equals the
+    // credit × 11 to the cent ($58,426.95), and it still works when the credit is capped.
+    baseValue: gstCreditLine("lendly", "Lendly", "“GST Tax Credit”", "Lendly", {
+      text: "Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11.",
+      more: `If the credit is ${capText}, the most allowed, divide “Taxable Value” under “Reportable Fringe Benefits Amount” by 0.2 instead.`,
+    }),
   },
   millarx: {
     // MillarX is finance only: the salary packager, not MillarX, holds the FBT base value.

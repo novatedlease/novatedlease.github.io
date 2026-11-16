@@ -1041,9 +1041,9 @@
       "id": "lendly",
       "label": "Lendly",
       "seen": "2026-10",
-      "sourceCount": 1,
+      "sourceCount": 2,
       "written": {
-        "driveaway": "If you see “Price … Drive Away” beside a lower “Total Price (ex. GST)”, use the drive-away price including GST.",
+        "driveaway": "Add “Total Price (ex. GST)” and “GST Tax Credit”. Don't use “Total Price (ex. GST)” on its own.",
         "residual": "If “Residual Value” has no GST label, check the footnote: the quote reviewed says it includes GST.",
         "fees": "If you see a “Licence Fee” in the running-cost budget, include it with lease management fees."
       },
@@ -1055,13 +1055,14 @@
           "field": "baseValue",
           "kind": "missing",
           "text": "Can't find it on your Lendly quote? Multiply “GST Tax Credit” by 11.",
-          "more": "Doesn't work if the credit is $6,353, the most allowed. Then ask Lendly, or take the drive-away price and subtract stamp duty, rego and CTP.",
+          "more": "If the credit is $6,353, the most allowed, divide “Taxable Value” under “Reportable Fringe Benefits Amount” by 0.2 instead.",
           "image": "/assets/images/quote-guide/lendly/field-gst-credit.webp"
         },
         {
           "field": "driveaway",
           "kind": "trap",
-          "text": "If you see “Price … Drive Away” beside a lower “Total Price (ex. GST)”, use the drive-away price including GST.",
+          "text": "Add “Total Price (ex. GST)” and “GST Tax Credit”. Don't use “Total Price (ex. GST)” on its own.",
+          "more": "That sum includes extras financed outside the “Drive Away” price, such as tint or a dash cam (see the footnote on “Lease”). Without such extras, it equals the drive-away price.",
           "image": "/assets/images/quote-guide/lendly/field-driveaway.webp"
         },
         {
