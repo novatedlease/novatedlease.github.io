@@ -36,8 +36,8 @@ const TOUR_STEPS: TourStep[] = [
     title: "Start guided, go deeper when you want.",
     body: (
       <>
-        The calculator starts in <strong>Guided mode</strong>: it asks one thing at a time, shows where each figure sits
-        on a typical quote, and flags common entry slips. If you don't have a quote yet, it fills in typical figures so you
+        The calculator starts in <strong>Guided mode</strong>: it asks one thing at a time. If you name your lease provider,
+        it points to the right lines on a redacted sample quote and flags common entry slips. Without a quote, it fills in typical figures so you
         can still get a rough answer. Switch to <strong>Advanced mode</strong> here for every input on one page and the
         full workings.
       </>
@@ -60,11 +60,12 @@ const TOUR_STEPS: TourStep[] = [
   },
   {
     key: "guided-card",
-    title: "One screen, a few questions.",
+    title: "Find each figure on your provider's quote.",
     body: (
       <>
-        Each screen asks only a few things, with an example quote showing where to find each figure and a warning if a
-        number looks off. We won't tour every screen: they're hopefully self-explanatory, and you can always go back and edit.
+        If you have a quote, choose the company that issued it on the first screen. Guided shows a redacted example with
+        each relevant field, with marked lines to copy and a numbered guide you can open. It also warns about traps such as GST,
+        payment periods and misleading price labels. You can go back and edit any answer.
       </>
     ),
     target: { kind: "selector", value: "guided-card" },

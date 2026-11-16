@@ -299,3 +299,8 @@ Providers:
   restarted on 4340. Lint passed for changed files except five pre-existing rule violations in
   `LeaseRateGuard.tsx` (three react-refresh exports, one set-state-in-effect, one ref during render);
   with only those rules disabled for that file, lint passed.
+- Quick Tour: the Guided introduction now says that naming a provider brings up redacted quote
+  examples and flags entry slips. The Guided-card step explains the marked field lines, numbered
+  guide and GST, payment-period and price-label traps. Copy only; no tour navigation changed.
+  Render-smoke and provider-export tests, TypeScript build and lint with Tour.tsx's two existing
+  set-state-in-effect violations excluded passed. Astro preview restarted on port 4340.
