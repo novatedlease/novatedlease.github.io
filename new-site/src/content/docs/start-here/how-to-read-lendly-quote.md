@@ -38,7 +38,7 @@ This numbered example shows a Lendly quote layout we reviewed. Match each marker
 
 ## Reading the monthly costs page
 
-On the quote we have seen, the **“Lease” figure on this page is already ex GST, while the running costs are written including GST**. That's why “Less GST Savings” is about 1/11 of the running costs (registration has no GST) and has nothing for the lease. Check the same way on your own quote: if “Less GST Savings” is less than a tenth of “Lease”, choose Excluding GST for the finance payment.
+On the quote we have seen, the **“Lease” figure on this page is already ex GST, while the running costs are written including GST**. That's why “Less GST Savings” is exactly 1/11 of “Total running costs (A)”, and has nothing for the lease or the “Licence Fee”. Lendly takes 1/11 of the whole total, including registration, which has little or no GST, so its GST saving may be a few dollars a month too generous. Guided works out GST on each line itself. Check the same way on your own quote: if “Less GST Savings” is less than a tenth of “Lease”, choose Excluding GST for the finance payment.
 
 - **Monthly Net Cost (A+B)** is the figure to compare: it's how much your take-home pay drops each month.
 - **“Net lease costs (B)”** isn't what the lease costs. The whole tax and GST saving, including the part from the running costs, is taken off in that section.

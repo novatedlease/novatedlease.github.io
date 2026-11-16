@@ -1088,7 +1088,7 @@
           "field": "payment",
           "kind": "locate",
           "text": "Use “Lease” under “Monthly lease costs”, per month. If “Less GST Savings” is less than a tenth of “Lease”, choose Excluding GST.",
-          "more": "On the quote we have seen, “Lease” is already ex GST, while the running costs are written including GST. That's why “Less GST Savings” is about 1/11 of the running costs, with nothing for the lease.",
+          "more": "On the quote we have seen, “Lease” is already ex GST, while the running costs are written including GST. That's why “Less GST Savings” is exactly 1/11 of “Total running costs (A)”, with nothing for the lease.",
           "image": "/assets/images/quote-guide/lendly/field-payment.webp"
         },
         {

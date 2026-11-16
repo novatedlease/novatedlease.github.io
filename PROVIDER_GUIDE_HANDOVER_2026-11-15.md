@@ -447,3 +447,8 @@ Providers:
   seen, “Lease” is already ex GST while running costs include GST, so “Less GST Savings” is about
   1/11 of the running costs; A+B is the figure to compare; “Net lease costs (B)” isn't the lease's
   cost; pre-tax deduction = A + Lease + Licence Fee − GST savings. The payment tooltip says the same.
+- Correction (owner spotted): Lendly's “Less GST Savings” $44.51 is exactly Total running costs
+  (A) $489.63 ÷ 11, registration included; nothing for Lease or Licence Fee. Article and tooltip now
+  say “exactly 1/11”, and the article notes this may overstate the GST credit by a few dollars a
+  month (rego has little or no GST). The Licence Fee is not explained on either quote, Lendly's
+  site or Reddit; Guided keeps treating it as a management fee.
