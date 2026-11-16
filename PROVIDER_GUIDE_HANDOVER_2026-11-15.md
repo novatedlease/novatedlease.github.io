@@ -395,3 +395,13 @@ Providers:
 - Sync-script provider counts are now 30; freshness check has CarBon labels; private
   `runlines.json` has CarBon. Provider tests (114), changed-file ESLint and calculator build
   pass; preview restarted on 4340; the walkthrough page (:4343) rebuilt with 30 providers.
+
+## 16 Nov: walkthrough server moved back to the private folder
+
+- The :4343 walkthrough server had been started from an old session scratchpad copy
+  (`/private/tmp/.../e7e9dd65-.../scratchpad/provider-walk`), so rebuilding the private
+  `provider-walk/index.html` didn't change what the owner saw, and the owner's marks
+  (16 providers "good", Alliance through LeaseLab) were saved only in that copy. Merged them into
+  `private/quote-review-2026-11/provider-walk/feedback.json` (backup of the previous file:
+  `feedback.before-merge-2026-11-16.json`) and restarted `server.py` from the private folder.
+  Always run it from there.
