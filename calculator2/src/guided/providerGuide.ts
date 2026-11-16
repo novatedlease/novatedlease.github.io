@@ -584,10 +584,10 @@ export const GUIDES: ProviderGuide[] = [
   },
   {
     id: "driva",
-    seen: "2026-08",
-    sources: ["1vfxcqr"],
+    seen: "2026-11",
+    sources: ["1xr5coj", "1w1ejpj", "1vfxcqr"],
     pointers: [
-      { field: "driveaway", text: "If you see both “DriveAway Price” and a lower “Effective novated vehicle price”, use “DriveAway Price” including GST." },
+      { field: "driveaway", text: "Use “DriveAway Price” in Vehicle Information, including GST.", more: "Another Driva layout says “Vehicle price (drive away)” and shows a lower “Effective novated vehicle price” after GST savings. Use the drive-away figure." },
       { field: "residual", text: "If you see “Residual Value (ex. GST)”, choose Excluding GST." },
       { field: "payment", text: "If you see “Lease Payment” under “Budget per payroll ex. GST”, enter it excluding GST and choose the payroll period shown." },
     ],

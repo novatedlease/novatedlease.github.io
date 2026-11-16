@@ -162,6 +162,19 @@ Providers:
   It points readers to “Where do other lines on my quote go?” on the Running costs page.
 - Targeted UX tests: 34 passed; changed TypeScript ESLint clean. Calculator rebuilt and Astro
   preview restarted on port 4340. Nothing pushed or merged.
+
+## 16 Nov: Driva price-label source correction
+
+- The numbered Driva image is based on Reddit post `1xr5coj` (Nov 2026), whose Vehicle Information
+  has “DriveAway Price”. The “Effective novated vehicle price” phrase came from a separate Driva
+  post `1w1ejpj` (Aug 2026), where the full price is labelled “Vehicle price (drive away)”.
+  The earlier article and Guided pointer incorrectly implied both labels appeared on one page.
+- The article now names the separate post and its labels; Guided's main pointer only describes
+  the numbered page and keeps the other layout in its tooltip. Guide sources now include both
+  posts plus the earlier comparison post `1vfxcqr`, so the review note says 3 examples and Nov
+  2026. The private Driva `KEY.md` was corrected too (it is git-ignored).
+- Targeted provider tests: 117 passed; changed TypeScript ESLint clean. Calculator rebuilt and
+  Astro preview restarted on port 4340. Nothing pushed or merged.
 10. Parked by the owner: Queensland Government "Summary Table" quotes
     (`~/novated-lease-guide/private/qld-summary-table/`).
 

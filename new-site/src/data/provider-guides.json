@@ -498,10 +498,10 @@
     {
       "id": "driva",
       "label": "Driva",
-      "seen": "2026-08",
-      "sourceCount": 1,
+      "seen": "2026-11",
+      "sourceCount": 3,
       "written": {
-        "driveaway": "If you see both “DriveAway Price” and a lower “Effective novated vehicle price”, use “DriveAway Price” including GST.",
+        "driveaway": "Use “DriveAway Price” in Vehicle Information, including GST.",
         "residual": "If you see “Residual Value (ex. GST)”, choose Excluding GST.",
         "payment": "If you see “Lease Payment” under “Budget per payroll ex. GST”, enter it excluding GST and choose the payroll period shown."
       },
@@ -512,7 +512,8 @@
         {
           "field": "driveaway",
           "kind": "trap",
-          "text": "If you see both “DriveAway Price” and a lower “Effective novated vehicle price”, use “DriveAway Price” including GST.",
+          "text": "Use “DriveAway Price” in Vehicle Information, including GST.",
+          "more": "Another Driva layout says “Vehicle price (drive away)” and shows a lower “Effective novated vehicle price” after GST savings. Use the drive-away figure.",
           "image": "/assets/images/quote-guide/driva/field-driveaway.webp"
         },
         {

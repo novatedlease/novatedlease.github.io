@@ -828,12 +828,14 @@ describe("provider pointers", () => {
     expect(article).toContain("Lease Payment (excl GST), under Annual Car Expenses");
   });
 
-  test("Driva's article names the GST-reduced price trap and the quote's actual review month", () => {
+  test("Driva's article separates the numbered example from the other price layout", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-driva-quote.md"), "utf8");
     for (const field of ["driveaway", "residual", "payment"] as const)
       expect(article).toContain(pointersFor("driva", field)[0].text);
-    expect(article).toContain("latest layout reviewed Aug 2026");
-    expect(article).not.toContain("reviewed in November 2026");
+    expect(article).toContain("latest layout reviewed Nov 2026");
+    expect(article).toContain("Checked against 3 quote examples");
+    expect(article).toContain("https://www.reddit.com/gallery/1w1ejpj");
+    expect(article).toContain("Those two labels do not appear together on the numbered example above.");
   });
 
   test("Fingo's article distinguishes its discounted price and GST subtotal", () => {
