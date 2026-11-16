@@ -443,3 +443,7 @@ Providers:
   owner's rule not to state a provider's GST basis as fact, the new payment pointer gives a check:
   “If ‘Less GST Savings’ is less than a tenth of ‘Lease’, choose Excluding GST.” Article table
   row 7 now syncs from it (`sync-provider-tables.mjs`), replacing “choose I'm not sure”.
+- Lendly article: new “Reading the monthly costs page” section (owner wording): on the quote
+  seen, “Lease” is already ex GST while running costs include GST, so “Less GST Savings” is about
+  1/11 of the running costs; A+B is the figure to compare; “Net lease costs (B)” isn't the lease's
+  cost; pre-tax deduction = A + Lease + Licence Fee − GST savings. The payment tooltip says the same.
