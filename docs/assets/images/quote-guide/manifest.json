@@ -380,6 +380,10 @@
       "w": 1144,
       "h": 182
     },
+    "leaselab/field-driveaway.webp": {
+      "w": 850,
+      "h": 443
+    },
     "leaselab/field-fees.webp": {
       "w": 1400,
       "h": 200
@@ -1804,6 +1808,18 @@
       ]
     },
     "leaselab": {
+      "driveaway": [
+        {
+          "label": "2",
+          "y": 712,
+          "h": 73
+        },
+        {
+          "label": "2",
+          "y": 1338,
+          "h": 45
+        }
+      ],
       "term": [
         {
           "label": "3",
@@ -3000,6 +3016,9 @@
     "leaselab": {
       "baseValue": [
         "1"
+      ],
+      "driveaway": [
+        "2"
       ],
       "fees": [
         "10"

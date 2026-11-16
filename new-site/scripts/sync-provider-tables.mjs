@@ -22,7 +22,7 @@ const migrated = {
   paywise: { '7': 'payment', '10': 'fees' },
   remserv: { '6': 'residual', '7': 'payment' },
   simplygreen: { '2': 'driveaway', '4': 'defer', '7': 'payment' },
-  leaselab: { '6': 'residual', '7': 'payment' },
+  leaselab: { '2': 'driveaway', '6': 'residual', '7': 'payment' },
   leaseexpress: { '1': 'baseValue', '6': 'residual', '7': 'payment' },
   orix: { '6': 'residual' },
   nla: { '1': 'baseValue', '2': 'driveaway', '6': 'residual', '7': 'payment' },

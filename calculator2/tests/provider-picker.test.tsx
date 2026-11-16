@@ -894,7 +894,9 @@ describe("provider pointers", () => {
       expect(article).toContain(pointersFor("leaselab", field)[0].text);
     expect(article).toContain('"Weekly Allowances" (or "Fortnightly Allowances") … "Budgeted Allowance (ex GST)"');
     expect(article).toContain("Roadside goes with Servicing");
-    expect(article).toContain("Novated Vehicle Price + \"GST Saved on Car Price\"");
+    expect(article).toContain("right-hand savings tile near the top");
+    expect(article).toContain("Vehicle Information");
+    expect(templateFor("leaselab", "driveaway")).toBe("/assets/images/quote-guide/leaselab/field-driveaway.webp");
   });
 
   test("LeaseExpress's FBT, residual and payment rows follow Guided", () => {

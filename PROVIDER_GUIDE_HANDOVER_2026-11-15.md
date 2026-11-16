@@ -330,3 +330,7 @@ Providers:
   residual value and percentage in Guided's “Not on your quote? Work it out from the residual”
   helper. The drive-away trap text also mentions this fallback; “Vehicle finance amount” remains
   excluded as the drive-away price.
+- LeaseLab drive-away location: both components are on page 1 but far apart: “GST Saved on Car
+  Price” in the top-right savings tile and “Novated Vehicle Price” lower down in Vehicle
+  Information. Guided and the article now name both locations. The already-redacted full page
+  has marker 2 on both lines, with a stacked focused crop; no quote amounts were published.

@@ -529,8 +529,8 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "driveaway",
-        text: "No drive-away total? Add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.",
-        more: "Adding the printed GST saving reverses the GST reduction in “Novated Vehicle Price”. Check against your dealer's full on-road price if available.",
+        text: "On page 1, add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.",
+        more: "The GST saving is in the top-right savings tile. Novated Vehicle Price is lower down in Vehicle Information. Adding them reverses the GST reduction; check against the dealer's full on-road price if available.",
       },
       {
         field: "payment",

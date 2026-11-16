@@ -839,7 +839,7 @@
       "seen": "2026-11",
       "sourceCount": 1,
       "written": {
-        "driveaway": "No drive-away total? Add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.",
+        "driveaway": "On page 1, add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.",
         "payment": "If “Lease” is under “Budgeted Allowance (ex GST)”, choose the period in the heading (Weekly or Fortnightly Allowances) and Excluding GST.",
         "running": "Choose the period in the heading for the running costs too.",
         "residual": "If the residual is labelled ex GST, choose “Excluding GST”."
@@ -851,9 +851,9 @@
         {
           "field": "driveaway",
           "kind": "trap",
-          "text": "No drive-away total? Add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.",
-          "more": "Adding the printed GST saving reverses the GST reduction in “Novated Vehicle Price”. Check against your dealer's full on-road price if available.",
-          "image": null
+          "text": "On page 1, add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.",
+          "more": "The GST saving is in the top-right savings tile. Novated Vehicle Price is lower down in Vehicle Information. Adding them reverses the GST reduction; check against the dealer's full on-road price if available.",
+          "image": "/assets/images/quote-guide/leaselab/field-driveaway.webp"
         },
         {
           "field": "defer",

@@ -15,7 +15,7 @@ This numbered example shows a LeaseLab quote layout we reviewed. Match each mark
 <!-- provider-traps:begin -->
 ## What catches people out on a LeaseLab quote
 
-- **Drive-away price:** No drive-away total? Add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.
+- **Drive-away price:** On page 1, add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price.
 <!-- provider-traps:end -->
 
 ![Redacted LeaseLab quote with numbered fields](/assets/images/quote-guide/leaselab/redacted-quote.webp)
@@ -28,6 +28,7 @@ This numbered example shows a LeaseLab quote layout we reviewed. Match each mark
 | # | On the quote | In Guided |
 |---|---|---|
 | 1 | FBT Base Value | FBT base value |
+| 2 | “GST Saved on Car Price” near the top of page 1 + “Novated Vehicle Price” in Vehicle Information below | On page 1, add “GST Saved on Car Price” to “Novated Vehicle Price”, or ask for the full on-road price. |
 | 3 | Lease Term | Lease term |
 | 6 | Residual Ex. GST (also "Residual Value ex. GST" on page 2) | If the residual is labelled ex GST, choose “Excluding GST”. |
 | 7 | Lease, under "Weekly Allowances" (or "Fortnightly Allowances") … "Budgeted Allowance (ex GST)" | If “Lease” is under “Budgeted Allowance (ex GST)”, choose the period in the heading (Weekly or Fortnightly Allowances) and Excluding GST. |
@@ -35,9 +36,10 @@ This numbered example shows a LeaseLab quote layout we reviewed. Match each mark
 | 10 | Lease Management | Lease management fees, same period as the heading |
 <!-- provider-table:end -->
 
-Drive-away price (2) isn't printed. "Novated Vehicle Price" is **not** the drive-away: it's the price
-with the GST saving already taken off. Drive-away ≈ Novated Vehicle Price + "GST Saved on Car Price"
-(page 1). Check that sum against the dealer's full on-road price if you have it.
+Drive-away price (2) isn't printed as a total. On **page 1**, “GST Saved on Car Price” is the
+right-hand savings tile near the top. “Novated Vehicle Price” is in the **Vehicle Information**
+box farther down on the right. Add them to reverse the GST reduction, then check the sum
+against the dealer's full on-road price if you have it.
 
 The page notes "unspent funds will be returned at the end of the lease": the allowances are
 budgets, not fixed fees.
