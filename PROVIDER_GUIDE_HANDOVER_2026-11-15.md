@@ -505,3 +505,21 @@ Open items (not started; raise with the owner):
   to this worktree's `docs/assets`. The NLA full quote and field images exist; both the full
   quote and running-cost crop returned HTTP 200 on the walkthrough server, including at
   `http://10.1.1.108:4343/`. This is private server setup, not a public asset change.
+
+## 16 Nov: private subreddit quote archive backfill
+
+- The private Arctic Shift archive in `private/quote-review-2026-11/data/all.json` now has
+  2,547 posts, from the archive's first r/NovatedLeasingAU post (1 Jul 2025) through its
+  latest available post at 16 Nov 2026 12:50 UTC. Added 51 posts since the earlier 11 Nov pull.
+- `private/quote-review-2026-11/scripts/backfill_gaps.py` expanded `data/imgposts.json` to
+  1,195 indexed image-bearing posts and attempted 837 missing image slots. It saved 140 valid
+  JPGs, leaving 2,123 JPG files across the `images-*` folders. The 697 failed links all
+  returned HTTP 404 on a second check; 309 indexed image-bearing posts still have no local
+  JPG. Some of those posts are not quote posts. Original JSON backups and the detailed
+  `reports/backfill-2026-11-16.json` audit remain private.
+- Ran `freshness_check.py --no-pull --since-days 7` to OCR all collected images and write
+  `reports/freshness-2026-11-16.md`. Its “0 new images” line means none were downloaded in
+  this *second* pass; the backfill just before it saved 140. The OCR-based provider flags
+  need visual review and did not trigger any public guidance changes. The post scraper
+  covers submissions, not image-bearing comments or deleted uploads. No private image or
+  post data was committed to the public branch.
