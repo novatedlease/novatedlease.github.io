@@ -122,6 +122,7 @@
       "seen": "2026-11",
       "sourceCount": 2,
       "written": {
+        "financedInsurance": "Use “1st year Comprehensive Insurance” beside the establishment fee. Don't use the renewal budget here.",
         "driveaway": "If you see “Car price (based on on roads…)”, that's the drive-away price.",
         "residual": "If “Total residual value” has no GST label, choose Including GST.",
         "insurance": "Enter “Comprehensive insurance renewal” as printed.",
@@ -1236,6 +1237,7 @@
       "seen": "2026-11",
       "sourceCount": 2,
       "written": {
+        "financedInsurance": "Use “First year Comprehensive Insurance” under “Car finance”, below the establishment fee. Don't use the renewal budget here.",
         "driveaway": "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
         "insurance": "Enter “Comprehensive Insurance” under “Registration and car insurances” as printed.",
         "docFee": "Enter only “Financier's Establishment fee” as the documentation fee.",

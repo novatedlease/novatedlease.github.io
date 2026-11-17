@@ -579,6 +579,23 @@ describe("provider pointers", () => {
       .toBe("/assets/images/quote-guide/smartleasing/field-docFee.webp");
   });
 
+  test.each(["oly", "maxxia"] as const)("%s shows the financed first-year insurance line beside its question", (provider) => {
+    phoneWidth(false);
+    on("lease", { ...quoteDraft(), provider });
+    const question = screen.getByText("Is the first year's insurance included in the amount financed?");
+    fireEvent.focus(question.closest("[data-field]")!.querySelector("button")!);
+    expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
+      .toBe(`/assets/images/quote-guide/${provider}/field-financedInsurance.webp`);
+    const pointer = document.querySelector<HTMLElement>('[data-field="financedInsurance"].gd-pointers')!;
+    expect(pointer.textContent).toMatch(/Don't use the renewal budget here/);
+  });
+
+  test("Smart Leasing has no financed first-year insurance prompt or marked crop", () => {
+    on("lease", { ...quoteDraft(), provider: "smartleasing" });
+    expect(screen.queryByText("Is the first year's insurance included in the amount financed?")).toBeNull();
+    expect(cropFor("smartleasing", "financedInsurance")).toBeNull();
+  });
+
   test("SG Fleet's payment trap uses an amber box and a scrollable full-page toggle", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
     const pointer = openPicture("payment");

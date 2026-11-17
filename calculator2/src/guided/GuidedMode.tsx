@@ -860,7 +860,7 @@ function Side({
   const [pick, setPick] = useState<PanelPick | null>(null);
   const narrow = useNarrowScreen();
   // The typical-quote diagram has no separate insurance or fees row; both sit under running costs.
-  const diagram = <QuoteDiagram highlight={highlight.filter((k): k is QuoteKey => k !== "insurance" && k !== "fees" && k !== "mileage")} values={quoteValues(d)} />;
+  const diagram = <QuoteDiagram highlight={highlight.filter((k): k is QuoteKey => k !== "insurance" && k !== "fees" && k !== "mileage" && k !== "financedInsurance")} values={quoteValues(d)} />;
   const guide = guideFor(d.provider);
   const hasPicture = (field: GuideField) => !!guide && !!pictureFor(guide.id, field);
   // Keep showing the last provider picture when the focused field has none of its own.
@@ -871,6 +871,7 @@ function Side({
     leaseYears: "term", monthsDeferred: "defer", paymentPeriod: "payment",
     residualBasis: "residual", residualPct: "residual",
     paymentBasis: "payment", runningPeriod: "running", runningGstHeading: "running",
+    insuranceFinanced: "financedInsurance",
     mgmt: "fees", service: "running", tyres: "running", rego: "running", fuel: "running",
   };
   return (
@@ -1350,7 +1351,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
       ? null
       : String(d.monthsDeferred);
   return (
-    <Side highlight={["term", "defer", "docFee", "residual"]} d={d}>
+    <Side highlight={["term", "defer", "docFee", "financedInsurance", "residual"]} d={d}>
       <Lead>The finance terms from your quote.</Lead>
       <Choices
         field="leaseYears"
@@ -1433,6 +1434,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
           columns={3}
           hint="Look for a first-year comprehensive insurance line near the establishment fee."
         />
+        <ProviderPointers d={d} field="financedInsurance" />
         {d.insuranceFinanced === "Yes" && <MoneyInput
           field="financedInsurance"
           label="First-year insurance premium in the amount financed"

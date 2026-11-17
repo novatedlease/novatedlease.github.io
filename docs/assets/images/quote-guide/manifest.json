@@ -1059,6 +1059,14 @@
     "carbon/field-luxAdj.webp": {
       "w": 805,
       "h": 185
+    },
+    "maxxia/field-financedInsurance.webp": {
+      "w": 1300,
+      "h": 192
+    },
+    "oly/field-financedInsurance.webp": {
+      "w": 1300,
+      "h": 230
     }
   },
   "pages": {

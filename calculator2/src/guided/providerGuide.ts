@@ -108,7 +108,7 @@ export function isNamedProvider(id: ProviderId | null): id is ProviderId {
 }
 
 /** "mileage" has a marked crop and a text line (mileageLine.ts) but no written pointer in the guides. */
-export type GuideField = QuoteKey | "insurance" | "fees" | "mileage";
+export type GuideField = QuoteKey | "insurance" | "fees" | "mileage" | "financedInsurance";
 
 export type Pointer = {
   field: GuideField;
@@ -338,6 +338,10 @@ export const GUIDES: ProviderGuide[] = [
     sources: ["1xq2wcg", "1vfxcqr"],
     pointers: [
       {
+        field: "financedInsurance",
+        text: "Use “First year Comprehensive Insurance” under “Car finance”, below the establishment fee. Don't use the renewal budget here.",
+      },
+      {
         field: "driveaway",
         text: "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
         more: "On the quote we checked, it matched the full on-road price including GST. If yours doesn't include on-road charges, ask the dealer for the full drive-away price.",
@@ -364,6 +368,10 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xt3of3", "1xs8shk"],
     pointers: [
+      {
+        field: "financedInsurance",
+        text: "Use “1st year Comprehensive Insurance” beside the establishment fee. Don't use the renewal budget here.",
+      },
       {
         field: "driveaway",
         text: "If you see “Car price (based on on roads…)”, that's the drive-away price.",
@@ -1060,6 +1068,7 @@ export const FIELD_NAMES: Record<GuideField, string> = {
   baseValue: "FBT base value", driveaway: "Drive-away price", term: "Lease term", defer: "Months deferred",
   docFee: "Documentation fee", residual: "Residual", payment: "Finance payment", luxAdj: "Luxury adjustment",
   running: "Running costs", insurance: "Insurance", fees: "Management fees", mileage: "Kilometres per year",
+  financedInsurance: "First-year insurance financed up front",
 };
 
 /**

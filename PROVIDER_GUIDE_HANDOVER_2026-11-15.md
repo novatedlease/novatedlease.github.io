@@ -670,3 +670,20 @@ Open items (not started; raise with the owner):
   the old no-push rule for this review branch only. Do not merge into main or push
   main without a separate "merge" instruction. The calculator preview was restarted
   at http://100.102.139.46:4340/calculator/ after its build.
+
+## 17 Nov: financed first-year insurance quote pictures
+
+- Oly and Maxxia Guided lease screens now show a dedicated right-panel crop when
+  the first-year insurance question or amount box is focused. The marked crops
+  come from the already published, redacted quote pages; they distinguish the
+  one-off financed premium from the renewal budget. The crops are reproducible
+  with `scripts/make_financed_insurance_crops.py`.
+- Smart Leasing's reviewed quotes show comprehensive insurance among running
+  costs, and the inspected terms say it is excluded from the financed amount.
+  There is no comparable first-year financed-premium picture or question for Smart.
+- The pre-signing checklist already warns that financing insurance adds interest
+  and can increase the early-termination payout; it suggests considering running
+  costs. It does not currently present a specific benefit of financing year one.
+- Focused provider-picker tests: 109 pass. Changed-file ESLint and calculator
+  build pass. No private quote was copied into the repository. This review fix
+  has not been pushed or merged.
