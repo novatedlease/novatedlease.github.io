@@ -687,3 +687,17 @@ Open items (not started; raise with the owner):
 - Focused provider-picker tests: 109 pass. Changed-file ESLint and calculator
   build pass. No private quote was copied into the repository. This review fix
   has not been pushed or merged.
+
+## 17 Nov: more RemServ quotes in the private walkthrough
+
+- The private `provider-walk/build.py` now adds seven more RemServ Reddit posts
+  to the :4343 walkthrough, for eight posts and 12 source images total. Duplicate
+  pages and non-RemServ pages in mixed posts are filtered. The HTML was rebuilt,
+  all linked local images exist, and :4343 serves the new post IDs.
+- This changes the private review page only; no unredacted image is in Git and
+  the public RemServ article or Guided instructions have not changed.
+- **Correction to the earlier first-year insurance assessment:** RemServ posts
+  `1t4254u` and `1tcq1nr` clearly list “1st year Comprehensive Insurance” in
+  the amount financed. Guided currently asks the financed first-year insurance
+  question only for Oly and Maxxia. Review the RemServ examples with the owner
+  before expanding that provider's calculator handling and guidance.
