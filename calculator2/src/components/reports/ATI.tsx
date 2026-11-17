@@ -18,7 +18,7 @@ import { DraftTag, Stat, StatGrid, SubHead, KV, NoteBox, Table, th, thR, td, tdR
  * - EV_FBT_EXEMPT: 0.2 (full RFBA at the notional pre-exemption value despite $0 FBT,
  *   the documented "double-counting" quirk — see
  *   new-site/src/content/docs/special-and-policy/fbt-exemption-double-counting.md);
- * - EV_FBT_DISCOUNTED: 0.05, because the September 2026 exposure draft's s 135P(3)
+ * - EV_FBT_DISCOUNTED: 0.05, because the introduced bill's proposed s 135P(3)
  *   works RFBA out at 0.2 while the ECM only covers 0.15;
  * - fully FBT-applicable: 0.
  */
@@ -232,7 +232,7 @@ export function ATI(props: AtiProps) {
           contribution covers that 15%, so your employer pays no FBT. Your RFBA, however, is worked out at the full
           20% rate less your contribution, leaving <b>5% of the base value</b> (grossed up) as RFBA each year.{" "}
           <span style={{ opacity: 0.8, fontStyle: "italic" }}>
-            Based on the September 2026 exposure draft (new s 135P(3) of the FBT Act), which is not yet law.{" "}
+            Based on the introduced bill (proposed s 135P(3) of the FBT Act), which is not yet law.{" "}
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#the-25-tier-and-your-reportable-fringe-benefits" target="_blank" rel="noopener">
               How this is worked out
             </a>

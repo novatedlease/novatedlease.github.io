@@ -991,8 +991,8 @@ button {
 .admonition--warning .admonition__title,
 .admonition--caution .admonition__title { background: rgba(217, 119, 6, 0.08); color: var(--adm-caution-text); }
 
-/* Draft legislation: content that depends on an exposure draft bill and may change.
-   Amber like Warning, but a dashed border and a "Draft" pill mark it as provisional.
+/* Proposed legislation: content that depends on a bill and may change.
+   Amber like Warning, but a dashed border and a "Proposed" pill mark it as provisional.
    Pair with .draft-tag for single sentences. Remove both once the law passes. */
 .admonition--draft {
   background: rgba(217, 119, 6, 0.04);
@@ -1007,7 +1007,7 @@ button {
   gap: 8px;
 }
 .admonition--draft .admonition__title::before {
-  content: 'Draft';
+  content: 'Proposed';
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 0.6875rem;
   font-weight: 700;

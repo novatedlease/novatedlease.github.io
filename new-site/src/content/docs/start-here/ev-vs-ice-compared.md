@@ -1,7 +1,7 @@
 ---
 title: "Why EV and ICE novated leases are different products"
 datePublished: "2026-01-06"
-dateModified: "2026-06-05"
+dateModified: "2026-11-17"
 description: EV and ICE novated leases are functionally different products. How the FBT exemption changes everything — and why each requires its own evaluation framework.
 ---
 
@@ -68,7 +68,7 @@ This is a deliberate policy choice introduced in 2022 to encourage EV uptake.
 This policy change applies to **EVs and previously to PHEVs (up to 1 April 2025)** — not to novated leasing as a general concept.
 
 :::warning[The EV FBT exemption is being wound back]
-On 4 May 2026, the treasurer announced a staged wind-back of the EV FBT exemption, and exposure draft legislation followed on 10 September 2026 (not yet law). Leases committed to before 1 April 2027 on eligible vehicles remain grandfathered. For new leases from April 2027, cars up to $75,000 keep a 100% FBT discount until 31 March 2029, cars above that get a 25% discount, and from 1 April 2029 every new lease gets the 25% discount. See the [wind-back article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for the full breakdown.
+On 4 May 2026, the treasurer announced a staged wind-back of the EV FBT exemption. The Tax Reform No. 4 Bill was introduced in October and is **not yet law**. It proposes default grandfathering for qualifying commitments made before 1 April 2027. For new commitments from April 2027, cars up to $75,000 keep a 100% FBT discount until 31 March 2029; eligible cars above that get a 25% discount. From 1 April 2029, eligible new commitments get only the 25% discount. See the [wind-back article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for the conditions and possible ministerial exceptions.
 :::
 
 If these distinctions sound abstract, the [novated lease calculator](/calculator/) allows you to model EV and ICE scenarios side by side under their respective rules. You could simulate the financial differences by choosing between EV and non-EV in the first toggle and reviewing the outputs. 

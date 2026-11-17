@@ -1159,7 +1159,7 @@ function CarStep({ d, set }: StepProps) {
               applies, splits the lease into FBT years (1 April to 31 March) and
               financial years, and decides whether the used-EV questions apply.
               Sourcing a car and finishing the paperwork usually takes one to two
-              months. Under the exposure draft (not yet law), the EV phase-out may
+              months. Under the introduced bill (not yet law), the EV phase-out may
               instead follow when your lease becomes a binding financial
               commitment, which is still a grey area. If that's near 1 April 2027,
               ask your provider when it's binding.{" "}

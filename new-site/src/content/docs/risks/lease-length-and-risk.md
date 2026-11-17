@@ -1,7 +1,7 @@
 ---
 title: "Choosing the right lease length"
 datePublished: "2026-01-06"
-dateModified: "2026-06-05"
+dateModified: "2026-11-17"
 description: Choosing the right novated lease length — how 1, 2, 3, 4, and 5 year terms differ in residual value, interest cost, and exposure to early termination risk.
 ---
 
@@ -203,24 +203,24 @@ That exposure is cheap **only while those conditions hold**. However the same ex
 
 ### Policy risk: the FBT-exemption wind-back
 
-:::warning[Review concluded; draft legislation released]
-The legislated review of the EV FBT exemption has concluded. On 4 May 2026 the treasurer announced a phased wind-back, and exposure draft legislation followed on 10 September 2026 (not yet law). See the [full wind-back article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for complete details.
+:::warning[Review concluded; bill introduced]
+The legislated review of the EV FBT exemption has concluded. The treasurer announced a phased wind-back in May 2026; a bill was introduced in October and remains before Parliament as checked on 17 November 2026. See the [full wind-back article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) for the proposed rules.
 :::
 
 Lease length also determines how exposed you are to **policy change risk**.
 
-The EV FBT exemption was [subject to a formal legislative review](/special-and-policy/ev-fbt-exemption-review-timing/) (to be completed within the 18-month period of 1/1/2026 to 1/7/2027). [^1] That review has now concluded with the May 2026 Budget announcement. The exemption has been partially wound back rather than fully retained or fully discontinued:
+The EV FBT exemption was [subject to a formal legislative review](/special-and-policy/ev-fbt-exemption-review-timing/) (to be completed within the 18-month period of 1/1/2026 to 1/7/2027). [^1] That review has now concluded with the May 2026 Budget announcement. The introduced bill proposes a partial wind-back:
 
 - **leases committed to before 1 April 2027** on eligible vehicles remain grandfathered until that commitment ends,
-- **new leases from 1 April 2027** keep a 100% FBT discount for cars up to $75,000, but cars above $75,000 get only a 25% discount (75% of the normal FBT applies), and
-- **new leases from 1 April 2029** get only the 25% discount, whatever the car's price.
+- **eligible new leases from 1 April 2027** get a 100% FBT discount for cars up to $75,000, or a 25% discount above $75,000 up to the fuel-efficient LCT threshold, and
+- **eligible new leases from 1 April 2029** get only the 25% discount; cars above the LCT threshold get no discount.
 
 This matters for lease structure:
 
-- a straight 5-year lease locks in today’s rules for the full term,
+- under the bill's default grandfathering rule, an unchanged 5-year commitment keeps its earlier treatment for the term,
 - a 1 + 1 + 1 + 1 structure exposes each renewal to the new rules on renewal.
 
-<span class="draft-tag">Draft</span> Under the exposure draft, a renewal, refinance, change of term or residual, or a **change of employer** (even within the same corporate group) is a new commitment, which moves the car onto the rules in force on that date. If you committed to your lease before 1 April 2027 and stay with the same employer on the same terms, your exemption is locked in until the lease concludes. If you have not yet entered a lease, the calculus depends on your vehicle price and planned start date. See [what ends your grandfathering](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#what-ends-your-grandfathering).
+<span class="draft-tag">Proposed</span> Under the introduced bill's default rule, a renewal, refinance, change of term or residual, or a **change of employer** (even within the same corporate group) can create a new commitment, moving the car onto the rules then in force. The bill also allows the Minister to preserve earlier treatment in additional circumstances by legislative instrument until 1 April 2032; no such protection is assumed here. If you committed before 1 April 2027 and stay with the same employer on the same terms, the earlier treatment continues until that commitment ends. See [what ends your grandfathering](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#what-ends-your-grandfathering).
 
 [^1]: It is not clear whether the review would last the entire duration. Therefore it is theoretically possible for the review process to be completed within 2026 itself and recommendation to terminate (for example) to be tabled to parliament prior to 2027.
 

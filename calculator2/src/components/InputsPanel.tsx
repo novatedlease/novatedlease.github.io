@@ -115,7 +115,7 @@ export function InputsPanel(props: {
             { value: "EV", label: "Electric" },
             { value: "Non-EV", label: "Petrol / diesel / hybrid" },
           ]}
-          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for the FBT exemption where the lease starts on or after 1 April 2025 — they can still be novated leased, just without the exemption — so choose 'Petrol / diesel / hybrid' for a PHEV. For leases starting before 1 April 2027, the car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the phase-out rules in the September 2026 exposure draft apply instead: the car's price when your novated lease starts must be within the fuel-efficient LCT threshold, and the 2022 and LCT-history tests no longer apply." />}
+          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for the FBT exemption where the lease starts on or after 1 April 2025 — they can still be novated leased, just without the exemption — so choose 'Petrol / diesel / hybrid' for a PHEV. For leases starting before 1 April 2027, the car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the introduced bill proposes phase-out rules instead: the car's price when your novated lease starts must be within the fuel-efficient LCT threshold, and the 2022 and LCT-history tests no longer apply." />}
         />
 
         <SelectField
@@ -141,11 +141,11 @@ export function InputsPanel(props: {
         {isEv && inputs.vehicleCondition !== "New" && !needsUsedEligibilityChecks && (
           <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginBottom: 12, lineHeight: 1.45 }}>
             <DraftTag />
-            Used EV, lease starting from 1 April 2027: under the September 2026{" "}
+            Used EV, lease starting from 1 April 2027: under the introduced{" "}
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#eligibility-under-the-new-rules-used-evs" target="_blank" rel="noopener">
-              exposure draft
+              bill
             </a>
-            , the 1 July 2022 and LCT-history tests no longer apply. Only the car's price when your novated lease starts is tested. Not yet law.
+            , the 1 July 2022 and LCT-history tests are omitted. The car must still meet the base-value limit and other conditions. Not yet law.
           </div>
         )}
 
@@ -171,7 +171,7 @@ export function InputsPanel(props: {
           <NoteBox color="var(--nlc-blue)" mt={-8}>
             <div style={{ fontWeight: 800, marginBottom: 3 }}>
               <DraftTag />
-              FBT phase-out rules apply to this lease start date (exposure draft, not yet law)
+              Proposed FBT phase-out tier for this lease start date (bill not yet law)
             </div>
             <div style={{ opacity: 0.9 }}>
               {isTransitionalLease ? (
@@ -189,7 +189,7 @@ export function InputsPanel(props: {
               <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
                 Read more about the phase-out rules
               </a>
-              .
+              . Extra grandfathering under a future ministerial instrument is not assumed.
             </div>
           </NoteBox>
         )}
@@ -311,7 +311,7 @@ export function InputsPanel(props: {
                   <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
                     EV FBT phase-out tier
                   </a>
-                  . Under the exposure draft (not yet law), the phase-out may instead follow when the lease becomes a binding financial commitment, which is still a grey area. If that's near 1 April 2027, ask your provider when it's binding.{" "}
+                  . Under the introduced bill (not yet law), the phase-out may instead follow when the lease becomes a binding financial commitment, which is still a grey area. If that's near 1 April 2027, ask your provider when it's binding.{" "}
                   <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#its-the-commitment-date-that-counts" target="_blank" rel="noopener">
                     How the commitment date works
                   </a>
@@ -334,7 +334,7 @@ export function InputsPanel(props: {
             }}
           >
             <DraftTag />
-            25% FBT discount (75% of FBT applies, per the exposure draft, not yet law) —{" "}
+            25% FBT discount (75% of FBT applies, per the introduced bill, not yet law) —{" "}
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener" style={{ color: "inherit" }}>
               phase-out rules
             </a>{" "}

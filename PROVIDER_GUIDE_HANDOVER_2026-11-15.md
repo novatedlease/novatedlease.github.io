@@ -643,3 +643,30 @@ Open items (not started; raise with the owner):
   the local post archive. Eleven comments remain on the previously identified
   CarBon-related threads. This is an archive result, not a guarantee that deleted or
   otherwise missing Reddit comments are recoverable. No calculator guidance changed.
+
+## 17 Nov: EV FBT introduced-bill update
+
+- Owner requested an update from Treasury's September exposure draft to Schedule 5 of
+  Treasury Laws Amendment (Tax Reform No. 4) Bill 2026. The bill was introduced
+  27 Oct, passed the House 29 Oct and was introduced in the Senate 16 Nov; as checked
+  17 Nov it is not law. Parliament's PDF endpoint returned HTTP 403 from this
+  environment; the changes were checked against the owner's item-level comparison,
+  Treasury consultation, indexed bill text, ATO's legislation-status page and
+  parliamentary proceedings. Do not describe the bill as enacted.
+- Updated the main phase-out guide and related site/calculator copy. Key differences:
+  Schedule 5 items 12 and 15 permit additional grandfathering by ministerial
+  legislative instrument only until 1 Apr 2032 (none assumed or found); item 10
+  adds s 135Q(4A) for reportable amounts; items 13–14 use the 25% times qualifying
+  days / total car-benefit days proportion after Apr 2029; proposed s 9A keeps the
+  earliest-holding-time base-value test and omits the old 1 Jul 2022 and never-paid-
+  LCT tests. The calculator still models the bill's default tiers using lease start
+  date as a commitment-date proxy; it does not model future instruments or the
+  special s 135Q case.
+- Checks: 469 calculator tests passed; targeted phase-out and render tests passed
+  after the final UI wording change; calculator and Astro site builds passed.
+  Changed-file ESLint passed except for seven errors in `shared.tsx` that are
+  identical on HEAD and predate this edit. `git diff --check` passed.
+- The owner explicitly asked to **commit and push this update**. This supersedes
+  the old no-push rule for this review branch only. Do not merge into main or push
+  main without a separate "merge" instruction. The calculator preview was restarted
+  at http://100.102.139.46:4340/calculator/ after its build.

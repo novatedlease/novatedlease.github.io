@@ -977,7 +977,7 @@
   }
 }
 
-/* Exposure-draft marker, matching .draft-tag on the site. Remove once the law passes. */
+/* Proposed-legislation marker, matching .draft-tag on the site. Remove once the law passes. */
 .nlc-draft-tag {
   display: inline-block;
   vertical-align: 0.1em;
