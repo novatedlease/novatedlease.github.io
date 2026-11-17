@@ -145,6 +145,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   carbon: ["payment"],
   kooya: ["driveaway", "payment"],
   clearlease: ["driveaway", "payment"],
+  remserv: ["driveaway", "financedInsurance"],
 };
 
 function withKind(id: ProviderId, pointer: Pointer): Pointer {
@@ -339,7 +340,7 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "financedInsurance",
-        text: "Use “First year Comprehensive Insurance” under “Car finance”, below the establishment fee. Don't use the renewal budget here.",
+        text: "Use “First year Comprehensive Insurance” under “Car finance”, beside the establishment fee. Don't use the renewal budget.",
       },
       {
         field: "driveaway",
@@ -370,7 +371,7 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "financedInsurance",
-        text: "Use “1st year Comprehensive Insurance” beside the establishment fee. Don't use the renewal budget here.",
+        text: "Use “1st year Comprehensive Insurance” beside the establishment fee. Don't use the renewal budget.",
       },
       {
         field: "driveaway",
@@ -698,12 +699,56 @@ export const GUIDES: ProviderGuide[] = [
   {
     id: "remserv",
     seen: "2026-10",
-    sources: ["1xdwkvq"],
+    sources: ["1xdwkvq", "1rpt6ql", "1t4254u"],
     pointers: [
-      { field: "driveaway", text: "If you see only “RemServ price”, its GST basis is unclear on the quote reviewed. Check the full on-road price before entering it." },
-      { field: "residual", text: "If “Residual value” has no GST label, choose “I'm not sure” unless the quote or provider confirms the basis." },
-      { field: "payment", text: "If “Finance” is per fortnight with no GST label, enter it per fortnight and choose “I'm not sure” for GST." },
-      { field: "running", text: "If you see “Servicing & Incidentals” as one line, enter that combined amount under servicing and leave tyres blank." },
+      { field: "baseValue", text: "Use “FBT Base Value” or “Vehicle FBT Base Value” if your full quote prints it.", more: "Only have a short estimate? Multiply “GST savings on car” by 11 unless it is the maximum, $6,353.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-baseValue.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
+        alt: "Redacted RemServ lease page with Vehicle FBT Base Value outlined",
+        caption: "Field 1 marks the FBT base value on this redacted full quote.",
+      } },
+      { field: "driveaway", kind: "trap", text: "Full quote: use “Vehicle purchase price”. Summary table: add “Vehicle Cost” and on-road charges, excluding first-year insurance.", more: "The short estimate's “RemServ price” does not say what it includes. Check the dealer's full on-road price before using it.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-driveaway.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
+        alt: "Redacted RemServ lease page with Vehicle purchase price outlined",
+        caption: "Field 2 marks the vehicle purchase price on this redacted full quote.",
+      } },
+      { field: "docFee", text: "If your quote lists “Finance Establishment Fee”, enter that amount as the documentation fee. Add any optional cover financed up front.", more: "The summary table includes supplier and financier fees inside Total Amount Financed but does not itemise them. Ask RemServ for the separate fee rather than copying that total.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-docFee.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
+        alt: "Redacted RemServ lease page with Finance Establishment Fee outlined",
+        caption: "Field 4 marks the establishment fee, separate from first-year insurance.",
+      } },
+      { field: "financedInsurance", kind: "trap", text: "If “1st year Comprehensive Insurance” is in “Total Amount Financed”, answer Yes and enter it. Keep the renewal budget separate.", more: "The older summary table calls it “Initial 12 Months Comprehensive Insurance”. If your quote finances no first-year premium, answer No.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-financedInsurance.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
+        alt: "Redacted RemServ lease page with first-year comprehensive insurance outlined",
+        caption: "Field 5 marks the first-year premium inside Total Amount Financed.",
+      } },
+      { field: "residual", text: "If the full quote says “Residual value (inc GST)”, choose Including GST. The summary table's GST footnote also covers residual value.", more: "If you only have a short estimate with no GST label or footnote, choose “I'm not sure” until RemServ confirms it.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-residual.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
+        alt: "Redacted RemServ lease page with residual value including GST outlined",
+        caption: "Field 3 marks the residual including GST on this redacted full quote.",
+      } },
+      { field: "payment", text: "Use “FINANCED PAYMENTS” per fortnight on the full deductions page. Choose the “Ex GST” or “Inc GST” column to match what you enter.", more: `On the summary table, use “Lease Payment”. Its footnote says quoted items include GST except registration. The short estimate's “Finance” has no GST label: choose “I'm not sure” unless confirmed. ${PAYMENT_GST_NOTE}`, example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-payment.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-deductions.webp",
+        alt: "Redacted RemServ deductions page with FINANCED PAYMENTS and GST columns outlined",
+        caption: "Field 6 marks the finance payment beside two GST columns.",
+      } },
+      { field: "running", text: "Use the running-cost lines under “RUNNING COSTS & SERVICING” and “REGISTRATION & INSURANCE”. Choose the GST column you copied.", more: "On the summary table, the running costs are fortnightly and footnote 5 says quoted items include GST except vehicle registration. If you have only the short estimate, “Servicing & Incidentals” is one servicing amount.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-running.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-deductions.webp",
+        alt: "Redacted RemServ deductions page with running-cost rows outlined",
+        caption: "Field 7 marks the running-cost rows below FINANCED PAYMENTS.",
+      } },
+      { field: "fees", text: "On the full deductions page, enter “Salary packaging fee”. The summary table calls it “Novated Leasing Administration Fee”.", more: "If the short estimate has no fee line, leave it at $0 unless your full quote lists one.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-fees.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-deductions.webp",
+        alt: "Redacted RemServ deductions page with Salary packaging fee outlined",
+        caption: "Field 8 marks the salary packaging fee as a separate running cost.",
+      } },
     ],
   },
   {
@@ -773,7 +818,7 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   nla: ["defer", "docFee"],
   leaseexpress: ["defer", "docFee"],
   orix: ["defer"],
-  remserv: ["baseValue", "defer", "docFee", "fees"],
+  remserv: ["defer"],
   simplygreen: ["docFee"],
   lendly: ["baseValue", "defer", "docFee"],
   vehiclesolutions: ["docFee"],
@@ -815,13 +860,6 @@ const NOT_SHOWN_TEXT: Partial<Record<ProviderId, Partial<Record<GuideField, NotS
     baseValue: gstCreditLine("oly", "Oly", "the “GST” line", "Oly", {
       text: "Can't find it on your Oly quote? Multiply the “GST” line in the price breakdown by 11. Don't use “Estimated GST savings upfront”.",
       more: "Or add “Vehicle list price” and “Dealer delivery charges”, then add 10%.",
-    }),
-  },
-  remserv: {
-    // 6 of 16 RemServ quotes print it on a vehicle details page; the summary page has only the capped credit (UX 20).
-    baseValue: gstCreditLine("remserv", "RemServ", "“GST savings on car”", "RemServ", {
-      text: "Look for “FBT Base Value” on the vehicle details page. Only have the summary? Multiply “GST savings on car” by 11, unless it's the maximum.",
-      more: `The maximum is ${capText}. If yours is that, ask RemServ, or take the drive-away price and subtract stamp duty, rego and CTP.`,
     }),
   },
   lendly: {

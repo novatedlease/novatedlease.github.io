@@ -698,6 +698,36 @@ Open items (not started; raise with the owner):
   the public RemServ article or Guided instructions have not changed.
 - **Correction to the earlier first-year insurance assessment:** RemServ posts
   `1t4254u` and `1tcq1nr` clearly list “1st year Comprehensive Insurance” in
-  the amount financed. Guided currently asks the financed first-year insurance
-  question only for Oly and Maxxia. Review the RemServ examples with the owner
-  before expanding that provider's calculator handling and guidance.
+  the amount financed. At that point Guided asked the financed first-year
+  insurance question only for Oly and Maxxia; the next section records the
+  RemServ fix.
+
+## 17 Nov: RemServ alternate-format guidance (committed next)
+
+- Reviewed the older summary table in Reddit post `1rpt6ql` and the detailed
+  lease and deductions pages in `1t4254u`. The short estimate, summary table
+  and detailed breakdown are three distinct layouts. The summary's “Total
+  Vehicle Costs” includes first-year insurance and must not be copied as the
+  drive-away price. The detailed page prints separate FBT, purchase, residual,
+  establishment and financed first-year insurance rows. The deductions page
+  prints ex-GST and inc-GST columns for finance and running costs.
+- Added redacted full-page and focused examples in `docs/assets/images/quote-guide/remserv/`.
+  `scripts/build_remserv_alternate_templates.py` recreates them from the local
+  private archive. All public pages have answers masked; OCR found no dollar
+  amounts. The full-page views and focused crops share numbered orange boxes,
+  including field 1 on “Vehicle FBT Base Value”. A user's phone screenshot
+  caught the missing full-page marker before commit.
+- Guided now shows the separate financed first-year insurance question for
+  RemServ, counts that premium once, and preserves registration as printed
+  beside inclusive-GST running costs. RemServ pointers, running-line order and
+  the article distinguish the layouts and conditional GST columns. Do not
+  infer skipped finance payments merely from “two-month deferred structure”;
+  ask or choose Not sure when the payment schedule is absent.
+- Updated private generation sources `private/quote-review-2026-11/running-layout/runlines.json`
+  and `private/quote-review-2026-11/provider-walk/runlayout_gen.py` for RemServ's
+  detailed running-cost labels. These private files are outside this worktree.
+  Rebuilt the private :4343 walkthrough to show the new public templates.
+- Checks: 158 focused tests passed across four files, changed calculator
+  ESLint passed, calculator build/export/prebuild passed, prior Astro build
+  passed (85 pages), and `git diff --check` passed. The :4340 calculator was
+  restarted and serves the annotated image with HTTP 200. No push or merge.

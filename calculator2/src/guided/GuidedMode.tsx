@@ -1420,7 +1420,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         findings={f.docFee}
       />
       <ProviderPointers d={d} field="docFee" />
-      {(d.provider === "maxxia" || d.provider === "oly") && <>
+      {(d.provider === "maxxia" || d.provider === "oly" || d.provider === "remserv") && <>
         <Choices
           field="insuranceFinanced"
           label="Is the first year's insurance included in the amount financed?"

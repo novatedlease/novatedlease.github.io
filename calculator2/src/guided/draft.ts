@@ -127,7 +127,7 @@ export type GuidedDraft = {
   monthsDeferred: number | null;
   monthsDeferredUnsure: boolean;
   docFee: Money;
-  /** First-year comprehensive insurance financed with the car on some Maxxia/Oly quotes. */
+  /** First-year comprehensive insurance financed with the car on some Maxxia/Oly/RemServ quotes. */
   insuranceFinanced: YesNoUnsure | null;
   financedInsurance: Money;
   residualBasis: "exGst" | "incGst" | "unknown" | null;
@@ -408,14 +408,14 @@ function pricingInputs(d: GuidedDraft): Inputs | null {
 }
 
 export function financedInsuranceAmount(d: GuidedDraft): number {
-  return (d.provider === "maxxia" || d.provider === "oly") && d.insuranceFinanced === "Yes"
+  return (d.provider === "maxxia" || d.provider === "oly" || d.provider === "remserv") && d.insuranceFinanced === "Yes"
     ? moneyValue(d.financedInsurance) ?? 0
     : 0;
 }
 
 /**
  * The financed first-year premium on the running costs' GST basis. Quotes finance it including GST
- * with no credit (Maxxia and Oly's amounts financed add up only that way), so it comes off GST
+ * with no credit on the quotes reviewed (Maxxia, Oly and RemServ), so it comes off GST
  * whenever the running costs are held ex GST: everything except an inc-GST heading with no credit.
  */
 export function financedInsuranceRunningBasis(d: GuidedDraft): number {
@@ -728,7 +728,7 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       if (!d.leaseYears) ask("leaseYears", "Lease term");
       if (d.monthsDeferred === null) ask("monthsDeferred", "How many months until your first finance payment?");
       if (!answered(d.docFee)) askMoney("docFee", "Documentation fee (or tick “no documentation fee”)");
-      if (d.provider === "maxxia" || d.provider === "oly") {
+      if (d.provider === "maxxia" || d.provider === "oly" || d.provider === "remserv") {
         if (!d.insuranceFinanced) ask("insuranceFinanced", "Is first-year insurance included in the amount financed?");
         if (d.insuranceFinanced === "Yes" && !positive(d.financedInsurance))
           askMoney("financedInsurance", "First-year insurance premium in the amount financed");
@@ -1004,9 +1004,10 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     // Tyres are optional: a blank box (no tyres line on the quote) counts as $0.
     serviceMaintTyresAnnual: running(d.service) + (d.service.estimated || moneyValue(d.tyres) === null ? 0 : running(d.tyres)),
     saveShareAnnual: nswAnnual(d),
-    // Alliance's running-cost footnote says its registration line is ex GST, even though the
-    // other lines are inc GST. Keep that printed amount when converting credited costs.
-    registrationAnnual: d.provider === "alliance" && d.runningGstHeading === "incGst"
+    // Alliance and older RemServ summary tables say registration is ex GST even though the
+    // other lines are inc GST. The newer RemServ columns likewise show the same rego amount
+    // in both GST columns. Keep the printed registration amount when converting costs.
+    registrationAnnual: (d.provider === "alliance" || d.provider === "remserv") && d.runningGstHeading === "incGst"
       ? annual(d.rego)
       : running(d.rego),
     // The 5.47c/km budget unless the reader typed their quote's own figure.
@@ -1016,7 +1017,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
         ? evElectricityClaimAnnual(km)
         : running(d.chargingBudget),
     fuelAnnual: isEv ? 0 : running(d.fuel),
-    // Maxxia/Oly finance year one including GST and budget only the renewals, so the reader types the
+    // Maxxia/Oly/RemServ finance year one including GST and budget only renewals, so the reader types the
     // renewal line as printed. The engine wants the full yearly premium plus the financed year, both
     // on the running costs' GST basis (ex GST unless the heading is inc GST with no credit taken), and
     // takes the financed year back off the lease side: lease insurance is then the printed renewal

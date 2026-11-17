@@ -20,7 +20,6 @@ const migrated = {
   lendly: { '2': 'driveaway', '7': 'payment' },
   spa: { '1': 'baseValue', '2': 'driveaway', '4': 'defer' },
   paywise: { '7': 'payment', '10': 'fees' },
-  remserv: { '6': 'residual', '7': 'payment' },
   simplygreen: { '2': 'driveaway', '4': 'defer', '7': 'payment' },
   leaselab: { '2': 'driveaway', '6': 'residual', '7': 'payment' },
   leaseexpress: { '1': 'baseValue', '6': 'residual', '7': 'payment' },

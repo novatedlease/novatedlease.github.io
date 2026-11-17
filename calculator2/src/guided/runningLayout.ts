@@ -60,13 +60,14 @@ export const RUNNING_LAYOUT: Partial<Record<ProviderId, [RunBox, RunLabel][]>> =
     ["tyres", "Replacement Tyres & Tyre Repairs"],
     ["mgmt", "Smart Drive Administration Fee (+ Salary Packaging Administration Fee)"],
   ],
-  // RemServ: 1 quote.
+  // RemServ: 3 quotes.
   remserv: [
-    ["rego", "Rego"],
-    ["service", "Servicing & Incidentals"],
-    ["tyres", "Tyres"],
-    ["fuel", "Fuel/charging"],
+    ["fuel", { ev: "Electricity", petrol: "Fuel/charging" }],
+    ["service", "Scheduled servicing"],
+    ["tyres", "Replacement tyres"],
+    ["rego", "Registration renewal"],
     ["insurance", "Insurance"],
+    ["mgmt", "Salary packaging fee"],
   ],
   // Paywise: 1 quote.
   paywise: [
@@ -103,24 +104,6 @@ export const RUNNING_LAYOUT: Partial<Record<ProviderId, [RunBox, RunLabel][]>> =
     ["rego", "Registration and CTP"],
     ["insurance", "Insurance"],
     ["mgmt", "Management Fee"],
-  ],
-  // CarBon: 3 quotes.
-  carbon: [
-    ["service", "Service and Maintenance"],
-    ["tyres", "Replacement Tyres"],
-    ["rego", "Registration and CTP"],
-    ["insurance", "Insurance"],
-    ["fuel", "Fuel/Charging"],
-    ["mgmt", "Management Fee"],
-  ],
-  // Inside Edge: the Basics page of two quotes, checked against a Details page.
-  insideedge: [
-    ["service", "Maintenance Provision"],
-    ["tyres", "Replacement Tyres"],
-    ["rego", "Registration / CTP"],
-    ["insurance", "Comp Insurance Provision"],
-    ["fuel", { ev: "Home Charging Reimbursement", petrol: "Fuel" }],
-    ["mgmt", "Finance Documentation (+ Management Fee)"],
   ],
   // Alliance: 2 quotes.
   alliance: [
@@ -272,6 +255,15 @@ export const RUNNING_LAYOUT: Partial<Record<ProviderId, [RunBox, RunLabel][]>> =
     ["tyres", "Tyres"],
     ["service", "Servicing"],
     ["mgmt", "Administration"],
+  ],
+  // CarBon: 3 quotes.
+  carbon: [
+    ["service", "Service and Maintenance"],
+    ["tyres", "Replacement Tyres"],
+    ["rego", "Registration and CTP"],
+    ["insurance", "Insurance"],
+    ["fuel", "Fuel/Charging"],
+    ["mgmt", "Management Fee"],
   ],
 };
 

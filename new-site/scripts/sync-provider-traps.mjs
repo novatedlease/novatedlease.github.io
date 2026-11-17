@@ -15,6 +15,7 @@ const FIELD_NAMES = {
   docFee: 'Documentation fee', residual: 'Residual', payment: 'Finance payment',
   luxAdj: 'Luxury vehicle adjustment', running: 'Running costs', insurance: 'Insurance',
   fees: 'Management fees',
+  financedInsurance: 'First-year insurance',
 };
 
 // Acronyms are read letter by letter ("an SG Fleet"); words by their first sound ("an Oly").

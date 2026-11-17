@@ -1067,6 +1067,58 @@
     "oly/field-financedInsurance.webp": {
       "w": 1300,
       "h": 230
+    },
+    "remserv/redacted-deductions.webp": {
+      "w": 1158,
+      "h": 1226
+    },
+    "remserv/redacted-lease-breakdown.webp": {
+      "w": 1226,
+      "h": 1774
+    },
+    "remserv/redacted-summary-table.webp": {
+      "w": 762,
+      "h": 1780
+    },
+    "remserv/field-alt-baseValue.webp": {
+      "w": 1102,
+      "h": 71
+    },
+    "remserv/field-alt-docFee.webp": {
+      "w": 1102,
+      "h": 46
+    },
+    "remserv/field-alt-driveaway.webp": {
+      "w": 1102,
+      "h": 185
+    },
+    "remserv/field-alt-fees.webp": {
+      "w": 1086,
+      "h": 110
+    },
+    "remserv/field-alt-financedInsurance.webp": {
+      "w": 1102,
+      "h": 171
+    },
+    "remserv/field-alt-payment.webp": {
+      "w": 1086,
+      "h": 195
+    },
+    "remserv/field-alt-residual.webp": {
+      "w": 1102,
+      "h": 88
+    },
+    "remserv/field-alt-running.webp": {
+      "w": 1086,
+      "h": 645
+    },
+    "remserv/field-alt-summary-insurance.webp": {
+      "w": 705,
+      "h": 145
+    },
+    "remserv/field-alt-summary-price.webp": {
+      "w": 705,
+      "h": 345
     }
   },
   "pages": {

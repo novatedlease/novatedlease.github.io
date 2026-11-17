@@ -207,8 +207,15 @@ describe("correction callout with a named provider", () => {
 describe("FBT base value not printed", () => {
   const GST_LINES: [ProviderId, string][] = [
     ["millarx", "Look for “FBT Base Value”. Not printed? Multiply “Less: GST credit” by 11, unless it's the maximum."],
-    ["remserv", "Look for “FBT Base Value” on the vehicle details page. Only have the summary? Multiply “GST savings on car” by 11, unless it's the maximum."],
   ];
+
+  test("RemServ's full quote shows FBT Base Value, while the short estimate needs a fallback", () => {
+    const [p] = pointersFor("remserv", "baseValue");
+    expect(p.text).toContain("Vehicle FBT Base Value");
+    expect(p.more).toContain("GST savings on car");
+    expect(p.more).toContain("$6,353");
+    expect(p.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-baseValue.webp");
+  });
 
   test("lendly: GST credit × 11, or Taxable Value × 5 when the credit is at the maximum", () => {
     const [p] = pointersFor("lendly", "baseValue");
@@ -247,7 +254,7 @@ describe("FBT base value not printed", () => {
   });
 });
 
-const FIELDS_FOR_CAPTIONS: GuideField[] = ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees"];
+const FIELDS_FOR_CAPTIONS: GuideField[] = ["baseValue", "driveaway", "defer", "docFee", "financedInsurance", "residual", "payment", "luxAdj", "running", "insurance", "fees"];
 
 describe("provider pointers", () => {
   test("pointer text reads well out of context: no here, above or below", () => {
@@ -587,13 +594,25 @@ describe("provider pointers", () => {
     expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
       .toBe(`/assets/images/quote-guide/${provider}/field-financedInsurance.webp`);
     const pointer = document.querySelector<HTMLElement>('[data-field="financedInsurance"].gd-pointers')!;
-    expect(pointer.textContent).toMatch(/Don't use the renewal budget here/);
+    expect(pointer.textContent).toMatch(/Don't use the renewal budget/);
   });
 
   test("Smart Leasing has no financed first-year insurance prompt or marked crop", () => {
     on("lease", { ...quoteDraft(), provider: "smartleasing" });
     expect(screen.queryByText("Is the first year's insurance included in the amount financed?")).toBeNull();
     expect(cropFor("smartleasing", "financedInsurance")).toBeNull();
+  });
+
+  test("RemServ shows the financed insurance line and switches to its redacted full page", () => {
+    phoneWidth(false);
+    on("lease", { ...quoteDraft(), provider: "remserv" });
+    const question = screen.getByText("Is the first year's insurance included in the amount financed?");
+    fireEvent.focus(question.closest("[data-field]")!.querySelector("button")!);
+    expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/remserv/field-alt-financedInsurance.webp");
+    fireEvent.click(screen.getByRole("button", { name: "Whole page" }));
+    expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp");
   });
 
   test("SG Fleet's payment trap uses an amber box and a scrollable full-page toggle", () => {
@@ -685,7 +704,7 @@ describe("provider pointers", () => {
   });
 
   test("every main provider pointer stays brief and avoids sample-focused jargon", () => {
-    const fields: GuideField[] = ["baseValue", "driveaway", "term", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees", "rate"];
+    const fields: GuideField[] = ["baseValue", "driveaway", "term", "defer", "docFee", "financedInsurance", "residual", "payment", "luxAdj", "running", "insurance", "fees", "rate"];
     const problems = GUIDED_PROVIDERS.flatMap(({ id }) => fields.flatMap((field) => pointersFor(id, field)
       .filter(({ text }) => text.length > 140 || /sample|example|VSSS|marked \d|available pages|capitalised|\bITC\b/i.test(text))
       .map(({ text }) => `${id}/${field}: ${text}`)));
@@ -764,10 +783,10 @@ describe("provider pointers", () => {
     expect(templateFor("fleetpartners", "baseValue")).toBe("/assets/images/quote-guide/fleetpartners/field-baseValue.webp");
     // a field the example does show keeps its own pointer
     expect(pointersFor("sgfleet", "defer")[0].notShown).toBeUndefined();
-    // Articles keep the generic line; Guided drops it, since "no fee ($0)" is right above (UX 15).
-    expect(pointersFor("remserv", "docFee")[0]).toMatchObject({ notShown: true, boilerplate: true });
+    // RemServ's detailed quote prints an establishment fee, while the short estimate does not.
+    expect(pointersFor("remserv", "docFee")[0].text).toContain("Finance Establishment Fee");
     on("lease", { ...quoteDraft(), provider: "remserv" });
-    expect(screen.queryByText(/Can’t find a documentation or establishment fee/)).toBeNull();
+    expect(screen.getByText(/If your quote lists “Finance Establishment Fee”/)).toBeTruthy();
     expect(screen.queryByText(/Can’t find months deferred/)).toBeNull();
     expect(screen.getByText("We'll assume 2")).toBeTruthy();
   });
@@ -792,7 +811,7 @@ describe("provider pointers", () => {
 
   test("every guide, image path and article link resolves from the shared manifest", async () => {
     const manifest = (await import("../../docs/assets/images/quote-guide/manifest.json")).default;
-    const fields: GuideField[] = ["baseValue", "driveaway", "term", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees", "rate"];
+    const fields: GuideField[] = ["baseValue", "driveaway", "term", "defer", "docFee", "financedInsurance", "residual", "payment", "luxAdj", "running", "insurance", "fees", "rate"];
     const index = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/provider-quote-guides.md"), "utf8");
     expect(index).toContain("## Most common");
     expect(index).toContain("## All providers");
@@ -935,11 +954,15 @@ describe("provider pointers", () => {
     expect(article).toContain("using the quote's period");
   });
 
-  test("RemServ's article leaves unlabelled GST figures uncertain", () => {
+  test("RemServ's article distinguishes the short, summary and detailed layouts", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-remserv-quote.md"), "utf8");
     expect(article).toContain(pointersFor("remserv", "residual")[0].text);
     expect(article).toContain(pointersFor("remserv", "payment")[0].text);
     expect(article).toContain("per fortnight");
+    expect(article).toContain("redacted-summary-table.webp");
+    expect(article).toContain("redacted-lease-breakdown.webp");
+    expect(article).toContain("redacted-deductions.webp");
+    expect(article).toContain("1st year Comprehensive Insurance");
     expect(article).not.toContain("we assume ex GST");
   });
 

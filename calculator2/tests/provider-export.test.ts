@@ -10,7 +10,7 @@ import {
  * instead of parsing providerGuide.ts. Regenerate it with:
  *   EXPORT_PROVIDER_GUIDES=1 npx vitest run tests/provider-export.test.ts
  */
-const FIELDS: GuideField[] = ["baseValue", "driveaway", "defer", "docFee", "residual", "payment", "luxAdj", "running", "insurance", "fees"];
+const FIELDS: GuideField[] = ["baseValue", "driveaway", "defer", "docFee", "financedInsurance", "residual", "payment", "luxAdj", "running", "insurance", "fees"];
 const OUT = resolve(__dirname, "../../new-site/src/data/provider-guides.json");
 
 function exportGuides() {
