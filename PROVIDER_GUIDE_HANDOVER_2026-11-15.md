@@ -844,3 +844,22 @@ Open items (not started; raise with the owner):
 - Checks: calculator build/export/prebuild passed, 112 focused tests passed,
   changed calculator ESLint and `git diff --check` passed. No full suite, push
   or merge.
+
+## 18 Nov: RemServ supplier margin and “Total Amount Financed”
+
+- Owner's analysis of a disclosed RemServ quote found the supplier margin
+  matches finance brokerage over the lease term ($588.28/year × five years ≈
+  $2,941.41). This supports treating it as already priced into the finance
+  payment in that example, not automatically adding it as an upfront fee.
+  RemServ's public credit guide discusses commissions but does not define the
+  “Supplier Margin” label. The article and Guided fee tooltip now say to enter
+  it separately only if RemServ confirms it is an additional financed amount.
+- The summary's “Total Amount Financed” deducts residual value; its printed
+  formula includes Supplier Margin but omits the separately printed Upfront
+  GST Savings, and an adjacent note says the financier excludes the margin.
+  The article now states plainly that adding residual back is only a check of
+  the printed formula and does not reliably recover conventional loan principal.
+  Continue using the separate price, residual, insurance, fee and payment lines.
+- Checks: 111 focused provider tests and changed calculator ESLint passed;
+  calculator build/export/prebuild and `git diff --check` passed. Rebuilt the
+  private walkthrough and restarted Astro :4340. No full suite, push or merge.

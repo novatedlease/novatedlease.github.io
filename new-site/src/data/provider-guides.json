@@ -1423,7 +1423,7 @@
           "field": "docFee",
           "kind": "locate",
           "text": "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.",
-          "more": "A summary table may also show “Supplier Margin” and “Other Fees”. One example's supplier-margin note conflicts with its printed total formula; ask RemServ whether that margin is financed, then include it once. Do not copy “Total Amount Financed” into this fee box.",
+          "more": "Do not add “Supplier Margin” as a separate fee just because it appears on a summary. In one disclosed quote it matches the finance brokerage over the term, suggesting it is already priced into the lease payment. Its note says the financier excludes it, while the printed total formula adds it. Only enter it here if RemServ confirms it is an additional upfront amount financed. “Other Fees” may contain optional cover; count each charge once. Do not copy “Total Amount Financed” into this box.",
           "image": "/assets/images/quote-guide/remserv/field-alt-docFee.webp"
         },
         {

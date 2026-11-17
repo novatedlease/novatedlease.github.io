@@ -994,6 +994,11 @@ describe("provider pointers", () => {
     expect(article).toContain("use the bold **“Total Vehicle Costs”**");
     expect(article).toContain("add “Residual Value” **as printed** to “Total Amount Financed”");
     expect(article).toContain("do not divide only the residual by 1.1");
+    expect(article).toContain("not the usual upfront loan principal");
+    expect(article).toContain("not the separately printed “Upfront GST Savings”");
+    expect(article).toContain("supplier margin matches the disclosed finance brokerage");
+    expect(article).toContain("Do not add it to Guided's documentation fee just because it is listed");
+    expect(pointersFor("remserv", "docFee")[0].more).toContain("already priced into the lease payment");
     expect(article).toContain("Do not add first-year insurance to “Total Vehicle Costs” again");
     expect(article).not.toContain("enter “Vehicle Cost” unchanged");
     expect(article).toContain("redacted-summary-table.webp");

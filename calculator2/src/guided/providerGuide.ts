@@ -725,7 +725,7 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted RemServ lease page with Vehicle purchase price outlined",
         caption: "Field 2 marks the vehicle purchase price on this redacted full quote.",
       } },
-      { field: "docFee", text: "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.", more: "A summary table may also show “Supplier Margin” and “Other Fees”. One example's supplier-margin note conflicts with its printed total formula; ask RemServ whether that margin is financed, then include it once. Do not copy “Total Amount Financed” into this fee box.", example: {
+      { field: "docFee", text: "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.", more: "Do not add “Supplier Margin” as a separate fee just because it appears on a summary. In one disclosed quote it matches the finance brokerage over the term, suggesting it is already priced into the lease payment. Its note says the financier excludes it, while the printed total formula adds it. Only enter it here if RemServ confirms it is an additional upfront amount financed. “Other Fees” may contain optional cover; count each charge once. Do not copy “Total Amount Financed” into this box.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-docFee.webp",
         fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
         alt: "Redacted RemServ lease page with Finance Establishment Fee outlined",
