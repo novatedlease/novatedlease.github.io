@@ -791,3 +791,33 @@ Open items (not started; raise with the owner):
   quote. The redacted picture itself remains valid.
 - Checks: calculator build/export/prebuild passed; 112 focused tests, changed
   calculator ESLint and `git diff --check` passed. No full suite, push or merge.
+
+## 17 Nov: second RemServ summary reconciliation and more review sources
+
+- Owner supplied the full `1rpt6ql` summary. Its visible Purchase Details rows
+  total $46,605.50 vehicle cost + $1,486.74 first-year insurance = $48,092.24,
+  but “Total Vehicle Costs” is $48,990.00: an unexplained $897.76 gap. The
+  latter includes insurance and is not a confirmed drive-away price; neither
+  is Vehicle Cost confirmed until the gap is itemised. The article and Guided
+  tooltip now say both reviewed summary tables have unexplained gaps.
+- The quote defines “Total Amount Financed” net of residual. Its printed
+  inclusive-GST arithmetic is $26,809.18 + $23,078.30 residual = $49,887.48,
+  which is $897.48 above Total Vehicle Costs, consistent with unitemised margin
+  and fees in the printed formula. Do not divide only the residual by 1.1 in
+  this check. Adding the premium again to Total Vehicle Costs double-counts it;
+  subtracting FBT base ÷ 11 assumes a GST credit not printed in this summary.
+  These reconciliations still do not identify the drive-away price.
+- Updated the private :4343 `provider-walk/build.py` RemServ queue from eight
+  posts to 13, with 25 original quote images. New posts: `1r2tn1w` (Sealion 7),
+  `1tppq58` (BYD Seal), `1upgaoy` (Zeekr 7X), `1uv3aj6` (Ora 5, two terms),
+  and `1lfz51n` (Polestar 4, r/AusFinance). Only RemServ pages 0, 2 and 3
+  from the last mixed post are included; duplicate dealer pages are excluded.
+  The `1upgaoy` poster's two detailed summary pages from their Reddit comments
+  were downloaded privately and added to that post's gallery. New posts are
+  marked “Added 17 Nov” on the walkthrough page.
+  Also restored the second distinct `1x9tyqk` page. Rebuilt `index.html` and
+  verified all 13 source entries and local images; the new Reddit links were
+  spot-checked. These private files are outside Git and must never be published.
+- Checks: calculator build/export/prebuild passed, 112 focused tests passed,
+  changed calculator ESLint and `git diff --check` passed. No full suite, push
+  or merge.

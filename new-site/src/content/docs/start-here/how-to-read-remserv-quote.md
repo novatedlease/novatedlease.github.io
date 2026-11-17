@@ -29,7 +29,7 @@ The short estimate does not establish whether “RemServ price” includes every
 
 ![Redacted RemServ quote summary table with values removed](/assets/images/quote-guide/remserv/redacted-summary-table.webp)
 
-On the [summary-table example](https://www.reddit.com/r/NovatedLeasingAU/comments/1rpt6ql/quote_base_cost_doesnt_seem_competitive/), “FBT Base Value” is printed under General Details. For drive-away price, add “Vehicle Cost” and any separately printed accessories, extras, delivery, stamp duty, luxury car tax and initial rego/CTP. **Leave out “Initial 12 Months Comprehensive Insurance”.** “Total Vehicle Costs” includes that premium, so it is not the car's drive-away price.
+On the [summary-table example](https://www.reddit.com/r/NovatedLeasingAU/comments/1rpt6ql/quote_base_cost_doesnt_seem_competitive/), “FBT Base Value” is printed under General Details. Start a drive-away check with “Vehicle Cost” and any separately printed accessories, extras, delivery, stamp duty, luxury car tax and initial rego/CTP. **Leave out “Initial 12 Months Comprehensive Insurance”.** “Total Vehicle Costs” includes that premium, but is higher than all the visible Purchase Details rows added together. The quote does not explain the difference. Neither “Vehicle Cost” nor “Total Vehicle Costs” is a confirmed drive-away price without an itemised explanation from RemServ.
 
 In the newer summary, scroll **up to Purchase Details**. The box below covers the visible “Vehicle Cost” and on-road rows. The insurance row sits outside the box and is entered separately if financed. However, the posted screenshots skip a line between “Initial Roadside Assistance” and “Total Vehicle Costs”. The total is higher than the visible car-price and insurance rows added together. **The missing amount is unexplained, so this post does not establish the drive-away price.** Ask RemServ what the missing line is and request the full on-road price including GST before entering a figure.
 
@@ -37,11 +37,13 @@ In the newer summary, scroll **up to Purchase Details**. The box below covers th
 
 Another [RemServ summary example](https://www.reddit.com/r/NovatedLeasingAU/comments/1x6eio8/gwm_ora_5_ultra_quote_check/) prints the same rows in a larger, split table. Its “Total Amount Financed” explicitly subtracts “Residual Value” from vehicle costs and fees. The earlier summary also prints this definition. **Do not use that net figure as the drive-away price or enter it as a separate loan amount in Guided:** the calculator takes the car price and residual separately. A net figure plus a separate residual can make the calculated interest rate misleadingly high.
 
+To check the summary's own formula, add “Residual Value” **as printed** to “Total Amount Financed”. The footnote says quoted figures include GST except registration, so do not divide only the residual by 1.1 in that check. The result includes vehicle costs, insurance, margin and fees; it still is not the drive-away price. Likewise, do not add first-year insurance to “Total Vehicle Costs” again: that total already includes it. This summary does not print an upfront GST credit, so subtracting FBT base value ÷ 11 is an assumption, not a way to reconcile its printed total.
+
 ![Redacted RemServ summary showing that Total Amount Financed subtracts the residual](/assets/images/quote-guide/remserv/redacted-net-finance.webp)
 
 The larger summary also has a “Supplier Margin” line. Its note says the financier excludes that margin from “Total Amount Financed”, while the formula under the total adds it. Those statements conflict. Check with RemServ whether the margin is financed before entering it as a one-off fee; count it only once. “Other Fees” may list optional add-on insurance, which belongs with other upfront fees if financed. Use the separate “Lease Payment” per fortnight for Guided's finance payment, not the “Total Amount Financed” line.
 
-![Redacted summary-table purchase lines showing what makes up the car price](/assets/images/quote-guide/remserv/field-alt-summary-price.webp)
+![Redacted summary-table purchase lines showing the visible vehicle and on-road rows](/assets/images/quote-guide/remserv/field-alt-summary-price.webp)
 
 ![Redacted summary-table first-year insurance line, separate from the car price](/assets/images/quote-guide/remserv/field-alt-summary-insurance.webp)
 

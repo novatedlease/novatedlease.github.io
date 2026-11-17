@@ -977,7 +977,7 @@ describe("provider pointers", () => {
     expect(summary.text).toContain("Purchase Details");
     expect(summary.text).toContain("Ask about gaps");
     expect(summary.more).toContain("Total Amount Financed");
-    expect(summary.more).toContain("missing a line between the posted screenshots");
+    expect(summary.more).toContain("exceeds the visible rows in both summary examples");
     expect(summary.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp");
     expect(imageSizeFor(summary.example!.image)).toEqual({ w: 880, h: 730 });
     expect(detailed.kind).toBe("locate");
@@ -990,6 +990,10 @@ describe("provider pointers", () => {
     expect(article).toContain("redacted-net-finance.webp");
     expect(article).toContain("field-alt-compact-driveaway.webp");
     expect(article).toContain("this post does not establish the drive-away price");
+    expect(article).toContain("Neither “Vehicle Cost” nor “Total Vehicle Costs” is a confirmed drive-away price");
+    expect(article).toContain("add “Residual Value” **as printed** to “Total Amount Financed”");
+    expect(article).toContain("do not divide only the residual by 1.1");
+    expect(article).toContain("do not add first-year insurance to “Total Vehicle Costs” again");
     expect(article).not.toContain("enter “Vehicle Cost” unchanged");
     expect(article).toContain("redacted-summary-table.webp");
     expect(article).toContain("redacted-lease-breakdown.webp");
