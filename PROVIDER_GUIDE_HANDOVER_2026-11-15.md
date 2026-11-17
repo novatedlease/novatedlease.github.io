@@ -763,10 +763,9 @@ Open items (not started; raise with the owner):
 - Owner's screenshot showed that the drive-away field opened a detailed lease
   picture even when the reader had the `1x6eio8` summary table. That made the
   two amber notes hard to act on. Guided now leads with the summary's “Purchase
-  Details” rows: enter Vehicle Cost plus any nonzero accessories and on-road
-  charges; when those other rows are zero, Vehicle Cost alone is drive-away.
-  First-year insurance below is excluded. “Total Vehicle Costs” includes it,
-  and “Total Amount Financed” subtracts residual.
+  Details” rows. The initially published text treated Vehicle Cost alone as
+  drive-away when visible on-road rows were zero; the next section corrects
+  that conclusion after reconciling the split screenshots.
 - Added a redacted full summary page and a focused price crop from `1x6eio8_2`,
   with the included rows boxed and insurance outside the box. The detailed
   lease page remains a second, plain location pointer. The article now states
@@ -775,3 +774,20 @@ Open items (not started; raise with the owner):
 - Checks: calculator build/export/prebuild passed, 112 focused tests passed,
   changed calculator ESLint and `git diff --check` passed. No full suite, push
   or merge.
+
+## 17 Nov: correction to RemServ drive-away inference (committed next)
+
+- Rechecked all three `1x6eio8` images. The posted top section ends after
+  “Initial Roadside Assistance”; the next screenshot begins with “Total Vehicle
+  Costs”. The visible amounts are Vehicle Cost $32,711 and first-year insurance
+  $1,444.80, while Total Vehicle Costs is $34,609. The unexplained gap is
+  $453.20. No posted image identifies the missing line. The total includes
+  insurance and is not a confirmed drive-away price. Vehicle Cost alone is
+  likewise not confirmed as drive-away until the gap is explained.
+- Corrected the Guided price pointer, picture caption and RemServ article.
+  They now direct readers to the visible Purchase Details rows, warn against
+  using Total Vehicle Costs, and ask for the omitted item and a full on-road
+  price including GST. Removed the incorrect zero-on-road shortcut for this
+  quote. The redacted picture itself remains valid.
+- Checks: calculator build/export/prebuild passed; 112 focused tests, changed
+  calculator ESLint and `git diff --check` passed. No full suite, push or merge.

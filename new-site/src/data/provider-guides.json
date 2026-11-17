@@ -1375,7 +1375,7 @@
       "sourceCount": 4,
       "written": {
         "baseValue": "Use “FBT Base Value” or “Vehicle FBT Base Value” if your full quote prints it.",
-        "driveaway": "Summary table: under “Purchase Details”, use “Vehicle Cost” plus any nonzero on-road charges.",
+        "driveaway": "Summary: scroll to “Purchase Details”. Add on-road charges to “Vehicle Cost”. Don't use “Total Vehicle Costs”. Ask about gaps.",
         "docFee": "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.",
         "financedInsurance": "If “1st year Comprehensive Insurance” is in “Total Amount Financed”, answer Yes and enter it. Keep the renewal budget separate.",
         "residual": "If the full quote says “Residual value (inc GST)”, choose Including GST. The summary table's GST footnote also covers residual value.",
@@ -1398,8 +1398,8 @@
         {
           "field": "driveaway",
           "kind": "trap",
-          "text": "Summary table: under “Purchase Details”, use “Vehicle Cost” plus any nonzero on-road charges.",
-          "more": "If the other purchase rows are $0, enter Vehicle Cost unchanged. Do not use “Total Vehicle Costs”: it includes first-year insurance. “Total Amount Financed” subtracts the residual, so it is not the car price either. The short estimate's “RemServ price” needs confirmation from the dealer or RemServ.",
+          "text": "Summary: scroll to “Purchase Details”. Add on-road charges to “Vehicle Cost”. Don't use “Total Vehicle Costs”. Ask about gaps.",
+          "more": "“Total Vehicle Costs” includes first-year insurance, so it is not the drive-away price. One reviewed summary is missing a line between the posted screenshots; the visible figures do not establish its full on-road price. Ask RemServ or the dealer for that item and the drive-away price including GST. “Total Amount Financed” also subtracts the residual.",
           "image": "/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp"
         },
         {

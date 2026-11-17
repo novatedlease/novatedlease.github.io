@@ -618,7 +618,7 @@ describe("provider pointers", () => {
   test("RemServ's summary price rows open first, with the detailed layout still available", () => {
     phoneWidth(false);
     on("price", { ...quoteDraft(), provider: "remserv" });
-    const warning = screen.getByText(/Summary table: under “Purchase Details”/).closest(".gd-pointer")!;
+    const warning = screen.getByText(/Summary: scroll to “Purchase Details”/).closest(".gd-pointer")!;
     fireEvent.click(warning.querySelector("button")!);
     expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
       .toBe("/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp");
@@ -975,7 +975,9 @@ describe("provider pointers", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-remserv-quote.md"), "utf8");
     const [summary, detailed] = pointersFor("remserv", "driveaway");
     expect(summary.text).toContain("Purchase Details");
+    expect(summary.text).toContain("Ask about gaps");
     expect(summary.more).toContain("Total Amount Financed");
+    expect(summary.more).toContain("missing a line between the posted screenshots");
     expect(summary.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp");
     expect(imageSizeFor(summary.example!.image)).toEqual({ w: 880, h: 730 });
     expect(detailed.kind).toBe("locate");
@@ -987,6 +989,8 @@ describe("provider pointers", () => {
     expect(article).toContain("1x6eio8/gwm_ora_5_ultra_quote_check");
     expect(article).toContain("redacted-net-finance.webp");
     expect(article).toContain("field-alt-compact-driveaway.webp");
+    expect(article).toContain("this post does not establish the drive-away price");
+    expect(article).not.toContain("enter “Vehicle Cost” unchanged");
     expect(article).toContain("redacted-summary-table.webp");
     expect(article).toContain("redacted-lease-breakdown.webp");
     expect(article).toContain("redacted-deductions.webp");

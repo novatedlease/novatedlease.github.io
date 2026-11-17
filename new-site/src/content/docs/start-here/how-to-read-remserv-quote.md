@@ -15,7 +15,7 @@ RemServ quotes in the examples we reviewed use a short estimate, two styles of s
 <!-- provider-traps:begin -->
 ## What catches people out on a RemServ quote
 
-- **Drive-away price:** Summary table: under “Purchase Details”, use “Vehicle Cost” plus any nonzero on-road charges.
+- **Drive-away price:** Summary: scroll to “Purchase Details”. Add on-road charges to “Vehicle Cost”. Don't use “Total Vehicle Costs”. Ask about gaps.
 - **First-year insurance:** If “1st year Comprehensive Insurance” is in “Total Amount Financed”, answer Yes and enter it. Keep the renewal budget separate.
 <!-- provider-traps:end -->
 
@@ -31,7 +31,7 @@ The short estimate does not establish whether “RemServ price” includes every
 
 On the [summary-table example](https://www.reddit.com/r/NovatedLeasingAU/comments/1rpt6ql/quote_base_cost_doesnt_seem_competitive/), “FBT Base Value” is printed under General Details. For drive-away price, add “Vehicle Cost” and any separately printed accessories, extras, delivery, stamp duty, luxury car tax and initial rego/CTP. **Leave out “Initial 12 Months Comprehensive Insurance”.** “Total Vehicle Costs” includes that premium, so it is not the car's drive-away price.
 
-In the newer summary, scroll **up to Purchase Details**. The box below covers “Vehicle Cost” and the on-road rows to add. If every row after “Vehicle Cost” in that box is $0, enter “Vehicle Cost” unchanged. The insurance row sits outside the box and is entered separately if financed.
+In the newer summary, scroll **up to Purchase Details**. The box below covers the visible “Vehicle Cost” and on-road rows. The insurance row sits outside the box and is entered separately if financed. However, the posted screenshots skip a line between “Initial Roadside Assistance” and “Total Vehicle Costs”. The total is higher than the visible car-price and insurance rows added together. **The missing amount is unexplained, so this post does not establish the drive-away price.** Ask RemServ what the missing line is and request the full on-road price including GST before entering a figure.
 
 ![Redacted RemServ summary with the car-price rows boxed and insurance outside the box](/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp)
 

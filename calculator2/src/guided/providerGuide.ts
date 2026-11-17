@@ -707,11 +707,11 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted RemServ lease page with Vehicle FBT Base Value outlined",
         caption: "Field 1 marks the FBT base value on this redacted full quote.",
       } },
-      { field: "driveaway", kind: "trap", text: "Summary table: under “Purchase Details”, use “Vehicle Cost” plus any nonzero on-road charges.", more: "If the other purchase rows are $0, enter Vehicle Cost unchanged. Do not use “Total Vehicle Costs”: it includes first-year insurance. “Total Amount Financed” subtracts the residual, so it is not the car price either. The short estimate's “RemServ price” needs confirmation from the dealer or RemServ.", example: {
+      { field: "driveaway", kind: "trap", text: "Summary: scroll to “Purchase Details”. Add on-road charges to “Vehicle Cost”. Don't use “Total Vehicle Costs”. Ask about gaps.", more: "“Total Vehicle Costs” includes first-year insurance, so it is not the drive-away price. One reviewed summary is missing a line between the posted screenshots; the visible figures do not establish its full on-road price. Ask RemServ or the dealer for that item and the drive-away price including GST. “Total Amount Financed” also subtracts the residual.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp",
         fullPage: "/assets/images/quote-guide/remserv/redacted-compact-summary.webp",
         alt: "Redacted RemServ summary table with Vehicle Cost and on-road rows boxed above the insurance row",
-        caption: "Field 2 boxes the car-price rows. Leave out first-year insurance below.",
+        caption: "Field 2 boxes the visible car-price rows. The posted quote omits a line before its total, so confirm the full drive-away price.",
       } },
       { field: "driveaway", kind: "locate", text: "Detailed lease page: use “Vehicle purchase price”.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-driveaway.webp",
