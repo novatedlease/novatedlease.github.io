@@ -1371,12 +1371,12 @@
     {
       "id": "remserv",
       "label": "RemServ",
-      "seen": "2026-10",
-      "sourceCount": 3,
+      "seen": "2026-11",
+      "sourceCount": 4,
       "written": {
         "baseValue": "Use “FBT Base Value” or “Vehicle FBT Base Value” if your full quote prints it.",
-        "driveaway": "Full quote: use “Vehicle purchase price”. Summary table: add “Vehicle Cost” and on-road charges, excluding first-year insurance.",
-        "docFee": "If your quote lists “Finance Establishment Fee”, enter that amount as the documentation fee. Add any optional cover financed up front.",
+        "driveaway": "Full quote: use “Vehicle purchase price”. Summary: add “Vehicle Cost” and on-road charges. Exclude insurance and “Total Amount Financed”.",
+        "docFee": "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.",
         "financedInsurance": "If “1st year Comprehensive Insurance” is in “Total Amount Financed”, answer Yes and enter it. Keep the renewal budget separate.",
         "residual": "If the full quote says “Residual value (inc GST)”, choose Including GST. The summary table's GST footnote also covers residual value.",
         "payment": "Use “FINANCED PAYMENTS” per fortnight on the full deductions page. Choose the “Ex GST” or “Inc GST” column to match what you enter.",
@@ -1398,9 +1398,15 @@
         {
           "field": "driveaway",
           "kind": "trap",
-          "text": "Full quote: use “Vehicle purchase price”. Summary table: add “Vehicle Cost” and on-road charges, excluding first-year insurance.",
+          "text": "Full quote: use “Vehicle purchase price”. Summary: add “Vehicle Cost” and on-road charges. Exclude insurance and “Total Amount Financed”.",
           "more": "The short estimate's “RemServ price” does not say what it includes. Check the dealer's full on-road price before using it.",
           "image": "/assets/images/quote-guide/remserv/field-alt-driveaway.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "trap",
+          "text": "Some summaries subtract the residual in “Total Amount Financed”. Enter the car price and residual separately.",
+          "image": "/assets/images/quote-guide/remserv/redacted-net-finance.webp"
         },
         {
           "field": "defer",
@@ -1411,8 +1417,8 @@
         {
           "field": "docFee",
           "kind": "locate",
-          "text": "If your quote lists “Finance Establishment Fee”, enter that amount as the documentation fee. Add any optional cover financed up front.",
-          "more": "The summary table includes supplier and financier fees inside Total Amount Financed but does not itemise them. Ask RemServ for the separate fee rather than copying that total.",
+          "text": "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.",
+          "more": "A summary table may also show “Supplier Margin” and “Other Fees”. One example's supplier-margin note conflicts with its printed total formula; ask RemServ whether that margin is financed, then include it once. Do not copy “Total Amount Financed” into this fee box.",
           "image": "/assets/images/quote-guide/remserv/field-alt-docFee.webp"
         },
         {

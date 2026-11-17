@@ -731,3 +731,29 @@ Open items (not started; raise with the owner):
   ESLint passed, calculator build/export/prebuild passed, prior Astro build
   passed (85 pages), and `git diff --check` passed. The :4340 calculator was
   restarted and serves the annotated image with HTTP 200. No push or merge.
+
+## 17 Nov: RemServ net-of-residual summary variant (committed next)
+
+- Reviewed Reddit post `1x6eio8` and all three split screenshots in the private
+  archive. The :4343 walkthrough had shown only image 2; private `provider-walk/build.py`
+  now includes images 0, 1 and 2 and was rebuilt. The public guide now counts
+  four reviewed RemServ posts, latest November 2026.
+- The summary's printed “Total Amount Financed” formula subtracts residual
+  value. The older `1rpt6ql` summary has the same formula, but the detailed
+  `1t4254u` layout uses that label differently. Guided takes drive-away price,
+  upfront fees and residual in separate boxes; entering the summary's net
+  total as drive-away can inflate the derived interest rate. Added a second
+  RemServ drive-away pointer with a redacted, numbered extract showing that
+  formula. The article explains the variant and links the Reddit post.
+- The quote's Supplier Margin note says it is excluded from the financed total,
+  while the printed formula adds it. The fee tooltip and article flag this
+  inconsistency and advise checking whether it is financed before counting it
+  once. No specific effective rate was inferred from the quote.
+- `scripts/build_remserv_alternate_templates.py` creates the new public extract
+  from the local private screenshot, masks all answer amounts, and records the
+  image size in the manifest. OCR found no dollar amounts in the output.
+  `sync-provider-traps.mjs` now includes both pointers for a field in one
+  article bullet; the guide export keeps the first pointer as its main text.
+- Checks: calculator build/export/prebuild passed, 112 focused tests passed,
+  changed calculator ESLint and `git diff --check` passed. No full suite, push
+  or merge.

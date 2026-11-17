@@ -33,12 +33,13 @@ const oldNote = (seen, label) => {
 };
 
 let count = 0;
-for (const { id, label, seen, written, traps: fields } of guides.providers) {
+for (const { id, label, seen, written, pointers: pointerList, traps: fields } of guides.providers) {
   const pointers = new Map(Object.entries(written));
   const lines = fields.map((field) => {
     const text = pointers.get(field);
     if (!text) throw new Error(`Trap pointer missing for ${id}/${field}`);
-    return `- **${FIELD_NAMES[field] ?? field}:** ${text}`;
+    const alternate = pointerList.filter((p) => p.field === field && p.text && p.text !== text).map((p) => p.text);
+    return `- **${FIELD_NAMES[field] ?? field}:** ${[text, ...alternate].join(' ')}`;
   });
   const list = lines.length
     ? lines.join('\n')

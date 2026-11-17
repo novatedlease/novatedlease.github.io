@@ -698,8 +698,8 @@ export const GUIDES: ProviderGuide[] = [
   },
   {
     id: "remserv",
-    seen: "2026-10",
-    sources: ["1xdwkvq", "1rpt6ql", "1t4254u"],
+    seen: "2026-11",
+    sources: ["1xdwkvq", "1rpt6ql", "1t4254u", "1x6eio8"],
     pointers: [
       { field: "baseValue", text: "Use “FBT Base Value” or “Vehicle FBT Base Value” if your full quote prints it.", more: "Only have a short estimate? Multiply “GST savings on car” by 11 unless it is the maximum, $6,353.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-baseValue.webp",
@@ -707,13 +707,18 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted RemServ lease page with Vehicle FBT Base Value outlined",
         caption: "Field 1 marks the FBT base value on this redacted full quote.",
       } },
-      { field: "driveaway", kind: "trap", text: "Full quote: use “Vehicle purchase price”. Summary table: add “Vehicle Cost” and on-road charges, excluding first-year insurance.", more: "The short estimate's “RemServ price” does not say what it includes. Check the dealer's full on-road price before using it.", example: {
+      { field: "driveaway", kind: "trap", text: "Full quote: use “Vehicle purchase price”. Summary: add “Vehicle Cost” and on-road charges. Exclude insurance and “Total Amount Financed”.", more: "The short estimate's “RemServ price” does not say what it includes. Check the dealer's full on-road price before using it.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-driveaway.webp",
         fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
         alt: "Redacted RemServ lease page with Vehicle purchase price outlined",
         caption: "Field 2 marks the vehicle purchase price on this redacted full quote.",
       } },
-      { field: "docFee", text: "If your quote lists “Finance Establishment Fee”, enter that amount as the documentation fee. Add any optional cover financed up front.", more: "The summary table includes supplier and financier fees inside Total Amount Financed but does not itemise them. Ask RemServ for the separate fee rather than copying that total.", example: {
+      { field: "driveaway", kind: "trap", text: "Some summaries subtract the residual in “Total Amount Financed”. Enter the car price and residual separately.", example: {
+        image: "/assets/images/quote-guide/remserv/redacted-net-finance.webp",
+        alt: "Redacted RemServ summary showing Total Amount Financed defined as costs minus residual value",
+        caption: "Field 3 marks the net-of-residual total. Do not enter this as the car price.",
+      } },
+      { field: "docFee", text: "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.", more: "A summary table may also show “Supplier Margin” and “Other Fees”. One example's supplier-margin note conflicts with its printed total formula; ask RemServ whether that margin is financed, then include it once. Do not copy “Total Amount Financed” into this fee box.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-docFee.webp",
         fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
         alt: "Redacted RemServ lease page with Finance Establishment Fee outlined",

@@ -7,15 +7,15 @@ datePublished: "2026-11-12"
 # How to read a RemServ novated lease quote
 
 <!-- quote-review:begin -->
-*Checked against 3 quote examples; latest layout reviewed Oct 2026.*
+*Checked against 4 quote examples; latest layout reviewed Nov 2026.*
 <!-- quote-review:end -->
 
-RemServ quotes in the examples we reviewed use three layouts: a short estimate, a summary table and a detailed lease breakdown. Find the layout that looks like yours before choosing a figure.
+RemServ quotes in the examples we reviewed use a short estimate, two styles of summary table and a detailed lease breakdown. Find the layout that looks like yours before choosing a figure. The same “Total Amount Financed” label does not mean the same thing on every layout.
 
 <!-- provider-traps:begin -->
 ## What catches people out on a RemServ quote
 
-- **Drive-away price:** Full quote: use “Vehicle purchase price”. Summary table: add “Vehicle Cost” and on-road charges, excluding first-year insurance.
+- **Drive-away price:** Full quote: use “Vehicle purchase price”. Summary: add “Vehicle Cost” and on-road charges. Exclude insurance and “Total Amount Financed”. Some summaries subtract the residual in “Total Amount Financed”. Enter the car price and residual separately.
 - **First-year insurance:** If “1st year Comprehensive Insurance” is in “Total Amount Financed”, answer Yes and enter it. Keep the renewal budget separate.
 <!-- provider-traps:end -->
 
@@ -30,6 +30,12 @@ The short estimate does not establish whether “RemServ price” includes every
 ![Redacted RemServ quote summary table with values removed](/assets/images/quote-guide/remserv/redacted-summary-table.webp)
 
 On the [summary-table example](https://www.reddit.com/r/NovatedLeasingAU/comments/1rpt6ql/quote_base_cost_doesnt_seem_competitive/), “FBT Base Value” is printed under General Details. For drive-away price, add “Vehicle Cost” and any separately printed accessories, extras, delivery, stamp duty, luxury car tax and initial rego/CTP. **Leave out “Initial 12 Months Comprehensive Insurance”.** “Total Vehicle Costs” includes that premium, so it is not the car's drive-away price.
+
+Another [RemServ summary example](https://www.reddit.com/r/NovatedLeasingAU/comments/1x6eio8/gwm_ora_5_ultra_quote_check/) prints the same rows in a larger, split table. Its “Total Amount Financed” explicitly subtracts “Residual Value” from vehicle costs and fees. The earlier summary also prints this definition. **Do not use that net figure as the drive-away price or enter it as a separate loan amount in Guided:** the calculator takes the car price and residual separately. A net figure plus a separate residual can make the calculated interest rate misleadingly high.
+
+![Redacted RemServ summary showing that Total Amount Financed subtracts the residual](/assets/images/quote-guide/remserv/redacted-net-finance.webp)
+
+The larger summary also has a “Supplier Margin” line. Its note says the financier excludes that margin from “Total Amount Financed”, while the formula under the total adds it. Those statements conflict. Check with RemServ whether the margin is financed before entering it as a one-off fee; count it only once. “Other Fees” may list optional add-on insurance, which belongs with other upfront fees if financed. Use the separate “Lease Payment” per fortnight for Guided's finance payment, not the “Total Amount Financed” line.
 
 ![Redacted summary-table purchase lines showing what makes up the car price](/assets/images/quote-guide/remserv/field-alt-summary-price.webp)
 

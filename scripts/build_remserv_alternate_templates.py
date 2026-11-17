@@ -4,6 +4,7 @@ Reads the local private quote archive. Only the masked output is written to the
 public quote-guide assets; source amounts never enter this repository.
 """
 
+import json
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -82,6 +83,17 @@ deductions = blank(source("1t4254u_1"), [
     (795, 225, 1125, 1150), (630, 1045, 755, 1160),
 ])
 
+# A newer summary layout prints a net-of-residual “Total Amount Financed”.
+# Its Reddit screenshots split one table across several images; this section
+# retains the original row labels and printed formula without any amounts.
+net_finance = blank(source("1x6eio8_0"), [
+    (758, 0, 970, 770), (115, 450, 753, 568),
+]).crop((100, 0, 980, 770))
+net_draw = ImageDraw.Draw(net_finance)
+net_draw.rounded_rectangle((14, 572, 867, 752), radius=7, outline="#ca5500", width=4)
+marker(net_draw, 825, 587, "3")
+save(net_finance, "redacted-net-finance.webp")
+
 # Each crop stays tied to its source page for the in-card Whole page toggle.
 summary_rows = [
     ("1", (45, 460, 750, 805), (15, 24, 685, 220), "field-alt-summary-price.webp"),
@@ -106,3 +118,10 @@ for image, rows in ((summary, summary_rows), (lease, lease_rows), (deductions, d
             id(lease): "redacted-lease-breakdown.webp",
             id(deductions): "redacted-deductions.webp"}[id(image)]
     marked_page(image, [(number, crop, line) for number, crop, line, _ in rows], name)
+
+manifest_path = OUT.parent / "manifest.json"
+manifest = json.loads(manifest_path.read_text())
+manifest["images"]["remserv/redacted-net-finance.webp"] = {
+    "w": net_finance.width, "h": net_finance.height,
+}
+manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")

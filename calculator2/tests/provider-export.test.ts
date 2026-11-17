@@ -24,7 +24,12 @@ function exportGuides() {
         label,
         seen: guide.seen,
         sourceCount: guide.sources.length,
-        written: Object.fromEntries(guide.pointers.map((p) => [p.field, p.text])),
+        // A field may have a second pointer for an alternate quote layout.
+        // Keep the primary instruction in the article's one-line trap summary.
+        written: guide.pointers.reduce((written, pointer) => {
+          if (!(pointer.field in written)) written[pointer.field] = pointer.text;
+          return written;
+        }, {} as Partial<Record<GuideField, string>>),
         traps: TRAP_FIELDS[id] ?? [],
         pointers: FIELDS.flatMap((field) => pointersFor(id, field).map((p) => {
           const example = p.example ?? exampleFor(id, field);

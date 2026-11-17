@@ -615,6 +615,15 @@ describe("provider pointers", () => {
       .toBe("/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp");
   });
 
+  test("RemServ's alternate summary formula opens in the price side panel", () => {
+    phoneWidth(false);
+    on("price", { ...quoteDraft(), provider: "remserv" });
+    const warning = screen.getByText(/Some summaries subtract the residual/).closest(".gd-pointer")!;
+    fireEvent.click(warning.querySelector("button")!);
+    expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/remserv/redacted-net-finance.webp");
+  });
+
   test("SG Fleet's payment trap uses an amber box and a scrollable full-page toggle", () => {
     on("payment", { ...quoteDraft(), provider: "sgfleet", smartMillarx: false });
     const pointer = openPicture("payment");
@@ -786,7 +795,7 @@ describe("provider pointers", () => {
     // RemServ's detailed quote prints an establishment fee, while the short estimate does not.
     expect(pointersFor("remserv", "docFee")[0].text).toContain("Finance Establishment Fee");
     on("lease", { ...quoteDraft(), provider: "remserv" });
-    expect(screen.getByText(/If your quote lists “Finance Establishment Fee”/)).toBeTruthy();
+    expect(screen.getByText(/Use “Finance Establishment Fee”/)).toBeTruthy();
     expect(screen.queryByText(/Can’t find months deferred/)).toBeNull();
     expect(screen.getByText("We'll assume 2")).toBeTruthy();
   });
@@ -848,7 +857,8 @@ describe("provider pointers", () => {
       expect(trapSection, article).toContain("## What catches people out on ");
       const trapTexts = fields.flatMap((field) => pointersFor(id, field)).filter((p) => p.kind === "trap").map((p) => p.text);
       for (const text of new Set(trapTexts)) expect(trapSection, `${id}: ${text}`).toContain(text);
-      expect((trapSection!.match(/^- \*\*/gm) ?? []).length, id).toBe(new Set(trapTexts).size);
+      const trapFields = fields.filter((field) => pointersFor(id, field).some((p) => p.kind === "trap"));
+      expect((trapSection!.match(/^- \*\*/gm) ?? []).length, id).toBe(trapFields.length);
       expect(index, id).toContain(`/start-here/how-to-read-${id}-quote/`);
       const paths = [pageFor(id), ...pageImagesFor(id), ...fields.flatMap((field) => [cropFor(id, field), templateFor(id, field), exampleFor(id, field)?.image])];
       for (const src of paths.filter((path): path is string => !!path)) {
@@ -954,11 +964,18 @@ describe("provider pointers", () => {
     expect(article).toContain("using the quote's period");
   });
 
-  test("RemServ's article distinguishes the short, summary and detailed layouts", () => {
+  test("RemServ's article covers the net-of-residual summary as well as the detailed layout", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-remserv-quote.md"), "utf8");
+    const summaryTrap = pointersFor("remserv", "driveaway")[1];
+    expect(summaryTrap.text).toContain("subtract the residual");
+    expect(summaryTrap.example?.image).toBe("/assets/images/quote-guide/remserv/redacted-net-finance.webp");
+    expect(imageSizeFor(summaryTrap.example!.image)).toEqual({ w: 880, h: 770 });
     expect(article).toContain(pointersFor("remserv", "residual")[0].text);
     expect(article).toContain(pointersFor("remserv", "payment")[0].text);
     expect(article).toContain("per fortnight");
+    expect(article).toContain("Checked against 4 quote examples");
+    expect(article).toContain("1x6eio8/gwm_ora_5_ultra_quote_check");
+    expect(article).toContain("redacted-net-finance.webp");
     expect(article).toContain("redacted-summary-table.webp");
     expect(article).toContain("redacted-lease-breakdown.webp");
     expect(article).toContain("redacted-deductions.webp");
