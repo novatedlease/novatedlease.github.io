@@ -38,7 +38,7 @@ for (const { id, label, seen, written, pointers: pointerList, traps: fields } of
   const lines = fields.map((field) => {
     const text = pointers.get(field);
     if (!text) throw new Error(`Trap pointer missing for ${id}/${field}`);
-    const alternate = pointerList.filter((p) => p.field === field && p.text && p.text !== text).map((p) => p.text);
+    const alternate = pointerList.filter((p) => p.field === field && p.kind === 'trap' && p.text && p.text !== text).map((p) => p.text);
     return `- **${FIELD_NAMES[field] ?? field}:** ${[text, ...alternate].join(' ')}`;
   });
   const list = lines.length

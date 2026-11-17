@@ -757,3 +757,21 @@ Open items (not started; raise with the owner):
 - Checks: calculator build/export/prebuild passed, 112 focused tests passed,
   changed calculator ESLint and `git diff --check` passed. No full suite, push
   or merge.
+
+## 17 Nov: RemServ summary price guidance refinement (committed next)
+
+- Owner's screenshot showed that the drive-away field opened a detailed lease
+  picture even when the reader had the `1x6eio8` summary table. That made the
+  two amber notes hard to act on. Guided now leads with the summary's “Purchase
+  Details” rows: enter Vehicle Cost plus any nonzero accessories and on-road
+  charges; when those other rows are zero, Vehicle Cost alone is drive-away.
+  First-year insurance below is excluded. “Total Vehicle Costs” includes it,
+  and “Total Amount Financed” subtracts residual.
+- Added a redacted full summary page and a focused price crop from `1x6eio8_2`,
+  with the included rows boxed and insurance outside the box. The detailed
+  lease page remains a second, plain location pointer. The article now states
+  the zero-on-road shortcut. The separate net-finance extract stays in the
+  article. OCR found no dollar amounts in either new public image.
+- Checks: calculator build/export/prebuild passed, 112 focused tests passed,
+  changed calculator ESLint and `git diff --check` passed. No full suite, push
+  or merge.

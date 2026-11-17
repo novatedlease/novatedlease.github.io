@@ -15,7 +15,7 @@ RemServ quotes in the examples we reviewed use a short estimate, two styles of s
 <!-- provider-traps:begin -->
 ## What catches people out on a RemServ quote
 
-- **Drive-away price:** Full quote: use “Vehicle purchase price”. Summary: add “Vehicle Cost” and on-road charges. Exclude insurance and “Total Amount Financed”. Some summaries subtract the residual in “Total Amount Financed”. Enter the car price and residual separately.
+- **Drive-away price:** Summary table: under “Purchase Details”, use “Vehicle Cost” plus any nonzero on-road charges.
 - **First-year insurance:** If “1st year Comprehensive Insurance” is in “Total Amount Financed”, answer Yes and enter it. Keep the renewal budget separate.
 <!-- provider-traps:end -->
 
@@ -30,6 +30,10 @@ The short estimate does not establish whether “RemServ price” includes every
 ![Redacted RemServ quote summary table with values removed](/assets/images/quote-guide/remserv/redacted-summary-table.webp)
 
 On the [summary-table example](https://www.reddit.com/r/NovatedLeasingAU/comments/1rpt6ql/quote_base_cost_doesnt_seem_competitive/), “FBT Base Value” is printed under General Details. For drive-away price, add “Vehicle Cost” and any separately printed accessories, extras, delivery, stamp duty, luxury car tax and initial rego/CTP. **Leave out “Initial 12 Months Comprehensive Insurance”.** “Total Vehicle Costs” includes that premium, so it is not the car's drive-away price.
+
+In the newer summary, scroll **up to Purchase Details**. The box below covers “Vehicle Cost” and the on-road rows to add. If every row after “Vehicle Cost” in that box is $0, enter “Vehicle Cost” unchanged. The insurance row sits outside the box and is entered separately if financed.
+
+![Redacted RemServ summary with the car-price rows boxed and insurance outside the box](/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp)
 
 Another [RemServ summary example](https://www.reddit.com/r/NovatedLeasingAU/comments/1x6eio8/gwm_ora_5_ultra_quote_check/) prints the same rows in a larger, split table. Its “Total Amount Financed” explicitly subtracts “Residual Value” from vehicle costs and fees. The earlier summary also prints this definition. **Do not use that net figure as the drive-away price or enter it as a separate loan amount in Guided:** the calculator takes the car price and residual separately. A net figure plus a separate residual can make the calculated interest rate misleadingly high.
 

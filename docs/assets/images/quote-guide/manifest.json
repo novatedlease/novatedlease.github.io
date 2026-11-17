@@ -1123,6 +1123,14 @@
     "remserv/redacted-net-finance.webp": {
       "w": 880,
       "h": 770
+    },
+    "remserv/redacted-compact-summary.webp": {
+      "w": 1080,
+      "h": 2039
+    },
+    "remserv/field-alt-compact-driveaway.webp": {
+      "w": 880,
+      "h": 730
     }
   },
   "pages": {

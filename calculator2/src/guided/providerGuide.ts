@@ -149,7 +149,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
 };
 
 function withKind(id: ProviderId, pointer: Pointer): Pointer {
-  return { ...pointer, kind: pointer.notShown ? "missing" : TRAP_FIELDS[id]?.includes(pointer.field) ? "trap" : "locate" };
+  return { ...pointer, kind: pointer.kind ?? (pointer.notShown ? "missing" : TRAP_FIELDS[id]?.includes(pointer.field) ? "trap" : "locate") };
 }
 
 /** Payment pointers never state a GST basis: it can differ between employers on one provider's quotes. */
@@ -707,16 +707,17 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted RemServ lease page with Vehicle FBT Base Value outlined",
         caption: "Field 1 marks the FBT base value on this redacted full quote.",
       } },
-      { field: "driveaway", kind: "trap", text: "Full quote: use “Vehicle purchase price”. Summary: add “Vehicle Cost” and on-road charges. Exclude insurance and “Total Amount Financed”.", more: "The short estimate's “RemServ price” does not say what it includes. Check the dealer's full on-road price before using it.", example: {
+      { field: "driveaway", kind: "trap", text: "Summary table: under “Purchase Details”, use “Vehicle Cost” plus any nonzero on-road charges.", more: "If the other purchase rows are $0, enter Vehicle Cost unchanged. Do not use “Total Vehicle Costs”: it includes first-year insurance. “Total Amount Financed” subtracts the residual, so it is not the car price either. The short estimate's “RemServ price” needs confirmation from the dealer or RemServ.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-compact-summary.webp",
+        alt: "Redacted RemServ summary table with Vehicle Cost and on-road rows boxed above the insurance row",
+        caption: "Field 2 boxes the car-price rows. Leave out first-year insurance below.",
+      } },
+      { field: "driveaway", kind: "locate", text: "Detailed lease page: use “Vehicle purchase price”.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-driveaway.webp",
         fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
         alt: "Redacted RemServ lease page with Vehicle purchase price outlined",
         caption: "Field 2 marks the vehicle purchase price on this redacted full quote.",
-      } },
-      { field: "driveaway", kind: "trap", text: "Some summaries subtract the residual in “Total Amount Financed”. Enter the car price and residual separately.", example: {
-        image: "/assets/images/quote-guide/remserv/redacted-net-finance.webp",
-        alt: "Redacted RemServ summary showing Total Amount Financed defined as costs minus residual value",
-        caption: "Field 3 marks the net-of-residual total. Do not enter this as the car price.",
       } },
       { field: "docFee", text: "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.", more: "A summary table may also show “Supplier Margin” and “Other Fees”. One example's supplier-margin note conflicts with its printed total formula; ask RemServ whether that margin is financed, then include it once. Do not copy “Total Amount Financed” into this fee box.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-docFee.webp",

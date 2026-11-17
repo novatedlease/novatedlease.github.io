@@ -83,6 +83,16 @@ deductions = blank(source("1t4254u_1"), [
     (795, 225, 1125, 1150), (630, 1045, 755, 1160),
 ])
 
+# The November split summary has its car-price rows above the finance-total
+# screenshot. Box only the vehicle and on-road rows, leaving insurance below.
+compact = blank(source("1x6eio8_2"), [(758, 395, 970, 2039)])
+compact_draw = ImageDraw.Draw(compact)
+compact_draw.rounded_rectangle((112, 1340, 966, 1840), radius=7,
+                               outline="#ca5500", width=4)
+marker(compact_draw, 925, 1348, "2")
+save(compact, "redacted-compact-summary.webp")
+save(compact.crop((100, 1240, 980, 1970)), "field-alt-compact-driveaway.webp")
+
 # A newer summary layout prints a net-of-residual “Total Amount Financed”.
 # Its Reddit screenshots split one table across several images; this section
 # retains the original row labels and printed formula without any amounts.
@@ -121,7 +131,10 @@ for image, rows in ((summary, summary_rows), (lease, lease_rows), (deductions, d
 
 manifest_path = OUT.parent / "manifest.json"
 manifest = json.loads(manifest_path.read_text())
-manifest["images"]["remserv/redacted-net-finance.webp"] = {
-    "w": net_finance.width, "h": net_finance.height,
-}
+for name in ("redacted-net-finance.webp", "redacted-compact-summary.webp",
+             "field-alt-compact-driveaway.webp"):
+    with Image.open(OUT / name) as image:
+        manifest["images"][f"remserv/{name}"] = {
+            "w": image.width, "h": image.height,
+        }
 manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")

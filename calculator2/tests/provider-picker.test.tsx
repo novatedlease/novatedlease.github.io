@@ -615,13 +615,20 @@ describe("provider pointers", () => {
       .toBe("/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp");
   });
 
-  test("RemServ's alternate summary formula opens in the price side panel", () => {
+  test("RemServ's summary price rows open first, with the detailed layout still available", () => {
     phoneWidth(false);
     on("price", { ...quoteDraft(), provider: "remserv" });
-    const warning = screen.getByText(/Some summaries subtract the residual/).closest(".gd-pointer")!;
+    const warning = screen.getByText(/Summary table: under “Purchase Details”/).closest(".gd-pointer")!;
     fireEvent.click(warning.querySelector("button")!);
     expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
-      .toBe("/assets/images/quote-guide/remserv/redacted-net-finance.webp");
+      .toBe("/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp");
+    fireEvent.click(screen.getByRole("button", { name: "Whole page" }));
+    expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/remserv/redacted-compact-summary.webp");
+    const detailed = screen.getByText(/Detailed lease page: use “Vehicle purchase price”/).closest(".gd-pointer")!;
+    fireEvent.click(detailed.querySelector("button")!);
+    expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
+      .toBe("/assets/images/quote-guide/remserv/field-alt-driveaway.webp");
   });
 
   test("SG Fleet's payment trap uses an amber box and a scrollable full-page toggle", () => {
@@ -966,16 +973,20 @@ describe("provider pointers", () => {
 
   test("RemServ's article covers the net-of-residual summary as well as the detailed layout", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-remserv-quote.md"), "utf8");
-    const summaryTrap = pointersFor("remserv", "driveaway")[1];
-    expect(summaryTrap.text).toContain("subtract the residual");
-    expect(summaryTrap.example?.image).toBe("/assets/images/quote-guide/remserv/redacted-net-finance.webp");
-    expect(imageSizeFor(summaryTrap.example!.image)).toEqual({ w: 880, h: 770 });
+    const [summary, detailed] = pointersFor("remserv", "driveaway");
+    expect(summary.text).toContain("Purchase Details");
+    expect(summary.more).toContain("Total Amount Financed");
+    expect(summary.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp");
+    expect(imageSizeFor(summary.example!.image)).toEqual({ w: 880, h: 730 });
+    expect(detailed.kind).toBe("locate");
+    expect(detailed.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-driveaway.webp");
     expect(article).toContain(pointersFor("remserv", "residual")[0].text);
     expect(article).toContain(pointersFor("remserv", "payment")[0].text);
     expect(article).toContain("per fortnight");
     expect(article).toContain("Checked against 4 quote examples");
     expect(article).toContain("1x6eio8/gwm_ora_5_ultra_quote_check");
     expect(article).toContain("redacted-net-finance.webp");
+    expect(article).toContain("field-alt-compact-driveaway.webp");
     expect(article).toContain("redacted-summary-table.webp");
     expect(article).toContain("redacted-lease-breakdown.webp");
     expect(article).toContain("redacted-deductions.webp");
