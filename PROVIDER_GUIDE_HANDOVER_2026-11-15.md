@@ -758,6 +758,29 @@ Open items (not started; raise with the owner):
   changed calculator ESLint and `git diff --check` passed. No full suite, push
   or merge.
 
+## 17 Nov: RemServ “Total Vehicle Costs” as the summary price
+
+- Owner reviewed several RemServ formats and decided the bold “Total Vehicle Costs”
+  is the summary's drive-away figure. Guided and the article now point directly to
+  it on the March and November summary layouts. Their marked redacted crops box
+  the total instead of the earlier vehicle-cost rows. The March FBT marker and
+  first-year insurance marker were corrected on its redacted page.
+- The summary total already contains the financed first-year insurance. Guided
+  now asks which RemServ price was entered: “Total Vehicle Costs” or the detailed
+  “Vehicle purchase price”. For the summary choice, it subtracts the entered
+  premium internally from vehicle drive-away before the car GST and finance
+  calculations, then adds that premium once as financed insurance. The detailed
+  choice retains the earlier calculation. Existing saved drafts have no choice
+  until the reader selects one, avoiding a silent change in their numbers.
+- The unexplained differences between visible summary rows and printed totals
+  remain in the article as an optional itemisation check; they no longer block
+  using the bold total. “Total Amount Financed” remains net of residual and must
+  not be used as the price. No private source image was committed.
+- Removed the two obsolete RemServ crops that boxed the wrong rows and rebuilt
+  the private :4343 walkthrough. Calculator build/export/prebuild passed;
+  158 focused tests and changed calculator ESLint passed. Astro preview on
+  :4340 was restarted and returned HTTP 200. No full suite, push or merge.
+
 ## 17 Nov: RemServ summary price guidance refinement (committed next)
 
 - Owner's screenshot showed that the drive-away field opened a detailed lease

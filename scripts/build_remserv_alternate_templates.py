@@ -83,15 +83,10 @@ deductions = blank(source("1t4254u_1"), [
     (795, 225, 1125, 1150), (630, 1045, 755, 1160),
 ])
 
-# The November split summary has its car-price rows above the finance-total
-# screenshot. Box only the vehicle and on-road rows, leaving insurance below.
+# The November split summary has its purchase rows on the preceding screenshot.
+# Keep that page redacted; the bold Total Vehicle Costs row is on the next one.
 compact = blank(source("1x6eio8_2"), [(758, 395, 970, 2039)])
-compact_draw = ImageDraw.Draw(compact)
-compact_draw.rounded_rectangle((112, 1340, 966, 1840), radius=7,
-                               outline="#ca5500", width=4)
-marker(compact_draw, 925, 1348, "2")
 save(compact, "redacted-compact-summary.webp")
-save(compact.crop((100, 1240, 980, 1970)), "field-alt-compact-driveaway.webp")
 
 # A newer summary layout prints a net-of-residual “Total Amount Financed”.
 # Its Reddit screenshots split one table across several images; this section
@@ -100,14 +95,18 @@ net_finance = blank(source("1x6eio8_0"), [
     (758, 0, 970, 770), (115, 450, 753, 568),
 ]).crop((100, 0, 980, 770))
 net_draw = ImageDraw.Draw(net_finance)
+net_draw.rounded_rectangle((14, 2, 867, 70), radius=7, outline="#ca5500", width=4)
+marker(net_draw, 825, 8, "2")
 net_draw.rounded_rectangle((14, 572, 867, 752), radius=7, outline="#ca5500", width=4)
 marker(net_draw, 825, 587, "3")
 save(net_finance, "redacted-net-finance.webp")
+save(net_finance.crop((0, 0, 880, 90)), "field-alt-compact-total.webp")
 
 # Each crop stays tied to its source page for the in-card Whole page toggle.
 summary_rows = [
-    ("1", (45, 460, 750, 805), (15, 24, 685, 220), "field-alt-summary-price.webp"),
-    ("2", (45, 620, 750, 765), (15, 60, 685, 94), "field-alt-summary-insurance.webp"),
+    ("1", (45, 380, 750, 480), (15, 60, 685, 86), "field-alt-summary-baseValue.webp"),
+    ("2", (45, 690, 750, 820), (15, 57, 685, 82), "field-alt-summary-total.webp"),
+    ("5", (45, 620, 750, 765), (15, 47, 685, 79), "field-alt-summary-insurance.webp"),
 ]
 lease_rows = [
     ("1", (78, 386, 1180, 457), (12, 5, 1088, 66), "field-alt-baseValue.webp"),
@@ -131,8 +130,12 @@ for image, rows in ((summary, summary_rows), (lease, lease_rows), (deductions, d
 
 manifest_path = OUT.parent / "manifest.json"
 manifest = json.loads(manifest_path.read_text())
+for obsolete in ("field-alt-summary-price.webp", "field-alt-compact-driveaway.webp"):
+    (OUT / obsolete).unlink(missing_ok=True)
+    manifest["images"].pop(f"remserv/{obsolete}", None)
 for name in ("redacted-net-finance.webp", "redacted-compact-summary.webp",
-             "field-alt-compact-driveaway.webp"):
+             "field-alt-compact-total.webp", "field-alt-summary-baseValue.webp",
+             "field-alt-summary-total.webp"):
     with Image.open(OUT / name) as image:
         manifest["images"][f"remserv/{name}"] = {
             "w": image.width, "h": image.height,

@@ -18,6 +18,7 @@ import {
   typicalMarketValueAtLeaseEnd,
   visibleSteps,
   financedInsuranceAmount,
+  vehicleDriveawayCost,
   type GuidedDraft,
   type Money,
 } from "../src/guided/draft";
@@ -35,10 +36,25 @@ const m = (text: string): Money => ({ text, none: false, estimated: false });
 const none: Money = { text: "", none: true, estimated: false };
 
 describe("financed first-year insurance", () => {
+  test("RemServ summary total separates the premium without changing finance or car GST", () => {
+    const summary = completeDraft(0.08);
+    summary.provider = "remserv";
+    summary.driveaway = m("48990");
+    summary.remservPriceSource = "summaryTotal";
+    summary.insuranceFinanced = "Yes";
+    summary.financedInsurance = m("1486.74");
+    const detailed = { ...summary, driveaway: m("47503.26"), remservPriceSource: "vehiclePurchase" as const };
+    expect(vehicleDriveawayCost(summary)).toBeCloseTo(47503.26, 2);
+    expect(financedExGst(summary)).toBeCloseTo(financedExGst(detailed)!, 2);
+    expect(buildInputs(summary)!.driveawayCost).toBeCloseTo(buildInputs(detailed)!.driveawayCost, 2);
+    expect(buildInputs(summary)!.leaseDocFee).toBeCloseTo(buildInputs(detailed)!.leaseDocFee, 2);
+  });
+
   test.each(["maxxia", "oly", "remserv"] as const)("%s: renewal budget as printed, year one financed inc GST and counted once", (provider) => {
     // Use a common five-year example to verify the same one-off premium treatment.
     const d = completeDraft(0.08);
     d.provider = provider;
+    if (provider === "remserv") d.remservPriceSource = "vehiclePurchase";
     d.insuranceFinanced = "Yes";
     d.financedInsurance = m("1691.71");
     d.insurance = m("1230.32");
@@ -102,6 +118,7 @@ test("Alliance's ex-GST registration stays as printed beside inc-GST running cos
 test("RemServ's registration stays as printed beside inc-GST running costs", () => {
   const d = completeDraft();
   d.provider = "remserv";
+  d.remservPriceSource = "vehiclePurchase";
   d.insuranceFinanced = "No";
   d.runningGstHeading = "incGst";
   d.runningGstCredit = "Yes";
@@ -115,6 +132,7 @@ test("RemServ's registration stays as printed beside inc-GST running costs", () 
 test("RemServ's summary-table insurance budget and financed first year reconcile", () => {
   const d = completeDraft();
   d.provider = "remserv";
+  d.remservPriceSource = "vehiclePurchase";
   d.leaseYears = 3;
   d.insuranceFinanced = "Yes";
   d.financedInsurance = m("1486.74");

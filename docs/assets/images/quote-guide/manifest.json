@@ -1116,10 +1116,6 @@
       "w": 705,
       "h": 145
     },
-    "remserv/field-alt-summary-price.webp": {
-      "w": 705,
-      "h": 345
-    },
     "remserv/redacted-net-finance.webp": {
       "w": 880,
       "h": 770
@@ -1128,9 +1124,17 @@
       "w": 1080,
       "h": 2039
     },
-    "remserv/field-alt-compact-driveaway.webp": {
+    "remserv/field-alt-compact-total.webp": {
       "w": 880,
-      "h": 730
+      "h": 90
+    },
+    "remserv/field-alt-summary-baseValue.webp": {
+      "w": 705,
+      "h": 100
+    },
+    "remserv/field-alt-summary-total.webp": {
+      "w": 705,
+      "h": 130
     }
   },
   "pages": {

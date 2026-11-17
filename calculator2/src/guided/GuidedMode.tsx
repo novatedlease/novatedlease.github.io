@@ -420,6 +420,7 @@ export function GuidedMode({
       if (next !== previous.provider) {
         updated.insuranceFinanced = null;
         updated.financedInsurance = emptyMoney();
+        updated.remservPriceSource = null;
         if (next === "autopia" && !previous.luxAdj.text.trim() && !previous.luxAdj.none)
           updated.luxAdjPeriod = "perYear";
       }
@@ -1324,6 +1325,18 @@ function PriceStep({ d, set, f }: StepPropsF) {
         findings={[...f.prices.filter((x) => x.code !== "base_exceeds_driveaway"), ...f.providerPrice]}
       />
       <ProviderPointers d={d} field="driveaway" />
+      {d.provider === "remserv" && <Choices
+        field="remservPriceSource"
+        label="Which RemServ price did you enter?"
+        value={d.remservPriceSource}
+        onChange={(v) => set("remservPriceSource", v)}
+        options={[
+          { value: "summaryTotal", label: "Total Vehicle Costs", sub: "Summary table" },
+          { value: "vehiclePurchase", label: "Vehicle purchase price", sub: "Detailed lease page" },
+        ]}
+        columns={2}
+        hint="If the summary total includes first-year insurance, we'll separate it after you enter that premium on the next page."
+      />}
       {showResidualDriveawayHelper(d.provider) && (
         <DriveawayHelper d={d} set={set} residualPointer={<ProviderPointers d={d} field="residual" />} />
       )}

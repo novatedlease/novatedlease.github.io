@@ -122,6 +122,8 @@ export type GuidedDraft = {
 
   baseValue: Money;
   driveaway: Money;
+  /** RemServ summary Total Vehicle Costs includes the first-year premium; detailed Vehicle purchase price does not. */
+  remservPriceSource: "summaryTotal" | "vehiclePurchase" | null;
 
   leaseYears: number | null;
   monthsDeferred: number | null;
@@ -208,6 +210,7 @@ export function emptyDraft(): GuidedDraft {
     estimateRatePct: null,
     baseValue: emptyMoney(),
     driveaway: emptyMoney(),
+    remservPriceSource: null,
     leaseYears: null,
     monthsDeferred: null,
     monthsDeferredUnsure: false,
@@ -397,7 +400,7 @@ export function needsUsedEvChecks(d: GuidedDraft): boolean {
 
 function pricingInputs(d: GuidedDraft): Inputs | null {
   const base = moneyValue(d.baseValue);
-  const drive = moneyValue(d.driveaway);
+  const drive = vehicleDriveawayCost(d);
   if (!base || !drive || !d.vehicleCondition) return null;
   return {
     vehicleCondition: d.vehicleCondition,
@@ -405,6 +408,13 @@ function pricingInputs(d: GuidedDraft): Inputs | null {
     driveawayCost: drive,
     leaseDocFee: (moneyValue(d.docFee) ?? 0) + financedInsuranceAmount(d),
   } as Inputs;
+}
+
+/** Remove a premium already inside RemServ's summary total before calculating vehicle GST. */
+export function vehicleDriveawayCost(d: GuidedDraft): number | null {
+  const printed = moneyValue(d.driveaway);
+  if (printed === null) return null;
+  return printed - (d.provider === "remserv" && d.remservPriceSource === "summaryTotal" ? financedInsuranceAmount(d) : 0);
 }
 
 export function financedInsuranceAmount(d: GuidedDraft): number {
@@ -723,6 +733,8 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
     case "price":
       if (!positive(d.baseValue)) askMoney("baseValue", "FBT base value");
       if (!positive(d.driveaway)) askMoney("driveaway", "Drive-away price");
+      if (d.provider === "remserv" && !d.remservPriceSource)
+        ask("remservPriceSource", "Which RemServ price did you enter?");
       break;
     case "lease":
       if (!d.leaseYears) ask("leaseYears", "Lease term");
@@ -949,7 +961,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
   ];
   if (steps.some((s) => missingForStep(s, d).length > 0)) return null;
 
-  const driveaway = moneyValue(d.driveaway)!;
+  const driveaway = vehicleDriveawayCost(d)!;
   const km = moneyValue(d.mileage)!;
   const income = moneyValue(d.income)!;
   const leaseYears = d.leaseYears!;
@@ -1054,7 +1066,7 @@ export const STEP_DRAFT_FIELDS: Partial<Record<StepId, (keyof GuidedDraft)[]>> =
   car: ["vehicleType", "vehicleCondition", "leaseStartDate", "exploreStart", "usedAfter2022", "usedLctNever"],
   compare: ["compareLoan", "compareCurrent"],
   quick: ["driveaway", "leaseYears", "mileage"],
-  price: ["baseValue", "driveaway"],
+  price: ["baseValue", "driveaway", "remservPriceSource"],
   lease: [
     "leaseYears", "monthsDeferred", "monthsDeferredUnsure", "docFee",
     "insuranceFinanced", "financedInsurance", "residual", "residualBasis",

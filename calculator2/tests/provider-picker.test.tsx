@@ -615,16 +615,17 @@ describe("provider pointers", () => {
       .toBe("/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp");
   });
 
-  test("RemServ's summary price rows open first, with the detailed layout still available", () => {
+  test("RemServ's summary total opens first, with the detailed layout still available", () => {
     phoneWidth(false);
     on("price", { ...quoteDraft(), provider: "remserv" });
-    const warning = screen.getByText(/Summary: scroll to “Purchase Details”/).closest(".gd-pointer")!;
-    fireEvent.click(warning.querySelector("button")!);
+    const summary = screen.getByText(/Summary table: use the bold “Total Vehicle Costs”/).closest(".gd-pointer")!;
+    fireEvent.click(summary.querySelector("button")!);
     expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
-      .toBe("/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp");
+      .toBe("/assets/images/quote-guide/remserv/field-alt-summary-total.webp");
     fireEvent.click(screen.getByRole("button", { name: "Whole page" }));
     expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
-      .toBe("/assets/images/quote-guide/remserv/redacted-compact-summary.webp");
+      .toBe("/assets/images/quote-guide/remserv/redacted-summary-table.webp");
+    expect(screen.getByText("Which RemServ price did you enter?")).toBeTruthy();
     const detailed = screen.getByText(/Detailed lease page: use “Vehicle purchase price”/).closest(".gd-pointer")!;
     fireEvent.click(detailed.querySelector("button")!);
     expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
@@ -973,13 +974,14 @@ describe("provider pointers", () => {
 
   test("RemServ's article covers the net-of-residual summary as well as the detailed layout", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-remserv-quote.md"), "utf8");
-    const [summary, detailed] = pointersFor("remserv", "driveaway");
-    expect(summary.text).toContain("Purchase Details");
-    expect(summary.text).toContain("Ask about gaps");
+    const [summary, split, detailed] = pointersFor("remserv", "driveaway");
+    expect(summary.text).toContain("Total Vehicle Costs");
+    expect(summary.kind).toBe("locate");
     expect(summary.more).toContain("Total Amount Financed");
-    expect(summary.more).toContain("exceeds the visible rows in both summary examples");
-    expect(summary.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp");
-    expect(imageSizeFor(summary.example!.image)).toEqual({ w: 880, h: 730 });
+    expect(summary.more).toContain("first-year insurance");
+    expect(summary.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-summary-total.webp");
+    expect(split.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-compact-total.webp");
+    expect(imageSizeFor(split.example!.image)).toEqual({ w: 880, h: 90 });
     expect(detailed.kind).toBe("locate");
     expect(detailed.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-driveaway.webp");
     expect(article).toContain(pointersFor("remserv", "residual")[0].text);
@@ -988,12 +990,11 @@ describe("provider pointers", () => {
     expect(article).toContain("Checked against 4 quote examples");
     expect(article).toContain("1x6eio8/gwm_ora_5_ultra_quote_check");
     expect(article).toContain("redacted-net-finance.webp");
-    expect(article).toContain("field-alt-compact-driveaway.webp");
-    expect(article).toContain("this post does not establish the drive-away price");
-    expect(article).toContain("Neither “Vehicle Cost” nor “Total Vehicle Costs” is a confirmed drive-away price");
+    expect(article).toContain("field-alt-compact-total.webp");
+    expect(article).toContain("use the bold **“Total Vehicle Costs”**");
     expect(article).toContain("add “Residual Value” **as printed** to “Total Amount Financed”");
     expect(article).toContain("do not divide only the residual by 1.1");
-    expect(article).toContain("do not add first-year insurance to “Total Vehicle Costs” again");
+    expect(article).toContain("Do not add first-year insurance to “Total Vehicle Costs” again");
     expect(article).not.toContain("enter “Vehicle Cost” unchanged");
     expect(article).toContain("redacted-summary-table.webp");
     expect(article).toContain("redacted-lease-breakdown.webp");

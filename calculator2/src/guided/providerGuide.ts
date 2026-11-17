@@ -145,7 +145,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   carbon: ["payment"],
   kooya: ["driveaway", "payment"],
   clearlease: ["driveaway", "payment"],
-  remserv: ["driveaway", "financedInsurance"],
+  remserv: ["financedInsurance"],
 };
 
 function withKind(id: ProviderId, pointer: Pointer): Pointer {
@@ -707,11 +707,17 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted RemServ lease page with Vehicle FBT Base Value outlined",
         caption: "Field 1 marks the FBT base value on this redacted full quote.",
       } },
-      { field: "driveaway", kind: "trap", text: "Summary: scroll to “Purchase Details”. Add on-road charges to “Vehicle Cost”. Don't use “Total Vehicle Costs”. Ask about gaps.", more: "“Total Vehicle Costs” includes first-year insurance and exceeds the visible rows in both summary examples. One set of posted screenshots also omits an intervening line. Neither summary establishes its full on-road price; ask RemServ or the dealer to itemise the difference and confirm the drive-away price including GST. “Total Amount Financed” subtracts the residual.", example: {
-        image: "/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp",
-        fullPage: "/assets/images/quote-guide/remserv/redacted-compact-summary.webp",
-        alt: "Redacted RemServ summary table with Vehicle Cost and on-road rows boxed above the insurance row",
-        caption: "Field 2 boxes the visible car-price rows. The posted quote omits a line before its total, so confirm the full drive-away price.",
+      { field: "driveaway", kind: "locate", text: "Summary table: use the bold “Total Vehicle Costs”.", more: "Choose “Total Vehicle Costs” below. On the summaries reviewed, this total includes first-year insurance. Enter that premium on the lease page; Guided separates it from the vehicle price when calculating GST and finance. Do not use “Total Amount Financed”: it subtracts the residual. The printed total does not reconcile with every visible row in the examples, so ask RemServ if you need an itemised explanation.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-summary-total.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-summary-table.webp",
+        alt: "Redacted RemServ summary table with Total Vehicle Costs outlined",
+        caption: "Field 2 marks the bold Total Vehicle Costs on this summary table.",
+      } },
+      { field: "driveaway", kind: "locate", text: "Split summary: “Total Vehicle Costs” is at the top of the next screenshot.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-compact-total.webp",
+        fullPage: "/assets/images/quote-guide/remserv/redacted-net-finance.webp",
+        alt: "Redacted RemServ split summary with Total Vehicle Costs outlined",
+        caption: "Field 2 marks Total Vehicle Costs above the GST and finance lines.",
       } },
       { field: "driveaway", kind: "locate", text: "Detailed lease page: use “Vehicle purchase price”.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-driveaway.webp",
@@ -725,7 +731,7 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted RemServ lease page with Finance Establishment Fee outlined",
         caption: "Field 4 marks the establishment fee, separate from first-year insurance.",
       } },
-      { field: "financedInsurance", kind: "trap", text: "If “1st year Comprehensive Insurance” is in “Total Amount Financed”, answer Yes and enter it. Keep the renewal budget separate.", more: "The older summary table calls it “Initial 12 Months Comprehensive Insurance”. If your quote finances no first-year premium, answer No.", example: {
+      { field: "financedInsurance", kind: "trap", text: "If the first year's comprehensive insurance is financed, answer Yes and enter the premium. Keep the renewal budget separate.", more: "The summary calls it “Initial 12 Months Comprehensive Insurance”; that premium is already inside “Total Vehicle Costs”. Choose that price source on the Price page so Guided separates it internally. If your quote finances no first-year premium, answer No.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-financedInsurance.webp",
         fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
         alt: "Redacted RemServ lease page with first-year comprehensive insurance outlined",

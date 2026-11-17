@@ -1375,16 +1375,15 @@
       "sourceCount": 4,
       "written": {
         "baseValue": "Use “FBT Base Value” or “Vehicle FBT Base Value” if your full quote prints it.",
-        "driveaway": "Summary: scroll to “Purchase Details”. Add on-road charges to “Vehicle Cost”. Don't use “Total Vehicle Costs”. Ask about gaps.",
+        "driveaway": "Summary table: use the bold “Total Vehicle Costs”.",
         "docFee": "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.",
-        "financedInsurance": "If “1st year Comprehensive Insurance” is in “Total Amount Financed”, answer Yes and enter it. Keep the renewal budget separate.",
+        "financedInsurance": "If the first year's comprehensive insurance is financed, answer Yes and enter the premium. Keep the renewal budget separate.",
         "residual": "If the full quote says “Residual value (inc GST)”, choose Including GST. The summary table's GST footnote also covers residual value.",
         "payment": "Use “FINANCED PAYMENTS” per fortnight on the full deductions page. Choose the “Ex GST” or “Inc GST” column to match what you enter.",
         "running": "Use the running-cost lines under “RUNNING COSTS & SERVICING” and “REGISTRATION & INSURANCE”. Choose the GST column you copied.",
         "fees": "On the full deductions page, enter “Salary packaging fee”. The summary table calls it “Novated Leasing Administration Fee”."
       },
       "traps": [
-        "driveaway",
         "financedInsurance"
       ],
       "pointers": [
@@ -1397,10 +1396,16 @@
         },
         {
           "field": "driveaway",
-          "kind": "trap",
-          "text": "Summary: scroll to “Purchase Details”. Add on-road charges to “Vehicle Cost”. Don't use “Total Vehicle Costs”. Ask about gaps.",
-          "more": "“Total Vehicle Costs” includes first-year insurance and exceeds the visible rows in both summary examples. One set of posted screenshots also omits an intervening line. Neither summary establishes its full on-road price; ask RemServ or the dealer to itemise the difference and confirm the drive-away price including GST. “Total Amount Financed” subtracts the residual.",
-          "image": "/assets/images/quote-guide/remserv/field-alt-compact-driveaway.webp"
+          "kind": "locate",
+          "text": "Summary table: use the bold “Total Vehicle Costs”.",
+          "more": "Choose “Total Vehicle Costs” below. On the summaries reviewed, this total includes first-year insurance. Enter that premium on the lease page; Guided separates it from the vehicle price when calculating GST and finance. Do not use “Total Amount Financed”: it subtracts the residual. The printed total does not reconcile with every visible row in the examples, so ask RemServ if you need an itemised explanation.",
+          "image": "/assets/images/quote-guide/remserv/field-alt-summary-total.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Split summary: “Total Vehicle Costs” is at the top of the next screenshot.",
+          "image": "/assets/images/quote-guide/remserv/field-alt-compact-total.webp"
         },
         {
           "field": "driveaway",
@@ -1424,8 +1429,8 @@
         {
           "field": "financedInsurance",
           "kind": "trap",
-          "text": "If “1st year Comprehensive Insurance” is in “Total Amount Financed”, answer Yes and enter it. Keep the renewal budget separate.",
-          "more": "The older summary table calls it “Initial 12 Months Comprehensive Insurance”. If your quote finances no first-year premium, answer No.",
+          "text": "If the first year's comprehensive insurance is financed, answer Yes and enter the premium. Keep the renewal budget separate.",
+          "more": "The summary calls it “Initial 12 Months Comprehensive Insurance”; that premium is already inside “Total Vehicle Costs”. Choose that price source on the Price page so Guided separates it internally. If your quote finances no first-year premium, answer No.",
           "image": "/assets/images/quote-guide/remserv/field-alt-financedInsurance.webp"
         },
         {
