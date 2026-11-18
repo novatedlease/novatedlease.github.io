@@ -37,7 +37,7 @@ Nothing on the Toyota Fleet Management quotes we checked looked easy to misread.
 | 11 | Interest rate | Compare with Guided's effective-rate result. |
 <!-- provider-table:end -->
 
-The schedule doesn't state a deferral. On the quote checked, the printed interest rate matched payments starting straight away, so choose **Straight away** for the first payment unless Toyota Fleet tells you otherwise.
+The schedule doesn't state a deferral or the number of payments. On the quote checked, the printed interest rate matched “Rent” paid from the first month with no deferral. That may only reflect how Toyota Fleet works out the printed figure, and most novated leases defer the first 2 months. Ask Toyota Fleet how many lease payments there are. If you can't confirm it, choose **Not sure** (we'll assume 2); choose **Straight away** only if Toyota Fleet confirms payments start in the first month.
 
 Do not use the package total or salary deduction as the finance payment.
 

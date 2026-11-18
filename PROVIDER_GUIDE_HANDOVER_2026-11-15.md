@@ -893,3 +893,8 @@ Open items (not started; raise with the owner):
   pointer, the RemServ hint on the lease page and the article now say Yes for the detailed page.
 - Tests updated (the insurance side panel now opens on the Not Financed crop; 5 sources; new
   article sentence). Full suite 478 passed; changed-file ESLint and `git diff --check` clean.
+- 18 Nov, owner: more cautious. A rate match shows only how Toyota Fleet calculated the printed
+  Rent, not how payroll deductions run, and almost every novated lease defers 2 months. Pointer now:
+  “Toyota Fleet quotes don't state a deferral. Ask Toyota Fleet how many lease payments there are,
+  or choose ‘Not sure’.” The tooltip and article give the rate-match finding as context only;
+  “Straight away” only if Toyota Fleet confirms.
