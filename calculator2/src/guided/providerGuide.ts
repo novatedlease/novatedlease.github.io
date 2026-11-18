@@ -307,7 +307,12 @@ export const GUIDES: ProviderGuide[] = [
       } },
       { field: "term", text: "Use the term in the first line: “based on a term of … months”." },
       { field: "residual", text: "Use “Residual Value inc GST” and choose Including GST. Its percentage is in brackets." },
-      { field: "payment", text: "Use “Finance” in “Budgeted Running Costs (Excluding GST)”, not “Lease payment”. The period is the “Payroll Cycle”.", more: "“Lease payment” adds the running costs to the finance. The table's heading says Excluding GST, so choose Excluding GST. “GST (ITC)” below it is the GST credit, not part of the payment." },
+      { field: "payment", text: "Use “Finance” in “Budgeted Running Costs (Excluding GST)”, not “Lease payment”. The period is the “Payroll Cycle”.", more: "“Lease payment” adds the running costs to the finance. The table's heading says Excluding GST, so choose Excluding GST. “GST (ITC)” below it is the GST credit, not part of the payment.", example: {
+        image: "/assets/images/quote-guide/carbon/field-payment-nov2026.webp",
+        fullPage: "/assets/images/quote-guide/carbon/redacted-quote-nov2026.webp",
+        alt: "CarBon quote with Finance marked 7 and Lease payment marked with a red cross",
+        caption: "Copy Finance (7). The red cross marks Lease payment, which also includes running costs.",
+      } },
       { field: "luxAdj", text: "Use “Luxury Car Adjustment” under “Salary Breakdown”, in the Novated column." },
       { field: "running", text: "Use the lines after “Finance” in “Budgeted Running Costs (Excluding GST)”. Choose Excluding GST, per “Payroll Cycle”.", more: "Anything listed under “Exclusions” isn't budgeted in the lease: enter what you'd expect to spend. The Fuel/Charging budget can include a monthly fleet card fee." },
       { field: "fees", text: "Use “Management Fee” in the running-cost table. If it's $0 or listed under “Exclusions”, ask who will manage the lease and what they charge.", more: "On one reviewed quote, CarBon said the fee was $0 because another company would manage the lease. A “Finance Management Fee” under Exclusions isn't in the budget; ask CarBon whether it's charged elsewhere." },

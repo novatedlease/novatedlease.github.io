@@ -382,7 +382,7 @@
           "kind": "trap",
           "text": "Use “Finance” in “Budgeted Running Costs (Excluding GST)”, not “Lease payment”. The period is the “Payroll Cycle”.",
           "more": "“Lease payment” adds the running costs to the finance. The table's heading says Excluding GST, so choose Excluding GST. “GST (ITC)” below it is the GST credit, not part of the payment.",
-          "image": "/assets/images/quote-guide/carbon/field-payment.webp"
+          "image": "/assets/images/quote-guide/carbon/field-payment-nov2026.webp"
         },
         {
           "field": "luxAdj",

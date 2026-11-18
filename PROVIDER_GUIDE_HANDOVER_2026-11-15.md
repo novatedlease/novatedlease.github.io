@@ -937,3 +937,12 @@ Open items (not started; raise with the owner):
 - Focused provider tests: 112 pass; changed-file ESLint and calculator build/export/prebuild
   pass. Redacted page checked visually and by OCR; preview at :4340 served the article and image.
   Nothing pushed or merged.
+
+### CarBon payment trap illustration
+
+- The owner pointed out the bold “Lease payment” at the foot of the CarBon budget table could be
+  mistaken for the finance-only rental. The November page now marks that total with the standard
+  red ✕, while “Finance” retains field 7. `field-payment-nov2026.webp` shows both rows together
+  in Guided's payment side panel; its full-page toggle uses the same November page. The article
+  caption explains the cross. Rebuild with `scripts/build_carbon_nov2026_template.py`.
+- Focused provider tests: 113 pass; changed-file ESLint and calculator build/export/prebuild pass.

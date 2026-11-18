@@ -52,6 +52,14 @@ describe("provider picker", () => {
     expect(guideFor("carbon")?.sourceCount).toBe(4);
   });
 
+  test("CarBon's payment picture contrasts Finance with the Lease payment total", () => {
+    const payment = pointersFor("carbon", "payment")[0];
+    expect(payment.text).toContain("not “Lease payment”");
+    expect(payment.example?.image).toContain("field-payment-nov2026.webp");
+    expect(payment.example?.fullPage).toContain("redacted-quote-nov2026.webp");
+    expect(imageSizeFor(payment.example!.image)).toEqual({ w: 453, h: 274 });
+  });
+
   test("the residual price helper appears only where the quote guide needs it", () => {
     const clear = [
       "sgfleet", "millarx", "flare", "kooya", "maxxia", "fleetpartners", "alliance",

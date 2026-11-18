@@ -20,7 +20,7 @@ The numbered example below is a newer CarBon quote supplied by a CarBon represen
 
 ![Redacted newer CarBon quote with the Drive-Away Price line marked as field 2](/assets/images/quote-guide/carbon/redacted-quote-nov2026.webp)
 
-*Customer values and identifying details removed. This pictured example is from November 2026; your quote may use a different layout.*
+*Customer values and identifying details removed. This pictured example is from November 2026; your quote may use a different layout. The red cross marks “Lease payment”: it includes running costs, so enter the “Finance” line marked 7 instead.*
 
 [See the older CarBon layout with numbered fields](/assets/images/quote-guide/carbon/redacted-quote.webp).
 
