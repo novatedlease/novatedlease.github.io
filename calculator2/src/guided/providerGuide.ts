@@ -700,7 +700,7 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted ORIX price table with retail, options, discount and delivery grouped for the FBT base calculation",
         caption: "Sum the four signed car-price rows, then multiply by 1.10 if they are ex GST. Stamp duty is outside the box. All amounts have been removed.",
       } },
-      { field: "docFee", text: "Check the “Other Fees” footnote for an establishment or dealer fee.", more: "It may already be added to the amount you borrow." },
+      { field: "docFee", text: "Check the “Other Fees” footnote or fine print for an establishment or dealer fee.", more: "It may already be added to the amount you borrow. A fee hidden in fine print can also explain why the residual base does not reconcile to the printed capital cost." },
       { field: "residual", text: "If you see “Residual value (ex GST)”, choose Excluding GST." },
       { field: "payment", text: "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST." },
       { field: "luxAdj", text: "If you see “Luxury vehicle non-deductible”, that's the luxury vehicle adjustment." },

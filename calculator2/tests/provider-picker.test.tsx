@@ -80,6 +80,8 @@ describe("provider picker", () => {
     expect(article).toContain("field-baseValue-calculation.webp");
     expect(article).toContain("ORIX is wrong to label the FBT base value as $0.00");
     expect(article).toContain("does not explain whether it belongs in the dealer's drive-away price");
+    expect(pointersFor("orix", "docFee")[0].text).toContain("or fine print");
+    expect(article).toContain("Ask ORIX for the rate definition and repayment schedule");
   });
 
   test("the residual price helper appears only where the quote guide needs it", () => {
@@ -1083,7 +1085,7 @@ describe("provider pointers", () => {
   test("ORIX's residual row follows Guided while fee and GST footnotes remain", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-orix-quote.md"), "utf8");
     expect(article).toContain(pointersFor("orix", "residual")[0].text);
-    expect(article).toContain("It's capitalised into the lease rental");
+    expect(article).toContain("Check whether it is capitalised into the lease rental");
     expect(article).toContain("Unless clearly stated otherwise … exclusive of GST");
   });
 

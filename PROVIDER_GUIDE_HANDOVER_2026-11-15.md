@@ -1002,3 +1002,11 @@ Open items (not started; raise with the owner):
 - Replaced Guided's focused ORIX FBT image with a redacted crop that boxes retail, options,
   signed discount and dealer delivery, brackets the four rows and labels “sum … × 1.10”.
   The whole-page view retains the printed nonzero FBT field; the article shows both.
+- Compared the guide with the owner's detailed comment on Reddit `1xo5ufn`. FBT calculation
+  matches exactly. The comment's $61,552.90 drive-away includes an unexplained $40.35 GST line;
+  the guide retains this as an arithmetic check pending ORIX confirmation. A later reply says
+  the $395 residual-base gap was an establishment fee in fine print. The article now notes that
+  fee and warns the quoted “Discount rate” is not demonstrated to be the effective rate.
+  The comment's suggestion that FBT base value directly tests EV exemption eligibility is
+  imprecise under current law: eligibility checks whether LCT was ever payable on a sale/import,
+  based on the applicable LCT value and threshold, not the FBT base-value field itself.

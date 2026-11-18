@@ -1267,7 +1267,7 @@
       "written": {
         "driveaway": "No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.",
         "baseValue": "Use printed “FBT base value (inc GST)” if nonzero. Otherwise add retail, options, signed discount and delivery, then add GST. Confirm.",
-        "docFee": "Check the “Other Fees” footnote for an establishment or dealer fee.",
+        "docFee": "Check the “Other Fees” footnote or fine print for an establishment or dealer fee.",
         "residual": "If you see “Residual value (ex GST)”, choose Excluding GST.",
         "payment": "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST.",
         "luxAdj": "If you see “Luxury vehicle non-deductible”, that's the luxury vehicle adjustment."
@@ -1300,8 +1300,8 @@
         {
           "field": "docFee",
           "kind": "locate",
-          "text": "Check the “Other Fees” footnote for an establishment or dealer fee.",
-          "more": "It may already be added to the amount you borrow.",
+          "text": "Check the “Other Fees” footnote or fine print for an establishment or dealer fee.",
+          "more": "It may already be added to the amount you borrow. A fee hidden in fine print can also explain why the residual base does not reconcile to the printed capital cost.",
           "image": "/assets/images/quote-guide/orix/field-docFee.webp"
         },
         {
