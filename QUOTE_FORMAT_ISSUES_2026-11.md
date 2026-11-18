@@ -106,7 +106,7 @@ before writing anything provider-specific.
 
 ### 3. SG Fleet shows two payment figures and states deferral only as a payment count
 
-**Status (2026-11-12):** Decided by the owner: **all periods are read as spread over the term** (as before); `e89060df` and article `8193645b` were reverted. Instead, guidance steers readers to the per-pay figure (e.g. SG Fleet "Lease rental", not "Monthly lease rental (payable as N payments)"), via a tooltip on the payment-period question and the provider pointers. Evidence for monthly-lease-rental figures being the financier payment (SG Fleet ×2, MillarX ×3, Toyota Fleet with no deferral) is kept above for reference.
+**Status (2026-11-12):** Decided by the owner: **all periods are read as spread over the term** (as before); `e89060df` and article `8193645b` were reverted. Instead, guidance steers readers to the per-pay figure (e.g. SG Fleet "Lease rental", not "Monthly lease rental (payable as N payments)"), via a tooltip on the payment-period question and the provider pointers. Evidence for monthly-lease-rental figures being the financier payment (SG Fleet ×2, MillarX ×3) is kept above for reference. *(Corrected 18 Nov 2026: Toyota Fleet was listed here “with no deferral”. That came from a hand-rolled arrears model; in Guided's engine its “Rent” reproduces the printed 8.86% as a figure spread over the term with 2 months deferred (8.85%), so it is not evidence either way.)*
 
 - **Problem:** SG Fleet prints a per-pay "Lease rental" (spread over the full term) and a "Monthly
   lease rental" "(payable as 34 payments)" on a 36-month term. The per-pay figure with a 2-month
@@ -119,7 +119,7 @@ before writing anything provider-specific.
 - **Owner decision:** fold into issue 7 / 16, or handle now?
 
 - **Update 2026-11-12: how per-pay figures are built (bigger than SG Fleet).** On every quote
-  checked against a printed rate (SG Fleet ×2, MillarX, Toyota Fleet, Alliance), the **monthly**
+  checked against a printed rate (SG Fleet ×2, MillarX, Alliance; Toyota Fleet removed 18 Nov 2026, see the status note above), the **monthly**
   lease figure is the real financier payment. Guided reads a monthly figure as spread over the
   whole term, so typing SG Fleet's "Monthly lease rental" gives 8.97% instead of the true 7.19%;
   SG Fleet's per-pay "Lease rental" is the correct one to enter (it's spread: $1,195 × 34 ÷ 78).
@@ -195,8 +195,9 @@ before writing anything provider-specific.
 - **Seen:** "Months deferred: 2" (Smart Leasing, Easi, Alliance, Simplygreen); "payable as 34
   payments" (SG Fleet); "Number of Lease Payments: 59" (Remunerator); "Number of Installments 58"
   (Easi); "Based on 22 months" in prose (FleetPartners); "Based on 2-month deferred lease" (SPA);
-  "1 month(s) deferred" footnote (Fingo); "with deferred payments" (Toyota Fleet); nothing at all
-  (NLA, Paywise, Maxxia, LeaseExpress).
+  "1 month(s) deferred" footnote (Fingo); "with deferred payments" (FleetPartners, on the comparison post
+  1x9tvny; corrected 18 Nov 2026, previously listed as Toyota Fleet); nothing at all (Toyota Fleet,
+  NLA, Paywise, Maxxia, LeaseExpress).
 - **Where:** `LeaseStep` deferral hint (~line 1169).
 - **Proposed fix:** add "Or count the payments: 58 payments on a 60-month lease means 2 months
   deferred." Keep "Not sure → 2".
