@@ -1526,8 +1526,8 @@
       "seen": "2026-11",
       "sourceCount": 1,
       "written": {
-        "driveaway": "Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”.",
-        "baseValue": "If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price.",
+        "driveaway": "Use “Total Drive Away Price” in Purchase Details, including GST. Don’t use “Total Amount Financed” in the same table.",
+        "baseValue": "Use “FBT Base Value” in General Details. The “Vehicle Cost” lower down in Purchase Details is the drive-away price.",
         "defer": "If you see “Based on 2-month deferred lease”, choose 2 months deferred."
       },
       "traps": [
@@ -1538,13 +1538,13 @@
         {
           "field": "baseValue",
           "kind": "trap",
-          "text": "If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price.",
+          "text": "Use “FBT Base Value” in General Details. The “Vehicle Cost” lower down in Purchase Details is the drive-away price.",
           "image": "/assets/images/quote-guide/spa/field-baseValue.webp"
         },
         {
           "field": "driveaway",
           "kind": "trap",
-          "text": "Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”.",
+          "text": "Use “Total Drive Away Price” in Purchase Details, including GST. Don’t use “Total Amount Financed” in the same table.",
           "image": "/assets/images/quote-guide/spa/field-driveaway.webp"
         },
         {

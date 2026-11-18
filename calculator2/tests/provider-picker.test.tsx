@@ -505,7 +505,7 @@ describe("provider pointers", () => {
     expect(pointersFor("autopia", "baseValue")[0].text).toMatch(/base price/i);
     expect(pointersFor("customfleet", "luxAdj")[0].text).toMatch(/Non-Deductible Depreciation/);
     expect(pointersFor("leaselab", "payment")[0].text).toMatch(/Weekly or Fortnightly Allowances/);
-    expect(pointersFor("spa", "driveaway")[0].text).toMatch(/excluding GST/);
+    expect(pointersFor("spa", "driveaway")[0].text).toContain("Total Amount Financed");
   });
 
   test("SG Fleet's deferral pointer sits under the deferral question", () => {
@@ -1006,7 +1006,8 @@ describe("provider pointers", () => {
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-spa-quote.md"), "utf8");
     for (const field of ["baseValue", "driveaway", "defer"] as const)
       expect(article).toContain(pointersFor("spa", field)[0].text);
-    expect(article).toContain("On Queensland Government layouts");
+    expect(article).toContain("On this Queensland Government quote");
+    expect(article).toContain("second image");
     expect(pointersFor("spa", "driveaway")[0].text).toContain("Total Drive Away Price");
   });
 

@@ -15,8 +15,8 @@ This numbered example shows a Salary Packaging Australia (S.P.A.) quote layout w
 <!-- provider-traps:begin -->
 ## What catches people out on a Salary Packaging Australia (S.P.A.) quote
 
-- **Drive-away price:** Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”.
-- **FBT base value:** If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price.
+- **Drive-away price:** Use “Total Drive Away Price” in Purchase Details, including GST. Don’t use “Total Amount Financed” in the same table.
+- **FBT base value:** Use “FBT Base Value” in General Details. The “Vehicle Cost” lower down in Purchase Details is the drive-away price.
 <!-- provider-traps:end -->
 
 ![Redacted Salary Packaging Australia (S.P.A.) quote with numbered fields](/assets/images/quote-guide/spa/redacted-quote.webp)
@@ -28,8 +28,8 @@ This numbered example shows a Salary Packaging Australia (S.P.A.) quote layout w
 <!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
-| 1 | FBT Base Value | If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price. |
-| 2 | Total Drive Away Price | Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”. |
+| 1 | FBT Base Value | Use “FBT Base Value” in General Details. The “Vehicle Cost” lower down in Purchase Details is the drive-away price. |
+| 2 | Total Drive Away Price | Use “Total Drive Away Price” in Purchase Details, including GST. Don’t use “Total Amount Financed” in the same table. |
 | 3 | Lease Term (Months) | Lease term |
 | 4 | Running Cost Reference: "Novated Lease – Based on N-month deferred lease" | If you see “Based on 2-month deferred lease”, choose 2 months deferred. |
 | 6 | Residual Value | Residual, "Including GST" (page 2 prints the same figure "inc GST") |
@@ -39,7 +39,7 @@ This numbered example shows a Salary Packaging Australia (S.P.A.) quote layout w
 | 11 | Finance Rate | Compare with the effective rate Guided shows |
 <!-- provider-table:end -->
 
-On Queensland Government layouts, “Vehicle Cost” can equal the drive-away price. Check it against “Total Drive Away Price” before entering it.
+On this Queensland Government quote, “Vehicle Cost” in Purchase Details equals “Total Drive Away Price”, while “FBT Base Value” is a separate figure in General Details. The [original Reddit gallery](https://www.reddit.com/r/NovatedLeasingAU/comments/1xs6pa5/novated_lease_quote_check_salary_packaging/) also has “Novated lease purchase price” labelled excluding GST on its second image. That page contains personal contact details and is omitted from the redacted sample above; use the page-1 “Total Drive Away Price” instead.
 
 The "Less: ITC" line under the totals is the employer's GST credit on running costs; with the
 running costs already shown ex GST, choose "Excluding GST" for the running-cost heading.

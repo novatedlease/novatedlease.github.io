@@ -602,11 +602,11 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "driveaway",
-        text: "Use “Total Drive Away Price” including GST. Don’t use “Novated lease purchase price (excluding GST)”.",
+        text: "Use “Total Drive Away Price” in Purchase Details, including GST. Don’t use “Total Amount Financed” in the same table.",
       },
       {
         field: "baseValue",
-        text: "If you see “Vehicle cost”, don't use it as the FBT base value: on this layout it means the drive-away price.",
+        text: "Use “FBT Base Value” in General Details. The “Vehicle Cost” lower down in Purchase Details is the drive-away price.",
       },
       {
         field: "defer",

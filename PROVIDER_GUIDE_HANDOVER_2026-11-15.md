@@ -1013,3 +1013,14 @@ Open items (not started; raise with the owner):
 - Made the four-row image formula and Guided/article copy explicitly subtract the discount.
   If ORIX prints it as a negative number, readers can add the signed amount instead; do not
   subtract twice. This avoids ambiguity after the figures are redacted from the template.
+
+### Salary Packaging Australia price warnings
+
+- Reddit `1xs6pa5` page 1 does print “Vehicle Cost” in Purchase Details and “FBT Base Value”
+  in General Details; Vehicle Cost equals “Total Drive Away Price” on that example. Page 2
+  prints “Novated lease purchase price” with “excluding GST” below it, but the public redacted
+  sample excludes that page because it carries contact details. The old amber warnings pointed
+  to these labels without making their locations clear, and the page-2 label could not be seen
+  in the published sample. Reworded Guided and article warnings around page-1 labels visible in
+  the sample, including the “Total Amount Financed” line immediately below drive-away. The
+  article explains where the page-2 ex-GST headline appears in the original gallery.
