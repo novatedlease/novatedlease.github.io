@@ -1285,13 +1285,6 @@
           "image": "/assets/images/quote-guide/orix/field-baseValue-nonzero.webp"
         },
         {
-          "field": "baseValue",
-          "kind": "locate",
-          "text": "FBT line says $0? Add the car-price rows, including the signed discount, then add GST. Ask ORIX to confirm.",
-          "more": "Use retail price + options + signed discounts + dealer delivery. If these rows are ex GST, multiply their net amount by 1.10. Do not include stamp duty or registration/CTP. This is an estimate; ORIX should confirm the base value.",
-          "image": "/assets/images/quote-guide/orix/field-baseValue-zero.webp"
-        },
-        {
           "field": "driveaway",
           "kind": "trap",
           "text": "No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.",

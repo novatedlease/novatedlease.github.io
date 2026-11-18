@@ -993,3 +993,5 @@ Open items (not started; raise with the owner):
 - The first, amber FBT warning still had the old “ask ORIX” wording after the calculation was
   added to the second pointer. Updated the amber warning itself to give the net car-price-row
   calculation and ask ORIX to confirm. Synced the article trap and zero-value image caption.
+- Removed the now-redundant second, non-amber FBT pointer from Guided. The zero-value EV image
+  remains in the standalone ORIX article; Guided has one FBT warning and one linked example.

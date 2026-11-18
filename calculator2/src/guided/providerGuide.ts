@@ -700,11 +700,6 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted ORIX quote with a nonzero FBT base value marked 1",
         caption: "A petrol-car ORIX quote prints a nonzero FBT base value at field 1. All amounts have been removed.",
       } },
-      { field: "baseValue", kind: "locate", text: "FBT line says $0? Add the car-price rows, including the signed discount, then add GST. Ask ORIX to confirm.", more: "Use retail price + options + signed discounts + dealer delivery. If these rows are ex GST, multiply their net amount by 1.10. Do not include stamp duty or registration/CTP. This is an estimate; ORIX should confirm the base value.", example: {
-        image: "/assets/images/quote-guide/orix/field-baseValue-zero.webp",
-        alt: "Redacted EV ORIX quote with the zero FBT base value row crossed out",
-        caption: "The red cross marks an ORIX EV example whose printed FBT base value was zero despite a priced vehicle.",
-      } },
       { field: "docFee", text: "Check the “Other Fees” footnote for an establishment or dealer fee.", more: "It may already be added to the amount you borrow." },
       { field: "residual", text: "If you see “Residual value (ex GST)”, choose Excluding GST." },
       { field: "payment", text: "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST." },

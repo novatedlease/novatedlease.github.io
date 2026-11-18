@@ -60,20 +60,20 @@ describe("provider picker", () => {
     expect(imageSizeFor(payment.example!.image)).toEqual({ w: 453, h: 274 });
   });
 
-  test("ORIX contrasts a nonzero FBT line, a zero EV placeholder and unprinted drive-away parts", () => {
+  test("ORIX has one FBT warning, while its article retains the zero EV example", () => {
     const base = pointersFor("orix", "baseValue");
     const price = pointersFor("orix", "driveaway")[0];
     expect(guideFor("orix")?.sources).toEqual(["1xp2oq9", "1nnfgrg", "1xo5ufn", "1wb57rl"]);
-    expect(base).toHaveLength(2);
+    expect(base).toHaveLength(1);
     expect(base[0].text).toContain("Otherwise add retail, options, signed discount and delivery, then add GST");
     expect(base[0].example?.fullPage).toContain("redacted-price-breakdown.webp");
-    expect(base[1].example?.image).toContain("field-baseValue-zero.webp");
     expect(price.example?.image).toContain("field-driveaway-parts.webp");
     expect(price.more).toContain("“Capital cost for Vehicle Lease” is an ex-GST financing figure");
-    expect(base[1].more).toContain("multiply their net amount by 1.10");
+    expect(base[0].more).toContain("multiply the net amount by 1.10");
     expect(imageSizeFor(price.example!.image)).toEqual({ w: 490, h: 315 });
     const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-orix-quote.md"), "utf8");
     expect(article).toContain("not a drive-away price printed by ORIX");
+    expect(article).toContain("field-baseValue-zero.webp");
     expect(article).toContain("does not explain whether it belongs in the dealer's drive-away price");
   });
 
