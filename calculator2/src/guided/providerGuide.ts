@@ -667,7 +667,7 @@ export const GUIDES: ProviderGuide[] = [
       { field: "payment", text: "If you see “Rent” under a monthly “(excl GST)” heading, enter it per month, excluding GST." },
       {
         field: "defer",
-        text: "Can’t find a deferral on your Toyota Fleet quote? Choose “Straight away” unless Toyota Fleet tells you otherwise.",
+        text: "No deferral is shown. Choose “Straight away”: on the quote we checked, “Rent” matches the printed rate with payments from month 1.",
         more: "Choose another answer if your schedule explicitly says payments start later.",
       },
     ],

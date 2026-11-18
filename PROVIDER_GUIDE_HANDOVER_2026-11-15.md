@@ -863,3 +863,16 @@ Open items (not started; raise with the owner):
 - Checks: 111 focused provider tests and changed calculator ESLint passed;
   calculator build/export/prebuild and `git diff --check` passed. Rebuilt the
   private walkthrough and restarted Astro :4340. No full suite, push or merge.
+
+## 17-18 Nov: Toyota Fleet deferral pointer reworded
+
+- Owner asked why Toyota says “Straight away”. Source `1x9tvny` is a FleetPartners vs Toyota
+  comparison post; only image 1 is Toyota. Its page shows no deferral or payment count, but the
+  printed 8.86% rate, $55,665.96 financed and $30,698.08 ex-GST residual give exactly the printed
+  Rent $1,365.70 with 24 monthly payments in arrears (22 payments deferred 2 months would be
+  ~$1,501). TFM Novated's site says nothing on timing. Pointer now: “No deferral is shown. Choose
+  ‘Straight away’: on the quote we checked, ‘Rent’ matches the printed rate with payments from
+  month 1.” `QUOTE_FORMAT_ISSUES_2026-11.md` issue 7 wrongly lists “with deferred payments” under
+  Toyota Fleet; that wording is the FleetPartners quote's. Not yet corrected.
+- Committed with index-only patches because uncommitted RemServ work (not this session's) was in
+  the worktree; `docs/assets/calculator/main.js` was rebuilt but left uncommitted with that work.
