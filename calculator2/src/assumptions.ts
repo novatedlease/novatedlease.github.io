@@ -28,11 +28,13 @@ export function evElectricityClaimAnnual(annualMileageKm: number): number {
   return annualMileageKm * ATO_EV_HOME_CHARGING_RATE_PER_KM;
 }
 
-// ~6 L/100km at ~$1.80/L — reflects hybrids' large and growing share of
-// novated-lease vehicles (e.g. RAV4 Hybrid ~4.5 L/100km) blended with
-// non-hybrid mid-size cars (~6-7 L/100km), rather than a pure-ICE figure.
+// 8 L/100km at $2.00/L (owner, 15 Nov 2026): $16 per 100 km. The national unleaded average
+// was about $2.24-2.35/L in mid-November 2026; 8 L/100km is a mid-size petrol car, a little
+// above hybrids (e.g. RAV4 Hybrid ~4.7 L/100km), so the two roughly balance.
+export const FUEL_L_PER_100KM = 8;
+export const FUEL_PRICE_PER_L = 2.0;
 export function nonEvFuelAnnual(annualMileageKm: number): number {
-  return Math.round(annualMileageKm * 0.06 * 1.8);
+  return Math.round((annualMileageKm / 100) * FUEL_L_PER_100KM * FUEL_PRICE_PER_L);
 }
 
 // Vehicle dutiable/FBT base value from drive-away price: drive-away typically
@@ -245,6 +247,9 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
     electricityAnnual,
     fuelAnnual,
     insuranceAnnual,
+    // Listed (as 0) so share links and saved quotes keep it: their loader only reads fields the
+    // defaults have. Older links without it load as 0, the same as before the field existed.
+    insuranceFinancedFirstYear: 0,
     managementFeesAnnual,
 
     avgAudPerKwh,
@@ -399,7 +404,7 @@ export function deriveInputsFromSimpleAnswers(answers: SimpleModeAnswers): Simpl
             field: "fuelAnnual" as const,
             label: "Fuel",
             value: `${fmtMoney(fuelAnnual)}/year`,
-            tooltip: `Assumes roughly 6 L/100km at $1.80/L: (${answers.annualMileageKm.toLocaleString()} km ÷ 100 × 6 L) × $1.80/L ≈ ${fmtMoney(fuelAnnual)}/year. This blend reflects that hybrids (increasingly common in novated leases — e.g. a RAV4 Hybrid manages ~4.5 L/100km) now make up a large share of the market, blended with less efficient non-hybrid mid-size vehicles (~6-7 L/100km). Your actual fuel cost depends heavily on your specific vehicle and driving style.`,
+            tooltip: `Assumes ${FUEL_L_PER_100KM} L/100km at $${FUEL_PRICE_PER_L.toFixed(2)}/L: (${answers.annualMileageKm.toLocaleString()} km ÷ 100 × ${FUEL_L_PER_100KM} L) × $${FUEL_PRICE_PER_L.toFixed(2)}/L ≈ ${fmtMoney(fuelAnnual)}/year. That's a mid-size petrol car at about today's pump price. Hybrids use less (a RAV4 Hybrid manages about 4.7 L/100km), larger SUVs and utes more. Your actual fuel cost depends on your vehicle and driving.`,
           },
         ]),
     {

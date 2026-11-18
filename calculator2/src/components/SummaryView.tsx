@@ -12,6 +12,13 @@ import { InfoTooltip } from "./ui/InfoTooltip";
  * intentionally unchanged, since that's what makes it legible at a glance.
  */
 
+export type InterestWords = { saved: string; extra: string };
+
+const HOME_LOAN_WORDS: InterestWords = {
+  saved: "Home loan interest saved with the lease",
+  extra: "Extra home loan interest with the lease",
+};
+
 type Props = {
   inputs: Inputs;
   horizon: "five_year" | "lease_end";
@@ -26,6 +33,13 @@ type Props = {
   compactMoreDetails?: boolean;
   /** Guided: the reader said they can't pay cash, so the cash card goes after the ones they might act on. */
   cashLast?: boolean;
+  /** Hide the residual and interest notes; Guided's quote path lists them under "What we assumed". */
+  hideNotes?: boolean;
+  /**
+   * Wording for the interest row, so Guided can name where the reader's cash would sit (an offset,
+   * an investment loan, savings or investments). Defaults to the home loan.
+   */
+  interestWords?: InterestWords;
 };
 
 const FULL_BREAKDOWN_ANCHOR = "details-section-2-financial-summary";
@@ -159,6 +173,14 @@ const electricityTooltip =
   "Why is electricity treated separately?\n\n" +
   "For most running costs under a novated lease, the amount you spend and the amount you claim are the same. Electricity is different: under the ATO EV home-charging claim rule, the claimable amount (5.47c/km) can differ materially from your actual out-of-pocket electricity cost, which can create a genuine net gain or loss.";
 
+/** The figure is the whole take-home pay reduction, so finance and running costs after tax. */
+const leasePaymentsLabel = (
+  <span>
+    Lease: payments incl. running costs{" "}
+    <InfoTooltip text="Your take-home pay reduction: finance and running costs, after tax." />
+  </span>
+);
+
 function NoteBox(p: { title: string; children: React.ReactNode }) {
   return (
     <div style={{ fontSize: 12, opacity: 0.75, fontStyle: "italic", padding: "10px 12px", border: "1px solid var(--nlc-blue-mid)", background: "var(--nlc-blue-light)", borderRadius: 8 }}>
@@ -167,7 +189,8 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
   );
 }
 
-export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails, cashLast }: Props) {
+export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails, cashLast, hideNotes, interestWords }: Props) {
+  const words = interestWords ?? HOME_LOAN_WORDS;
   const {
     s,
     years,
@@ -189,6 +212,11 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
     interestDelta,
     nlVsKeepSaving,
   } = summaryFigures(inputs, horizon);
+  // On the 5-year view, a shorter lease is followed by running costs paid from take-home pay.
+  const postYears = Math.max(0, 5 - inputs.leaseDurationYears);
+  const postLeaseLabel = postYears > 0
+    ? `${postYears === 1 ? "1 year's" : `${postYears} years'`} running costs after the lease ends, paid in cash`
+    : "Running costs after the lease ends, paid in cash";
 
   const showLoan = inputs.compareWithCarLoan;
   const showCurrentCar = inputs.compareWithCurrentCar;
@@ -201,14 +229,14 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
       <CardHeader title={`Novated lease vs paying cash — over ${years} years`} />
       <Hero amount={totalSaving} suffix={totalSaving >= 0 ? `cheaper than paying cash over ${years} years` : `more expensive than paying cash over ${years} years`} />
       <div style={{ display: "grid", gap: 4 }}>
-        <BreakdownRow label="Lease: payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
+        <BreakdownRow label={leasePaymentsLabel} value={fmtAud0(s.leasePaymentsOverLease)} indent />
         <BreakdownRow label="Lease: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
-        {nlPostLeaseRunning > 0 && <BreakdownRow label="Lease: running costs after it ends" value={fmtAud0(nlPostLeaseRunning)} indent />}
+        {nlPostLeaseRunning > 0 && <BreakdownRow label={postLeaseLabel} value={fmtAud0(nlPostLeaseRunning)} indent />}
         {isEv && (
           <BreakdownRow
             label={
               <span>
-                Lease: electricity gain / loss <InfoTooltip text={electricityTooltip} />
+                Charging: lease budget vs your real cost <InfoTooltip text={electricityTooltip} />
               </span>
             }
             value={fmtSigned(-chargingDelta)}
@@ -223,7 +251,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
         <BreakdownRow label="Paying cash total" value={fmtAud0(offsetTotalSpent)} bold />
         <Sep />
         <BreakdownRow label={cashflowSaving >= 0 ? "Less spent with the lease" : "More spent with the lease"} value={fmtSigned(cashflowSaving)} color={cashflowSaving >= 0 ? POS : NEG} />
-        <BreakdownRow label={interestSaving >= 0 ? "Home loan interest saved with the lease" : "Extra home loan interest with the lease"} value={fmtSigned(interestSaving)} color={interestSaving >= 0 ? POS : NEG} />
+        <BreakdownRow label={interestSaving >= 0 ? words.saved : words.extra} value={fmtSigned(interestSaving)} color={interestSaving >= 0 ? POS : NEG} />
         <DoubleSep />
         <BreakdownRow label={totalSaving >= 0 ? "Total saving with the lease" : "Total extra cost with the lease"} value={fmtAud0(Math.abs(totalSaving))} bold color={totalSaving >= 0 ? POS : NEG} />
       </div>
@@ -241,14 +269,14 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
           <CardHeader title={`Novated lease vs a car loan — over ${years} years`} />
           <Hero amount={totalSavingVsLoan} suffix={totalSavingVsLoan >= 0 ? `cheaper than a car loan over ${years} years` : `more expensive than a car loan over ${years} years`} />
           <div style={{ display: "grid", gap: 4 }}>
-            <BreakdownRow label="Lease: payments" value={fmtAud0(s.leasePaymentsOverLease)} indent />
+            <BreakdownRow label={leasePaymentsLabel} value={fmtAud0(s.leasePaymentsOverLease)} indent />
             <BreakdownRow label="Lease: residual payout" value={fmtAud0(s.residualPayableIncGst)} indent />
-            {nlPostLeaseRunning > 0 && <BreakdownRow label="Lease: running costs after it ends" value={fmtAud0(nlPostLeaseRunning)} indent />}
+            {nlPostLeaseRunning > 0 && <BreakdownRow label={postLeaseLabel} value={fmtAud0(nlPostLeaseRunning)} indent />}
             {isEv && (
               <BreakdownRow
                 label={
                   <span>
-                    Lease: electricity gain / loss <InfoTooltip text={electricityTooltip} />
+                    Charging: lease budget vs your real cost <InfoTooltip text={electricityTooltip} />
                   </span>
                 }
                 value={fmtSigned(-chargingDelta)}
@@ -264,7 +292,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
             <BreakdownRow label="Car loan total" value={fmtAud0(loanTotalSpent)} bold />
             <Sep />
             <BreakdownRow label={cashflowSavingVsLoan >= 0 ? "Less spent with the lease" : "More spent with the lease"} value={fmtSigned(cashflowSavingVsLoan)} color={cashflowSavingVsLoan >= 0 ? POS : NEG} />
-            <BreakdownRow label={interestSavingVsLoan >= 0 ? "Home loan interest saved with the lease" : "Extra home loan interest with the lease"} value={fmtSigned(interestSavingVsLoan)} color={interestSavingVsLoan >= 0 ? POS : NEG} />
+            <BreakdownRow label={interestSavingVsLoan >= 0 ? words.saved : words.extra} value={fmtSigned(interestSavingVsLoan)} color={interestSavingVsLoan >= 0 ? POS : NEG} />
             <DoubleSep />
             <BreakdownRow label={totalSavingVsLoan >= 0 ? "Total saving with the lease" : "Total extra cost with the lease"} value={fmtAud0(Math.abs(totalSavingVsLoan))} bold color={totalSavingVsLoan >= 0 ? POS : NEG} />
           </div>
@@ -287,7 +315,7 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
             <Sep />
             <BreakdownRow label={assetDelta >= 0 ? "New car worth more at the end than your current car" : "New car worth less at the end than your current car"} value={fmtSigned(assetDelta)} color={assetDelta >= 0 ? POS : NEG} />
             <BreakdownRow label={cashDelta >= 0 ? "Less spent with the lease" : "More spent with the lease"} value={fmtSigned(cashDelta)} color={cashDelta >= 0 ? POS : NEG} />
-            <BreakdownRow label={interestDelta >= 0 ? "Home loan interest saved with the lease" : "Extra home loan interest with the lease"} value={fmtSigned(interestDelta)} color={interestDelta >= 0 ? POS : NEG} />
+            <BreakdownRow label={interestDelta >= 0 ? words.saved : words.extra} value={fmtSigned(interestDelta)} color={interestDelta >= 0 ? POS : NEG} />
             <DoubleSep />
             <BreakdownRow label={nlVsKeepSaving >= 0 ? "Total saving with the lease" : "Total extra cost with the lease"} value={fmtAud0(Math.abs(nlVsKeepSaving))} bold color={nlVsKeepSaving >= 0 ? POS : NEG} />
           </div>
@@ -300,10 +328,12 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
 
       {afterResults}
 
-      <NoteBox title="Residual assumption:">
-        all scenarios include the final residual payout, so the model assumes you own the car outright at the end of the lease. This addresses the common misconception that novated leasing is expensive because you "don't own the car."
-      </NoteBox>
-      <NoteBox title="How interest is compared:">each option's home loan interest is measured against not buying a car at all, so all the options can be compared fairly.</NoteBox>
+      {!hideNotes && <>
+        <NoteBox title="Residual assumption:">
+          all scenarios include the final residual payout, so the model assumes you own the car outright at the end of the lease. This addresses the common misconception that novated leasing is expensive because you "don't own the car."
+        </NoteBox>
+        <NoteBox title="How interest is compared:">each option's home loan interest is measured against not buying a car at all, so all the options can be compared fairly.</NoteBox>
+      </>}
     </div>
   );
 }

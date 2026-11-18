@@ -49,12 +49,12 @@ describe("Advanced mode auto-fill effects (real interaction, not just the underl
     render(<App />);
     switchToAdvanced();
 
-    const before = numberFromField("Electricity");
+    const before = numberFromField("Electricity budget in the lease");
     expect(before).toBeCloseTo(evElectricityClaimAnnual(numberFromField("Annual mileage")), 0);
 
     fireEvent.change(screen.getByLabelText("Annual mileage"), { target: { value: "20000" } });
 
-    const after = numberFromField("Electricity");
+    const after = numberFromField("Electricity budget in the lease");
     expect(after).toBeCloseTo(evElectricityClaimAnnual(20000), 0);
     expect(after).not.toBeCloseTo(before, 0);
   });
@@ -68,7 +68,7 @@ describe("Advanced mode auto-fill effects (real interaction, not just the underl
     fireEvent.click(screen.getByRole("button", { name: "Electric" }));
 
     expect(screen.queryByLabelText("Fuel")).toBeNull();
-    expect(numberFromField("Electricity")).toBeCloseTo(evElectricityClaimAnnual(25000), 0);
+    expect(numberFromField("Electricity budget in the lease")).toBeCloseTo(evElectricityClaimAnnual(25000), 0);
   });
 
   /**

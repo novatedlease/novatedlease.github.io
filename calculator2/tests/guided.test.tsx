@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { fortnightlyLeaseFromEffectiveAnnualRate } from "@engine/effectiveinterest";
 import { computeDerived } from "@engine/derived";
+import { buildWorksheet130 } from "@engine/worksheet_130";
 import {
   atoMinimumResidualExGst,
   buildInputs,
@@ -16,6 +17,8 @@ import {
   estimateAssumptions,
   typicalMarketValueAtLeaseEnd,
   visibleSteps,
+  financedInsuranceAmount,
+  vehicleDriveawayCost,
   type GuidedDraft,
   type Money,
 } from "../src/guided/draft";
@@ -31,6 +34,117 @@ import { GuidedMode } from "../src/guided/GuidedMode";
 
 const m = (text: string): Money => ({ text, none: false, estimated: false });
 const none: Money = { text: "", none: true, estimated: false };
+
+describe("financed first-year insurance", () => {
+  test("RemServ summary total separates the premium without changing finance or car GST", () => {
+    const summary = completeDraft(0.08);
+    summary.provider = "remserv";
+    summary.driveaway = m("48990");
+    summary.remservPriceSource = "summaryTotal";
+    summary.insuranceFinanced = "Yes";
+    summary.financedInsurance = m("1486.74");
+    const detailed = { ...summary, driveaway: m("47503.26"), remservPriceSource: "vehiclePurchase" as const };
+    expect(vehicleDriveawayCost(summary)).toBeCloseTo(47503.26, 2);
+    expect(financedExGst(summary)).toBeCloseTo(financedExGst(detailed)!, 2);
+    expect(buildInputs(summary)!.driveawayCost).toBeCloseTo(buildInputs(detailed)!.driveawayCost, 2);
+    expect(buildInputs(summary)!.leaseDocFee).toBeCloseTo(buildInputs(detailed)!.leaseDocFee, 2);
+  });
+
+  test.each(["maxxia", "oly", "remserv"] as const)("%s: renewal budget as printed, year one financed inc GST and counted once", (provider) => {
+    // Use a common five-year example to verify the same one-off premium treatment.
+    const d = completeDraft(0.08);
+    d.provider = provider;
+    if (provider === "remserv") d.remservPriceSource = "vehiclePurchase";
+    d.insuranceFinanced = "Yes";
+    d.financedInsurance = m("1691.71");
+    d.insurance = m("1230.32");
+    expect(financedInsuranceAmount(d)).toBe(1691.71);
+    // The full premium, GST included, is in the amount financed: no GST credit is taken off it.
+    expect(financedExGst(d)).toBeCloseTo(financedExGst({ ...d, insuranceFinanced: "No" })! + 1691.71, 6);
+    const quotePayment = fortnightlyLeaseFromEffectiveAnnualRate({
+      financedAmountExGst: financedExGst(d)!,
+      residualValueExGst: residualExGstEntered(d)!,
+      leaseYears: d.leaseYears!,
+      deferMonths: d.monthsDeferred!,
+      effectiveAnnualRate: 0.08,
+    });
+    expect(diagnosePayment({ financedExGst: financedExGst(d)!, residualExGst: residualExGstEntered(d)!, leaseYears: d.leaseYears!, deferMonths: d.monthsDeferred! }, quotePayment, "perFn").rate).toBeCloseTo(0.08, 3);
+
+    const inputs = buildInputs(d)!;
+    expect(inputs.leaseDocFee).toBeCloseTo(395 + 1691.71, 6);
+    // Engine figures are ex GST here: the financed year is $1,537.92; the full premium is the
+    // renewal budget plus that year spread over the term.
+    expect(inputs.insuranceFinancedFirstYear).toBeCloseTo(1691.71 / 1.1, 6);
+    expect(inputs.insuranceAnnual).toBeCloseTo(1230.32 + 1691.71 / 1.1 / 5, 6);
+    // The lease side's yearly insurance is back to the printed renewal budget...
+    const noFinanced = buildInputs({ ...d, insuranceFinanced: "No" })!;
+    expect(computeDerived(inputs).runningCostAnnual).toBeCloseTo(computeDerived(noFinanced).runningCostAnnual, 6);
+    // ...while paying cash pays the full premium every year.
+    const cash = buildWorksheet130({ inputs, scenario: "cash" });
+    const cashNoFinanced = buildWorksheet130({ inputs: noFinanced, scenario: "cash" });
+    const sum = (rows: { insurance: number }[]) => rows.reduce((t, r) => t + r.insurance, 0);
+    expect(sum(cash)).toBeLessThan(sum(cashNoFinanced));
+  });
+
+  test("the answer is required for Maxxia, Oly and RemServ, and a premium is required after Yes", () => {
+    const d = completeDraft();
+    d.provider = "maxxia";
+    expect(missingForStep("lease", d)).toContain("Is first-year insurance included in the amount financed?");
+    d.insuranceFinanced = "Yes";
+    expect(missingForStep("lease", d)).toContain("First-year insurance premium in the amount financed");
+    d.financedInsurance = m("1600");
+    expect(missingForStep("lease", d)).not.toContain("First-year insurance premium in the amount financed");
+    d.provider = "remserv";
+    expect(financedInsuranceAmount(d)).toBe(1600);
+    d.provider = "other";
+    expect(financedInsuranceAmount(d)).toBe(0);
+    expect(missingForStep("lease", d)).not.toContain("Is first-year insurance included in the amount financed?");
+  });
+});
+
+test("Alliance's ex-GST registration stays as printed beside inc-GST running costs", () => {
+  const d = completeDraft();
+  d.provider = "alliance";
+  d.runningGstHeading = "incGst";
+  d.runningGstCredit = "Yes";
+  d.rego = m("900");
+  d.insurance = m("1650");
+  const inputs = buildInputs(d)!;
+  expect(inputs.registrationAnnual).toBe(900);
+  expect(inputs.insuranceAnnual).toBeCloseTo(1500, 6);
+  expect(buildInputs({ ...d, provider: "other" })!.registrationAnnual).toBeCloseTo(900 / 1.1, 6);
+});
+
+test("RemServ's registration stays as printed beside inc-GST running costs", () => {
+  const d = completeDraft();
+  d.provider = "remserv";
+  d.remservPriceSource = "vehiclePurchase";
+  d.insuranceFinanced = "No";
+  d.runningGstHeading = "incGst";
+  d.runningGstCredit = "Yes";
+  d.rego = m("900");
+  d.insurance = m("1650");
+  const inputs = buildInputs(d)!;
+  expect(inputs.registrationAnnual).toBe(900);
+  expect(inputs.insuranceAnnual).toBeCloseTo(1500, 6);
+});
+
+test("RemServ's summary-table insurance budget and financed first year reconcile", () => {
+  const d = completeDraft();
+  d.provider = "remserv";
+  d.remservPriceSource = "vehiclePurchase";
+  d.leaseYears = 3;
+  d.insuranceFinanced = "Yes";
+  d.financedInsurance = m("1486.74");
+  d.insurance = m("38.12");
+  d.runningPeriod = "perFn";
+  d.runningGstHeading = "incGst";
+  d.runningGstCredit = "Yes";
+  const inputs = buildInputs(d)!;
+  expect(inputs.insuranceFinancedFirstYear).toBeCloseTo(1486.74 / 1.1, 6);
+  expect(inputs.insuranceAnnual).toBeCloseTo((38.12 * 26 + 1486.74 / 3) / 1.1, 6);
+  expect(inputs.insuranceAnnual * 1.1).toBeCloseTo(1486.7, 0);
+});
 
 function pricedDraft(): GuidedDraft {
   const d = emptyDraft();
@@ -81,6 +195,7 @@ function completeDraft(rate = 0.08): GuidedDraft {
   d.runningPeriod = "perYear";
   d.mileage = m("12000");
   d.service = m("1200");
+  d.tyres = { text: "", none: true, estimated: false };
   d.rego = m("900");
   d.insurance = m("1600");
   d.mgmt = m("250");
@@ -323,7 +438,7 @@ describe("guided: comparison, period and charging", () => {
     d.vehicleType = "EV";
     d.chargingRate = emptyDraft().chargingRate;
     expect(missingForStep("running", d)).toContain(
-      "Electricity price you pay to charge (0 if solar)",
+      "Electricity price you pay to charge (0 if free)",
     );
     d.chargingRate = none;
     expect(missingForStep("running", d)).toEqual([]);

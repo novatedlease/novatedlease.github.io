@@ -1,3 +1,4 @@
+import { leaseInsuranceAnnual } from "../engine/insurance";
 import type { Inputs } from "../engine/types";
 import { buildWorksheet130 } from "../engine/worksheet_130";
 import { useEffect } from "react";
@@ -151,7 +152,7 @@ useEffect(() => {
     (i.serviceMaintTyresAnnual +
       i.saveShareAnnual +
       i.registrationAnnual +
-      i.insuranceAnnual +
+      leaseInsuranceAnnual(i) +
       i.managementFeesAnnual +
       packagedEnergyAnnual) /
     26;
@@ -837,7 +838,7 @@ export function computeFinancialSummary(opts: { inputs: Inputs }) {
     (i.serviceMaintTyresAnnual +
       i.saveShareAnnual +
       i.registrationAnnual +
-      i.insuranceAnnual +
+      leaseInsuranceAnnual(i) +
       i.managementFeesAnnual +
       packagedEnergyAnnual) /
     26;

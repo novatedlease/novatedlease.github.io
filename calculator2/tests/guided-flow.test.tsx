@@ -18,6 +18,33 @@ const type = (label: string | RegExp, value: string) => {
 };
 
 describe("Guided flow (real interaction)", () => {
+  test("waits until an amount loses focus before showing figure checks", () => {
+    render(<GuidedMode onOpenAdvanced={() => {}} />);
+    click(/Yes, I have a quote/);
+    click(/^Next$/);
+    click(/Petrol, diesel or any hybrid/);
+    click(/^New$/);
+    fireEvent.change(document.getElementById("gd-start")!, { target: { value: "2026-11-20" } });
+    click("Next");
+    click(/Buy this car with a loan/);
+    click(/Replace my car either way/);
+    click("Next");
+
+    type(/FBT base value/, "52400");
+    const driveaway = screen.getByLabelText(/Drive-away price/) as HTMLInputElement;
+    fireEvent.focus(driveaway);
+    fireEvent.change(driveaway, { target: { value: "48990" } });
+    expect(screen.queryByText(/higher than the drive-away/)).toBeNull();
+    fireEvent.blur(driveaway);
+    expect(screen.getByText(/higher than the drive-away/)).toBeTruthy();
+
+    fireEvent.focus(driveaway);
+    fireEvent.change(driveaway, { target: { value: "55000" } });
+    expect(screen.queryByText(/higher than the drive-away/)).toBeNull();
+    fireEvent.blur(driveaway);
+    expect(screen.queryByText(/higher than the drive-away/)).toBeNull();
+  });
+
   test("walks the wizard, catches an inc-GST residual and a monthly-as-fortnightly payment, and reaches results", () => {
     let opened: unknown = null;
     render(<GuidedMode onOpenAdvanced={(i) => (opened = i)} />);
@@ -117,7 +144,9 @@ describe("Guided flow (real interaction)", () => {
     click(/Excluding GST/);
     click(/^Per month/);
     type(/Kilometres per year/, "12000");
-    type(/Servicing/, "100");
+    // Tyres have their own box and are added to servicing for the engine: 80 + 20 a month = $1,200 a year.
+    type(/Servicing/, "80");
+    type(/^Tyres/, "20");
     type(/Registration/, "75");
     type(/Insurance/, "133.33");
     type(/Lease management fees/, "20");

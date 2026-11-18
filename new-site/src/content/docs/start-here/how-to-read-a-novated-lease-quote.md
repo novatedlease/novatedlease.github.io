@@ -9,6 +9,8 @@ description: How to read a novated lease quote — what each line item means, co
 
 This page explains how to interpret a novated lease quote, identify common pitfalls, and compare proposals meaningfully.
 
+The [provider quote guides](/start-here/provider-quote-guides/) show redacted, numbered examples of reviewed quote layouts and explain which labels match the fields in Guided mode.
+
 ---
 
 ## What a novated lease quote actually represents

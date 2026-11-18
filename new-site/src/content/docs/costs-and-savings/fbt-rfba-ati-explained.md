@@ -1,7 +1,7 @@
 ---
 title: "RFBA Explained: How a Novated Lease Affects HECS, Childcare Subsidy and Division 293"
 datePublished: "2026-01-06"
-dateModified: "2026-06-05"
+dateModified: "2026-11-17"
 description: "What RFBA (reportable fringe benefits amount) is, how it is calculated for an EV novated lease, and why an FBT-exempt lease can cut your income tax yet raise your adjusted taxable income, increasing HECS repayments and Division 293 tax and reducing Child Care Subsidy."
 ---
 
@@ -60,7 +60,7 @@ For eligible electric vehicles:
 - the **car benefit itself is [exempt from FBT](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/electric-cars-exemption)**
 
 :::warning[This exemption is being wound back]
-The treasurer announced a staged wind-back on 4 May 2026, and exposure draft legislation followed on 10 September 2026 (not yet law). Leases committed to before 1 April 2027 on eligible vehicles remain grandfathered. For new leases from April 2027 the exemption becomes a 100% or 25% FBT discount depending on the car's value and the commitment date. <span class="draft-tag">Draft</span> Under the draft, a car on the 25% discount still carries a reduced reportable fringe benefits amount of about 9.4% of its base value; see [the 25% tier and your reportable fringe benefits](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#the-25-tier-and-your-reportable-fringe-benefits).
+The treasurer announced a staged wind-back on 4 May 2026; the Tax Reform No. 4 Bill was introduced in October and is **not yet law**. Under the bill's default rule, qualifying pre-April-2027 commitments retain their earlier treatment until that commitment ends, subject to any future ministerial instrument. For new commitments from April 2027, the bill proposes a 100% or 25% FBT discount depending on value and date. A car on the 25% tier can still carry a reduced reportable fringe benefits amount; proposed subsection 135Q(4A) also addresses the calculation for employees of certain institutions. See [the 25% tier and reportable fringe benefits](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#the-25-tier-and-your-reportable-fringe-benefits).
 :::
 
 This exemption dramatically [reduces the cost](/start-here/ev-vs-ice-compared/) of a novated lease because:

@@ -1,4 +1,4 @@
-import { useContext, useId, type ReactNode } from "react";
+import { useContext, useId, useState, type ReactNode } from "react";
 import { MissingFields } from "./missing";
 import { FieldWrapper } from "../components/ui/Field";
 import { InfoTooltip } from "../components/ui/InfoTooltip";
@@ -21,6 +21,7 @@ export function MoneyInput({
   suffix,
   noneLabel,
   suggestion,
+  suggestionBasis,
   tooltip,
   estimatedNote,
   placeholder,
@@ -43,9 +44,11 @@ export function MoneyInput({
   noneLabel?: string;
   /** A typical figure the reader can accept with one tap. Never applied automatically. */
   suggestion?: number | null;
+  /** Where the typical figure comes from, shown beside the "Use a typical figure" link. */
+  suggestionBasis?: ReactNode;
   /** Longer explanation behind an info icon next to the label. */
   tooltip?: ReactNode;
-  /** Replaces the default "not from your quote" note shown under an accepted typical figure. */
+  /** Replaces the default "not from your quote" note shown under an accepted typical figure; null hides it. */
   estimatedNote?: ReactNode;
   placeholder?: string;
   findings?: Finding[];
@@ -55,13 +58,14 @@ export function MoneyInput({
   extra?: ReactNode;
 }) {
   const id = useId();
+  const [editing, setEditing] = useState(false);
   const missing = useContext(MissingFields).has(field ?? "");
   const v = moneyValue(value);
   // A "none" saved before its tickbox was removed shows as an editable 0.
   const lockedNone = value.none && !!noneLabel;
   // Typed but unreadable ("85k a year"): say so here, not just "Still to answer" at the bottom.
   const problem = value.none ? null : amountProblem(value.text);
-  const shown: Finding[] = problem
+  const shown: Finding[] = editing ? [] : problem
     ? [{ code: "unreadable", level: "error", message: problem }, ...(findings ?? [])]
     : (findings ?? []);
   const worst =
@@ -80,6 +84,8 @@ export function MoneyInput({
           disabled={lockedNone}
           aria-invalid={worst?.level === "error" || missing ? true : undefined}
           value={value.none ? (lockedNone ? "" : "0") : value.text}
+          onFocus={() => setEditing(true)}
+          onBlur={() => setEditing(false)}
           onChange={(e) =>
             onChange({ text: e.target.value, none: false, estimated: false })
           }
@@ -114,7 +120,10 @@ export function MoneyInput({
           {Math.round(suggestion).toLocaleString("en-AU")})
         </button>
       )}
-      {value.estimated && !value.none && (
+      {suggestionBasis && suggestion != null && suggestion > 0 && !value.none && v === null && (
+        <div className="gd-suggest__basis">{suggestionBasis}</div>
+      )}
+      {value.estimated && !value.none && estimatedNote !== null && (
         <div className="gd-estimated">
           {estimatedNote ??
             "Typical estimate, not from your quote. Replace it if you have the real figure."}

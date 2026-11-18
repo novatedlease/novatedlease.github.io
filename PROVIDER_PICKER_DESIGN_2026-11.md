@@ -1,12 +1,30 @@
 # Provider picker and "where to find it" pictures: design (2026-11-12)
 
-> **Status:** proposal only, nothing built. Covers issues 16, 18, 19 and 20 in
-> `QUOTE_FORMAT_ISSUES_2026-11.md`. Owner decisions needed are listed at the end.
-> Findings are as of November 2026 (newest Reddit quote per provider, 1 Aug – 11 Nov 2026).
+> **Status (2026-11-12):** the review branch has an optional picker and dated text pointers for
+> every named provider in its list. All 27 named providers now have numbered, redacted quote-page
+> examples and quote-reading articles. Each example is available as a raster preview, a focused
+> crop for marked fields. The earlier generated schematics were
+> replaced after owner feedback.
+> Covers issues 16–19 in `QUOTE_FORMAT_ISSUES_2026-11.md`.
+> Most layouts were reviewed in August–November 2026; the LeasePlan example is from August 2025.
 
 Goal: a reader who tells us their provider gets a short, dated pointer, and later a picture crop,
 at each Guided field where the general wording isn't enough. A reader who doesn't, or whose
 provider we haven't covered, gets exactly today's experience plus the improved general hints.
+
+## Implementation decisions after the original proposal
+
+- The picker is on the **first screen**, immediately after "Yes, I have a quote". This lets
+  drive-away and FBT pointers appear on the reader's first pass. The original proposal below
+  placed it on Lease and remains as historical context.
+- The owner clarified that each template should preserve the reviewed quote's actual page layout,
+  with customer values and identifying details removed and the Guided fields numbered. All 27
+  reviewed redacted examples in the private quote-review folder were used; the unfinished
+  FleetPartners example needed an extra vehicle-detail redaction and numbered markers.
+- Guided reveals a focused crop beside matching fields. Each provider article shows the full
+  redacted WebP page and a numbered key.
+- A provider layout more than six months old gets a caution in Guided. The original proposal below
+  remains as historical design context; this implementation decision supersedes it.
 
 ---
 
@@ -14,13 +32,9 @@ provider we haven't covered, gets exactly today's experience plus the improved g
 
 ### Where it sits
 
-On the **Lease** step (`LeaseStep`), as the first question, above "Lease term". This is the first
-screen where the reader is reading their quote line by line, and the deferral hint (issue 7) and
-doc-fee hint (issue 8) on the same screen already benefit from knowing the provider. The
-**Price** step comes earlier, but the Flare and Oly drive-away pointers (issue 4) are the only
-ones there. Those can be shown on the Price step after the reader goes back, or simply as general
-wording. Putting the picker any earlier, on "Do you have a quote?", would add a question before
-the reader has opened their quote.
+On the **first screen** (`Intro`), immediately after the reader selects "Yes, I have a quote".
+This lets the Price step show provider-specific FBT and drive-away pointers on the first pass.
+The picker is optional and remains hidden when the reader is exploring without a quote.
 
 The existing "Is your lease with Smart Leasing or MillarX?" question on the Payment step is
 **removed**. The correction callout appears on the Payment step whenever `provider` is
@@ -344,7 +358,7 @@ pointer text or crops.
 
 ## Owner decisions needed
 
-1. **Placement:** first question on the Lease step (recommended), or on the Price step?
+1. **Placement:** decided 2026-11-12 by the owner: on the first screen, right after "Yes, I have a quote", with the byline "Used only to show provider-specific guidance on where to find each figure. No personal information needed."
 2. **Migration:** for saved drafts that answered "Yes, Smart Leasing or MillarX", show the old
    two-button question once (recommended), or ask them to pick from the dropdown?
 3. **Provider list:** keep all ~27 (recommended, for analytics), or only those with pointers

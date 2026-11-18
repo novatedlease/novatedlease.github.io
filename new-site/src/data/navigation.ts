@@ -32,6 +32,7 @@ export const navigation: NavEntry[] = [
       { label: 'EV vs ICE novated leases compared', href: '/start-here/ev-vs-ice-compared/' },
       { label: 'Is a novated lease worth it?', href: '/start-here/is-it-worth-it/' },
       { label: 'How to read a novated lease quote', href: '/start-here/how-to-read-a-novated-lease-quote/', heading: 'Using the Tools' },
+      { label: 'Find figures on your provider quote', href: '/start-here/provider-quote-guides/' },
       { label: 'How to use the calculator', href: '/start-here/use-nl-calculator/' },
       { label: '20 novated lease calculators reviewed', href: '/start-here/calculator-comparison/' },
       { label: 'Glossary of terms', href: '/start-here/glossary/', heading: 'Reference' },

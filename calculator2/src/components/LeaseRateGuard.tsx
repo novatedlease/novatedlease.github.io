@@ -123,6 +123,7 @@ export function LeaseRateGuard(props: {
 }) {
   const { inputs, setInputs, vehicleLeasePeriodMode, onVehicleLeasePeriodModeChange } = props;
   const [guardMsg, setGuardMsg] = useState("");
+  const [editingPayment, setEditingPayment] = useState(false);
   const isMonthly = vehicleLeasePeriodMode === "perMonth";
 
   const { minFn, maxFn, liveRate } = computeLeaseGuardBounds(inputs);
@@ -241,7 +242,8 @@ export function LeaseRateGuard(props: {
         }
         value={displayValue}
         onChange={handleChange}
-        error={guardMsg || undefined}
+        onFocusChange={setEditingPayment}
+        error={editingPayment ? undefined : guardMsg || undefined}
       />
       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: -10, marginBottom: 10 }}>
         <button
@@ -269,8 +271,8 @@ export function LeaseRateGuard(props: {
           marginBottom: 16,
           padding: "8px 10px",
           borderRadius: "var(--nlc-radius-md)",
-          border: guardMsg ? "1px solid var(--nlc-bad)" : "1px solid var(--nlc-border-mid)",
-          background: guardMsg ? "var(--nlc-bad-light)" : "var(--nlc-bg-sunken)",
+          border: guardMsg && !editingPayment ? "1px solid var(--nlc-bad)" : "1px solid var(--nlc-border-mid)",
+          background: guardMsg && !editingPayment ? "var(--nlc-bad-light)" : "var(--nlc-bg-sunken)",
           fontSize: 12,
           lineHeight: 1.5,
         }}
@@ -361,7 +363,7 @@ export function LeaseRateGuard(props: {
           </span>
         </div>
 
-        {Number.isFinite(liveRate) && liveRate > 0.1 && (
+        {!editingPayment && Number.isFinite(liveRate) && liveRate > 0.1 && (
           <div style={{ marginTop: 6, color: "var(--nlc-warn)", fontWeight: 600 }}>
             High rate — it may be worth checking whether your employer supports a{" "}
             <a href="/tools/byo-employer-check/" target="_blank" rel="noopener">

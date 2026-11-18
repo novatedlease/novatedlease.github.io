@@ -1,6 +1,6 @@
 # Guided mode vs real quotes — issue list (started 2026-11-11)
 
-> **Status 2026-11-12:** issues 1–13, 15 and 20 done on `main` (not pushed). 14, 16 and Advanced-mode monthly handling are on review branches. 17–19 wait on owner decisions. Each issue has a status line. Work through it with the owner one
+> **Status 2026-11-13:** issues 1–13, 15 and 20 done on `main` (not pushed). Issue 14 and Advanced-mode monthly handling are on separate review branches. Issues 16–19 are implemented on `codex/provider-guide-completion` with 27 numbered, redacted quote-page examples and guides, and await review. Each issue has a status line. Work through it with the owner one
 > issue at a time, as in `UX_FIXES_HANDOFF_2026-11.md` (plan in a few lines → implement → tests →
 > build → browser check → wait for "next"). That file also has the build, test and preview commands.
 
@@ -106,7 +106,7 @@ before writing anything provider-specific.
 
 ### 3. SG Fleet shows two payment figures and states deferral only as a payment count
 
-**Status (2026-11-12):** Decided by the owner: **all periods are read as spread over the term** (as before); `e89060df` and article `8193645b` were reverted. Instead, guidance steers readers to the per-pay figure (e.g. SG Fleet "Lease rental", not "Monthly lease rental (payable as N payments)"), via a tooltip on the payment-period question and the provider pointers. Evidence for monthly-lease-rental figures being the financier payment (SG Fleet ×2, MillarX ×3, Toyota Fleet with no deferral) is kept above for reference.
+**Status (2026-11-12):** Decided by the owner: **all periods are read as spread over the term** (as before); `e89060df` and article `8193645b` were reverted. Instead, guidance steers readers to the per-pay figure (e.g. SG Fleet "Lease rental", not "Monthly lease rental (payable as N payments)"), via a tooltip on the payment-period question and the provider pointers. Evidence for monthly-lease-rental figures being the financier payment (SG Fleet ×2, MillarX ×3) is kept above for reference. *(Corrected 18 Nov 2026: Toyota Fleet was listed here “with no deferral”. That came from a hand-rolled arrears model; in Guided's engine its “Rent” reproduces the printed 8.86% as a figure spread over the term with 2 months deferred (8.85%), so it is not evidence either way.)*
 
 - **Problem:** SG Fleet prints a per-pay "Lease rental" (spread over the full term) and a "Monthly
   lease rental" "(payable as 34 payments)" on a 36-month term. The per-pay figure with a 2-month
@@ -119,7 +119,7 @@ before writing anything provider-specific.
 - **Owner decision:** fold into issue 7 / 16, or handle now?
 
 - **Update 2026-11-12: how per-pay figures are built (bigger than SG Fleet).** On every quote
-  checked against a printed rate (SG Fleet ×2, MillarX, Toyota Fleet, Alliance), the **monthly**
+  checked against a printed rate (SG Fleet ×2, MillarX, Alliance; Toyota Fleet removed 18 Nov 2026, see the status note above), the **monthly**
   lease figure is the real financier payment. Guided reads a monthly figure as spread over the
   whole term, so typing SG Fleet's "Monthly lease rental" gives 8.97% instead of the true 7.19%;
   SG Fleet's per-pay "Lease rental" is the correct one to enter (it's spread: $1,195 × 34 ÷ 78).
@@ -195,8 +195,9 @@ before writing anything provider-specific.
 - **Seen:** "Months deferred: 2" (Smart Leasing, Easi, Alliance, Simplygreen); "payable as 34
   payments" (SG Fleet); "Number of Lease Payments: 59" (Remunerator); "Number of Installments 58"
   (Easi); "Based on 22 months" in prose (FleetPartners); "Based on 2-month deferred lease" (SPA);
-  "1 month(s) deferred" footnote (Fingo); "with deferred payments" (Toyota Fleet); nothing at all
-  (NLA, Paywise, Maxxia, LeaseExpress).
+  "1 month(s) deferred" footnote (Fingo); "with deferred payments" (FleetPartners, on the comparison post
+  1x9tvny; corrected 18 Nov 2026, previously listed as Toyota Fleet); nothing at all (Toyota Fleet,
+  NLA, Paywise, Maxxia, LeaseExpress).
 - **Where:** `LeaseStep` deferral hint (~line 1169).
 - **Proposed fix:** add "Or count the payments: 58 payments on a 60-month lease means 2 months
   deferred." Keep "Not sure → 2".
@@ -306,7 +307,7 @@ pictures of), then 16, then 18–20, then 17. Issue 1 can go any time.
 
 ### 16. Optional provider picker with provider-specific pointers
 
-**Status (2026-11-12):** 🔶 Prototype branch (see summary). Not merged. Design: `PROVIDER_PICKER_DESIGN_2026-11.md`.
+**Status (2026-11-12):** ✅ Review branch `codex/provider-guide-completion`: optional picker before the first quote figures, dated text pointers for every named provider, and a stale-layout caution. Not merged or pushed. Design and decisions: `PROVIDER_PICKER_DESIGN_2026-11.md`.
 
 Replace the "Smart Leasing or MillarX?" yes/no with an optional dropdown (default "Other / not
 listed") on the first quote screen. Show a dated pointer at the affected field only where general
@@ -317,7 +318,9 @@ positions. Prerequisite for issue 18.
 
 ### 17. Per-provider "how to read your quote" articles
 
-**Status (2026-11-12):** ⏸ Waiting: needs consented quote images (issue 19).
+**Status (2026-11-12):** ✅ Review branch: an index and 27 provider articles with numbered, redacted quote-page examples and field-by-field tables. Not merged or pushed.
+
+The owner clarified that the examples should preserve the quote-page layout, with all customer values and identifying details removed. The original proposal follows for historical context.
 
 Top providers only (2026 posts with images: Smart Leasing, SG Fleet, Maxxia, Paywise,
 Smartsalary). Each article is the full annotated quote from issue 18 (every page, numbered boxes
@@ -326,7 +329,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 18. Annotated "where to find it" pictures of each provider's quote
 
-**Status (2026-11-12):** ⏸ Design written (`7de4c8c2`); waiting on owner decisions and consented images.
+**Status (2026-11-13):** ✅ Review branch: 27 redacted quote-page previews with numbered field markers and focused field crops are available beside matching Guided fields. Each article shows the full WebP example. The earlier SVG schematics were removed.
 
 - **Idea (owner, 2026-11-11):** for each provider, show a picture of its real quote with the
   figure we're asking about boxed, instead of (or as well as) describing the label.
@@ -356,7 +359,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 19. Image sourcing and consent
 
-**Status (2026-11-12):** ⏸ Design written (`7de4c8c2`); owner to decide submission route and consent wording.
+**Status (2026-11-13):** ✅ Owner confirmed use of redacted quote-page templates. Customer values and identifying details are removed from the review examples before they are copied to the site. The earlier consent proposal below is historical context.
 
 - Publish only quotes sent to us with permission, not the Reddit screenshots. Reddit posters
   shared theirs for a quote check, not for our site. The Reddit set (`private/quote-review-2026-11/`)
@@ -372,7 +375,7 @@ crops link to the matching article. Doubles as search content ("how to read my S
 
 ### 20. Keeping the pictures current when formats change
 
-**Status (2026-11-12):** ✅ Built privately: `private/quote-review-2026-11/scripts/freshness_check.py`; first report in `reports/`.
+**Status (2026-11-12):** ✅ The checker is versioned at `new-site/scripts/freshness_check.py`; a first private report exists. The monthly run is a manual reminder in `PROVIDER_GUIDE_MAINTENANCE.md`, as requested by the owner. Guided links changed-layout feedback to the contact page.
 
 - Date every picture on the page: "SG Fleet quotes, as of Nov 2026".
 - A "Mine looks different? Send it to us" link beside each crop, feeding issue 19.

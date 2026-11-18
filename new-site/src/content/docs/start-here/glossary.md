@@ -1,7 +1,7 @@
 ---
 title: "Novated Lease Glossary: FBT, RFBA, ECM, ATI, Residual and More"
 datePublished: "2026-03-08"
-dateModified: "2026-06-05"
+dateModified: "2026-11-17"
 description: "Plain-English definitions of every novated lease term: FBT, RFBA, ECM, ATI, residual value, statutory formula, gross-up, luxury car limit, employer share and more, each linked to the full explainer."
 ---
 
@@ -37,7 +37,7 @@ The mechanism used in FBT-applicable (ICE) novated leases to eliminate the emplo
 ---
 
 **EV FBT exemption**
-A legislated exemption (introduced October 2022) under which eligible electric vehicles provided under a novated lease are exempt from Fringe Benefits Tax. This significantly reduces the cost of an EV novated lease compared with an ICE vehicle lease. PHEVs that were not on order before 1 April 2025 are no longer eligible. The exemption is being wound back: a phased reduction was announced in May 2026 and released as exposure draft legislation in September 2026 (not yet law). If passed as drafted, leases committed to from 1 April 2027 get a 100% or 25% FBT discount instead, depending on the car's value and the commitment date. See [EV vs ICE novated leases compared](/start-here/ev-vs-ice-compared/) and [EV FBT exemption wind-back — 2026 Budget announcement](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/).
+A legislated exemption under which eligible electric vehicles provided under a novated lease are exempt from Fringe Benefits Tax. This significantly reduces the cost of an EV novated lease compared with an ICE vehicle lease. PHEVs that were not on order before 1 April 2025 are no longer eligible. A phased wind-back was announced in May 2026 and included in the Tax Reform No. 4 Bill introduced in October 2026. **The bill is not yet law.** If enacted in its current form, new commitments from 1 April 2027 would get a 100% or 25% FBT discount instead, depending on value and date. See [EV vs ICE novated leases compared](/start-here/ev-vs-ice-compared/) and [EV FBT exemption wind-back](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/).
 
 ---
 

@@ -8,7 +8,7 @@ const faqSchema = {
     {
       '@type': 'Question',
       name: 'Does this calculator support the 75% EV FBT rule announced in May 2026?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Yes. The calculator fully supports the new EV FBT wind-back rules. It automatically applies the correct FBT treatment based on the lease start date and vehicle value, covering the transitional period (1 April 2027 – 31 March 2029) and the post-2029 rules.' },
+      acceptedAnswer: { '@type': 'Answer', text: 'The calculator models the EV FBT wind-back proposed in the introduced Tax Reform No. 4 Bill 2026. The bill is not yet law. It uses lease start date as a proxy for commitment date and does not assume any later ministerial exceptions.' },
     },
     {
       '@type': 'Question',
@@ -119,10 +119,10 @@ const faqSchema = {
     <h2>Frequently asked questions</h2>
 
     <h3>Does this calculator support the 75% EV FBT rule announced in May 2026?</h3>
-    <p>Yes. The calculator fully supports <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">the new rules</a>. These rules affect the EV FBT exemption and it automatically applies the correct FBT treatment based on the lease start date and vehicle value:</p>
+    <p>The calculator models <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/">the proposed EV FBT wind-back</a> in the introduced bill, which is not yet law. It uses lease start date as a proxy for commitment date and applies the bill's default treatment to the vehicle value:</p>
     <ul>
       <li><strong>Leases starting before 1 April 2027</strong> — existing rules apply (full FBT exemption up to the LCT threshold).</li>
-      <li><strong>Leases starting 1 April 2027 – 31 March 2029 (transitional period)</strong> — vehicles at or below $75,000 remain fully exempt; vehicles above $75,000 but at or below the LCT threshold attract 75% of full FBT (a 25% discount); vehicles above the LCT threshold attract full FBT.</li>
+      <li><strong>Leases starting 1 April 2027 – 31 March 2029 (transitional period)</strong> — eligible vehicles at or below $75,000 receive a 100% FBT discount (no FBT); vehicles above $75,000 but at or below the LCT threshold attract 75% of full FBT (a 25% discount); vehicles above the LCT threshold attract full FBT.</li>
       <li><strong>Leases starting from 1 April 2029</strong> — the 25% FBT discount applies to all eligible EVs at or below the LCT threshold.</li>
     </ul>
     <p>No manual adjustment is needed — simply enter your lease start date and vehicle base value and the calculator will apply the appropriate rules automatically.</p>

@@ -28,6 +28,12 @@ This site is not affiliated with any novated lease or salary packaging company.
   Novated Lease Guide & Calculator
 </a>
 
+## Quote layout feedback
+
+If your provider's quote looks different from a [numbered example](/start-here/provider-quote-guides/), email **contact [at] novatedlease.guide** with the provider name, the month on your quote, and the headings or field labels that changed. A description is enough. If a screenshot helps, remove names, contact details, employer and vehicle details, quote numbers, dates, barcodes, and all amounts before attaching it. Please do not send an unredacted quote.
+
+I use layout feedback to keep the field guides current. I cannot review your individual quote or advise whether it is a good deal.
+
 ---
 
 ## What I can and can’t help with

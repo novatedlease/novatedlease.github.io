@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { GST_EXEMPT_CAP } from "@engine/ato";
 import type { Inputs } from "@engine/types";
 import { getLeaseFbtCategory, getEvLctThresholdForLeaseStart, usedEvHistoryTestsApply, EV_TRANSITIONAL_FULL_EXEMPT_CAP } from "@engine/types";
 import { Section } from "./ui/Section";
@@ -54,6 +55,7 @@ export function InputsPanel(props: {
   // changing lease duration (by any means — field edit, saved-quote load, share link) usually
   // invalidates the per-fortnight quote, so nudge the user to re-check it.
   const [needsLeaseRequote, setNeedsLeaseRequote] = useState(false);
+  const [editingLeaseDuration, setEditingLeaseDuration] = useState(false);
   const prevLeaseDurationRef = useRef<number>(inputs.leaseDurationYears);
   useEffect(() => {
     if (prevLeaseDurationRef.current !== inputs.leaseDurationYears) {
@@ -113,7 +115,7 @@ export function InputsPanel(props: {
             { value: "EV", label: "Electric" },
             { value: "Non-EV", label: "Petrol / diesel / hybrid" },
           ]}
-          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for the FBT exemption where the lease starts on or after 1 April 2025 — they can still be novated leased, just without the exemption — so choose 'Petrol / diesel / hybrid' for a PHEV. For leases starting before 1 April 2027, the car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the phase-out rules in the September 2026 exposure draft apply instead: the car's price when your novated lease starts must be within the fuel-efficient LCT threshold, and the 2022 and LCT-history tests no longer apply." />}
+          tooltip={<InfoTooltip text="The FBT exemption applies only to eligible zero-emission cars (battery electric or hydrogen fuel cell). Plug-in hybrids no longer qualify for the FBT exemption where the lease starts on or after 1 April 2025 — they can still be novated leased, just without the exemption — so choose 'Petrol / diesel / hybrid' for a PHEV. For leases starting before 1 April 2027, the car must also be below the fuel-efficient LCT threshold at first retail sale, first held and used on or after 1 July 2022, and never subject to Luxury Car Tax. For leases starting from 1 April 2027 the introduced bill proposes phase-out rules instead: the car's price when your novated lease starts must be within the fuel-efficient LCT threshold, and the 2022 and LCT-history tests no longer apply." />}
         />
 
         <SelectField
@@ -139,11 +141,11 @@ export function InputsPanel(props: {
         {isEv && inputs.vehicleCondition !== "New" && !needsUsedEligibilityChecks && (
           <div style={{ fontSize: 12, color: "var(--nlc-text-muted)", marginBottom: 12, lineHeight: 1.45 }}>
             <DraftTag />
-            Used EV, lease starting from 1 April 2027: under the September 2026{" "}
+            Used EV, lease starting from 1 April 2027: under the introduced{" "}
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#eligibility-under-the-new-rules-used-evs" target="_blank" rel="noopener">
-              exposure draft
+              bill
             </a>
-            , the 1 July 2022 and LCT-history tests no longer apply. Only the car's price when your novated lease starts is tested. Not yet law.
+            , the 1 July 2022 and LCT-history tests are omitted. The car must still meet the base-value limit and other conditions. Not yet law.
           </div>
         )}
 
@@ -169,7 +171,7 @@ export function InputsPanel(props: {
           <NoteBox color="var(--nlc-blue)" mt={-8}>
             <div style={{ fontWeight: 800, marginBottom: 3 }}>
               <DraftTag />
-              FBT phase-out rules apply to this lease start date (exposure draft, not yet law)
+              Proposed FBT phase-out tier for this lease start date (bill not yet law)
             </div>
             <div style={{ opacity: 0.9 }}>
               {isTransitionalLease ? (
@@ -187,7 +189,7 @@ export function InputsPanel(props: {
               <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
                 Read more about the phase-out rules
               </a>
-              .
+              . Extra grandfathering under a future ministerial instrument is not assumed.
             </div>
           </NoteBox>
         )}
@@ -221,6 +223,8 @@ export function InputsPanel(props: {
             <InfoTooltip
               text={
                 "Listed on the car invoice prior to stamp duty, rego, and CTP insurance. Many invoices label this vehicle subtotal.\n\n" +
+                "Not on your quote? Take the drive-away price and subtract stamp duty, rego and CTP. The dealer's price breakdown usually lists them.\n\n" +
+                `Quote shows a GST credit or GST saving on the car? Multiply it by 11. Doesn't work if it's $${GST_EXEMPT_CAP.toLocaleString("en-AU")}, the most allowed.\n\n` +
                 "✅ Included: the car's RRP, GST on the car, delivery fee, optional add-ons (e.g. floor mats, tow bar), and any Luxury Car Tax (LCT) if payable.\n\n" +
                 "❌ Not included: compulsory third party (CTP) insurance, registration, stamp duty."
               }
@@ -287,7 +291,13 @@ export function InputsPanel(props: {
       </Section>
 
       <Section title="Lease details" defaultOpen>
-        <CurrencyField label="Lease documentation fee" value={inputs.leaseDocFee} onChange={(v) => set("leaseDocFee", v)} hint="Initial financier setup fee, if any. Set as 0 if not applicable." />
+        <CurrencyField label="Lease documentation fee and financed add-ons" value={inputs.leaseDocFee} onChange={(v) => set("leaseDocFee", v)} hint="Total one-off amounts financed in addition to the car, including any first-year insurance. Set to 0 if none." />
+        <CurrencyField
+          label="Of that, first-year insurance already financed"
+          value={inputs.insuranceFinancedFirstYear ?? 0}
+          onChange={(v) => set("insuranceFinancedFirstYear", v)}
+          hint="Enter 0 unless the total above includes first-year comprehensive insurance. Use the same GST basis as annual Insurance below. Guided converts the amount when needed. This removes one premium from the lease running-cost budget; cash keeps full annual insurance."
+        />
         <DateField
           label="Lease start date"
           value={inputs.leaseStartDate}
@@ -301,7 +311,7 @@ export function InputsPanel(props: {
                   <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener">
                     EV FBT phase-out tier
                   </a>
-                  . Under the exposure draft (not yet law), the phase-out may instead follow when the lease becomes a binding financial commitment, which is still a grey area. If that's near 1 April 2027, ask your provider when it's binding.{" "}
+                  . Under the introduced bill (not yet law), the phase-out may instead follow when the lease becomes a binding financial commitment, which is still a grey area. If that's near 1 April 2027, ask your provider when it's binding.{" "}
                   <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/#its-the-commitment-date-that-counts" target="_blank" rel="noopener">
                     How the commitment date works
                   </a>
@@ -324,15 +334,15 @@ export function InputsPanel(props: {
             }}
           >
             <DraftTag />
-            25% FBT discount (75% of FBT applies, per the exposure draft, not yet law) —{" "}
+            25% FBT discount (75% of FBT applies, per the introduced bill, not yet law) —{" "}
             <a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" target="_blank" rel="noopener" style={{ color: "inherit" }}>
               phase-out rules
             </a>{" "}
             apply to this lease start date
           </div>
         )}
-        <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} suffix="years" min={1} max={5} decimals={0} />
-        {needsLeaseRequote && (
+        <NumberField label="Lease duration" value={inputs.leaseDurationYears} onChange={(v) => set("leaseDurationYears", Math.max(1, Math.min(5, Math.round(v))))} onFocusChange={setEditingLeaseDuration} suffix="years" min={1} max={5} decimals={0} />
+        {needsLeaseRequote && !editingLeaseDuration && (
           <NoteBox color="var(--nlc-acc-red)" mb={14}>
             <div style={{ fontWeight: 800, marginBottom: 4 }}>Heads up: changing lease duration usually changes your per-fortnight lease quote.</div>
             <div style={{ opacity: 0.92 }}>
@@ -427,7 +437,7 @@ export function InputsPanel(props: {
         <CurrencyField label="Registration" value={inputs.registrationAnnual} onChange={(v) => set("registrationAnnual", v)} />
         {isEv ? (
           <CurrencyField
-            label="Electricity"
+            label="Electricity budget in the lease"
             value={inputs.electricityAnnual}
             onChange={(v) => set("electricityAnnual", v)}
             hint="The packaged claim amount (ATO shortcut: 5.47c/km) — not your actual charging cost, which goes in the Electricity section below."

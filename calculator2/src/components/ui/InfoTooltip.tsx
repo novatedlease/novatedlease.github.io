@@ -81,10 +81,6 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
   }, [open, props.width]);
 
   useEffect(() => {
-    if (!open) setPos(null);
-  }, [open]);
-
-  useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
 
     const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -220,7 +216,7 @@ export function InfoTooltip(props: { text: React.ReactNode; width?: number }) {
       className="nlc-info-trigger"
       aria-label="More information"
       role="button"
-      tabIndex={-1}
+      tabIndex={0}
       onMouseEnter={() => {
         if (hoverCapable) {
           cancelClose();

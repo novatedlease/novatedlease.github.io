@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run export:guides",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "export:guides": "EXPORT_PROVIDER_GUIDES=1 vitest run tests/provider-export.test.ts && npm --prefix ../new-site run prebuild"
   },
   "dependencies": {
     "react": "^19.2.0",

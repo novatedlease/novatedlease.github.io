@@ -3,6 +3,7 @@ import type { Inputs } from "@engine/types";
 import { financedAmountExGstFromInputs } from "@engine/effectiveinterest";
 import { residualFractionForYears } from "@engine/ato";
 import { computeDerived } from "@engine/derived";
+import { withLvFolded } from "./components/payImpact";
 import { URL_STATE_PARAM, getInputsFromLocationSearch } from "@engine/urlState";
 import { advancedDefaultInputs, sentinelDefaultInputs } from "./state/defaultInputs";
 import { estMarketValueFromDriveaway, evElectricityClaimAnnual, nonEvFuelAnnual } from "./assumptions";
@@ -39,12 +40,9 @@ const TOUR_HIDDEN_KEY = "nlc2-tour-hidden";
 
 type OutputTab = "summary" | "details" | "compare";
 
-// Matches v1 App.tsx's buildAtiRowsFromFyBreakdown/buildSgRowsFromFyBreakdown —
-// folds the luxury vehicle adjustment into the lease payment before computing
-// FY breakdown, so ATI/SG figures align with LeaseReport's take-home impact.
-function withLvFolded(inputs: Inputs): Inputs {
-  return { ...inputs, vehicleLeasePerFn: inputs.vehicleLeasePerFn + inputs.luxuryVehicleAdjPerFn };
-}
+// Matches v1 App.tsx's buildAtiRowsFromFyBreakdown/buildSgRowsFromFyBreakdown: withLvFolded
+// folds the luxury vehicle adjustment into the lease payment before computing the FY breakdown,
+// so ATI/SG figures align with LeaseReport's take-home impact (and Guided's lost-super line).
 function buildAtiRows(inputs: Inputs) {
   return computeDerived(withLvFolded(inputs)).atiRows;
 }
@@ -187,7 +185,8 @@ function AdvancedMode(props: {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputs.vehicleType, inputs.annualMileageKm, inputs.fuelAnnual]);
 
-  const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("five_year");
+  // A lease shorter than 5 years opens on its own term, as in Guided (owner, 15 Nov 2026).
+  const [summaryHorizon, setSummaryHorizon] = useState<"five_year" | "lease_end">("lease_end");
   const leaseYearsRounded = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
   const offerLeaseEndOption = leaseYearsRounded < 5;
   const effectiveHorizon = offerLeaseEndOption ? summaryHorizon : "five_year";
@@ -238,7 +237,7 @@ function AdvancedMode(props: {
               setInputs(advancedDefaultInputs);
               setOutputTab("summary");
               setCopiedLink(false);
-              setSummaryHorizon("five_year");
+              setSummaryHorizon("lease_end");
             }}
             onNavigateToDetails={navigateToDetails}
           />
@@ -287,7 +286,7 @@ function AdvancedMode(props: {
 
             {outputTab === "details" && (
               <>
-                <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, Employee Contribution Method (ECM), and EV charging." defaultOpen>
+                <Section title="Basic information" description="Key derived figures at a glance: financed amount, residual, effective rate, Employee Contribution Method (ECM), and EV charging.">
                   <BasicInformationReport inputs={inputs} onNavigateToDetails={navigateToDetails} />
                 </Section>
 
@@ -304,7 +303,6 @@ function AdvancedMode(props: {
                 <Section
                   title="Section 2: Financial summary"
                   description="Total cost comparison across novated lease, cash, loan, and keep-current-car pathways, standardised to a 5-year horizon."
-                  defaultOpen
                   analyticsId="section_2_financial_summary"
                   anchorId="details-section-2-financial-summary"
                   forceOpenNonce={sectionForceOpenNonce("details-section-2-financial-summary")}
@@ -435,7 +433,7 @@ export default function App() {
   // Cross-navigation from Summary/Compare/Basic-info to a specific Details section — replaces
   // v1's window-level "nlguide:navigate" CustomEvent with a plain callback + local state, since
   // everything lives in one component tree here. `nonce` forces a specific Section open even if
-  // the user had collapsed it (Sections default to collapsed except Basic info & Section 2).
+  // the user had collapsed it (all Details sections start collapsed).
   const [navTarget, setNavTarget] = useState<{ anchorId: string; nonce: number } | null>(null);
   function navigateToDetails(anchorId?: string) {
     setOutputTab("details");
@@ -537,8 +535,8 @@ export default function App() {
     setAdvancedEdited(false);
     setShowingExamples(false);
     changeMode("advanced");
+    setOutputTab("details");
     const detailsTop = anchorId === ADVANCED_DETAILS_TOP;
-    if (detailsTop) setOutputTab("details");
     if (anchorId && !detailsTop) {
       setPendingDetailsNav((prev) => ({ anchorId, nonce: (prev?.nonce ?? 0) + 1 }));
       return;
@@ -569,7 +567,13 @@ export default function App() {
       openGuidedInAdvanced(guidedInputsRef.current);
       return;
     }
+    if (next === "advanced" && mode === "guided") setOutputTab("details");
     changeMode(next);
+  }
+
+  function switchToAdvancedWithoutCopy() {
+    setOutputTab("details");
+    changeMode("advanced");
   }
 
   // Quick tour — entry button + guided walkthrough. tourHidden persists forever once dismissed;
@@ -655,7 +659,7 @@ export default function App() {
       {mode === "guided" ? (
         <GuidedMode
           onOpenAdvanced={openGuidedInAdvanced}
-          onSwitchToAdvanced={() => changeMode("advanced")}
+          onSwitchToAdvanced={switchToAdvancedWithoutCopy}
           advancedEdited={advancedEdited}
           onInputsChange={(i) => {
             guidedInputsRef.current = i;

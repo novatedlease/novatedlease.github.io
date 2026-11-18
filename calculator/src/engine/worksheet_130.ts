@@ -1,4 +1,5 @@
 // engine/worksheet_130.ts
+import { leaseInsuranceAnnual } from "./insurance";
 import type { Inputs } from "./types";
 import { isFbtApplicable, getLeaseFbtCategory, getEcmStatutoryRate, getEcmTwoThirdsFromFy, getEcmMultiplierForFy } from "./types";
 import { buildFortnightSchedule, fyForDate } from "./lease_schedule";
@@ -261,7 +262,9 @@ export function buildWorksheet130(args: { inputs: Inputs; scenario: Scenario }):
   const preTaxSmtFn = i.serviceMaintTyresAnnual / 26;
   const preTaxSaveShareFn = i.saveShareAnnual / 26;
   const preTaxRegoFn = i.registrationAnnual / 26;
-  const preTaxInsuranceFn = i.insuranceAnnual / 26;
+  // The financed first-year premium is already in the lease payment. Keep the full
+  // annual premium for cash and post-lease years, but exclude one premium across NL years.
+  const preTaxInsuranceFn = leaseInsuranceAnnual(i) / 26;
   const preTaxFeesFn = i.managementFeesAnnual / 26;
   const preTaxEnergyFn = (i.vehicleType === "EV" ? assumedChargingClaimPerYear : i.fuelAnnual) / 26;
 

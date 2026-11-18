@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { ATO_RESIDUAL_PCT } from "@engine/ato";
 import { trackEvent } from "../utils/analytics";
 import { Button } from "../components/ui/Button";
@@ -27,9 +27,12 @@ const AGREE_WITHIN = 0.01;
 export function DriveawayHelper({
   d,
   set,
+  residualPointer,
 }: {
   d: GuidedDraft;
   set: <K extends keyof GuidedDraft>(k: K, v: GuidedDraft[K]) => void;
+  /** Where the residual sits on the reader's quote (their provider's pointer), shown under the box. */
+  residualPointer?: ReactNode;
 }) {
   const [residual, setResidual] = useState<Money>(() =>
     d.residualBasis === "incGst" || d.residualBasis === "exGst" ? d.residual : emptyMoney(),
@@ -85,6 +88,7 @@ export function DriveawayHelper({
       ) : (
         <>
           <Choices
+            field="residualBasis"
             label="Is the residual on your quote including or excluding GST?"
             value={basis}
             onChange={setBasis}
@@ -95,12 +99,15 @@ export function DriveawayHelper({
             columns={2}
           />
           <MoneyInput
+            field="residual"
             label={`Residual value${basis === "incGst" ? " (including GST)" : basis === "exGst" ? " (excluding GST)" : ""}`}
             value={residual}
             onChange={setResidual}
             where="Type the figure exactly as printed."
           />
+          {residualPointer}
           <MoneyInput
+            field="residualPct"
             label="Residual percentage"
             value={pct}
             onChange={setPct}

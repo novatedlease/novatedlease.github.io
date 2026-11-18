@@ -24,8 +24,8 @@ describe("evElectricityClaimAnnual / nonEvFuelAnnual (shared formulas)", () => {
     expect(evElectricityClaimAnnual(0)).toBe(0);
   });
 
-  test("fuel estimate is ~6L/100km @ $1.80/L, rounded to the nearest dollar", () => {
-    expect(nonEvFuelAnnual(15000)).toBe(1620);
+  test("fuel estimate is 8 L/100km @ $2.00/L, rounded to the nearest dollar", () => {
+    expect(nonEvFuelAnnual(15000)).toBe(2400);
     expect(nonEvFuelAnnual(0)).toBe(0);
   });
 });

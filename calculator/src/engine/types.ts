@@ -43,6 +43,8 @@ export type Inputs = {
   fuelAnnual: number;
 
   insuranceAnnual: number;
+  /** Part of year-one insurance already repaid through finance; spread over the lease for the NL running-cost budget only. */
+  insuranceFinancedFirstYear?: number;
   managementFeesAnnual: number;
 
   avgAudPerKwh: number;
@@ -151,8 +153,10 @@ export function getEcmStatutoryRate(category: LeaseFbtCategory): number {
 /**
  * Returns the statutory fraction used for the reportable fringe benefits amount (RFBA),
  * net of the ECM contribution. RFBA is worked out at the full 0.2 fraction minus the
- * employee's post-tax contributions (FBTAA s 135P(3) in the September 2026 exposure
- * draft disregards the new s 9A discount), and the ECM covers getEcmStatutoryRate().
+ * employee's post-tax contributions (FBTAA proposed s 135P(3) in the introduced
+ * Tax Reform No. 4 Bill disregards the new s 9A discount), and the ECM covers
+ * getEcmStatutoryRate(). Proposed s 135Q(4A) separately addresses employees
+ * of certain institutions; that case is not modelled here.
  * - EV_FBT_EXEMPT → 0.2 (no contribution)
  * - EV_FBT_DISCOUNTED → 0.05 (0.2 less a 0.15 contribution)
  * - EV_FBT_APPLICABLE / NON_EV_FBT_APPLICABLE → 0 (contribution covers the full 0.2)
@@ -164,7 +168,7 @@ export function getRfbaStatutoryRate(category: LeaseFbtCategory): number {
 /**
  * Whether the used-EV history tests (first held and used on or after 1 July 2022, LCT
  * never payable) apply. They belong to the s 8A exemption, which covers leases committed
- * to before 1 April 2027; the replacement s 9A in the September 2026 exposure draft
+ * to before 1 April 2027; proposed replacement s 9A in the introduced 2026 bill
  * tests only the base value when the employer first holds the car.
  */
 export function usedEvHistoryTestsApply(i: Inputs): boolean {
@@ -218,7 +222,7 @@ export function deriveEvFbtEligibility(i: Inputs): EvFbtEligibility {
  *   ≤ LCT threshold → DISCOUNTED (75% of FBT applies); > LCT → APPLICABLE.
  *
  * Used EVs on the legacy rules also require: first held & used after 1/7/22, and LCT was
- * never paid (confirmed via the usedCar* checkboxes). The September 2026 exposure draft drops
+ * never paid (confirmed via the usedCar* checkboxes). Proposed s 9A of the introduced bill omits
  * both tests for leases committed to from 1 Apr 2027 (see usedEvHistoryTestsApply).
  */
 export function getLeaseFbtCategory(i: Inputs): LeaseFbtCategory {

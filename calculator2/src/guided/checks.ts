@@ -2,7 +2,8 @@ import {
   effectiveAnnualRateFromFortnightlyLease,
   fortnightlyLeaseFromEffectiveAnnualRate,
 } from "@engine/effectiveinterest";
-import type { Period } from "./draft";
+import { moneyValue, type GuidedDraft, type Period } from "./draft";
+import { DRIVEAWAY_TRAP_LABELS, providerLabel, type ProviderId } from "./providerGuide";
 
 export type Level = "error" | "warn" | "info" | "ok";
 export type Finding = {
@@ -15,6 +16,29 @@ export type Finding = {
 
 const GST = 1.1;
 const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-AU")}`;
+
+/** Provider-specific checks supplement the generic findings after the reader enters a figure. */
+export function checkProvider(d: GuidedDraft): Finding[] {
+  const p = d.provider;
+  if (!p || p === "other") return [];
+  const out: Finding[] = [];
+  if (p === "sgfleet" && d.paymentPeriod === "perMonth") {
+    out.push({ code: "provider_monthly_payment", level: "warn", message: `${providerLabel(p)} may show a monthly lease rental paid fewer times than the lease has months. Check for the per-pay “Lease rental” and choose its period.` });
+  }
+  if (p === "remunerator" && moneyValue(d.payment) && d.paymentPeriod && d.paymentPeriod !== "perYear") {
+    out.push({ code: "provider_yearly_payment", level: "warn", message: "On all 7 Remunerator quotes we checked, “Lease Payment” under “Annual Car Expenses” was a yearly total. Choose “Per year”." });
+  }
+  if (p === "leaselab" && d.paymentPeriod === "perMonth") {
+    out.push({ code: "provider_weekly_payment", level: "warn", message: "The LeaseLab quotes we checked showed weekly or fortnightly amounts. Check the period beside your payment." });
+  }
+  const trap = DRIVEAWAY_TRAP_LABELS[p];
+  if (trap && (moneyValue(d.driveaway) ?? 0) > 0 && (moneyValue(d.baseValue) ?? 0) > 0 && moneyValue(d.driveaway)! < moneyValue(d.baseValue)!) {
+    // An error, like the generic "base value above drive-away" check it replaces on screen. Short,
+    // because the amber drive-away pointer just below already explains it and has the picture.
+    out.push({ code: "provider_driveaway_trap", level: "error", message: `This looks like “${trap.wrong}”. See the note below.` });
+  }
+  return out;
+}
 
 // ─── Price step ─────────────────────────────────────────────────────────────
 
@@ -46,6 +70,26 @@ export function checkPrices(
     });
   }
   return out;
+}
+
+/**
+ * The GST credit on a car is capped ($6,334 in 2025–26, $6,353 now), so a credit x 11 at the cap
+ * understates a dearer car. A base value that lands on 11 x either cap was probably worked out
+ * that way (UX review 14 Nov 2026, item 23).
+ */
+export const GST_CREDIT_CAPS = [6334, 6353];
+
+export function checkBaseValueAtCap(base: number | null): Finding[] {
+  if (!base) return [];
+  if (!GST_CREDIT_CAPS.some((cap) => Math.abs(base - cap * 11) <= 30)) return [];
+  return [
+    {
+      code: "base_value_at_gst_cap",
+      level: "warn",
+      message:
+        "This matches 11 × the maximum GST credit. If you worked it out that way, your car may cost more. Check for an FBT base value or price breakdown.",
+    },
+  ];
 }
 
 // ─── Lease step ─────────────────────────────────────────────────────────────
@@ -344,7 +388,7 @@ export function checkAnnualCost(
       ];
     return [];
   }
-  if (value < typical * 0.25) {
+  if (!opts.skipLow && value < typical * 0.25) {
     return [
       {
         code: `${label}_low`,
@@ -363,6 +407,46 @@ export function checkAnnualCost(
     ];
   }
   return [];
+}
+
+/** A quote budget is worth comparing when it is well above the same car's rough insurance estimate. */
+export function checkInsuranceCost(
+  value: number | null,
+  typical: number | null,
+  provider: ProviderId | null,
+): Finding[] {
+  const periodCheck = checkAnnualCost("insurance", value, typical);
+  if (value === null || !typical || value < typical * 1.3 || value - typical < 500)
+    return periodCheck;
+  return [{
+    code: "insurance_high_compare",
+    level: "warn",
+    message: `About ${fmt(value)} a year is above our rough ${fmt(typical)} estimate. Check the period, cover and excess, then compare comprehensive quotes. If this is provider-arranged cover, ask about using your own insurer; the policy must meet your lease terms.`,
+    link: provider === "easi"
+      ? { href: "https://support.easifleet.com.au/self-insurance-policy", label: "Easi's own-insurance process" }
+      : { href: "https://www.afia.asn.au/finance-code/schedule-2-novated-leasing", label: "Insurance choice in novated leases" },
+  }];
+}
+
+/** Compare the combined budget with the combined typical amount, then point at the line driving it. */
+export function checkServiceAndTyres(
+  service: number | null,
+  tyres: number | null,
+  typical: number | null,
+): { service: Finding[]; tyres: Finding[] } {
+  const empty = { service: [], tyres: [] };
+  if (service === null) return empty;
+  const tyreAmount = tyres ?? 0;
+  const total = service + tyreAmount;
+  const finding = checkAnnualCost("service", total, typical)[0];
+  if (!finding || !typical || tyreAmount === 0) return { service: finding ? [finding] : [], tyres: [] };
+  const high = finding.code === "service_high";
+  const message = `Servicing and tyres together come to ${fmt(total)} a year (${fmt(service)} maintenance + ${fmt(tyreAmount)} tyres), which looks ${high ? "high" : "low"} against about ${fmt(typical)} typically. Check the amounts and the period selected above.`;
+  const target = high && tyreAmount > service ? "tyres" : "service";
+  return {
+    service: target === "service" ? [{ ...finding, message }] : [],
+    tyres: target === "tyres" ? [{ ...finding, code: "tyres_high", message }] : [],
+  };
 }
 
 export function checkMileage(km: number | null): Finding[] {
@@ -427,6 +511,74 @@ export function checkRate(
     ];
   }
   return [];
+}
+
+// ─── Your alternatives step (UX review 14 Nov 2026, item 4) ─────────────────
+
+/** Car loans sit well inside 2–25% a year; outside it, the rate was probably mistyped. */
+export function checkLoanRate(ratePct: number | null): Finding[] {
+  if (ratePct === null || ratePct === 0) return [];
+  if (ratePct > 25) return checkRate("loan", ratePct, 25);
+  if (ratePct < 2)
+    return [
+      {
+        code: "loan_rate_low",
+        level: "warn",
+        message: `${ratePct}% is lower than car loans charge. Check it's the yearly rate, for example 7.5 for 7.5%.`,
+      },
+    ];
+  return [];
+}
+
+/** A one-off establishment fee typed as the monthly fee is counted every month of the loan. */
+export function checkLoanFee(fee: number | null): Finding[] {
+  if (!fee || fee <= 30) return [];
+  return [
+    {
+      code: "loan_fee_high",
+      level: "warn",
+      message: `${fmt(fee)} a month is high for an account fee. Most loans charge $0–$15. Is this the one-off establishment fee?`,
+    },
+  ];
+}
+
+/** The current car's yearly costs together: over about $15,000 usually means a total over several years. */
+export function checkCurrentCarTotal(yearly: number | null): Finding[] {
+  if (!yearly || yearly <= 15000) return [];
+  return [
+    {
+      code: "current_running_high",
+      level: "warn",
+      message: `Your current car's costs add up to ${fmt(yearly)} a year, which is a lot for one car. Check each is a yearly figure, not a total over several years.`,
+    },
+  ];
+}
+
+/**
+ * A $0 EV charging budget: the reader pays all their charging from after-tax pay, when the ATO's
+ * 5.47c/km home-charging shortcut lets them claim at least that much through the lease, whatever
+ * their real cost (owner request, 15 Nov 2026).
+ */
+export function checkChargingBudget(typedAnnual: number | null, shortcutAnnual: number | null): Finding[] {
+  // More than 10% under the 5.47c figure: rounding and per-pay conversion never get exactly there.
+  if (typedAnnual !== null && typedAnnual > 0 && shortcutAnnual && typedAnnual < shortcutAnnual * 0.9)
+    return [
+      {
+        code: "charging_budget_low",
+        level: "warn",
+        message: `Your charging budget is below the ATO's 5.47c per km (about ${fmt(shortcutAnnual)} a year at your kilometres). Ask to raise it: claiming the full 5.47c comes out ahead. If your quote assumes fewer kilometres than you entered, check that first.`,
+        link: { href: "/running-costs/ev-home-charging-shortcut/", label: "How the 5.47c shortcut works" },
+      },
+    ];
+  if (typedAnnual !== 0) return [];
+  return [
+    {
+      code: "charging_budget_zero",
+      level: "warn",
+      message: `A $0 charging budget is a net loss: you'd pay all your charging from after-tax pay. Claiming at least the ATO's 5.47c per km${shortcutAnnual ? ` (about ${fmt(shortcutAnnual)} a year at your kilometres)` : ""} comes out ahead, even if your real cost is lower.`,
+      link: { href: "/running-costs/ev-home-charging-shortcut/", label: "How the 5.47c shortcut works" },
+    },
+  ];
 }
 
 export function checkChargingRate(perKwh: number | null): Finding[] {

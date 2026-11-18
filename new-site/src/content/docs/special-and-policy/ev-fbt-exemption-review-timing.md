@@ -1,14 +1,14 @@
 ---
 title: "EV FBT exemption review timing"
 datePublished: "2026-01-06"
-dateModified: "2026-06-05"
+dateModified: "2026-11-17"
 description: Historical article on the EV FBT exemption review timing — preserved for context. The review concluded on 4 May 2026 with a phased wind-back of the exemption.
 ---
 
 # EV FBT exemption review timing — what is known, what is not, and why it matters
 
 :::success[This is a historical article — the review has concluded]
-On 4 May 2026, the treasurer announced the outcome of the review: a phased wind-back of the EV FBT exemption across three FBT years. Exposure draft legislation followed on 10 September 2026; it is not yet law.
+On 4 May 2026, the treasurer announced the outcome of the review: a phased wind-back of the EV FBT exemption across three FBT years. The Tax Reform No. 4 Bill was introduced in October 2026; as checked on 17 November, it is not yet law.
 
 **If you want to understand what the changes are and how they affect you, go to the [2026 Budget announcement article](/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/) instead.**
 

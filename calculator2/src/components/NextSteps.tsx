@@ -3,16 +3,18 @@ import { trackEvent } from "../utils/analytics";
 /**
  * "What to do next" links under the results (Guided results screen and Advanced Summary).
  * Picked from where calculator visitors actually go next (GA4, Oct–Nov 2026): the checklist,
- * the BYO employer checker and "Is it worth it?". Only about 1 in 7 scroll below the
+ * the BYO employer checker and "Is it worth it?". Ordered as a reader decides (owner, 15 Nov 2026):
+ * whether to lease at all, then whether a BYO lease is cheaper, then checking the quote. Only about 1 in 7 scroll below the
  * calculator, so these live in the results rather than further down the page.
  * Each card fires its own event name so clicks are countable without a custom dimension.
  */
 const STEPS = [
   {
-    event: "next_step_checklist",
-    href: "/tools/checklist/",
-    title: "Check your quote before you sign",
-    desc: "35 things people commonly miss, from extras in the amount financed to early exit costs.",
+    event: "next_step_worth_it",
+    // Straight to the part the card describes; a reader with results already has the savings figure.
+    href: "/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure",
+    title: "Is it right for you?",
+    desc: "What the numbers can't show: changing jobs, ending a lease early, and effects on HECS, childcare and borrowing.",
   },
   {
     event: "next_step_byo",
@@ -21,10 +23,10 @@ const STEPS = [
     desc: "Many employers allow a BYO lease, often at a lower rate. Check whether yours does.",
   },
   {
-    event: "next_step_worth_it",
-    href: "/start-here/is-it-worth-it/",
-    title: "Is it right for you?",
-    desc: "What the numbers can't show: changing jobs, ending a lease early, and effects on HECS, childcare and borrowing.",
+    event: "next_step_checklist",
+    href: "/tools/checklist/",
+    title: "Check your quote before you sign",
+    desc: "35 things people commonly miss, from extras in the amount financed to early exit costs.",
   },
 ] as const;
 

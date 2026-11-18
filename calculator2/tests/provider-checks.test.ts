@@ -1,0 +1,104 @@
+import { describe, expect, test } from "vitest";
+import { checkProvider } from "../src/guided/checks";
+import { emptyDraft, paymentPerFn, type GuidedDraft } from "../src/guided/draft";
+import { DRIVEAWAY_TRAP_LABELS, PROVIDERS, TRAP_FIELDS, type ProviderId } from "../src/guided/providerGuide";
+
+function forProvider(provider: ProviderId | null): GuidedDraft {
+  return { ...emptyDraft(), provider };
+}
+
+describe("provider-specific findings", () => {
+  test("SG Fleet still flags a monthly lease payment", () => {
+    const d = forProvider("sgfleet");
+    d.paymentPeriod = "perMonth";
+    expect(checkProvider(d).map((f) => f.code)).toContain("provider_monthly_payment");
+    d.paymentPeriod = "perFn";
+    expect(checkProvider(d)).toEqual([]);
+  });
+
+  test("Easi accepts either printed payment with its matching period", () => {
+    const d = forProvider("easi");
+    d.payment = { text: "1147.66", none: false, estimated: false };
+    d.paymentPeriod = "perMonth";
+    d.paymentBasis = "exGst";
+    const monthly = paymentPerFn(d);
+    expect(checkProvider(d)).toEqual([]);
+    d.payment.text = "529.69";
+    d.paymentPeriod = "perFn";
+    expect(checkProvider(d)).toEqual([]);
+    expect(paymentPerFn(d)).toBeCloseTo(monthly!, 2);
+  });
+
+  test("Remunerator flags a typed payment with a non-yearly period", () => {
+    const d = forProvider("remunerator");
+    d.payment.text = "7000";
+    d.paymentPeriod = "perMonth";
+    expect(checkProvider(d).map((f) => f.code)).toContain("provider_yearly_payment");
+    d.paymentPeriod = "perYear";
+    expect(checkProvider(d)).toEqual([]);
+  });
+
+  test("LeaseLab flags a monthly payment; its quotes are weekly or fortnightly", () => {
+    const d = forProvider("leaselab");
+    d.paymentPeriod = "perMonth";
+    expect(checkProvider(d).map((f) => f.code)).toContain("provider_weekly_payment");
+    d.paymentPeriod = "perFn";
+    expect(checkProvider(d).map((f) => f.code)).not.toContain("provider_weekly_payment");
+  });
+
+  test.each([
+    ["flare", "Vehicle cost — Flare Cars driveaway cost"],
+    ["oly", "Oly driveaway price"],
+    ["fingo", "Your car price"],
+    ["spa", "Novated lease purchase price"],
+    ["driva", "Effective novated vehicle price"],
+    ["lendly", "Total Price (ex. GST)"],
+    ["kooya", "Price (ex. GST)"],
+    ["clearlease", "Vehicle Finance Amount"],
+  ] as const)("%s names the low drive-away trap when the entered amount is below FBT base", (provider, label) => {
+    const d = forProvider(provider);
+    d.baseValue.text = "50000";
+    d.driveaway.text = "45000";
+    const findings = checkProvider(d);
+    expect(findings.map((f) => f.code)).toContain("provider_driveaway_trap");
+    expect(findings[0].message).toContain(label);
+    expect(findings[0].level).toBe("error");
+    // It points to the amber drive-away note rather than repeating it.
+    expect(findings[0].message).toContain("See the note below");
+    expect(TRAP_FIELDS[provider]).toContain("driveaway");
+    d.driveaway.text = "52000";
+    expect(checkProvider(d)).toEqual([]);
+  });
+
+  test("every GST-reduced price trap has an amber drive-away note to point to", () => {
+    for (const provider of Object.keys(DRIVEAWAY_TRAP_LABELS) as ProviderId[]) {
+      expect(TRAP_FIELDS[provider], provider).toContain("driveaway");
+    }
+  });
+
+  test("other and no provider have no provider-specific findings", () => {
+    for (const provider of [null, "other"] as const) {
+      const d = forProvider(provider);
+      d.paymentPeriod = "perMonth";
+      d.paymentBasis = "exGst";
+      d.baseValue.text = "50000";
+      d.driveaway.text = "40000";
+      expect(checkProvider(d)).toEqual([]);
+    }
+  });
+
+  test("no provider check generalises from a few quotes or states a payment's GST basis as fact", () => {
+    for (const { id } of PROVIDERS) {
+      const d = forProvider(id);
+      d.paymentPeriod = "perMonth";
+      d.paymentBasis = "exGst";
+      d.payment.text = "500";
+      d.baseValue.text = "50000";
+      d.driveaway.text = "45000";
+      for (const f of checkProvider(d)) {
+        expect(f.message, id).not.toMatch(/\b(usually|often|always)\b/i);
+        expect(f.message, id).not.toMatch(/payment (is|includes|excludes) (ex|inc)/i);
+      }
+    }
+  });
+});

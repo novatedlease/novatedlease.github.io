@@ -68,6 +68,7 @@ function quoteDraft(): GuidedDraft {
   d.mileage = m("12000");
   d.runningPeriod = "perYear";
   d.service = m("1200");
+  d.tyres = { text: "", none: true, estimated: false };
   d.rego = m("900");
   d.insurance = m("1600");
   d.mgmt = m("250");
@@ -244,6 +245,7 @@ describe("Guided → Advanced hand-off", () => {
     seedGuided(quoteDraft());
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: /Open full workings in Advanced mode/ }));
+    expect(screen.getByRole("tab", { name: /Details/ }).getAttribute("aria-selected")).toBe("true");
     expect(num("Fuel")).toBe(2400);
     expect(num(/Drive-away cost/)).toBe(52400);
   });
@@ -446,13 +448,13 @@ describe("Smart Leasing / MillarX on the payment screen", () => {
     const d = quoteDraft();
     d.smartMillarx = true;
     onPayment(d);
-    expect(screen.getByText(/You need to correct your Smart Leasing \/ MillarX payment first/)).toBeTruthy();
+    expect(screen.getByText(/You need to correct your Smart Leasing \/ MillarX payment/)).toBeTruthy();
     expect(screen.getByRole("button", { name: "Open the correction tool" })).toBeTruthy();
     cleanup();
     window.localStorage.clear();
     onPayment({ ...d, paymentCorrected: true });
     expect(screen.queryByText(/You need to correct/)).toBeNull();
-    expect(screen.getByText(/Corrected payment entered below/)).toBeTruthy();
+    expect(screen.getByText(/Corrected payment entered above/)).toBeTruthy();
   });
 });
 
@@ -466,6 +468,18 @@ describe("luxury vehicle adjustment", () => {
     expect(buildInputs({ ...d, payment: m("900") })!.luxuryVehicleAdjPerFn).toBe(130);
     d.paymentPeriod = "perMonth";
     expect(buildInputs({ ...d, payment: m("1950") })!.luxuryVehicleAdjPerFn).toBeCloseTo(60, 6);
+  });
+
+  test("Autopia's annual payroll figure reaches Advanced as a fortnightly amount", () => {
+    const d = quoteDraft();
+    d.provider = "autopia";
+    d.baseValue = m("76583");
+    d.driveaway = m("79985");
+    d.paymentPeriod = "perMonth";
+    d.payment = m("1313.81");
+    d.luxAdj = m("412.51");
+    d.luxAdjPeriod = "perYear";
+    expect(buildInputs(d)!.luxuryVehicleAdjPerFn).toBeCloseTo(412.51 / 26, 6);
   });
 });
 
@@ -685,7 +699,7 @@ describe("current car fuel follows the km answer", () => {
 describe("results screen is divided into signposted parts", () => {
   const titles = () => [...document.querySelectorAll(".gd-part__title")].map((h) => h.textContent);
 
-  test("exploring: results, what they are based on, try numbers, then save/share", () => {
+  test("exploring: results, what they are based on, try numbers, save/share, then what to do next", () => {
     const d = exploringEv();
     d.cashHome = "offset";
     d.offsetRate = m("6");
@@ -698,17 +712,17 @@ describe("results screen is divided into signposted parts", () => {
       JSON.stringify({ draft: d, step: "review", visited: ["intro", "car", "compare", "quick", "you", "alternatives", "review"] }),
     );
     render(<App />);
-    expect(titles()).toEqual(["Your result", "What this is based on", "Try different numbers", "What to do next", "Save, share or see the full workings"]);
+    expect(titles()).toEqual(["Your result", "What this is based on", "Try different numbers", "Save, share or see the full workings", "What to do next"]);
     expect(screen.getByText("Compared with buying with cash and a car loan.")).toBeTruthy();
   });
 
   test("quote path: no Try different numbers part", () => {
     seedGuided(quoteDraft());
     render(<App />);
-    expect(titles()).toEqual(["Your result", "What this is based on", "What to do next", "Save, share or see the full workings"]);
+    expect(titles()).toEqual(["Your result", "What this is based on", "Save, share or see the full workings", "What to do next"]);
     const next = screen.getByRole("navigation", { name: "What to do next" });
     const hrefs = [...next.querySelectorAll("a")].map((a) => a.getAttribute("href"));
-    expect(hrefs).toEqual(["/tools/checklist/", "/tools/byo-employer-check/", "/start-here/is-it-worth-it/"]);
+    expect(hrefs).toEqual(["/start-here/is-it-worth-it/#start-with-a-holistic-view-rather-than-the-savings-figure", "/tools/byo-employer-check/", "/tools/checklist/"]);
     for (const a of next.querySelectorAll("a")) expect(a.getAttribute("target")).toBe("_blank");
   });
 });
@@ -913,10 +927,10 @@ describe("Advanced opens with example figures: say so", () => {
   });
 });
 
-describe("intro: choosing doesn't move on; the quote reminder shows first", () => {
-  test("“Have your quote open” appears only after Yes, and Next moves on", () => {
+describe("intro: choosing doesn't move on; the provider question shows first", () => {
+  test("“Who is your quote from?” appears only after Yes, and Next moves on", () => {
     render(<App />);
-    const list = () => screen.queryByText("Have your quote open.");
+    const list = () => screen.queryByText("Who is your quote from? (optional)");
     expect(list()).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: /No, I'm just exploring/ }));
     expect(list()).toBeNull();
@@ -959,9 +973,24 @@ describe("Advanced vehicle finance: a visible period switch", () => {
   });
 });
 
+describe("running costs: no typical-figure links when the quote has the figures", () => {
+  test("a provider with running costs on its quote gets no 'Use a typical figure' links, and a hint for lines not included", () => {
+    const d = { ...quoteDraft(), provider: "sgfleet" as const, runningPeriod: "perYear" as const };
+    d.service = { text: "", none: false, estimated: false };
+    window.localStorage.setItem(
+      "nlc2-guided-draft-v3",
+      JSON.stringify({ draft: d, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+    );
+    render(<App />);
+    expect(screen.queryByRole("button", { name: /Use a typical figure/ })).toBeNull();
+    expect(document.body.textContent).toMatch(/Not included on your quote \(e\.g\. fuel\)\? Enter what\s+you'd expect to spend\. You pay it either way\./);
+  });
+});
+
 describe("running costs: the period comes first, so typical figures can show", () => {
-  test("period sits right after kilometres; a pointer shows until it's chosen, then the typical-figure buttons", () => {
-    const d = quoteDraft();
+  test("period sits right after kilometres; typical-figure buttons appear once it's chosen, with no nudge before (UX 18)", () => {
+    // Typical figures are offered only where the quote has no running costs: MillarX.
+    const d = { ...quoteDraft(), provider: "millarx" as const };
     d.runningPeriod = null;
     d.service = { text: "", none: false, estimated: false };
     window.localStorage.setItem(
@@ -972,10 +1001,9 @@ describe("running costs: the period comes first, so typical figures can show", (
     const text = document.body.textContent!;
     expect(text.indexOf("Kilometres per year")).toBeLessThan(text.indexOf("How are costs shown on your quote?"));
     expect(text.indexOf("How are costs shown on your quote?")).toBeLessThan(text.indexOf("What does the running-cost heading"));
-    expect(screen.getByText(/to see a typical figure for each/)).toBeTruthy();
+    expect(screen.queryByText(/to see a typical figure for each/)).toBeNull();
     expect(screen.queryByRole("button", { name: /Use a typical figure/ })).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Per year" }));
-    expect(screen.queryByText(/to see a typical figure for each/)).toBeNull();
     expect(screen.getAllByRole("button", { name: /Use a typical figure/ }).length).toBeGreaterThan(0);
     expect(missingForStep("running", { ...d, mileage: { text: "", none: false, estimated: false } }).slice(0, 2)).toEqual([
       "Kilometres per year",
@@ -1037,7 +1065,10 @@ describe("visual polish on running costs", () => {
     render(<App />);
     const km = screen.getAllByLabelText(/Kilometres per year/).find((el) => el.tagName === "INPUT") as HTMLInputElement;
     expect(km.placeholder).toBe("e.g. 15000");
-    expect(screen.getAllByText("Typical estimate")).toHaveLength(3);
+    expect(screen.getAllByText(/^Typical estimate(, tyres included)?$/)).toHaveLength(3);
+    // The typical servicing figure covers tyres, so their box goes away.
+    expect(screen.getByText("Typical estimate, tyres included")).toBeTruthy();
+    expect(screen.queryByText(/^Tyres/)).toBeNull();
     expect(screen.getAllByText(/Typical estimates aren't from your quote/)).toHaveLength(1);
   });
 });
@@ -1050,5 +1081,33 @@ describe("explorer wording", () => {
     );
     render(<App />);
     expect(screen.getByText("Competitive leases tend to be around 10% or lower.")).toBeTruthy();
+  });
+});
+
+describe("UX 18: no generic GST mock-up beside the provider's own picture", () => {
+  test("shown with no provider, hidden for Maxxia", () => {
+    const d = quoteDraft();
+    const seed = (provider: GuidedDraft["provider"]) => {
+      cleanup();
+      window.localStorage.setItem(
+        "nlc2-guided-draft-v3",
+        JSON.stringify({ draft: { ...d, provider }, step: "running", visited: ["intro", "car", "compare", "price", "lease", "payment", "running"] }),
+      );
+      render(<App />);
+    };
+    seed(null);
+    expect(screen.getByText("See how the two look on a quote")).toBeTruthy();
+    seed("maxxia");
+    expect(screen.queryByText("See how the two look on a quote")).toBeNull();
+  });
+});
+
+describe("management fees: no too-low warning", () => {
+  test("a small admin fee is accepted; a slip to a multi-year total is still caught", async () => {
+    const { checkAnnualCost } = await import("../src/guided/checks");
+    expect(checkAnnualCost("mgmt", 77, 500, { skipLow: true })).toEqual([]);
+    expect(checkAnnualCost("mgmt", 5000, 500, { skipLow: true })[0].code).toBe("mgmt_high");
+    // Other running costs keep their low check.
+    expect(checkAnnualCost("rego", 77, 900)[0].code).toBe("rego_low");
   });
 });

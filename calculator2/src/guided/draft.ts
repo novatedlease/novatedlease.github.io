@@ -1,4 +1,5 @@
 import type { Inputs } from "@engine/types";
+import { isNamedProvider, isSmartOrMillarx, type ProviderId } from "./providerGuide";
 import {
   EV_TRANSITIONAL_FULL_EXEMPT_CAP,
   getEvLctThresholdForLeaseStart,
@@ -121,17 +122,24 @@ export type GuidedDraft = {
 
   baseValue: Money;
   driveaway: Money;
+  /** RemServ summary Total Vehicle Costs includes the first-year premium; detailed Vehicle purchase price does not. */
+  remservPriceSource: "summaryTotal" | "vehiclePurchase" | null;
 
   leaseYears: number | null;
   monthsDeferred: number | null;
   monthsDeferredUnsure: boolean;
   docFee: Money;
+  /** First-year comprehensive insurance financed with the car on some Maxxia/Oly/RemServ quotes. */
+  insuranceFinanced: YesNoUnsure | null;
+  financedInsurance: Money;
   residualBasis: "exGst" | "incGst" | "unknown" | null;
   residual: Money;
   /** Reader's estimate of the car's market value when the lease ends (not at 5 years). Only asked when comparing with keeping the current car. */
   marketValueEnd: Money;
 
-  /** null until asked. Smart Leasing and MillarX quote a figure that needs the buffer-month correction. */
+  /** Optional "Who is your quote from?". null = not answered; it's never required. */
+  provider: ProviderId | null;
+  /** null until asked. Smart Leasing and MillarX quote a figure that needs the buffer-month correction. Set from `provider` when one is named. */
   smartMillarx: boolean | null;
   paymentPeriod: Period | null;
   /** How the quote labels the finance payment. "unknown" is treated as ex GST and checked against the implied rate. */
@@ -140,6 +148,8 @@ export type GuidedDraft = {
   /** True when the payment came out of the Smart Leasing / MillarX correction tool rather than being typed. */
   paymentCorrected: boolean;
   luxAdj: Money;
+  /** Null keeps older saved answers in the finance payment's period. Autopia quotes show this annually. */
+  luxAdjPeriod: Period | null;
 
   /** What drives the engine: "Yes" = running costs entered ex GST, "No" = inc GST with no credit. */
   gstPassedOn: YesNoUnsure | null;
@@ -150,11 +160,15 @@ export type GuidedDraft = {
   mileage: Money;
   runningPeriod: RunningPeriod | null;
   service: Money;
+  /** Most quotes list tyres on their own line. Optional (blank = $0); added to servicing for the calculator. */
+  tyres: Money;
   rego: Money;
   insurance: Money;
   mgmt: Money;
   fuel: Money;
   chargingRate: Money;
+  /** The quote's EV charging budget. Filled in (estimated) from km × the ATO's 5.47c; the reader can change it. */
+  chargingBudget: Money;
 
   income: Money;
   superPreNl: YesNoUnsure | null;
@@ -196,30 +210,37 @@ export function emptyDraft(): GuidedDraft {
     estimateRatePct: null,
     baseValue: emptyMoney(),
     driveaway: emptyMoney(),
+    remservPriceSource: null,
     leaseYears: null,
     monthsDeferred: null,
     monthsDeferredUnsure: false,
     docFee: emptyMoney(),
+    insuranceFinanced: null,
+    financedInsurance: emptyMoney(),
     residualBasis: null,
     residual: emptyMoney(),
     marketValueEnd: emptyMoney(),
+    provider: null,
     smartMillarx: null,
     paymentPeriod: null,
     paymentBasis: null,
     payment: emptyMoney(),
     paymentCorrected: false,
     luxAdj: emptyMoney(),
+    luxAdjPeriod: null,
     gstPassedOn: null,
     runningGstHeading: null,
     runningGstCredit: null,
     mileage: emptyMoney(),
     runningPeriod: null,
     service: emptyMoney(),
+    tyres: emptyMoney(),
     rego: emptyMoney(),
     insurance: emptyMoney(),
     mgmt: emptyMoney(),
     fuel: emptyMoney(),
     chargingRate: emptyMoney(),
+    chargingBudget: emptyMoney(),
     income: emptyMoney(),
     superPreNl: null,
     cashHome: null,
@@ -288,6 +309,25 @@ export function nswAnnual(d: GuidedDraft): number {
 /** Inc GST figures with a GST credit taken off later: the cost is really the ex GST amount. */
 export function runningCreditTaken(d: GuidedDraft): boolean {
   return d.runningGstHeading === "incGst" && (d.runningGstCredit === "Yes" || d.runningGstCredit === "Unsure");
+}
+
+/** Servicing plus the separate tyres line, yearly; the typical servicing estimate already includes tyres. */
+export function serviceAndTyresAnnual(d: GuidedDraft): number | null {
+  const service = annualOf(d, d.service);
+  if (service === null || d.service.estimated) return service;
+  return service + (annualOf(d, d.tyres) ?? 0);
+}
+
+/**
+ * How often the reader is paid, for the take-home line. Quotes print running costs per pay
+ * (Smart Leasing's Fortnightly column, SG Fleet's weekly lines), but the payment can be a monthly
+ * lease figure whatever the pay cycle, so the running-cost period wins. A yearly figure says
+ * nothing about pay, so fall back to the payment's period, then fortnightly.
+ */
+export function payCycle(d: Pick<GuidedDraft, "runningPeriod" | "paymentPeriod">): Period {
+  if (d.runningPeriod && d.runningPeriod !== "perYear") return d.runningPeriod;
+  if (d.paymentPeriod && d.paymentPeriod !== "perYear") return d.paymentPeriod;
+  return "perFn";
 }
 
 export function annualOf(d: GuidedDraft, m: Money): number | null {
@@ -360,14 +400,36 @@ export function needsUsedEvChecks(d: GuidedDraft): boolean {
 
 function pricingInputs(d: GuidedDraft): Inputs | null {
   const base = moneyValue(d.baseValue);
-  const drive = moneyValue(d.driveaway);
+  const drive = vehicleDriveawayCost(d);
   if (!base || !drive || !d.vehicleCondition) return null;
   return {
     vehicleCondition: d.vehicleCondition,
     vehicleBaseValue: base,
     driveawayCost: drive,
-    leaseDocFee: moneyValue(d.docFee) ?? 0,
+    leaseDocFee: (moneyValue(d.docFee) ?? 0) + financedInsuranceAmount(d),
   } as Inputs;
+}
+
+/** Remove a premium already inside RemServ's summary total before calculating vehicle GST. */
+export function vehicleDriveawayCost(d: GuidedDraft): number | null {
+  const printed = moneyValue(d.driveaway);
+  if (printed === null) return null;
+  return printed - (d.provider === "remserv" && d.remservPriceSource === "summaryTotal" ? financedInsuranceAmount(d) : 0);
+}
+
+export function financedInsuranceAmount(d: GuidedDraft): number {
+  return (d.provider === "maxxia" || d.provider === "oly" || d.provider === "remserv") && d.insuranceFinanced === "Yes"
+    ? moneyValue(d.financedInsurance) ?? 0
+    : 0;
+}
+
+/**
+ * The financed first-year premium on the running costs' GST basis. Quotes finance it including GST
+ * with no credit on the quotes reviewed (Maxxia, Oly and RemServ), so it comes off GST
+ * whenever the running costs are held ex GST: everything except an inc-GST heading with no credit.
+ */
+export function financedInsuranceRunningBasis(d: GuidedDraft): number {
+  return financedInsuranceAmount(d) / (d.gstPassedOn === "No" ? 1 : 1 + GST_RATE);
 }
 
 export function financedExGst(d: GuidedDraft): number | null {
@@ -470,11 +532,12 @@ export function paymentPerFn(d: GuidedDraft): number | null {
   return d.paymentBasis === "incGst" ? perFn / (1 + GST_RATE) : perFn;
 }
 
-/** The luxury vehicle adjustment per fortnight. It's entered in the same period as the payment. */
+/** The luxury vehicle adjustment per fortnight. Older drafts used the payment's period. */
 export function luxAdjPerFn(d: GuidedDraft): number {
   if (!isLuxuryRange(d)) return 0;
   const v = moneyValue(d.luxAdj) ?? 0;
-  return d.paymentPeriod ? toPerFn(v, d.paymentPeriod) : v;
+  const period = d.luxAdjPeriod ?? d.paymentPeriod;
+  return period ? toPerFn(v, period) : v;
 }
 
 export function fbtCategoryOf(d: GuidedDraft): LeaseFbtCategory | null {
@@ -670,20 +733,33 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
     case "price":
       if (!positive(d.baseValue)) askMoney("baseValue", "FBT base value");
       if (!positive(d.driveaway)) askMoney("driveaway", "Drive-away price");
+      if (d.provider === "remserv" && !d.remservPriceSource)
+        ask("remservPriceSource", "Which RemServ price did you enter?");
       break;
     case "lease":
       if (!d.leaseYears) ask("leaseYears", "Lease term");
       if (d.monthsDeferred === null) ask("monthsDeferred", "How many months until your first finance payment?");
       if (!answered(d.docFee)) askMoney("docFee", "Documentation fee (or tick “no documentation fee”)");
+      if (d.provider === "maxxia" || d.provider === "oly" || d.provider === "remserv") {
+        if (!d.insuranceFinanced) ask("insuranceFinanced", "Is first-year insurance included in the amount financed?");
+        if (d.insuranceFinanced === "Yes" && !positive(d.financedInsurance))
+          askMoney("financedInsurance", "First-year insurance premium in the amount financed");
+      }
       if (!positive(d.residual) && d.residualBasis !== "unknown")
         askMoney("residual", "Residual (balloon) value");
       if (!d.residualBasis) ask("residualBasis", "Is the residual including or excluding GST?");
       break;
     case "payment":
-      if (!d.paymentPeriod) ask("paymentPeriod", "How does your quote show the payment: per week, fortnight, month or year?");
-      if (!d.paymentBasis) ask("paymentBasis", "Does the payment include or exclude GST?");
-      if (d.smartMillarx === null) ask("smartMillarx", "Is your lease with Smart Leasing or MillarX?");
-      if (!positive(d.payment)) askMoney("payment", "Finance (lease) payment");
+      // Same order as the screen: the Smart/MillarX question, then the amount (UX 8). Their
+      // readers see only the correction tool until it has filled the amount, period and GST.
+      if (smartMillarxAsked(d) && d.smartMillarx === null)
+        ask("smartMillarx", "Is your lease with Smart Leasing or MillarX?");
+      if (d.smartMillarx && !d.paymentCorrected) ask("paymentCorrected", "Run the payment correction tool");
+      else {
+        if (!positive(d.payment)) askMoney("payment", "Finance (lease) payment");
+        if (!d.paymentPeriod) ask("paymentPeriod", "How does your quote show the payment: per week, fortnight, month or year?");
+        if (!d.paymentBasis) ask("paymentBasis", "Does the payment include or exclude GST?");
+      }
       if (isLuxuryRange(d) && !answered(d.luxAdj))
         askMoney("luxAdj", "Luxury vehicle adjustment (or tick “no adjustment”)");
       break;
@@ -693,7 +769,7 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       if (!d.runningGstHeading) ask("runningGstHeading", "What does the running-cost heading on your quote say?");
       else if (d.runningGstHeading === "incGst" && d.runningGstCredit === null)
         ask("runningGstCredit", "Anywhere on the quote, is a GST credit taken off the running costs?");
-      if (!answered(d.service)) askMoney("service", "Servicing, maintenance and tyres");
+      if (!answered(d.service)) askMoney("service", "Servicing and maintenance");
       if (!answered(d.rego)) askMoney("rego", "Registration and CTP");
       if (!answered(d.insurance)) askMoney("insurance", "Insurance");
       if (!answered(d.mgmt)) askMoney("mgmt", "Lease management fees");
@@ -701,7 +777,7 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
       // comparison with keeping the current car, whose fuel is counted.
       if (d.vehicleType === "Non-EV" && !positive(d.fuel)) askMoney("fuel", "Fuel");
       if (d.vehicleType === "EV" && !answered(d.chargingRate))
-        askMoney("chargingRate", "Electricity price you pay to charge (0 if solar)");
+        askMoney("chargingRate", "Electricity price you pay to charge (0 if free)");
       break;
     case "you":
       if (!positive(d.income)) askMoney("income", "Your annual taxable income");
@@ -885,7 +961,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
   ];
   if (steps.some((s) => missingForStep(s, d).length > 0)) return null;
 
-  const driveaway = moneyValue(d.driveaway)!;
+  const driveaway = vehicleDriveawayCost(d)!;
   const km = moneyValue(d.mileage)!;
   const income = moneyValue(d.income)!;
   const leaseYears = d.leaseYears!;
@@ -925,7 +1001,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
       estMarketValueFromDriveaway(driveaway),
     annualMileageKm: km,
 
-    leaseDocFee: moneyValue(d.docFee)!,
+    leaseDocFee: moneyValue(d.docFee)! + financedInsuranceAmount(d),
     leaseStartDate: d.leaseStartDate,
     leaseDurationYears: leaseYears,
     monthsDeferred: d.monthsDeferred!,
@@ -937,12 +1013,29 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     superFromPreNlIncome: d.superPreNl === "No" ? "No" : "Yes",
     gstSavingPassedOn: d.gstPassedOn === "No" ? "No" : "Yes",
 
-    serviceMaintTyresAnnual: running(d.service),
+    // Tyres are optional: a blank box (no tyres line on the quote) counts as $0.
+    serviceMaintTyresAnnual: running(d.service) + (d.service.estimated || moneyValue(d.tyres) === null ? 0 : running(d.tyres)),
     saveShareAnnual: nswAnnual(d),
-    registrationAnnual: running(d.rego),
-    electricityAnnual: isEv ? evElectricityClaimAnnual(km) : 0,
+    // Alliance and older RemServ summary tables say registration is ex GST even though the
+    // other lines are inc GST. The newer RemServ columns likewise show the same rego amount
+    // in both GST columns. Keep the printed registration amount when converting costs.
+    registrationAnnual: (d.provider === "alliance" || d.provider === "remserv") && d.runningGstHeading === "incGst"
+      ? annual(d.rego)
+      : running(d.rego),
+    // The 5.47c/km budget unless the reader typed their quote's own figure.
+    electricityAnnual: !isEv
+      ? 0
+      : d.chargingBudget.estimated || moneyValue(d.chargingBudget) === null
+        ? evElectricityClaimAnnual(km)
+        : running(d.chargingBudget),
     fuelAnnual: isEv ? 0 : running(d.fuel),
-    insuranceAnnual: running(d.insurance),
+    // Maxxia/Oly/RemServ finance year one including GST and budget only renewals, so the reader types the
+    // renewal line as printed. The engine wants the full yearly premium plus the financed year, both
+    // on the running costs' GST basis (ex GST unless the heading is inc GST with no credit taken), and
+    // takes the financed year back off the lease side: lease insurance is then the printed renewal
+    // budget, and paying cash pays the full premium every year.
+    insuranceAnnual: running(d.insurance) + financedInsuranceRunningBasis(d) / leaseYears,
+    insuranceFinancedFirstYear: financedInsuranceRunningBasis(d),
     managementFeesAnnual: running(d.mgmt),
     avgAudPerKwh: isEv ? moneyValue(d.chargingRate)! : seed.avgAudPerKwh,
 
@@ -962,4 +1055,49 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
   merged.residualValueExGst = residualExGstEntered(d)!;
   merged.vehicleLeasePerFn = paymentPerFn(d)!;
   return merged;
+}
+
+/** The "Smart Leasing or MillarX?" question is only needed when the provider isn't named. */
+/**
+ * The answers each screen asks for, so "Clear this page" can reset just those. A field shown on
+ * two screens (drive-away, term, kilometres) is cleared from either, since the reader saw it there.
+ */
+export const STEP_DRAFT_FIELDS: Partial<Record<StepId, (keyof GuidedDraft)[]>> = {
+  car: ["vehicleType", "vehicleCondition", "leaseStartDate", "exploreStart", "usedAfter2022", "usedLctNever"],
+  compare: ["compareLoan", "compareCurrent"],
+  quick: ["driveaway", "leaseYears", "mileage"],
+  price: ["baseValue", "driveaway", "remservPriceSource"],
+  lease: [
+    "leaseYears", "monthsDeferred", "monthsDeferredUnsure", "docFee",
+    "insuranceFinanced", "financedInsurance", "residual", "residualBasis",
+  ],
+  payment: ["payment", "paymentPeriod", "paymentBasis", "paymentCorrected", "luxAdj", "luxAdjPeriod", "smartMillarx"],
+  running: [
+    "gstPassedOn", "runningGstHeading", "runningGstCredit", "mileage", "runningPeriod",
+    "service", "tyres", "rego", "insurance", "mgmt", "fuel", "chargingRate", "chargingBudget",
+  ],
+  you: ["income", "superPreNl", "cashHome", "offsetRate", "investedRate", "savingsRatePreTax", "nswHealth", "nswAmount", "nswPeriod"],
+  alternatives: [
+    "loanDeposit", "loanRate", "loanFee", "curValueNow", "curValueEnd", "curService",
+    "curRego", "curFuel", "curFuelBasisKm", "curInsurance", "marketValueEnd",
+  ],
+};
+
+export function canClearStep(step: StepId): boolean {
+  return !!STEP_DRAFT_FIELDS[step];
+}
+
+/** The draft with this screen's answers back to blank; everything else is kept. */
+export function clearStep(d: GuidedDraft, step: StepId): GuidedDraft {
+  const blank = emptyDraft();
+  const out = { ...d } as Record<keyof GuidedDraft, unknown>;
+  for (const k of STEP_DRAFT_FIELDS[step] ?? []) out[k] = blank[k];
+  const next = out as GuidedDraft;
+  // Smart/MillarX follows a named provider (chosen on the first screen), so keep it in step.
+  if (step === "payment" && isNamedProvider(d.provider)) next.smartMillarx = isSmartOrMillarx(d.provider);
+  return next;
+}
+
+export function smartMillarxAsked(d: Pick<GuidedDraft, "provider">): boolean {
+  return !isNamedProvider(d.provider);
 }

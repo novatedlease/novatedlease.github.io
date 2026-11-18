@@ -109,11 +109,11 @@ export function KV({
 
 // ─── Note / callout box ──────────────────────────────────────────────────
 
-/** Marks content that depends on the September 2026 FBT exposure draft (not yet law). */
+/** Marks content that depends on the introduced Tax Reform No. 4 Bill 2026 (not yet law). */
 export function DraftTag() {
   return (
-    <span className="nlc-draft-tag" title="Based on exposure draft legislation, not yet law">
-      Draft
+    <span className="nlc-draft-tag" title="Based on the introduced bill, not yet law">
+      Proposed
     </span>
   );
 }
