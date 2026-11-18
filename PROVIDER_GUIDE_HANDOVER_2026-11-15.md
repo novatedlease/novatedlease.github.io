@@ -1042,3 +1042,6 @@ Open items (not started; raise with the owner):
   template review, warns that individual layouts and GST treatment can change the result, and
   links to email, r/NovatedLeasingAU and the Novated Lease Q&A Australia Facebook group for
   feedback.
+- Follow-up: kept only the Beta tag and “Provider guidance for 29 companies” visible. The
+  review caveat and feedback links now open in the existing InfoTooltip on hover or tap. Its
+  trigger is keyboard focusable and opens with Enter or Space.

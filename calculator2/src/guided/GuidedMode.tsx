@@ -1807,7 +1807,11 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
     />
     <p className="gd-provider-beta">
       <span className="gd-provider-beta__tag">Beta</span>
-      We checked quotes from 29 providers and manually reviewed each template and its figures to build provider-specific guidance. Your quote may vary, especially in its GST treatment, and give a different result. Feedback is welcome by <a href="mailto:contact@novatedlease.guide">email</a>, on <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noreferrer">r/NovatedLeasingAU</a>, or in the <a href="https://www.facebook.com/groups/602788952082399" target="_blank" rel="noreferrer">Novated Lease Q&amp;A Australia Facebook group</a>.
+      Provider guidance for 29 companies.
+      <InfoTooltip text={<>
+        <p>We manually checked each provider template and its figures. Your quote may vary, especially in its GST treatment, and give a different result.</p>
+        <p>Feedback is welcome by <a href="mailto:contact@novatedlease.guide">email</a>, on <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noreferrer">r/NovatedLeasingAU</a>, or in the <a href="https://www.facebook.com/groups/602788952082399" target="_blank" rel="noreferrer">Novated Lease Q&amp;A Australia Facebook group</a>.</p>
+      </>} />
     </p>
     {smartRelated && (
       <p className="nlc-field__hint gd-provider-note">

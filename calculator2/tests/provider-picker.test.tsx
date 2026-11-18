@@ -188,7 +188,9 @@ describe("provider picker", () => {
     expect(rest.slice(0, -1)).toEqual([...rest.slice(0, -1)].sort((a, b) => a!.localeCompare(b!)));
     expect(rest.at(-1)).toBe("Other / not listed");
     expect(screen.getByText("Beta")).toBeTruthy();
-    expect(screen.getByText(/We checked quotes from 29 providers/)).toBeTruthy();
+    expect(screen.getByText(/Provider guidance for 29 companies/)).toBeTruthy();
+    fireEvent.mouseEnter(screen.getByRole("button", { name: /more information/i }));
+    expect(screen.getByText(/We manually checked each provider template/)).toBeTruthy();
     expect(screen.getByRole("link", { name: "email" }).getAttribute("href")).toBe("mailto:contact@novatedlease.guide");
   });
 
