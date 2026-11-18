@@ -967,3 +967,23 @@ Open items (not started; raise with the owner):
   quoted payment's GST basis must be checked on the reader's own quote.
 - Calculator build/export/prebuild, changed-file ESLint and 114 focused provider tests passed.
   Nothing pushed or merged.
+
+### ORIX price reconciliation after owner supplied the agreement page
+
+- `1xo5ufn` vehicle page has retail $52,636.36, signed discount −$1,000, delivery $2,495,
+  stamp duty $1,158, rego/CTP $810.05 and “GST not recoverable” $40.35. Its printed capital cost
+  $56,139.76 is the **ex-GST sum** of those rows. The owner's expression adds 10% to retail and
+  subtracts the same 10% later, so it does not establish an FBT base or drive-away total.
+- The heading says “excl GST unless otherwise stated”. The net taxable vehicle rows are
+  $52,636.36 − $1,000 + $2,495 = $54,131.36; × 1.10 = **$59,544.496**, about $59,544.50
+  estimated FBT base, subject to ORIX confirmation. The owner's $59,395 taxes only the retail
+  row and is $149.496 too low. The ATO includes GST on car, options and delivery, but excludes
+  stamp duty and registration from FBT base.
+- Adding duty and rego/CTP gives **$61,512.546** before the unexplained $40.35. Including that
+  line gives a provisional **$61,552.896**. Although $40.35 is in ORIX's capital cost, neither
+  page establishes whether it is in the dealer's drive-away amount or a separate financed cost.
+  Ask ORIX what it represents and count it once. ATO says CTP can have GST, but that does not
+  identify this specific charge. The agreement page confirms duty and initial registration are
+  financed; it does not resolve the on-road amount.
+- Updated Guided tooltips and the ORIX article with the net-of-discount formula, conditional
+  treatment of the unexplained line, and a request for confirmation. No auto-filled figure.

@@ -1265,7 +1265,7 @@
       "seen": "2026-11",
       "sourceCount": 4,
       "written": {
-        "driveaway": "No total printed? Ask ORIX or the dealer for the on-road price including GST. Don't use “Capital cost for Vehicle Lease”.",
+        "driveaway": "No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.",
         "baseValue": "Use “FBT base value (inc GST)” when more than $0. If your EV quote says $0, ask ORIX for the real value.",
         "docFee": "Check the “Other Fees” footnote for an establishment or dealer fee.",
         "residual": "If you see “Residual value (ex GST)”, choose Excluding GST.",
@@ -1287,14 +1287,15 @@
         {
           "field": "baseValue",
           "kind": "locate",
-          "text": "If “FBT base value (inc GST)” says $0 on an EV quote, don't enter zero. Ask ORIX for the real value.",
+          "text": "FBT line says $0? Add the car-price rows, including the signed discount, then add GST. Ask ORIX to confirm.",
+          "more": "Use retail price + options + signed discounts + dealer delivery. If these rows are ex GST, multiply their net amount by 1.10. Do not include stamp duty or registration/CTP. This is an estimate; ORIX should confirm the base value.",
           "image": "/assets/images/quote-guide/orix/field-baseValue-zero.webp"
         },
         {
           "field": "driveaway",
           "kind": "trap",
-          "text": "No total printed? Ask ORIX or the dealer for the on-road price including GST. Don't use “Capital cost for Vehicle Lease”.",
-          "more": "The ORIX quotes checked don't print a drive-away total. The marked rows can help check the on-road figure: add GST to the vehicle's ex-GST price, options and delivery, less discounts, then include stamp duty, rego/CTP and any separately listed GST not recoverable. Confirm the total if the quote has luxury car tax or an unclear GST basis.",
+          "text": "No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.",
+          "more": "Add the retail price, options, signed discount and dealer delivery first, then add GST if those rows are ex GST. Add stamp duty and registration/CTP. “GST not recoverable from Input Tax Credit” is in ORIX's capital cost, but the quote doesn't say whether it is part of the dealer's on-road price. Ask ORIX where it belongs and count it only once. “Capital cost for Vehicle Lease” is an ex-GST financing figure, not the drive-away total.",
           "image": "/assets/images/quote-guide/orix/field-driveaway-parts.webp"
         },
         {

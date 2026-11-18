@@ -16,7 +16,7 @@ We checked an [ORIX petrol-car quote from September 2025](https://www.reddit.com
 ## What catches people out on an ORIX quote
 
 - **FBT base value:** Use “FBT base value (inc GST)” when more than $0. If your EV quote says $0, ask ORIX for the real value.
-- **Drive-away price:** No total printed? Ask ORIX or the dealer for the on-road price including GST. Don't use “Capital cost for Vehicle Lease”.
+- **Drive-away price:** No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.
 <!-- provider-traps:end -->
 
 ![Redacted ORIX price table with FBT base value and drive-away components marked](/assets/images/quote-guide/orix/redacted-price-breakdown.webp)
@@ -36,8 +36,8 @@ We checked an [ORIX petrol-car quote from September 2025](https://www.reddit.com
 <!-- provider-table:begin -->
 | # | On the quote | In Guided |
 |---|---|---|
-| 1 | FBT base value (inc GST), when nonzero | FBT base value, including GST. Do not copy a $0.00 placeholder from an EV quote. |
-| 2 | Vehicle price table, if there is no printed drive-away total | Ask ORIX or the dealer for the full on-road price including GST. The marked rows can help check it; “Capital cost for Vehicle Lease” is not the drive-away total. |
+| 1 | FBT base value (inc GST), when nonzero | FBT base value, including GST. If ORIX prints $0.00, estimate it from the vehicle-price rows and ask ORIX to confirm. |
+| 2 | Vehicle price table, if there is no printed drive-away total | Add the GST-inclusive car price and on-road costs as a check, then confirm the total with ORIX or the dealer. “Capital cost for Vehicle Lease” is not the drive-away total. |
 | 3 | Term (months) | Lease term |
 | 5 | "Other Fees" paragraph (e.g. Non-Appointed Dealer Fee, Establishment Fee) | Documentation fee, ex GST. It's capitalised into the lease rental, so it belongs in the amount financed |
 | 6 | Residual value (ex GST) | If you see “Residual value (ex GST)”, choose Excluding GST. |
@@ -50,9 +50,9 @@ We checked an [ORIX petrol-car quote from September 2025](https://www.reddit.com
 
 One reviewed agreement page says “Unless clearly stated otherwise … exclusive of GST”. Check that footnote and the headings on your own quote before choosing the payment's GST basis.
 
-For the pictured petrol quote, the printed FBT base value matches **(retail price + options − discounts + dealer delivery) × 1.10**. The quote says those rows exclude GST. The [ATO's car base-value guidance](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/taxable-value-of-a-car-fringe-benefit) includes GST in the car's cost price but excludes registration and stamp duty.
+To estimate an FBT base value when ORIX prints $0.00, start with **retail price + options + the signed discount + dealer delivery**. If those rows are labelled excluding GST, multiply their *net total* by **1.10**. Do not add GST to the retail row alone. Do not include stamp duty or registration/CTP. The pictured petrol quote's nonzero printed FBT value reconciles this way. The [ATO's car base-value guidance](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/taxable-value-of-a-car-fringe-benefit) includes GST in the car's cost price and excludes registration and stamp duty. Ask ORIX to confirm the estimate on your quote.
 
-The same table can help check a drive-away figure: start with the GST-inclusive car price, then add the quoted purchase stamp duty, registration and CTP, plus any separately listed “GST not recoverable”. **This is a calculation from the rows, not a drive-away price printed by ORIX.** Ask ORIX or the dealer to confirm the final on-road price, especially if luxury car tax or a different GST treatment appears. You can also use Guided's residual-based helper when no total is available.
+To check a **drive-away price**, add purchase stamp duty and registration/CTP to that GST-inclusive car subtotal. The “GST not recoverable from Input Tax Credit” row also adds into ORIX's printed *capital cost*, but the quote does not explain whether it belongs in the dealer's drive-away price or is a separate financed cost. Ask ORIX which it is; count it once in the right place. [ATO guidance](https://www.ato.gov.au/law/view/pdf/adhoc-sgml/gstir-motor%20vehicle-ch11.pdf) says CTP insurance can include GST while government registration and stamp duty do not, but that does not identify this ORIX charge. **This is a check from the rows, not a drive-away price printed by ORIX.** Confirm the final on-road price with ORIX or the dealer, especially if luxury car tax or a different GST treatment appears. Guided's residual-based helper remains available when no total is printed.
 
 <!-- provider-missing:begin -->
 ## If a figure isn't on your quote

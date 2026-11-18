@@ -688,7 +688,7 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xp2oq9", "1nnfgrg", "1xo5ufn", "1wb57rl"],
     pointers: [
-      { field: "driveaway", text: "No total printed? Ask ORIX or the dealer for the on-road price including GST. Don't use “Capital cost for Vehicle Lease”.", more: "The ORIX quotes checked don't print a drive-away total. The marked rows can help check the on-road figure: add GST to the vehicle's ex-GST price, options and delivery, less discounts, then include stamp duty, rego/CTP and any separately listed GST not recoverable. Confirm the total if the quote has luxury car tax or an unclear GST basis.", example: {
+      { field: "driveaway", text: "No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.", more: "Add the retail price, options, signed discount and dealer delivery first, then add GST if those rows are ex GST. Add stamp duty and registration/CTP. “GST not recoverable from Input Tax Credit” is in ORIX's capital cost, but the quote doesn't say whether it is part of the dealer's on-road price. Ask ORIX where it belongs and count it only once. “Capital cost for Vehicle Lease” is an ex-GST financing figure, not the drive-away total.", example: {
         image: "/assets/images/quote-guide/orix/field-driveaway-parts.webp",
         fullPage: "/assets/images/quote-guide/orix/redacted-price-breakdown.webp",
         alt: "Redacted ORIX price table with component rows marked 2 and capital cost crossed out",
@@ -700,7 +700,7 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted ORIX quote with a nonzero FBT base value marked 1",
         caption: "A petrol-car ORIX quote prints a nonzero FBT base value at field 1. All amounts have been removed.",
       } },
-      { field: "baseValue", kind: "locate", text: "If “FBT base value (inc GST)” says $0 on an EV quote, don't enter zero. Ask ORIX for the real value.", example: {
+      { field: "baseValue", kind: "locate", text: "FBT line says $0? Add the car-price rows, including the signed discount, then add GST. Ask ORIX to confirm.", more: "Use retail price + options + signed discounts + dealer delivery. If these rows are ex GST, multiply their net amount by 1.10. Do not include stamp duty or registration/CTP. This is an estimate; ORIX should confirm the base value.", example: {
         image: "/assets/images/quote-guide/orix/field-baseValue-zero.webp",
         alt: "Redacted EV ORIX quote with the zero FBT base value row crossed out",
         caption: "The red cross marks an ORIX EV example whose printed FBT base value was zero despite a priced vehicle.",
