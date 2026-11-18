@@ -952,34 +952,6 @@
       "w": 697,
       "h": 38
     },
-    "prosperity/field-baseValue.webp": {
-      "w": 900,
-      "h": 159
-    },
-    "prosperity/field-fees.webp": {
-      "w": 900,
-      "h": 234
-    },
-    "prosperity/field-payment.webp": {
-      "w": 900,
-      "h": 562
-    },
-    "prosperity/field-residual.webp": {
-      "w": 900,
-      "h": 159
-    },
-    "prosperity/field-running.webp": {
-      "w": 900,
-      "h": 562
-    },
-    "prosperity/redacted-quote.webp": {
-      "w": 1400,
-      "h": 1891
-    },
-    "prosperity/field-mileage.webp": {
-      "w": 582,
-      "h": 37
-    },
     "insideedge/field-baseValue.webp": {
       "w": 425,
       "h": 97
@@ -1276,11 +1248,6 @@
       "image": "vehiclesolutions/redacted-quote.webp",
       "w": 1400,
       "h": 1073
-    },
-    "prosperity": {
-      "image": "smartsalary/redacted-quote.webp",
-      "w": 1400,
-      "h": 1891
     },
     "insideedge": {
       "image": "insideedge/redacted-quote.webp",
@@ -2778,55 +2745,6 @@
         }
       ]
     },
-    "prosperity": {
-      "payment": [
-        {
-          "label": "7",
-          "y": 99,
-          "h": 209
-        }
-      ],
-      "running": [
-        {
-          "label": "9",
-          "y": 136,
-          "h": 209
-        }
-      ],
-      "fees": [
-        {
-          "label": "10",
-          "y": 313,
-          "h": 29
-        },
-        {
-          "label": "10",
-          "y": 1711,
-          "h": 33
-        }
-      ],
-      "term": [
-        {
-          "label": "3",
-          "y": 842,
-          "h": 32
-        }
-      ],
-      "residual": [
-        {
-          "label": "6",
-          "y": 912,
-          "h": 32
-        }
-      ],
-      "baseValue": [
-        {
-          "label": "1",
-          "y": 1015,
-          "h": 29
-        }
-      ]
-    },
     "insideedge": {
       "baseValue": [
         {
@@ -3593,26 +3511,6 @@
       "payment": [
         "7a",
         "7b"
-      ],
-      "residual": [
-        "6"
-      ],
-      "running": [
-        "9"
-      ],
-      "term": [
-        "3"
-      ]
-    },
-    "prosperity": {
-      "baseValue": [
-        "1"
-      ],
-      "fees": [
-        "10"
-      ],
-      "payment": [
-        "7"
       ],
       "residual": [
         "6"

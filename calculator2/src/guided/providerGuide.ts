@@ -12,7 +12,6 @@ export const PROVIDERS = [
   { id: "sgfleet", label: "SG Fleet" },
   { id: "maxxia", label: "Maxxia" },
   { id: "paywise", label: "Paywise" },
-  { id: "prosperity", label: "Prosperity Smart Drive" },
   // Smartsalary and Smart Leasing are one company ("Smart") with one quote layout: picking it gives
   // Smart Leasing's guidance (GuidedMode maps it on selection). Kept so readers find the name.
   { id: "smartsalary", label: "Smartsalary (Smart)" },
@@ -137,7 +136,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   alliance: ["driveaway"],
   remunerator: ["driveaway", "payment"], easi: ["payment"],
   autopia: ["baseValue"], leaselab: ["driveaway"],
-  spa: ["driveaway", "baseValue"], prosperity: ["running"],
+  spa: ["driveaway", "baseValue"],
   driva: ["driveaway"], fingo: ["driveaway"],
   leaseexpress: ["driveaway"], lendly: ["driveaway"],
   insideedge: ["driveaway", "docFee"],
@@ -607,20 +606,6 @@ export const GUIDES: ProviderGuide[] = [
     ],
   },
   {
-    // Prosperity Smart Drive (Prosperity Advisers Group): its "Smart Drive Administration Fee" line,
-    // rebatable-employer packaging and colours match prosperitysmartdrive.com.au (owner, 15 Nov 2026).
-    // It was first filed as Smartsalary; it isn't part of Smart.
-    id: "prosperity",
-    seen: "2026-11",
-    sources: ["1xsj1gj"],
-    pointers: [
-      { field: "driveaway", text: "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual." },
-      { field: "payment", text: "If “Lease Payment (Fixed)” sits under “Motor Vehicle Deductions (inc GST)”, choose Including GST and the printed period." },
-      { field: "running", text: "If the heading is “Motor Vehicle Deductions (inc GST)”, choose Including GST and enter the costs as printed.", more: "If a “Less” line takes a GST credit off those costs, answer Yes when asked whether a GST credit is taken off." },
-      { field: "fees", text: "Add “Smart Drive Administration Fee” and “Salary Packaging Administration Fee” if both are charged.", more: "The second fee appears later on the quote, after the employer GST credit." },
-    ],
-  },
-  {
     id: "driva",
     seen: "2026-11",
     sources: ["1xr5coj", "1w1ejpj", "1vfxcqr"],
@@ -825,7 +810,6 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   leaselab: ["defer", "docFee"],
   spa: ["docFee"],
   paywise: ["defer", "docFee"],
-  prosperity: ["defer", "docFee"],
   driva: ["defer", "docFee"],
   fingo: ["docFee"],
   nla: ["defer", "docFee"],

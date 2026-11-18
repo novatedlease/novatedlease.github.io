@@ -909,3 +909,12 @@ Open items (not started; raise with the owner):
   without a printed deferral. Removed its defer pointer and article paragraph; `toyotafleet` is
   now in `NOT_SHOWN` with `["defer"]`, so Guided shows nothing extra (the screen's “Not sure, we'll
   assume 2” covers it) and the article gets the standard “If a figure isn't on your quote” line.
+
+## 18 Nov: Prosperity Smart Drive removed
+
+- Owner: only one quote ever (`1xsj1gj`), a confusing layout and little use to readers. Deleted
+  everything, as with LeasePlan: picker entry, guide, trap/not-shown/running-layout/mileage entries,
+  the “isn't part of Smart” picker note, the inc-GST payment check (`provider_payment_gst`, which
+  only Prosperity used), article, index link, redacted images, manifest and sync-table entries,
+  and its tests. Sync-script provider counts are now 29. Private `runlines.json` updated; the
+  walkthrough page rebuilt. Full suite 476 passed; changed-file ESLint clean.

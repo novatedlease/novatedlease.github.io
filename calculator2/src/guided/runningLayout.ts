@@ -51,15 +51,6 @@ export const RUNNING_LAYOUT: Partial<Record<ProviderId, [RunBox, RunLabel][]>> =
     ["rego", "Registration"],
     ["mgmt", "Oly novated leasing"],
   ],
-  // Prosperity Smart Drive: 1 quote.
-  prosperity: [
-    ["rego", "Registration / CTP Renewal - Annual"],
-    ["insurance", "Insurance"],
-    ["fuel", "Fuel / Electricity"],
-    ["service", "Service and Maintenance"],
-    ["tyres", "Replacement Tyres & Tyre Repairs"],
-    ["mgmt", "Smart Drive Administration Fee (+ Salary Packaging Administration Fee)"],
-  ],
   // RemServ: 3 quotes.
   remserv: [
     ["fuel", { ev: "Electricity", petrol: "Fuel/charging" }],

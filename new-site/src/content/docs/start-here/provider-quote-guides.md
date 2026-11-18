@@ -38,7 +38,6 @@ Choose a provider to see a numbered, redacted quote-page example and a guide to 
 - [Oly quote guide](/start-here/how-to-read-oly-quote/)
 - [ORIX quote guide](/start-here/how-to-read-orix-quote/)
 - [Paywise quote guide](/start-here/how-to-read-paywise-quote/)
-- [Prosperity Smart Drive quote guide](/start-here/how-to-read-prosperity-quote/)
 - [RemServ quote guide](/start-here/how-to-read-remserv-quote/)
 - [Remunerator quote guide](/start-here/how-to-read-remunerator-quote/)
 - [Salary Packaging Australia (S.P.A.) quote guide](/start-here/how-to-read-spa-quote/)

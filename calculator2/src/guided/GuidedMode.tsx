@@ -1780,7 +1780,6 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
     .slice()
     .sort((a, b) => a.label.localeCompare(b.label));
   const smartRelated = d.provider === "smartleasing";
-  const prosperity = d.provider === "prosperity";
   const guide = guideFor(d.provider);
   const hint = d.provider === "other" ? <>
     No problem. The general hints work for any quote. <a href="/about/contact/#quote-layout-feedback" target="_blank" rel="noreferrer">Tell us who it's from</a>.
@@ -1809,11 +1808,6 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
     {smartRelated && (
       <p className="nlc-field__hint gd-provider-note">
         Smartsalary and Smart Leasing are the same company (now “Smart”), with the same quote layout.
-      </p>
-    )}
-    {prosperity && (
-      <p className="nlc-field__hint gd-provider-note">
-        Prosperity Smart Drive isn't part of Smart (Smartsalary, Smart Leasing). If your quote says “Smart”, choose Smart Leasing.
       </p>
     )}
     </div>

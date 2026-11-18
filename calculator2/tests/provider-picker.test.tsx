@@ -46,7 +46,7 @@ describe("provider picker", () => {
       "easi", "autopia", "clearlease", "customfleet", "spa", "driva", "fingo",
       "toyotafleet", "simplygreen", "vehiclesolutions", "lendly", "leaselab", "nla", "insideedge",
     ] as const;
-    const fallback = ["smartleasing", "oly", "remunerator", "paywise", "prosperity", "leaseexpress", "orix", "remserv", "carbon"] as const;
+    const fallback = ["smartleasing", "oly", "remunerator", "paywise", "leaseexpress", "orix", "remserv", "carbon"] as const;
     for (const id of clear) expect(showResidualDriveawayHelper(id), id).toBe(false);
     for (const id of fallback) expect(showResidualDriveawayHelper(id), id).toBe(true);
     expect(showResidualDriveawayHelper(null)).toBe(true);
@@ -144,14 +144,12 @@ describe("provider picker", () => {
     expect(rest.at(-1)).toBe("Other / not listed");
   });
 
-  test("Smartsalary is Smart Leasing's layout: picking it selects Smart Leasing; Prosperity Smart Drive says it isn't Smart", () => {
+  test("Smartsalary is Smart Leasing's layout: picking it selects Smart Leasing", () => {
     on("intro", quoteDraft());
     expect(screen.queryByText(/same company \(now “Smart”\)/)).toBeNull();
     fireEvent.change(picker(), { target: { value: "smartsalary" } });
     expect((picker() as HTMLSelectElement).value).toBe("smartleasing");
     expect(screen.getByText(/Smartsalary and Smart Leasing are the same company \(now “Smart”\), with the same quote layout\./)).toBeTruthy();
-    fireEvent.change(picker(), { target: { value: "prosperity" } });
-    expect(screen.getByText(/Prosperity Smart Drive isn't part of Smart/)).toBeTruthy();
   });
 
   test("a named provider hides the Smart Leasing / MillarX question", () => {
@@ -1112,15 +1110,6 @@ describe("provider pointers", () => {
     expect(article).toContain("The final **FBT base value** isn't printed on this sample");
     expect(article).toContain("**excluding GST**");
     expect(article).toContain("fringe benefit value\" in the FBT calcs is the taxable value");
-  });
-
-  test("Prosperity Smart Drive keeps its payment and employer GST credit separate", () => {
-    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-prosperity-quote.md"), "utf8");
-    for (const field of ["payment", "running"] as const)
-      expect(article).toContain(pointersFor("prosperity", field)[0].text);
-    expect(article).toContain("Motor Vehicle Deductions (inc GST)");
-    expect(article).toContain("Do not use the total salary deduction");
-    expect(article).not.toContain("Lease per month");
   });
 
   test("Smart Leasing's deferral and terms fee sync without hiding its payment correction", () => {

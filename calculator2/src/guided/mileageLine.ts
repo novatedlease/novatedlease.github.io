@@ -14,7 +14,6 @@ export const MILEAGE_LINE: Partial<Record<ProviderId, MileageLine>> = {
   sgfleet: { text: "Use “Annual distance” under “Your package arrangements”." },
   maxxia: { text: "Use “Estimated annual kilometers”." },
   oly: { text: "Use the figure in “You've estimated you'll drive … km / year”, under “Running costs and servicing”." },
-  prosperity: { text: "Use “Annual kms” under “FBT Details”." },
   paywise: { text: "Use “Annual kilometres” under “Lease Information”." },
   flare: { text: "Use “Annual kilometres” under “Calculating your quote”." },
   millarx: { text: "Use “Distance” in the summary at the top, shown in km/yr." },
