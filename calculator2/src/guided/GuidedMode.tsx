@@ -1643,7 +1643,7 @@ function PaymentStep({ d, set, f }: StepPropsF) {
           ) : (
             <>
               {!hasProviderLine(d, "payment") && "Check next to the payment, its table heading and the footnotes. "}
-              If the table adds GST, then takes the same amount off as an employer GST credit (ITC), choose Excluding GST.
+              If the table adds GST in a separate step, then takes the same amount off as an employer GST credit (ITC), choose Excluding GST.
             </>
           )}
         </>}
