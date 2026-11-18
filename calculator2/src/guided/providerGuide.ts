@@ -694,7 +694,7 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted ORIX price table with component rows marked 2 and capital cost crossed out",
         caption: "Field 2 marks the rows used to check an on-road total. The red cross marks the GST-exclusive capital cost, not a printed drive-away price.",
       } },
-      { field: "baseValue", text: "Use “FBT base value (inc GST)” when more than $0. If your EV quote says $0, ask ORIX for the real value.", more: "The nonzero quote matches retail price plus options minus discount, including GST. ORIX's zero on some EV quotes is a placeholder, not the cost of the car.", example: {
+      { field: "baseValue", text: "Use printed “FBT base value (inc GST)” if nonzero. Otherwise add retail, options, signed discount and delivery, then add GST. Confirm.", more: "The car-price rows are marked ex GST on the reviewed quote. Add the signed rows first, then multiply the net amount by 1.10. Leave out stamp duty and registration/CTP. ORIX's $0 on some EV quotes is a placeholder, so ask ORIX to confirm your estimate.", example: {
         image: "/assets/images/quote-guide/orix/field-baseValue-nonzero.webp",
         fullPage: "/assets/images/quote-guide/orix/redacted-price-breakdown.webp",
         alt: "Redacted ORIX quote with a nonzero FBT base value marked 1",

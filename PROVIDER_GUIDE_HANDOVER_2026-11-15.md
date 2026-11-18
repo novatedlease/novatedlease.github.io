@@ -987,3 +987,9 @@ Open items (not started; raise with the owner):
   financed; it does not resolve the on-road amount.
 - Updated Guided tooltips and the ORIX article with the net-of-discount formula, conditional
   treatment of the unexplained line, and a request for confirmation. No auto-filled figure.
+
+### ORIX FBT warning follow-up
+
+- The first, amber FBT warning still had the old “ask ORIX” wording after the calculation was
+  added to the second pointer. Updated the amber warning itself to give the net car-price-row
+  calculation and ask ORIX to confirm. Synced the article trap and zero-value image caption.

@@ -65,6 +65,7 @@ describe("provider picker", () => {
     const price = pointersFor("orix", "driveaway")[0];
     expect(guideFor("orix")?.sources).toEqual(["1xp2oq9", "1nnfgrg", "1xo5ufn", "1wb57rl"]);
     expect(base).toHaveLength(2);
+    expect(base[0].text).toContain("Otherwise add retail, options, signed discount and delivery, then add GST");
     expect(base[0].example?.fullPage).toContain("redacted-price-breakdown.webp");
     expect(base[1].example?.image).toContain("field-baseValue-zero.webp");
     expect(price.example?.image).toContain("field-driveaway-parts.webp");

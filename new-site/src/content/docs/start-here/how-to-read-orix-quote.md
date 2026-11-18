@@ -15,7 +15,7 @@ We checked an [ORIX petrol-car quote from September 2025](https://www.reddit.com
 <!-- provider-traps:begin -->
 ## What catches people out on an ORIX quote
 
-- **FBT base value:** Use “FBT base value (inc GST)” when more than $0. If your EV quote says $0, ask ORIX for the real value.
+- **FBT base value:** Use printed “FBT base value (inc GST)” if nonzero. Otherwise add retail, options, signed discount and delivery, then add GST. Confirm.
 - **Drive-away price:** No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.
 <!-- provider-traps:end -->
 
@@ -25,7 +25,7 @@ We checked an [ORIX petrol-car quote from September 2025](https://www.reddit.com
 
 ![Redacted ORIX EV quote with the zero FBT base value row crossed out](/assets/images/quote-guide/orix/field-baseValue-zero.webp)
 
-*A different ORIX EV quote printed $0.00 for FBT base value. That is not the car's actual base value; ask ORIX for the figure.*
+*A different ORIX EV quote printed $0.00 for FBT base value. Estimate it from the car-price rows shown above, then ask ORIX to confirm.*
 
 ![Redacted ORIX agreement page with numbered fields](/assets/images/quote-guide/orix/redacted-quote.webp)
 

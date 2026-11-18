@@ -1266,7 +1266,7 @@
       "sourceCount": 4,
       "written": {
         "driveaway": "No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.",
-        "baseValue": "Use “FBT base value (inc GST)” when more than $0. If your EV quote says $0, ask ORIX for the real value.",
+        "baseValue": "Use printed “FBT base value (inc GST)” if nonzero. Otherwise add retail, options, signed discount and delivery, then add GST. Confirm.",
         "docFee": "Check the “Other Fees” footnote for an establishment or dealer fee.",
         "residual": "If you see “Residual value (ex GST)”, choose Excluding GST.",
         "payment": "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST.",
@@ -1280,8 +1280,8 @@
         {
           "field": "baseValue",
           "kind": "trap",
-          "text": "Use “FBT base value (inc GST)” when more than $0. If your EV quote says $0, ask ORIX for the real value.",
-          "more": "The nonzero quote matches retail price plus options minus discount, including GST. ORIX's zero on some EV quotes is a placeholder, not the cost of the car.",
+          "text": "Use printed “FBT base value (inc GST)” if nonzero. Otherwise add retail, options, signed discount and delivery, then add GST. Confirm.",
+          "more": "The car-price rows are marked ex GST on the reviewed quote. Add the signed rows first, then multiply the net amount by 1.10. Leave out stamp duty and registration/CTP. ORIX's $0 on some EV quotes is a placeholder, so ask ORIX to confirm your estimate.",
           "image": "/assets/images/quote-guide/orix/field-baseValue-nonzero.webp"
         },
         {
