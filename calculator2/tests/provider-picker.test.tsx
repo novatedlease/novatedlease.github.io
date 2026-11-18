@@ -60,6 +60,20 @@ describe("provider picker", () => {
     expect(imageSizeFor(payment.example!.image)).toEqual({ w: 453, h: 274 });
   });
 
+  test("ORIX contrasts a nonzero FBT line, a zero EV placeholder and unprinted drive-away parts", () => {
+    const base = pointersFor("orix", "baseValue");
+    const price = pointersFor("orix", "driveaway")[0];
+    expect(guideFor("orix")?.sources).toEqual(["1xp2oq9", "1nnfgrg", "1xo5ufn", "1wb57rl"]);
+    expect(base).toHaveLength(2);
+    expect(base[0].example?.fullPage).toContain("redacted-price-breakdown.webp");
+    expect(base[1].example?.image).toContain("field-baseValue-zero.webp");
+    expect(price.example?.image).toContain("field-driveaway-parts.webp");
+    expect(price.text).toContain("Don't use “Capital cost for Vehicle Lease”");
+    expect(imageSizeFor(price.example!.image)).toEqual({ w: 490, h: 315 });
+    const article = readFileSync(resolve(__dirname, "../../new-site/src/content/docs/start-here/how-to-read-orix-quote.md"), "utf8");
+    expect(article).toContain("not a drive-away price printed by ORIX");
+  });
+
   test("the residual price helper appears only where the quote guide needs it", () => {
     const clear = [
       "sgfleet", "millarx", "flare", "kooya", "maxxia", "fleetpartners", "alliance",

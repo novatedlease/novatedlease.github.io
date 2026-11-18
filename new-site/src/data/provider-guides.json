@@ -1263,28 +1263,39 @@
       "id": "orix",
       "label": "ORIX",
       "seen": "2026-11",
-      "sourceCount": 1,
+      "sourceCount": 4,
       "written": {
-        "driveaway": "No drive-away total? Ask ORIX or the dealer for the full on-road price including GST, or work it out from the residual.",
-        "baseValue": "If you see “FBT base value (inc GST)”, enter it as printed.",
+        "driveaway": "No total printed? Ask ORIX or the dealer for the on-road price including GST. Don't use “Capital cost for Vehicle Lease”.",
+        "baseValue": "Use “FBT base value (inc GST)” when more than $0. If your EV quote says $0, ask ORIX for the real value.",
         "docFee": "Check the “Other Fees” footnote for an establishment or dealer fee.",
         "residual": "If you see “Residual value (ex GST)”, choose Excluding GST.",
         "payment": "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST.",
         "luxAdj": "If you see “Luxury vehicle non-deductible”, that's the luxury vehicle adjustment."
       },
-      "traps": [],
+      "traps": [
+        "baseValue",
+        "driveaway"
+      ],
       "pointers": [
         {
           "field": "baseValue",
+          "kind": "trap",
+          "text": "Use “FBT base value (inc GST)” when more than $0. If your EV quote says $0, ask ORIX for the real value.",
+          "more": "The nonzero quote matches retail price plus options minus discount, including GST. ORIX's zero on some EV quotes is a placeholder, not the cost of the car.",
+          "image": "/assets/images/quote-guide/orix/field-baseValue-nonzero.webp"
+        },
+        {
+          "field": "baseValue",
           "kind": "locate",
-          "text": "If you see “FBT base value (inc GST)”, enter it as printed.",
-          "image": null
+          "text": "If “FBT base value (inc GST)” says $0 on an EV quote, don't enter zero. Ask ORIX for the real value.",
+          "image": "/assets/images/quote-guide/orix/field-baseValue-zero.webp"
         },
         {
           "field": "driveaway",
-          "kind": "locate",
-          "text": "No drive-away total? Ask ORIX or the dealer for the full on-road price including GST, or work it out from the residual.",
-          "image": null
+          "kind": "trap",
+          "text": "No total printed? Ask ORIX or the dealer for the on-road price including GST. Don't use “Capital cost for Vehicle Lease”.",
+          "more": "The ORIX quotes checked don't print a drive-away total. The marked rows can help check the on-road figure: add GST to the vehicle's ex-GST price, options and delivery, less discounts, then include stamp duty, rego/CTP and any separately listed GST not recoverable. Confirm the total if the quote has luxury car tax or an unclear GST basis.",
+          "image": "/assets/images/quote-guide/orix/field-driveaway-parts.webp"
         },
         {
           "field": "defer",

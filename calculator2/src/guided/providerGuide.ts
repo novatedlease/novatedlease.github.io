@@ -142,6 +142,7 @@ export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
   insideedge: ["driveaway", "docFee"],
   nla: ["payment", "fees"],
   carbon: ["payment"],
+  orix: ["baseValue", "driveaway"],
   kooya: ["driveaway", "payment"],
   clearlease: ["driveaway", "payment"],
   remserv: ["financedInsurance"],
@@ -685,10 +686,25 @@ export const GUIDES: ProviderGuide[] = [
   {
     id: "orix",
     seen: "2026-11",
-    sources: ["1xp2oq9"],
+    sources: ["1xp2oq9", "1nnfgrg", "1xo5ufn", "1wb57rl"],
     pointers: [
-      { field: "driveaway", text: "No drive-away total? Ask ORIX or the dealer for the full on-road price including GST, or work it out from the residual." },
-      { field: "baseValue", text: "If you see “FBT base value (inc GST)”, enter it as printed." },
+      { field: "driveaway", text: "No total printed? Ask ORIX or the dealer for the on-road price including GST. Don't use “Capital cost for Vehicle Lease”.", more: "The ORIX quotes checked don't print a drive-away total. The marked rows can help check the on-road figure: add GST to the vehicle's ex-GST price, options and delivery, less discounts, then include stamp duty, rego/CTP and any separately listed GST not recoverable. Confirm the total if the quote has luxury car tax or an unclear GST basis.", example: {
+        image: "/assets/images/quote-guide/orix/field-driveaway-parts.webp",
+        fullPage: "/assets/images/quote-guide/orix/redacted-price-breakdown.webp",
+        alt: "Redacted ORIX price table with component rows marked 2 and capital cost crossed out",
+        caption: "Field 2 marks the rows used to check an on-road total. The red cross marks the GST-exclusive capital cost, not a printed drive-away price.",
+      } },
+      { field: "baseValue", text: "Use “FBT base value (inc GST)” when more than $0. If your EV quote says $0, ask ORIX for the real value.", more: "The nonzero quote matches retail price plus options minus discount, including GST. ORIX's zero on some EV quotes is a placeholder, not the cost of the car.", example: {
+        image: "/assets/images/quote-guide/orix/field-baseValue-nonzero.webp",
+        fullPage: "/assets/images/quote-guide/orix/redacted-price-breakdown.webp",
+        alt: "Redacted ORIX quote with a nonzero FBT base value marked 1",
+        caption: "A petrol-car ORIX quote prints a nonzero FBT base value at field 1. All amounts have been removed.",
+      } },
+      { field: "baseValue", kind: "locate", text: "If “FBT base value (inc GST)” says $0 on an EV quote, don't enter zero. Ask ORIX for the real value.", example: {
+        image: "/assets/images/quote-guide/orix/field-baseValue-zero.webp",
+        alt: "Redacted EV ORIX quote with the zero FBT base value row crossed out",
+        caption: "The red cross marks an ORIX EV example whose printed FBT base value was zero despite a priced vehicle.",
+      } },
       { field: "docFee", text: "Check the “Other Fees” footnote for an establishment or dealer fee.", more: "It may already be added to the amount you borrow." },
       { field: "residual", text: "If you see “Residual value (ex GST)”, choose Excluding GST." },
       { field: "payment", text: "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST." },

@@ -1123,6 +1123,22 @@
     "carbon/field-payment-nov2026.webp": {
       "w": 453,
       "h": 274
+    },
+    "orix/redacted-price-breakdown.webp": {
+      "w": 490,
+      "h": 348
+    },
+    "orix/field-baseValue-nonzero.webp": {
+      "w": 490,
+      "h": 74
+    },
+    "orix/field-driveaway-parts.webp": {
+      "w": 490,
+      "h": 315
+    },
+    "orix/field-baseValue-zero.webp": {
+      "w": 425,
+      "h": 75
     }
   },
   "pages": {

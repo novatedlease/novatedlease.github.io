@@ -946,3 +946,24 @@ Open items (not started; raise with the owner):
   in Guided's payment side panel; its full-page toggle uses the same November page. The article
   caption explains the cross. Rebuild with `scripts/build_carbon_nov2026_template.py`.
 - Focused provider tests: 113 pass; changed-file ESLint and calculator build/export/prebuild pass.
+
+## 18 Nov: ORIX price and FBT examples
+
+- Reviewed ORIX screenshots from Reddit `1nnfgrg` (Sep 2025 petrol, nonzero printed FBT base),
+  `1wb57rl` (Sep 2026 EV, $0 FBT line), `1xo5ufn` (Nov 2026 EV, $0 FBT line), and the original
+  `1xp2oq9` (Nov 2026). None of these ORIX quote screenshots prints a single drive-away total.
+  Do not claim one does. The nonzero 2025 FBT value reconciles to retail + options − discount +
+  delivery, including GST; its car price rows are explicitly ex GST. The EV quotes' printed zero
+  is a placeholder, not the vehicle's base value.
+- `scripts/build_orix_price_examples.py` reads only private sources in `images-2025-09/` and
+  `images-aug-nov-2026/`. It publishes four redacted WebP excerpts: the petrol price table with
+  field 1, component box 2 and a cross on GST-exclusive capital cost; focused FBT and drive-away
+  crops; and an EV zero-FBT row with a red cross. The raw images stay private. No amount or
+  identifying detail survives in the new assets (visually and OCR checked).
+- Guided shows the printed nonzero FBT example and the zero-EV trap, plus the component picture
+  for drive-away. It asks the reader for a confirmed GST-inclusive on-road total; the pictured
+  component calculation is labelled as a check, not an ORIX-printed price. The residual helper
+  remains available. The article links the four posts and ATO base-value guidance, and says the
+  quoted payment's GST basis must be checked on the reader's own quote.
+- Calculator build/export/prebuild, changed-file ESLint and 114 focused provider tests passed.
+  Nothing pushed or merged.
