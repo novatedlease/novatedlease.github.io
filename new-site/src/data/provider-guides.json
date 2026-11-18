@@ -325,10 +325,10 @@
     {
       "id": "carbon",
       "label": "CarBon",
-      "seen": "2026-10",
-      "sourceCount": 3,
+      "seen": "2026-11",
+      "sourceCount": 4,
       "written": {
-        "driveaway": "Use “Drive away cost” beside the vehicle details, if your quote prints it. If not, work it out from the residual.",
+        "driveaway": "Newer quote: use “Drive-Away Price” after “Effective Interest Rate”. It says “on-road, incl. GST”.",
         "term": "Use the term in the first line: “based on a term of … months”.",
         "residual": "Use “Residual Value inc GST” and choose Including GST. Its percentage is in brackets.",
         "payment": "Use “Finance” in “Budgeted Running Costs (Excluding GST)”, not “Lease payment”. The period is the “Payroll Cycle”.",
@@ -349,7 +349,13 @@
         {
           "field": "driveaway",
           "kind": "locate",
-          "text": "Use “Drive away cost” beside the vehicle details, if your quote prints it. If not, work it out from the residual.",
+          "text": "Newer quote: use “Drive-Away Price” after “Effective Interest Rate”. It says “on-road, incl. GST”.",
+          "image": "/assets/images/quote-guide/carbon/field-driveaway-nov2026.webp"
+        },
+        {
+          "field": "driveaway",
+          "kind": "locate",
+          "text": "Older quote: use “Drive away cost” beside the vehicle details, if printed. If neither line appears, work it out from the residual.",
           "image": "/assets/images/quote-guide/carbon/field-driveaway.webp"
         },
         {

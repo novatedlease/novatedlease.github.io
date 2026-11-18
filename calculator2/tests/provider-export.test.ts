@@ -23,7 +23,7 @@ function exportGuides() {
         id,
         label,
         seen: guide.seen,
-        sourceCount: guide.sources.length,
+        sourceCount: guide.sourceCount ?? guide.sources.length,
         // A field may have a second pointer for an alternate quote layout.
         // Keep the primary instruction in the article's one-line trap summary.
         written: guide.pointers.reduce((written, pointer) => {

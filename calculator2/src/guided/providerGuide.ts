@@ -161,6 +161,8 @@ export type ProviderGuide = {
   seen: string;
   /** Reddit post ids the pointers were checked against. Kept out of the UI. */
   sources: string[];
+  /** Includes a private, representative-supplied layout when greater than Reddit sources. */
+  sourceCount?: number;
   pointers: Pointer[];
 };
 
@@ -287,10 +289,22 @@ export const GUIDES: ProviderGuide[] = [
   },
   {
     id: "carbon",
-    seen: "2026-10",
+    seen: "2026-11",
     sources: ["1s8dvmb", "1tglqjr", "1xgrene"],
+    sourceCount: 4,
     pointers: [
-      { field: "driveaway", text: "Use “Drive away cost” beside the vehicle details, if your quote prints it. If not, work it out from the residual." },
+      { field: "driveaway", text: "Newer quote: use “Drive-Away Price” after “Effective Interest Rate”. It says “on-road, incl. GST”.", example: {
+        image: "/assets/images/quote-guide/carbon/field-driveaway-nov2026.webp",
+        fullPage: "/assets/images/quote-guide/carbon/redacted-quote-nov2026.webp",
+        alt: "Redacted newer CarBon quote with Drive-Away Price marked as field 2",
+        caption: "Field 2 marks Drive-Away Price on the newer CarBon quote. Figures and identifying details removed.",
+      } },
+      { field: "driveaway", text: "Older quote: use “Drive away cost” beside the vehicle details, if printed. If neither line appears, work it out from the residual.", example: {
+        image: "/assets/images/quote-guide/carbon/field-driveaway.webp",
+        fullPage: "/assets/images/quote-guide/carbon/redacted-quote.webp",
+        alt: "Redacted older CarBon quote with Drive away cost marked as field 2",
+        caption: "Field 2 marks Drive away cost on an older CarBon quote.",
+      } },
       { field: "term", text: "Use the term in the first line: “based on a term of … months”." },
       { field: "residual", text: "Use “Residual Value inc GST” and choose Including GST. Its percentage is in brackets." },
       { field: "payment", text: "Use “Finance” in “Budgeted Running Costs (Excluding GST)”, not “Lease payment”. The period is the “Payroll Cycle”.", more: "“Lease payment” adds the running costs to the finance. The table's heading says Excluding GST, so choose Excluding GST. “GST (ITC)” below it is the GST credit, not part of the payment." },

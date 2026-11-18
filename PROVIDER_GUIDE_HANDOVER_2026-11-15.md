@@ -918,3 +918,22 @@ Open items (not started; raise with the owner):
   only Prosperity used), article, index link, redacted images, manifest and sync-table entries,
   and its tests. Sync-script provider counts are now 29. Private `runlines.json` updated; the
   walkthrough page rebuilt. Full suite 476 passed; changed-file ESLint clean.
+
+## 18 Nov: CarBon representative's newer quote layout
+
+- The owner supplied a CarBon representative's November 2026 screenshot. Its **“Drive-Away Price”**
+  is printed after “Effective Interest Rate” and explicitly says “on-road, incl. GST”. The March,
+  May and October public examples use the older “Drive away cost” layout.
+- Unredacted source stays private at
+  `~/novated-lease-guide/private/quote-review-2026-11/images-direct/carbon-2026-11-18-new-format.png`.
+  Run `python3 scripts/build_carbon_nov2026_template.py` to rebuild the new redacted, numbered
+  page and focused drive-away crop. The script removes the quote reference, organisation,
+  consultant contact, car photo, vehicle details, salary and all amounts. The older page remains
+  available; its full-page toggle still matches its own crop.
+- Guided leads with the newer field 2 crop and has the older layout as a second pointer; the
+  article shows the newer page and links the older one. The source count is 4: three public
+  Reddit examples plus the representative-supplied page. The residual fallback remains because
+  a reviewed older layout may omit the printed drive-away figure.
+- Focused provider tests: 112 pass; changed-file ESLint and calculator build/export/prebuild
+  pass. Redacted page checked visually and by OCR; preview at :4340 served the article and image.
+  Nothing pushed or merged.

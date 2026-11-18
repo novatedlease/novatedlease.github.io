@@ -40,6 +40,18 @@ describe("a or an before a provider name", () => {
 });
 
 describe("provider picker", () => {
+  test("CarBon's newer drive-away line has its own marked page and the older layout remains available", () => {
+    const pointers = pointersFor("carbon", "driveaway");
+    expect(pointers).toHaveLength(2);
+    expect(pointers[0].text).toContain("Drive-Away Price");
+    expect(pointers[0].example?.image).toContain("field-driveaway-nov2026.webp");
+    expect(pointers[0].example?.fullPage).toContain("redacted-quote-nov2026.webp");
+    expect(imageSizeFor(pointers[0].example!.image)).toEqual({ w: 446, h: 115 });
+    expect(pointers[1].text).toContain("Drive away cost");
+    expect(pointers[1].example?.fullPage).toContain("carbon/redacted-quote.webp");
+    expect(guideFor("carbon")?.sourceCount).toBe(4);
+  });
+
   test("the residual price helper appears only where the quote guide needs it", () => {
     const clear = [
       "sgfleet", "millarx", "flare", "kooya", "maxxia", "fleetpartners", "alliance",

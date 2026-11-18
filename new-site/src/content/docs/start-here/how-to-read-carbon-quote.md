@@ -1,16 +1,16 @@
 ---
 title: "How to read a CarBon novated lease quote"
 description: "Find the numbered fields on a redacted CarBon quote and enter them in the Guided novated lease calculator."
-datePublished: "2026-11-16"
+datePublished: "2026-11-18"
 ---
 
 # How to read a CarBon novated lease quote
 
 <!-- quote-review:begin -->
-*Checked against 3 quote examples; latest layout reviewed Oct 2026.*
+*Checked against 4 quote examples; latest layout reviewed Nov 2026.*
 <!-- quote-review:end -->
 
-The numbered example is a one-page [CarBon Leasing and Rentals quote](https://www.reddit.com/r/NovatedLeasingAU/comments/1s8dvmb/) from March 2026. Two later CarBon quotes ([May 2026](https://www.reddit.com/r/NovatedLeasingAU/comments/1tglqjr/), [October 2026](https://www.reddit.com/r/NovatedLeasingAU/comments/1xgrene/)) use the same layout. Check the period and GST labels on your own quote before entering a figure.
+The numbered example below is a newer CarBon quote supplied by a CarBon representative in November 2026. Three public examples ([March](https://www.reddit.com/r/NovatedLeasingAU/comments/1s8dvmb/), [May](https://www.reddit.com/r/NovatedLeasingAU/comments/1tglqjr/), [October](https://www.reddit.com/r/NovatedLeasingAU/comments/1xgrene/)) show an older layout. Check the period and GST labels on your own quote before entering a figure.
 
 <!-- provider-traps:begin -->
 ## What catches people out on a CarBon quote
@@ -18,26 +18,28 @@ The numbered example is a one-page [CarBon Leasing and Rentals quote](https://ww
 - **Finance payment:** Use “Finance” in “Budgeted Running Costs (Excluding GST)”, not “Lease payment”. The period is the “Payroll Cycle”.
 <!-- provider-traps:end -->
 
-![Redacted CarBon quote with numbered fields](/assets/images/quote-guide/carbon/redacted-quote.webp)
+![Redacted newer CarBon quote with the Drive-Away Price line marked as field 2](/assets/images/quote-guide/carbon/redacted-quote-nov2026.webp)
 
-*Customer values and identifying details removed. This pictured example is from March 2026; your quote may use a different layout.*
+*Customer values and identifying details removed. This pictured example is from November 2026; your quote may use a different layout.*
+
+[See the older CarBon layout with numbered fields](/assets/images/quote-guide/carbon/redacted-quote.webp).
 
 ## Numbered field guide
 
 | # | On the quote | In Guided |
 |---|---|---|
-| 2 | Drive away cost | Drive-away price, including GST. Not every CarBon quote prints it; if yours doesn't, work it out from the residual. |
-| 3 | “based on a term of … months” in the first line | Lease term in months. |
+| 2 | Drive-Away Price on newer quotes; Drive away cost beside vehicle details on older quotes | Drive-away price, including GST. If neither line appears, work it out from the residual. |
+| 3 | Lease term in the introductory line | Lease term in months. |
 | 6 | Residual Value inc GST | Residual; choose Including GST. |
 | 7 | Finance, under Budgeted Running Costs (Excluding GST) | Finance payment; choose Excluding GST, per Payroll Cycle. Don't use “Lease payment”, which adds the running costs. |
-| 8 | Luxury Car Adjustment, Novated column | Luxury adjustment, per Payroll Cycle. |
+| 8 | Luxury Car Adjustment, Novated column on the older full-page quote | Luxury adjustment, per Payroll Cycle, if your quote lists one. |
 | 9 | Service and Maintenance, Replacement Tyres, Registration and CTP, Comprehensive Insurance, Fuel/Charging, Roadside Assistance | Running-cost budgets; choose Excluding GST, per Payroll Cycle. Add roadside to servicing. |
 | 10 | Management Fee | Lease management fees. If it's $0 or listed under Exclusions, ask who will manage the lease and what they charge. |
-| 11 | “… kms a year Annual Travel” in the first line | Kilometres per year. |
+| 11 | Annual travel in the introductory line | Kilometres per year. |
 
-The pay period for every figure is the **Payroll Cycle** printed above the table: weekly on the pictured quote, fortnightly on the later two. The table's heading says Excluding GST; **GST (ITC)** below it is the GST credit, not part of the payment.
+The pay period for every figure is the **Payroll Cycle** printed above the table. It is weekly on the pictured quote and differs across older examples. The table's heading says Excluding GST; **GST (ITC)** below it is the GST credit, not part of the payment.
 
-Lines listed under **Exclusions** aren't budgeted in the lease. Enter what you'd expect to spend on them yourself. The pictured quote excludes tyres and charging; the later two budget both. The March and May disclaimers note that the Fuel/Charging budget includes a monthly fleet card fee.
+Lines listed under **Exclusions** aren't budgeted in the lease. Enter what you'd expect to spend on them yourself. The older March quote excludes tyres and charging; the May and October examples budget both. The March and May disclaimers note that the Fuel/Charging budget includes a monthly fleet card fee.
 
 On the October quote, CarBon [explained](https://www.reddit.com/r/NovatedLeasingAU/comments/1xgrene/) that the management fee was $0 because another company would manage the lease. The March and May quotes list a “Finance Management Fee” under Exclusions without an amount; ask CarBon whether it's charged elsewhere.
 
