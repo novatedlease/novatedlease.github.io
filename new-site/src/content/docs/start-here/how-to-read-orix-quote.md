@@ -23,6 +23,10 @@ We checked an [ORIX petrol-car quote from September 2025](https://www.reddit.com
 
 *An excerpt from the September 2025 quote. Field 1 is a printed nonzero FBT base value. Field 2 highlights the parts of an on-road price; the red cross marks “Capital cost for Vehicle Lease”, which is not a GST-inclusive drive-away total. All quoted amounts and identifying details were removed.*
 
+![Redacted ORIX price rows grouped for the FBT base value calculation](/assets/images/quote-guide/orix/field-baseValue-calculation.webp)
+
+*For a quote with ex-GST car-price rows, sum these four signed amounts, then multiply by 1.10. Stamp duty sits outside the box.*
+
 ![Redacted ORIX EV quote with the zero FBT base value row crossed out](/assets/images/quote-guide/orix/field-baseValue-zero.webp)
 
 *A different ORIX EV quote incorrectly printed $0.00 for FBT base value. FBT exemption does not make the car's base value zero. Estimate it from the car-price rows, then ask ORIX to confirm.*

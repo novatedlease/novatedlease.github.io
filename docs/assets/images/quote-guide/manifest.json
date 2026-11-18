@@ -1139,6 +1139,10 @@
     "orix/field-baseValue-zero.webp": {
       "w": 425,
       "h": 75
+    },
+    "orix/field-baseValue-calculation.webp": {
+      "w": 490,
+      "h": 220
     }
   },
   "pages": {

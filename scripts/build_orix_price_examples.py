@@ -15,6 +15,7 @@ MANIFEST = ROOT / 'docs/assets/images/quote-guide/manifest.json'
 OUT.mkdir(parents=True, exist_ok=True)
 BLUE, RED, ORANGE, WHITE = '#0b5cab', '#c81e1e', '#e65100', 'white'
 FONT = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf', 18)
+CALC_FONT = ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf', 19)
 
 def marker(draw, x, y, label=None, avoid=False):
     draw.ellipse((x-14, y-14, x+14, y+14), fill=RED if avoid else BLUE, outline=WHITE, width=2)
@@ -46,6 +47,20 @@ base.save(OUT / 'field-baseValue-nonzero.webp', quality=90)
 parts = petrol.crop((0, 0, 490, 315))
 parts.save(OUT / 'field-driveaway-parts.webp', quality=90)
 
+# The focused FBT view groups only the four ex-GST vehicle-price rows. Prices
+# are erased before the annotation is drawn; on-road rows remain outside it.
+base_calc = Image.new('RGB', (490, 220), WHITE)
+base_calc.paste(petrol_src.crop((0, 0, 490, 177)), (0, 0))
+d = ImageDraw.Draw(base_calc)
+d.rectangle((362, 36, 465, 177), fill=WHITE)
+d.rounded_rectangle((10, 37, 461, 148), radius=5, outline=ORANGE, width=3)
+d.line((468, 39, 476, 39), fill=ORANGE, width=3)
+d.line((476, 39, 476, 147), fill=ORANGE, width=3)
+d.line((468, 147, 476, 147), fill=ORANGE, width=3)
+d.rectangle((0, 177, 489, 219), fill='#e6f1ff')
+d.text((13, 187), 'Sum these 4 signed rows, then × 1.10', font=CALC_FONT, fill='#064b89')
+base_calc.save(OUT / 'field-baseValue-calculation.webp', quality=90)
+
 ev_src = Image.open(PRIVATE / 'images-aug-nov-2026/1xo5ufn_0.jpg').convert('RGB')
 assert ev_src.size == (861, 460), 'Review redaction if source dimensions change'
 ev = ev_src.crop((0, 385, 425, 460))
@@ -59,9 +74,10 @@ manifest = json.loads(MANIFEST.read_text())
 for name, image in [
     ('redacted-price-breakdown.webp', petrol),
     ('field-baseValue-nonzero.webp', base),
+    ('field-baseValue-calculation.webp', base_calc),
     ('field-driveaway-parts.webp', parts),
     ('field-baseValue-zero.webp', ev),
 ]:
     manifest['images'][f'orix/{name}'] = {'w': image.width, 'h': image.height}
 MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n')
-print('Built four redacted ORIX price examples')
+print('Built five redacted ORIX price examples')

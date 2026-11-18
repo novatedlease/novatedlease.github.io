@@ -999,3 +999,6 @@ Open items (not started; raise with the owner):
   $0 as FBT base value. EV FBT exemption does not make the car's cost-based base value zero;
   ATO still requires a notional taxable value for reportable benefits. Retained ORIX
   confirmation for the estimated amount.
+- Replaced Guided's focused ORIX FBT image with a redacted crop that boxes retail, options,
+  signed discount and dealer delivery, brackets the four rows and labels “sum … × 1.10”.
+  The whole-page view retains the printed nonzero FBT field; the article shows both.
