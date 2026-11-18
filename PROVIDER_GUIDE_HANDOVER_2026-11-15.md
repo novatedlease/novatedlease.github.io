@@ -995,3 +995,7 @@ Open items (not started; raise with the owner):
   calculation and ask ORIX to confirm. Synced the article trap and zero-value image caption.
 - Removed the now-redundant second, non-amber FBT pointer from Guided. The zero-value EV image
   remains in the standalone ORIX article; Guided has one FBT warning and one linked example.
+- Strengthened the amber tooltip and article: the reviewed ORIX EV quotes incorrectly print
+  $0 as FBT base value. EV FBT exemption does not make the car's cost-based base value zero;
+  ATO still requires a notional taxable value for reportable benefits. Retained ORIX
+  confirmation for the estimated amount.
