@@ -1047,6 +1047,8 @@ describe("provider pointers", () => {
     expect(article).toContain("Do not add it to Guided's documentation fee just because it is listed");
     expect(pointersFor("remserv", "docFee")[0].more).toContain("already priced into the lease payment");
     expect(article).toContain("Do not add the premium to the printed “Total Vehicle Costs” yourself");
+    expect(article).toContain("Guided subtracts that premium from the vehicle price and adds it to financed add-ons");
+    expect(article).toContain("Answering **No** or **Not sure** makes no premium adjustment");
     expect(article).not.toContain("enter “Vehicle Cost” unchanged");
     expect(article).toContain("redacted-summary-table.webp");
     expect(article).toContain("redacted-lease-breakdown.webp");

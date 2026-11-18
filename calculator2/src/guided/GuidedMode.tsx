@@ -1335,7 +1335,7 @@ function PriceStep({ d, set, f }: StepPropsF) {
           { value: "vehiclePurchase", label: "Vehicle purchase price", sub: "Detailed lease page" },
         ]}
         columns={2}
-        hint="If the summary total includes first-year insurance, we'll separate it after you enter that premium on the next page."
+        hint="If the summary total includes a financed first-year premium, we'll separate it after you enter that premium on the next page."
       />}
       {showResidualDriveawayHelper(d.provider) && (
         <DriveawayHelper d={d} set={set} residualPointer={<ProviderPointers d={d} field="residual" />} />

@@ -1024,3 +1024,14 @@ Open items (not started; raise with the owner):
   in the published sample. Reworded Guided and article warnings around page-1 labels visible in
   the sample, including the “Total Amount Financed” line immediately below drive-away. The
   article explains where the page-2 ex-GST headline appears in the original gallery.
+
+### RemServ price-source explanation
+
+- Expanded the RemServ article's summary section to spell out what the “Total Vehicle Costs”
+  versus detailed “Vehicle purchase price” choice changes. With a confirmed financed first-year
+  premium, Guided subtracts it from summary vehicle price and adds it to financed add-ons; it
+  leaves the detailed price alone and adds the premium. The renewal budget remains in running
+  costs and the advanced engine removes the financed premium from lease-side running costs to
+  avoid counting it twice. With No or Not sure, neither price is adjusted. The article cautions
+  that an unexplained summary total may still bundle a non-financed premium, so obtain an
+  itemised on-road price in that case. Tightened the on-screen hint to say “financed” explicitly.
