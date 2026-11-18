@@ -603,16 +603,18 @@ describe("provider pointers", () => {
     expect(cropFor("smartleasing", "financedInsurance")).toBeNull();
   });
 
-  test("RemServ shows the financed insurance line and switches to its redacted full page", () => {
+  test("RemServ first-year insurance: summary 'Not Financed' first, detailed page still marked", () => {
     phoneWidth(false);
     on("lease", { ...quoteDraft(), provider: "remserv" });
     const question = screen.getByText("Is the first year's insurance included in the amount financed?");
     fireEvent.focus(question.closest("[data-field]")!.querySelector("button")!);
     expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
-      .toBe("/assets/images/quote-guide/remserv/field-alt-financedInsurance.webp");
-    fireEvent.click(screen.getByRole("button", { name: "Whole page" }));
-    expect(document.querySelector<HTMLImageElement>(".gd-split__side img")?.getAttribute("src"))
-      .toBe("/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp");
+      .toBe("/assets/images/quote-guide/remserv/field-alt-insurance-not-financed.webp");
+    const [summary, detailed] = pointersFor("remserv", "financedInsurance");
+    expect(summary.text).toMatch(/“Not Financed” .* means No/);
+    expect(detailed.text).toMatch(/Answer Yes/);
+    expect(detailed.example?.image).toBe("/assets/images/quote-guide/remserv/field-alt-financedInsurance.webp");
+    expect(detailed.example?.fullPage).toBe("/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp");
   });
 
   test("RemServ's summary total opens first, with the detailed layout still available", () => {
@@ -987,7 +989,7 @@ describe("provider pointers", () => {
     expect(article).toContain(pointersFor("remserv", "residual")[0].text);
     expect(article).toContain(pointersFor("remserv", "payment")[0].text);
     expect(article).toContain("per fortnight");
-    expect(article).toContain("Checked against 4 quote examples");
+    expect(article).toContain("Checked against 5 quote examples");
     expect(article).toContain("1x6eio8/gwm_ora_5_ultra_quote_check");
     expect(article).toContain("redacted-net-finance.webp");
     expect(article).toContain("field-alt-compact-total.webp");
@@ -999,7 +1001,7 @@ describe("provider pointers", () => {
     expect(article).toContain("supplier margin matches the disclosed finance brokerage");
     expect(article).toContain("Do not add it to Guided's documentation fee just because it is listed");
     expect(pointersFor("remserv", "docFee")[0].more).toContain("already priced into the lease payment");
-    expect(article).toContain("Do not add first-year insurance to “Total Vehicle Costs” again");
+    expect(article).toContain("Do not add the premium to the printed “Total Vehicle Costs” yourself");
     expect(article).not.toContain("enter “Vehicle Cost” unchanged");
     expect(article).toContain("redacted-summary-table.webp");
     expect(article).toContain("redacted-lease-breakdown.webp");

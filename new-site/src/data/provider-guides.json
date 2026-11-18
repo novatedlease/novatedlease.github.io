@@ -1372,12 +1372,12 @@
       "id": "remserv",
       "label": "RemServ",
       "seen": "2026-11",
-      "sourceCount": 4,
+      "sourceCount": 5,
       "written": {
         "baseValue": "Use “FBT Base Value” or “Vehicle FBT Base Value” if your full quote prints it.",
         "driveaway": "Summary table: use the bold “Total Vehicle Costs”.",
         "docFee": "Use “Finance Establishment Fee” or “Financier's Establishment Fee”. Add optional cover financed up front.",
-        "financedInsurance": "If the first year's comprehensive insurance is financed, answer Yes and enter the premium. Keep the renewal budget separate.",
+        "financedInsurance": "On a summary, “Not Financed” beside first-year insurance means No. Otherwise choose Not sure until RemServ confirms.",
         "residual": "If the full quote says “Residual value (inc GST)”, choose Including GST. The summary table's GST footnote also covers residual value.",
         "payment": "Use “FINANCED PAYMENTS” per fortnight on the full deductions page. Choose the “Ex GST” or “Inc GST” column to match what you enter.",
         "running": "Use the running-cost lines under “RUNNING COSTS & SERVICING” and “REGISTRATION & INSURANCE”. Choose the GST column you copied.",
@@ -1398,7 +1398,7 @@
           "field": "driveaway",
           "kind": "locate",
           "text": "Summary table: use the bold “Total Vehicle Costs”.",
-          "more": "Choose “Total Vehicle Costs” below. On the summaries reviewed, this total includes first-year insurance. Enter that premium on the lease page; Guided separates it from the vehicle price when calculating GST and finance. Do not use “Total Amount Financed”: it subtracts the residual. The printed total does not reconcile with every visible row in the examples, so ask RemServ if you need an itemised explanation.",
+          "more": "Choose “Total Vehicle Costs” below. A first-year insurance line may appear nearby, but that does not by itself show whether the premium is financed. Guided separates it from the vehicle price only when you confirm Yes on the lease page. Do not use “Total Amount Financed”: it subtracts the residual. Ask RemServ for an itemised explanation if the printed total does not match the visible rows.",
           "image": "/assets/images/quote-guide/remserv/field-alt-summary-total.webp"
         },
         {
@@ -1429,8 +1429,15 @@
         {
           "field": "financedInsurance",
           "kind": "trap",
-          "text": "If the first year's comprehensive insurance is financed, answer Yes and enter the premium. Keep the renewal budget separate.",
-          "more": "The summary calls it “Initial 12 Months Comprehensive Insurance”; that premium is already inside “Total Vehicle Costs”. Choose that price source on the Price page so Guided separates it internally. If your quote finances no first-year premium, answer No.",
+          "text": "On a summary, “Not Financed” beside first-year insurance means No. Otherwise choose Not sure until RemServ confirms.",
+          "more": "A premium listed in Purchase Details does not prove it was financed. Neither does the summary's “Total Amount Financed”. If RemServ confirms Yes, enter the premium; Guided separates it from “Total Vehicle Costs” when you chose that price source. Keep the renewal budget separate.",
+          "image": "/assets/images/quote-guide/remserv/field-alt-insurance-not-financed.webp"
+        },
+        {
+          "field": "financedInsurance",
+          "kind": "locate",
+          "text": "Detailed page: “1st year Comprehensive Insurance” is one of the lines adding up to “Total amount financed”. Answer Yes and enter it.",
+          "more": "On the detailed quote reviewed, the listed lines (price less GST saving, establishment fee, first-year insurance and optional covers) add up exactly to “Total amount financed”.",
           "image": "/assets/images/quote-guide/remserv/field-alt-financedInsurance.webp"
         },
         {

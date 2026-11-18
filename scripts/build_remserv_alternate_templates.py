@@ -102,6 +102,17 @@ marker(net_draw, 825, 587, "3")
 save(net_finance, "redacted-net-finance.webp")
 save(net_finance.crop((0, 0, 880, 90)), "field-alt-compact-total.webp")
 
+# Another summary explicitly marks the first-year premium "Not Financed" in
+# the comment column. Remove its amount but retain that status as the answer cue.
+insurance_row = source("1qbn7bf_1").crop((65, 438, 1080, 463))
+insurance_row = blank(insurance_row, [(700, 0, 860, 24)])
+not_financed = Image.new("RGB", (1060, 45), "white")
+not_financed.paste(insurance_row, (45, 10))
+nf_draw = ImageDraw.Draw(not_financed)
+nf_draw.rounded_rectangle((44, 8, 1050, 38), radius=5, outline="#ca5500", width=3)
+marker(nf_draw, 8, 6, "5")
+save(not_financed, "field-alt-insurance-not-financed.webp")
+
 # Each crop stays tied to its source page for the in-card Whole page toggle.
 summary_rows = [
     ("1", (45, 380, 750, 480), (15, 60, 685, 86), "field-alt-summary-baseValue.webp"),
@@ -135,7 +146,7 @@ for obsolete in ("field-alt-summary-price.webp", "field-alt-compact-driveaway.we
     manifest["images"].pop(f"remserv/{obsolete}", None)
 for name in ("redacted-net-finance.webp", "redacted-compact-summary.webp",
              "field-alt-compact-total.webp", "field-alt-summary-baseValue.webp",
-             "field-alt-summary-total.webp"):
+             "field-alt-summary-total.webp", "field-alt-insurance-not-financed.webp"):
     with Image.open(OUT / name) as image:
         manifest["images"][f"remserv/{name}"] = {
             "w": image.width, "h": image.height,

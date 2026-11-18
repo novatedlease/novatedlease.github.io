@@ -876,3 +876,20 @@ Open items (not started; raise with the owner):
   Toyota Fleet; that wording is the FleetPartners quote's. Not yet corrected.
 - Committed with index-only patches because uncommitted RemServ work (not this session's) was in
   the worktree; `docs/assets/calculator/main.js` was rebuilt but left uncommitted with that work.
+
+## 18 Nov: Codex's uncommitted RemServ insurance work folded in (Claude)
+
+- Found uncommitted Codex work (owner not using Codex today): RemServ first-year insurance no
+  longer assumed financed. Summary `1qbn7bf` (Qld Gov template, Jan 2026) prints “Not Financed”
+  beside “Initial 12 Months Comprehensive Insurance”; new redacted crop
+  `remserv/field-alt-insurance-not-financed.webp` (built by `build_remserv_alternate_templates.py`,
+  OCR finds no figures); `1qbn7bf` added as a fifth RemServ source.
+- Kept: summary rule (“Not Financed” → No; no status → Not sure), drive-away tooltip no longer
+  claims the summary total includes the premium (its Total Vehicle Costs doesn't reconcile with
+  the visible rows either way).
+- Corrected Codex's detailed-page softening: on `1t4254u` the listed lines add up exactly to
+  “Total amount financed” ($87,986.00 − $6,334.00 + $437.82 + $2,395.31 first-year insurance +
+  $3,893.92 + $952.77 + $3,262.06 = $92,593.88), so on that layout the premium is financed: the
+  pointer, the RemServ hint on the lease page and the article now say Yes for the detailed page.
+- Tests updated (the insurance side panel now opens on the Not Financed crop; 5 sources; new
+  article sentence). Full suite 478 passed; changed-file ESLint and `git diff --check` clean.

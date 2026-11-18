@@ -699,7 +699,7 @@ export const GUIDES: ProviderGuide[] = [
   {
     id: "remserv",
     seen: "2026-11",
-    sources: ["1xdwkvq", "1rpt6ql", "1t4254u", "1x6eio8"],
+    sources: ["1xdwkvq", "1rpt6ql", "1t4254u", "1x6eio8", "1qbn7bf"],
     pointers: [
       { field: "baseValue", text: "Use “FBT Base Value” or “Vehicle FBT Base Value” if your full quote prints it.", more: "Only have a short estimate? Multiply “GST savings on car” by 11 unless it is the maximum, $6,353.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-baseValue.webp",
@@ -707,7 +707,7 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted RemServ lease page with Vehicle FBT Base Value outlined",
         caption: "Field 1 marks the FBT base value on this redacted full quote.",
       } },
-      { field: "driveaway", kind: "locate", text: "Summary table: use the bold “Total Vehicle Costs”.", more: "Choose “Total Vehicle Costs” below. On the summaries reviewed, this total includes first-year insurance. Enter that premium on the lease page; Guided separates it from the vehicle price when calculating GST and finance. Do not use “Total Amount Financed”: it subtracts the residual. The printed total does not reconcile with every visible row in the examples, so ask RemServ if you need an itemised explanation.", example: {
+      { field: "driveaway", kind: "locate", text: "Summary table: use the bold “Total Vehicle Costs”.", more: "Choose “Total Vehicle Costs” below. A first-year insurance line may appear nearby, but that does not by itself show whether the premium is financed. Guided separates it from the vehicle price only when you confirm Yes on the lease page. Do not use “Total Amount Financed”: it subtracts the residual. Ask RemServ for an itemised explanation if the printed total does not match the visible rows.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-summary-total.webp",
         fullPage: "/assets/images/quote-guide/remserv/redacted-summary-table.webp",
         alt: "Redacted RemServ summary table with Total Vehicle Costs outlined",
@@ -731,11 +731,16 @@ export const GUIDES: ProviderGuide[] = [
         alt: "Redacted RemServ lease page with Finance Establishment Fee outlined",
         caption: "Field 4 marks the establishment fee, separate from first-year insurance.",
       } },
-      { field: "financedInsurance", kind: "trap", text: "If the first year's comprehensive insurance is financed, answer Yes and enter the premium. Keep the renewal budget separate.", more: "The summary calls it “Initial 12 Months Comprehensive Insurance”; that premium is already inside “Total Vehicle Costs”. Choose that price source on the Price page so Guided separates it internally. If your quote finances no first-year premium, answer No.", example: {
+      { field: "financedInsurance", kind: "trap", text: "On a summary, “Not Financed” beside first-year insurance means No. Otherwise choose Not sure until RemServ confirms.", more: "A premium listed in Purchase Details does not prove it was financed. Neither does the summary's “Total Amount Financed”. If RemServ confirms Yes, enter the premium; Guided separates it from “Total Vehicle Costs” when you chose that price source. Keep the renewal budget separate.", example: {
+        image: "/assets/images/quote-guide/remserv/field-alt-insurance-not-financed.webp",
+        alt: "Redacted RemServ summary with the first-year comprehensive insurance row marked Not Financed",
+        caption: "This summary's comment column explicitly says Not Financed, so answer No.",
+      } },
+      { field: "financedInsurance", kind: "locate", text: "Detailed page: “1st year Comprehensive Insurance” is one of the lines adding up to “Total amount financed”. Answer Yes and enter it.", more: "On the detailed quote reviewed, the listed lines (price less GST saving, establishment fee, first-year insurance and optional covers) add up exactly to “Total amount financed”.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-financedInsurance.webp",
         fullPage: "/assets/images/quote-guide/remserv/redacted-lease-breakdown.webp",
         alt: "Redacted RemServ lease page with first-year comprehensive insurance outlined",
-        caption: "Field 5 marks the first-year premium inside Total Amount Financed.",
+        caption: "Field 5 marks the first-year premium, one of the lines in Total amount financed.",
       } },
       { field: "residual", text: "If the full quote says “Residual value (inc GST)”, choose Including GST. The summary table's GST footnote also covers residual value.", more: "If you only have a short estimate with no GST label or footnote, choose “I'm not sure” until RemServ confirms it.", example: {
         image: "/assets/images/quote-guide/remserv/field-alt-residual.webp",

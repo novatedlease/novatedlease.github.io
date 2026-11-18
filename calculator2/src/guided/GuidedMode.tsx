@@ -1445,7 +1445,9 @@ function LeaseStep({ d, set, f }: StepPropsF) {
             { value: "Unsure", label: "Not sure" },
           ]}
           columns={3}
-          hint="Look for a first-year comprehensive insurance line near the establishment fee."
+          hint={d.provider === "remserv"
+            ? "Summary table: “Not Financed” means No; with no status, choose Not sure. Detailed page: the premium is inside “Total amount financed”, so Yes."
+            : "Look for a first-year comprehensive insurance line near the establishment fee."}
         />
         <ProviderPointers d={d} field="financedInsurance" />
         {d.insuranceFinanced === "Yes" && <MoneyInput
