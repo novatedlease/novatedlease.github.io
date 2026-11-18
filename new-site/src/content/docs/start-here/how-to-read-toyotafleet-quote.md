@@ -37,8 +37,12 @@ Nothing on the Toyota Fleet Management quotes we checked looked easy to misread.
 | 11 | Interest rate | Compare with Guided's effective-rate result. |
 <!-- provider-table:end -->
 
-The schedule doesn't state a deferral or the number of payments. On the quote checked, entering its figures with 2 months deferred gave 8.85%, matching the printed interest rate of 8.86%. Ask Toyota Fleet how many lease payments there are. If you can't confirm it, choose **Not sure** (we'll assume 2); choose **Straight away** only if Toyota Fleet confirms payments start in the first month.
-
 Do not use the package total or salary deduction as the finance payment.
+
+<!-- provider-missing:begin -->
+## If a figure isn't on your quote
+
+- **Months deferred:** Can’t find months deferred on your Toyota Fleet Management quote? Choose “Not sure” (we’ll assume 2) unless told otherwise.
+<!-- provider-missing:end -->
 
 [Open Guided mode →](/calculator/) · [All provider guides →](/start-here/provider-quote-guides/)

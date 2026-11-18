@@ -905,3 +905,7 @@ Open items (not started; raise with the owner):
   months deferred (8.85%) are nearly equivalent, so the quote can't tell them apart. The tooltip
   and article now say 2 months deferred reproduced the printed rate; “Not sure” stays the answer.
   Lesson: check a provider's printed rate with Guided's own engine, not a hand-rolled model.
+- 18 Nov, owner: “Straight away” was a false assumption; treat Toyota Fleet like any other quote
+  without a printed deferral. Removed its defer pointer and article paragraph; `toyotafleet` is
+  now in `NOT_SHOWN` with `["defer"]`, so Guided shows nothing extra (the screen's “Not sure, we'll
+  assume 2” covers it) and the article gets the standard “If a figure isn't on your quote” line.

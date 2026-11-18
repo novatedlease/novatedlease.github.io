@@ -665,11 +665,6 @@ export const GUIDES: ProviderGuide[] = [
       { field: "docFee", text: "If you see “Est. Fee - financed (exc GST)” and a separate PPSR fee, add both as one-off documentation fees." },
       { field: "residual", text: "If you see “Residual Value (excl GST)”, choose Excluding GST." },
       { field: "payment", text: "If you see “Rent” under a monthly “(excl GST)” heading, enter it per month, excluding GST." },
-      {
-        field: "defer",
-        text: "Toyota Fleet quotes don't state a deferral. Ask Toyota Fleet how many lease payments there are, or choose “Not sure”.",
-        more: "On the quote we checked, assuming 2 months deferred reproduced Toyota Fleet's printed interest rate. Choose “Straight away” only if Toyota Fleet confirms payments start in the first month.",
-      },
     ],
   },
   {
@@ -820,6 +815,7 @@ const NOT_SHOWN: Partial<Record<ProviderId, GuideField[]>> = {
   oly: ["baseValue", "defer", "fees"],
   maxxia: ["defer"],
   insideedge: ["defer"],
+  toyotafleet: ["defer"],
   carbon: ["baseValue", "defer", "docFee"],
   remunerator: ["docFee", "fees"],
   easi: ["docFee"],

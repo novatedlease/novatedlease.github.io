@@ -798,6 +798,8 @@ describe("provider pointers", () => {
   test("fields missing from a provider's example get a short what-to-do line, without a picture", () => {
     expect(pointersFor("paywise", "defer")[0]).toMatchObject({ notShown: true });
     expect(pointersFor("paywise", "defer")[0].text).toMatch(/Can’t find months deferred on your Paywise quote/);
+    // Toyota Fleet is treated like any other quote that doesn't print a deferral.
+    expect(pointersFor("toyotafleet", "defer")[0].boilerplate).toBe(true);
     expect(pointersFor("fleetpartners", "baseValue")[0].text).toMatch(/“Vehicle” row.*Total column/);
     expect(templateFor("fleetpartners", "baseValue")).toBe("/assets/images/quote-guide/fleetpartners/field-baseValue.webp");
     // a field the example does show keeps its own pointer
@@ -813,7 +815,6 @@ describe("provider pointers", () => {
   test("provider-specific not-shown lines are not boilerplate", () => {
     expect(pointersFor("remunerator", "fees")[0].boilerplate).toBeUndefined();
     expect(pointersFor("oly", "baseValue")[0].boilerplate).toBeUndefined();
-    expect(pointersFor("toyotafleet", "defer").every((p) => !p.boilerplate)).toBe(true);
   });
 
   test("every crop listed exists on disk", async () => {
@@ -1060,7 +1061,8 @@ describe("provider pointers", () => {
       expect(article).toContain(pointersFor("toyotafleet", field)[0].text);
     expect(article).toMatch(/\| 7 \|[^\n]+\n\| 8 \|[^\n]+\n\| 9 \|/);
     expect(article).toContain("noting the printed GST basis");
-    expect(article).toContain("The schedule doesn't state a deferral");
+    expect(article).toContain("Can’t find months deferred on your Toyota Fleet Management quote? Choose “Not sure”");
+    expect(article).not.toMatch(/Straight away/);
   });
 
   test("Custom Fleet's price, luxury adjustment and management fees follow Guided", () => {
