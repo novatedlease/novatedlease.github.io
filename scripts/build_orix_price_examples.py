@@ -49,7 +49,7 @@ parts.save(OUT / 'field-driveaway-parts.webp', quality=90)
 
 # The focused FBT view groups only the four ex-GST vehicle-price rows. Prices
 # are erased before the annotation is drawn; on-road rows remain outside it.
-base_calc = Image.new('RGB', (490, 220), WHITE)
+base_calc = Image.new('RGB', (490, 241), WHITE)
 base_calc.paste(petrol_src.crop((0, 0, 490, 177)), (0, 0))
 d = ImageDraw.Draw(base_calc)
 d.rectangle((362, 36, 465, 177), fill=WHITE)
@@ -57,8 +57,9 @@ d.rounded_rectangle((10, 37, 461, 148), radius=5, outline=ORANGE, width=3)
 d.line((468, 39, 476, 39), fill=ORANGE, width=3)
 d.line((476, 39, 476, 147), fill=ORANGE, width=3)
 d.line((468, 147, 476, 147), fill=ORANGE, width=3)
-d.rectangle((0, 177, 489, 219), fill='#e6f1ff')
-d.text((13, 187), 'Sum these 4 signed rows, then × 1.10', font=CALC_FONT, fill='#064b89')
+d.rectangle((0, 177, 489, 240), fill='#e6f1ff')
+d.text((13, 182), 'Retail + options + delivery − discounts', font=CALC_FONT, fill='#064b89')
+d.text((13, 210), 'Then × 1.10 if these prices exclude GST', font=CALC_FONT, fill='#064b89')
 base_calc.save(OUT / 'field-baseValue-calculation.webp', quality=90)
 
 ev_src = Image.open(PRIVATE / 'images-aug-nov-2026/1xo5ufn_0.jpg').convert('RGB')

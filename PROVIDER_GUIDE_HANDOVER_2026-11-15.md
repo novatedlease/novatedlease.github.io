@@ -1010,3 +1010,6 @@ Open items (not started; raise with the owner):
   The comment's suggestion that FBT base value directly tests EV exemption eligibility is
   imprecise under current law: eligibility checks whether LCT was ever payable on a sale/import,
   based on the applicable LCT value and threshold, not the FBT base-value field itself.
+- Made the four-row image formula and Guided/article copy explicitly subtract the discount.
+  If ORIX prints it as a negative number, readers can add the signed amount instead; do not
+  subtract twice. This avoids ambiguity after the figures are redacted from the template.

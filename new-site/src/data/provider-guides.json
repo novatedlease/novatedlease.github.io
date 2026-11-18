@@ -1266,7 +1266,7 @@
       "sourceCount": 4,
       "written": {
         "driveaway": "No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.",
-        "baseValue": "Use printed “FBT base value (inc GST)” if nonzero. Otherwise add retail, options, signed discount and delivery, then add GST. Confirm.",
+        "baseValue": "Use printed FBT base (inc GST) if nonzero. If $0, add retail, options and delivery, subtract discounts, then add GST. Confirm.",
         "docFee": "Check the “Other Fees” footnote or fine print for an establishment or dealer fee.",
         "residual": "If you see “Residual value (ex GST)”, choose Excluding GST.",
         "payment": "If you see a monthly “Lease Rental”, check its footnote for whether it includes GST.",
@@ -1280,15 +1280,15 @@
         {
           "field": "baseValue",
           "kind": "trap",
-          "text": "Use printed “FBT base value (inc GST)” if nonzero. Otherwise add retail, options, signed discount and delivery, then add GST. Confirm.",
-          "more": "ORIX incorrectly prints $0 as the FBT base value on some reviewed EV quotes. An FBT exemption does not make the car's cost-based FBT base value zero; a notional taxable value is still calculated for reportable benefits. The pictured car-price rows are ex GST: add the signed rows, multiply the net amount by 1.10, and exclude stamp duty and registration/CTP. Ask ORIX to confirm your estimate.",
+          "text": "Use printed FBT base (inc GST) if nonzero. If $0, add retail, options and delivery, subtract discounts, then add GST. Confirm.",
+          "more": "ORIX incorrectly prints $0 as the FBT base value on some reviewed EV quotes. An FBT exemption does not make the car's cost-based FBT base value zero; a notional taxable value is still calculated for reportable benefits. If the discount is printed as a negative amount, add it with its minus sign instead; do not subtract twice. The pictured car-price rows are ex GST: multiply their net amount by 1.10, and exclude stamp duty and registration/CTP. Ask ORIX to confirm your estimate.",
           "image": "/assets/images/quote-guide/orix/field-baseValue-calculation.webp"
         },
         {
           "field": "driveaway",
           "kind": "trap",
           "text": "No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.",
-          "more": "Add the retail price, options, signed discount and dealer delivery first, then add GST if those rows are ex GST. Add stamp duty and registration/CTP. “GST not recoverable from Input Tax Credit” is in ORIX's capital cost, but the quote doesn't say whether it is part of the dealer's on-road price. Ask ORIX where it belongs and count it only once. “Capital cost for Vehicle Lease” is an ex-GST financing figure, not the drive-away total.",
+          "more": "Add retail price, options and dealer delivery, then subtract discounts. If the discount is printed as a negative amount, add it with its minus sign instead; do not subtract twice. Add GST if those rows are ex GST, then add stamp duty and registration/CTP. “GST not recoverable from Input Tax Credit” is in ORIX's capital cost, but the quote doesn't say whether it is part of the dealer's on-road price. Ask ORIX where it belongs and count it only once. “Capital cost for Vehicle Lease” is an ex-GST financing figure, not the drive-away total.",
           "image": "/assets/images/quote-guide/orix/field-driveaway-parts.webp"
         },
         {

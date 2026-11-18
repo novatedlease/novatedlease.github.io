@@ -15,7 +15,7 @@ We checked an [ORIX petrol-car quote from September 2025](https://www.reddit.com
 <!-- provider-traps:begin -->
 ## What catches people out on an ORIX quote
 
-- **FBT base value:** Use printed “FBT base value (inc GST)” if nonzero. Otherwise add retail, options, signed discount and delivery, then add GST. Confirm.
+- **FBT base value:** Use printed FBT base (inc GST) if nonzero. If $0, add retail, options and delivery, subtract discounts, then add GST. Confirm.
 - **Drive-away price:** No total printed? Add GST to the car-price rows, then add on-road costs. Confirm the result with ORIX or the dealer.
 <!-- provider-traps:end -->
 
@@ -25,7 +25,7 @@ We checked an [ORIX petrol-car quote from September 2025](https://www.reddit.com
 
 ![Redacted ORIX price rows grouped for the FBT base value calculation](/assets/images/quote-guide/orix/field-baseValue-calculation.webp)
 
-*For a quote with ex-GST car-price rows, sum these four signed amounts, then multiply by 1.10. Stamp duty sits outside the box.*
+*For ex-GST car-price rows, add retail, options and delivery, then subtract the discount and multiply by 1.10. If the discount already has a minus sign, add that signed amount instead; do not subtract it twice. Stamp duty sits outside the box.*
 
 ![Redacted ORIX EV quote with the zero FBT base value row crossed out](/assets/images/quote-guide/orix/field-baseValue-zero.webp)
 
@@ -54,7 +54,7 @@ We checked an [ORIX petrol-car quote from September 2025](https://www.reddit.com
 
 One reviewed agreement page says “Unless clearly stated otherwise … exclusive of GST”. Check that footnote and the headings on your own quote before choosing the payment's GST basis.
 
-**ORIX is wrong to label the FBT base value as $0.00 on the reviewed EV quotes.** An eligible EV can be exempt from FBT, but that exemption does not erase the car's cost-based FBT base value. The [ATO says](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/electric-cars-exemption) an exempt EV benefit can still require a *notional taxable value* for reportable fringe benefits. To estimate the base value when ORIX prints $0.00, start with **retail price + options + the signed discount + dealer delivery**. If those rows are labelled excluding GST, multiply their *net total* by **1.10**. Do not add GST to the retail row alone. Do not include stamp duty or registration/CTP. The pictured petrol quote's nonzero printed FBT value reconciles this way. The [ATO's car base-value guidance](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/taxable-value-of-a-car-fringe-benefit) includes GST in the car's cost price and excludes registration and stamp duty. Ask ORIX to confirm the estimate on your quote.
+**ORIX is wrong to label the FBT base value as $0.00 on the reviewed EV quotes.** An eligible EV can be exempt from FBT, but that exemption does not erase the car's cost-based FBT base value. The [ATO says](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/electric-cars-exemption) an exempt EV benefit can still require a *notional taxable value* for reportable fringe benefits. To estimate the base value when ORIX prints $0.00, start with **retail price + options + dealer delivery − discount**. If the quote prints the discount as a negative amount, add that signed amount instead of subtracting it twice. If those rows are labelled excluding GST, multiply their *net total* by **1.10**. Do not add GST to the retail row alone. Do not include stamp duty or registration/CTP. The pictured petrol quote's nonzero printed FBT value reconciles this way. The [ATO's car base-value guidance](https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/taxable-value-of-a-car-fringe-benefit) includes GST in the car's cost price and excludes registration and stamp duty. Ask ORIX to confirm the estimate on your quote.
 
 To check a **drive-away price**, add purchase stamp duty and registration/CTP to that GST-inclusive car subtotal. The “GST not recoverable from Input Tax Credit” row also adds into ORIX's printed *capital cost*, but the quote does not explain whether it belongs in the dealer's drive-away price or is a separate financed cost. Ask ORIX which it is; count it once in the right place. [ATO guidance](https://www.ato.gov.au/law/view/pdf/adhoc-sgml/gstir-motor%20vehicle-ch11.pdf) says CTP insurance can include GST while government registration and stamp duty do not, but that does not identify this ORIX charge. **This is a check from the rows, not a drive-away price printed by ORIX.** Confirm the final on-road price with ORIX or the dealer, especially if luxury car tax or a different GST treatment appears. Guided's residual-based helper remains available when no total is printed.
 
