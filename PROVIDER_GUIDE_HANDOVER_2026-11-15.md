@@ -869,8 +869,8 @@ Open items (not started; raise with the owner):
 - Owner asked why Toyota says “Straight away”. Source `1x9tvny` is a FleetPartners vs Toyota
   comparison post; only image 1 is Toyota. Its page shows no deferral or payment count, but the
   printed 8.86% rate, $55,665.96 financed and $30,698.08 ex-GST residual give exactly the printed
-  Rent $1,365.70 with 24 monthly payments in arrears (22 payments deferred 2 months would be
-  ~$1,501). TFM Novated's site says nothing on timing. Pointer now: “No deferral is shown. Choose
+  Rent $1,365.70 with 24 monthly payments in arrears. **Superseded, see the 18 Nov correction
+  below: that was the wrong model.** TFM Novated's site says nothing on timing. Pointer now: “No deferral is shown. Choose
   ‘Straight away’: on the quote we checked, ‘Rent’ matches the printed rate with payments from
   month 1.” `QUOTE_FORMAT_ISSUES_2026-11.md` issue 7 wrongly lists “with deferred payments” under
   Toyota Fleet; that wording is the FleetPartners quote's. Not yet corrected.
@@ -898,3 +898,10 @@ Open items (not started; raise with the owner):
   “Toyota Fleet quotes don't state a deferral. Ask Toyota Fleet how many lease payments there are,
   or choose ‘Not sure’.” The tooltip and article give the rate-match finding as context only;
   “Straight away” only if Toyota Fleet confirms.
+- 18 Nov correction (owner): the “no deferral” finding came from an arrears model. Guided's engine
+  (`calculator/src/engine/effectiveinterest.ts`) spreads the printed payment over the term and pays
+  the financier in advance after the deferral. On that model the Toyota figures give 8.85% with 2
+  months deferred (printed 8.86%) and 9.14% with none. Arrears/no deferral (8.86%) and advance/2
+  months deferred (8.85%) are nearly equivalent, so the quote can't tell them apart. The tooltip
+  and article now say 2 months deferred reproduced the printed rate; “Not sure” stays the answer.
+  Lesson: check a provider's printed rate with Guided's own engine, not a hand-rolled model.

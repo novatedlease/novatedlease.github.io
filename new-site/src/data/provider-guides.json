@@ -1629,7 +1629,7 @@
           "field": "defer",
           "kind": "locate",
           "text": "Toyota Fleet quotes don't state a deferral. Ask Toyota Fleet how many lease payments there are, or choose “Not sure”.",
-          "more": "On the quote we checked, the printed rate matched “Rent” paid from month 1 with no deferral. That may only reflect how Toyota Fleet works out the figure, and most novated leases defer 2 months. Choose “Straight away” only if Toyota Fleet confirms it.",
+          "more": "On the quote we checked, assuming 2 months deferred reproduced Toyota Fleet's printed interest rate. Choose “Straight away” only if Toyota Fleet confirms payments start in the first month.",
           "image": null
         },
         {
