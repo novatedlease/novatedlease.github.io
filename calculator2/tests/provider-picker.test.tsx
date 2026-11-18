@@ -187,6 +187,9 @@ describe("provider picker", () => {
     const rest = [...picker().querySelectorAll('optgroup[label="All providers"] option')].map((o) => o.textContent);
     expect(rest.slice(0, -1)).toEqual([...rest.slice(0, -1)].sort((a, b) => a!.localeCompare(b!)));
     expect(rest.at(-1)).toBe("Other / not listed");
+    expect(screen.getByText("Beta")).toBeTruthy();
+    expect(screen.getByText(/We checked quotes from 29 providers/)).toBeTruthy();
+    expect(screen.getByRole("link", { name: "email" }).getAttribute("href")).toBe("mailto:contact@novatedlease.guide");
   });
 
   test("Smartsalary is Smart Leasing's layout: picking it selects Smart Leasing", () => {

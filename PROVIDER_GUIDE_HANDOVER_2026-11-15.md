@@ -1035,3 +1035,10 @@ Open items (not started; raise with the owner):
   avoid counting it twice. With No or Not sure, neither price is adjusted. The article cautions
   that an unexplained summary total may still bundle a non-financed premium, so obtain an
   itemised on-road price in that case. Tightened the on-screen hint to say “financed” explicitly.
+
+### Provider picker beta note
+
+- Added a Beta byline beneath the optional provider picker. It explains the 29-provider manual
+  template review, warns that individual layouts and GST treatment can change the result, and
+  links to email, r/NovatedLeasingAU and the Novated Lease Q&A Australia Facebook group for
+  feedback.

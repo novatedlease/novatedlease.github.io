@@ -1805,6 +1805,10 @@ function ProviderSelect({ d, setProvider }: { d: GuidedDraft; setProvider: (prov
         { value: "other", label: providerLabel("other"), group: "All providers" },
       ]}
     />
+    <p className="gd-provider-beta">
+      <span className="gd-provider-beta__tag">Beta</span>
+      We checked quotes from 29 providers and manually reviewed each template and its figures to build provider-specific guidance. Your quote may vary, especially in its GST treatment, and give a different result. Feedback is welcome by <a href="mailto:contact@novatedlease.guide">email</a>, on <a href="https://www.reddit.com/r/NovatedLeasingAU/" target="_blank" rel="noreferrer">r/NovatedLeasingAU</a>, or in the <a href="https://www.facebook.com/groups/602788952082399" target="_blank" rel="noreferrer">Novated Lease Q&amp;A Australia Facebook group</a>.
+    </p>
     {smartRelated && (
       <p className="nlc-field__hint gd-provider-note">
         Smartsalary and Smart Leasing are the same company (now “Smart”), with the same quote layout.
