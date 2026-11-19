@@ -216,6 +216,12 @@
 @media (max-width: 640px) { .gd-answers__row { grid-template-columns: 1fr auto; } .gd-answers__row dt { grid-column: 1 / -1; } }
 .gd-results { margin-top: 8px; }
 .gd-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+.gd-forum { flex: 1 1 100%; padding: 16px; border: 1px solid var(--nlc-border); border-radius: var(--nlc-radius-md); background: var(--nlc-bg-subtle); }
+.gd-forum p { margin: 6px 0 12px; font-size: 13px; color: var(--nlc-text-muted); }
+.gd-forum__text { display: block; width: 100%; box-sizing: border-box; resize: vertical; padding: 12px; border: 1px solid var(--nlc-border-mid); border-radius: var(--nlc-radius-sm); background: var(--nlc-surface); color: var(--nlc-text); font: 13px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.gd-forum__text:focus { outline: 2px solid var(--nlc-blue); outline-offset: 2px; }
+.gd-forum__actions { display: flex; gap: 8px; margin-top: 12px; }
+
 
 /* GST example quotes */
 .gd-gstmock { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }

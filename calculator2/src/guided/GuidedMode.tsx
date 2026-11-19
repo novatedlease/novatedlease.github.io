@@ -54,6 +54,7 @@ import { NOT_ANSWERED, carText, longDate, residualAsTyped, termText } from "./an
 import { NextSteps } from "../components/NextSteps";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { copyShareLink } from "../utils/shareLink";
+import { formatForumSummary } from "./forumSummary";
 import { summaryFigures } from "../components/summaryFigures";
 import { SG_RATE, superShortfallOverLease, takeHomeReductionPerFn } from "../components/payImpact";
 import { quoteAssumptions } from "./quoteAssumptions";
@@ -3087,6 +3088,33 @@ function ReviewStep({
         ]
   ).filter(Boolean) as [string, string, StepId][];
 
+  const forumAnswers: [string, string][] = rows.map(([label, value]) => [label, value]);
+  if (!exploring) {
+    const period = d.runningPeriod ? ` per ${PERIOD_UNIT[d.runningPeriod]}` : "";
+    forumAnswers.push(
+      ["Kilometres per year", moneyValue(d.mileage) ? `${moneyValue(d.mileage)!.toLocaleString("en-AU")} km` : NOT_ANSWERED],
+      ["Running costs GST", d.gstPassedOn === "Yes" ? "GST saving passed on" : d.gstPassedOn === "No" ? "GST saving not passed on" : "Not sure"],
+      ...(["service", "tyres", "rego", "insurance", "mgmt", d.vehicleType === "EV" ? "chargingBudget" : "fuel"] as const)
+        .map((key): [string, string] => [
+          `${({ service: "Servicing", tyres: "Tyres", rego: "Registration", insurance: "Insurance", mgmt: "Management fees", chargingBudget: "Charging budget", fuel: "Fuel" } as Record<string, string>)[key]}${period}`,
+          moneyOrNa(d[key], false),
+        ]),
+    );
+  }
+  const forumSummary = () => inputs ? formatForumSummary({
+    inputs,
+    exploring,
+    provider: d.provider && d.provider !== "other" ? providerLabel(d.provider) : null,
+    horizon: effectiveHorizon,
+    cashNone,
+    paymentPeriod: exploring ? null : payCycle(d),
+    answers: forumAnswers,
+    assumptions: exploring
+      ? (assumptions ?? []).map((a): [string, string] => [a.label, a.value])
+      : (quoteAssumed ?? []).map((a): [string, string] => [a.label, a.value]),
+    warnings: flagged.map((finding) => finding.message),
+  }) : "";
+
   /** Your answers and, on an estimate, what we filled in: everything the result rests on, in one place. */
   const basedOn = (n: number) => (
     <Part
@@ -3313,6 +3341,7 @@ function ReviewStep({
           >
           <ResultTools
             inputs={inputs}
+            forumSummary={forumSummary}
             exploring={exploring}
             savedQuotes={savedQuotes}
             onQuotesChange={onQuotesChange}
@@ -3818,11 +3847,13 @@ function TryNumbers({
 /** Copy link and save, so a guided result can be kept or shared without opening Advanced mode. */
 function ResultTools({
   inputs,
+  forumSummary,
   exploring,
   savedQuotes,
   onQuotesChange,
 }: {
   inputs: Inputs;
+  forumSummary: () => string;
   exploring: boolean;
   savedQuotes?: SavedQuoteV1[];
   onQuotesChange?: (quotes: SavedQuoteV1[]) => void;
@@ -3831,6 +3862,25 @@ function ResultTools({
   const [naming, setNaming] = useState(false);
   const [name, setName] = useState("");
   const [saved, setSaved] = useState<string | null>(null);
+  const [forumOpen, setForumOpen] = useState(false);
+  const [forumText, setForumText] = useState("");
+  const [forumCopied, setForumCopied] = useState(false);
+  const [forumCopyError, setForumCopyError] = useState(false);
+  const forumTextRef = useRef<HTMLTextAreaElement>(null);
+
+  async function copyForumText() {
+    try {
+      await navigator.clipboard.writeText(forumText);
+      setForumCopied(true);
+      setForumCopyError(false);
+      trackEvent("copy_forum_summary_clicked", { source: "guided" });
+      window.setTimeout(() => setForumCopied(false), 2000);
+    } catch {
+      forumTextRef.current?.select();
+      setForumCopied(false);
+      setForumCopyError(true);
+    }
+  }
 
   async function copy() {
     trackEvent("copy_link_clicked", { source: "guided" });
@@ -3864,6 +3914,14 @@ function ResultTools({
 
   return (
     <div className="gd-actions">
+      <Button variant="secondary" onClick={() => {
+        setForumText(forumSummary());
+        setForumCopied(false);
+        setForumCopyError(false);
+        setForumOpen(true);
+      }}>
+        Copy for forum
+      </Button>
       <Button variant="secondary" onClick={copy}>
         {copied ? "Link copied!" : "Copy share link"}
       </Button>
@@ -3897,6 +3955,18 @@ function ResultTools({
           Saved as "{saved}". Saved results are listed under Saved quotes in
           Advanced mode, where you can compare them side by side.
         </span>
+      )}
+      {forumOpen && (
+        <div className="gd-forum" role="group" aria-label="Forum summary preview">
+          <label htmlFor="gd-forum-text"><strong>Review before posting</strong></label>
+          <p>Remove any details you don't want to share, then copy this text into your forum post.</p>
+          <textarea id="gd-forum-text" ref={forumTextRef} className="gd-forum__text" value={forumText} onChange={(event) => setForumText(event.target.value)} rows={16} />
+          <div className="gd-forum__actions">
+            <Button variant="primary" onClick={copyForumText}>{forumCopied ? "Copied!" : "Copy text"}</Button>
+            <Button variant="ghost" onClick={() => setForumOpen(false)}>Close</Button>
+          </div>
+          {forumCopyError && <p role="status">Copy was blocked by your browser. The text is selected; use your device’s Copy command.</p>}
+        </div>
       )}
     </div>
   );
