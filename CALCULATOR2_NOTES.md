@@ -99,7 +99,7 @@ Live hidden preview: <https://novatedlease.guide/calculator2/> (noindex, sitemap
 ## 3. Outstanding — the only open items
 
 Status as of 2026-07-04 (updated after this round of work — see §5 prompts A/B/C/E, all now
-closed, plus two follow-up UI/copy rounds tracked in `calculator2/UI_COPY_FIXES.md`, also closed).
+closed, plus two follow-up UI/copy rounds tracked in `notes/archive/UI_COPY_FIXES.md`, also closed).
 
 1. ~~Multi-scenario parity sweep~~ — **DONE.** Re-run across all 30 golden-master scenarios
    (FBT tiers, lease terms, comparators, income brackets) using share links to drive both

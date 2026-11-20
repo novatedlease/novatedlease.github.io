@@ -10,7 +10,8 @@ affiliation with any leasing company; no commissions, no leads sold.
   scripts under `public/assets/...` are committed as `docs/assets/...`.
 - `docs/` — the published static tree (GitHub Pages) plus shared assets.
 - `calculator/`, `calculator2/` — calculator code; see `CALCULATOR2_NOTES.md`.
-- `FUTURE_WORK.md`, `SITE_REVIEW_2026-07.md` — backlog and the July 2026 review.
+- `IN_PROGRESS.md` — every open item in one list. Specs for active work in `notes/`;
+  finished and superseded notes in `notes/archive/`.
 
 ## Deploying
 

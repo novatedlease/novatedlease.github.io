@@ -6,7 +6,7 @@ import { emptyDraft, type GuidedDraft, type Money } from "../src/guided/draft";
 import { longDate, residualAsTyped } from "../src/guided/answerText";
 import { checkBaseValueAtCap, checkCurrentCarTotal, checkLoanFee, checkLoanRate } from "../src/guided/checks";
 
-/** The owner's decisions on the 14 Nov 2026 UX review (UX_REVIEW_2026-11-14_DECISIONS.md). */
+/** The owner's decisions on the 14 Nov 2026 UX review (notes/archive/UX_REVIEW_2026-11-14_DECISIONS.md). */
 
 afterEach(cleanup);
 beforeEach(() => window.localStorage.clear());

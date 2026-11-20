@@ -4,7 +4,7 @@ import quoteImages from "../../../docs/assets/images/quote-guide/manifest.json";
 
 /**
  * Optional "Who is your quote from?" answer and the dated, per-field pointers shown for it.
- * Design: PROVIDER_PICKER_DESIGN_2026-11.md (issue 16). Reviewed providers can show
+ * Design: notes/archive/PROVIDER_PICKER_DESIGN_2026-11.md (issue 16). Reviewed providers can show
  * redacted quote-page previews; all customer values and identifying details are removed.
  */
 export const PROVIDERS = [
