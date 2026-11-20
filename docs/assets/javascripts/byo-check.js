@@ -181,8 +181,8 @@
       aliases: ["Bendigo Hospital", "Bendigo Base Hospital", "Anne Caudle Centre", "John Bomford Centre"],
       group: "Victoria",
       status: "possible",
-      notes: "Salary packaging via Maxxia. Important lender restriction: Westpac will not allow Maxxia to make payments from Maxxia's own account — Westpac insists the employer make payments directly, which is incompatible with how Maxxia operates. Avoid Westpac as your BYO lender at this employer.",
-      sources: [{ type: "employee", date: "2026-05-25" }]
+      notes: "Salary packaging via Maxxia. One employee reported in May 2026 that Westpac wouldn't accept lease payments made by Maxxia, but a broker reports many Maxxia-managed Westpac novated leases. Confirm with your chosen lender.",
+      sources: [{ type: "employee", date: "2026-05-25" }, { type: "industry", date: "2026-11-20" }]
     },
     {
       name: "Western Health",
