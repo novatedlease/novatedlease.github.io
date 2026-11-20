@@ -181,7 +181,7 @@
       aliases: ["Bendigo Hospital", "Bendigo Base Hospital", "Anne Caudle Centre", "John Bomford Centre"],
       group: "Victoria",
       status: "possible",
-      notes: "Salary packaging via Maxxia. One employee reported in May 2026 that Westpac wouldn't accept lease payments made by Maxxia, but a broker reports many Maxxia-managed Westpac novated leases. Confirm with your chosen lender.",
+      notes: "Salary packaging via Maxxia. A broker reports quite a few Maxxia-managed novated leases financed by Westpac.",
       sources: [{ type: "employee", date: "2026-05-25" }, { type: "industry", date: "2026-11-20" }]
     },
     {
