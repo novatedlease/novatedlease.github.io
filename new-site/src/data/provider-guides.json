@@ -101,7 +101,7 @@
           "field": "docFee",
           "kind": "trap",
           "text": "Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”. Enter the total as printed.",
-          "more": "On older quotes these are the “Plus …” lines under “Finance breakdown”. They're financed with the car, so leaving them out understates the amount financed and overstates the rate.\n\nTo check: drive-away + this fee − “GST” should equal “Total amount financed”.",
+          "more": "On older quotes these are the “Plus …” lines under “Finance breakdown”. They're financed with the car, so leaving them out understates the amount financed and overstates the rate.\n\nTo check: drive-away + this fee − “GST” should equal “Total amount financed”.\n\nIf you'd buy the MDR membership anyway when paying cash, add it to the drive-away price instead. The rate is the same either way; only the cash comparison changes.",
           "image": "/assets/images/quote-guide/sgfleet/field-docFee.webp"
         },
         {
