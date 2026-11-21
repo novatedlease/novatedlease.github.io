@@ -129,7 +129,7 @@ export type Pointer = {
 
 /** Specific entries where a plausible quote figure would mislead the calculator. */
 export const TRAP_FIELDS: Partial<Record<ProviderId, GuideField[]>> = {
-  sgfleet: ["payment", "baseValue"],
+  sgfleet: ["payment", "baseValue", "docFee"],
   millarx: ["payment"], smartleasing: ["payment"],
   flare: ["driveaway"], oly: ["driveaway"],
   fleetpartners: ["docFee"],
@@ -189,8 +189,13 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "driveaway",
-        text: "Use “Vehicle on-road cost (incl. GST)” under “Lease details”.",
+        text: "Use “Vehicle on-road cost (incl. GST)” under “Lease details”, plus “Accessories (incl. GST)” if shown.",
         more: "Use the full on-road price. “FBT Base Value” and “Total amount financed” are different figures.",
+      },
+      {
+        field: "docFee",
+        text: "Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”. Enter the total as printed.",
+        more: "On older quotes these are the “Plus …” lines under “Finance breakdown”. They're financed with the car, so leaving them out understates the amount financed and overstates the rate.\n\nTo check: drive-away + this fee − “GST” should equal “Total amount financed”.",
       },
       {
         field: "luxAdj",

@@ -66,13 +66,15 @@
         "payment": "Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.",
         "defer": "If you see “payable as 34 payments” on a 36-month lease, that's a 2-month deferral (36 − 34).",
         "baseValue": "Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”.",
-        "driveaway": "Use “Vehicle on-road cost (incl. GST)” under “Lease details”.",
+        "driveaway": "Use “Vehicle on-road cost (incl. GST)” under “Lease details”, plus “Accessories (incl. GST)” if shown.",
+        "docFee": "Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”. Enter the total as printed.",
         "luxAdj": "If you see “Luxury levy” or “Luxury vehicle adjustment”, that's this line.",
         "running": "The package lines are per pay. Choose your pay frequency."
       },
       "traps": [
         "payment",
-        "baseValue"
+        "baseValue",
+        "docFee"
       ],
       "pointers": [
         {
@@ -85,7 +87,7 @@
         {
           "field": "driveaway",
           "kind": "locate",
-          "text": "Use “Vehicle on-road cost (incl. GST)” under “Lease details”.",
+          "text": "Use “Vehicle on-road cost (incl. GST)” under “Lease details”, plus “Accessories (incl. GST)” if shown.",
           "more": "Use the full on-road price. “FBT Base Value” and “Total amount financed” are different figures.",
           "image": "/assets/images/quote-guide/sgfleet/driveaway-example.webp"
         },
@@ -94,6 +96,13 @@
           "kind": "locate",
           "text": "If you see “payable as 34 payments” on a 36-month lease, that's a 2-month deferral (36 − 34).",
           "image": "/assets/images/quote-guide/sgfleet/field-defer.webp"
+        },
+        {
+          "field": "docFee",
+          "kind": "trap",
+          "text": "Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”. Enter the total as printed.",
+          "more": "On older quotes these are the “Plus …” lines under “Finance breakdown”. They're financed with the car, so leaving them out understates the amount financed and overstates the rate.\n\nTo check: drive-away + this fee − “GST” should equal “Total amount financed”.",
+          "image": "/assets/images/quote-guide/sgfleet/field-docFee.webp"
         },
         {
           "field": "payment",

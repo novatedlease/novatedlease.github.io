@@ -21,13 +21,14 @@ The first two pages of the VSSS example below **do not show FBT Base Value**. Lo
 
 - **Finance payment:** Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.
 - **FBT base value:** Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”.
+- **Documentation fee:** Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”. Enter the total as printed.
 <!-- provider-traps:end -->
 
 ![Redacted later SG Fleet FBT section with number 1 marking FBT Base Value](/assets/images/quote-guide/sgfleet/fbt-example.webp)
 
 ## Where to find the drive-away price
 
-On the VSSS sample, go to **Lease details** on page 2. The line marked **2**, **Vehicle on-road cost (incl. GST)**, is the drive-away price. It is different from both FBT Base Value and Total amount financed.
+On the VSSS sample, go to **Lease details** on page 2. The line marked **2**, **Vehicle on-road cost (incl. GST)**, is the drive-away price. Add **Accessories (incl. GST)** if your quote lists them. It is different from both FBT Base Value and Total amount financed.
 
 ![Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost](/assets/images/quote-guide/sgfleet/driveaway-example.webp)
 
@@ -41,10 +42,10 @@ On the VSSS sample, go to **Lease details** on page 2. The line marked **2**, **
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |
 | 1 (separate example above) | FBT base value | **FBT Base Value** in the **Fringe Benefit Tax (FBT)** section | Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”. |
-| 2 | Drive-away price | **Vehicle on-road cost (incl. GST)** | Use “Vehicle on-road cost (incl. GST)” under “Lease details”. |
+| 2 | Drive-away price | **Vehicle on-road cost (incl. GST)** | Use “Vehicle on-road cost (incl. GST)” under “Lease details”, plus “Accessories (incl. GST)” if shown. |
 | 3 | Lease term | **Lease term** or the term in Package arrangements | The term shown on your quote. |
 | 4 | Months deferred | **Monthly lease rental**, followed by **payable as … payments** | Subtract the number of payable months from the full term in months. If the count is unclear, choose *I'm not sure*. |
-| 5 | Documentation fee | **Establishment fee** and **PPSR fee** in Lease details | Check both lines and their GST labels. |
+| 5 | Documentation fee | **MDR membership**, **Establishment fee** and **PPSR fee** in Lease details (on older quotes, the “Plus …” lines under **Finance breakdown**) | Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”. Enter the total as printed. Check: drive-away + this fee − “GST” equals “Total amount financed”. |
 | 6 | Residual | **Residual value (incl. GST)** | Choose *Including GST*. |
 | 7a / 7b | Finance payment | Per-pay **Lease rental** in Package details (7b). Not the **Monthly lease rental** in Lease details (7a) | Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months. |
 | 9 | Running costs | Package details, below Lease rental | Enter the budget lines using the period printed on your quote. Keep the package total and change to take-home pay out of the finance-payment box. |
