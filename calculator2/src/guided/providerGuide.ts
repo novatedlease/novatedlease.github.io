@@ -254,7 +254,7 @@ export const GUIDES: ProviderGuide[] = [
       {
         field: "docFee",
         text: "Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.",
-        more: "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.",
+        more: "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.\n\nIf you ticked Lease Protection or Total Loss Benefit, add those too: the terms say the amount financed includes insurances and services other than roadside and comprehensive insurance. To check: drive-away + this fee − GST should equal that amount financed.",
       },
       {
         field: "residual",
@@ -378,8 +378,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "docFee",
-        text: "Enter only “Financier's Establishment fee” as the documentation fee.",
-        more: "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
+        text: "Enter “Financier's Establishment fee” plus any “Add-on lease insurances you've chosen” under “Car finance”.",
+        more: "Enter each as printed. First-year comprehensive insurance has its own question, so don't add it here: both enter the rate calculation, but the insurance is counted only once in the lease total.\n\nTo check: the lines under “Car finance” add up to “Your total amount financed”.",
       },
       {
         field: "residual",
@@ -413,8 +413,8 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "docFee",
-        text: "Enter only “Financier's Establishment Fee” as the documentation fee.",
-        more: "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
+        text: "Enter “Financier's Establishment Fee” plus any financed optional covers: Lease Protection, Guaranteed Buy Back, Total Loss Assist.",
+        more: "Enter each as printed. First-year comprehensive insurance has its own question, so don't add it here: both enter the rate calculation, but the insurance is counted only once in the lease total.\n\nTo check: car price − GST savings + these + first-year insurance should equal “Total amount financed”.",
       },
     ],
   },

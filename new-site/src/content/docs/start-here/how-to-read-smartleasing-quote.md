@@ -31,7 +31,7 @@ These two pages come from the same [Smart Leasing quote shared in November 2026]
 | 3 | Lease term | **Lease term** | Use the months shown. |
 | — | Drive-away price | **Not shown on either available page** | Use the dealer's full on-road price including GST. If you do not have it, use Guided's residual-based helper or add up the vehicle price and on-road charges from other pages. Do not use FBT base value, a GST saving or a lease payment as the drive-away total. |
 | 4 | Months deferred | **Months deferred** | If you see “Months deferred”, use that number. |
-| 5 | Documentation fee | **Documentation fee** in the terms page of another quote below | Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1. |
+| 5 | Documentation fee | **Documentation fee** in the terms page of another quote below | Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1. Add any ticked Lease Protection or Total Loss Benefit too. |
 | 6 | Residual | **Residual** and **Residual incl GST** | Either figure works if you choose its matching GST answer. |
 | 7a / 7b | Finance payment | **Lease per month** or **Lease incl GST per month** | Enter either the monthly figure or the fortnightly lease payment, with its matching GST answer, then run the Smart Leasing correction tool. Both need it. |
 | 9 | Running costs | **Running Cost Budgets (exc GST)** | Use the period shown for those budget lines and choose *Excluding GST*. |

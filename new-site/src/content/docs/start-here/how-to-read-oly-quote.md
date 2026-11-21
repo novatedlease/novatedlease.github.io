@@ -29,7 +29,7 @@ This numbered example shows an Oly quote layout we reviewed. Match each marker t
 |---|---|---|
 | 2 | Recommended retail price (shown struck out) | On this example it reconciles to the on-road price including GST. Check that the figure on your own quote includes all on-road charges; otherwise use the dealer's full drive-away price. "Your Oly novated leasing price" / "Oly driveaway price" has the GST saving taken off. |
 | 3 | Your chosen novated lease term | Lease term |
-| 5 | Financier's Establishment fee | Enter only “Financier's Establishment fee” as the documentation fee. |
+| 5 | Financier's Establishment fee | Enter “Financier's Establishment fee” plus any “Add-on lease insurances you've chosen” under “Car finance”. |
 | 7 | Car lease payments | Finance payment, per month (the page says "Monthly"). No GST label: choose "I'm not sure" unless your quote says. |
 | 9 | Monthly running-cost budget lines | Running-cost boxes, per month. Incidentals and roadside → Servicing. |
 <!-- provider-table:end -->
@@ -48,7 +48,7 @@ This numbered example shows an Oly quote layout we reviewed. Match each marker t
 
 The Oly quote reviewed includes the first year's comprehensive insurance in the amount financed ("First year Comprehensive Insurance - (Oly arranged)"). Its footnote says annual renewals are covered by the running costs.
 
-1. **Documentation fee:** enter only "Financier's Establishment fee". Answer **Yes** to the separate first-year insurance question and enter "First year Comprehensive Insurance" there. Both amounts enter the financed amount used for the effective interest rate.
+1. **Documentation fee:** enter "Financier's Establishment fee" plus any "Add-on lease insurances you've chosen", each as printed. Don't add the first-year insurance here. Answer **Yes** to the separate first-year insurance question and enter "First year Comprehensive Insurance" there. Both amounts enter the financed amount used for the effective interest rate.
 2. **Insurance running cost:** enter "Comprehensive Insurance" under "Registration and car insurances" as printed. It budgets the renewals only. Guided adds the financed first year back, so paying cash is compared with a full year of insurance every year and the lease counts year one once, through the finance payment.
 
 Not shown on this sample: **8 luxury vehicle adjustment**, **11 interest rate**.

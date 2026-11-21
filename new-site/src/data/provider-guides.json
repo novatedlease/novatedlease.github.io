@@ -39,7 +39,7 @@
           "field": "docFee",
           "kind": "locate",
           "text": "Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.",
-          "more": "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.",
+          "more": "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.\n\nIf you ticked Lease Protection or Total Loss Benefit, add those too: the terms say the amount financed includes insurances and services other than roadside and comprehensive insurance. To check: drive-away + this fee − GST should equal that amount financed.",
           "image": "/assets/images/quote-guide/smartleasing/field-docFee.webp"
         },
         {
@@ -135,7 +135,7 @@
         "driveaway": "If you see “Car price (based on on roads…)”, that's the drive-away price.",
         "residual": "If “Total residual value” has no GST label, choose Including GST.",
         "insurance": "Enter “Comprehensive insurance renewal” as printed.",
-        "docFee": "Enter only “Financier's Establishment Fee” as the documentation fee."
+        "docFee": "Enter “Financier's Establishment Fee” plus any financed optional covers: Lease Protection, Guaranteed Buy Back, Total Loss Assist."
       },
       "traps": [],
       "pointers": [
@@ -154,8 +154,8 @@
         {
           "field": "docFee",
           "kind": "locate",
-          "text": "Enter only “Financier's Establishment Fee” as the documentation fee.",
-          "more": "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
+          "text": "Enter “Financier's Establishment Fee” plus any financed optional covers: Lease Protection, Guaranteed Buy Back, Total Loss Assist.",
+          "more": "Enter each as printed. First-year comprehensive insurance has its own question, so don't add it here: both enter the rate calculation, but the insurance is counted only once in the lease total.\n\nTo check: car price − GST savings + these + first-year insurance should equal “Total amount financed”.",
           "image": "/assets/images/quote-guide/maxxia/field-docFee.webp"
         },
         {
@@ -1206,7 +1206,7 @@
         "financedInsurance": "Use “First year Comprehensive Insurance” under “Car finance”, beside the establishment fee. Don't use the renewal budget.",
         "driveaway": "Don’t use “Oly driveaway price”: it has the GST saving taken off. Use “Recommended retail price” if it includes all on-road charges.",
         "insurance": "Enter “Comprehensive Insurance” under “Registration and car insurances” as printed.",
-        "docFee": "Enter only “Financier's Establishment fee” as the documentation fee.",
+        "docFee": "Enter “Financier's Establishment fee” plus any “Add-on lease insurances you've chosen” under “Car finance”.",
         "residual": "Look for “Your total residual value (after lease term)” near the end of the estimate, and choose Including GST."
       },
       "traps": [
@@ -1236,8 +1236,8 @@
         {
           "field": "docFee",
           "kind": "locate",
-          "text": "Enter only “Financier's Establishment fee” as the documentation fee.",
-          "more": "Both amounts enter the rate calculation, but the insurance is counted only once in the lease total.",
+          "text": "Enter “Financier's Establishment fee” plus any “Add-on lease insurances you've chosen” under “Car finance”.",
+          "more": "Enter each as printed. First-year comprehensive insurance has its own question, so don't add it here: both enter the rate calculation, but the insurance is counted only once in the lease total.\n\nTo check: the lines under “Car finance” add up to “Your total amount financed”.",
           "image": "/assets/images/quote-guide/oly/field-docFee.webp"
         },
         {
