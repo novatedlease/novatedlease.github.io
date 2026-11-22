@@ -86,6 +86,11 @@ import {
   fbtCategoryOf,
   fbtLabel,
   financedExGst,
+  asksAmountFinanced,
+  asksFinancedCovers,
+  financedCoversAmount,
+  financedExtrasAmount,
+  extrasBoughtAnywayAmount,
   isLuxuryRange,
   marketValueEndEntered,
   missingForStep,
@@ -134,10 +139,11 @@ import {
   checkProvider,
   checkRate,
   checkResidual,
+  checkExtrasFinanced,
   diagnosePayment,
   type Finding,
 } from "./checks";
-import { Choices, FindingList, Help, MoneyInput, Tip } from "./parts";
+import { Choices, FindingActionContext, FindingList, Help, MoneyInput, Tip } from "./parts";
 import { MissingFields } from "./missing";
 import { QuoteDiagram, type QuoteKey } from "./QuoteDiagram";
 import { DriveawayHelper } from "./DriveawayHelper";
@@ -205,6 +211,7 @@ function paymentDiagnosisFor(d: GuidedDraft) {
     typed,
     d.paymentPeriod,
     d.paymentBasis,
+    { financesExtras: asksAmountFinanced(d.provider) && !moneyValue(d.amountFinanced) },
   );
 }
 
@@ -229,6 +236,7 @@ function findingsFor(d: GuidedDraft) {
     providerPrice: providerChecks.filter((f) => f.code === "provider_driveaway_trap"),
     providerPayment: providerChecks.filter((f) => f.code !== "provider_driveaway_trap"),
     docFee: checkDocFee(moneyValue(d.docFee)),
+    amountFinanced: checkExtrasFinanced(financedExtrasAmount(d), extrasBoughtAnywayAmount(d)),
     residual: checkResidual({
       entered: moneyValue(d.residual),
       basis: residualBasisUsed(d),
@@ -320,16 +328,21 @@ function currentCarCostFindings(d: GuidedDraft) {
 type FindingMap = ReturnType<typeof findingsFor>;
 
 /** Keep figure checks quiet while a reader is still typing an amount. */
-function emptyFindingMap(findings: FindingMap): FindingMap {
+function emptyFindingMap(findings: FindingMap, editingField: string): FindingMap {
   const empty = { ...findings };
   for (const key of Object.keys(empty) as (keyof FindingMap)[]) empty[key] = [];
+  // The financed-extras note isn't about a typo, so it stays once the reader has moved to another box (Tab, not only a click).
+  if (editingField !== "amountFinanced") empty.amountFinanced = findings.amountFinanced;
   return empty;
 }
+
+/** Where a finding's action button should land. */
+const FIELD_SCREEN: Record<string, StepId> = { amountFinanced: "lease" };
 
 const STEP_FIELDS: Partial<Record<StepId, (keyof FindingMap)[]>> = {
   quick: ["evThreshold", "mileage"],
   price: ["prices", "providerPrice"],
-  lease: ["docFee", "residual"],
+  lease: ["docFee", "amountFinanced", "residual"],
   payment: ["payment", "paymentCorrected", "providerPayment"],
   running: [
     "mileage",
@@ -396,7 +409,8 @@ export function GuidedMode({
     () => !!stored && stored.step !== "intro",
   );
   const [tried, setTried] = useState(false);
-  const [editingAmount, setEditingAmount] = useState(false);
+  /** The money box being typed in (its question id), or null. Figure checks stay quiet while it is set. */
+  const [editingAmount, setEditingAmount] = useState<string | null>(null);
   /** Per step, the exact set of errors the reader ticked past. A different error needs a fresh tick. */
   const [acked, setAcked] = useState<Partial<Record<StepId, string>>>({});
   const topRef = useRef<HTMLDivElement>(null);
@@ -421,6 +435,9 @@ export function GuidedMode({
       if (next !== previous.provider) {
         updated.insuranceFinanced = null;
         updated.financedInsurance = emptyMoney();
+        updated.amountFinanced = emptyMoney();
+        updated.financedCovers = emptyMoney();
+        updated.extrasBoughtAnyway = emptyMoney();
         updated.remservPriceSource = null;
         if (next === "autopia" && !previous.luxAdj.text.trim() && !previous.luxAdj.none)
           updated.luxAdjPeriod = "perYear";
@@ -442,7 +459,7 @@ export function GuidedMode({
 
   const checkedFindings = useMemo(() => findingsFor(draft), [draft]);
   const findings = useMemo(
-    () => editingAmount ? emptyFindingMap(checkedFindings) : checkedFindings,
+    () => editingAmount !== null ? emptyFindingMap(checkedFindings, editingAmount) : checkedFindings,
     [checkedFindings, editingAmount],
   );
   const steps = visibleSteps(draft);
@@ -488,6 +505,13 @@ export function GuidedMode({
     if (!el) return;
     el.scrollIntoView?.({ behavior: "smooth", block: "center" });
     el.querySelector<HTMLElement>("input:not([disabled]), button")?.focus({ preventScroll: true });
+  }
+
+  /** A finding's button: go to the screen holding that question, then put the cursor in it. */
+  function goToField(field: string) {
+    const target = (Object.entries(FIELD_SCREEN).find(([k]) => k === field)?.[1] ?? "lease") as StepId;
+    if (target !== step) go(target);
+    window.setTimeout(() => jumpTo(field), 60);
   }
 
   function next() {
@@ -556,16 +580,17 @@ export function GuidedMode({
   const isLast = step === "review";
 
   return (
+    <FindingActionContext.Provider value={goToField}>
     <div
       className="gd"
       ref={topRef}
       onFocusCapture={(event) => {
         if (event.target instanceof HTMLInputElement && event.target.matches(".gd-money .nlc-input"))
-          setEditingAmount(true);
+          setEditingAmount(event.target.closest<HTMLElement>("[data-field]")?.dataset.field ?? "");
       }}
       onBlurCapture={(event) => {
         if (event.target instanceof HTMLInputElement && event.target.matches(".gd-money .nlc-input"))
-          setEditingAmount(false);
+          setEditingAmount(null);
       }}
     >
       {resumed && (
@@ -752,6 +777,7 @@ export function GuidedMode({
         {step !== "intro" && <StartOverLink onConfirm={startOver} onClearPage={canClearStep(step) ? clearPage : undefined} />}
       </div>
     </div>
+    </FindingActionContext.Provider>
   );
 }
 
@@ -862,7 +888,7 @@ function Side({
   const [pick, setPick] = useState<PanelPick | null>(null);
   const narrow = useNarrowScreen();
   // The typical-quote diagram has no separate insurance or fees row; both sit under running costs.
-  const diagram = <QuoteDiagram highlight={highlight.filter((k): k is QuoteKey => k !== "insurance" && k !== "fees" && k !== "mileage" && k !== "financedInsurance")} values={quoteValues(d)} />;
+  const diagram = <QuoteDiagram highlight={highlight.filter((k): k is QuoteKey => k !== "insurance" && k !== "fees" && k !== "mileage" && k !== "financedInsurance" && k !== "amountFinanced" && k !== "financedCovers")} values={quoteValues(d)} />;
   const guide = guideFor(d.provider);
   const hasPicture = (field: GuideField) => !!guide && !!pictureFor(guide.id, field);
   // Keep showing the last provider picture when the focused field has none of its own.
@@ -1365,7 +1391,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
       ? null
       : String(d.monthsDeferred);
   return (
-    <Side highlight={["term", "defer", "docFee", "financedInsurance", "residual"]} d={d}>
+    <Side highlight={["term", "defer", "docFee", "financedCovers", "amountFinanced", "financedInsurance", "residual"]} d={d}>
       <Lead>The finance terms from your quote.</Lead>
       <Choices
         field="leaseYears"
@@ -1426,7 +1452,7 @@ function LeaseStep({ d, set, f }: StepPropsF) {
               "Also called:\n• Documentation fee\n• Entry fee\n• Security interest fee\n\n" +
               "Some quotes only show it in the small print or under “Other fees”. Use the ex-GST amount if both are shown.\n\n" +
               "If your quote charges it per month (for example “Lease establishment fee $8.87” in a monthly list), leave this at $0 and add the monthly amount to your lease management fees on the running-costs screen. Don't enter it in both places.\n\n" +
-              "Optional cover financed up front (e.g. GAP, lease protection, total loss, guaranteed buy-back) goes here too: a cash buyer wouldn't buy it, so it counts on the lease side only. Cover charged per pay goes in lease management fees instead. Accessories such as a dash cam or tint go in the drive-away price."
+              "Optional cover financed up front (e.g. GAP, lease protection, total loss, guaranteed buy-back) goes here too, unless your provider has its own question for it below: a cash buyer wouldn't buy it, so it counts on the lease side only. Cover charged per pay goes in lease management fees instead. Accessories such as a dash cam or tint go in the drive-away price."
             }
           />
         }
@@ -1434,6 +1460,36 @@ function LeaseStep({ d, set, f }: StepPropsF) {
         findings={f.docFee}
       />
       <ProviderPointers d={d} field="docFee" />
+      {asksFinancedCovers(d.provider) && <>
+        <MoneyInput
+          field="financedCovers"
+          label="Optional covers financed up front (if any)"
+          value={d.financedCovers}
+          onChange={(m) => set("financedCovers", m)}
+          where="Type each as printed and add them together. Leave blank if you have none."
+        />
+        <ProviderPointers d={d} field="financedCovers" />
+      </>}
+      {asksAmountFinanced(d.provider) && <>
+        <MoneyInput
+          field="amountFinanced"
+          label="Total amount financed (optional)"
+          value={d.amountFinanced}
+          onChange={(m) => set("amountFinanced", m)}
+          where="Same terms clause: “based on a total amount financed of …”. Type it as printed."
+          findings={f.amountFinanced}
+        />
+        {financedExtrasAmount(d) >= 100 && (
+          <MoneyInput
+            field="extrasBoughtAnyway"
+            label="Of that, how much would you have bought anyway if paying cash? (optional)"
+            value={d.extrasBoughtAnyway}
+            onChange={(m) => set("extrasBoughtAnyway", m)}
+            where="Accessories you wanted, such as a dash camera or charging kit. Leave blank if you're not sure: we then count all of it against the lease."
+          />
+        )}
+        <ProviderPointers d={d} field="amountFinanced" />
+      </>}
       {(d.provider === "maxxia" || d.provider === "oly" || d.provider === "remserv") && <>
         <Choices
           field="insuranceFinanced"
@@ -2945,9 +3001,13 @@ function ReviewStep({
   );
   const diag = paymentDiagnosisFor(d);
   const fbt = fbtCategoryOf(d);
-  const flagged = visibleFindings(d, f).filter(
-    (x) => x.level === "error" || x.level === "warn",
-  );
+  const flagged = visibleFindings(d, f)
+    .filter((x) => x.level === "error" || x.level === "warn")
+    .map((x) =>
+      x.code === "extras_financed"
+        ? (checkExtrasFinanced(financedExtrasAmount(d), extrasBoughtAnywayAmount(d), "result")[0] ?? x)
+        : x,
+    );
   const cashNone = d.cashHome === "none";
   const alternatives = [
     ...(cashNone ? [] : ["buying with cash"]),
@@ -3060,6 +3120,16 @@ function ReviewStep({
             "lease",
           ],
           ["Documentation fee", moneyOrNa(d.docFee, false), "lease"],
+          financedCoversAmount(d) >= 1 ? ["Optional covers financed up front", money(financedCoversAmount(d)), "lease"] : null,
+          asksAmountFinanced(d.provider) && moneyValue(d.amountFinanced)
+            ? ["Total amount financed", money(moneyValue(d.amountFinanced)!), "lease"]
+            : null,
+          asksAmountFinanced(d.provider) && financedExtrasAmount(d) >= 100
+            ? ["Financed beyond the car and fee", money(financedExtrasAmount(d)), "lease"]
+            : null,
+          asksAmountFinanced(d.provider) && extrasBoughtAnywayAmount(d) >= 1
+            ? ["Of which you would have bought anyway", money(extrasBoughtAnywayAmount(d)), "lease"]
+            : null,
           ["Residual", residualAsTyped(d) ?? NOT_ANSWERED, "lease"],
           asksMarketValueEnd(d)
             ? [
@@ -3250,6 +3320,7 @@ function ReviewStep({
             hideNotes={!exploring}
             interestWords={interestWordsFor(d.cashHome)}
             cashLast={cashNone}
+            cashExtrasIncluded={extrasBoughtAnywayAmount(d)}
             onMoreDetails={(anchorId) => {
               trackEvent("guided_more_details_clicked");
               openAdvanced(anchorId);

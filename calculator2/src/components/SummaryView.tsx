@@ -40,6 +40,8 @@ type Props = {
    * an investment loan, savings or investments). Defaults to the home loan.
    */
   interestWords?: InterestWords;
+  /** Guided: financed extras the reader would have bought anyway, already inside the cash drive-away price. */
+  cashExtrasIncluded?: number;
 };
 
 const FULL_BREAKDOWN_ANCHOR = "details-section-2-financial-summary";
@@ -189,7 +191,7 @@ function NoteBox(p: { title: string; children: React.ReactNode }) {
   );
 }
 
-export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails, cashLast, hideNotes, interestWords }: Props) {
+export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetails, afterResults, hideDisclaimers, compactMoreDetails, cashLast, hideNotes, interestWords, cashExtrasIncluded }: Props) {
   const words = interestWords ?? HOME_LOAN_WORDS;
   const {
     s,
@@ -247,6 +249,11 @@ export function SummaryView({ inputs, horizon, onNavigateToDetails, onMoreDetail
         <BreakdownRow label="Novated lease total" value={fmtAud0(nlTotalSpent)} bold />
         <Sep />
         <BreakdownRow label="Cash: drive-away" value={fmtAud0(inputs.driveawayCost)} indent />
+        {cashExtrasIncluded != null && cashExtrasIncluded >= 1 && (
+          <div className="nlc-breakdown-note" style={{ paddingLeft: 10, fontSize: 12, opacity: 0.65, marginTop: -2 }}>
+            Includes {fmtAud0(cashExtrasIncluded)} of the extras financed in your lease that you said you would have bought anyway.
+          </div>
+        )}
         <BreakdownRow label="Cash: running costs" value={fmtAud0(Math.max(0, offsetTotalSpent - inputs.driveawayCost))} indent />
         <BreakdownRow label="Paying cash total" value={fmtAud0(offsetTotalSpent)} bold />
         <Sep />

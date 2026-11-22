@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { GST_EXEMPT_CAP } from "@engine/ato";
 import type { Inputs } from "@engine/types";
+import { financedAmountExGstFromInputs } from "@engine/effectiveinterest";
 import { getLeaseFbtCategory, getEvLctThresholdForLeaseStart, usedEvHistoryTestsApply, EV_TRANSITIONAL_FULL_EXEMPT_CAP } from "@engine/types";
 import { Section } from "./ui/Section";
 import { CurrencyField, PercentField, NumberField, PillGroup, YesNoToggle, SelectField, DateField } from "./ui/Field";
@@ -31,6 +32,17 @@ function fiveYearNote(years: number) {
   return years > 0 && years < 5
     ? `5 years from now, not at the end of your ${years}-year lease: results compare over 5 years.`
     : null;
+}
+
+const FINANCED_AMOUNT_HINT =
+  "Only used for the effective interest rate calculation — leave as the pre-calculated figure unless you have a specific quoted amount without add-ons.";
+
+/** Says so when the figure sits above drive-away + fee − GST: items financed beyond the car (Guided's "total amount financed"). */
+export function financedAmountHint(inputs: Inputs): string {
+  const extras = inputs.financedAmountForInterestCalcExGst - financedAmountExGstFromInputs(inputs);
+  if (!(extras >= 50)) return FINANCED_AMOUNT_HINT;
+  const aud = `$${Math.round(extras).toLocaleString("en-AU")}`;
+  return `${FINANCED_AMOUNT_HINT} This is ${aud} above drive-away + documentation fee − GST saving, so it includes items financed beyond the car, such as accessories or lease protection insurance. They count in the effective rate and against the lease only. Anything you would have bought with cash belongs in the drive-away price.`;
 }
 
 export function InputsPanel(props: {
@@ -400,7 +412,7 @@ export function InputsPanel(props: {
             />
           }
         />
-        <CurrencyField label="Financed amount reported in your quote" value={inputs.financedAmountForInterestCalcExGst} onChange={(v) => set("financedAmountForInterestCalcExGst", v)} hint="Only used for the effective interest rate calculation — leave as the pre-calculated figure unless you have a specific quoted amount without add-ons." />
+        <CurrencyField label="Financed amount reported in your quote" value={inputs.financedAmountForInterestCalcExGst} onChange={(v) => set("financedAmountForInterestCalcExGst", v)} hint={financedAmountHint(inputs)} />
         <NumberField label="Months until first finance payment" value={inputs.monthsDeferred} onChange={(v) => set("monthsDeferred", Math.max(0, Math.round(v)))} hint="Typically 2 months, occasionally 1." decimals={0} />
       </Section>
 

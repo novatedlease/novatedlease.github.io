@@ -107,7 +107,7 @@ export function isNamedProvider(id: ProviderId | null): id is ProviderId {
 }
 
 /** "mileage" has a marked crop and a text line (mileageLine.ts) but no written pointer in the guides. */
-export type GuideField = QuoteKey | "insurance" | "fees" | "mileage" | "financedInsurance";
+export type GuideField = QuoteKey | "insurance" | "fees" | "mileage" | "financedInsurance" | "amountFinanced" | "financedCovers";
 
 export type Pointer = {
   field: GuideField;
@@ -239,8 +239,9 @@ export const GUIDES: ProviderGuide[] = [
     pointers: [
       {
         field: "driveaway",
-        text: "Can't find a drive-away total? Use the dealer's full on-road price including GST, or work it out from the residual.",
-        more: "Do not substitute FBT base value, a GST saving or a lease payment.",
+        text: "Smart Leasing quotes don't show a drive-away total. Get it from your car invoice, or work it out from the residual.",
+        more: "Use the dealer's full on-road price including GST. Do not substitute FBT base value, a GST saving or a lease payment.",
+        notShown: true,
       },
       {
         field: "payment",
@@ -254,7 +255,12 @@ export const GUIDES: ProviderGuide[] = [
       {
         field: "docFee",
         text: "Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.",
-        more: "The same clause states the total amount financed. That is different from the drive-away price and should not be entered in the price field.\n\nIf you ticked Lease Protection or Total Loss Benefit, add those too: the terms say the amount financed includes insurances and services other than roadside and comprehensive insurance. To check: drive-away + this fee − GST should equal that amount financed.",
+        more: "The same clause states the total amount financed. Enter that in the next box, not here.",
+      },
+      {
+        field: "amountFinanced",
+        text: "Find “total amount financed” at the start of the same terms clause.",
+        more: "Optional but worth entering. It includes accessories and covers that aren't itemised on the quote, and they raise the rate you are really paying. We work out the extra from it. Leave it blank if you can't find it.",
       },
       {
         field: "residual",
@@ -378,8 +384,13 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "docFee",
-        text: "Enter “Financier's Establishment fee” plus any “Add-on lease insurances you've chosen” under “Car finance”.",
-        more: "Enter each as printed. First-year comprehensive insurance has its own question, so don't add it here: both enter the rate calculation, but the insurance is counted only once in the lease total.\n\nTo check: the lines under “Car finance” add up to “Your total amount financed”.",
+        text: "Enter “Financier's Establishment fee” under “Car finance”. Add-on insurances go in the next box.",
+        more: "First-year comprehensive insurance has its own question, so don't add it here: both enter the rate calculation, but the insurance is counted only once in the lease total.",
+      },
+      {
+        field: "financedCovers",
+        text: "Add the “Add-on lease insurances you've chosen” under “Car finance”. Leave this blank if you have none.",
+        more: "Enter each as printed and add them together. To check: the lines under “Car finance” add up to “Your total amount financed”.",
       },
       {
         field: "residual",
@@ -413,8 +424,13 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "docFee",
-        text: "Enter “Financier's Establishment Fee” plus any financed optional covers: Lease Protection, Guaranteed Buy Back, Total Loss Assist.",
-        more: "Enter each as printed. First-year comprehensive insurance has its own question, so don't add it here: both enter the rate calculation, but the insurance is counted only once in the lease total.\n\nTo check: car price − GST savings + these + first-year insurance should equal “Total amount financed”.",
+        text: "Enter “Financier's Establishment Fee”. Financed optional covers go in the next box.",
+        more: "First-year comprehensive insurance has its own question, so don't add it here: both enter the rate calculation, but the insurance is counted only once in the lease total.",
+      },
+      {
+        field: "financedCovers",
+        text: "Add any financed optional covers: Lease Protection, Guaranteed Buy Back and Total Loss Assist. Leave blank if none.",
+        more: "Enter each as printed and add them together. To check: car price − GST savings + the establishment fee + these + first-year insurance should equal “Total amount financed”.",
       },
     ],
   },
@@ -1046,6 +1062,11 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     alt: "Redacted SG Fleet Lease details with Vehicle on-road cost marked 2",
     caption: "Lease details from an SG Fleet quote, with values removed. The line to use is marked 2.",
   } },
+  { id: "smartleasing", field: "amountFinanced", example: {
+    image: "/assets/images/quote-guide/smartleasing/field-amountFinanced.webp",
+    alt: "Clause from a redacted Smart Leasing terms page with the total amount financed ticked",
+    caption: "The terms clause from a separate Smart Leasing quote, with values removed. The total amount financed is ticked.",
+  } },
   { id: "smartleasing", field: "docFee", example: {
     image: "/assets/images/quote-guide/smartleasing/field-docFee.webp",
     alt: "Clause from a redacted Smart Leasing terms page with the documentation fee ticked",
@@ -1139,6 +1160,8 @@ export const FIELD_NAMES: Record<GuideField, string> = {
   docFee: "Documentation fee", residual: "Residual", payment: "Finance payment", luxAdj: "Luxury adjustment",
   running: "Running costs", insurance: "Insurance", fees: "Management fees", mileage: "Kilometres per year",
   financedInsurance: "First-year insurance financed up front",
+  amountFinanced: "Total amount financed",
+  financedCovers: "Optional covers financed up front",
 };
 
 /**

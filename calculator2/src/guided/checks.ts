@@ -12,10 +12,36 @@ export type Finding = {
   level: Level;
   message: string;
   link?: { href: string; label: string };
+  /** A button that takes the reader back to the question that fixes this (a GuidedDraft key). */
+  action?: { field: string; label: string };
 };
 
 const GST = 1.1;
 const fmt = (n: number) => `$${Math.round(n).toLocaleString("en-AU")}`;
+
+/** Below this, financed extras (a tint, say) are mentioned but don't earn an amber warning. */
+const EXTRAS_WARN_AT = 1500;
+
+/**
+ * The quote finances more than the car and its fees (accessories, covers, other items). Interest is
+ * paid on it for the whole lease, and the reader may not have meant to buy all of it.
+ */
+export function checkExtrasFinanced(extras: number, boughtAnyway = 0, where: "field" | "result" = "field"): Finding[] {
+  if (extras < 100) return [];
+  const split =
+    boughtAnyway > 0
+      ? ` ${fmt(boughtAnyway)} of it you would have bought anyway, so it counts against paying cash too. The other ${fmt(extras - boughtAnyway)} counts against the lease only.`
+      : where === "field"
+        ? " In the next question, we ask you to tell us the sum of these components you would have paid if you bought the car in cash."
+        : " It counts against the lease only. You can tell us, on the lease screen, the sum of these components you would have paid if you bought the car in cash.";
+  return [
+    {
+      code: "extras_financed",
+      level: extras >= EXTRAS_WARN_AT ? "warn" : "info",
+      message: `${fmt(extras)} of the amount financed is on top of the car and the fee, such as accessories, total loss benefit, lease protection insurance etc. You pay interest on it for the whole lease, so check you asked for each item.${split}`,
+    },
+  ];
+}
 
 /** Provider-specific checks supplement the generic findings after the reader enters a figure. */
 export function checkProvider(d: GuidedDraft): Finding[] {
@@ -253,6 +279,7 @@ export function diagnosePayment(
   typed: number | null,
   period: Period | null,
   basis: "exGst" | "incGst" | "unknown" | null = "exGst",
+  opts: { financesExtras?: boolean } = {},
 ): PaymentDiagnosis {
   if (!typed || typed <= 0 || !period)
     return { rate: null, status: "empty", findings: [] };
@@ -287,7 +314,11 @@ export function diagnosePayment(
         perFn: o.perFn * gstFlip,
       })),
     ];
+    // Where the quote finances extras (Smart Leasing), a high rate usually means a bigger amount
+    // financed than we assumed, so the GST flip would point the wrong way.
+    const extrasLikely = opts.financesExtras && main.status === "ok" && main.rate! > 0.12;
     for (const t of tries) {
+      if (extrasLikely && t.code.startsWith("payment_looks_")) continue;
       const alt = rateFor(a, t.perFn);
       if (
         alt.rate !== null &&
@@ -331,6 +362,15 @@ export function diagnosePayment(
   }
 
   const rate = main.rate!;
+  if (opts.financesExtras && rate > 0.12) {
+    findings.push({
+      code: "rate_high_extras_financed",
+      level: "warn",
+      message: `This implies an effective rate of ${pct(rate)}. Smart Leasing quotes often finance extras on top of the car, so the rate may look higher than it is.`,
+      action: { field: "amountFinanced", label: "Enter the total amount financed" },
+    });
+    return { rate, status: "ok", findings };
+  }
   if (findings.length === 0) {
     if (rate < TYPICAL_LOW) {
       findings.push({

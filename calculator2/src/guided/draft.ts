@@ -132,6 +132,12 @@ export type GuidedDraft = {
   /** First-year comprehensive insurance financed with the car on some Maxxia/Oly/RemServ quotes. */
   insuranceFinanced: YesNoUnsure | null;
   financedInsurance: Money;
+  /** Total amount financed as the quote prints it (Smart Leasing terms). Anything above the car and fees is financed extras. */
+  amountFinanced: Money;
+  /** Optional covers financed up front, itemised on Maxxia and Oly quotes (Lease Protection, Guaranteed Buy Back, Total Loss Assist, add-on lease insurances). */
+  financedCovers: Money;
+  /** Of the financed extras, what the reader would have bought anyway if paying cash (e.g. accessories they wanted). */
+  extrasBoughtAnyway: Money;
   residualBasis: "exGst" | "incGst" | "unknown" | null;
   residual: Money;
   /** Reader's estimate of the car's market value when the lease ends (not at 5 years). Only asked when comparing with keeping the current car. */
@@ -217,6 +223,9 @@ export function emptyDraft(): GuidedDraft {
     docFee: emptyMoney(),
     insuranceFinanced: null,
     financedInsurance: emptyMoney(),
+    amountFinanced: emptyMoney(),
+    financedCovers: emptyMoney(),
+    extrasBoughtAnyway: emptyMoney(),
     residualBasis: null,
     residual: emptyMoney(),
     marketValueEnd: emptyMoney(),
@@ -417,6 +426,41 @@ export function vehicleDriveawayCost(d: GuidedDraft): number | null {
   return printed - (d.provider === "remserv" && d.remservPriceSource === "summaryTotal" ? financedInsuranceAmount(d) : 0);
 }
 
+/** Providers whose terms print a total amount financed that can include extras the quote doesn't itemise. */
+export function asksAmountFinanced(provider: GuidedDraft["provider"]): boolean {
+  return provider === "smartleasing";
+}
+
+/**
+ * What the quote finances beyond the car and its fees: the printed total amount financed less the
+ * drive-away price (less the GST saving), the documentation fee and any financed insurance. It goes
+ * into the financed amount (Advanced's financed-amount cell), so the documentation fee stays as printed.
+ */
+export function financedExtrasAmount(d: GuidedDraft): number {
+  if (!asksAmountFinanced(d.provider)) return 0;
+  const printed = moneyValue(d.amountFinanced);
+  const drive = vehicleDriveawayCost(d);
+  const gst = gstSavedFromDraft(d);
+  if (!printed || drive == null || gst == null) return 0;
+  const carAndFees = drive - gst + (moneyValue(d.docFee) ?? 0) + financedInsuranceAmount(d);
+  return Math.max(0, printed - carAndFees);
+}
+
+/** Providers whose quotes itemise optional covers financed with the car. */
+export function asksFinancedCovers(provider: GuidedDraft["provider"]): boolean {
+  return provider === "maxxia" || provider === "oly";
+}
+
+/** Optional covers financed up front. Lease-side only: a cash buyer wouldn't buy them. */
+export function financedCoversAmount(d: GuidedDraft): number {
+  return asksFinancedCovers(d.provider) ? Math.max(0, moneyValue(d.financedCovers) ?? 0) : 0;
+}
+
+/** Of the financed extras, the part the reader says they'd have bought anyway: it counts on the cash side too. */
+export function extrasBoughtAnywayAmount(d: GuidedDraft): number {
+  return Math.min(financedExtrasAmount(d), Math.max(0, moneyValue(d.extrasBoughtAnyway) ?? 0));
+}
+
 export function financedInsuranceAmount(d: GuidedDraft): number {
   return (d.provider === "maxxia" || d.provider === "oly" || d.provider === "remserv") && d.insuranceFinanced === "Yes"
     ? moneyValue(d.financedInsurance) ?? 0
@@ -434,7 +478,8 @@ export function financedInsuranceRunningBasis(d: GuidedDraft): number {
 
 export function financedExGst(d: GuidedDraft): number | null {
   const p = pricingInputs(d);
-  return p ? financedAmountExGstFromInputs(p) : null;
+  // The extras sit on top of the car and fees, the way Advanced's own financed-amount cell holds them.
+  return p ? financedAmountExGstFromInputs(p) + financedExtrasAmount(d) + financedCoversAmount(d) : null;
 }
 
 /** Typical market value at the end of the lease: about 40% of drive-away at 5 years, declining exponentially (as the engine does). */
@@ -995,7 +1040,7 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     usedCarFirstHeldAfterJul2022: d.usedAfter2022 === true,
     usedCarLctNeverPayable: d.usedLctNever === true,
     vehicleBaseValue: moneyValue(d.baseValue)!,
-    driveawayCost: driveaway,
+    driveawayCost: driveaway + extrasBoughtAnywayAmount(d),
     estimatedMarketValueAtEnd:
       (asksMarketValueEnd(d) ? marketValueAt5Years(d) : null) ??
       estMarketValueFromDriveaway(driveaway),
@@ -1050,8 +1095,10 @@ export function buildInputs(d: GuidedDraft): Inputs | null {
     ...currentCarInputs(d),
   };
 
+  // The financed-amount cell is Advanced's own place for anything financed beyond price + fees. The
+  // part the reader would have bought anyway is already in the price, so only the rest is added.
   merged.financedAmountForInterestCalcExGst =
-    financedAmountExGstFromInputs(merged);
+    financedAmountExGstFromInputs(merged) + (financedExtrasAmount(d) - extrasBoughtAnywayAmount(d)) + financedCoversAmount(d);
   merged.residualValueExGst = residualExGstEntered(d)!;
   merged.vehicleLeasePerFn = paymentPerFn(d)!;
   return merged;
@@ -1069,7 +1116,7 @@ export const STEP_DRAFT_FIELDS: Partial<Record<StepId, (keyof GuidedDraft)[]>> =
   price: ["baseValue", "driveaway", "remservPriceSource"],
   lease: [
     "leaseYears", "monthsDeferred", "monthsDeferredUnsure", "docFee",
-    "insuranceFinanced", "financedInsurance", "residual", "residualBasis",
+    "insuranceFinanced", "financedInsurance", "amountFinanced", "financedCovers", "extrasBoughtAnyway", "residual", "residualBasis",
   ],
   payment: ["payment", "paymentPeriod", "paymentBasis", "paymentCorrected", "luxAdj", "luxAdjPeriod", "smartMillarx"],
   running: [

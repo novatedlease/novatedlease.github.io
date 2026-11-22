@@ -556,7 +556,8 @@ describe("provider pointers", () => {
     on("price", { ...quoteDraft(), provider: "smartleasing" });
     expect(screen.queryByRole("button", { name: "Show me on a Smart Leasing quote" })).toBeNull();
     // A pointer with its own text keeps its Show me.
-    expect(screen.getByText(/Can't find a drive-away total/)).toBeTruthy();
+    cleanup();
+    on("price", { ...quoteDraft(), provider: "sgfleet" });
     expect(screen.getAllByRole("button", { name: "Show me" }).length).toBeGreaterThan(0);
   });
 
@@ -569,9 +570,8 @@ describe("provider pointers", () => {
     expect(side.textContent).toContain("Smart Leasing quote: Drive-away price");
     expect(side.textContent).toContain("Not shown on the Smart Leasing quotes we've seen.");
     expect(side.querySelector("img")).toBeNull();
-    // Its own Show me still brings up the pages to work it out from the residual.
-    fireEvent.click(document.querySelector('.gd-pointers[data-field="driveaway"] .gd-template > button')!);
-    expect(side.querySelector("img")).not.toBeNull();
+    // The line says so plainly and has no Show me: the pages hold no drive-away price to point at.
+    expect(document.querySelector('.gd-pointers[data-field="driveaway"] .gd-template > button')).toBeNull();
     expect(notOnQuote("smartleasing", "driveaway")).toBe(true);
     expect(notOnQuote("smartleasing", "baseValue")).toBe(false);
     expect(notOnQuote("sgfleet", "baseValue")).toBe(false);
@@ -615,16 +615,13 @@ describe("provider pointers", () => {
     expect(gtag).toHaveBeenCalledWith("event", "guided_provider_feedback_click", { provider: "sgfleet" });
   });
 
-  test("Smart Leasing stacks both redacted pages for the missing drive-away price", () => {
+  test("Smart Leasing's drive-away line says where to get it and has no Show me", () => {
     on("price", { ...quoteDraft(), provider: "smartleasing" });
-    expect(screen.getByText(/Can't find a drive-away total/)).toBeTruthy();
-    const pointer = openPicture("driveaway");
-    const images = pointer.querySelectorAll<HTMLImageElement>(".gd-template__body img");
-    expect([...images].map((image) => image.getAttribute("src"))).toEqual([
-      "/assets/images/quote-guide/smartleasing/redacted-quote-page-1.webp",
-      "/assets/images/quote-guide/smartleasing/redacted-quote.webp",
-    ]);
-    expect(pointer.querySelector(".gd-template__fullpage")).toBeTruthy();
+    const pointer = document.querySelector('.gd-pointers[data-field="driveaway"]')!;
+    expect(pointer.textContent).toMatch(/Get it from your car invoice, or work it out from the residual/);
+    expect(pointer.querySelector("button")).toBeNull();
+    // The residual helper it points to is on the screen.
+    expect(screen.getByText(/Work it out from the residual/)).toBeTruthy();
   });
 
   test("Smart Leasing's documentation fee opens a crop of the separate terms page's clause", () => {

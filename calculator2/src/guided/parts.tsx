@@ -1,4 +1,4 @@
-import { useContext, useId, useState, type ReactNode } from "react";
+import { createContext, useContext, useId, useState, type ReactNode } from "react";
 import { MissingFields } from "./missing";
 import { FieldWrapper } from "../components/ui/Field";
 import { InfoTooltip } from "../components/ui/InfoTooltip";
@@ -240,7 +240,11 @@ export function Choices<T extends string | number | boolean>({
   );
 }
 
+/** Lets a finding's action button take the reader to another question, possibly on another screen. */
+export const FindingActionContext = createContext<((field: string) => void) | null>(null);
+
 export function FindingList({ findings }: { findings?: Finding[] }) {
+  const goToField = useContext(FindingActionContext);
   if (!findings || findings.length === 0) return null;
   return (
     <div className="gd-findings">
@@ -255,6 +259,14 @@ export function FindingList({ findings }: { findings?: Finding[] }) {
           </span>
           <div>
             {f.message}
+            {f.action && goToField && (
+              <>
+                {" "}
+                <button type="button" className="gd-linkbtn" onClick={() => goToField(f.action!.field)}>
+                  {f.action.label}
+                </button>
+              </>
+            )}
             {f.link && (
               <>
                 {" "}
