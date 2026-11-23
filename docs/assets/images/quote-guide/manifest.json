@@ -16,6 +16,10 @@
       "w": 1400,
       "h": 634
     },
+    "alliance/field-luxAdj.webp": {
+      "w": 900,
+      "h": 236
+    },
     "alliance/field-payment.webp": {
       "w": 1400,
       "h": 602
@@ -300,6 +304,10 @@
       "w": 900,
       "h": 155
     },
+    "fleetpartners/field-luxAdj.webp": {
+      "w": 900,
+      "h": 79
+    },
     "fleetpartners/field-payment.webp": {
       "w": 900,
       "h": 156
@@ -359,6 +367,10 @@
     "leaseexpress/field-fees.webp": {
       "w": 1087,
       "h": 179
+    },
+    "leaseexpress/field-luxAdj.webp": {
+      "w": 900,
+      "h": 138
     },
     "leaseexpress/field-payment.webp": {
       "w": 1087,
@@ -451,6 +463,10 @@
     "maxxia/field-fees.webp": {
       "w": 900,
       "h": 136
+    },
+    "maxxia/field-luxAdj.webp": {
+      "w": 900,
+      "h": 122
     },
     "maxxia/field-payment.webp": {
       "w": 900,
@@ -588,6 +604,10 @@
       "w": 900,
       "h": 204
     },
+    "paywise/field-luxAdj.webp": {
+      "w": 900,
+      "h": 192
+    },
     "paywise/field-payment.webp": {
       "w": 900,
       "h": 194
@@ -671,6 +691,10 @@
     "sgfleet/field-fees.webp": {
       "w": 900,
       "h": 145
+    },
+    "sgfleet/field-luxAdj.webp": {
+      "w": 900,
+      "h": 172
     },
     "sgfleet/field-payment.webp": {
       "w": 900,
@@ -927,6 +951,10 @@
     "simplygreen/field-mileage.webp": {
       "w": 582,
       "h": 20
+    },
+    "smartleasing/field-luxAdj.webp": {
+      "w": 900,
+      "h": 355
     },
     "smartleasing/field-mileage.webp": {
       "w": 605,

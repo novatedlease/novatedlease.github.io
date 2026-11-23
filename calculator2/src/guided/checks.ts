@@ -32,8 +32,8 @@ export function checkExtrasFinanced(extras: number, boughtAnyway = 0, where: "fi
     boughtAnyway > 0
       ? ` ${fmt(boughtAnyway)} of it you would have bought anyway, so it counts against paying cash too. The other ${fmt(extras - boughtAnyway)} counts against the lease only.`
       : where === "field"
-        ? " In the next question, we ask you to tell us the sum of these components you would have paid if you bought the car in cash."
-        : " It counts against the lease only. You can tell us, on the lease screen, the sum of these components you would have paid if you bought the car in cash.";
+        ? " In the next question, we ask you to tell us the sum of components you would still have bought even if you bought the car in cash."
+        : " It counts against the lease only. You can tell us, on the lease screen, the sum of components you would still have bought even if you bought the car in cash.";
   return [
     {
       code: "extras_financed",

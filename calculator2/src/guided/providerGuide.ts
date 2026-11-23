@@ -260,11 +260,17 @@ export const GUIDES: ProviderGuide[] = [
       {
         field: "amountFinanced",
         text: "Find “total amount financed” at the start of the same terms clause.",
+        boilerplate: true,
         more: "Optional but worth entering. It includes accessories and covers that aren't itemised on the quote, and they raise the rate you are really paying. We work out the extra from it. Leave it blank if you can't find it.",
       },
       {
         field: "residual",
         text: "If you see “Residual ex GST” and “Residual inc GST”, use either and choose the matching answer.",
+      },
+      {
+        field: "luxAdj",
+        text: "If you see “Add: Luxury Adjustment (LVA)” under “Running Cost Budgets”, that's this line.",
+        more: "It is a small amount, below “Add: Fringe Benefits Tax”. Use the Monthly or Annually figure, and choose the matching frequency.",
       },
     ],
   },
@@ -404,6 +410,7 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xt3of3", "1xs8shk"],
     pointers: [
+      { field: "luxAdj", text: "If you see “Luxury car depreciation allowance” under “Tax implications & other charges”, that's this line." },
       {
         field: "financedInsurance",
         text: "Use “1st year Comprehensive Insurance” beside the establishment fee. Don't use the renewal budget.",
@@ -439,6 +446,7 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xlqzm8", "1x9tvny"],
     pointers: [
+      { field: "luxAdj", text: "If a footnote says “Luxury Car Charge of $… included in pre-tax deduction”, that's this line." },
       {
         field: "baseValue",
         text: "Use the “Vehicle” row in “Your order” → “Price specifications”, Total column, including GST.",
@@ -464,6 +472,7 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xocvn9", "1xnlk94", "1so066a"],
     pointers: [
+      { field: "luxAdj", text: "If you see “Luxury car charge” under “Payroll Deduction Information”, that's this line." },
       { field: "driveaway", text: "Use “Total Drive Away Price (Inc GST)” in Purchase Details. Don’t use “Total Amount Financed”." },
       {
         field: "payment",
@@ -640,6 +649,7 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xob46m"],
     pointers: [
+      { field: "luxAdj", text: "If you see “Luxury Car Charge” under “Package Inclusions”, that's this line." },
       { field: "driveaway", text: "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual." },
       { field: "baseValue", text: "If you see “FBT value”, that's the FBT base value." },
       { field: "payment", text: "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, not the package total. If you see “(ex. GST)”, choose Excluding GST.", more: "Enter it per fortnight. The package total adds running costs and fees." },
@@ -698,6 +708,7 @@ export const GUIDES: ProviderGuide[] = [
     seen: "2026-11",
     sources: ["1xo2r3u"],
     pointers: [
+      { field: "luxAdj", text: "If you see “Luxury Depreciation Limit” between “FBT Payable” and “Pre-tax payment”, that's this line." },
       { field: "driveaway", text: "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST, or work it out from the residual.", more: "Guided's helper uses the residual value, its percentage and its GST basis." },
       { field: "baseValue", text: "If you see “Value for FBT purposes”, that's the FBT base value." },
       { field: "residual", text: "If “GST on residual” sits beside “Residual value”, enter the residual figure and choose Excluding GST." },
@@ -1066,6 +1077,41 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
     image: "/assets/images/quote-guide/smartleasing/field-amountFinanced.webp",
     alt: "Clause from a redacted Smart Leasing terms page with the total amount financed ticked",
     caption: "The terms clause from a separate Smart Leasing quote, with values removed. The total amount financed is ticked.",
+  } },
+  { id: "sgfleet", field: "luxAdj", example: {
+    image: "/assets/images/quote-guide/sgfleet/field-luxAdj.webp",
+    alt: "Vehicle package table from a redacted SG Fleet quote with the Luxury levy row ticked",
+    caption: "The vehicle package table from a separate SG Fleet quote, with values removed. The luxury levy row is ticked.",
+  } },
+  { id: "maxxia", field: "luxAdj", example: {
+    image: "/assets/images/quote-guide/maxxia/field-luxAdj.webp",
+    alt: "Tax implications section of a redacted Maxxia quote with the Luxury car depreciation allowance row ticked",
+    caption: "The tax implications section of a separate Maxxia quote, with values removed. The luxury car depreciation allowance row is ticked.",
+  } },
+  { id: "paywise", field: "luxAdj", example: {
+    image: "/assets/images/quote-guide/paywise/field-luxAdj.webp",
+    alt: "Package inclusions panel of a redacted Paywise quote with the Luxury Car Charge box ticked",
+    caption: "The package inclusions panel of a separate Paywise quote, with values removed. The luxury car charge is ticked.",
+  } },
+  { id: "alliance", field: "luxAdj", example: {
+    image: "/assets/images/quote-guide/alliance/field-luxAdj.webp",
+    alt: "Payroll deduction table of a redacted Alliance Leasing quote with the Luxury car charge row ticked",
+    caption: "The payroll deduction table of a separate Alliance Leasing quote, with values removed. The luxury car charge row is ticked.",
+  } },
+  { id: "fleetpartners", field: "luxAdj", example: {
+    image: "/assets/images/quote-guide/fleetpartners/field-luxAdj.webp",
+    alt: "Footnote of a redacted FleetPartners quote stating the Luxury Car Charge included in the pre-tax deduction, ticked",
+    caption: "The footnote under the savings table of a separate FleetPartners quote, with values removed. The luxury car charge is ticked.",
+  } },
+  { id: "leaseexpress", field: "luxAdj", example: {
+    image: "/assets/images/quote-guide/leaseexpress/field-luxAdj.webp",
+    alt: "Cost table of a redacted LeaseExpress quote with the Luxury Depreciation Limit row ticked",
+    caption: "The cost table of a separate LeaseExpress quote, with values removed. The luxury depreciation limit row is ticked.",
+  } },
+  { id: "smartleasing", field: "luxAdj", example: {
+    image: "/assets/images/quote-guide/smartleasing/field-luxAdj.webp",
+    alt: "Running Cost Budgets table from a redacted Smart Leasing quote with the Add: Luxury Adjustment (LVA) row ticked",
+    caption: "The Running Cost Budgets table from a separate Smart Leasing quote, with values removed. The luxury adjustment row is ticked.",
   } },
   { id: "smartleasing", field: "docFee", example: {
     image: "/assets/images/quote-guide/smartleasing/field-docFee.webp",

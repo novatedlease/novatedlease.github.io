@@ -85,7 +85,8 @@ describe("amount financed (Smart Leasing)", () => {
     expect(screen.getByText(/\$14,795 of the amount financed is on top of the car and the fee/)).toBeTruthy();
     // The documentation fee box still says $550 and gets no "a lot for a fee" warning.
     expect(screen.queryByText(/is a lot for a documentation fee/)).toBeNull();
-    expect(document.querySelector(".gd-pointers[data-field='amountFinanced']")).toBeTruthy();
+    // The field's own hint already says where to find it, so the provider line is left out of Guided.
+    expect(document.querySelector(".gd-pointers[data-field='amountFinanced']")).toBeNull();
   });
 
   test("it has a marked screenshot like the other fields", () => {
@@ -247,7 +248,7 @@ describe("splitting the extras into what a cash buyer would have bought anyway",
   test("the message says how it was treated", () => {
     const field = checkExtrasFinanced(14795)[0].message;
     expect(field).toMatch(/such as accessories, total loss benefit, lease protection insurance etc\./);
-    expect(field).toMatch(/In the next question, we ask you to tell us the sum of these components you would have paid if you bought the car in cash\./);
+    expect(field).toMatch(/In the next question, we ask you to tell us the sum of components you would still have bought even if you bought the car in cash\./);
     // On the result screen "the next question" would be wrong, so it points back to the lease screen.
     const result = checkExtrasFinanced(14795, 0, "result")[0].message;
     expect(result).not.toMatch(/next question/);

@@ -17,7 +17,8 @@
         "defer": "If you see “Months deferred”, use that number.",
         "docFee": "Look for “documentation fee” on the terms page. If it includes GST, divide by 1.1.",
         "amountFinanced": "Find “total amount financed” at the start of the same terms clause.",
-        "residual": "If you see “Residual ex GST” and “Residual inc GST”, use either and choose the matching answer."
+        "residual": "If you see “Residual ex GST” and “Residual inc GST”, use either and choose the matching answer.",
+        "luxAdj": "If you see “Add: Luxury Adjustment (LVA)” under “Running Cost Budgets”, that's this line."
       },
       "traps": [
         "payment"
@@ -55,6 +56,13 @@
           "text": "Use “Lease payment” or “Lease per month”, then run the correction tool. Both need it.",
           "more": "Smart Leasing collects the fortnightly figure as though there were 60 monthly payments while 58 go to the financier.",
           "image": "/assets/images/quote-guide/smartleasing/field-payment.webp"
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Add: Luxury Adjustment (LVA)” under “Running Cost Budgets”, that's this line.",
+          "more": "It is a small amount, below “Add: Fringe Benefits Tax”. Use the Monthly or Annually figure, and choose the matching frequency.",
+          "image": "/assets/images/quote-guide/smartleasing/field-luxAdj.webp"
         }
       ]
     },
@@ -116,7 +124,7 @@
           "field": "luxAdj",
           "kind": "locate",
           "text": "If you see “Luxury levy” or “Luxury vehicle adjustment”, that's this line.",
-          "image": null
+          "image": "/assets/images/quote-guide/sgfleet/field-luxAdj.webp"
         },
         {
           "field": "running",
@@ -132,6 +140,7 @@
       "seen": "2026-11",
       "sourceCount": 2,
       "written": {
+        "luxAdj": "If you see “Luxury car depreciation allowance” under “Tax implications & other charges”, that's this line.",
         "financedInsurance": "Use “1st year Comprehensive Insurance” beside the establishment fee. Don't use the renewal budget.",
         "driveaway": "If you see “Car price (based on on roads…)”, that's the drive-away price.",
         "residual": "If “Total residual value” has no GST label, choose Including GST.",
@@ -174,6 +183,12 @@
           "image": "/assets/images/quote-guide/maxxia/field-residual.webp"
         },
         {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Luxury car depreciation allowance” under “Tax implications & other charges”, that's this line.",
+          "image": "/assets/images/quote-guide/maxxia/field-luxAdj.webp"
+        },
+        {
           "field": "insurance",
           "kind": "locate",
           "text": "Enter “Comprehensive insurance renewal” as printed.",
@@ -188,6 +203,7 @@
       "seen": "2026-11",
       "sourceCount": 1,
       "written": {
+        "luxAdj": "If you see “Luxury Car Charge” under “Package Inclusions”, that's this line.",
         "driveaway": "Can’t find a drive-away total? Use the dealer’s full on-road price including GST, or work it out from the residual.",
         "baseValue": "If you see “FBT value”, that's the FBT base value.",
         "payment": "Use “Lease Payment” under “Package Inclusions (ex. GST) – Fortnightly”, not the package total. If you see “(ex. GST)”, choose Excluding GST.",
@@ -227,6 +243,12 @@
           "image": "/assets/images/quote-guide/paywise/field-payment.webp"
         },
         {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Luxury Car Charge” under “Package Inclusions”, that's this line.",
+          "image": "/assets/images/quote-guide/paywise/field-luxAdj.webp"
+        },
+        {
           "field": "fees",
           "kind": "locate",
           "text": "If you see separate “Lease Management” and “Salary Packaging” lines, add both under lease management fees using the quote's period.",
@@ -240,6 +262,7 @@
       "seen": "2026-11",
       "sourceCount": 3,
       "written": {
+        "luxAdj": "If you see “Luxury car charge” under “Payroll Deduction Information”, that's this line.",
         "driveaway": "Use “Total Drive Away Price (Inc GST)” in Purchase Details. Don’t use “Total Amount Financed”.",
         "payment": "Choose “Finance” under “Budgeted Running Costs” on page 2. On this quote, GST has its own line, so choose Excluding GST.",
         "defer": "If you see “based on two month deferred lease structure”, choose 2 months.",
@@ -275,6 +298,12 @@
           "text": "Choose “Finance” under “Budgeted Running Costs” on page 2. On this quote, GST has its own line, so choose Excluding GST.",
           "more": "The “Finance total” below repeats that figure. Page 3's “Total Lease Payment (Finance Payment)” includes GST under footnote 5. Whether the payment includes GST can depend on your employer. Check the headings and footnotes on your own quote.",
           "image": "/assets/images/quote-guide/alliance/page2-budget.webp"
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Luxury car charge” under “Payroll Deduction Information”, that's this line.",
+          "image": "/assets/images/quote-guide/alliance/field-luxAdj.webp"
         },
         {
           "field": "running",
@@ -716,6 +745,7 @@
       "seen": "2026-11",
       "sourceCount": 2,
       "written": {
+        "luxAdj": "If a footnote says “Luxury Car Charge of $… included in pre-tax deduction”, that's this line.",
         "baseValue": "Use the “Vehicle” row in “Your order” → “Price specifications”, Total column, including GST.",
         "driveaway": "Use “Drive-away total” in the Total column, including GST.",
         "docFee": "If “Lease Establishment Fee” is monthly, add it to management fees instead. Add the one-off PPSR fee and any financed brokerage.",
@@ -750,6 +780,12 @@
           "kind": "trap",
           "text": "If “Lease Establishment Fee” is monthly, add it to management fees instead. Add the one-off PPSR fee and any financed brokerage.",
           "image": "/assets/images/quote-guide/fleetpartners/field-docFee.webp"
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If a footnote says “Luxury Car Charge of $… included in pre-tax deduction”, that's this line.",
+          "image": "/assets/images/quote-guide/fleetpartners/field-luxAdj.webp"
         }
       ]
     },
@@ -904,6 +940,7 @@
       "seen": "2026-11",
       "sourceCount": 1,
       "written": {
+        "luxAdj": "If you see “Luxury Depreciation Limit” between “FBT Payable” and “Pre-tax payment”, that's this line.",
         "driveaway": "Don’t use “Vehicle finance amount” as the drive-away price. Ask for the full on-road price including GST, or work it out from the residual.",
         "baseValue": "If you see “Value for FBT purposes”, that's the FBT base value.",
         "residual": "If “GST on residual” sits beside “Residual value”, enter the residual figure and choose Excluding GST.",
@@ -949,6 +986,12 @@
           "kind": "locate",
           "text": "If “Lease payments (fortnightly)” has GST in a separate column, enter the payment per fortnight, excluding that GST.",
           "image": "/assets/images/quote-guide/leaseexpress/field-payment.webp"
+        },
+        {
+          "field": "luxAdj",
+          "kind": "locate",
+          "text": "If you see “Luxury Depreciation Limit” between “FBT Payable” and “Pre-tax payment”, that's this line.",
+          "image": "/assets/images/quote-guide/leaseexpress/field-luxAdj.webp"
         }
       ]
     },
