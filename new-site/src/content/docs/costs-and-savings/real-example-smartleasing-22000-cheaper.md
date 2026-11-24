@@ -20,7 +20,7 @@ A reader leased a new Zeekr EV through a workplace that deals with **only one no
 | Smart, quote 1 | ~$14,700 | 10.79% | $96,753 |
 | Smart, quote 2 (after finance approval) | ~$6,600 | 10.79% | $87,768 |
 | Novated Lease Australia (BYO finance) | none | 10.01% | $76,752 |
-| Smart, quote 3 (final) | ~$840 (tint) | **7.30%** | **$74,488** |
+| Smart, quote 3 (final) | ~$840 (including the $560 window tint) | **7.30%** | **$74,488** |
 | *For comparison: paying cash for the same car (before home-loan interest)* | *none* | *n/a* | *$89,874[^cash]* |
 
 Same car, same five-year term. The final quote costs **$22,265 less** over the lease than the first.
@@ -168,7 +168,7 @@ The car needs about its drive-away price plus any fees financed, minus the GST s
 |---|---|
 | FBT base value | $67,605 (quote 2 plus $560 window tint) |
 | Drive-away price (from the residual) | $69,886 |
-| Amount financed | $65,576: about $840 of tint on top of the car |
+| Amount financed | $65,576: about $840 more than the car, including the $560 window tint |
 | Effective interest rate | **7.30%**, down from 10.79% and well below NLA's 10.01% |
 | Out of pocket (PDF figure, pre-correction) | $456 a fortnight |
 | Net out of pocket (our calculator, post-correction)[^reserve] | $445 a fortnight |
