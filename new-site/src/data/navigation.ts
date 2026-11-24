@@ -44,6 +44,7 @@ export const navigation: NavEntry[] = [
       { label: 'Overview', href: '/costs-and-savings/' },
       { label: 'Why "tax saved" is wrong', href: '/costs-and-savings/why-tax-saved-is-wrong/', heading: 'Savings & Tax Traps' },
       { label: '$21,320 "savings" → $5,591 net loss', href: '/costs-and-savings/false-saving-example/' },
+      { label: 'Smartleasing quote: $22,000 cheaper', href: '/costs-and-savings/real-example-smartleasing-22000-cheaper/' },
       { label: '$81k Tesla cost-neutral to $25k Mazda', href: '/costs-and-savings/ev-nl-vs-keeping-petrol-car/' },
       { label: 'The "$70k too low" myth — corrected', href: '/costs-and-savings/low-income-novated-lease-savings/' },
       { label: 'Why interest rates look high', href: '/costs-and-savings/why-nl-interest-looks-high/', heading: 'Interest Rates' },

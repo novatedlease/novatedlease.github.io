@@ -1,7 +1,7 @@
 ---
 title: "Mechanisms explained"
 datePublished: "2026-01-06"
-dateModified: "2026-09-17"
+dateModified: "2026-11-24"
 description: How novated leases actually work financially — the mechanics behind tax savings, residual values, interest rates, and why headline "tax saved" figures can mislead.
 ---
 
@@ -22,6 +22,9 @@ This section explains the financial mechanics behind novated leases in enough de
 
 - **[Real-life example: $21,320 "savings" → $5,591 net loss](/costs-and-savings/false-saving-example/)**
   A worked example using an actual quote, showing how a headline saving of $21,320 becomes a net loss of $5,591 once the full cost comparison is done correctly. The most concrete illustration of why "tax saved" is not "net saving".
+
+- **[Real-life example: how a calculator check cut a Smartleasing lease by $22,000](/costs-and-savings/real-example-smartleasing-22000-cheaper/)**
+  One reader's first Smartleasing quote financed about $14,700 more than the car needed. Four quotes later, the same car cost $22,265 less over five years. Shows how to tell accessories and add-ons from the interest rate, and how much of the saving was real.
 
 - **[Why novated lease interest rates look high — yet may still work](/costs-and-savings/why-nl-interest-looks-high/)**
   Novated lease effective interest rates often appear higher than car loan rates. This article explains why direct comparison is misleading, what the rate actually represents, and how to think about whether the rate is reasonable for your situation.

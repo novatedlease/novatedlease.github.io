@@ -1,7 +1,7 @@
 ---
 title: "How to read a novated lease quote"
 datePublished: "2026-01-31"
-dateModified: "2026-06-30"
+dateModified: "2026-11-24"
 description: How to read a novated lease quote — what each line item means, common pitfalls in "headline savings" figures, and how to compare proposals from different providers meaningfully.
 ---
 
@@ -123,6 +123,16 @@ When the insurance premium is included in the financed amount, it attracts inter
 :::warning[Bundled add-ons inflate financing]
 Insurance, servicing, or accessories bundled into the financed amount increase interest and early-termination risk.
 :::
+
+**Add-ons hiding in the financed amount**
+
+Accessories and protection products can sit inside the financed total without being priced anywhere on the quote. To check:
+
+1. Work out the financed amount from the formula above and compare it with the quote's own figure. The gap is what you are paying extra, with interest.
+2. Look at page 1 for accessories, and at any insurance and service row for items that are ticked, crossed out or unpriced. Crossed-out and unpriced items make it hard to tell what is actually being financed.
+3. Ask for anything you did not choose to be taken out, and ask for a revised quote. A first quote is an opening offer.
+
+For a worked example, see [how one reader's first quote financed about $14,700 more than the car](/costs-and-savings/real-example-smartleasing-22000-cheaper/).
 
 ---
 

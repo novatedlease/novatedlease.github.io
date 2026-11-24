@@ -11,7 +11,7 @@ Earlier context: `PROVIDER_GUIDE_HANDOVER.md`, `TO_REVIEW.md`, `PROVIDER_GUIDE_M
 - The main checkout `/Users/changyang1230/novated-lease-guide` (on `main`) has the owner's own
   uncommitted work, unrelated to this branch: `new-site/src/styles/global.css` (15 lines of
   `.quote-evidence` styles) and an untracked Smart Leasing $21,000 draft article
-  (`new-site/src/content/docs/costs-and-savings/real-example-smartleasing-21000-cheaper.md` plus
+  (`new-site/src/content/docs/costs-and-savings/real-example-smartleasing-22000-cheaper.md` plus
   `docs/assets/images/smartleasing-example/`). Don't commit or discard it. The branch also changes
   `global.css`, so stash it before merging and restore it afterwards.
 

@@ -41,7 +41,7 @@ npx eslint <only the files you changed>
 - Never modify `calculator/src/` (the v1 engine is shared; read-only for this work).
 - Never run `new-site/scripts/prepare-content.mjs` (it wipes content).
 - `new-site/src/styles/global.css`, `docs/assets/images/smartleasing-example/` and
-  `new-site/src/content/docs/costs-and-savings/real-example-smartleasing-21000-cheaper.md` hold the
+  `new-site/src/content/docs/costs-and-savings/real-example-smartleasing-22000-cheaper.md` hold the
   owner's **uncommitted** work. Don't edit, stage or commit them. Where a fix would naturally go in
   `global.css`, this plan puts it somewhere else.
 - One commit per item. Commit only after the owner OKs the item. **Never push**: a push to `main` is
