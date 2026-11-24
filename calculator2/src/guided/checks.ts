@@ -555,18 +555,10 @@ export function checkRate(
 
 // ─── Your alternatives step (UX review 14 Nov 2026, item 4) ─────────────────
 
-/** Car loans sit well inside 2–25% a year; outside it, the rate was probably mistyped. */
+/** Car loans run from 0% (subvention deals such as 0.9 or 1.99) up to about 25% a year; above that, the rate was probably mistyped. */
 export function checkLoanRate(ratePct: number | null): Finding[] {
   if (ratePct === null || ratePct === 0) return [];
   if (ratePct > 25) return checkRate("loan", ratePct, 25);
-  if (ratePct < 2)
-    return [
-      {
-        code: "loan_rate_low",
-        level: "warn",
-        message: `${ratePct}% is lower than car loans charge. Check it's the yearly rate, for example 7.5 for 7.5%.`,
-      },
-    ];
   return [];
 }
 

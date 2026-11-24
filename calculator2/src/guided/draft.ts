@@ -848,7 +848,7 @@ export function missingItems(step: StepId, d: GuidedDraft): MissingItem[] {
         askMoney("marketValueEnd", "New car: estimated market value at lease end");
       if (d.compareLoan) {
         if (!answered(d.loanDeposit)) askMoney("loanDeposit", "Deposit paid up front (or tick “no deposit”)");
-        if (!positive(d.loanRate)) askMoney("loanRate", "Loan interest rate");
+        if (!answered(d.loanRate)) askMoney("loanRate", "Loan interest rate");
         if (!answered(d.loanFee)) askMoney("loanFee", "Loan monthly account fee (or tick “no monthly fee”)");
       }
       if (d.compareCurrent) {

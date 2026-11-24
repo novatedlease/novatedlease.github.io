@@ -120,7 +120,9 @@ describe("UX 23: a base value at 11 × the GST cap", () => {
 
 describe("UX 4: Your alternatives has sanity checks", () => {
   test("loan rate outside 2–25%", () => {
-    expect(checkLoanRate(1.5)[0].code).toBe("loan_rate_low");
+    expect(checkLoanRate(1.5)).toEqual([]);
+    expect(checkLoanRate(0.9)).toEqual([]);
+    expect(checkLoanRate(0)).toEqual([]);
     expect(checkLoanRate(26)[0].code).toBe("loan_rate_high");
     expect(checkLoanRate(7.5)).toEqual([]);
     expect(checkLoanRate(22)).toEqual([]);
