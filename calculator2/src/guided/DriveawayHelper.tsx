@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { ATO_RESIDUAL_PCT } from "@engine/ato";
 import { trackEvent } from "../utils/analytics";
 import { Button } from "../components/ui/Button";
@@ -16,6 +16,9 @@ import { Choices, Help, MoneyInput } from "./parts";
 const money2 = (n: number) =>
   `$${n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const money0 = (n: number) => `$${Math.round(n).toLocaleString("en-AU")}`;
+
+/** Stable effect key: changes when the reader types their own drive-away figure. */
+const userTypedKey = (entered: number | null, ours: boolean) => (entered != null && !ours ? entered : "ours");
 
 /** Within this fraction of the entered drive-away price, the derived figure counts as agreeing. */
 const AGREE_WITHIN = 0.01;
@@ -57,7 +60,10 @@ export function DriveawayHelper({
   const enteredIsOurs = d.driveaway.estimated;
   const gap = derived != null && entered && !enteredIsOurs ? (derived - entered) / entered : null;
 
-  function applyFigure() {
+  /** Set once the reader taps a percentage chip: from then on the drive-away field follows the working. */
+  const [autoFill, setAutoFill] = useState(false);
+
+  function applyFigure(auto = false) {
     if (derived == null) return;
     set("driveaway", { text: String(Math.round(derived)), none: false, estimated: true });
     // Carry the residual and term across so the reader doesn't type them again on the next screen.
@@ -72,8 +78,20 @@ export function DriveawayHelper({
     trackEvent("guided_driveaway_derived", {
       had_entered: entered != null && !enteredIsOurs,
       gap_pct: gap == null ? undefined : Math.round(gap * 1000) / 10,
+      auto,
     });
   }
+
+  // After a chip tap, keep the drive-away field filled in without a second click. A figure the reader
+  // typed themselves is never overwritten: they still get the comparison and the button.
+  useEffect(() => {
+    if (!autoFill || derived == null) return;
+    const userTyped = entered != null && !enteredIsOurs;
+    if (userTyped) return;
+    if (entered === Math.round(derived) && enteredIsOurs) return;
+    applyFigure(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoFill, derived, userTypedKey(entered, enteredIsOurs)]);
 
   return (
     <Help title="Not on your quote? Work it out from the residual">
@@ -124,7 +142,10 @@ export function DriveawayHelper({
                       type="button"
                       className="gd-chip"
                       aria-pressed={moneyValue(pct) === p}
-                      onClick={() => setPct({ ...emptyMoney(), text: String(p) })}
+                      onClick={() => {
+                        setPct({ ...emptyMoney(), text: String(p) });
+                        setAutoFill(true);
+                      }}
                     >
                       {p}% <span className="gd-chip__sub">{years} yr</span>
                     </button>
@@ -159,7 +180,7 @@ export function DriveawayHelper({
               {gap != null && Math.abs(gap) <= AGREE_WITHIN && (
                 <p className="gd-derive__ok">That matches the price you entered.</p>
               )}
-              <Button variant="secondary" size="sm" onClick={applyFigure}>
+              <Button variant="secondary" size="sm" onClick={() => applyFigure()}>
                 Use this figure
               </Button>
               <p className="gd-derive__fine">
