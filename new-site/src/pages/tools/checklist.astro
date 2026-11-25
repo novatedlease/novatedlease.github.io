@@ -1025,6 +1025,21 @@ const description =
   }
   // Also covers the browser's own Print menu, not just our button.
   window.addEventListener('beforeprint', fillPrintHeader);
+  // GA4: one event per print, whether from our button or the browser's Print menu (some browsers fire beforeprint twice).
+  function usageParams() {
+    return {
+      car: filter.car, condition: filter.cond, view: filter.view,
+      items_checked: Number(document.getElementById('ck-done')!.textContent),
+      items_shown: Number(document.getElementById('ck-total')!.textContent),
+    };
+  }
+  let lastPrintTrack = 0;
+  window.addEventListener('beforeprint', () => {
+    const now = Date.now();
+    if (now - lastPrintTrack < 3000) return;
+    lastPrintTrack = now;
+    track('checklist_print', usageParams());
+  });
 
   document.getElementById('ck-print')!.addEventListener('click', () => {
     fillPrintHeader();
@@ -1048,9 +1063,11 @@ const description =
   document.getElementById('ck-copy')!.addEventListener('click', async () => {
     const text = asText();
     try {
-      if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); flash('Copied'); return; }
+      if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); flash('Copied'); track('checklist_copy', usageParams()); return; }
     } catch {}
-    flash(legacyCopy(text) ? 'Copied' : 'Copy failed; try Print instead');
+    const copied = legacyCopy(text);
+    flash(copied ? 'Copied' : 'Copy failed; try Print instead');
+    if (copied) track('checklist_copy', usageParams());
   });
   let armed = false;
   const resetBtn = document.getElementById('ck-reset') as HTMLButtonElement;
