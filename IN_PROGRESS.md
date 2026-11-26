@@ -148,6 +148,20 @@ Detail: `private/byo-sources.md`, and the Claude memory note "pending follow-ups
 - The Facebook export only holds your own replies, so a few BYO entries may lack the employer.
 - Idea: an anonymised dataset of effective rates (panel vs BYO) as citable evidence.
 - A reader case study (rate cut from 19% to ~8%): follow up if they replied to the invitation.
+- **Reddit quote rate study** (private; data in git-ignored `private/quote-review-2026-11/rate-pilot-2026-11-20/`).
+  Pipeline, 7% vs 8% tables and a commission back-derivation are done and published as private artifacts:
+  rate study (artifact retired 2026-11-24; the article draft below replaces it), EIR check samples
+  https://claude.ai/artifact/X8mqaaw9XHYKYMcZ6BZRnf. Memory note: `project_rate_pilot_nov2026.md`. Open:
+  - Read your verdicts on the EIR check samples page (say "read the EIR check reviews") and fix any wrong rules.
+  - Commission finding rests on 7 Qld quotes (base rate median 7.8%, commission +0.65pp, timing +0.16pp).
+    Next: reconcile Smart Leasing, Maxxia and RemServ brokerage formats; fix mis-joined commission records
+    (1v2io02, 1shfl10, 1xxgnny); ask a Qld public servant for the Provider Pricing Fact Sheet (QGAD, employee-only).
+  - Decide whether the study benchmark should add a 7.5% or 7.8% line.
+  - **Article draft:** the rate study is a page at `/costs-and-savings/novated-lease-interest-rates-reddit-quotes/`
+    (`new-site/src/content/docs/costs-and-savings/novated-lease-interest-rates-reddit-quotes.md`, DRAFT banner, not linked
+    from any index, committed 2026-11-26 but not pushed). Rebuilt 2026-11-25/26: 773 verified quotes, median 9.7%. **Full
+    handover (pipeline, one-step rebuild, owner decisions, open items, publish checklist): `notes/RATE_STUDY_HANDOVER_2026-11-26.md`.**
+  - Optional Guided-mode ideas, not approved: in-advance/arrears tooltip, a "total amount financed" check field.
 
 ## 5. Ongoing and housekeeping
 

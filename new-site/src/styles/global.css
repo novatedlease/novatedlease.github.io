@@ -2515,3 +2515,62 @@ body.drawer-open {
 @media (max-width: 640px) {
   .article-content .tl-phase { padding-left: 1.4rem; }
 }
+
+/* Rate study: median / middle-half range bars (costs-and-savings/novated-lease-interest-rates-reddit-quotes) */
+.article-content .rate-table { overflow-x: auto; margin: 1.4em 0; }
+.article-content .rate-table table { margin: 0; min-width: 760px; display: table; }
+.article-content .rate-prov td { white-space: nowrap; vertical-align: middle; }
+.article-content .rate-prov tbody th { background: transparent; color: var(--color-text); text-align: left; white-space: nowrap; border-top: 1px solid var(--color-border); font-size: 0.85rem; }
+.article-content .rate-prov td.rb-cell { width: 28%; min-width: 220px; padding-block: 4px; }
+.rb { position: relative; height: 16px; }
+.rb-ref { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--color-text-faint); }
+.rb-ref.r8 { opacity: 0.55; }
+.rb-iqr { position: absolute; top: 5px; height: 6px; border-radius: 3px; background: var(--nl-blue-mid); }
+.rb-med { position: absolute; top: 1px; width: 3px; height: 14px; margin-left: -1px; border-radius: 2px; background: var(--nl-blue); }
+.article-content .rate-prov tr.axisrow td { padding-block: 0 6px; border-top: 0; background: transparent; }
+.article-content .rate-prov tr.axisrow:hover td { background: transparent; }
+.rate-prov .axis { position: relative; height: 16px; font-family: var(--font-mono); font-size: 10.5px; color: var(--color-text-muted); }
+.rate-prov .axis .ax { position: absolute; transform: translateX(-50%); }
+.rate-prov .axis .ax:first-child { transform: none; }
+.rate-prov .axis .ax:last-child { transform: translateX(-100%); }
+
+/* Rate study: per-provider source lists */
+.article-content details { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 14px; margin: 8px 0; }
+.article-content details summary { cursor: pointer; font-size: 0.92rem; color: var(--color-text); }
+.article-content details summary b { font-weight: 600; }
+.article-content details .ref-links { display: flex; flex-wrap: wrap; gap: 4px 10px; margin: 10px 0 4px; font-size: 0.85rem; line-height: 1.6; }
+
+/* Rate study: car value x term heat grid */
+.article-content .rate-grid { min-width: 520px; }
+.article-content .rate-grid tbody th { background: transparent; color: var(--color-text); white-space: nowrap; border-top: 1px solid var(--color-border); font-size: 0.85rem; }
+.article-content .rate-grid td.g { text-align: center; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 500; color: var(--color-text); vertical-align: middle; }
+.article-content .rate-grid td.g small { display: block; font-size: 0.68rem; font-weight: 400; color: var(--color-text-muted); }
+.article-content .rate-grid td.g1 { background: color-mix(in srgb, var(--nl-blue) 10%, transparent); }
+.article-content .rate-grid td.g2 { background: color-mix(in srgb, var(--nl-blue) 24%, transparent); }
+.article-content .rate-grid td.g3 { background: color-mix(in srgb, var(--nl-blue) 42%, transparent); }
+.article-content .rate-grid td.thin, .article-content .rate-grid td.g0 { background: transparent; color: var(--color-text-faint); opacity: 0.8; }
+
+/* Rate study: box plot by lease term */
+.boxfig { margin: 1.4em 0; }
+.boxfig .boxplot { width: 100%; height: auto; display: block; }
+.boxfig figcaption { font-size: 0.82rem; color: var(--color-text-muted); margin-top: 6px; }
+.boxplot .bx-grid { stroke: var(--color-border); stroke-width: 1; }
+.boxplot .bx-ref { stroke: var(--color-text-faint); stroke-width: 1; stroke-dasharray: 3 3; }
+.boxplot .bx-ref.r8 { opacity: 0.55; }
+.boxplot .bx-axis, .boxplot .bx-n { font-family: var(--font-mono); font-size: 11px; fill: var(--color-text-muted); }
+.boxplot .bx-label { font-size: 13px; font-weight: 600; fill: var(--color-text); }
+.boxplot .bx-whisk { stroke: var(--color-text-muted); stroke-width: 1.5; }
+.boxplot .bx-box { fill: var(--nl-blue-mid); stroke: var(--nl-blue); stroke-width: 1.2; }
+.boxplot .bx-med { stroke: var(--nl-blue); stroke-width: 3; }
+.boxplot .bx-dot { fill: var(--nl-blue); fill-opacity: 0.55; }
+
+/* sample-selection flow chart */
+.article-content .flowfig { margin: 1.4em 0; }
+.flowchart { width: 100%; max-width: 760px; height: auto; display: block; margin: 0 auto; }
+.flowchart .fc-box { fill: var(--color-bg-subtle, transparent); stroke: var(--color-text-soft, #555); stroke-width: 1.5; }
+.flowchart .fc-ex { stroke-width: 1.2; }
+.flowchart .fc-ln { stroke: var(--color-text-soft, #555); stroke-width: 1.5; }
+.flowchart .fc-ar { fill: none; stroke: var(--color-text-soft, #555); stroke-width: 1.5; }
+.flowchart text { fill: var(--color-text); font-family: var(--font-body, Inter, sans-serif); font-size: 13.5px; }
+.flowchart .fc-t { font-weight: 600; }
+.flowchart .fc-l { font-size: 12px; fill: var(--color-text-soft, #555); }
