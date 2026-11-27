@@ -7,9 +7,11 @@ description: "Some employers don't pass on the GST saving on a novated lease, so
 
 # GST not passed on: a 7.9% lease that costs you like 11%
 
-Every novated lease payment includes GST. Most employers can claim that GST back from the tax office, and they pass the saving on to you. In that case, you are effectively only paying the price without GST.
+Under the hood, money changes hands. Your novated lease provider (for example Smart Leasing) needs to collect money to pay the financier (for example Pepper Money). The financier paid for the car up front, and now wants its monthly repayment throughout the lease. All of these payments include GST: Pepper Money might be asking for "$1,000 + $100 GST" a month for the finance.
 
-A few employers don't do this. From what readers tell me, this is mostly some Victorian public hospitals. If you work for one of them, you pay the full price including GST. That applies to the car's finance as well as to running costs like insurance and servicing.
+Typically, your employer can claim that GST back from the tax office (this is called an input tax credit, or ITC), then pass the GST saving on to you. So even though $1,000 + $100 is still paid for the lease each month, only $1,000 comes from **you**. Your employer covers the $100, and gets it back through the ITC.
+
+However, not every employer does this. Some employers make you pay the whole $1,100. This applies to the car's finance as well as to running costs like insurance and servicing.
 
 This makes the interest rate on your lease confusing, because there are now two ways to look at it, and both are correct:
 
