@@ -16,7 +16,7 @@ However, not every employer does this. Some employers make you pay the whole $1,
 This makes the interest rate on your lease confusing, because there are now two ways to look at it, and both are correct:
 
 - **The rate the lender charges.** In the "$1,000 + $100 GST" example, the usual effective interest rate calculation quietly assumes that you are responsible for the $1,000 part only. Say that works out to 7.9% for your car.
-- **The rate that matches what you really pay.** When your employer doesn't pass on the GST saving, you pay the full $1,100. The financier is still asking for the same amount, but because $1,100 comes from you rather than $1,000, you are paying the same as someone at another employer on a "$1,100 + $110 GST" deal. In the example below, that works out to about 11%.
+- **The rate that matches what you really pay.** When your employer doesn't pass on the GST saving, you pay the full $1,100. The financier is still asking for the same amount, but because $1,100 comes from you rather than $1,000, you are paying the same as someone at another employer on a "$1,100 + $110 GST" deal. In the example below, this extra commitment from you works out to be about 11%.
 
 This article uses a real Smart Leasing quote to show how it works. For the GST on running costs, see [Failure to pass on GST savings](/running-costs/failure-to-pass-gst-saving/).
 
