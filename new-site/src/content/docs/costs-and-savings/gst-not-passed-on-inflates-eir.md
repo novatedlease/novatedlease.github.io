@@ -46,7 +46,7 @@ So this person pays GST on everything, including the car's finance.
 
 ## Step 1: take out Smart Leasing's buffer
 
-Smart Leasing takes a little more from your pay than the lender actually needs. On this 3-year lease, the first 2 months have no finance payment, so the lender only gets 34 monthly payments. But Smart Leasing spreads those 34 payments across all 36 months of your pay. The extra builds up as a buffer, which you get back at the end if it isn't used. There is more detail in [Smart Leasing and MillarX — why their quoted figure needs adjusting](/special-and-policy/smart-leasing-millarx-payment-structure/).
+Smart Leasing takes a little more from your pay than the lender actually needs. On this 3-year lease, the financier is simply asking for 34 × $1,429.85 = $48,614.90 (including GST), because the first 2 months have no payment. However, Smart Leasing collects 36 × $1,429.85 = $51,474.60 from your pay. The extra builds up as a buffer, which you get back at the end if it isn't used. There is more detail in [Smart Leasing and MillarX — why their quoted figure needs adjusting](/special-and-policy/smart-leasing-millarx-payment-structure/).
 
 So the real cost of the finance each fortnight is:
 
