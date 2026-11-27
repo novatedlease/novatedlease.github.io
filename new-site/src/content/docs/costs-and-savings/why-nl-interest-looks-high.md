@@ -119,6 +119,12 @@ Many providers charge a fixed dollar amount as brokerage regardless of the car v
 
 ---
 
+### Some employers don't pass on GST on the lease payment itself
+
+If your employer doesn't pass on the GST credit on the lease payment, you pay GST on top of every finance payment. The finance rate doesn't change, but your cost can match a lease several points dearer: in one real quote, a 7.9% lease cost as much as an 11.0% lease would elsewhere. See [GST not passed on: a 7.9% lease that costs you like 11%](/costs-and-savings/gst-not-passed-on-inflates-eir/).
+
+---
+
 ### Some providers bundle insurance into the financed amount
 
 Some novated lease providers include the **first-year comprehensive insurance premium** inside the financed amount.

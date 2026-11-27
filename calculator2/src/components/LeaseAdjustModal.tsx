@@ -20,7 +20,7 @@ export type CorrectedPayment = { amount: number; period: QuotePeriod; gst: Quote
 export function LeaseAdjustModal(props: {
   leaseDurationYears: number;
   onClose: () => void;
-  /** adjustedPerFn is per fortnight ex GST (what the engine takes); shown is the same figure as the reader's quote prints it. */
+  /** adjustedPerFn is per fortnight as the engine takes it (ex GST, or inc GST when GST isn't passed on); shown is the same figure as the reader's quote prints it. */
   onApply: (adjustedPerFn: number, shown: CorrectedPayment) => void;
   /** Answers the reader has already given elsewhere, so they aren't asked twice. */
   initialPeriod?: QuotePeriod | null;
@@ -30,6 +30,11 @@ export function LeaseAdjustModal(props: {
   initialDeferMonths?: number | null;
   /** The provider the reader already named elsewhere. When given, the Smart Leasing / MillarX toggle is hidden. Defaults to Smart Leasing. */
   initialProvider?: Provider;
+  /**
+   * The employer doesn't pass on GST, so the engine holds the payment inc GST (see financeRate.ts):
+   * an inc GST figure is kept as it is and an ex GST one grossed up, instead of taking GST off.
+   */
+  gstNotPassedOn?: boolean;
 }) {
   const [provider, setProvider] = useState<Provider>(props.initialProvider ?? "smart");
   const [millarxDefer, setMillarxDefer] = useState<1 | 2>(initialMillarxDefer(props.initialDeferMonths));
@@ -52,9 +57,12 @@ export function LeaseAdjustModal(props: {
   // Period and GST describe how the quote prints the figure, so changing them re-reads the
   // typed number rather than converting it. The correction is a straight scale either way.
   const adjustedDisplay = hasQuoted && factor !== null ? quotedNum * factor : null;
+  const toEngine = props.gstNotPassedOn
+    ? (gst === "incGst" ? 1 : 1 + GST_RATE)
+    : 1 / (gst === "incGst" ? 1 + GST_RATE : 1);
   const adjustedFn =
     adjustedDisplay !== null && gst !== null
-      ? (quotePeriodMode === "perMonth" ? (adjustedDisplay * 12) / 26 : adjustedDisplay) / (gst === "incGst" ? 1 + GST_RATE : 1)
+      ? (quotePeriodMode === "perMonth" ? (adjustedDisplay * 12) / 26 : adjustedDisplay) * toEngine
       : null;
   const fmtResult = (n: number) => n.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const periodWord = quotePeriodMode === "perFn" ? "per fortnight" : "per month";

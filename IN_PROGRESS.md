@@ -131,7 +131,6 @@ still the reference).
 - Old WIP branches from 7 Aug, each one commit ahead and never merged. Decide: merge, mine or delete.
   - `wip/byo-email-template`: a copy-to-clipboard BYO request email;
   - `wip/early-termination-payout`: present-value payouts;
-  - `wip/gst-not-passed-eir`: an article on how GST not being passed on inflates the effective rate;
   - `wip/maths-section`: a "Maths — the derivations" section;
   - `wip/_snapshot-before-split`.
 - Leftover `worktree-agent-*` branches from 12 Nov, most likely superseded by later commits on

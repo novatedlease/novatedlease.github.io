@@ -851,6 +851,14 @@ describe("running-cost GST: heading first, then the credit question", () => {
     expect(i.gstSavingPassedOn).toBe("No");
     expect(i.insuranceAnnual).toBe(1650);
   });
+
+  test("GST not passed on: an inc GST finance payment reaches the engine as typed, not ÷ 1.1", () => {
+    const d = quoteDraft();
+    d.paymentBasis = "incGst";
+    const passed = buildInputs({ ...d, runningGstHeading: "exGst", runningGstCredit: null, gstPassedOn: "Yes" })!;
+    const notPassed = buildInputs({ ...d, runningGstHeading: "incGst", runningGstCredit: "No", gstPassedOn: "No" })!;
+    expect(notPassed.vehicleLeasePerFn).toBeCloseTo(passed.vehicleLeasePerFn * 1.1, 6);
+  });
 });
 
 describe("worse off: one plain reason when the figures show it", () => {
