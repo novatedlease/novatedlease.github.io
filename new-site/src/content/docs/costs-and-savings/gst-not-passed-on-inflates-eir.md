@@ -37,7 +37,7 @@ Check your quote for two things:
 On this quote:
 
 - The table heading says "Running Cost Budgets (inc GST)", so every amount in it includes GST.
-- The "Lease payment" of $659.93 a fortnight is the monthly finance payment including GST ($1,429.85), converted to fortnights.[^1]
+- The "Lease payment" of $659.93 a fortnight is the monthly finance payment including GST ($1,429.85), converted to fortnights: $1,429.85 × 36 months ÷ 78 fortnights = $659.93.[^1]
 - "Total budgets" and "Pre-tax deduction" are both $832.69. Nothing has been taken off for GST.
 
 So this person pays GST on everything, including the car's finance.
