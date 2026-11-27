@@ -49,7 +49,6 @@ export const navigation: NavEntry[] = [
       { label: 'The "$70k too low" myth — corrected', href: '/costs-and-savings/low-income-novated-lease-savings/' },
       { label: 'Why interest rates look high', href: '/costs-and-savings/why-nl-interest-looks-high/', heading: 'Interest Rates' },
       { label: 'Effective rates on short leases & cheap cars', href: '/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/' },
-      { label: 'GST not passed on: 7.9% that costs like 11%', href: '/costs-and-savings/gst-not-passed-on-inflates-eir/' },
       { label: 'FBT, RFBA, and adjusted taxable income', href: '/costs-and-savings/fbt-rfba-ati-explained/', heading: 'FBT & GST' },
       { label: 'Used EV instead of new?', href: '/costs-and-savings/used-ev-novated-lease/' },
       { label: 'Used-car GST secret (Division 66)', href: '/costs-and-savings/used-car-gst-saving/' },

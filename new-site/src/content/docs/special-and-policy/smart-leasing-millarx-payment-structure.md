@@ -131,6 +131,5 @@ For a Smart Leasing quote of $600/fortnight on a 5-year lease, this is roughly 2
 - [Novated Lease Calculator](/calculator/)
 - [Why effective interest rates look high](/costs-and-savings/why-nl-interest-looks-high/)
 - [Effective rates on short leases and cheaper cars](/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/)
-- [GST not passed on: a 7.9% lease that costs you like 11%](/costs-and-savings/gst-not-passed-on-inflates-eir/)
 
 [^1]: All figures in this article are expressed ex-GST. In practice, GST is embedded in the amounts that change hands — the financier charges GST on the lease rental, and the employee's salary deductions include it. We use ex-GST figures throughout because, for most employees, the GST component is largely irrelevant to calculations:  employers and novated lease providers claim the input tax credit and pass it on, therefore the employee is usually not responsible for the GST component.

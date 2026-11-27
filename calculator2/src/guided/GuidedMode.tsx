@@ -61,7 +61,6 @@ import { quoteAssumptions } from "./quoteAssumptions";
 import { RUNNING_LAYOUT, runLabelText, runningOrder } from "./runningLayout";
 import { MILEAGE_LINE } from "./mileageLine";
 import { ASSUMED_EFFECTIVE_RATE, evElectricityClaimAnnual } from "../assumptions";
-import { leaseRates } from "../financeRate";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
 import {
@@ -3001,7 +3000,6 @@ function ReviewStep({
     (s) => s !== "intro" && s !== "review" && missingForStep(s, d).length > 0,
   );
   const diag = paymentDiagnosisFor(d);
-  const asIfRate = inputs ? leaseRates(inputs).asIfPassedOn : null;
   const fbt = fbtCategoryOf(d);
   const flagged = visibleFindings(d, f)
     .filter((x) => x.level === "error" || x.level === "warn")
@@ -3151,9 +3149,7 @@ function ReviewStep({
           ],
           [
             "Effective interest rate",
-            diag?.rate != null
-              ? `${(diag.rate * 100).toFixed(2)}%${asIfRate != null ? ` (GST not passed on: you pay what a ${(asIfRate * 100).toFixed(2)}% lease costs elsewhere)` : ""}`
-              : "Needs the payment and lease answers",
+            diag?.rate != null ? `${(diag.rate * 100).toFixed(2)}%` : "Needs the payment and lease answers",
             "payment",
           ],
           incomeRow,

@@ -168,5 +168,3 @@ If you remember nothing else:
 Do not assume this happens automatically.
 
 Check your quote. A 10% leakage on running costs can quietly undo a meaningful chunk of the benefit you thought you were getting.
-
-Some of these employers don't pass on GST on the **lease payment itself** either, which can cost more than the GST on running costs. See [GST not passed on: a 7.9% lease that costs you like 11%](/costs-and-savings/gst-not-passed-on-inflates-eir/).

@@ -569,19 +569,12 @@ export function residualExGstEntered(d: GuidedDraft): number | null {
   return null;
 }
 
-/**
- * The finance payment per fortnight as the engine takes it: ex GST, except when the employer doesn't
- * pass on GST (running costs inc GST with no credit). Then it is held inc GST, because that is what
- * leaves the reader's pay (see financeRate.ts). An employer that doesn't pass on GST claims no
- * credit on the finance either, so a payment printed ex GST is grossed up in that case.
- */
+/** The finance payment per fortnight, ex GST, as the engine takes it. */
 export function paymentPerFn(d: GuidedDraft): number | null {
   const v = moneyValue(d.payment);
   if (v === null || !d.paymentPeriod) return null;
   const perFn = toPerFn(v, d.paymentPeriod);
-  const incGst = d.paymentBasis === "incGst";
-  if (d.gstPassedOn === "No") return incGst ? perFn : perFn * (1 + GST_RATE);
-  return incGst ? perFn / (1 + GST_RATE) : perFn;
+  return d.paymentBasis === "incGst" ? perFn / (1 + GST_RATE) : perFn;
 }
 
 /** The luxury vehicle adjustment per fortnight. Older drafts used the payment's period. */

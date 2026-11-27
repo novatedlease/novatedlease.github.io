@@ -7,7 +7,6 @@ import {
 } from "@engine/effectiveinterest";
 import { InfoTooltip } from "../ui/InfoTooltip";
 import { Stat, StatGrid, SubHead, NoteBox } from "../ui/shared";
-import { paymentGstMult } from "../../financeRate";
 
 export type WhatIfProps = {
   inputs: Inputs;
@@ -34,9 +33,6 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
   const deferMonths = Math.max(0, Math.round(inputs.monthsDeferred ?? 0));
   const totalFortnights = years * 26;
 
-  // When GST isn't passed on, the payment is inc GST, so the rate comes from the ex GST amount and
-  // the comparison payment gets GST added, like the reader's own (see financeRate.ts).
-  const gstMult = paymentGstMult(inputs);
   const currentVehiclePerFn = Math.max(0, inputs.vehicleLeasePerFn);
 
   const financedExGst = financedAmountExGstFromInputs(inputs);
@@ -50,18 +46,18 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
         residualValueExGst: residualExGst,
         leaseYears: years,
         deferMonths,
-        fortnightlyLeasePayment: currentVehiclePerFn / gstMult,
+        fortnightlyLeasePayment: currentVehiclePerFn,
       });
     } catch {
       return null;
     }
-  }, [currentVehiclePerFn, gstMult, financedExGst, residualExGst, years, deferMonths]);
+  }, [currentVehiclePerFn, financedExGst, residualExGst, years, deferMonths]);
 
   const [assumedAnnualRate, setAssumedAnnualRate] = useState<number>(0.07);
 
   const { hypotheticalPerFn, error } = useMemo(() => {
     try {
-      const perFn = gstMult * fortnightlyLeaseFromEffectiveAnnualRate({
+      const perFn = fortnightlyLeaseFromEffectiveAnnualRate({
         financedAmountExGst: financedExGst,
         residualValueExGst: residualExGst,
         leaseYears: years,
@@ -72,7 +68,7 @@ export function WhatIf({ inputs, vehicleLeasePeriodMode }: WhatIfProps) {
     } catch (e) {
       return { hypotheticalPerFn: 0, error: e instanceof Error ? e.message : String(e) };
     }
-  }, [gstMult, financedExGst, residualExGst, years, deferMonths, assumedAnnualRate]);
+  }, [financedExGst, residualExGst, years, deferMonths, assumedAnnualRate]);
 
   const round2 = (n: number) => Math.round(n * 100) / 100;
   const currentVehiclePerFn2dp = round2(currentVehiclePerFn);

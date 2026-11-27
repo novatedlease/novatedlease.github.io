@@ -8,7 +8,6 @@ import {
 import { CurrencyField } from "./ui/Field";
 import { InfoTooltip } from "./ui/InfoTooltip";
 import { LeaseAdjustModal } from "./LeaseAdjustModal";
-import { GST_NOT_PASSED_ARTICLE, gstNotPassedOn, leaseRates, paymentGstMult } from "../financeRate";
 import { trackEvent, trackOncePerSession } from "../utils/analytics";
 import { noteInputChange } from "../state/engagement";
 
@@ -23,16 +22,13 @@ function formatPct(x: number): string {
  * Pure guard-bounds calculation, exported for direct unit testing (see
  * tests/lease-rate-guard.test.ts) — the plausible fortnightly-payment range
  * (0.1%-30% p.a. effective rate) and the live rate implied by the current
- * vehicleLeasePerFn. When GST isn't passed on, vehicleLeasePerFn is inc GST:
- * the rate comes from the ex GST payment and the bounds are given inc GST, like
- * the field (see financeRate.ts).
+ * vehicleLeasePerFn.
  */
 export function computeLeaseGuardBounds(inputs: Inputs): { minFn: number; maxFn: number; liveRate: number } {
   const leaseYears = Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears)));
   const deferMonths = Math.max(0, Math.round(inputs.monthsDeferred));
   const financedExGst = financedAmountExGstFromInputs(inputs);
   const residualExGst = inputs.residualValueExGst;
-  const mult = paymentGstMult(inputs);
 
   const liveRate = (() => {
     try {
@@ -41,7 +37,7 @@ export function computeLeaseGuardBounds(inputs: Inputs): { minFn: number; maxFn:
         residualValueExGst: residualExGst,
         leaseYears,
         deferMonths,
-        fortnightlyLeasePayment: Math.max(0, inputs.vehicleLeasePerFn) / mult,
+        fortnightlyLeasePayment: Math.max(0, inputs.vehicleLeasePerFn),
       });
     } catch {
       return NaN;
@@ -50,14 +46,14 @@ export function computeLeaseGuardBounds(inputs: Inputs): { minFn: number; maxFn:
 
   const minFn = (() => {
     try {
-      return mult * fortnightlyLeaseFromEffectiveAnnualRate({ financedAmountExGst: financedExGst, residualValueExGst: residualExGst, leaseYears, deferMonths, effectiveAnnualRate: 0.001 });
+      return fortnightlyLeaseFromEffectiveAnnualRate({ financedAmountExGst: financedExGst, residualValueExGst: residualExGst, leaseYears, deferMonths, effectiveAnnualRate: 0.001 });
     } catch {
       return NaN;
     }
   })();
   const maxFn = (() => {
     try {
-      return mult * fortnightlyLeaseFromEffectiveAnnualRate({ financedAmountExGst: financedExGst, residualValueExGst: residualExGst, leaseYears, deferMonths, effectiveAnnualRate: 0.3 });
+      return fortnightlyLeaseFromEffectiveAnnualRate({ financedAmountExGst: financedExGst, residualValueExGst: residualExGst, leaseYears, deferMonths, effectiveAnnualRate: 0.3 });
     } catch {
       return NaN;
     }
@@ -93,7 +89,7 @@ export function nudgedVehicleLeasePerFn(inputs: Inputs, dir: 1 | -1): number | n
   try {
     return Math.max(
       0,
-      paymentGstMult(inputs) * fortnightlyLeaseFromEffectiveAnnualRate({
+      fortnightlyLeaseFromEffectiveAnnualRate({
         financedAmountExGst: financedAmountExGstFromInputs(inputs),
         residualValueExGst: inputs.residualValueExGst,
         leaseYears: Math.max(1, Math.min(5, Math.round(inputs.leaseDurationYears))),
@@ -131,8 +127,6 @@ export function LeaseRateGuard(props: {
   const isMonthly = vehicleLeasePeriodMode === "perMonth";
 
   const { minFn, maxFn, liveRate } = computeLeaseGuardBounds(inputs);
-  const noGst = gstNotPassedOn(inputs);
-  const asIfRate = leaseRates(inputs).asIfPassedOn;
 
   // If the guard basis changes (lease term, defer months, financed amount...), refresh a
   // currently-shown rejection message so it doesn't quote a stale plausible range.
@@ -221,7 +215,7 @@ export function LeaseRateGuard(props: {
       <CurrencyField
         label={
           <div>
-            <div>Vehicle finance ({noGst ? "inc GST" : "ex GST"})</div>
+            <div>Vehicle finance (ex GST)</div>
             <div className="nlc-pill-group" role="group" aria-label="Vehicle finance period" style={{ marginTop: 6 }}>
               {(["perFn", "perMonth"] as const).map((mode) => (
                 <button
@@ -241,10 +235,7 @@ export function LeaseRateGuard(props: {
         tooltip={
           <InfoTooltip
             text={
-              (noGst
-                ? "Pre-tax, inc-GST amount: your employer doesn't pass on GST (set under running costs), so you pay the GST on the finance too. "
-                : "Pre-tax, ex-GST amount. ") +
-              "Include ONLY the vehicle finance/lease portion of your quote — not the total packaged amount, which also includes running costs (fuel/electricity, insurance, rego, servicing, management fees, etc).\n\n" +
+              "Pre-tax, ex-GST amount. Include ONLY the vehicle finance/lease portion of your quote — not the total packaged amount, which also includes running costs (fuel/electricity, insurance, rego, servicing, management fees, etc).\n\n" +
               "Enter the figure per fortnight or per month, whichever matches your quote — the conversion (12 months = 26 fortnights) is applied automatically."
             }
           />
@@ -267,7 +258,6 @@ export function LeaseRateGuard(props: {
         <LeaseAdjustModal
           leaseDurationYears={inputs.leaseDurationYears}
           initialDeferMonths={inputs.monthsDeferred}
-          gstNotPassedOn={noGst}
           onClose={() => setLeaseAdjModalOpen(false)}
           onApply={(adjustedFn) => {
             commitPerFn(adjustedFn);
@@ -306,7 +296,7 @@ export function LeaseRateGuard(props: {
               "Calculation caveats:\n\n" +
               "1. Financed amount includes add-ons: the effective interest rate is invalid if the financed figure contains insurance, repair package or other vehicle add-ons not part of the FBT base value. Their presence also makes comparison with other financiers invalid if they do not contain equivalent add-ons.\n\n" +
               "2. Residual value method mismatch: the two common residual value methods (Method 1: financed amount minus doc fee; Method 2: vehicle base cost before on-road) produce different dollar residuals for the same percentage. This means two financiers quoting the same effective interest rate are not directly comparable if they use different residual methods — a 9% rate under Method 1 is economically different from a 9% rate under Method 2.\n\n" +
-              "3. GST not passed on: when your employer doesn't pass on GST, enter the finance payment inc GST. The rate is worked out from the ex GST amount the financier receives; the second line shows the rate at which someone whose employer passes on GST would pay what you pay. [Read more](" + GST_NOT_PASSED_ARTICLE + ")\n\n" +
+              "3. GST not passed on: when GST is not passed on by the employer, the fortnightly lease charged is inc GST; however the effective interest rate calculation assumes this is the ex GST figure, which results in an inconsistent rate. This will be addressed in a future update.\n\n" +
               "4. Atypical lease structure (Smart Leasing / MillarX): this calculator assumes averaged payroll deductions across the lease term. Some providers structure quotes differently — for example, on a 5-year term there may be 59 actual lease rentals but 60 payroll deductions, with the extra deduction held as a refundable budget reserve for running costs. Entering the quoted figure directly will produce a misleading effective interest rate. Smart Leasing and MillarX customers: use the \"Smart Leasing / MillarX customer?\" adjustment link just below the lease input — it scales your quoted figure to the finance-only amount this calculator expects."
             }
           />
@@ -372,23 +362,6 @@ export function LeaseRateGuard(props: {
             </button>
           </span>
         </div>
-
-        {asIfRate !== null && Number.isFinite(liveRate) && (
-          <div style={{ marginTop: 4, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
-            <span>GST not passed on: you pay what a</span>
-            <span style={{ fontWeight: 800 }}>{formatPct(asIfRate)}</span>
-            <span>lease costs elsewhere</span>
-            <InfoTooltip
-              width={360}
-              text={
-                `Your finance rate is ${formatPct(liveRate)}: that is what the financier charges, worked out from your payment without GST. ` +
-                `Your employer doesn't pass on GST, so you also pay the GST on each payment. ` +
-                `Someone whose employer does pass on GST would pay as much as you only on a ${formatPct(asIfRate)} lease for the same car.\n\n` +
-                `[Read more](${GST_NOT_PASSED_ARTICLE})`
-              }
-            />
-          </div>
-        )}
 
         {!editingPayment && Number.isFinite(liveRate) && liveRate > 0.1 && (
           <div style={{ marginTop: 6, color: "var(--nlc-warn)", fontWeight: 600 }}>
