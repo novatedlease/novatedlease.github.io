@@ -61,7 +61,7 @@ import { quoteAssumptions } from "./quoteAssumptions";
 import { RUNNING_LAYOUT, runLabelText, runningOrder } from "./runningLayout";
 import { MILEAGE_LINE } from "./mileageLine";
 import { ASSUMED_EFFECTIVE_RATE, evElectricityClaimAnnual } from "../assumptions";
-import { leaseRates } from "../financeRate";
+import { GST_NOT_PASSED_ARTICLE, leaseRates } from "../financeRate";
 import { COFFEE_NUDGE_GUIDED_RESULTS_DWELL_MS, noteInputChange } from "../state/engagement";
 import { newQuoteId, safeSaveQuotes, type SavedQuoteV1 } from "../state/savedQuotes";
 import {
@@ -3693,6 +3693,7 @@ function ResultHeadline({
   const perFn = takeHomeReductionPerFn(inputs);
   const unit = PERIOD_UNIT[payPeriod ?? "perFn"];
   const perPay = perFn === null ? null : (perFn * 26) / PERIODS_PER_YEAR[payPeriod ?? "perFn"];
+  const asIfRate = leaseRates(inputs).asIfPassedOn;
   const lostSuper = superShortfallOverLease(inputs);
   // What super would be lost if the employer does use the after-lease salary.
   const lostSuperIfAfter = superUnsure ? superShortfallOverLease({ ...inputs, superFromPreNlIncome: "No" }) : 0;
@@ -3735,6 +3736,25 @@ function ResultHeadline({
                 </li>
               </ul>
             </Tip>
+          )}
+        </p>
+      )}
+      {/* A byline, not a headline: the rate is context for the saving, not the answer. */}
+      {ratePct !== null && Number.isFinite(ratePct) && (
+        <p className="gd-headline__rate">
+          {approx ? "Assumed effective interest rate" : "Effective interest rate"}: {ratePct.toFixed(1)}%
+          {!approx && asIfRate !== null && (
+            <>
+              {" "}· GST not passed on: you pay what a {(asIfRate * 100).toFixed(1)}% lease costs elsewhere{" "}
+              <Tip width={360}>
+                {ratePct.toFixed(1)}% is the rate the lender charges. Your employer doesn’t pass on the GST
+                saving, so you also pay the GST on each finance payment. Someone whose employer does pass
+                it on would pay as much as you only on a {(asIfRate * 100).toFixed(1)}% lease for the same car.{" "}
+                <a href={GST_NOT_PASSED_ARTICLE} target="_blank" rel="noreferrer">
+                  Read more
+                </a>
+              </Tip>
+            </>
           )}
         </p>
       )}
