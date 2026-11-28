@@ -58,7 +58,7 @@ $$659.93 \times \frac{34}{36} = 623.27$$
 
 ## Step 2: the two rates
 
-**The lender's rate: 7.9%.** This is the standard effective interest rate calculation, and it is what the calculator uses. It works only with amounts without GST:
+**The lender's rate: 7.9%.** This is the standard effective interest rate calculation, and is the default mode of the [novated lease calculator](/calculator/). It works only with amounts without GST:
 
 1. **The amount financed:** the car's drive-away price plus the documentation fee, minus the GST saved on the car (one eleventh of the FBT base value, up to $6,353). Here the GST saved is $63,638.60 ÷ 11 = $5,785.33. The drive-away price and documentation fee aren't in the screenshot above.
 2. **The repayments:** the monthly finance payment without GST, starting after the deferred months. Here that is $1,299.86 a month ("Lease per month" on the quote) for 34 months. Spread over the whole lease, that is the same as $566.61 a fortnight, or $623.27 ÷ 1.1.
