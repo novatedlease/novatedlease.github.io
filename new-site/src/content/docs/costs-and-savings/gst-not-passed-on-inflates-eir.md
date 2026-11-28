@@ -111,7 +111,6 @@ The Smart Leasing / MillarX adjustment works the same way: enter $659.93, choose
 - [Smart Leasing and MillarX — why their quoted figure needs adjusting](/special-and-policy/smart-leasing-millarx-payment-structure/)
 - [Why novated lease effective interest rates look high](/costs-and-savings/why-nl-interest-looks-high/)
 - [Why effective interest rates are higher on short leases and cheaper cars](/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/)
-- [Novated Lease Calculator](/calculator/)
 
 [^1]: Smart Leasing's fortnightly figure takes more from your pay than the lender actually needs. On this lease the lender gets 34 monthly payments, but Smart Leasing collects them across all 36 months, and holds the extra as a buffer that you get back at the end if it isn't used. So $659.93 is more than the real finance cost; Step 1 below takes the extra out. For the full explanation, read [Smart Leasing and MillarX — why their quoted figure needs adjusting](/special-and-policy/smart-leasing-millarx-payment-structure/).
 
