@@ -1,0 +1,608 @@
+<!DOCTYPE html><html lang="en"> <head><meta name="color-scheme" content="light dark"><script>
+      // Theme: stored choice wins; otherwise follow the system. Runs before first paint to avoid a flash.
+      (function () {
+        var root = document.documentElement;
+        var stored = null;
+        try { stored = localStorage.getItem('theme'); } catch (e) {}
+        var fromUrl = new URLSearchParams(location.search).get('theme');
+        if (fromUrl === 'dark' || fromUrl === 'light') stored = fromUrl;
+        var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        function apply(t) { if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.setAttribute('data-theme', 'light'); }
+        apply(stored === 'dark' || stored === 'light' ? stored : (mq && mq.matches ? 'dark' : 'light'));
+        if (mq && mq.addEventListener) mq.addEventListener('change', function (e) {
+          var s = null; try { s = localStorage.getItem('theme'); } catch (err) {}
+          if (s !== 'dark' && s !== 'light') apply(e.matches ? 'dark' : 'light');
+        });
+        window.toggleTheme = function () {
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          apply(next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          try { if (typeof gtag === 'function') gtag('event', 'theme_toggled', { theme: next }); } catch (e) {}
+        };
+      })();
+    </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>How a calculator check helped cut a Smartleasing lease by $22,000 — Novated Lease Guide</title><meta name="description" content="A reader's first Smartleasing quote financed about $14,700 more than the car needed, at an effective interest rate of 10.79%. After a competing quote, Smart's final offer for the same car financed almost nothing extra, at 7.30%: $22,265 less over five years."><link rel="canonical" href="https://novatedlease.guide/costs-and-savings/real-example-smartleasing-22000-cheaper/"><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><!-- Open Graph --><meta property="og:type" content="article"><meta property="og:title" content="How a calculator check helped cut a Smartleasing lease by $22,000 — Novated Lease Guide"><meta property="og:description" content="A reader's first Smartleasing quote financed about $14,700 more than the car needed, at an effective interest rate of 10.79%. After a competing quote, Smart's final offer for the same car financed almost nothing extra, at 7.30%: $22,265 less over five years."><meta property="og:url" content="https://novatedlease.guide/costs-and-savings/real-example-smartleasing-22000-cheaper/"><meta property="og:image" content="https://novatedlease.guide/og/costs-and-savings/real-example-smartleasing-22000-cheaper.png?v=2"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How a calculator check helped cut a Smartleasing lease by $22,000 — Novated Lease Guide"><meta name="twitter:description" content="A reader's first Smartleasing quote financed about $14,700 more than the car needed, at an effective interest rate of 10.79%. After a competing quote, Smart's final offer for the same car financed almost nothing extra, at 7.30%: $22,265 less over five years."><meta name="twitter:image" content="https://novatedlease.guide/og/costs-and-savings/real-example-smartleasing-22000-cheaper.png?v=2"><!-- Structured Data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://novatedlease.guide/#website","name":"Novated Lease Guide","url":"https://novatedlease.guide","description":"Independent, evidence-based guide and calculator for understanding novated leases in Australia.","publisher":{"@id":"https://novatedlease.guide/#org"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://novatedlease.guide/"},{"@type":"ListItem","position":2,"name":"Costs And Savings","item":"https://novatedlease.guide/costs-and-savings/"},{"@type":"ListItem","position":3,"name":"How a calculator check helped cut a Smartleasing lease by $22,000","item":"https://novatedlease.guide/costs-and-savings/real-example-smartleasing-22000-cheaper/"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How a calculator check helped cut a Smartleasing lease by $22,000","description":"A reader's first Smartleasing quote financed about $14,700 more than the car needed, at an effective interest rate of 10.79%. After a competing quote, Smart's final offer for the same car financed almost nothing extra, at 7.30%: $22,265 less over five years.","url":"https://novatedlease.guide/costs-and-savings/real-example-smartleasing-22000-cheaper/","image":"https://novatedlease.guide/og/costs-and-savings/real-example-smartleasing-22000-cheaper.png?v=2","author":{"@type":"Person","@id":"https://novatedlease.guide/about/about-me/#person","name":"changyang1230","url":"https://novatedlease.guide/about/about-me/","jobTitle":"Anaesthetist, biostatistician, and novated lease consumer advocate","description":"Australian anaesthetist, qualified biostatistician, and former mathematical olympiad national representative. Independent author of novatedlease.guide — a free evidence-based guide and calculator for understanding novated leases in Australia.","knowsAbout":["Novated leasing","Salary packaging","Fringe Benefits Tax","Electric vehicle FBT exemption","Australian personal finance","Australian tax","Biostatistics","Probability and statistics"],"sameAs":["https://www.reddit.com/user/changyang1230","https://buymeacoffee.com/changyang1230"]},"publisher":{"@type":"Organization","@id":"https://novatedlease.guide/#org","name":"Novated Lease Guide","url":"https://novatedlease.guide","logo":{"@type":"ImageObject","url":"https://novatedlease.guide/assets/images/logo.png"},"founder":{"@id":"https://novatedlease.guide/about/about-me/#person"}},"isPartOf":{"@id":"https://novatedlease.guide/#website"},"mainEntityOfPage":"https://novatedlease.guide/costs-and-savings/real-example-smartleasing-22000-cheaper/","datePublished":"2026-10-21","dateModified":"2026-11-24"}</script><!-- Google Analytics 4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-52RWVTCGLP"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-52RWVTCGLP', { anonymize_ip: true });
+    </script><link rel="stylesheet" href="/_astro/_slug_.3JD5monZ.css">
+<style>.nl-term{text-decoration:underline dotted;text-decoration-thickness:1px;text-underline-offset:4px;cursor:pointer}.nl-term:hover,.nl-term[aria-expanded=true]{color:var(--nl-blue)}.nl-term:focus-visible{outline:2px solid var(--nl-blue);outline-offset:2px;border-radius:2px}.nl-tip{position:fixed;z-index:2147483647;box-sizing:border-box;width:380px;max-width:min(86vw,520px);padding:14px;border-radius:var(--radius-lg);border:1px solid rgba(11,92,171,.35);background:var(--color-surface-raised);box-shadow:var(--shadow-lg);font-size:13.5px;font-weight:400;line-height:1.45;color:var(--color-text-soft)}.nl-tip--wide{width:520px}.nl-tip img{display:block;width:100%;height:auto;margin:0 0 10px;border-radius:var(--radius-md)}.nl-tip p{margin:0 0 8px;font-size:inherit;line-height:inherit;color:inherit}.nl-tip p:last-child{margin:0}.nl-tip strong{color:var(--color-text)}.nl-tip a{color:var(--nl-blue);font-weight:700;text-decoration:underline}@media print{.nl-term{text-decoration:none}.nl-tip{display:none}}
+</style></head> <body> <nav class="site-nav" role="navigation" aria-label="Main navigation"> <div class="site-nav__inner"> <!-- Brand --> <a class="site-nav__brand" href="/"> <img class="site-nav__logo" src="/assets/images/logo.svg" alt="" aria-hidden="true">
+Novated Lease Guide
+</a> <!-- Desktop links --> <ul class="site-nav__links" role="list"> <li> <a href="/" class="site-nav__link"> Home </a> </li><li> <a href="/calculator/" class="site-nav__link site-nav__link--cta"> Calculator <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </a> <div class="nav-dropdown" role="menu"> <a href="/calculator/" class="nav-dropdown__item" role="menuitem"> Novated Lease Calculator </a> <div class="nav-dropdown__heading">Other Tools</div><a href="/tools/byo-employer-check/" class="nav-dropdown__item" role="menuitem"> Employer BYO Checker </a> <a href="/tools/checklist/" class="nav-dropdown__item" role="menuitem"> Checklist </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Fundamentals <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <div class="nav-dropdown__heading">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-dropdown__item" role="menuitem"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-dropdown__item" role="menuitem"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-dropdown__item" role="menuitem"> Is a novated lease worth it? </a> <div class="nav-dropdown__heading">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-dropdown__item" role="menuitem"> How to read a novated lease quote </a> <a href="/start-here/provider-quote-guides/" class="nav-dropdown__item" role="menuitem"> Find figures on your provider quote </a> <a href="/start-here/use-nl-calculator/" class="nav-dropdown__item" role="menuitem"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-dropdown__item" role="menuitem"> 20 novated lease calculators reviewed </a> <div class="nav-dropdown__heading">Reference</div><a href="/start-here/glossary/" class="nav-dropdown__item" role="menuitem"> Glossary of terms </a>  </div> </li><li> <button class="site-nav__link active" aria-haspopup="true" aria-expanded="false" type="button"> Mechanisms <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/costs-and-savings/" class="nav-dropdown__item active" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-dropdown__item" role="menuitem"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-dropdown__item" role="menuitem"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/real-example-smartleasing-22000-cheaper/" class="nav-dropdown__item active" role="menuitem"> Smartleasing quote: $22,000 cheaper </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-dropdown__item" role="menuitem"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-dropdown__item" role="menuitem"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-dropdown__heading">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-dropdown__item" role="menuitem"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-dropdown__item" role="menuitem"> Effective rates on short leases &amp; cheap cars </a> <a href="/costs-and-savings/gst-not-passed-on-inflates-eir/" class="nav-dropdown__item" role="menuitem"> GST not passed on: 7.9% that costs like 11% </a> <div class="nav-dropdown__heading">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-dropdown__item" role="menuitem"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-ev-novated-lease/" class="nav-dropdown__item" role="menuitem"> Used EV instead of new? </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-dropdown__item" role="menuitem"> Used-car GST secret (Division 66) </a> <div class="nav-dropdown__heading">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-dropdown__item" role="menuitem"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-dropdown__item" role="menuitem"> You don&#39;t have to sell above residual </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Running Costs <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/running-costs/" class="nav-dropdown__item" role="menuitem"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-dropdown__item" role="menuitem"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-dropdown__item" role="menuitem"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-dropdown__item" role="menuitem"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-dropdown__item" role="menuitem"> Insurance premium vs excess </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Risks <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown" role="menu"> <a href="/risks/" class="nav-dropdown__item" role="menuitem"> Overview of risks &amp; exit strategies </a> <div class="nav-dropdown__heading">Early Termination</div><a href="/risks/early-termination/" class="nav-dropdown__item" role="menuitem"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-dropdown__item" role="menuitem"> How bad can early termination get </a> <div class="nav-dropdown__heading">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-dropdown__item" role="menuitem"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-dropdown__item" role="menuitem"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-dropdown__item" role="menuitem"> Think like a gambler </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> Special Cases <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/special-and-policy/" class="nav-dropdown__item" role="menuitem"> Overview </a> <div class="nav-dropdown__heading">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-dropdown__item" role="menuitem"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-dropdown__item" role="menuitem"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-dropdown__item" role="menuitem"> LCT threshold &amp; FBT exemption </a> <div class="nav-dropdown__heading">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-dropdown__item" role="menuitem"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-dropdown__item" role="menuitem"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-dropdown__heading">Downstream Impact</div><a href="/special-and-policy/borrowing-capacity/" class="nav-dropdown__item" role="menuitem"> Home loan borrowing capacity </a> <a href="/special-and-policy/hecs-help/" class="nav-dropdown__item" role="menuitem"> HECS / HELP repayments </a> <a href="/special-and-policy/childcare-subsidy/" class="nav-dropdown__item" role="menuitem"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-dropdown__item" role="menuitem"> Super guarantee &amp; payroll risks </a> <div class="nav-dropdown__heading">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-dropdown__item" role="menuitem"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-dropdown__item" role="menuitem"> Why novated leasing is poorly regulated </a>  </div> </li><li> <button class="site-nav__link" aria-haspopup="true" aria-expanded="false" type="button"> About <svg class="site-nav__chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="nav-dropdown nav-dropdown--right" role="menu"> <a href="/about/about-me/" class="nav-dropdown__item" role="menuitem"> Who I am </a> <a href="/about/history/" class="nav-dropdown__item" role="menuitem"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-dropdown__item" role="menuitem"> What readers say </a> <a href="/about/privacy/" class="nav-dropdown__item" role="menuitem"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-dropdown__item" role="menuitem"> Disclaimer </a> <a href="/about/contact/" class="nav-dropdown__item" role="menuitem"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-dropdown__item" role="menuitem" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </li> </ul> <!-- Right actions --> <div class="site-nav__actions"> <button class="nav-theme-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode" onclick="window.toggleTheme && window.toggleTheme()"> <svg class="nav-theme-btn__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg> <svg class="nav-theme-btn__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg> </button> <button class="nav-search-btn" onclick="window.openSearch && window.openSearch()" aria-label="Search site"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span class="nav-search-btn__text">Search</span> <span class="nav-search-btn__kbd">⌘K</span> </button> <button class="nav-hamburger" aria-label="Open navigation menu" onclick="window.openDrawer && window.openDrawer()"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"></path> </svg> </button> </div> </div> </nav> <!-- Mobile drawer --> <div class="nav-mobile-overlay" id="nav-overlay" onclick="window.closeDrawer && window.closeDrawer()"></div> <div class="nav-mobile-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu"> <div class="nav-drawer__header"> <span>Novated Lease Guide</span> <button class="nav-drawer__close" onclick="window.closeDrawer && window.closeDrawer()" aria-label="Close menu"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"> <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"></path> </svg> </button> </div> <!-- Drawer search --> <div style="padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,0.08);"> <button class="nav-search-btn" style="width:100%; justify-content:flex-start; background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.12); color: var(--color-text-muted);" onclick="window.closeDrawer(); setTimeout(() => window.openSearch && window.openSearch(), 200);" aria-label="Search"> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:14px;height:14px;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <span>Search</span> </button> </div> <div class="nav-drawer__section"> <a href="/" class="nav-drawer__link nav-drawer__link--top"> Home </a> </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Calculator</div> <a href="/calculator/" class="nav-drawer__link"> Novated Lease Calculator </a> <div class="nav-drawer__group-title">Other Tools</div><a href="/tools/byo-employer-check/" class="nav-drawer__link"> Employer BYO Checker </a> <a href="/tools/checklist/" class="nav-drawer__link"> Checklist </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Fundamentals</div> <div class="nav-drawer__group-title">Getting Started</div><a href="/start-here/what-is-novated-lease/" class="nav-drawer__link"> What is a novated lease, really? </a> <a href="/start-here/ev-vs-ice-compared/" class="nav-drawer__link"> EV vs ICE novated leases compared </a> <a href="/start-here/is-it-worth-it/" class="nav-drawer__link"> Is a novated lease worth it? </a> <div class="nav-drawer__group-title">Using the Tools</div><a href="/start-here/how-to-read-a-novated-lease-quote/" class="nav-drawer__link"> How to read a novated lease quote </a> <a href="/start-here/provider-quote-guides/" class="nav-drawer__link"> Find figures on your provider quote </a> <a href="/start-here/use-nl-calculator/" class="nav-drawer__link"> How to use the calculator </a> <a href="/start-here/calculator-comparison/" class="nav-drawer__link"> 20 novated lease calculators reviewed </a> <div class="nav-drawer__group-title">Reference</div><a href="/start-here/glossary/" class="nav-drawer__link"> Glossary of terms </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Mechanisms</div> <a href="/costs-and-savings/" class="nav-drawer__link active"> Overview </a> <div class="nav-drawer__group-title">Savings &amp; Tax Traps</div><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="nav-drawer__link"> Why &quot;tax saved&quot; is wrong </a> <a href="/costs-and-savings/false-saving-example/" class="nav-drawer__link"> $21,320 &quot;savings&quot; → $5,591 net loss </a> <a href="/costs-and-savings/real-example-smartleasing-22000-cheaper/" class="nav-drawer__link active"> Smartleasing quote: $22,000 cheaper </a> <a href="/costs-and-savings/ev-nl-vs-keeping-petrol-car/" class="nav-drawer__link"> $81k Tesla cost-neutral to $25k Mazda </a> <a href="/costs-and-savings/low-income-novated-lease-savings/" class="nav-drawer__link"> The &quot;$70k too low&quot; myth — corrected </a> <div class="nav-drawer__group-title">Interest Rates</div><a href="/costs-and-savings/why-nl-interest-looks-high/" class="nav-drawer__link"> Why interest rates look high </a> <a href="/costs-and-savings/effective-interest-rate-short-leases-cheaper-cars/" class="nav-drawer__link"> Effective rates on short leases &amp; cheap cars </a> <a href="/costs-and-savings/gst-not-passed-on-inflates-eir/" class="nav-drawer__link"> GST not passed on: 7.9% that costs like 11% </a> <div class="nav-drawer__group-title">FBT &amp; GST</div><a href="/costs-and-savings/fbt-rfba-ati-explained/" class="nav-drawer__link"> FBT, RFBA, and adjusted taxable income </a> <a href="/costs-and-savings/used-ev-novated-lease/" class="nav-drawer__link"> Used EV instead of new? </a> <a href="/costs-and-savings/used-car-gst-saving/" class="nav-drawer__link"> Used-car GST secret (Division 66) </a> <div class="nav-drawer__group-title">Residual Values</div><a href="/costs-and-savings/why-residual-values-matter/" class="nav-drawer__link"> All about residual values </a> <a href="/costs-and-savings/residual-values-vs-sales-price/" class="nav-drawer__link"> You don&#39;t have to sell above residual </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Running Costs</div> <a href="/running-costs/" class="nav-drawer__link"> Overview </a> <a href="/running-costs/running-costs-piggy-bank/" class="nav-drawer__link"> Running costs as a &quot;piggy bank&quot; </a> <a href="/running-costs/ev-home-charging-shortcut/" class="nav-drawer__link"> ATO EV home charging shortcut </a> <a href="/running-costs/failure-to-pass-gst-saving/" class="nav-drawer__link"> Employers not passing on GST saving </a> <a href="/running-costs/insurance-premium-and-excess/" class="nav-drawer__link"> Insurance premium vs excess </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Risks</div> <a href="/risks/" class="nav-drawer__link"> Overview of risks &amp; exit strategies </a> <div class="nav-drawer__group-title">Early Termination</div><a href="/risks/early-termination/" class="nav-drawer__link"> What happens on early termination </a> <a href="/risks/how-bad-can-early-termination-get/" class="nav-drawer__link"> How bad can early termination get </a> <div class="nav-drawer__group-title">Managing Risk</div><a href="/risks/lease-length-and-risk/" class="nav-drawer__link"> Lease length, residuals, and risk </a> <a href="/risks/risk-mitigation/" class="nav-drawer__link"> Risk mitigation strategies </a> <a href="/risks/novated-lease-risk-adjusted-decision/" class="nav-drawer__link"> Think like a gambler </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">Special Cases</div> <a href="/special-and-policy/" class="nav-drawer__link"> Overview </a> <div class="nav-drawer__group-title">EV FBT Exemption</div><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="nav-drawer__link"> EV FBT wind-back — 2026 Budget </a> <a href="/special-and-policy/ev-fbt-exemption-review-timing/" class="nav-drawer__link"> EV FBT exemption review timing </a> <a href="/special-and-policy/lct-threshold-fbt-exemption/" class="nav-drawer__link"> LCT threshold &amp; FBT exemption </a> <div class="nav-drawer__group-title">FBT &amp; Salary Packaging Caps</div><a href="/special-and-policy/fbt-exemption-double-counting/" class="nav-drawer__link"> Don&#39;t double-count the NFP FBT cap </a> <a href="/special-and-policy/nsw-health-employer-share/" class="nav-drawer__link"> NSW Health &quot;Employer Share&quot; </a> <div class="nav-drawer__group-title">Downstream Impact</div><a href="/special-and-policy/borrowing-capacity/" class="nav-drawer__link"> Home loan borrowing capacity </a> <a href="/special-and-policy/hecs-help/" class="nav-drawer__link"> HECS / HELP repayments </a> <a href="/special-and-policy/childcare-subsidy/" class="nav-drawer__link"> Childcare subsidy impact </a> <a href="/special-and-policy/super-guarantee/" class="nav-drawer__link"> Super guarantee &amp; payroll risks </a> <div class="nav-drawer__group-title">Miscellaneous</div><a href="/special-and-policy/smart-leasing-millarx-payment-structure/" class="nav-drawer__link"> Smart Leasing / MillarX payment structure </a> <a href="/special-and-policy/why-poorly-regulated/" class="nav-drawer__link"> Why novated leasing is poorly regulated </a>  </div><div class="nav-drawer__section"> <div class="nav-drawer__section-title">About</div> <a href="/about/about-me/" class="nav-drawer__link"> Who I am </a> <a href="/about/history/" class="nav-drawer__link"> Calculator history </a> <a href="/about/what-readers-say/" class="nav-drawer__link"> What readers say </a> <a href="/about/privacy/" class="nav-drawer__link"> Privacy Policy </a> <a href="/about/disclaimer/" class="nav-drawer__link"> Disclaimer </a> <a href="/about/contact/" class="nav-drawer__link"> Contact </a> <a href="https://buymeacoffee.com/changyang1230" class="nav-drawer__link" target="_blank" rel="noopener noreferrer"> ☕ Buy me a coffee </a>  </div> </div> <script>
+  var _drawerScrollY = 0;
+  window.openDrawer = function() {
+    _drawerScrollY = window.scrollY;
+    document.body.style.top = '-' + _drawerScrollY + 'px';
+    document.body.classList.add('drawer-open');
+    document.getElementById('nav-drawer').classList.add('open');
+    document.getElementById('nav-overlay').classList.add('open');
+  };
+  window.closeDrawer = function() {
+    document.body.classList.remove('drawer-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _drawerScrollY);
+    document.getElementById('nav-drawer').classList.remove('open');
+    document.getElementById('nav-overlay').classList.remove('open');
+  };
+</script> <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search"> <div class="search-modal"> <div id="search-container"> <div style="padding: 16px 20px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 12px;"> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0; opacity:0.5;"> <circle cx="6.5" cy="6.5" r="4.5"></circle> <path d="M10 10l3 3" stroke-linecap="round"></path> </svg> <input id="search-input" type="search" placeholder="Search articles…" autocomplete="off" spellcheck="false" style="flex:1; border:none; outline:none; font-size:1rem; font-family:inherit; background:transparent; color:var(--color-text);" aria-label="Search"> <button onclick="window.closeSearch()" aria-label="Close search" style="background:none;border:none;cursor:pointer;padding:4px;color:var(--color-text-muted);font-size:0.78rem;display:flex;align-items:center;gap:4px;"> <kbd style="background:var(--color-bg);border:1px solid var(--color-border);border-radius:4px;padding:2px 6px;font-family:inherit;font-size:0.7rem;">Esc</kbd> </button> </div> <div id="search-results" class="search-results-wrap"></div> </div> </div> </div> <script>
+  (function() {
+    var overlay = document.getElementById('search-overlay');
+    var input = document.getElementById('search-input');
+    var resultsEl = document.getElementById('search-results');
+    var pagefind = null;
+    var searchTimeout = null;
+
+    window.openSearch = function() {
+      overlay.classList.add('open');
+      setTimeout(function() { input && input.focus(); }, 50);
+      initPagefind();
+    };
+
+    window.closeSearch = function() {
+      overlay.classList.remove('open');
+      if (input) { input.value = ''; }
+      if (resultsEl) { resultsEl.innerHTML = ''; }
+    };
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) window.closeSearch();
+    });
+
+    async function initPagefind() {
+      if (pagefind) return;
+      try {
+        pagefind = await import('/pagefind/pagefind.js');
+        await pagefind.options({ excerptLength: 20 });
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search index is being built. Run <code>npm run build</code> first to enable search.</div>';
+        pagefind = null;
+      }
+    }
+
+    async function doSearch(query) {
+      if (!pagefind || !query.trim()) {
+        resultsEl.innerHTML = '';
+        return;
+      }
+      try {
+        var results = await pagefind.search(query);
+        if (!results || results.results.length === 0) {
+          resultsEl.innerHTML = '<div class="search-no-results">No results for "<strong>' + escapeHtml(query) + '</strong>"</div>';
+          return;
+        }
+        var html = '';
+        var sliced = results.results.slice(0, 8);
+        for (var i = 0; i < sliced.length; i++) {
+          var data = await sliced[i].data();
+          html += '<a href="' + data.url + '" class="search-result-item" onclick="window.closeSearch()">';
+          html += '<div class="search-result-item__title">' + escapeHtml(data.meta?.title || '') + '</div>';
+          if (data.excerpt) {
+            html += '<div class="search-result-item__excerpt">' + data.excerpt + '</div>';
+          }
+          html += '</a>';
+        }
+        resultsEl.innerHTML = html;
+      } catch(e) {
+        resultsEl.innerHTML = '<div class="search-no-results">Search error. Please try again.</div>';
+      }
+    }
+
+    input && input.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function() {
+        doSearch(input.value);
+      }, 200);
+    });
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  })();
+</script>  <div data-pagefind-body>  <div class="page-layout"> <main class="page-content" id="main-content"> <nav class="breadcrumbs" aria-label="Breadcrumb"> <a href="/">Home</a> <span class="breadcrumbs__sep">›</span> <span>Mechanisms</span> <span class="breadcrumbs__sep">›</span> <span>How a calculator check helped cut a Smartleasing lease by $22,000</span> </nav> <article class="article-content">  <h1 id="real-life-example-how-the-calculator-helped-cut-a-smartleasing-lease-by-22000">Real-life example: How the calculator helped cut a Smartleasing lease by $22,000</h1><p class="article-byline">By <a href="/about/about-me/">changyang1230</a> · Updated 24 November 2026</p>
+<p><em>Shared anonymously, with the reader’s permission. Figures are from his quotes, entered into the calculator and checked by me.</em></p>
+<hr>
+<h2 id="executive-summary">Executive summary</h2>
+<p>A reader leased a new Zeekr EV through a workplace that deals with <strong>only one novated lease provider</strong>, Smartleasing (Smart). Over about a month he received four quotes for the same car:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Quote</th><th>Financed beyond the car</th><th>Effective interest rate</th><th>Total out-of-pocket cost (after tax, incl. residual)</th></tr></thead><tbody><tr><td>Smart, quote 1</td><td>~$14,700</td><td>10.79%</td><td>$96,753</td></tr><tr><td>Smart, quote 2 (after finance approval)</td><td>~$6,600</td><td>10.79%</td><td>$87,768</td></tr><tr><td>Novated Lease Australia (BYO finance)</td><td>none</td><td>10.01%</td><td>$76,752</td></tr><tr><td>Smart, quote 3 (final)</td><td>~$840 (including the $560 window tint)</td><td><strong>7.30%</strong></td><td><strong>$74,488</strong></td></tr><tr><td><em>For comparison: paying cash for the same car (before home-loan interest)</em></td><td><em>none</em></td><td><em>n/a</em></td><td><em>$89,874<sup><a href="#user-content-fn-cash" id="user-content-fnref-cash" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup></em></td></tr></tbody></table>
+<p>Same car, same five-year term. The final quote costs <strong>$22,265 less</strong> over the lease than the first.</p>
+<p>Not all of the $22,265 is a real saving:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Where the $22,265 came from</th><th>Amount</th><th>Real saving?</th></tr></thead><tbody><tr><td>A lower finance rate (10.79% → 7.30%)</td><td>~$5,400</td><td>Yes</td></tr><tr><td>Extras no longer financed</td><td>~$12,600</td><td>Partly. He didn’t want them, but he no longer gets the products either</td></tr><tr><td>Lower running cost budgets (mostly cheaper insurance)</td><td>~$4,200</td><td>Mostly. About $2,900 is cheaper insurance<sup><a href="#user-content-fn-ins" id="user-content-fnref-ins" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup>; the rest is budgets that true up</td></tr></tbody></table>
+<p>So the lease itself became about <strong>$18,000</strong> cheaper, and cheaper insurance saves about <strong>$2,900</strong> more.</p>
+<p>Three things got him there:</p>
+<ol>
+<li>He checked the quote’s numbers himself, using the <a href="/calculator/">calculator</a>.</li>
+<li>He realised a single-provider workplace need not be a dead end, and got a <strong>competing quote</strong>.</li>
+<li>He showed that quote to Smart, and to the dealer, who then offered to approach Smart for a better deal.</li>
+</ol>
+<hr>
+<h2 id="context">Context</h2>
+<ul>
+<li><strong>Vehicle:</strong> new Zeekr 7X EV, FBT-exempt. Five years, lease starting late August 2026, 15,000 km a year on the NLA and final quotes.</li>
+<li><strong>Income:</strong> $111,815 a year. <strong>Employer:</strong> deals only with Smart.</li>
+<li><strong>Cash alternative:</strong> home loan offset account at 6.22%.</li>
+</ul>
+<div class="admonition admonition--info"><div class="admonition__title">Audit this example yourself</div><p>Each quote below links to the <a href="/calculator/">calculator</a> with the reader’s figures pre-filled.</p></div>
+<hr>
+<h2 id="the-four-quotes-side-by-side">The four quotes side by side</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Smart 1</th><th>NLA</th><th>Smart 2</th><th>Smart 3 (final)</th></tr></thead><tbody><tr><td><strong>FBT base value</strong> (inc GST)</td><td><strong>$69,918</strong> ⚠</td><td>$68,139</td><td>$67,045</td><td>$67,605</td></tr><tr><td><strong>Drive-away price</strong><sup><a href="#user-content-fn-drive" id="user-content-fnref-drive" data-footnote-ref="" aria-describedby="footnote-label">3</a></sup></td><td><strong>$73,389</strong> ⚠</td><td>$70,275</td><td>$69,326</td><td>$69,886</td></tr><tr><td>Residual (inc GST)</td><td>$20,743</td><td>$19,828</td><td>$19,565</td><td>$19,723</td></tr><tr><td>Amount financed (ex GST)</td><td>$79,267</td><td>$64,081</td><td>$71,400</td><td>$65,576</td></tr><tr><td>Effective interest rate (this site’s methodology)</td><td>10.79%</td><td>10.01%</td><td>10.79%</td><td><strong>7.30%</strong></td></tr><tr><td>Out of pocket per fortnight (PDF figure, pre-correction)</td><td>$632</td><td>$461</td><td>$571</td><td>$456</td></tr><tr><td><strong>Net</strong> out of pocket per fortnight (our calculator, post-correction)<sup><a href="#user-content-fn-reserve" id="user-content-fnref-reserve" data-footnote-ref="" aria-describedby="footnote-label">4</a></sup></td><td><strong>$616</strong></td><td>$461</td><td><strong>$552</strong></td><td><strong>$445</strong></td></tr><tr><td>Annotation</td><td><strong>Inflated by accessories</strong></td><td>Car only</td><td>Paint and delivery; insurance financed</td><td>Paint, delivery and tint ($560)</td></tr></tbody></table>
+<hr>
+<h2 id="smart-quote-1-inflated-by-accessories">Smart quote 1: inflated by accessories</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>FBT base value</td><td>$69,918, about <strong>$2,870 above quote 2’s</strong> for the same car</td></tr><tr><td>Drive-away price (from the residual)</td><td>$73,389, about <strong>$4,000 above</strong> the car-only drive-away price on quote 2</td></tr><tr><td>Amount financed</td><td>$79,267, about <strong>$14,700 more than the car</strong> needs (about $64,500)</td></tr><tr><td>Effective interest rate</td><td>10.79% on the full $79,267 financed, accessories and insurance included, so not comparable with a provider financing only the car</td></tr><tr><td>Out of pocket (PDF figure, pre-correction)</td><td>$632 a fortnight</td></tr><tr><td>Net out of pocket (our calculator, post-correction)<sup><a href="#user-content-fn-reserve" id="user-content-fnref-reserve-2" data-footnote-ref="" aria-describedby="footnote-label">4</a></sup></td><td>$616 a fortnight</td></tr></tbody></table>
+<ul>
+<li><strong>Far more financed than the car needs.</strong> Drive-away price plus documentation fee, minus the GST saved, is about $64,500. The quote financed $79,267, so <strong>about $14,700 is accessories and insurance</strong>. The quote does not make clear what that buys: two products are priced but crossed out (lease protection insurance $3,742, total loss benefit $665), small-damage repair ($1,436) is ticked, and the accessories (two protection packs, front and rear dash camera, EV charging kit) carry no price. The buyer cannot tell what they are paying for.<sup><a href="#user-content-fn-estimate" id="user-content-fnref-estimate" data-footnote-ref="" aria-describedby="footnote-label">5</a></sup></li>
+</ul>
+<figure class="quote-evidence">
+<img src="/assets/images/smartleasing-example/quote1-insurance.webp" width="1411" height="336" alt="Insurance and service details on Smart quote 1. Total Loss Benefit ($665.21) and Lease Protection Insurance ($3,742.03) are crossed out; Small Damage Repair ($1,436.05), Roadside Assistance and Comprehensive Insurance are ticked." loading="lazy">
+<figcaption>Smart quote 1, page 2: two products priced but crossed out, one priced and ticked. Roadside and comprehensive insurance come out of the running costs.</figcaption>
+</figure>
+<figure class="quote-evidence">
+<img src="/assets/images/smartleasing-example/quote1-accessories.webp" width="870" height="155" alt="Accessories included on Smart quote 1: EV charging kit (both cables), Mixed Protection Pack, Smart Protection Pack, SmartVu 4k dash camera front and rear. Marked Estimate Quote." loading="lazy">
+<figcaption>Smart quote 1, page 1: the accessories added to the car.</figcaption>
+</figure>
+<figure class="quote-evidence">
+<img src="/assets/images/smartleasing-example/quote1-amount-financed.webp" width="752" height="99" alt="Fine print from Smart quote 1: This quote is based on a total amount financed of $79267.30. This financed amount incorporates all extra-cost accessories listed on page 1 and all items selected under Insurance and service details." loading="lazy">
+<figcaption>Smart quote 1, terms and conditions on page 3.</figcaption>
+</figure>
+<p><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjY5OTE3LjU1LCJkcml2ZWF3YXlDb3N0Ijo3MzM4OSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjgwMDAsImFubnVhbE1pbGVhZ2VLbSI6MjAwMDAsImxlYXNlRG9jRmVlIjo1NTAsImxlYXNlU3RhcnREYXRlIjoiMjAyNi0wOC0yOCIsImxlYXNlRHVyYXRpb25ZZWFycyI6NSwibW9udGhzRGVmZXJyZWQiOjIsInRvdGFsVGF4YWJsZUluY29tZSI6MTExODE1LCJob21lTG9hbk9mZnNldEludGVyZXN0UmF0ZSI6Ni4yMiwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJzdXBlckZyb21QcmVObEluY29tZSI6IlllcyIsImdzdFNhdmluZ1Bhc3NlZE9uIjoiWWVzIiwic2VydmljZU1haW50VHlyZXNBbm51YWwiOjEzNTYuNjgsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo3ODkuMzYsImVsZWN0cmljaXR5QW5udWFsIjoxMDk0LCJmdWVsQW5udWFsIjowLCJpbnN1cmFuY2VBbm51YWwiOjI0OTkuOSwiaW5zdXJhbmNlRmluYW5jZWRGaXJzdFllYXIiOjAsIm1hbmFnZW1lbnRGZWVzQW5udWFsIjo5MC40OCwiYXZnQXVkUGVyS3doIjowLjA4LCJhdmdXaFBlckttIjoxNzAsImNvbXBhcmVXaXRoQ3VycmVudENhciI6ZmFsc2UsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZU5vdyI6MjUwMDAsImN1cnJlbnRDYXJNYXJrZXRWYWx1ZUF0RW5kIjoxNDAwMCwiY3VycmVudFNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo4MDAsImN1cnJlbnRSZWdpc3RyYXRpb25Bbm51YWwiOjkwMCwiY3VycmVudEZ1ZWxBbm51YWwiOjIzNjIuNSwiY3VycmVudEluc3VyYW5jZUFubnVhbCI6MTAwMCwiY29tcGFyZVdpdGhDYXJMb2FuIjpmYWxzZSwiY2FyTG9hbkluaXRpYWxEZXBvc2l0IjoxMDAwMCwiY2FyTG9hbkludGVyZXN0UmF0ZVBjdCI6OCwiY2FyTG9hbk1vbnRobHlGZWUiOjI1LCJmaW5hbmNlZEFtb3VudEZvckludGVyZXN0Q2FsY0V4R3N0Ijo3OTI2Ny4zLCJyZXNpZHVhbFZhbHVlRXhHc3QiOjE4ODU3LjMzLCJ2ZWhpY2xlTGVhc2VQZXJGbiI6NjgyLjA5fX0">Open quote 1 in the calculator →</a></p>
+<div class="admonition admonition--warning"><div class="admonition__title">Check the amount financed</div><p>The car needs about its drive-away price plus any fees financed, minus the GST saving. If the quote’s “amount financed” is much higher, find out why: you pay for the difference, with interest.</p></div>
+<hr>
+<h2 id="novated-lease-australia-car-only">Novated Lease Australia: car only</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>FBT base value</td><td>$68,139</td></tr><tr><td>Drive-away price</td><td><strong>$70,275</strong>, itemised on the quote</td></tr><tr><td>Amount financed</td><td>$64,081: the car and nothing else</td></tr><tr><td>Effective interest rate</td><td>10.01%</td></tr><tr><td>Out of pocket</td><td>$461 a fortnight</td></tr></tbody></table>
+<ul>
+<li><strong>How he found it:</strong> from reading this site and Reddit, he realised that a competing quote could come in cheaper, so he reached out to NLA.</li>
+<li><strong>Car only:</strong> no accessories or insurance extras. The effective interest rate dropped modestly (10.79% to 10.01%); most of the fall in the fortnightly cost ($632 to $461) is from the lower financed amount.</li>
+</ul>
+<figure class="quote-evidence">
+<img src="/assets/images/smartleasing-example/nla-cost.webp" width="1400" height="152" alt="Novated Lease Australia quote: reduction to take-home pay $460.81 a fortnight, $11,981.06 a year." loading="lazy">
+<figcaption>NLA's quote: $460.81 a fortnight out of pocket.</figcaption>
+</figure>
+<p><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjY4MTM5LCJkcml2ZWF3YXlDb3N0Ijo3MDI3NSwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjgwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjowLCJsZWFzZVN0YXJ0RGF0ZSI6IjIwMjYtMDgtMjciLCJsZWFzZUR1cmF0aW9uWWVhcnMiOjUsIm1vbnRoc0RlZmVycmVkIjoyLCJ0b3RhbFRheGFibGVJbmNvbWUiOjExMTgxNSwiaG9tZUxvYW5PZmZzZXRJbnRlcmVzdFJhdGUiOjYuMjIsImx1eHVyeVZlaGljbGVBZGpQZXJGbiI6MCwic3VwZXJGcm9tUHJlTmxJbmNvbWUiOiJZZXMiLCJnc3RTYXZpbmdQYXNzZWRPbiI6IlllcyIsInNlcnZpY2VNYWludFR5cmVzQW5udWFsIjo5MTkuODgsInNhdmVTaGFyZUFubnVhbCI6MCwicmVnaXN0cmF0aW9uQW5udWFsIjo4MzYuMTYsImVsZWN0cmljaXR5QW5udWFsIjo4MjAuNTYsImZ1ZWxBbm51YWwiOjAsImluc3VyYW5jZUFubnVhbCI6MTQ5MC4wNiwibWFuYWdlbWVudEZlZXNBbm51YWwiOjI2LCJhdmdBdWRQZXJLd2giOjAuMDgsImF2Z1doUGVyS20iOjE3MCwiY29tcGFyZVdpdGhDdXJyZW50Q2FyIjpmYWxzZSwiY3VycmVudENhck1hcmtldFZhbHVlTm93IjoyNTAwMCwiY3VycmVudENhck1hcmtldFZhbHVlQXRFbmQiOjE0MDAwLCJjdXJyZW50U2VydmljZU1haW50VHlyZXNBbm51YWwiOjgwMCwiY3VycmVudFJlZ2lzdHJhdGlvbkFubnVhbCI6OTAwLCJjdXJyZW50RnVlbEFubnVhbCI6MjM2Mi41LCJjdXJyZW50SW5zdXJhbmNlQW5udWFsIjoxMDAwLCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo4LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImZpbmFuY2VkQW1vdW50Rm9ySW50ZXJlc3RDYWxjRXhHc3QiOjY0MDgwLjU0NTQ1NDU0NTQ1NiwicmVzaWR1YWxWYWx1ZUV4R3N0IjoxODAyNS44NTc0MzYzNjM2MzYsInZlaGljbGVMZWFzZVBlckZuIjo1MjEuNH19">Open the NLA quote in the calculator →</a></p>
+<hr>
+<h2 id="smart-quote-2-accessories-gone-insurance-financed">Smart quote 2: accessories gone, insurance financed</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>FBT base value</td><td>$67,045 (paint and delivery only)</td></tr><tr><td>Drive-away price (from the residual)</td><td>$69,326</td></tr><tr><td>Amount financed</td><td>$71,400, about <strong>$6,600 more than the car</strong></td></tr><tr><td>Effective interest rate</td><td>10.79%, unchanged</td></tr><tr><td>Out of pocket (PDF figure, pre-correction)</td><td>$571 a fortnight</td></tr><tr><td>Net out of pocket (our calculator, post-correction)<sup><a href="#user-content-fn-reserve" id="user-content-fnref-reserve-3" data-footnote-ref="" aria-describedby="footnote-label">4</a></sup></td><td>$552 a fortnight</td></tr></tbody></table>
+<ul>
+<li>The accessories were gone, but total loss benefit and lease protection insurance (crossed out on quote 1) were now selected alongside the repair cover: about $5,540 financed.</li>
+<li><strong>Why it came:</strong> he told Smart quote 1 was not competitive, and Smart asked to see the NLA quote, so he sent it with his colleague’s cheaper four-year lease. Smart called quote 1 “just a rough quote” and offered a better one after finance approval, which he reluctantly applied for.</li>
+<li><strong>Still not competitive:</strong> with the running-cost budgets made identical, NLA was still about <strong>$14,000 cheaper</strong> over the lease on the pre-tax lease figures, and Smart was still dearer than his colleague’s shorter lease.</li>
+</ul>
+<figure class="quote-evidence">
+<img src="/assets/images/smartleasing-example/insurance-quotes-1-2-3.webp" width="1400" height="909" alt="The Insurance and service details row from each Smart quote. Quote 1 ticks Small Damage Repair ($1,436.05) and crosses out Total Loss Benefit ($665.21) and Lease Protection Insurance ($3,742.03). Quote 2 ticks all three. Quote 3 crosses out all three." loading="lazy">
+<figcaption>The insurance and service row from each of Smart's quotes. A tick means the item was selected.</figcaption>
+</figure>
+<p><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjY3MDQ0LjUsImRyaXZlYXdheUNvc3QiOjY5MzI2LCJlc3RpbWF0ZWRNYXJrZXRWYWx1ZUF0RW5kIjoyODAwMCwiYW5udWFsTWlsZWFnZUttIjoyMDAwMCwibGVhc2VEb2NGZWUiOjU1MCwibGVhc2VTdGFydERhdGUiOiIyMDI2LTA4LTI4IiwibGVhc2VEdXJhdGlvblllYXJzIjo1LCJtb250aHNEZWZlcnJlZCI6MiwidG90YWxUYXhhYmxlSW5jb21lIjoxMTE4MTUsImhvbWVMb2FuT2Zmc2V0SW50ZXJlc3RSYXRlIjo2LjIyLCJsdXh1cnlWZWhpY2xlQWRqUGVyRm4iOjAsInN1cGVyRnJvbVByZU5sSW5jb21lIjoiWWVzIiwiZ3N0U2F2aW5nUGFzc2VkT24iOiJZZXMiLCJzZXJ2aWNlTWFpbnRUeXJlc0FubnVhbCI6MTM1Ni42OCwic2F2ZVNoYXJlQW5udWFsIjowLCJyZWdpc3RyYXRpb25Bbm51YWwiOjc4OS4zNiwiZWxlY3RyaWNpdHlBbm51YWwiOjEwOTQsImZ1ZWxBbm51YWwiOjAsImluc3VyYW5jZUFubnVhbCI6MjA4NS4yMDAwMDAwMDAwMDAzLCJpbnN1cmFuY2VGaW5hbmNlZEZpcnN0WWVhciI6MCwibWFuYWdlbWVudEZlZXNBbm51YWwiOjkwLjQ4LCJhdmdBdWRQZXJLd2giOjAuMDgsImF2Z1doUGVyS20iOjE3MCwiY29tcGFyZVdpdGhDdXJyZW50Q2FyIjpmYWxzZSwiY3VycmVudENhck1hcmtldFZhbHVlTm93IjoyNTAwMCwiY3VycmVudENhck1hcmtldFZhbHVlQXRFbmQiOjE0MDAwLCJjdXJyZW50U2VydmljZU1haW50VHlyZXNBbm51YWwiOjgwMCwiY3VycmVudFJlZ2lzdHJhdGlvbkFubnVhbCI6OTAwLCJjdXJyZW50RnVlbEFubnVhbCI6MjM2Mi41LCJjdXJyZW50SW5zdXJhbmNlQW5udWFsIjoxMDAwLCJjb21wYXJlV2l0aENhckxvYW4iOmZhbHNlLCJjYXJMb2FuSW5pdGlhbERlcG9zaXQiOjEwMDAwLCJjYXJMb2FuSW50ZXJlc3RSYXRlUGN0Ijo4LCJjYXJMb2FuTW9udGhseUZlZSI6MjUsImZpbmFuY2VkQW1vdW50Rm9ySW50ZXJlc3RDYWxjRXhHc3QiOjcxNDAwLjQzLCJyZXNpZHVhbFZhbHVlRXhHc3QiOjE3Nzg2Ljc4LCJ2ZWhpY2xlTGVhc2VQZXJGbiI6NjA5LjcyfX0">Open Smart’s second quote in the calculator →</a></p>
+<hr>
+<h2 id="smart-quote-3-final-via-the-dealer">Smart quote 3 (final, via the dealer)</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>FBT base value</td><td>$67,605 (quote 2 plus $560 window tint)</td></tr><tr><td>Drive-away price (from the residual)</td><td>$69,886</td></tr><tr><td>Amount financed</td><td>$65,576: about $840 more than the car, including the $560 window tint</td></tr><tr><td>Effective interest rate</td><td><strong>7.30%</strong>, down from 10.79% and well below NLA’s 10.01%</td></tr><tr><td>Out of pocket (PDF figure, pre-correction)</td><td>$456 a fortnight</td></tr><tr><td>Net out of pocket (our calculator, post-correction)<sup><a href="#user-content-fn-reserve" id="user-content-fnref-reserve-4" data-footnote-ref="" aria-describedby="footnote-label">4</a></sup></td><td>$445 a fortnight</td></tr></tbody></table>
+<ul>
+<li>The dealer said Zeekr had its own partnership with Smart. He sent NLA’s latest quote and Smart came back lower; it looks as though Smart set out to match the competing <strong>fortnightly cost</strong>, which meant beating NLA’s rate by more than two and a half points. I cannot independently confirm whether there is a subvention finance deal between Zeekr and Smart, and an online search did not turn up anything obvious.</li>
+<li>All three insurance products were gone.<sup><a href="#user-content-fn-later" id="user-content-fnref-later" data-footnote-ref="" aria-describedby="footnote-label">6</a></sup></li>
+</ul>
+<figure class="quote-evidence">
+<img src="/assets/images/smartleasing-example/comparison-rate-quote1-vs-final.webp" width="1352" height="554" alt="Lease finance details from Smart quote 1 and the final quote. Lease per month $1,528.82 versus $1,096.20; comparison rate 13.69% versus 7.99%." loading="lazy">
+<figcaption>Smart's first and final quotes, same car and term. The comparison rate fell from 13.69% to 7.99%.</figcaption>
+</figure>
+<p><a href="https://novatedlease.guide/calculator/?c=eyJ2IjoxLCJpbnB1dHMiOnsidmVoaWNsZVR5cGUiOiJFViIsInZlaGljbGVDb25kaXRpb24iOiJOZXciLCJ1c2VkQ2FyRmlyc3RIZWxkQWZ0ZXJKdWwyMDIyIjpmYWxzZSwidXNlZENhckxjdE5ldmVyUGF5YWJsZSI6ZmFsc2UsInZlaGljbGVCYXNlVmFsdWUiOjY3NjA0Ljk1LCJkcml2ZWF3YXlDb3N0Ijo2OTg4NiwiZXN0aW1hdGVkTWFya2V0VmFsdWVBdEVuZCI6MjgwMDAsImFubnVhbE1pbGVhZ2VLbSI6MTUwMDAsImxlYXNlRG9jRmVlIjo1NTAsImxlYXNlU3RhcnREYXRlIjoiMjAyNi0wOC0yOCIsImxlYXNlRHVyYXRpb25ZZWFycyI6NSwibW9udGhzRGVmZXJyZWQiOjIsInRvdGFsVGF4YWJsZUluY29tZSI6MTExODE1LCJob21lTG9hbk9mZnNldEludGVyZXN0UmF0ZSI6Ni4yMiwibHV4dXJ5VmVoaWNsZUFkalBlckZuIjowLCJzdXBlckZyb21QcmVObEluY29tZSI6IlllcyIsImdzdFNhdmluZ1Bhc3NlZE9uIjoiWWVzIiwic2VydmljZU1haW50VHlyZXNBbm51YWwiOjEwMjMuMTAwMDAwMDAwMDAwMSwic2F2ZVNoYXJlQW5udWFsIjowLCJyZWdpc3RyYXRpb25Bbm51YWwiOjc4OS4zNiwiZWxlY3RyaWNpdHlBbm51YWwiOjgyMC41LCJmdWVsQW5udWFsIjowLCJpbnN1cmFuY2VBbm51YWwiOjE2MzkuMDQsImluc3VyYW5jZUZpbmFuY2VkRmlyc3RZZWFyIjowLCJtYW5hZ2VtZW50RmVlc0FubnVhbCI6MjYsImF2Z0F1ZFBlckt3aCI6MC4wOCwiYXZnV2hQZXJLbSI6MTcwLCJjb21wYXJlV2l0aEN1cnJlbnRDYXIiOmZhbHNlLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVOb3ciOjI1MDAwLCJjdXJyZW50Q2FyTWFya2V0VmFsdWVBdEVuZCI6MTQwMDAsImN1cnJlbnRTZXJ2aWNlTWFpbnRUeXJlc0FubnVhbCI6ODAwLCJjdXJyZW50UmVnaXN0cmF0aW9uQW5udWFsIjo5MDAsImN1cnJlbnRGdWVsQW5udWFsIjoyMzYyLjUsImN1cnJlbnRJbnN1cmFuY2VBbm51YWwiOjEwMDAsImNvbXBhcmVXaXRoQ2FyTG9hbiI6ZmFsc2UsImNhckxvYW5Jbml0aWFsRGVwb3NpdCI6MTAwMDAsImNhckxvYW5JbnRlcmVzdFJhdGVQY3QiOjgsImNhckxvYW5Nb250aGx5RmVlIjoyNSwiZmluYW5jZWRBbW91bnRGb3JJbnRlcmVzdENhbGNFeEdzdCI6NjU1NzUuOTUsInJlc2lkdWFsVmFsdWVFeEdzdCI6MTc5MzAuMSwidmVoaWNsZUxlYXNlUGVyRm4iOjQ4OS4wOH19">Open the final quote in the calculator →</a></p>
+<hr>
+<h2 id="what-the-difference-is-worth">What the difference is worth</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Quote 1</th><th>Final quote</th><th>Difference</th></tr></thead><tbody><tr><td>Amount financed (ex-GST)</td><td>$79,267</td><td>$65,576</td><td>$13,691</td></tr><tr><td>Effective interest rate</td><td>10.79%</td><td>7.30%</td><td>3.49 points</td></tr><tr><td>Vehicle lease (pre-tax, per fortnight)</td><td>$682.09</td><td>$489.08</td><td>$193.01</td></tr><tr><td>Residual (inc GST)</td><td>$20,743</td><td>$19,723</td><td>$1,020</td></tr><tr><td>Total out-of-pocket cost (after tax, incl. residual)</td><td>$96,753</td><td>$74,488</td><td><strong>$22,265</strong></td></tr></tbody></table>
+<p>The residual drops too, because it is a fixed percentage of the car’s price including accessories.</p>
+<p>Of the $22,265, about <strong>$5,400</strong> is the lower rate alone (financing the final package at quote 1’s 10.79% instead of 7.30%). That is the genuine negotiating win.</p>
+<p>About <strong>$12,600</strong> is the extras that were no longer financed. Whether that counts as a saving depends on whether he wanted them.</p>
+<p>The remaining <strong>$4,200</strong> is the running-cost budgets. About $2,900 is cheaper insurance<sup><a href="#user-content-fn-ins" id="user-content-fnref-ins-2" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup>. The last $1,300 or so is not a saving: it comes from budgeting for fewer kilometres and small differences between the quotes. Budgets are estimates, and unused amounts are refunded at the end of the lease.</p>
+<hr>
+<h2 id="key-takeaways">Key takeaways</h2>
+<ul>
+<li><strong>A single-provider workplace may not be the end of the road.</strong> A competing quote was enough to move Smart here, and some employers also allow BYO finance with another provider; <a href="/tools/byo-employer-check/">check yours</a>.</li>
+<li><strong>Check what is being financed.</strong> Two of the four quotes financed thousands of dollars of accessories and insurance on top of the car. Compare the quote’s amount financed with what the car alone needs, and ask for anything you did not choose to be removed.</li>
+<li><strong>The first quote is an opening offer.</strong> The same provider, for the same car, went from 10.79% with $14,700 of extras to 7.30% with almost none.</li>
+<li><strong>Ask everyone in the chain.</strong> The best quote came after the dealer offered to approach Smart, something the reader had not thought to ask.</li>
+<li><strong>Shop around for your own insurance.</strong> Cheaper insurance was about $2,900 of the running-cost saving here, and the lowest budget came from a policy he arranged himself. Compare cover, not just the premium.</li>
+<li><strong>Compare like with like.</strong> Set the same kilometres and budgets, strip out the extras, and compare the vehicle lease line, the amount financed and the residual.</li>
+</ul>
+<hr>
+<h2 id="related-reading">Related reading</h2>
+<ul>
+<li><a href="/start-here/how-to-read-a-novated-lease-quote/">How to read a novated lease quote</a></li>
+<li><a href="/costs-and-savings/why-nl-interest-looks-high/">Why novated lease interest rates look high</a></li>
+<li><a href="/tools/byo-employer-check/">BYO / self-managed novated lease: employer checker</a></li>
+<li><a href="/costs-and-savings/false-saving-example/">Real-life example: a $21,320 “saving” that was a $5,591 loss</a></li>
+</ul>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-cash">
+<p>The cash row counts money spent, but has not yet included the impact of home loan interest. Counting his home-loan offset (6.22%), paying cash costs about <strong>$18,700 more in interest</strong> over the five years, so the final quote comes out about $34,100 ahead of cash, not $15,400. <a href="#user-content-fnref-cash" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-ins">
+<p>Smart’s first two quotes budgeted for a Vero policy arranged by Smart (its quotes note that it may receive commissions for arranging insurance). The final quote budgeted for a Budget Direct policy he arranged himself, which may not cover the same things. Compare what a policy covers and pays out, not just the premium. <a href="#user-content-fnref-ins" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a> <a href="#user-content-fnref-ins-2" data-footnote-backref="" aria-label="Back to reference 2-2" class="data-footnote-backref">↩<sup>2</sup></a></p>
+</li>
+<li id="user-content-fn-drive">
+<p>NLA itemises its price ($68,139 + $1,363 stamp duty + $773 rego and CTP). Smart does not, so its figures are worked back from the residual (residual ÷ 28.13% + the GST saving), as Guided mode does. <a href="#user-content-fnref-drive" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-reserve">
+<p>Smart collects the lease payment for 60 months but the financier is only paid for 58. The two extra months are a refundable reserve, so part of Smart’s printed fortnightly figure is not a true cost. Our calculator removes it (see <a href="/special-and-policy/smart-leasing-millarx-payment-structure/">Smart Leasing and MillarX quotes</a>). NLA has no reserve. <a href="#user-content-fnref-reserve" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a> <a href="#user-content-fnref-reserve-2" data-footnote-backref="" aria-label="Back to reference 4-2" class="data-footnote-backref">↩<sup>2</sup></a> <a href="#user-content-fnref-reserve-3" data-footnote-backref="" aria-label="Back to reference 4-3" class="data-footnote-backref">↩<sup>3</sup></a> <a href="#user-content-fnref-reserve-4" data-footnote-backref="" aria-label="Back to reference 4-4" class="data-footnote-backref">↩<sup>4</sup></a></p>
+</li>
+<li id="user-content-fn-estimate">
+<p>Marked “Estimate Quote”, but it is the quote he was given. <a href="#user-content-fnref-estimate" data-footnote-backref="" aria-label="Back to reference 5" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-later">
+<p>He later made some small adjustments to the final quote (for example removing roadside assistance and changing some running-cost budgets). They are not reflected in the quotes I have seen and are left out here for simplicity. <a href="#user-content-fnref-later" data-footnote-backref="" aria-label="Back to reference 6" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>  <script type="module">let e=null,r=null;function l(t=!1){e?.remove(),e=null,r&&(r.setAttribute("aria-expanded","false"),t&&r.focus(),r=null)}function o(){if(!e||!r)return;const t=r.getClientRects(),n=t[t.length-1]??r.getBoundingClientRect(),i=10,c=Math.max(i,Math.min(n.left,window.innerWidth-e.offsetWidth-i));let s=n.bottom+8;s+e.offsetHeight>window.innerHeight-i&&(s=Math.max(i,n.top-8-e.offsetHeight)),e.style.left=c+"px",e.style.top=s+"px"}function a(t){l();const n=t.dataset.tipHtml;n&&(e=document.createElement("div"),e.className=t.dataset.tipWide?"nl-tip nl-tip--wide":"nl-tip",e.setAttribute("role","tooltip"),e.innerHTML=n,e.querySelectorAll("a").forEach(i=>{i.target="_blank",i.rel="noopener noreferrer"}),e.querySelectorAll("img").forEach(i=>i.addEventListener("load",o)),document.body.appendChild(e),r=t,t.setAttribute("aria-expanded","true"),o())}document.addEventListener("click",t=>{const n=t.target,i=n.closest(".nl-term");i?(t.preventDefault(),r===i?l():a(i)):e&&!e.contains(n)&&l()});document.addEventListener("keydown",t=>{const n=t.target;if(t.key==="Escape"&&e){l(!0);return}(t.key==="Enter"||t.key===" ")&&n.classList?.contains("nl-term")&&(t.preventDefault(),r===n?l():a(n))});window.addEventListener("scroll",o,!0);window.addEventListener("resize",o);</script> </article> <div class="admonition admonition--info"><div class="admonition__title">Support this independent calculator & guide</div><p>This calculator and guide are built and continuously maintained as an independent project.</p><p>If it has helped you think more clearly, avoid a costly mistake, or saved you meaningful money, you're welcome to support its ongoing maintenance and improvements:</p><ul><li><a href="https://buymeacoffee.com/changyang1230">Buying me a cuppa</a> ☕ to help cover hosting, development time, and future improvements, or</li><li><a href="https://ts.la/david51680">Using this Tesla referral link</a> for a $350 discount if you're ordering a Tesla.</li></ul></div><details class="admonition admonition--note admonition--collapsible"><summary class="admonition__title">I'm backing Dr Michael Keane's fight for salary packaging transparency</summary><p>Workplaces with an exclusive salary packaging provider tend to have noticeably higher effective interest rates on novated leases — yet the commercial terms behind these exclusive arrangements are rarely disclosed to employees.</p><p>Dr Michael Keane, a Melbourne anaesthetist, is taking a Victorian health service to the Victorian Supreme Court to obtain the unredacted contract between the hospital and its exclusive salary packaging provider. The unredacted version may shed light on <a href="https://www.news.com.au/finance/work/at-work/staff-pay-up-to-5-million-a-year-for-employers-salary-sacrifice-deal/news-story/f8118107cf3a4db79f81f3c117b38dd0">alleged sign-on fees</a> associated with exclusive access to hospital employees — an arrangement whose financial terms employees are rarely privy to.</p><p>To date, Dr Keane has personally spent around $15,700 pursuing this case, with further legal costs anticipated. I believe this matters to anyone in a workplace with an exclusive provider. If you agree, consider supporting his <a href="https://www.gofundme.com/f/support-transparency-in-hospital-salary-packaging"><img src="/assets/images/gofundme-favicon.png" alt="GoFundMe" style="height:1em;vertical-align:middle;border-radius:3px;"> GoFundMe</a>.</p></details> </main> <aside class="page-toc" aria-label="Table of contents"> <div class="toc" id="article-toc"><div class="toc__title">On this page</div><ul class="toc__list" role="list"><li class="toc__item"><a href="#executive-summary" class="toc__link">Executive summary</a></li><li class="toc__item"><a href="#context" class="toc__link">Context</a></li><li class="toc__item"><a href="#the-four-quotes-side-by-side" class="toc__link">The four quotes side by side</a></li><li class="toc__item"><a href="#smart-quote-1-inflated-by-accessories" class="toc__link">Smart quote 1: inflated by accessories</a></li><li class="toc__item"><a href="#novated-lease-australia-car-only" class="toc__link">Novated Lease Australia: car only</a></li><li class="toc__item"><a href="#smart-quote-2-accessories-gone-insurance-financed" class="toc__link">Smart quote 2: accessories gone, insurance financed</a></li><li class="toc__item"><a href="#smart-quote-3-final-via-the-dealer" class="toc__link">Smart quote 3 (final, via the dealer)</a></li><li class="toc__item"><a href="#what-the-difference-is-worth" class="toc__link">What the difference is worth</a></li><li class="toc__item"><a href="#key-takeaways" class="toc__link">Key takeaways</a></li><li class="toc__item"><a href="#related-reading" class="toc__link">Related reading</a></li><li class="toc__item"><a href="#footnote-label" class="toc__link">Footnotes</a></li></ul></div><script type="module">(function(){var l=document.querySelectorAll("#article-toc .toc__link");if(l.length===0)return;var c=Array.from(l).map(function(e){var t=e.getAttribute("href")||"",r=t.replace("#","");return{el:document.getElementById(r),link:e}}).filter(function(e){return e.el});function o(){for(var e=72,t=window.scrollY,r=null,n=c.length-1;n>=0;n--)if(c[n].el.getBoundingClientRect().top+t<=t+e+4){r=c[n];break}l.forEach(function(a){a.classList.remove("active")}),r&&r.link.classList.add("active")}window.addEventListener("scroll",o,{passive:!0}),o()})();</script> </aside> </div>  </div> <footer class="site-footer"> <div class="site-footer__inner"> <div class="site-footer__col"> <div class="site-footer__brand"> <img class="site-footer__logo" src="/assets/images/logo.svg" alt="" aria-hidden="true">
+Novated Lease Guide
+</div> <p style="max-width:280px; line-height:1.6; margin:0; font-size:0.78rem;">
+Independent, evidence-based Australian novated lease guide and calculator.
+        Not affiliated with any financier or provider.
+</p> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Tools</div> <ul class="site-footer__links"> <li><a href="/calculator/" class="site-footer__link">Novated lease calculator</a></li> <li><a href="/tools/checklist/" class="site-footer__link">Checklist</a></li> <li><a href="/tools/byo-employer-check/" class="site-footer__link">Employer BYO checker</a></li> <li><a href="/start-here/use-nl-calculator/" class="site-footer__link">How to use the calculator</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">Key Articles</div> <ul class="site-footer__links"> <li><a href="/start-here/what-is-novated-lease/" class="site-footer__link">What is a novated lease?</a></li> <li><a href="/start-here/is-it-worth-it/" class="site-footer__link">Is it worth it?</a></li> <li><a href="/costs-and-savings/why-tax-saved-is-wrong/" class="site-footer__link">Why "tax saved" is wrong</a></li> <li><a href="/special-and-policy/ev-fbt-exemption-phase-out-budget-2026/" class="site-footer__link">EV FBT wind-back 2026</a></li> <li><a href="/start-here/calculator-comparison/" class="site-footer__link">20 calculators reviewed</a></li> </ul> </div> <div class="site-footer__col"> <div class="site-footer__col-title">About</div> <ul class="site-footer__links"> <li><a href="/about/about-me/" class="site-footer__link">About me</a></li> <li><a href="/about/history/" class="site-footer__link">Calculator history</a></li> <li><a href="/about/what-readers-say/" class="site-footer__link">What readers say</a></li> <li><a href="/about/contact/" class="site-footer__link">Contact</a></li> <li><a href="/about/privacy/" class="site-footer__link">Privacy policy</a></li> <li><a href="/about/disclaimer/" class="site-footer__link">Disclaimer</a></li> <li><a href="https://buymeacoffee.com/changyang1230" class="site-footer__link" target="_blank" rel="noopener">Buy me a coffee ☕</a></li> </ul> </div> </div> <div class="site-footer__meta"> <div class="site-footer__meta-links"> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/privacy/">Privacy</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/disclaimer/">Disclaimer</a>
+&nbsp;&middot;&nbsp;
+<a href="/about/contact/">Contact</a>
+&nbsp;&middot;&nbsp;
+      &copy; 2026
+</div> <div class="site-footer__meta-disclaimer">
+This site provides general information and educational commentary only. It does not constitute personal financial advice.
+</div> </div> </footer> <!-- GA4 link tracking & search keyboard shortcut --> <script>
+      // Track Buy Me a Coffee & Tesla referral link clicks
+      (function() {
+        function fireGa4(name, params) {
+          try { if (typeof gtag === 'function') gtag('event', name, params); } catch(e) {}
+        }
+        function trackLinks() {
+          document.querySelectorAll('a[href^="https://buymeacoffee.com/"],a[href^="https://www.buymeacoffee.com/"],a[href^="https://ts.la/"]').forEach(function(a) {
+            a.addEventListener('click', function() {
+              var href = a.getAttribute('href') || '';
+              fireGa4('support_link_click', {
+                link_label: href.includes('buymeacoffee') ? 'buymeacoffee' : 'tesla_referral',
+                link_url: href,
+                page_path: window.location.pathname,
+                page_title: document.title
+              });
+            }, { capture: true });
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', trackLinks);
+        } else {
+          trackLinks();
+        }
+      })();
+
+      // Keyboard shortcut: / or Ctrl+K to open search
+      document.addEventListener('keydown', function(e) {
+        if ((e.key === '/' || (e.ctrlKey && e.key === 'k') || (e.metaKey && e.key === 'k')) && !e.target.matches('input,textarea')) {
+          e.preventDefault();
+          window.openSearch && window.openSearch();
+        }
+        if (e.key === 'Escape') {
+          window.closeSearch && window.closeSearch();
+          window.closeDrawer && window.closeDrawer();
+        }
+      });
+    </script> </body> </html> <script type="module">(function(){var h=document.querySelectorAll(".compact-table table");h.forEach(function(t){var n=t.closest(".compact-table");if(!n)return;var r=t.querySelector("thead"),o=Array.from(t.querySelectorAll("tr th:first-child, tr td:first-child")),i=Array.from(t.querySelectorAll("tr th:nth-child(2), tr td:nth-child(2)"));o.concat(i).forEach(function(e){e.style.position="relative",e.style.backgroundColor="var(--color-bg)"}),o.forEach(function(e){e.style.whiteSpace="nowrap",e.style.zIndex="2"}),i.forEach(function(e){e.style.zIndex="2"}),t.querySelectorAll("thead th:first-child, thead th:nth-child(2)").forEach(function(e){e.style.zIndex="4"});function a(){var e=n.scrollLeft;o.forEach(function(u){u.style.transform="translateX("+e+"px)"}),i.forEach(function(u){u.style.transform="translateX("+e+"px)"})}if(n.addEventListener("scroll",a,{passive:!0}),a(),!r)return;function c(){var e=document.querySelector(".site-nav");return e?e.offsetHeight:56}function s(){var e=n.getBoundingClientRect(),u=c(),v=r.offsetHeight,y=u-e.top;y>0&&e.bottom>u+v?(r.style.transform="translateY("+y+"px)",r.style.position="relative",r.style.zIndex="3"):(r.style.transform="",r.style.position="",r.style.zIndex="")}window.addEventListener("scroll",s,{passive:!0}),s()}),document.querySelectorAll(".article-content table").forEach(function(t){if(t.closest(".provider-quote-article")){var n=Array.from(t.querySelectorAll("thead th")).map(function(a){return a.textContent.trim()});t.querySelectorAll("tbody tr").forEach(function(a){Array.from(a.querySelectorAll("td")).forEach(function(c,s){c.setAttribute("data-label",n[s]||"")})}),t.classList.add("provider-table-ready");return}var r=Array.from(t.querySelectorAll("tbody > tr")),o=null,i=null;r.forEach(function(a){var c=a.querySelector("td:first-child");if(!c){o=null,i=null;return}var s=c.textContent.trim();o&&s===i?(o.rowSpan=(o.rowSpan||1)+1,o.style.verticalAlign="middle",c.remove()):(o=c,i=s)})});var f=document.querySelectorAll(".article-content figure.tl-shot img");if(f.length&&typeof HTMLDialogElement=="function"){var l=document.createElement("dialog");l.className="img-viewer",l.innerHTML='<button type="button" class="img-viewer__close" aria-label="Close">×</button><img alt="">',document.body.appendChild(l);var d=l.querySelector("img");l.addEventListener("click",function(){l.close()}),l.addEventListener("close",function(){d.removeAttribute("src")}),f.forEach(function(t){t.tabIndex=0,t.setAttribute("role","button"),t.setAttribute("aria-label","View full screen: "+t.alt);function n(){d.src=t.currentSrc||t.src,d.alt=t.alt,l.showModal()}t.addEventListener("click",n),t.addEventListener("keydown",function(r){(r.key==="Enter"||r.key===" ")&&(r.preventDefault(),n())})})}document.querySelectorAll("[data-dismiss]").forEach(function(t){t.addEventListener("click",function(){var n=document.getElementById(t.getAttribute("data-dismiss"));n&&(n.style.display="none")})}),document.querySelectorAll("[data-toggle]").forEach(function(t){t.addEventListener("click",function(){var n=document.getElementById(t.getAttribute("data-toggle"));if(n){var r=n.classList.toggle("open");t.textContent=r?"close ▴":"details ▾"}})})})();</script>
