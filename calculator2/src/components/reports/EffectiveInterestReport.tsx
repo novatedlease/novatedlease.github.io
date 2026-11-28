@@ -5,6 +5,7 @@ import { gstSaved } from "@engine/ato";
 import { InfoTooltip } from "../ui/InfoTooltip";
 import { SubHead, KV, NoteBox } from "../ui/shared";
 import { useIsMobile } from "../../hooks/useIsMobile";
+import { GST_NOT_PASSED_ARTICLE, leaseRates, paymentGstMult } from "../../financeRate";
 
 export type EffectiveInterestReportProps = { inputs: Inputs };
 
@@ -37,8 +38,12 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
         : financedInflatedProxyExGst;
     const residualInflatedExGst = inputs.residualValueExGst;
 
-    const leaseFn = Math.max(0, inputs.vehicleLeasePerFn);
-    const mgmtFeeFn = Math.max(0, inputs.managementFeesAnnual / 26);
+    // Ex GST, as the financier receives them. When GST isn't passed on, the reader enters both inc GST
+    // (see financeRate.ts).
+    const gstMult = paymentGstMult(inputs);
+    const asIfRate = leaseRates(inputs).asIfPassedOn;
+    const leaseFn = Math.max(0, inputs.vehicleLeasePerFn) / gstMult;
+    const mgmtFeeFn = Math.max(0, inputs.managementFeesAnnual / 26) / gstMult;
 
     const deferMonths = Math.max(0, Math.round(inputs.monthsDeferred));
     const payableMonths = Math.max(0, years * 12 - deferMonths);
@@ -168,11 +173,20 @@ export function EffectiveInterestReport({ inputs }: EffectiveInterestReportProps
           <div style={{ marginTop: 10 }}>
             <KV label="Financed amount (standard)" value={money(financedStandardExGst)} />
             <KV label="Residual value payable (ex GST)" value={money(residualStandardExGst)} />
-            <KV label="Fortnightly lease" value={money(leaseFn)} />
+            <KV label={gstMult > 1 ? "Fortnightly lease (ex GST)" : "Fortnightly lease"} value={money(leaseFn)} />
             <KV label={`Equivalent monthly lease over ${payableMonths} months`} value={money(monthlyEqDef1)} />
             <KV label="Months until first finance payment" value={`${deferMonths} months`} />
             <KV label="Effective annual rate" value={pct(rateDef1)} bold highlight color="var(--nlc-acc-green)" />
           </div>
+          {asIfRate != null && (
+            <NoteBox color="var(--nlc-acc-brown)">
+              <strong>GST not passed on:</strong> you pay {money(leaseFn * gstMult)} a fortnight including GST. Someone whose employer passes on GST would pay that
+              much only on a {pct(asIfRate)} lease for the same car.{" "}
+              <a href={GST_NOT_PASSED_ARTICLE} target="_blank" rel="noopener noreferrer">
+                Read more
+              </a>
+            </NoteBox>
+          )}
           <AmortisationTable financedAmount={financedStandardExGst} monthlyPayment={monthlyEqDef1} annualRate={rateDef1} />
         </>
       ),

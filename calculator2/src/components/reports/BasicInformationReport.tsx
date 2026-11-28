@@ -8,6 +8,7 @@ import { estimateAnnualChargingExpense } from "@engine/charging";
 import { aud, aud0, pct } from "../../utils/format";
 import { InfoTooltip } from "../ui/InfoTooltip";
 import { Stat, StatGrid, SubHead, KV, NoteBox } from "../ui/shared";
+import { financePaymentExGstPerFn, leaseRates } from "../../financeRate";
 
 /**
  * Ported from calculator/src/components/BasicInformationReport.tsx — same
@@ -38,7 +39,8 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
     try {
       const leaseYears = Math.max(1, Math.min(5, Math.round(i.leaseDurationYears)));
       const deferMonths = Math.max(0, Math.round(i.monthsDeferred));
-      const fortnightlyLeasePayment = Math.max(0, i.vehicleLeasePerFn);
+      // Ex GST, as the financier receives it, even when the reader pays the GST (see financeRate.ts).
+      const fortnightlyLeasePayment = financePaymentExGstPerFn(i);
       if (amountFinanced <= 0 || leaseYears <= 0 || fortnightlyLeasePayment <= 0) return null;
       const rate = effectiveAnnualRateFromFortnightlyLease({
         financedAmountExGst: amountFinanced,
@@ -70,7 +72,11 @@ export function BasicInformationReport(props: { inputs: Inputs; taxRateInclMedic
           label="Effective Interest Rate"
           value={effectiveInterestRatePct == null ? "—" : `${(Math.round(effectiveInterestRatePct * 100) / 100).toFixed(2)}%`}
           color="var(--nlc-acc-green)"
-          note="Definition 1 — see Effective Interest Rate section"
+          note={
+            leaseRates(i).asIfPassedOn != null
+              ? `GST not passed on: you pay what a ${(leaseRates(i).asIfPassedOn! * 100).toFixed(2)}% lease costs elsewhere`
+              : "Definition 1 — see Effective Interest Rate section"
+          }
         />
       </StatGrid>
 
