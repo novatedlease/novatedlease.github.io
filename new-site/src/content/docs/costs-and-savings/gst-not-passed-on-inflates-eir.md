@@ -58,11 +58,13 @@ $$659.93 \times \frac{34}{36} = 623.27$$
 
 ## Step 2: the two rates
 
-**The lender's rate: 7.9%.** Of the $623.27, one eleventh is GST, which goes to the tax office. The lender receives:
+**The lender's rate: 7.9%.** This is the standard effective interest rate calculation, and it is what the calculator uses. It works only with amounts without GST:
 
-$$623.27 \div 1.1 = 566.61$$
+1. **The amount financed:** the car's drive-away price plus the documentation fee, minus the GST saved on the car (one eleventh of the FBT base value, up to $6,353). Here the GST saved is $63,638.60 ÷ 11 = $5,785.33. The drive-away price and documentation fee aren't in the screenshot above.
+2. **The repayments:** the monthly finance payment without GST, starting after the deferred months. Here that is $1,299.86 a month ("Lease per month" on the quote) for 34 months. Spread over the whole lease, that is the same as $566.61 a fortnight, or $623.27 ÷ 1.1.
+3. **What is left at the end:** the residual without GST, $28,110.50.
 
-Based on $566.61 a fortnight, the lender is charging about 7.9% a year. That is a good rate. Someone with the same deal, at an employer that passes on GST, would pay only $566.61 a fortnight.
+The effective interest rate is the rate at which those repayments bring the amount financed down to the residual. For this car it is about 7.9% a year, which is a good rate. Someone with the same deal, at an employer that passes on GST, would pay only $566.61 a fortnight.
 
 **The rate that matches what you pay: 11.0%.** But this person pays $623.27, not $566.61. For someone at an employer that passes on GST to pay $623.27 a fortnight for this same car, their lease would need an interest rate of about **11.0%**.
 
