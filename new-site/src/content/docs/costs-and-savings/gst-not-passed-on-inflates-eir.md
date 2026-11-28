@@ -62,7 +62,7 @@ $$659.93 \times \frac{34}{36} = 623.27$$
 
 1. **The amount financed:** the car's drive-away price plus the documentation fee, minus the GST saved on the car (one eleventh of the FBT base value, up to $6,353). Here the GST saved is $63,638.60 ÷ 11 = $5,785.33. The drive-away price and documentation fee aren't in the screenshot above.
 2. **The repayments:** the monthly finance payment without GST, starting after the deferred months. Here that is $1,299.86 a month ("Lease per month" on the quote) for 34 months. Spread over the whole lease, that is the same as $566.61 a fortnight, or $623.27 ÷ 1.1.
-3. **What is left at the end:** the residual without GST, $28,110.50.
+3. **What is left at the end:** the residual without GST, $28,110.50.[^2]
 
 The effective interest rate is the rate at which those repayments bring the amount financed down to the residual. For this car it is about 7.9% a year, which is a good rate. Someone with the same deal, at an employer that passes on GST, would pay only $566.61 a fortnight.
 
@@ -114,3 +114,5 @@ The Smart Leasing / MillarX adjustment works the same way: enter $659.93, choose
 - [Novated Lease Calculator](/calculator/)
 
 [^1]: Smart Leasing's fortnightly figure takes more from your pay than the lender actually needs. On this lease the lender gets 34 monthly payments, but Smart Leasing collects them across all 36 months, and holds the extra as a buffer that you get back at the end if it isn't used. So $659.93 is more than the real finance cost; Step 1 below takes the extra out. For the full explanation, read [Smart Leasing and MillarX — why their quoted figure needs adjusting](/special-and-policy/smart-leasing-millarx-payment-structure/).
+
+[^2]: Note that if you want to pay the car out at the end, you **always** pay the residual including GST ($30,921.55 on this quote), even when your employer passes on GST.
