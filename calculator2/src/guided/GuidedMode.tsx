@@ -3808,7 +3808,7 @@ function ResultHeadline({
         </p>
       )}
       <p className="gd-headline__caveat">
-        Not counted: HECS, childcare subsidy, Medicare levy surcharge and Division 293.{" "}
+        Not counted yet: HECS, childcare subsidy, Medicare levy surcharge and Division 293.{" "}
         <button type="button" className="gd-linkbtn" onClick={onOpenAdvanced}>
           See the full workings
         </button>
