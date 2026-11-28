@@ -64,7 +64,7 @@ $$659.93 \times \frac{34}{36} = 623.27$$
 2. **The repayments:** the monthly finance payment without GST, starting after the deferred months. Here that is $1,299.86 a month ("Lease per month" on the quote) for 34 months. Spread over the whole lease, that is the same as $566.61 a fortnight, or $623.27 ÷ 1.1.
 3. **What is left at the end:** the residual without GST, $28,110.50.[^2]
 
-The effective interest rate is the rate at which those repayments bring the amount financed down to the residual. For this car it is about 7.9% a year, which is a good rate. Someone with the same deal, at an employer that passes on GST, would pay only $566.61 a fortnight.
+The effective interest rate is the rate at which those repayments bring the amount financed down to the residual. For this car it is about 7.9% a year, which is a good rate. Someone with the same deal, at an employer that passes on GST, would pay only $566.61 a fortnight for the car, from their pay before tax.
 
 **The rate that matches what you pay: 11.0%.** But this person pays $623.27, not $566.61. For someone at an employer that passes on GST to pay $623.27 a fortnight for this same car, their lease would need an interest rate of about **11.0%**.
 
