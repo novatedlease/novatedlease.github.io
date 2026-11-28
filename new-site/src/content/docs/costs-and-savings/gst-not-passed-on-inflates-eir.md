@@ -99,7 +99,7 @@ The Smart Leasing / MillarX adjustment works the same way: enter $659.93, choose
 
 ## What can you do?
 
-- **Don't expect a lower interest rate to fix this.** 7.9% is already a good rate. The extra cost comes from how your employer handles GST, not from the lender.
+- **Don't expect a lower interest rate to fix this.** In this example, 7.9% is already a good rate. The extra cost comes from how your employer handles GST, not from the lender.
 - **Ask your payroll or HR team** whether they claim back GST on novated leases and pass it on to staff. Policies can change, and some employers have more than one arrangement.
 - **Check whether the lease is still worth it.** Run your full quote in the calculator with GST set to "not passed on". For many people a lease still comes out ahead of paying cash for the car, but by less.
 
