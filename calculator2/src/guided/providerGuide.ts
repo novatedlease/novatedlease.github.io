@@ -194,7 +194,7 @@ export const GUIDES: ProviderGuide[] = [
       },
       {
         field: "docFee",
-        text: "Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”, then divide by 1.1: they are printed including GST.",
+        text: "Add the MDR membership, establishment and PPSR fees under “Lease details”, then divide by 1.1: they are printed including GST.",
         more: "On older quotes these are the “Plus …” lines under “Finance breakdown”. They're financed with the car, so leaving them out understates the amount financed and overstates the rate.\n\nThe “GST” line takes the GST off these fees as well as the car, which is why you divide by 1.1.\n\nTo check: drive-away + the fees as printed − “GST” should equal “Total amount financed”.\n\nIf you'd buy the MDR membership anyway when paying cash, add it to the drive-away price instead. The rate is the same either way; only the cash comparison changes.",
       },
       {

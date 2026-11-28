@@ -21,7 +21,7 @@ The first two pages of the VSSS example below **do not show FBT Base Value**. Lo
 
 - **Finance payment:** Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.
 - **FBT base value:** Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”.
-- **Documentation fee:** Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”, then divide by 1.1: they are printed including GST.
+- **Documentation fee:** Add the MDR membership, establishment and PPSR fees under “Lease details”, then divide by 1.1: they are printed including GST.
 <!-- provider-traps:end -->
 
 ![Redacted later SG Fleet FBT section with number 1 marking FBT Base Value](/assets/images/quote-guide/sgfleet/fbt-example.webp)
