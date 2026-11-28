@@ -1070,7 +1070,7 @@ const FIELD_EXAMPLES: { id: ProviderId; field: GuideField; example: FieldExample
   } },
   { id: "sgfleet", field: "driveaway", example: {
     image: "/assets/images/quote-guide/sgfleet/driveaway-example.webp",
-    alt: "Redacted SG Fleet Lease details with Vehicle on-road cost marked 2",
+    alt: "Redacted SG Fleet Lease details with Vehicle on-road cost and Accessories marked 2",
     caption: "Lease details from an SG Fleet quote, with values removed. The line to use is marked 2.",
   } },
   { id: "smartleasing", field: "amountFinanced", example: {

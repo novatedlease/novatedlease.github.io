@@ -674,7 +674,7 @@
     },
     "sgfleet/driveaway-example.webp": {
       "w": 1268,
-      "h": 410
+      "h": 378
     },
     "sgfleet/fbt-example.webp": {
       "w": 850,
@@ -2438,8 +2438,8 @@
       "driveaway": [
         {
           "label": "2",
-          "y": 1760,
-          "h": 29
+          "y": 1746,
+          "h": 94
         }
       ],
       "payment": [

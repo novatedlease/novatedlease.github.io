@@ -28,9 +28,9 @@ The first two pages of the VSSS example below **do not show FBT Base Value**. Lo
 
 ## Where to find the drive-away price
 
-On the VSSS sample, go to **Lease details** on page 2. The line marked **2**, **Vehicle on-road cost (incl. GST)**, is the drive-away price. Add **Accessories (incl. GST)** if your quote lists them. It is different from both FBT Base Value and Total amount financed.
+On the VSSS sample, go to **Lease details** on page 2. The lines marked **2**, **Vehicle on-road cost (incl. GST)** plus **Accessories (incl. GST)** if your quote lists them, add up to the drive-away price. It is different from both FBT Base Value and Total amount financed.
 
-![Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost](/assets/images/quote-guide/sgfleet/driveaway-example.webp)
+![Redacted SG Fleet Lease details section with number 2 marking Vehicle on-road cost and Accessories](/assets/images/quote-guide/sgfleet/driveaway-example.webp)
 
 ## Other fields on the VSSS example
 
@@ -42,7 +42,7 @@ On the VSSS sample, go to **Lease details** on page 2. The line marked **2**, **
 | # | Guided field | Look for on the quote | What to enter |
 | --- | --- | --- | --- |
 | 1 (separate example above) | FBT base value | **FBT Base Value** in the **Fringe Benefit Tax (FBT)** section | Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”. |
-| 2 | Drive-away price | **Vehicle on-road cost (incl. GST)** | Use “Vehicle on-road cost (incl. GST)” under “Lease details”, plus “Accessories (incl. GST)” if shown. |
+| 2 | Drive-away price | **Vehicle on-road cost (incl. GST)** plus **Accessories (incl. GST)** | Use “Vehicle on-road cost (incl. GST)” under “Lease details”, plus “Accessories (incl. GST)” if shown. |
 | 3 | Lease term | **Lease term** or the term in Package arrangements | The term shown on your quote. |
 | 4 | Months deferred | **Monthly lease rental**, followed by **payable as … payments** | Subtract the number of payable months from the full term in months. If the count is unclear, choose *I'm not sure*. |
 | 5 | Documentation fee | **MDR membership**, **Establishment fee** and **PPSR fee** in Lease details (on older quotes, the “Plus …” lines under **Finance breakdown**) | Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”. Enter the total as printed. Check: drive-away + this fee − “GST” equals “Total amount financed”. If you'd buy the MDR membership anyway when paying cash, add it to the drive-away price instead: the rate is the same, only the cash comparison changes. |
