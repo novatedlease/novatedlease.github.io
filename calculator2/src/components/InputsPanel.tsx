@@ -367,6 +367,21 @@ export function InputsPanel(props: {
             </div>
           </NoteBox>
         )}
+        {/* Asked before the finance box: it sets whether that payment is entered inc or ex GST. */}
+        <YesNoToggle
+          label="GST saving passed on to you"
+          value={inputs.gstSavingPassedOn}
+          onChange={(v) => set("gstSavingPassedOn", v)}
+          hint={inputs.gstSavingPassedOn === "Yes" ? "Enter the vehicle finance and running costs excluding GST." : "Enter the vehicle finance and running costs including GST: you pay the GST on both."}
+          tooltip={
+            <InfoTooltip
+              text={
+                "Usually Yes, but some employers (Victorian hospitals in particular) do not pass on the GST saving — check.\n\n" +
+                "[Read more about what happens if the GST saving isn't passed on](https://novatedlease.guide/running-costs/failure-to-pass-gst-saving/)"
+              }
+            />
+          }
+        />
         <LeaseRateGuard
           inputs={inputs}
           setInputs={setInputs}
@@ -417,20 +432,10 @@ export function InputsPanel(props: {
       </Section>
 
       <Section title={`Annual packaged running cost (${inputs.gstSavingPassedOn === "Yes" ? "ex GST" : "inc GST"})`} defaultOpen>
-        <YesNoToggle
-          label="GST saving passed on to you"
-          value={inputs.gstSavingPassedOn}
-          onChange={(v) => set("gstSavingPassedOn", v)}
-          hint={inputs.gstSavingPassedOn === "Yes" ? "Use ex-GST figures in the fields below." : "Use inc-GST figures in the fields below."}
-          tooltip={
-            <InfoTooltip
-              text={
-                "Usually Yes, but some employers (Victorian hospitals in particular) do not pass on the GST saving — check.\n\n" +
-                "[Read more about what happens if the GST saving isn't passed on](https://novatedlease.guide/running-costs/failure-to-pass-gst-saving/)"
-              }
-            />
-          }
-        />
+        <div className="nlc-field__hint" style={{ marginBottom: 12 }}>
+          {inputs.gstSavingPassedOn === "Yes" ? "Use ex-GST figures in the fields below." : "Use inc-GST figures in the fields below."} Set by
+          “GST saving passed on to you” under Lease details.
+        </div>
         <CurrencyField label="Service / maintenance / tyres" value={inputs.serviceMaintTyresAnnual} onChange={(v) => set("serviceMaintTyresAnnual", v)} hint="Annual figure." />
         <CurrencyField
           label="NSW Health employer share"
