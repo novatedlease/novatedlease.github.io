@@ -21,7 +21,7 @@ The first two pages of the VSSS example below **do not show FBT Base Value**. Lo
 
 - **Finance payment:** Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months.
 - **FBT base value:** Look for “FBT Base Value” in the FBT section, which may be on a later page. Don't use “Vehicle on-road cost”.
-- **Documentation fee:** Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”. Enter the total as printed.
+- **Documentation fee:** Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”, then divide by 1.1: they are printed including GST.
 <!-- provider-traps:end -->
 
 ![Redacted later SG Fleet FBT section with number 1 marking FBT Base Value](/assets/images/quote-guide/sgfleet/fbt-example.webp)
@@ -45,7 +45,7 @@ On the VSSS sample, go to **Lease details** on page 2. The lines marked **2**, *
 | 2 | Drive-away price | **Vehicle on-road cost (incl. GST)** plus **Accessories (incl. GST)** | Use “Vehicle on-road cost (incl. GST)” under “Lease details”, plus “Accessories (incl. GST)” if shown. |
 | 3 | Lease term | **Lease term** or the term in Package arrangements | The term shown on your quote. |
 | 4 | Months deferred | **Monthly lease rental**, followed by **payable as … payments** | Subtract the number of payable months from the full term in months. If the count is unclear, choose *I'm not sure*. |
-| 5 | Documentation fee | **MDR membership**, **Establishment fee** and **PPSR fee** in Lease details (on older quotes, the “Plus …” lines under **Finance breakdown**) | Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”. Enter the total as printed. Check: drive-away + this fee − “GST” equals “Total amount financed”. If you'd buy the MDR membership anyway when paying cash, add it to the drive-away price instead: the rate is the same, only the cash comparison changes. |
+| 5 | Documentation fee | **MDR membership**, **Establishment fee** and **PPSR fee** in Lease details (on older quotes, the “Plus …” lines under **Finance breakdown**) | Add the MDR membership, establishment fee and PPSR fee shown between the on-road cost and “GST”, then divide by 1.1: they are printed including GST, and the “GST” line takes that GST off. Check: drive-away + the fees as printed − “GST” equals “Total amount financed”. If you'd buy the MDR membership anyway when paying cash, add it to the drive-away price instead: the rate is the same, only the cash comparison changes. |
 | 6 | Residual | **Residual value (incl. GST)** | Choose *Including GST*. |
 | 7a / 7b | Finance payment | Per-pay **Lease rental** in Package details (7b). Not the **Monthly lease rental** in Lease details (7a) | Use “Lease rental” per pay. Don't use “Monthly lease rental”: it may cover fewer payments than the lease has months. |
 | 9 | Running costs | Package details, below Lease rental | Enter the budget lines using the period printed on your quote. Keep the package total and change to take-home pay out of the finance-payment box. |
